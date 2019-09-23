@@ -1,5 +1,4 @@
 import Home from 'pages/home';
-import Contact from 'pages/contact';
 
 const Routes = [
   {
@@ -7,11 +6,6 @@ const Routes = [
     component: Home,
     exact: true
   },
-  {
-    path: '/contato',
-    component: Contact,
-    exact: true
-  }
 ];
 
 export default Routes;

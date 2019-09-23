@@ -1,9 +1,7 @@
 const theme = {
   /* Variables */
-  font: 'Arial',
   colors: {
     white: '#fff',
-    grayLight: '#ebebeb',
     black: '#000'
   },
   mq: {
@@ -40,6 +38,11 @@ const theme = {
       ${style}
     }
   `,
-}
+  fontFace: (name, url) => `
+    @font-face {
+      font-family: ${name};
+      src: url(${url}) format("truetype");
+    }
+  ` }
 
 export default theme;
