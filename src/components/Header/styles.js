@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.header`
+  width: 200px;
+  height: 100vh;
+  float: left;
+
   h1 {
     font-family: 'RalewayLight';
   }
