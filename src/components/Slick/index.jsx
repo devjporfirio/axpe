@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button';
 
 import 'slick-carousel/slick/slick.css';
@@ -7,7 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { NextArrow, PrevArrow } from './Arrow';
 import { Container, Slide, Image, GradientImage, Section } from './styles';
 
-export default function Slick({ type = 'slide', items = [] }) {
+function Slick({ type = 'slide', items = [] }) {
   const settings = {
     infinite: true,
     speed: 500,
@@ -57,3 +58,10 @@ export default function Slick({ type = 'slide', items = [] }) {
     </Container>
   );
 }
+
+Slick.propTypes = {
+  type: PropTypes.oneOf([ 'slide', 'slideLeft', 'slideGrid' ]),
+  items: PropTypes.array.isRequired
+};
+
+export default Slick;

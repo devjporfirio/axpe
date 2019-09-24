@@ -21,6 +21,8 @@ export default function Home() {
       <Slick items={hero} />
       <br />
       <Slick type="slideLeft" items={buildingsSquare} />
+      <br />
+      <Slick type="slideGrid" items={buildingsSquare} />
     </Container>
   );
 }
