@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const Container = styled.header`
   width: 200px;
@@ -10,11 +11,7 @@ export const Container = styled.header`
     font-family: 'RalewayLight';
   }
 
-  ${({ theme }) =>
-    theme.maxScreen(
-      'tablet',
-      `
-        display: none;
-      `
-    )};
+  ${media.lessThan('769px')`
+    display: none;
+  `}
 `;

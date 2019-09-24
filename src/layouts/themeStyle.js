@@ -29,16 +29,6 @@ const theme = {
   `,
 
   /* Functions */
-  minScreen: (mq, style) => `
-    @media (min-width: ${theme.mq[mq]}) {
-      ${style}
-    }
-  `,
-  maxScreen: (mq, style) => `
-    @media (max-width: ${theme.mq[mq]}) {
-      ${style}
-    }
-  `,
   fontFace: (name, url) => `
     @font-face {
       font-family: ${name};

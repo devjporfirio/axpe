@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  h1 {
-    font-family: 'RalewayLight';
-  }
+export const Container = styled.main`
+  height: 100vh;
+  overflow-y: scroll;
 `;

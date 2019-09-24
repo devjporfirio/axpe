@@ -14,10 +14,10 @@ const Arrow = styled.img`
   position: absolute;
   bottom: 0;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   ${media.greaterThan('769px')`
-    margin-left: 320px;
+    margin-left: 120px;
     margin-bottom: 120px;
   `};
 
@@ -35,7 +35,7 @@ const ArrowNextWhite = styled(Arrow)`
   margin-left: 60px;
 
   ${media.greaterThan('769px')`
-    margin-left: 360px;
+    margin-left: 160px;
   `};
 
   ${media.lessThan('medium')`

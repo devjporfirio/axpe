@@ -28,7 +28,7 @@ function Main() {
         <>
           <GlobalStyle />
           <Header />
-          <div>{getRoutes()}</div>
+          {getRoutes()}
         </>
       </ThemeProvider>
     </BrowserRouter>
