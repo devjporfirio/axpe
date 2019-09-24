@@ -8,4 +8,12 @@ export const Container = styled.header`
   h1 {
     font-family: 'RalewayLight';
   }
+
+  ${({ theme }) =>
+    theme.maxScreen(
+      'tablet',
+      `
+        display: none;
+      `
+    )};
 `;

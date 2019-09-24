@@ -1,0 +1,109 @@
+{
+  "hero": [
+    {
+      "id": 1,
+      "title": "Ambientes integrados e espaçosos",
+      "content": "Decoração e móveis seguem as últimas tendências de design.",
+      "images": {
+        "desktop": "https://picsum.photos/id/362/1240/700",
+        "mobile": "https://picsum.photos/id/362/375/500"
+      },
+      "link": {
+        "target": "_self",
+        "external": false,
+        "url": "/sobre"
+      }
+    },
+    {
+      "id": 2,
+      "title": "",
+      "content": "",
+      "images": {
+        "desktop": "https://picsum.photos/id/362/1240/700",
+        "mobile": "https://picsum.photos/id/362/375/500"
+      },
+      "link": {
+        "target": "_self",
+        "external": false,
+        "url": "/sobre"
+      }
+    }
+  ],
+  "components": [
+    {
+      "type": "banner",
+      "images": {
+        "desktop": "https://picsum.photos/id/400/1240/680",
+        "mobile": "https://picsum.photos/id/400/375/500"
+      },
+      "link": {
+        "target": "_self",
+        "external": false,
+        "url": "/sobre"
+      }
+    },
+    {
+      "type": "buildingsSquare",
+      "items": [
+        {
+          "id": 1,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        },
+        {
+          "id": 2,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        }
+      ]
+    },
+    {
+      "type": "buildingsGrid",
+      "items": [
+        {
+          "id": 1,
+          "titleGreen": "Quarto com varanda, cozinha industrial",
+          "titleWhite": "Espaço dinâmico e bem localizado",
+          "images": {
+            "desktop1": "https://picsum.photos/id/402/700/680",
+            "desktop2": "https://picsum.photos/id/402/700/680",
+            "desktop3": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        },
+        {
+          "id": 2,
+          "titleGreen": "Quarto com varanda, cozinha industrial",
+          "titleWhite": "Espaço dinâmico e bem localizado",
+          "images": {
+            "desktop1": "https://picsum.photos/id/402/700/680",
+            "desktop2": "https://picsum.photos/id/402/700/680",
+            "desktop3": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        }
+      ]
+    },
+    {
+      "type": "buildingsSeen",
+      "items": []
+    },
+    {
+      "type": "buildingsForYou",
+      "items": []
+    },
+    {
+      "type": "contact"
+    }
+  ]
+}

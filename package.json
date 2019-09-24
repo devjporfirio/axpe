@@ -10,7 +10,8 @@
     "dev": "NODE_ENV=development webpack-dev-server --hot --config webpack/webpack.config.js",
     "build": "NODE_ENV=production webpack --config webpack/webpack.config.js",
     "lint-staged": "lint-staged",
-    "server": "http-server build -o"
+    "server": "http-server build -o",
+    "api": "node api/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,14 +35,19 @@
     ">1%"
   ],
   "dependencies": {
+    "cors": "^2.8.5",
+    "css-loader": "^3.2.0",
     "history": "^4.9.0",
     "promise-polyfill": "^8.1.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
+    "react-slick": "^0.25.2",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1",
+    "style-loader": "^1.0.0",
     "styled-components": "^4.3.2",
     "whatwg-fetch": "^3.0.0"
   },
