@@ -49,6 +49,7 @@
     "slick-carousel": "^1.8.1",
     "style-loader": "^1.0.0",
     "styled-components": "^4.3.2",
+    "styled-media-query": "^2.1.2",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {

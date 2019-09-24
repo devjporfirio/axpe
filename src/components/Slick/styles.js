@@ -1,14 +1,33 @@
 import styled from 'styled-components';
 import Slider from 'react-slick';
+import media from 'styled-media-query';
 
 export const Container = styled(Slider)``;
 
 export const Slide = styled.a``;
 
+const SectionSlideLeftMobile = `
+  position: initial;
+  width: 75%;
+  margin: 15px auto;
+
+  h4 {
+    font-size: 22px;
+  }
+
+  hr {
+    margin: 20px 0;
+  }
+
+  button {
+    width: 100%;
+  }
+`;
+
 export const Section = styled.section`
-  position: absolute;
-  top: 110px;
   z-index: 4;
+  top: 110px;
+  position: absolute;
   width: 245px;
   margin-left: 20px;
 
@@ -23,8 +42,8 @@ export const Section = styled.section`
 
   hr {
     width: 50px;
-    margin: 40px 0 25px;
     border: 2px solid ${({ theme }) => theme.colors.orange};
+    margin: 40px 0 25px;
   }
 
   p {
@@ -38,19 +57,30 @@ export const Section = styled.section`
     line-height: 25px;
   }
 
-  ${({ theme }) =>
-    theme.minScreen(
-      'tablet',
+  ${media.lessThan('medium')`
+    ${props => props.type === 'slideLeft' && SectionSlideLeftMobile}
+  `};
+
+  ${media.greaterThan('769px')`
+    margin-left: 120px;
+  
+    ${props =>
+      props.type === 'slideLeft' &&
       `
-        margin-left: 120px;
-      `
-    )}
+        position: absolute;
+        top: 0;
+        padding: 100px 30px;
+        margin: 0;
+        background-color: #fff;
+        width: 320px;
+        height: 100%;
+    `}
+  `};
 `;
 
 export const GradientImage = styled.div`
   position: absolute;
   width: 100%;
-  height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
   z-index: 2;
   background-image: linear-gradient(
     to right,
@@ -58,56 +88,43 @@ export const GradientImage = styled.div`
     rgba(0, 0, 0, 0)
   );
   opacity: 0.6;
+  height: 507px;
+
+  ${media.greaterThan('769px')`height: 700px`};
+
+  ${props =>
+    props.type === 'slideLeft' &&
+    `
+      ${props =>
+        props.mq === 'mobile' &&
+        media.greaterThan('769px')`
+        height: auto;
+      `}
+  `}
 `;
 
 export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
   z-index: 1;
+  object-fit: cover;
 
   ${props =>
     props.mq === 'mobile'
-      ? props.theme.minScreen(
-          'tablet',
-          `
-          display: none !important;
-          `
-        )
-      : props.theme.maxScreen(
-          'tablet',
-          `
-            display: none !important;
+      ? media.greaterThan('769px')`
+        display: none !important;
       `
-        )}
-`;
+      : media.lessThan('medium')`
+        display: none !important;
+      `}
 
-const Arrow = styled.img`
-  width: 24px;
-  height: 24px;
-  z-index: 3;
-  position: absolute;
-  bottom: 0;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  ${props =>
+    props.type === 'slideLeft' &&
+    `
+      width: 100%;
+      margin-left: 0;
 
-  ${({ theme }) =>
-    theme.minScreen(
-      'tablet',
-      `
-        margin-left: 320px;
-        margin-bottom: 120px;
-      `
-    )}
+      ${media.lessThan('medium')`
+        height: auto;
+      `}
+  `}
 `;
-export const ArrowNextWhite = styled(Arrow)`
-  margin-top: -100px;
-  margin-left: 60px;
-
-  ${({ theme }) =>
-    theme.minScreen(
-      'tablet',
-      `
-        margin-left: 360px;
-      `
-    )}
-`;
-export const ArrowPrevWhite = styled(Arrow)``;
