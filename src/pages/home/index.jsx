@@ -6,12 +6,14 @@ import Slick from '../../components/Slick';
 export default function Home() {
   const [ hero, setHero ] = useState([]);
   const [ buildingsSquare, setBuildingsSquare ] = useState([]);
+  const [ buildingsGrid, setBuildingsGrid ] = useState([]);
 
   useEffect(() => {
     async function loadHome() {
       const homePage = await Api.home.loadHome();
       setHero(homePage.hero);
       setBuildingsSquare(homePage.components[1].items);
+      setBuildingsGrid(homePage.components[2].items);
     }
     loadHome();
   }, []);
@@ -20,9 +22,9 @@ export default function Home() {
     <Container>
       <Slick items={hero} />
       <br />
-      <Slick type="slideLeft" items={buildingsSquare} />
+      <Slick type="slickLeft" items={buildingsSquare} />
       <br />
-      <Slick type="slideGrid" items={buildingsSquare} />
+      <Slick type="slickGrid" items={buildingsGrid} />
     </Container>
   );
 }

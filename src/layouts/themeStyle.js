@@ -3,7 +3,8 @@ const theme = {
   colors: {
     white: '#fff',
     black: '#000',
-    orange: '#EE6900'
+    orange: '#EE6900',
+    green: '#3F5A5E'
   },
   mq: {
     'mobile-small': '320px',

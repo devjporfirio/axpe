@@ -4,9 +4,12 @@ import media from 'styled-media-query';
 
 export const Container = styled(Slider)``;
 
-export const Slide = styled.a``;
+export const Slide = styled.a`
+  ${props =>
+    props.type === 'slickGrid' && media.greaterThan('769px')`height: 650px;`}
+`;
 
-const SectionSlideLeftMobile = `
+const SectionSlickLeftMobile = `
   position: initial;
   width: 75%;
   margin: 15px auto;
@@ -33,7 +36,7 @@ export const Section = styled.section`
 
   h4 {
     color: ${props =>
-      props.type === 'slide'
+      props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.black};
     font-family: 'BitterRegular', ${props => props.type};
@@ -48,7 +51,7 @@ export const Section = styled.section`
 
   p {
     color: ${props =>
-      props.type === 'slide'
+      props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.black};
 
@@ -58,14 +61,16 @@ export const Section = styled.section`
   }
 
   ${media.lessThan('medium')`
-    ${props => props.type === 'slideLeft' && SectionSlideLeftMobile}
+    ${props =>
+      (props.type === 'slickLeft' || props.type === 'slickGrid') &&
+      SectionSlickLeftMobile}
   `};
 
   ${media.greaterThan('769px')`
     margin-left: 120px;
   
     ${props =>
-      props.type === 'slideLeft' &&
+      props.type === 'slickLeft' &&
       `
         position: absolute;
         top: 0;
@@ -75,6 +80,8 @@ export const Section = styled.section`
         width: 320px;
         height: 100%;
     `}
+
+    ${props => props.type === 'slickGrid' && `margin-left: 14%;`}
   `};
 `;
 
@@ -93,14 +100,11 @@ export const GradientImage = styled.div`
   ${media.greaterThan('769px')`height: 700px`};
 
   ${props =>
-    props.type === 'slideLeft' &&
-    `
-      ${props =>
-        props.mq === 'mobile' &&
-        media.greaterThan('769px')`
-        height: auto;
-      `}
-  `}
+    props.type === 'slickLeft' &&
+    props.mq === 'mobile' &&
+    media.greaterThan('769px')`
+      height: auto;
+    `}
 `;
 
 export const Image = styled.img`
@@ -118,7 +122,7 @@ export const Image = styled.img`
       `}
 
   ${props =>
-    props.type === 'slideLeft' &&
+    props.type === 'slickLeft' &&
     `
       width: 100%;
       margin-left: 0;
@@ -126,5 +130,49 @@ export const Image = styled.img`
       ${media.lessThan('medium')`
         height: auto;
       `}
+  `}
+`;
+
+export const ImagesGrid = styled.div`
+  display: grid;
+  grid-template-columns: 25% 40%;
+  grid-template-rows: 30% 37%;
+
+  img {
+    max-height: 403px;
+  }
+
+  div {
+    text-align: center;
+    background-color: ${({ theme }) => theme.colors.green};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      grid-area: title;
+      width: 80%;
+      color: ${({ theme }) => theme.colors.white};
+      font-family: 'BitterRegular';
+      font-size: 27px;
+      text-align: left;
+    }
+  }
+
+  ${media.lessThan('medium')`
+    display: block;
+
+    div {
+      height: 102px;
+      p {
+        font-size: 22px;
+        width: 238px;
+        text-align: center;
+      }
+
+      img {
+        display: none;
+      }
+    }
   `}
 `;

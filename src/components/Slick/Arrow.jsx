@@ -17,13 +17,21 @@ const Arrow = styled.img`
   margin-bottom: 30px;
 
   ${media.greaterThan('769px')`
-    margin-left: 120px;
-    margin-bottom: 120px;
+    ${props =>
+      props.type === 'slickGrid' ?
+    `
+      right: 20%;
+      margin-bottom: 60px;
+    `
+    : `
+      margin-left: 120px;
+      margin-bottom: 120px;
+    `}
   `};
 
   ${media.lessThan('medium')`
     ${props =>
-      props.type === 'slideLeft' &&
+      (props.type === 'slickLeft' || props.type === 'slickGrid') &&
       `
         margin-bottom: 175px;
     `}
@@ -35,12 +43,19 @@ const ArrowNextWhite = styled(Arrow)`
   margin-left: 60px;
 
   ${media.greaterThan('769px')`
-    margin-left: 160px;
+    ${props =>
+      props.type === 'slickGrid' ?
+    `
+      right: 16%;
+    `
+    : `
+      margin-left: 160px;
+    `}
   `};
 
   ${media.lessThan('medium')`
     ${props =>
-      props.type === 'slideLeft' &&
+      (props.type === 'slickLeft' || props.type === 'slickGrid') &&
       `
         margin-right: 20px;
         right: 0;
@@ -55,7 +70,7 @@ export const NextArrow = props => {
       type={props.type}
       onClick={props.onClick}
       src={IArrowNext}
-      src={props.type === 'primary' ? IArrowNext : IArrowNextBlack}
+      src={props.type === 'slick' ? IArrowNext : IArrowNextBlack}
     />
   );
 };
@@ -65,7 +80,7 @@ export const PrevArrow = props => {
     <ArrowPrevWhite
       type={props.type}
       onClick={props.onClick}
-      src={props.type === 'primary' ? IArrowPrev : IArrowPrevBlack}
+      src={props.type === 'slick' ? IArrowPrev : IArrowPrevBlack}
     />
   );
 };
