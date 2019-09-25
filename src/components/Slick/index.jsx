@@ -10,7 +10,7 @@ import {
   Container,
   Slide,
   Image,
-  GradientImage,
+  // GradientImage,
   Section,
   ImagesGrid
 } from './styles';
@@ -25,11 +25,11 @@ function sectionSlick(item) {
   );
 }
 
-function selectionSlickLeft(item) {
+function selectionSlickLeft(item, labelTitle) {
   return (
     <>
-      <h4>{item.title || item.titleWhite}</h4>
-      {(item.title || item.titleWhite) && <hr />}
+      <h4>{item[labelTitle]}</h4>
+      {item[labelTitle] && <hr />}
       <p>
         {item.building.infos.use}: {item.building.infos.areaTotal}
       </p>
@@ -43,27 +43,88 @@ function selectionSlickLeft(item) {
   );
 }
 
+function selectionSlickLarge(item) {
+  return (
+    <>
+      <h4>{item.building.address.local}</h4>
+      <p>
+        {item.building.infos.use}: {item.building.infos.areaTotal}
+      </p>
+      <p>Venda: {item.building.values.sell}</p>
+      <p>Aluguel: {item.building.values.rent}</p>
+      <br />
+      <p>REF {item.building.reference}</p>
+      <br />
+      <Button label="Saiba mais" />
+    </>
+  );
+}
+
+function renderBackground(type, item) {
+  switch (type) {
+    case 'slickGrid':
+      return (
+        <>
+          <ImagesGrid>
+            <div>
+              <p>{item.titleGreen}</p>
+            </div>
+            <Image type={type} mq="desktop" src={item.images.desktop1} alt="" />
+            <Image type={type} mq="desktop" src={item.images.desktop2} alt="" />
+            <Image type={type} mq="desktop" src={item.images.desktop3} alt="" />
+          </ImagesGrid>
+          <Image type={type} mq="mobile" src={item.images.mobile} alt="" />
+        </>
+      );
+    default:
+      return (
+        <>
+          {/* <GradientImage type={type} /> */}
+          <Image type={type} mq="desktop" src={item.images.desktop} />
+          <Image type={type} mq="mobile" src={item.images.mobile} />
+        </>
+      );
+  }
+}
+
 function renderSelection(type, item) {
   switch (type) {
     case 'slick':
       return sectionSlick(item);
     case 'slickLeft':
+      return selectionSlickLeft(item, 'title');
     case 'slickGrid':
-      return selectionSlickLeft(item);
+      return selectionSlickLeft(item, 'titleWhite');
+    case 'slickLarge':
+    case 'slickSmall':
+      return selectionSlickLarge(item);
   }
 }
 
-function Slick({ type = 'slick', items = [] }) {
+function Slick({
+  type = 'slick',
+  rows = 0,
+  slidesPerRow = 0,
+  slidesToShow = 1,
+  items = []
+}) {
   const settings = {
+    slidesToShow,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <NextArrow type={type} />,
     prevArrow: <PrevArrow type={type} />
   };
+
+  if (type === 'slickLarge') {
+    settings.rows = rows;
+    settings.slidesPerRow = slidesPerRow;
+    settings.infinite = items.length > 3;
+  }
+
   return (
-    <Container {...settings}>
+    <Container type={type} {...settings}>
       {items &&
         items.length > 0 &&
         items.map(item => (
@@ -73,41 +134,10 @@ function Slick({ type = 'slick', items = [] }) {
             target={item.link ? item.link.target : ''}
             type={type}
           >
-            {type === 'slickGrid' ? (
-              <>
-                <ImagesGrid>
-                  <div>
-                    <p>{item.titleGreen}</p>
-                  </div>
-                  <Image
-                    type={type}
-                    mq="desktop"
-                    src={item.images.desktop1}
-                    alt=""
-                  />
-                  <Image
-                    type={type}
-                    mq="desktop"
-                    src={item.images.desktop2}
-                    alt=""
-                  />
-                  <Image
-                    type={type}
-                    mq="desktop"
-                    src={item.images.desktop3}
-                    alt=""
-                  />
-                </ImagesGrid>
-                <Image
-                  type={type}
-                  mq="mobile"
-                  src={item.images.mobile}
-                  alt=""
-                />
-              </>
+            {type !== 'slickLarge' ? (
+              renderBackground(type, item)
             ) : (
               <>
-                <GradientImage type={type} />
                 <Image type={type} mq="desktop" src={item.images.desktop} />
                 <Image type={type} mq="mobile" src={item.images.mobile} />
               </>
@@ -121,7 +151,13 @@ function Slick({ type = 'slick', items = [] }) {
 }
 
 Slick.propTypes = {
-  type: PropTypes.oneOf([ 'slick', 'slickLeft', 'slickGrid' ]),
+  type: PropTypes.oneOf([
+    'slick',
+    'slickLeft',
+    'slickGrid',
+    'slickLarge',
+    'slickSmall'
+  ]),
   items: PropTypes.array.isRequired
 };
 

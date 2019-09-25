@@ -7,7 +7,7 @@ export const Container = styled.button`
   text-transform: uppercase;
   width: 240px;
   height: 45px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 15px;
   font-family: 'RalewaySemiBold';
   line-height: 18px;

@@ -16,51 +16,55 @@ const Arrow = styled.img`
   margin-left: 20px;
   margin-bottom: 30px;
 
-  ${media.greaterThan('769px')`
-    ${props =>
-      props.type === 'slickGrid' ?
-    `
-      right: 20%;
-      margin-bottom: 60px;
-    `
-    : `
-      margin-left: 120px;
-      margin-bottom: 120px;
-    `}
-  `};
+  ${props =>
+    props.type === 'slickGrid'
+      ? media.greaterThan('769px')`right: 20%;
+      margin-bottom: 60px;`
+      : media.greaterThan('769px')`margin-left: 120px;
+      margin-bottom: 120px;`}
 
-  ${media.lessThan('medium')`
-    ${props =>
-      (props.type === 'slickLeft' || props.type === 'slickGrid') &&
-      `
-        margin-bottom: 175px;
-    `}
-  `};
+  ${props =>
+    props.type !== 'slick' && media.lessThan('medium')`margin-bottom: 175px;`}
+
+  ${props =>
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    window.innerWidth > 769 &&
+    media.greaterThan('769px')`
+        margin-left: -45px;
+        margin-bottom: 230px;
+      `}
+
+  ${props =>
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    media.lessThan('medium')`margin-left: -35px;`}
 `;
 
 const ArrowNextWhite = styled(Arrow)`
   margin-top: -100px;
   margin-left: 60px;
 
-  ${media.greaterThan('769px')`
-    ${props =>
-      props.type === 'slickGrid' ?
-    `
-      right: 16%;
-    `
-    : `
-      margin-left: 160px;
-    `}
-  `};
+  ${props =>
+    props.type === 'slickGrid'
+      ? media.greaterThan('769px')`right: 16%;`
+      : media.greaterThan('769px')`margin-left: 160px;`}
 
-  ${media.lessThan('medium')`
-    ${props =>
-      (props.type === 'slickLeft' || props.type === 'slickGrid') &&
-      `
-        margin-right: 20px;
-        right: 0;
+  ${props =>
+    props.type !== 'slick' &&
+    media.lessThan('medium')`
+      margin-right: 20px;
+      right: 0;
     `}
-  `};
+  
+  ${props =>
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    window.innerWidth > 769 &&
+    media.greaterThan('769px')`
+        right: -45px;
+      `}
+
+  ${props =>
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    media.lessThan('medium')`margin-right: -40px;`}
 `;
 const ArrowPrevWhite = styled(Arrow)``;
 

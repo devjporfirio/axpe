@@ -2,11 +2,38 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import media from 'styled-media-query';
 
-export const Container = styled(Slider)``;
+const SlickLarge = media.greaterThan('769px')`
+  .slick-slide {
+    height: 260px !important;
+    
+    div {
+      height: 260px;
+      margin-bottom: 40px;
+    }
+
+    img {
+      width: 58%; 
+      height: 260px;
+    }
+  }
+`;
+
+export const Container = styled(Slider).attrs(props => ({
+  className:
+    props.type === 'slickLarge' && window.innerWidth > 769 && 'slick-vertical'
+}))`
+  ${props =>
+    props.type === 'slickLarge' && window.innerWidth > 769 && SlickLarge}
+`;
 
 export const Slide = styled.a`
   ${props =>
     props.type === 'slickGrid' && media.greaterThan('769px')`height: 650px;`}
+
+  ${props =>
+    props.type === 'slickSmall' && media.greaterThan('769px')`
+      padding: 0 24px;
+    `}
 `;
 
 const SectionSlickLeftMobile = `
@@ -62,9 +89,21 @@ export const Section = styled.section`
 
   ${media.lessThan('medium')`
     ${props =>
-      (props.type === 'slickLeft' || props.type === 'slickGrid') &&
-      SectionSlickLeftMobile}
+      props.type !== 'slick' && SectionSlickLeftMobile}
   `};
+
+  ${props =>
+    props.type === 'slickSmall' &&
+    media.greaterThan('759px')`
+      ${SectionSlickLeftMobile}
+
+      margin-top: 20px;
+      margin-left: auto !important;
+
+      button {
+        display: none;
+      }
+    `}
 
   ${media.greaterThan('769px')`
     margin-left: 120px;
@@ -82,6 +121,13 @@ export const Section = styled.section`
     `}
 
     ${props => props.type === 'slickGrid' && `margin-left: 14%;`}
+    ${props =>
+      props.type === 'slickLarge' &&
+      `
+        position: unset;
+        margin-top: -250px;
+        margin-left: 62%;
+    `}
   `};
 `;
 
@@ -95,7 +141,7 @@ export const GradientImage = styled.div`
     rgba(0, 0, 0, 0)
   );
   opacity: 0.6;
-  height: 507px;
+  height: auto;
 
   ${media.greaterThan('769px')`height: 700px`};
 
@@ -108,7 +154,7 @@ export const GradientImage = styled.div`
 `;
 
 export const Image = styled.img`
-  height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
+  height: ${props => (props.mq === 'mobile' ? 'auto' : '700px')};
   z-index: 1;
   object-fit: cover;
 
@@ -131,12 +177,19 @@ export const Image = styled.img`
         height: auto;
       `}
   `}
+
+  ${props =>
+    props.type === 'slickSmall' && `
+      width: 90%;
+      height: auto;
+      margin: auto;
+    `}
 `;
 
 export const ImagesGrid = styled.div`
   display: grid;
   grid-template-columns: 25% 40%;
-  grid-template-rows: 30% 37%;
+  grid-template-rows: 277px 403px;
 
   img {
     max-height: 403px;
