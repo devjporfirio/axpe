@@ -72,7 +72,7 @@ const ArrowNextWhite = styled(Arrow)`
 
   ${props =>
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    media.lessThan('medium')`margin-right: -35px;`}
+    media.lessThan('medium')`margin-right: -30px;`}
 `;
 const ArrowPrevWhite = styled(Arrow)``;
 

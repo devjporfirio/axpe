@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Panel } from './styles';
+import { Container, Panel, Banner } from './styles';
 import Api from 'services/';
 import Slick from '../../components/Slick';
 
@@ -43,14 +43,24 @@ export default function Home() {
   function renderComponents(type, component) {
     switch (type) {
       case 'banner':
-        return <h1>UM BANNER AQUI</h1>;
+        return (
+          <>
+            <Banner mq="mobile" src={component.images.mobile} />
+            <Banner mq="desktop" src={component.images.desktop} />
+            <br/>
+            <br/>
+          </>
+        );
       case 'buildingsSquare':
       case 'buildingsGrid':
       case 'buildingsSeen':
       case 'buildingsForYou':
         return (
           component.items.length > 0 && (
-            <Slick type={COMPONENT_SLICK[type]} items={component.items} />
+            <>
+              <Slick type={COMPONENT_SLICK[type]} items={component.items} />
+              <br/>
+            </>
           )
         );
       case 'contact':

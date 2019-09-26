@@ -42,8 +42,9 @@ export const Slide = styled.a`
 
 const SectionSlickLeftMobile = `
   position: initial;
-  width: 75%;
-  margin: 15px auto;
+  width: 70%;
+  margin: auto;
+  padding: 20px 0;
 
   h4 {
     font-size: 22px;
@@ -64,7 +65,8 @@ export const Section = styled.section`
   position: absolute;
   width: 245px;
   margin-left: 20px;
-  background-color: ${props => props.type !== 'slick' && props.theme.colors.white};
+  background-color: ${props =>
+    props.type !== 'slick' && props.theme.colors.white};
 
   h4 {
     color: ${props =>
@@ -94,15 +96,23 @@ export const Section = styled.section`
 
   ${media.lessThan('medium')`
     ${props => props.type !== 'slick' && SectionSlickLeftMobile}
+
+    ${props =>
+      [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+      `
+      width: 86%;
+      padding: 20px 8%;
+    `}
+    
   `};
 
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('759px')`
       ${SectionSlickLeftMobile}
-
-      margin-top: 20px;
       margin-left: auto !important;
+      padding: 20px 8%;
+      width: 70%;
 
       button {
         display: none;
@@ -128,9 +138,11 @@ export const Section = styled.section`
     ${props =>
       props.type === 'slickLarge' &&
       `
-        position: unset;
-        margin-top: -280px;
-        margin-left: 68%;
+      position: unset;
+      margin-top: -301px;
+      margin-left: 64%;
+      padding: 25px 4% 0 4%;
+      height: 235px;
     `}
   `};
 `;
@@ -192,16 +204,20 @@ export const Image = styled.div`
   ${props =>
     props.type === 'slickLarge' &&
     media.lessThan('medium')`
-    height: 230px;
+      height: 230px;
   `}
 
   ${props =>
     props.type === 'slickSmall' &&
     `
-      width: 90%;
-      margin: auto;
       height: 230px;
-    `}
+  `}
+
+  ${props =>
+    props.type === 'slickSmall' &&
+    media.greaterThan('769px')`
+      margin: 0 20px;
+  `}
 `;
 
 export const ImagesGrid = styled.div`
