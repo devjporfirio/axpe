@@ -27,16 +27,24 @@ const Arrow = styled.img`
     props.type !== 'slick' && media.lessThan('medium')`margin-bottom: 175px;`}
 
   ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    props.type === 'slickLarge' &&
     window.innerWidth > 769 &&
     media.greaterThan('769px')`
-        margin-left: -45px;
+        margin-left: -30px;
+        margin-bottom: 330px;
+      `}
+ 
+  ${props =>
+    props.type === 'slickSmall' &&
+    window.innerWidth > 769 &&
+    media.greaterThan('769px')`
+        margin-left: -30px;
         margin-bottom: 230px;
       `}
 
   ${props =>
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    media.lessThan('medium')`margin-left: -35px;`}
+    media.lessThan('medium')`margin-left: -25px;`}
 `;
 
 const ArrowNextWhite = styled(Arrow)`
@@ -59,12 +67,12 @@ const ArrowNextWhite = styled(Arrow)`
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     window.innerWidth > 769 &&
     media.greaterThan('769px')`
-        right: -45px;
-      `}
+      right: -25px;
+    `}
 
   ${props =>
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    media.lessThan('medium')`margin-right: -40px;`}
+    media.lessThan('medium')`margin-right: -35px;`}
 `;
 const ArrowPrevWhite = styled(Arrow)``;
 

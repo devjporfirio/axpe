@@ -6,14 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import { NextArrow, PrevArrow } from './Arrow';
-import {
-  Container,
-  Slide,
-  Image,
-  // GradientImage,
-  Section,
-  ImagesGrid
-} from './styles';
+import { Container, Slide, Image, Section, ImagesGrid } from './styles';
 
 function sectionSlick(item) {
   return (
@@ -69,19 +62,43 @@ function renderBackground(type, item) {
             <div>
               <p>{item.titleGreen}</p>
             </div>
-            <Image type={type} mq="desktop" src={item.images.desktop1} alt="" />
-            <Image type={type} mq="desktop" src={item.images.desktop2} alt="" />
-            <Image type={type} mq="desktop" src={item.images.desktop3} alt="" />
+            <Image
+              type={type}
+              mq="desktop"
+              style={{ backgroundImage: `url(${item.images.desktop1})` }}
+            />
+            <Image
+              type={type}
+              mq="desktop"
+              style={{ backgroundImage: `url(${item.images.desktop2})` }}
+            />
+            <Image
+              type={type}
+              mq="desktop"
+              style={{ backgroundImage: `url(${item.images.desktop3})` }}
+            />
           </ImagesGrid>
-          <Image type={type} mq="mobile" src={item.images.mobile} alt="" />
+          <Image
+            type={type}
+            mq="mobile"
+            style={{ backgroundImage: `url(${item.images.mobile})` }}
+            alt=""
+          />
         </>
       );
     default:
       return (
         <>
-          {/* <GradientImage type={type} /> */}
-          <Image type={type} mq="desktop" src={item.images.desktop} />
-          <Image type={type} mq="mobile" src={item.images.mobile} />
+          <Image
+            type={type}
+            mq="desktop"
+            style={{ backgroundImage: `url(${item.images.desktop})` }}
+          />
+          <Image
+            type={type}
+            mq="mobile"
+            style={{ backgroundImage: `url(${item.images.mobile})` }}
+          />
         </>
       );
   }
@@ -101,13 +118,7 @@ function renderSelection(type, item) {
   }
 }
 
-function Slick({
-  type = 'slick',
-  rows = 0,
-  slidesPerRow = 0,
-  slidesToShow = 1,
-  items = []
-}) {
+function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
   const settings = {
     slidesToShow,
     infinite: true,
@@ -118,9 +129,12 @@ function Slick({
   };
 
   if (type === 'slickLarge') {
-    settings.rows = rows;
-    settings.slidesPerRow = slidesPerRow;
-    settings.infinite = items.length > 3;
+    settings.rows = window.innerWidth > 769 ? 2 : 1;
+    settings.slidesPerRow = 1;
+  }
+
+  if (type === 'slickSmall') {
+    settings.slidesToShow = window.innerWidth > 769 ? 3 : 1;
   }
 
   return (
@@ -138,8 +152,16 @@ function Slick({
               renderBackground(type, item)
             ) : (
               <>
-                <Image type={type} mq="desktop" src={item.images.desktop} />
-                <Image type={type} mq="mobile" src={item.images.mobile} />
+                <Image
+                  type={type}
+                  mq="desktop"
+                  style={{ backgroundImage: `url(${item.images.desktop})` }}
+                />
+                <Image
+                  type={type}
+                  mq="mobile"
+                  style={{ backgroundImage: `url(${item.images.mobile})` }}
+                />
               </>
             )}
 

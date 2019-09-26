@@ -5,12 +5,7 @@ export const Container = styled.main`
   overflow-y: scroll;
 `;
 
-export const BuildingSeen = styled.div`
-  padding: 60px;
-  margin: auto;
-`;
-
-export const BuildingForYou = styled.div`
-  padding: 60px;
+export const Panel = styled.div`
+  padding: 40px;
   margin: auto;
 `;

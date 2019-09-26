@@ -3,6 +3,9 @@ import Slider from 'react-slick';
 import media from 'styled-media-query';
 
 const SlickLarge = media.greaterThan('769px')`
+  .slick-track {
+    height: 600px;
+  }
   .slick-slide {
     height: 260px !important;
     
@@ -31,8 +34,9 @@ export const Slide = styled.a`
     props.type === 'slickGrid' && media.greaterThan('769px')`height: 650px;`}
 
   ${props =>
-    props.type === 'slickSmall' && media.greaterThan('769px')`
-      padding: 0 24px;
+    props.type === 'slickSmall' &&
+    media.greaterThan('769px')`
+      /* padding: 0 24px; */
     `}
 `;
 
@@ -60,13 +64,14 @@ export const Section = styled.section`
   position: absolute;
   width: 245px;
   margin-left: 20px;
+  background-color: ${props => props.type !== 'slick' && props.theme.colors.white};
 
   h4 {
     color: ${props =>
       props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.black};
-    font-family: 'BitterRegular', ${props => props.type};
+    font-family: 'BitterRegular';
     font-size: 41px;
   }
 
@@ -88,8 +93,7 @@ export const Section = styled.section`
   }
 
   ${media.lessThan('medium')`
-    ${props =>
-      props.type !== 'slick' && SectionSlickLeftMobile}
+    ${props => props.type !== 'slick' && SectionSlickLeftMobile}
   `};
 
   ${props =>
@@ -125,38 +129,42 @@ export const Section = styled.section`
       props.type === 'slickLarge' &&
       `
         position: unset;
-        margin-top: -250px;
-        margin-left: 62%;
+        margin-top: -280px;
+        margin-left: 68%;
     `}
   `};
 `;
 
-export const GradientImage = styled.div`
-  position: absolute;
-  width: 100%;
-  z-index: 2;
-  background-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 100),
-    rgba(0, 0, 0, 0)
-  );
-  opacity: 0.6;
-  height: auto;
-
-  ${media.greaterThan('769px')`height: 700px`};
-
-  ${props =>
-    props.type === 'slickLeft' &&
-    props.mq === 'mobile' &&
-    media.greaterThan('769px')`
-      height: auto;
-    `}
-`;
-
-export const Image = styled.img`
-  height: ${props => (props.mq === 'mobile' ? 'auto' : '700px')};
+export const Image = styled.div`
+  height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
   z-index: 1;
   object-fit: cover;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+
+  ${media.lessThan('medium')`
+    background-size: 100% 100%;
+  `}
+
+  ${props =>
+    [ 'slick' ].includes(props.type) &&
+    `      
+      background-size: 100% 100%;
+      ::after {
+        content: ""; 
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 100),
+          rgba(0, 0, 0, 0)
+        );
+        opacity: 0.3;
+      }
+    `}
 
   ${props =>
     props.mq === 'mobile'
@@ -172,17 +180,27 @@ export const Image = styled.img`
     `
       width: 100%;
       margin-left: 0;
+      background-size: 100% 100%;
+    `}
 
-      ${media.lessThan('medium')`
-        height: auto;
-      `}
+  ${props =>
+    props.type === 'slickLarge' &&
+    media.greaterThan('769px')`
+      width: 64%;
+    `}
+
+  ${props =>
+    props.type === 'slickLarge' &&
+    media.lessThan('medium')`
+    height: 230px;
   `}
 
   ${props =>
-    props.type === 'slickSmall' && `
+    props.type === 'slickSmall' &&
+    `
       width: 90%;
-      height: auto;
       margin: auto;
+      height: 230px;
     `}
 `;
 
