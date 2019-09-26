@@ -31,7 +31,7 @@ const Arrow = styled.img`
     window.innerWidth > 769 &&
     media.greaterThan('769px')`
         margin-left: -30px;
-        margin-bottom: 330px;
+        margin-bottom: 308px;
       `}
  
   ${props =>

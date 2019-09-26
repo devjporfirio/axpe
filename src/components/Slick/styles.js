@@ -110,9 +110,12 @@ export const Section = styled.section`
     props.type === 'slickSmall' &&
     media.greaterThan('759px')`
       ${SectionSlickLeftMobile}
-      margin-left: auto !important;
+      margin-left: 20px !important;
       padding: 20px 8%;
-      width: 70%;
+      
+      p {
+        font-size: 16px;
+      }
 
       button {
         display: none;
@@ -139,10 +142,11 @@ export const Section = styled.section`
       props.type === 'slickLarge' &&
       `
       position: unset;
-      margin-top: -301px;
-      margin-left: 64%;
+      margin-top: -302px;
+      margin-left: 59%;
       padding: 25px 4% 0 4%;
-      height: 235px;
+      height: 238px;
+      width: 32%;
     `}
   `};
 `;
@@ -211,12 +215,13 @@ export const Image = styled.div`
     props.type === 'slickSmall' &&
     `
       height: 230px;
-  `}
+      `}
 
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('769px')`
       margin: 0 20px;
+      width: 86%;   
   `}
 `;
 
