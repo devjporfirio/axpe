@@ -2,9 +2,11 @@ const theme = {
   /* Variables */
   colors: {
     white: '#fff',
+    greyLight: '#F5F5F0',
     black: '#000',
     orange: '#EE6900',
-    green: '#3F5A5E'
+    green: '#3F5A5E',
+    greenDark: '#37474F',
   },
   mq: {
     'mobile-small': '320px',

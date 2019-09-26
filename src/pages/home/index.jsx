@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Panel, Banner } from './styles';
+import { Container, Banner } from './styles';
 import Api from 'services/';
 import Slick from '../../components/Slick';
+import PanelBuildings from '../../components/PanelBuildings';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -59,7 +60,6 @@ export default function Home() {
           component.items.length > 0 && (
             <>
               <Slick type={COMPONENT_SLICK[type]} items={component.items} />
-              <br/>
             </>
           )
         );
@@ -77,18 +77,18 @@ export default function Home() {
         components.map(c => {
           if (c.type === 'buildingsSeen') {
             return (
-              <Panel title="Imóveis que você viu">
+              <PanelBuildings id={c.type} title="Imóveis que você viu">
                 {renderComponents(c.type, c)}
-              </Panel>
+              </PanelBuildings>
             );
           } else if (c.type === 'buildingsForYou') {
             return (
-              <Panel
+              <PanelBuildings id={c.type}
                 title="Indicados para você"
                 subTitle="Selecionamos alguns imóveis que acabaram de chegar"
               >
                 {renderComponents(c.type, c)}
-              </Panel>
+              </PanelBuildings>
             );
           }
           return renderComponents(c.type, c);

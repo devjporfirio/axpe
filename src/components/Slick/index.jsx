@@ -1,57 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button';
+import Section from './Section';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import { NextArrow, PrevArrow } from './Arrow';
-import { Container, Slide, Image, Section, ImagesGrid } from './styles';
-
-function sectionSlick(item) {
-  return (
-    <>
-      <h4>{item.title}</h4>
-      {item.title && <hr />}
-      <p>{item.content}</p>
-    </>
-  );
-}
-
-function selectionSlickLeft(item, labelTitle) {
-  return (
-    <>
-      <h4>{item[labelTitle]}</h4>
-      {item[labelTitle] && <hr />}
-      <p>
-        {item.building.infos.use}: {item.building.infos.areaTotal}
-      </p>
-      <p>Venda: {item.building.values.sell}</p>
-      <p>Aluguel: {item.building.values.rent}</p>
-      <br />
-      <p>REF {item.building.reference}</p>
-      <br />
-      <Button label="Saiba mais" />
-    </>
-  );
-}
-
-function selectionSlickLarge(item) {
-  return (
-    <>
-      <h4>{item.building.address.local}</h4>
-      <p>
-        {item.building.infos.use}: {item.building.infos.areaTotal}
-      </p>
-      <p>Venda: {item.building.values.sell}</p>
-      <p>Aluguel: {item.building.values.rent}</p>
-      <br />
-      <p>REF {item.building.reference}</p>
-      <br />
-      <Button label="Saiba mais" />
-    </>
-  );
-}
+import { Container, Slide, Image, ImagesGrid } from './styles';
 
 function renderBackground(type, item) {
   switch (type) {
@@ -104,20 +59,6 @@ function renderBackground(type, item) {
   }
 }
 
-function renderSelection(type, item) {
-  switch (type) {
-    case 'slick':
-      return sectionSlick(item);
-    case 'slickLeft':
-      return selectionSlickLeft(item, 'title');
-    case 'slickGrid':
-      return selectionSlickLeft(item, 'titleWhite');
-    case 'slickLarge':
-    case 'slickSmall':
-      return selectionSlickLarge(item);
-  }
-}
-
 function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
   const settings = {
     slidesToShow,
@@ -148,24 +89,9 @@ function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
             target={item.link ? item.link.target : ''}
             type={type}
           >
-            {type !== 'slickLarge' ? (
-              renderBackground(type, item)
-            ) : (
-              <>
-                <Image
-                  type={type}
-                  mq="desktop"
-                  style={{ backgroundImage: `url(${item.images.desktop})` }}
-                />
-                <Image
-                  type={type}
-                  mq="mobile"
-                  style={{ backgroundImage: `url(${item.images.mobile})` }}
-                />
-              </>
-            )}
+            {renderBackground(type, item)}
 
-            <Section type={type}>{renderSelection(type, item)}</Section>
+            <Section type={type} item={item} />
           </Slide>
         ))}
     </Container>

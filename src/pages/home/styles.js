@@ -6,12 +6,6 @@ export const Container = styled.main`
   overflow-y: scroll;
 `;
 
-export const Panel = styled.div`
-  padding: 40px;
-  margin: auto;
-  background-color: #F5F5F0;
-`;
-
 export const Banner = styled.img`
   ${props =>
     props.mq === 'mobile'
