@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Container, Title, SubTitle } from './styles';
 
-export default function PanelBuildings({ id, children, title, subTitle }) {
+export default function PanelBuildings({ className, children, title, subTitle }) {
   return (
-    <Container id={id}>
+    <Container className={className}>
       <header>
         <Title>{title}</Title>
         {subTitle && <SubTitle>{subTitle}</SubTitle>}

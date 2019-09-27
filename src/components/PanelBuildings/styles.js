@@ -9,11 +9,11 @@ export const Container = styled.div`
     align-items: center;
   }
 
-  &#buildingsSeen {
+  &.buildingsSeen {
     margin-top: 20px;
     padding: 40px;
   }
-  &#buildingsForYou {
+  &.buildingsForYou {
     margin-top: -20px;
     padding: 0 40px 40px 40px;
   }

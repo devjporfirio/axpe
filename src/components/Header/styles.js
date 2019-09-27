@@ -11,7 +11,7 @@ export const Container = styled.header`
     font-family: 'RalewayLight';
   }
 
-  ${media.lessThan('769px')`
+  ${media.lessThan('medium')`
     display: none;
   `}
 `;

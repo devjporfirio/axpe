@@ -71,7 +71,7 @@ const Container = styled.section`
 
   ${props =>
     props.type === 'slickSmall' &&
-    media.greaterThan('759px')`
+    media.greaterThan('769px')`
       ${SectionSlickLeftMobile}
       margin-left: 20px !important;
       padding: 20px 8%;

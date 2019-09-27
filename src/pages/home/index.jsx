@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Banner } from './styles';
 import Api from 'services/';
-import Slick from '../../components/Slick';
-import PanelBuildings from '../../components/PanelBuildings';
+import Slick from 'components/Slick';
+import PanelBuildings from 'components/PanelBuildings';
+import Footer from 'components/Footer';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -64,7 +65,7 @@ export default function Home() {
           )
         );
       case 'contact':
-        return <h1>CONTATO AQUI </h1>;
+        return <Footer />;
     }
   }
 
@@ -77,13 +78,13 @@ export default function Home() {
         components.map(c => {
           if (c.type === 'buildingsSeen') {
             return (
-              <PanelBuildings id={c.type} title="Imóveis que você viu">
+              <PanelBuildings className={c.type} title="Imóveis que você viu">
                 {renderComponents(c.type, c)}
               </PanelBuildings>
             );
           } else if (c.type === 'buildingsForYou') {
             return (
-              <PanelBuildings id={c.type}
+              <PanelBuildings className={c.type}
                 title="Indicados para você"
                 subTitle="Selecionamos alguns imóveis que acabaram de chegar"
               >
