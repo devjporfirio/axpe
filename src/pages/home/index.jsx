@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Container, Banner } from './styles';
 import Api from 'services/';
 import Slick from 'components/Slick';
@@ -49,8 +49,8 @@ export default function Home() {
           <>
             <Banner mq="mobile" src={component.images.mobile} />
             <Banner mq="desktop" src={component.images.desktop} />
-            <br/>
-            <br/>
+            <br />
+            <br />
           </>
         );
       case 'buildingsSquare':
@@ -78,13 +78,19 @@ export default function Home() {
         components.map(c => {
           if (c.type === 'buildingsSeen') {
             return (
-              <PanelBuildings className={c.type} title="Imóveis que você viu">
+              <PanelBuildings
+                key={c.type}
+                className={c.type}
+                title="Imóveis que você viu"
+              >
                 {renderComponents(c.type, c)}
               </PanelBuildings>
             );
           } else if (c.type === 'buildingsForYou') {
             return (
-              <PanelBuildings className={c.type}
+              <PanelBuildings
+                key={c.type}
+                className={c.type}
                 title="Indicados para você"
                 subTitle="Selecionamos alguns imóveis que acabaram de chegar"
               >
@@ -92,7 +98,7 @@ export default function Home() {
               </PanelBuildings>
             );
           }
-          return renderComponents(c.type, c);
+          return <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>;
         })}
     </Container>
   );

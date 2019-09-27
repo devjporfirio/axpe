@@ -29,6 +29,7 @@ export const Container = styled.div`
 
   ${media.greaterThan('769px')`
     justify-content: space-around;
+    flex-direction: row;
 
     div {
       width: 240px;

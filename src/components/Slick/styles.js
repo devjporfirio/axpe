@@ -86,6 +86,7 @@ export const Image = styled.div`
     props.type === 'slickLarge' &&
     media.greaterThan('769px')`
       width: 64%;
+      height: 230px;
     `}
 
   ${props =>

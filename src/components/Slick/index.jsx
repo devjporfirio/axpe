@@ -70,12 +70,12 @@ function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
   };
 
   if (type === 'slickLarge') {
-    settings.rows = window.innerWidth > 769 ? 2 : 1;
+    settings.rows = window.innerWidth >= 769 ? 2 : 1;
     settings.slidesPerRow = 1;
   }
 
   if (type === 'slickSmall') {
-    settings.slidesToShow = window.innerWidth > 769 ? 3 : 1;
+    settings.slidesToShow = window.innerWidth >= 769 ? 3 : 1;
   }
 
   return (
