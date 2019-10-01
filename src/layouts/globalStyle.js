@@ -90,14 +90,4 @@ export default createGlobalStyle`
     border-radius: 0;
     -webkit-appearance: none;
   }
-
-  ${({ theme }) => theme.fontFace('BitterBold', '../src/assets/fonts/Bitter/Bitter-Bold.ttf')}
-  ${({ theme }) => theme.fontFace('BitterRegular', '../src/assets/fonts/Bitter/Bitter-Regular.ttf')}
-  ${({ theme }) => theme.fontFace('BitterRegularItalic', '../src/assets/fonts/Bitter/Bitter-RegularItalic.ttf')}
-
-  ${({ theme }) => theme.fontFace('RalewayLight', '../src/assets/fonts/Raleway/Raleway-Light.ttf')}
-  ${({ theme }) => theme.fontFace('RalewayRegular', '../src/assets/fonts/Raleway/Raleway-Regular.ttf')}
-  ${({ theme }) => theme.fontFace('RalewaySemiBold', '../src/assets/fonts/Raleway/Raleway-SemiBold.ttf')}
-  ${({ theme }) => theme.fontFace('RalewayExtraBold', '../src/assets/fonts/Raleway/Raleway-ExtraBold.ttf')}
-  ${({ theme }) => theme.fontFace('RalewayBlack', '../src/assets/fonts/Raleway/Raleway-Black.ttf')}
 `;

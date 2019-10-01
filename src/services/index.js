@@ -1,7 +1,9 @@
 import Usuario from './Usuario';
+import home from './home';
 
 const Api = {
-  Usuario
+  Usuario,
+  home
 }
 
 export default Api;

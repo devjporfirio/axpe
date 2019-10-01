@@ -11,6 +11,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/i,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
@@ -19,11 +23,19 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: [ 'file-loader' ]
+        loader: 'file-loader',
+        options: {
+          limit: 10000,
+          name: 'assets/img/[name].[hash:8].[ext]'
+        }
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [ 'file-loader' ]
+        loader: 'file-loader',
+        options: {
+          limit: 10000,
+          name: 'assets/fonts/[name].[hash:8].[ext]'
+        }
       }
     ]
   },
@@ -39,6 +51,5 @@ module.exports = {
     // },
     minimizer: [ new TerserPlugin() ]
   },
-  plugins: [
-  ]
+  plugins: []
 };
