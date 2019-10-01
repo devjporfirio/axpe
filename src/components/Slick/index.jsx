@@ -70,21 +70,23 @@ function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
   };
 
   if (type === 'slickLarge') {
-    settings.rows = window.innerWidth >= 769 ? 2 : 1;
+    settings.rows =
+      window.innerWidth >= 769 ? (items.length >= 2 ? 2 : items.length) : 1;
     settings.slidesPerRow = 1;
   }
 
   if (type === 'slickSmall') {
-    settings.slidesToShow = window.innerWidth >= 769 ? 3 : 1;
+    settings.slidesToShow =
+      window.innerWidth >= 769 ? (items.length >= 3 ? 3 : items.length) : 1;
   }
 
   return (
-    <Container type={type} {...settings}>
+    <Container type={type} {...settings} length={items.length}>
       {items &&
         items.length > 0 &&
-        items.map(item => (
+        items.map((item, index) => (
           <Slide
-            key={item.id}
+            key={item.id || index}
             to={item.link ? item.link.url : '#'}
             target={item.link ? item.link.target : ''}
             type={type}

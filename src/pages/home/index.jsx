@@ -20,23 +20,6 @@ export default function Home() {
     async function loadHome() {
       const homePage = await Api.home.loadHome();
       setHero(homePage.hero);
-
-      const mock = [
-        ...homePage.components[1].items,
-        {
-          ...homePage.components[1].items[0],
-          id: 3,
-          title: homePage.components[1].items[0].title + 3
-        },
-        {
-          ...homePage.components[1].items[0],
-          id: 4,
-          title: homePage.components[1].items[0].title + 4
-        }
-      ];
-      homePage.components[3].items = mock;
-      homePage.components[4].items = mock;
-
       setComponents(homePage.components);
     }
     loadHome();
@@ -58,6 +41,7 @@ export default function Home() {
       case 'buildingsSeen':
       case 'buildingsForYou':
         return (
+          component.items &&
           component.items.length > 0 && (
             <>
               <Slick type={COMPONENT_SLICK[type]} items={component.items} />
@@ -78,27 +62,35 @@ export default function Home() {
         components.map(c => {
           if (c.type === 'buildingsSeen') {
             return (
-              <PanelBuildings
-                key={c.type}
-                className={c.type}
-                title="Imóveis que você viu"
-              >
-                {renderComponents(c.type, c)}
-              </PanelBuildings>
+              c.items &&
+              c.items.length > 0 && (
+                <PanelBuildings
+                  key={c.type}
+                  className={c.type}
+                  title="Imóveis que você viu"
+                >
+                  {renderComponents(c.type, c)}
+                </PanelBuildings>
+              )
             );
           } else if (c.type === 'buildingsForYou') {
             return (
-              <PanelBuildings
-                key={c.type}
-                className={c.type}
-                title="Indicados para você"
-                subTitle="Selecionamos alguns imóveis que acabaram de chegar"
-              >
-                {renderComponents(c.type, c)}
-              </PanelBuildings>
+              c.items &&
+              c.items.length > 0 && (
+                <PanelBuildings
+                  key={c.type}
+                  className={c.type}
+                  title="Indicados para você"
+                  subTitle="Selecionamos alguns imóveis que acabaram de chegar"
+                >
+                  {renderComponents(c.type, c)}
+                </PanelBuildings>
+              )
             );
           }
-          return <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>;
+          return (
+            <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>
+          );
         })}
     </Container>
   );

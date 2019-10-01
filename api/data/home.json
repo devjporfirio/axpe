@@ -96,11 +96,58 @@
     },
     {
       "type": "buildingsSeen",
-      "items": []
+      "items": [
+        {
+          "id": 1,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        },
+        {
+          "id": 2,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        }
+      ]
     },
     {
       "type": "buildingsForYou",
-      "items": []
+      "items": [
+        {
+          "id": 1,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        },
+        {
+          "id": 2,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        },
+        {
+          "id": 3,
+          "title": "Apartamento espaçoso com cara de casa",
+          "images": {
+            "desktop": "https://picsum.photos/id/402/700/680",
+            "mobile": "https://picsum.photos/id/402/375/245"
+          },
+          "building": null
+        }
+      ]
     },
     {
       "type": "contact"

@@ -37,13 +37,16 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        config: JSON.stringify(require(`../config/${process.env.NODE_ENV}.json`))
+        config: JSON.stringify(
+          require(`../config/${process.env.NODE_ENV}.json`)
+        )
       }
     }),
     new FaviconsWebpackPlugin({
       logo: '../public/logo.png',
       mode: process.env.NODE_ENV === 'production' ? 'webapp' : 'light',
       devMode: process.env.NODE_ENV === 'production' ? 'webapp' : 'light',
+      prefix: 'assets/icons',
       favicons: {
         background: '#333',
         theme_color: '#333',
@@ -62,7 +65,7 @@ module.exports = {
         'theme-color': '#FFF',
         'og:site_name': 'Boilerplate - Future Brand',
         'og:type': 'website',
-        'twitter:card': 'summary',
+        'twitter:card': 'summary'
       },
       minify: {
         collapseWhitespace: true,

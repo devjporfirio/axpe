@@ -11,7 +11,8 @@
     "build": "NODE_ENV=production webpack --config webpack/webpack.config.js",
     "lint-staged": "lint-staged",
     "server": "http-server build -o",
-    "api": "node api/index.js"
+    "api": "node api/index.js",
+    "deploy": "netlify deploy --prod"
   },
   "author": "",
   "license": "ISC",

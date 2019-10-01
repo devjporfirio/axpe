@@ -8,6 +8,8 @@ import Routes from 'helpers/routes';
 import GlobalStyle from './globalStyle';
 import ThemeStyle from './themeStyle';
 
+import './fonts.css';
+
 function Main() {
   function getRoutes() {
     const routeComponents = Routes.map(({ path, exact, component }, key) => (

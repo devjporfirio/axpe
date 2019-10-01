@@ -27,6 +27,15 @@ export const Container = styled(Slider).attrs(props => ({
 }))`
   ${props =>
     props.type === 'slickLarge' && window.innerWidth > 769 && SlickLarge}
+
+  ${props =>
+    props.type === 'slickGrid' &&
+    props.length === 1 &&
+    media.greaterThan('769px')`
+      section {
+        margin-left: 70%;
+      }
+  `}
 `;
 
 export const Slide = styled.a`
@@ -39,7 +48,7 @@ export const Image = styled.div`
   z-index: 1;
   object-fit: cover;
   background-repeat: no-repeat;
-  /* background-size: cover; */
+  background-size: inherit;
 
   ${media.lessThan('medium')`
     background-size: 100% 100%;

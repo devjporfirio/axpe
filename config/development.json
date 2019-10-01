@@ -1,3 +1,4 @@
 {
-  "apiUrl": "http://development.localhost/api"
+  "apiUrl": "http://localhost:3000",
+  "apiUrl_": "http://futurebrandftp.com.br/projetos/axpe/painel/api"
 }

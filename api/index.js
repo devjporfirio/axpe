@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 const port = 3000;
 
@@ -13,8 +14,18 @@ homeData.components[1].items[0].building = buildingData;
 homeData.components[1].items[1].building = buildingData;
 homeData.components[2].items[0].building = buildingData;
 homeData.components[2].items[1].building = buildingData;
+homeData.components[3].items[0].building = buildingData;
+homeData.components[3].items[1].building = buildingData;
+homeData.components[4].items[0].building = buildingData;
+homeData.components[4].items[1].building = buildingData;
+homeData.components[4].items[2].building = buildingData;
 
-app.get('/', cors(),  (req, res) => res.json(homeData));
+app.get('/', cors(), (req, res) =>
+  res.sendFile('./links.html', {
+    root: path.join(__dirname, './')
+  })
+);
+app.get('/home', cors(), (req, res) => res.json(homeData));
 app.get('/filters', cors(), (req, res) => res.json(filtersData));
 
 app.listen(port, () =>
