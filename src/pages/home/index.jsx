@@ -4,6 +4,7 @@ import Api from 'services/';
 import Slick from 'components/Slick';
 import PanelBuildings from 'components/PanelBuildings';
 import Footer from 'components/Footer';
+import { suffle } from 'helpers/utils';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -40,6 +41,10 @@ export default function Home() {
       case 'buildingsGrid':
       case 'buildingsSeen':
       case 'buildingsForYou':
+        if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
+          component.items = suffle(component.items);
+        }
+
         return (
           component.items &&
           component.items.length > 0 && (
