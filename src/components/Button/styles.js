@@ -10,7 +10,9 @@ export const Container = styled.button`
   border-radius: 4px;
   font-size: 15px;
   font-family: 'RalewaySemiBold';
-  line-height: 18px;
+  line-height: 45px;
+  display: block;
+  text-align: center;
 
   ${media.greaterThan('769px')` 
     width: 140px;

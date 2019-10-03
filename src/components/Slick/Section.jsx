@@ -137,7 +137,10 @@ function selectionSlickLeft(item, labelTitle) {
       <br />
       <p>REF {item.building.reference}</p>
       <br />
-      <Button label="Saiba mais" />
+      <Button
+        label="Saiba mais"
+        onClick={() => (location.href = `intern/${item.building.slug}`)}
+      />
     </>
   );
 }
@@ -154,7 +157,10 @@ function selectionSlickLarge(item) {
       <br />
       <p>REF {item.building.reference}</p>
       <br />
-      <Button label="Saiba mais" />
+      <Button
+        label="Saiba mais"
+        onClick={() => (location.href = `intern/${item.building.slug}`)}
+      />
     </>
   );
 }

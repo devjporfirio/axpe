@@ -49,9 +49,18 @@ export const Image = styled.div`
   object-fit: cover;
   background-repeat: no-repeat;
   background-size: inherit;
+  background-position: center center;
 
   ${media.lessThan('medium')`
     background-size: 100% 100%;
+  `}
+
+  ${props =>
+    [ 'slickGrid' ].includes(props.type) &&
+    media.lessThan('medium')`
+      background-size: 100% auto;
+      height: 0;
+      padding-top: 66.64%;
   `}
 
   ${props =>

@@ -1,91 +1,59 @@
 {
-    "type": "pronto",
-    "source": "vista",
-    "slug": "AX11660",
-    "title": "Para voltar aos anos 60. Bem ensolarado, com reforma descolada e vista bacana para a Pompéia.",
-    "reference": "AX11660",
-    "address": {
-        "condominium": false,
-        "region": "SP",
-        "local": "Vila Beatriz"
-    },
-    "values": {
-        "rent": 3500,
-        "release": 0,
-        "sell": 1000000,
-        "free": 0
-    },
-    "infos": {
-        "use": "RESIDENCIAL",
-        "type": "VENDA E ALUGUEL",
-        "areaUseful": null,
-        "areaUsefulStart": null,
-        "areaUsefulEnd": null,
-        "areaTotal": "108.59",
-        "areaBuilding": null,
-        "areaGround": null,
-        "bedrooms": "3",
-        "bedroomsStart": null,
-        "bedroomsEnd": null,
-        "suites": "1",
-        "parking": "4",
-        "parkingStart": null,
-        "parkingEnd": null,
-        "release": null,
-        "releaseStatus": null,
-        "releaseDelivery": null,
-        "disclaimer": null,
-        "valueOnlyRequest": false
-    },
-    "tour360": null,
-    "content": "Para voltar aos anos 60. Bem ensolarado, com reforma descolada e vista bacana para a Pompéia.",
-    "imageFeatured": {
-        "desktop": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_2154269.jpg",
-        "mobile": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_2154269.jpg"
-    },
-    "gallery": [
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_2154269.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_2257875.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_2359193.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_2459942.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_250543.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_261146.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_27295.jpg"
-        },
-        {
-            "tipo": "imagem",
-            "src": "http://vistasoft.axpe.com.br/vistasoft//vista.imobi/fotos/65451/iaxpenego65451_282758.jpg"
-        }
-    ],
-    "components": {
-        "porque-adoramos": [],
-        "destaque-1": [],
-        "destaque-2": [],
-        "destaque-3": [],
-        "galeria-imagens-texto": [],
-        "imagem-destaque": [],
-        "destaque-texto": [],
-        "destaque-texto-bullets": [],
-        "plantas": []
-    }
+  "type": "lancamento",
+  "source": "sao-paulo",
+  "slug": "ax3715",
+  "title": null,
+  "reference": "ax3715",
+  "tour360": null,
+  "content": null,
+  "category": "Apartamento",
+  "address": {
+    "condominium": false,
+    "region": null,
+    "local": "Alto da Lapa"
+  },
+  "values": {
+    "rent": 0,
+    "release": 24980,
+    "sell": 0,
+    "free": 0
+  },
+  "infos": {
+    "use": "RESIDENCIAL",
+    "type": "VENDA",
+    "areaUseful": null,
+    "areaUsefulStart": "160",
+    "areaUsefulEnd": "160",
+    "areaTotal": null,
+    "areaBuilding": null,
+    "areaGround": null,
+    "bedrooms": null,
+    "bedroomsStart": "1",
+    "bedroomsEnd": "3",
+    "suites": null,
+    "parking": null,
+    "parkingStart": null,
+    "parkingEnd": "3",
+    "release": null,
+    "releaseStatus": "Pronto",
+    "releaseDelivery": null,
+    "disclaimer": "Apartamento-cobertura reformado com decoração rústica e moderna. Dá para ir a pé para o clube do bairro e aproveitar a ciclovia.",
+    "valueOnlyRequest": false
+  },
+  "imageFeatured": {
+    "desktop": null,
+    "mobile": null
+  },
+  "gallery": [],
+  "components": {
+    "porque-adoramos": [],
+    "destaque-1": [],
+    "destaque-2": [],
+    "destaque-3": [],
+    "galeria-imagens-texto": [],
+    "imagem-destaque": [],
+    "destaque-texto": [],
+    "destaque-texto-bullets": [],
+    "plantas": []
+  }
 }

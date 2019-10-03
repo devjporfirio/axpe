@@ -53,6 +53,9 @@ export default createGlobalStyle`
 
   /* End RESET */
 
+  * {
+    color: ${({ theme }) => theme.colors.greenDark}
+  }
 
   html,
   body {
@@ -66,6 +69,7 @@ export default createGlobalStyle`
 
   a {
     transition: all 300ms ease;
+    text-decoration: none;
   }
 
   p,

@@ -59,8 +59,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: '../public/index.html',
       filename: 'index.html',
-      title: 'Boilerplate - Future Brand',
+      title: 'Axpe. Imóveis Especiais | Christie\'s Real Estate São Paulo',
       meta: {
+        description:
+          'Imobiliária afiliada da Christie’s Real Estate. Imóveis de charme em São Paulo: apartamentos, coberturas, lofts e casas. (11) 3074-3600',
         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
         'theme-color': '#FFF',
         'og:site_name': 'Boilerplate - Future Brand',
