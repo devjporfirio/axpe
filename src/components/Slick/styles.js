@@ -47,22 +47,23 @@ export const Image = styled.div`
   height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
   z-index: 1;
   object-fit: cover;
-  background-repeat: no-repeat;
-  background-size: inherit;
-  background-position: center center;
-
+  background: url(${props => props.url}) center center no-repeat;\
+  
   ${media.lessThan('medium')`
     background-size: 100% 100%;
   `}
-
+  
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
     media.lessThan('medium')`
       background-size: 100% auto;
       height: 0;
       padding-top: 66.64%;
+  ` &&
+    media.greaterThan('769px')`
+    height: auto;
   `}
-
+      
   ${props =>
     [ 'slick' ].includes(props.type) &&
     `      
@@ -81,7 +82,7 @@ export const Image = styled.div`
         );
         opacity: 0.3;
       }
-    `}
+  `}
 
   ${props =>
     props.mq === 'mobile'

@@ -17,43 +17,18 @@ function renderBackground(type, item) {
             <div>
               <p>{item.titleGreen}</p>
             </div>
-            <Image
-              type={type}
-              mq="desktop"
-              style={{ backgroundImage: `url(${item.images.desktop1})` }}
-            />
-            <Image
-              type={type}
-              mq="desktop"
-              style={{ backgroundImage: `url(${item.images.desktop2})` }}
-            />
-            <Image
-              type={type}
-              mq="desktop"
-              style={{ backgroundImage: `url(${item.images.desktop3})` }}
-            />
+            <Image type={type} mq="desktop" url={item.images.desktop1} />
+            <Image type={type} mq="desktop" url={item.images.desktop2} />
+            <Image type={type} mq="desktop" url={item.images.desktop3} />
           </ImagesGrid>
-          <Image
-            type={type}
-            mq="mobile"
-            style={{ backgroundImage: `url(${item.images.mobile})` }}
-            alt=""
-          />
+          <Image type={type} mq="mobile" url={item.images.mobile} />
         </>
       );
     default:
       return (
         <>
-          <Image
-            type={type}
-            mq="desktop"
-            style={{ backgroundImage: `url(${item.images.desktop})` }}
-          />
-          <Image
-            type={type}
-            mq="mobile"
-            style={{ backgroundImage: `url(${item.images.mobile})` }}
-          />
+          <Image type={type} mq="desktop" url={item.images.desktop} />
+          <Image type={type} mq="mobile" url={item.images.mobile} />
         </>
       );
   }
@@ -65,6 +40,7 @@ function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
+    lazyLoad: true,
     nextArrow: <NextArrow type={type} />,
     prevArrow: <PrevArrow type={type} />
   };
