@@ -36,8 +36,7 @@ const Container = styled.section`
       props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.greenDark};
-    font-family: 'BitterRegular';
-    font-size: 41px;
+    font: 41px 'BitterRegular';
   }
 
   hr {
@@ -51,10 +50,7 @@ const Container = styled.section`
       props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.greenDark};
-
-    font-family: 'RalewaySemiBold';
-    font-size: 18px;
-    line-height: 25px;
+    font: 18px/25px 'RalewaySemiBold';
   }
 
   ${media.lessThan('medium')`

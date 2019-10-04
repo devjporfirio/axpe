@@ -15,9 +15,7 @@ export const Container = styled.div`
     margin-top: 24px;
 
     p {
-      font-family: 'RalewayRegular';
-      font-size: 18px;
-      line-height: 21px;
+      font: 18px/21px 'RalewayRegular';
       color: ${({ theme }) => theme.colors.white};
       margin-bottom: 24px;
     }
@@ -38,15 +36,16 @@ export const Container = styled.div`
 `;
 
 export const Highlighted = styled.p`
-  font-family: 'RalewayBlack';
-  font-size: 40px;
-  line-height: 47px;
+  font: 40px/47px 'RalewayBlack';
   text-align: left;
   color: ${({ theme }) => theme.colors.white};
   width: 315px;
 
   span:nth-child(1) {
     color: ${({ theme }) => theme.colors.greenLight};
+  }
+  span:nth-child(2) {
+    color: ${({ theme }) => theme.colors.white};
   }
   span:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};

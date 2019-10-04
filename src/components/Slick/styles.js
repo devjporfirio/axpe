@@ -147,8 +147,7 @@ export const ImagesGrid = styled.div`
       grid-area: title;
       width: 80%;
       color: ${({ theme }) => theme.colors.white};
-      font-family: 'BitterRegular';
-      font-size: 27px;
+      font: 27px 'BitterRegular';
       text-align: left;
     }
   }

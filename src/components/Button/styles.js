@@ -8,8 +8,7 @@ export const Container = styled.button`
   width: 240px;
   height: 45px;
   border-radius: 4px;
-  font-size: 15px;
-  font-family: 'RalewaySemiBold';
+  font: 15px 'RalewaySemiBold';
   line-height: 45px;
   display: block;
   text-align: center;
