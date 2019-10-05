@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Container, Banner } from './styles';
 import Api from 'services/';
-import Slick from 'components/Slick';
+import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
 import Footer from 'components/Footer';
 import { suffle } from 'helpers/utils';
@@ -49,7 +49,7 @@ export default function Home() {
           component.items &&
           component.items.length > 0 && (
             <>
-              <Slick type={COMPONENT_SLICK[type]} items={component.items} />
+              <SlickSection type={COMPONENT_SLICK[type]} items={component.items} />
             </>
           )
         );
@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <Container>
-      <Slick items={hero} />
+      <SlickSection items={hero} />
 
       {components &&
         components.length > 0 &&
