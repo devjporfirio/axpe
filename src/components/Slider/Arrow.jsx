@@ -43,7 +43,7 @@ const Arrow = styled.img`
       `}
 
   ${props =>
-    ['slickLarge', 'slickSmall'].includes(props.type) &&
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-left: -25px;`}
 `;
 
@@ -64,19 +64,19 @@ const ArrowNextWhite = styled(Arrow)`
     `}
   
   ${props =>
-    ['slickLarge', 'slickSmall'].includes(props.type) &&
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     window.innerWidth > 769 &&
     media.greaterThan('769px')`
       right: -25px;
     `}
 
   ${props =>
-    ['slickLarge', 'slickSmall'].includes(props.type) &&
+    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-right: -30px;`}
 `;
 const ArrowPrevWhite = styled(Arrow)``;
 
-export const NextArrow = ({ type = 'slick', onClick = () => {} }) => {
+export const NextArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
   return (
     <ArrowNextWhite
       type={type}
@@ -87,7 +87,7 @@ export const NextArrow = ({ type = 'slick', onClick = () => {} }) => {
   );
 };
 
-export const PrevArrow = ({ type = 'slick', onClick = () => {} }) => {
+export const PrevArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
   return (
     <ArrowPrevWhite
       type={type}

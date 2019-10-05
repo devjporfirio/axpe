@@ -39,7 +39,7 @@ export const Image = styled.div`
   height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
   z-index: 1;
   object-fit: cover;
-  background: url(${props => props.url}) center center no-repeat;\
+  background: url(${props => props.url}) center center no-repeat;
   
   ${media.lessThan('medium')`
     background-size: 100% 100%;
