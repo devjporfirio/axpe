@@ -12,13 +12,21 @@ const filtersData = require('./data/filters.json');
 // home
 homeData.components[1].items[0].building = buildingData;
 homeData.components[1].items[1].building = buildingData;
+
 homeData.components[2].items[0].building = buildingData;
 homeData.components[2].items[1].building = buildingData;
+
 homeData.components[3].items[0].building = buildingData;
 homeData.components[3].items[1].building = buildingData;
+homeData.components[3].items[2].building = buildingData;
+homeData.components[3].items[3].building = buildingData;
+
 homeData.components[4].items[0].building = buildingData;
 homeData.components[4].items[1].building = buildingData;
 homeData.components[4].items[2].building = buildingData;
+homeData.components[4].items[3].building = buildingData;
+homeData.components[4].items[4].building = buildingData;
+homeData.components[4].items[5].building = buildingData;
 
 app.get('/', cors(), (req, res) =>
   res.sendFile('./links.html', {

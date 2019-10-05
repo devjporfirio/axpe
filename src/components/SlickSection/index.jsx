@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Section from './Section';
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-import { NextArrow, PrevArrow } from './Arrow';
 import { Container, Slide, Image, ImagesGrid } from './styles';
 
 function renderBackground(type, item) {
@@ -34,32 +29,32 @@ function renderBackground(type, item) {
   }
 }
 
-function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
-  const settings = {
-    slidesToShow,
-    infinite: true,
-    speed: 500,
-    slidesToScroll: 1,
-    lazyLoad: true,
-    nextArrow: <NextArrow type={type} />,
-    prevArrow: <PrevArrow type={type} />
-  };
-
+function SlickSection({ type = 'slick', items = [] }) {
+  let slidesToShow = 1;
+  let rows = 1;
+  let slidesPerRow = 1;
+  const lengthItems = items.length;
   if (type === 'slickLarge') {
-    settings.rows =
-      window.innerWidth >= 769 ? (items.length >= 2 ? 2 : items.length) : 1;
-    settings.slidesPerRow = 1;
+    rows = 2;
+    slidesPerRow = 1;
   }
 
   if (type === 'slickSmall') {
-    settings.slidesToShow =
-      window.innerWidth >= 769 ? (items.length >= 3 ? 3 : items.length) : 1;
+    slidesToShow =
+      window.innerWidth >= 769 ? (lengthItems >= 3 ? 3 : lengthItems) : 1;
   }
 
   return (
-    <Container type={type} {...settings} length={items.length}>
+    <Container
+      type={type}
+      length={lengthItems}
+      propsArrow={{ type }}
+      slidesToShow={slidesToShow}
+      slidesPerRow={slidesPerRow}
+      rows={rows}
+    >
       {items &&
-        items.length > 0 &&
+        lengthItems > 0 &&
         items.map((item, index) => (
           <Slide
             key={item.id || index}
@@ -68,7 +63,6 @@ function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
             type={type}
           >
             {renderBackground(type, item)}
-
             <Section type={type} item={item} />
           </Slide>
         ))}
@@ -76,7 +70,7 @@ function Slick({ type = 'slick', slidesToShow = 1, items = [] }) {
   );
 }
 
-Slick.propTypes = {
+SlickSection.propTypes = {
   type: PropTypes.oneOf([
     'slick',
     'slickLeft',
@@ -87,4 +81,4 @@ Slick.propTypes = {
   items: PropTypes.array.isRequired
 };
 
-export default Slick;
+export default SlickSection;

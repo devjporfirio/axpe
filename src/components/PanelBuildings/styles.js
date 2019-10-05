@@ -18,7 +18,7 @@ export const Container = styled.div`
 
 export const Title = styled.h4`
   color: ${({ theme }) => theme.colors.green};
-  font-size: 41px/40px 'BitterBold';
+  font: 41px/40px 'BitterBold';
   line-height: 40px;
   margin: 20px 0;
 `;

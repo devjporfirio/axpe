@@ -43,7 +43,7 @@ const Arrow = styled.img`
       `}
 
   ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    ['slickLarge', 'slickSmall'].includes(props.type) &&
     media.lessThan('medium')`margin-left: -25px;`}
 `;
 
@@ -64,35 +64,35 @@ const ArrowNextWhite = styled(Arrow)`
     `}
   
   ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    ['slickLarge', 'slickSmall'].includes(props.type) &&
     window.innerWidth > 769 &&
     media.greaterThan('769px')`
       right: -25px;
     `}
 
   ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+    ['slickLarge', 'slickSmall'].includes(props.type) &&
     media.lessThan('medium')`margin-right: -30px;`}
 `;
 const ArrowPrevWhite = styled(Arrow)``;
 
-export const NextArrow = props => {
+export const NextArrow = ({ type = 'slick', onClick = () => {} }) => {
   return (
     <ArrowNextWhite
-      type={props.type}
-      onClick={props.onClick}
+      type={type}
+      onClick={onClick}
       src={IArrowNext}
-      src={props.type === 'slick' ? IArrowNext : IArrowNextBlack}
+      src={type === 'slick' ? IArrowNext : IArrowNextBlack}
     />
   );
 };
 
-export const PrevArrow = props => {
+export const PrevArrow = ({ type = 'slick', onClick = () => {} }) => {
   return (
     <ArrowPrevWhite
-      type={props.type}
-      onClick={props.onClick}
-      src={props.type === 'slick' ? IArrowPrev : IArrowPrevBlack}
+      type={type}
+      onClick={onClick}
+      src={type === 'slick' ? IArrowPrev : IArrowPrevBlack}
     />
   );
 };

@@ -106,6 +106,11 @@ const Container = styled.section`
       padding: 25px 4% 0 4%;
       height: 238px;
       width: 32%;
+
+      h4 {
+        font-size: 22px; 
+        margin-bottom: 15px;
+      }
     `}
   `};
 `;

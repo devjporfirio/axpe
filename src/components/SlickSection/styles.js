@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Slider from 'react-slick';
 import media from 'styled-media-query';
+import Slider from '../Slider';
 
 const SlickLarge = media.greaterThan('769px')`
   .slick-track {
@@ -13,18 +13,10 @@ const SlickLarge = media.greaterThan('769px')`
       height: 260px;
       margin-bottom: 40px;
     }
-
-    img {
-      width: 58%; 
-      height: 260px;
-    }
   }
 `;
 
-export const Container = styled(Slider).attrs(props => ({
-  className:
-    props.type === 'slickLarge' && window.innerWidth > 769 && 'slick-vertical'
-}))`
+export const Container = styled(Slider)`
   ${props =>
     props.type === 'slickLarge' && window.innerWidth > 769 && SlickLarge}
 
@@ -133,10 +125,6 @@ export const ImagesGrid = styled.div`
   grid-template-columns: 25% 40%;
   grid-template-rows: 277px 403px;
 
-  img {
-    max-height: 403px;
-  }
-
   div {
     text-align: center;
     background-color: ${({ theme }) => theme.colors.green};
@@ -162,10 +150,6 @@ export const ImagesGrid = styled.div`
         font-size: 22px;
         width: 238px;
         text-align: center;
-      }
-
-      img {
-        display: none;
       }
     }
   `}
