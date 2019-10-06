@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NextArrow, PrevArrow } from './Arrow';
+import { NextArrow, PrevArrow } from '../Arrow';
 
 import { Container } from './styles';
 
