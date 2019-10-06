@@ -23,11 +23,20 @@ const Arrow = styled.div`
       background-color: #fff;
       opacity: 0.8;
       top: 0;
-      left: -705px;
+      left: -698px;
       right: 0;
       margin-top: 252px;
       margin-left: auto !important;
       margin-right: auto;
+    `}
+
+  ${props =>
+    props.type === 'gallery' &&
+    media.lessThan('medium')`
+    background-color: #fff;
+    opacity: 0.8;
+    top: 0;
+    margin: 176px 0 0 0;
   `}
 
   ${props =>
@@ -68,7 +77,14 @@ const ArrowNext = styled(Arrow)`
   ${props =>
     props.type === 'gallery' &&
     media.greaterThan('769px')`
-      right: -1405px;
+      right: -1395px;
+  `}
+
+  ${props =>
+    props.type === 'gallery' &&
+    media.lessThan('medium')`
+      right: 0;
+      margin-right: 0 !important;
   `}
 
   ${props =>

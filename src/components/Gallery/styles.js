@@ -16,6 +16,7 @@ export const Image = styled.div`
   border: 2.5px solid ${({ theme }) => theme.colors.white};
   border-top: none;
   border-bottom: none;
+  height: 376px;
 
   ${media.greaterThan('769px')`
     height: 525px;

@@ -9,9 +9,9 @@ export default function Gallery({ items }) {
       <Slider
         propsArrow={{ type: 'gallery' }}
         slidesToShow={1}
-        centerMode={true}
+        centerMode={window.innerWidth >= 769 ? true : false}
         className="center"
-        variableWidth={true}
+        variableWidth={window.innerWidth >= 769 ? true : false}
       >
         {items &&
           items.length > 0 &&
