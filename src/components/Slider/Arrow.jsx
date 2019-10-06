@@ -7,7 +7,8 @@ import IArrowPrev from 'assets/icons/arrow-prev-white.svg';
 import IArrowNextBlack from 'assets/icons/arrow-next-black.svg';
 import IArrowPrevBlack from 'assets/icons/arrow-prev-black.svg';
 
-const Arrow = styled.img`
+const Arrow = styled.div`
+  background: url(${props => props.src}) center center no-repeat;
   width: 24px;
   height: 24px;
   z-index: 3;
@@ -15,6 +16,19 @@ const Arrow = styled.img`
   bottom: 0;
   margin-left: 20px;
   margin-bottom: 30px;
+
+  ${props =>
+    props.type === 'gallery' &&
+    media.greaterThan('769px')`
+      background-color: #fff;
+      opacity: 0.8;
+      top: 0;
+      left: -705px;
+      right: 0;
+      margin-top: 252px;
+      margin-left: auto !important;
+      margin-right: auto;
+  `}
 
   ${props =>
     props.type === 'slickGrid'
@@ -47,9 +61,15 @@ const Arrow = styled.img`
     media.lessThan('medium')`margin-left: -25px;`}
 `;
 
-const ArrowNextWhite = styled(Arrow)`
+const ArrowNext = styled(Arrow)`
   margin-top: -100px;
   margin-left: 60px;
+
+  ${props =>
+    props.type === 'gallery' &&
+    media.greaterThan('769px')`
+      right: -1405px;
+  `}
 
   ${props =>
     props.type === 'slickGrid'
@@ -74,11 +94,11 @@ const ArrowNextWhite = styled(Arrow)`
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-right: -30px;`}
 `;
-const ArrowPrevWhite = styled(Arrow)``;
+const ArrowPrev = styled(Arrow)``;
 
 export const NextArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
   return (
-    <ArrowNextWhite
+    <ArrowNext
       type={type}
       onClick={onClick}
       src={IArrowNext}
@@ -89,7 +109,7 @@ export const NextArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
 
 export const PrevArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
   return (
-    <ArrowPrevWhite
+    <ArrowPrev
       type={type}
       onClick={onClick}
       src={type === 'slick' ? IArrowPrev : IArrowPrevBlack}

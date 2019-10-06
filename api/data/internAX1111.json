@@ -1,0 +1,91 @@
+{
+  "building": {
+    "type": "lancamento",
+    "source": "sao-paulo",
+    "slug": "AX1111",
+    "title": null,
+    "reference": "AX1111",
+    "tour360": null,
+    "content": null,
+    "category": "Apartamento",
+    "address": {
+      "condominium": false,
+      "region": null,
+      "local": "Consolação"
+    },
+    "values": {
+      "rent": 0,
+      "release": 300000,
+      "sell": 0,
+      "free": 0
+    },
+    "infos": {
+      "use": "RESIDENCIAL",
+      "type": "VENDA",
+      "areaUseful": null,
+      "areaUsefulStart": "100",
+      "areaUsefulEnd": "200",
+      "areaTotal": null,
+      "areaBuilding": null,
+      "areaGround": null,
+      "bedrooms": null,
+      "bedroomsStart": "2",
+      "bedroomsEnd": "4",
+      "suites": null,
+      "parking": null,
+      "parkingStart": "1",
+      "parkingEnd": "3",
+      "release": null,
+      "releaseStatus": "Breve lançamento",
+      "releaseDelivery": "Dez de 2019",
+      "disclaimer": "Disclaimer",
+      "valueOnlyRequest": false
+    },
+    "imageFeatured": {
+      "desktop": null,
+      "mobile": null
+    },
+    "gallery": [
+      {
+        "tipo": "imagem",
+        "src": "http://futurebrandftp.com.br/projetos/axpe/painel/uploads/images/imoveis/galeria/881bd5dd2c47bd00e41fa8e9279331d29f7e3197.png"
+      },
+      {
+        "tipo": "imagem",
+        "src": "http://futurebrandftp.com.br/projetos/axpe/painel/uploads/images/imoveis/galeria/34223dd85a1b4aafcca8ae3bfbbf2e9a6f411dfb.png"
+      }
+    ],
+    "components": [
+      {
+        "module": {
+          "slug": "destaque-1",
+          "title": "Destaque 1"
+        },
+        "data": {
+          "title": "O escritório Andrade Morettin",
+          "text": "Fundado em 1997 por dois amigos desde então vem colecionando vitórias e menções em diversos concursos no brasil e no exterior.",
+          "mediaType": "imagem",
+          "image": "http://futurebrandftp.com.br/projetos/axpe/painel/uploads/images/imoveis/modulos/destaque-1/96b94affeeb8d00aec22a5f7e40200b587be7a54.png",
+          "src": null
+        }
+      },
+      {
+        "module": {
+          "slug": "destaque-texto-bullets",
+          "title": "Destaque texto + bullets"
+        },
+        "data": {
+          "texts": {
+            "title": "O cidade Materazzo é uma tranquila ilha de cultura e lazer no coração da Avenida Paulista, nos Jardins, o corredor cultural de São Paulo",
+            "text": "O magnífico prédito da antiga Maternidade Matarazzo seguda oprimeiro hotel."
+          },
+          "bullets": [
+            "Bullet 2",
+            "Bullet 3",
+            "Bullet 1"
+          ]
+        }
+      }
+    ]
+  }
+}

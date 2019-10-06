@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Slider from 'react-slick';
 import { NextArrow, PrevArrow } from './Arrow';
+
+import { Container } from './styles';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -15,6 +16,7 @@ export default function Slick({
   asNavFor = null,
   centerMode = false,
   rows = 1,
+  variableWidth = false,
   propsArrow,
 
   reference = null,
@@ -30,17 +32,20 @@ export default function Slick({
     swipeToSlide,
     focusOnSelect,
     asNavFor,
-    centerMode,
     rows,
+    centerPadding: '0px',
+    centerMode,
+    variableWidth,
+    // fade: true,
     infinite: true,
     speed: 500,
-    lazyLoad: true,
+    lazyLoad: !centerMode,
     nextArrow: <NextArrow {...propsArrow} />,
     prevArrow: <PrevArrow {...propsArrow} />
   };
 
   return (
-    <Slider
+    <Container
       {...settings}
       className={className}
       type={type}
@@ -48,7 +53,7 @@ export default function Slick({
       ref={reference}
     >
       {children}
-    </Slider>
+    </Container>
   );
 }
 
@@ -60,10 +65,13 @@ Slick.propTypes = {
   focusOnSelect: PropTypes.bool,
   asNavFor: PropTypes.object,
   rows: PropTypes.number,
-  
+
   propsArrow: PropTypes.object,
   reference: PropTypes.func,
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   type: PropTypes.string,
   lenght: PropTypes.number,
   className: PropTypes.string
