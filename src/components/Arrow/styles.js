@@ -33,10 +33,9 @@ const galleryNext = `
 const slickGridArrow = `
   ${media.greaterThan('769px')`
     right: 20%;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
   `.join('')}
 `;
-
 const slickGridNext = `
   ${media.greaterThan('769px')`right: 16%;`.join('')}
 `;
@@ -48,7 +47,7 @@ const slickLargeArrow = `
     margin-bottom: 308px;
   `.join('')}
 `;
-    
+
 /* SlickSmall*/
 const slickSmallArrow = `
   ${media.greaterThan('769px')`
@@ -72,7 +71,9 @@ const Arrow = styled.div`
   ${props => props.type === 'slickLarge' && slickLargeArrow}
   ${props => props.type === 'slickSmall' && slickSmallArrow}
   
-  ${media.greaterThan('769px')`
+  ${props =>
+    [ 'slick', 'slickLeft' ].includes(props.type) &&
+    media.greaterThan('769px')`
     margin-left: 120px;
     margin-bottom: 120px;
   `}

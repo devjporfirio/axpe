@@ -53,7 +53,8 @@ export const Image = styled.div`
       padding-top: 66.64%;
   ` &&
     media.greaterThan('769px')`
-    height: auto;
+      background-size: 100% auto;
+      height: auto;
   `}
       
   ${props =>
