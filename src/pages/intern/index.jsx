@@ -19,9 +19,18 @@ export default function Intern({ match }) {
 
   return (
     <Container>
-      <Breadcrumb />
+      {Object.keys(property).length > 0 && (
+        <Breadcrumb
+          category={property.category}
+          local={property.address.local}
+          reference={property.reference}
+          favorito={false}
+        />
+      )}
       <br />
-      {property && property.gallery && <Gallery items={property.gallery} tour360={property.tour360} />}
+      {property && property.gallery && (
+        <Gallery items={property.gallery} tour360={property.tour360} />
+      )}
     </Container>
   );
 }
