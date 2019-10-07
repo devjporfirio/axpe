@@ -5,7 +5,7 @@ export const Container = styled.div`
   margin: auto;
 
   .slick-slide {
-    width: calc(100vh - 100px);
+    width: calc(100vw - 500px);
   }
 `;
 
@@ -20,5 +20,60 @@ export const Image = styled.div`
 
   ${media.greaterThan('769px')`
     height: 525px;
+  `}
+`;
+
+export const Button360 = styled.div`
+  width: 53px;
+  height: 53px;
+  background-color: ${({ theme }) => theme.colors.orange};
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1;
+  position: absolute;
+  right: 20px;
+  margin-top: 20px;
+
+  img {
+    width: 32px;
+  }
+
+  ${media.greaterThan('769px')`
+    width: 66px;
+    height: 66px;
+
+    img {
+      width: 40px;
+    }
+  `}
+`;
+
+export const SizeGallery = styled.div`
+  background-color: ${({ theme }) => theme.colors.green};
+  width: 35px;
+  height: 52px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
+  margin-top: -62px;
+
+  span {
+    font: 10px 'BitterRegular';
+    color: ${({ theme }) => theme.colors.grey};
+  }
+
+  img {
+    width: 24px;
+    margin-top: 7px;
+  }
+
+  ${media.greaterThan('769px')`
+    display: none;
   `}
 `;

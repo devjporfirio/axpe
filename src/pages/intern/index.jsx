@@ -21,7 +21,7 @@ export default function Intern({ match }) {
     <Container>
       <Breadcrumb />
       <br />
-      {property && property.gallery && <Gallery items={property.gallery} />}
+      {property && property.gallery && <Gallery items={property.gallery} tour360={property.tour360} />}
     </Container>
   );
 }

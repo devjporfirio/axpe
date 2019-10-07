@@ -7,10 +7,7 @@ const galleryArrow = `
     background-color: #fff;
     opacity: 0.8;
     top: 0;
-    left: -698px;
-    right: 0;
     margin-top: 252px;
-    margin-left: auto !important;
     margin-right: auto;
   `.join('')}
 
@@ -21,8 +18,15 @@ const galleryArrow = `
     margin: 176px 0 0 0;
   `.join('')}
 `;
-const slickGridNext = `
-  ${media.greaterThan('769px')`right: 16%;`.join('')}
+const galleryNext = `
+  ${media.greaterThan('769px')`
+      right: 120px;
+  `.join('')}
+
+  ${media.lessThan('medium')`
+    right: 0;
+    margin-right: 0 !important;
+  `.join('')}
 `;
 
 /* Slick Grid */
@@ -32,15 +36,9 @@ const slickGridArrow = `
     margin-bottom: 60px;
   `.join('')}
 `;
-const galleryNext = `
-  ${media.greaterThan('769px')`
-      right: -1395px;
-  `.join('')}
 
-  ${media.lessThan('medium')`
-    right: 0;
-    margin-right: 0 !important;
-  `.join('')}
+const slickGridNext = `
+  ${media.greaterThan('769px')`right: 16%;`.join('')}
 `;
 
 /* SlickLarge*/
