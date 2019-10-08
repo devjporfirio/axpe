@@ -74,7 +74,7 @@ export const InfoRight = styled.div`
 
 export const Reference = styled.span`
   font: 14px 'BitterRegular';
-  width: 85px;
+  width: 90px;
 `;
 
 export const FavoriteMobile = styled.img`

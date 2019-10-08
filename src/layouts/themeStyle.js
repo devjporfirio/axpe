@@ -10,6 +10,10 @@ const theme = {
     greenLight: '#39B999',
     green: '#3F5A5E',
     greenDark: '#37474F',
+    greenBorder: '#374E52',
+    greenLight2: '#89D4AA',
+    blueLight: '#77D0DD',
+    yellowLight: '#FFDBA8'
   },
   mq: {
     'mobile-small': '320px',

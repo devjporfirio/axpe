@@ -3,9 +3,11 @@ import media from 'styled-media-query';
 
 export const Container = styled.div`
   margin: auto;
+  max-width: 1000px;
 
   .slick-slide {
     width: calc(100vw - 500px);
+    max-width: 600px;
   }
 `;
 
@@ -60,9 +62,9 @@ export const SizeGallery = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  position: absolute;
-  right: 10px;
+  position: sticky;
   margin-top: -62px;
+  margin-left: calc(100vw - 45px);
 
   span {
     font: 10px 'BitterRegular';

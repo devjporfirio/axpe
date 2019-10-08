@@ -12,7 +12,8 @@
     "lint-staged": "lint-staged",
     "server": "http-server build -o",
     "api": "node api/index.js",
-    "deploy": "netlify deploy build"
+    "deploy": "yarn build && cp build/index.html build/404.html",
+    "netlify": "netlify deploy --prod --dir=build"
   },
   "author": "",
   "license": "ISC",

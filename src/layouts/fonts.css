@@ -20,6 +20,10 @@
   src: url('../assets/fonts/Raleway/Raleway-Regular.ttf') format('truetype');
 }
 @font-face {
+  font-family: 'RalewayMedium';
+  src: url('../assets/fonts/Raleway/Raleway-Medium.ttf') format('truetype');
+}
+@font-face {
   font-family: 'RalewaySemiBold';
   src: url('../assets/fonts/Raleway/Raleway-SemiBold.ttf') format('truetype');
 }

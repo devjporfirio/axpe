@@ -18,7 +18,7 @@ import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
 import Phone from '../Phone';
 
-export default function Breadcrumb({ category, local, reference, favorito }) {
+export default function Breadcrumb({ category, local, reference, search }) {
   return (
     <Container>
       <InfoLeft>
@@ -31,7 +31,7 @@ export default function Breadcrumb({ category, local, reference, favorito }) {
         </BackMobile>
         <div>
           <p>{category}</p>
-          <a href={`/search/${local}`}>{local}</a>
+          <a href={`/search/${search}`}>{local}</a>
         </div>
       </InfoLeft>
 

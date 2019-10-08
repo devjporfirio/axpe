@@ -9,6 +9,7 @@ const galleryArrow = `
     top: 0;
     margin-top: 252px;
     margin-right: auto;
+    margin-left: 173px;
   `.join('')}
 
   ${media.lessThan('medium')`
@@ -17,15 +18,23 @@ const galleryArrow = `
     top: 0;
     margin: 176px 0 0 0;
   `.join('')}
+
+  ${media.between('769px', '1202px')`
+    margin-left: 15%;
+  `.join('')}
 `;
 const galleryNext = `
   ${media.greaterThan('769px')`
-      right: 120px;
+      right: 173px;
   `.join('')}
 
   ${media.lessThan('medium')`
     right: 0;
     margin-right: 0 !important;
+  `.join('')}
+
+  ${media.between('769px', '1202px')`
+    right: 15%;
   `.join('')}
 `;
 
