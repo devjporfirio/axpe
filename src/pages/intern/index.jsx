@@ -53,7 +53,7 @@ export default function Intern({ match }) {
       <br />
 
       <Datasheet>
-        <BlockOne>
+        <BlockOne type={property.type}>
           <div>
             <Type>{property.category}</Type>
             <br />
@@ -61,10 +61,12 @@ export default function Intern({ match }) {
             <Ref>Ref {property.reference}</Ref>
           </div>
 
-          <GroupButton>
-            <Button label={'Novidade'} icon="star" color="blueLight" />
-            <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
-          </GroupButton>
+          {property.type === 'pronto' && (
+            <GroupButton>
+              <Button label={'Novidade'} icon="star" color="blueLight" />
+              <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
+            </GroupButton>
+          )}
         </BlockOne>
         {property.content && (
           <BlockTwo>
@@ -103,10 +105,14 @@ export default function Intern({ match }) {
             <p>Área coberta</p>
           </InfoValue>
         </BlockThree>
-        {property.type !== 'pronto' && (
-          <Delivery>Previsão de entrega em <span>{property.infos.releaseDelivery}</span></Delivery>
-        )}
       </Datasheet>
+      {property.type !== 'pronto' && (
+        <Delivery>
+          <p>
+            Previsão de entrega em <span>{property.infos.releaseDelivery}</span>
+          </p>
+        </Delivery>
+      )}
       <Alert>
         Todas as informações aqui contidas, incluindo preço, metragem quadrada e
         valores são aproximadas e não garantidas, devendo ser confirmadas
