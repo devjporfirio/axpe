@@ -8,7 +8,7 @@ export const Container = styled.main`
   border: 1px solid ${({ theme }) => theme.colors.greyDark};
 `;
 
-export const Datasheet = styled.div`
+export const DatasheetContent = styled.div`
   max-width: 1000px;
   margin: auto;
   background-color: ${({ theme }) => theme.colors.green};
@@ -43,13 +43,16 @@ export const Block = styled.div`
 export const BlockOne = styled(Block)`
   ${media.greaterThan('769px')`
     flex-direction: column;
-    justify-content: ${props => props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
+    justify-content: ${props =>
+      props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
     align-items: flex-start;
     width: 230px;
     flex-shrink: 0;
   `}
 
-  ${props => props.type !== 'pronto' && media.greaterThan('769px')`
+  ${props =>
+    props.type !== 'pronto' &&
+    media.greaterThan('769px')`
     width: 308px;
     flex-shrink: 0;
   `}
@@ -150,6 +153,11 @@ export const Price = styled.div`
 `;
 
 export const InfoValue = styled.div`
+  height: 82px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   p:nth-child(1) {
     font: 18px 'RalewaySemiBold';
   }

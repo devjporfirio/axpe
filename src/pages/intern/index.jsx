@@ -3,23 +3,9 @@ import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import Api from 'services';
 
-import {
-  Container,
-  Datasheet,
-  BlockOne,
-  BlockTwo,
-  BlockThree,
-  InfoValue,
-  Alert,
-  GroupButton,
-  Type,
-  Neighborhood,
-  Ref,
-  Price,
-  Content,
-  Delivery
-} from './styles';
-import Button from '../../components/Button';
+import { Container, Alert, Delivery } from './styles';
+
+import DataSheet from './Datasheet';
 
 export default function Intern({ match }) {
   const { reference } = match.params;
@@ -52,60 +38,8 @@ export default function Intern({ match }) {
       )}
       <br />
 
-      <Datasheet>
-        <BlockOne type={property.type}>
-          <div>
-            <Type>{property.category}</Type>
-            <br />
-            <Neighborhood>{property.address.local}</Neighborhood>
-            <Ref>Ref {property.reference}</Ref>
-          </div>
+      <DataSheet property={property} />
 
-          {property.type === 'pronto' && (
-            <GroupButton>
-              <Button label={'Novidade'} icon="star" color="blueLight" />
-              <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
-            </GroupButton>
-          )}
-        </BlockOne>
-        {property.content && (
-          <BlockTwo>
-            <Content>{property.content}</Content>
-          </BlockTwo>
-        )}
-        <BlockThree>
-          <Price>
-            <p>Venda:</p>
-            <p>R$ 2.498.000</p>
-            <p>
-              IPTU: 10x R$150
-              <br />
-              Condominio: R$ 1400,00
-            </p>
-          </Price>
-          <Price>
-            <p>Aluguel:</p>
-            <p>R$ 15.050</p>
-            <p>Total locação: R$ 11.550,00 (Aluguel + IPTU + Cond.)</p>
-          </Price>
-          <InfoValue>
-            <p>3 Quartos</p>
-            <p>sendo 2 suítes</p>
-          </InfoValue>
-          <InfoValue>
-            <p>3</p>
-            <p>Vagas</p>
-          </InfoValue>
-          <InfoValue>
-            <p>160m²</p>
-            <p>Área útil</p>
-          </InfoValue>
-          <InfoValue>
-            <p>120m²</p>
-            <p>Área coberta</p>
-          </InfoValue>
-        </BlockThree>
-      </Datasheet>
       {property.type !== 'pronto' && (
         <Delivery>
           <p>

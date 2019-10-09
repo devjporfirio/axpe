@@ -1,7 +1,11 @@
 export default {
   async loadIntern(reference) {
-    // http://futurebrandftp.com.br/projetos/axpe/painel/api/building/AX1111
-    // http://futurebrandftp.com.br/projetos/axpe/painel/api/building/AX2629
+              //      category  - type
+      // AX1111    - Apartamento - lancamento
+      // AX2629    - Casa        - pronto
+      // AX10010   - Apartamento - pronto
+      // AX130883  - Cobertura   - pronto
+      // AX129334  - Terreno     - pronto
 
     const result = await fetch(`${process.env.config.apiUrl}/building/${reference}`)
       .then(response => response.json())
