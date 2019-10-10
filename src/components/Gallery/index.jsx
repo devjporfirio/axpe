@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from '../Slider';
 import { Container, Image, Button360, SizeGallery } from './styles';
 import I360 from 'assets/icons/360.svg';
 import IGrid from 'assets/icons/grid.svg';
+import GalleryNav from '../GalleryNav';
 
 export default function Gallery({ items, tour360 }) {
+  const [ showGalleryNav, setShowGalleryNav ] = useState(false);
+
   return (
     <Container>
       {tour360 && (
@@ -29,10 +32,12 @@ export default function Gallery({ items, tour360 }) {
             }
           })}
       </Slider>
-      <SizeGallery>
+      <SizeGallery onClick={() => setShowGalleryNav(true)}>
         <img src={IGrid} alt="Galeria de fotos" />
         <span>{items.length}</span>
       </SizeGallery>
+
+      {showGalleryNav && <GalleryNav />}
     </Container>
   );
 }
