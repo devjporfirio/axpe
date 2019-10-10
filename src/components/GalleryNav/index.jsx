@@ -1,71 +1,58 @@
 import React, { useState } from 'react';
 import Slider from '../Slider';
-import { Container } from './styles';
+import { SliderNav2 } from './styles';
 import Modal from '../Modal';
 
-export default function GalleryNav() {
+export default function GalleryNav({ items = [], onClose }) {
   const [ nav1, setNav1 ] = useState(null);
   const [ nav2, setNav2 ] = useState(null);
   const slider1 = React.createRef();
   const slider2 = React.createRef();
 
   return (
-    <Modal isOpen={true} label="Galeria de fotos">
-      <Container>
-        <h4>First Slider</h4>
+    <Modal isOpen={true} label="Galeria de fotos" closeModal={onClose}>
+      <div>
         <Slider
           asNavFor={nav2}
           reference={slider => {
             setNav1(slider);
             return (slider1.current = slider);
           }}
+          arrows={false}
           slidesToShow={1}
         >
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
+          {items &&
+            items.length > 0 &&
+            items.map((item, index) => (
+              <div key={index}>
+                <img src={item.src} alt="Imóvel" />
+              </div>
+            ))}
         </Slider>
 
-        <h4>Second Slider</h4>
-        <Slider
+        <br />
+
+        <SliderNav2
           asNavFor={nav1}
           reference={slider => {
             setNav2(slider);
             return (slider2.current = slider);
           }}
+          centerMode={true}
           slidesToShow={3}
+          arrows={false}
           swipeToSlide={true}
           focusOnSelect={true}
         >
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-        </Slider>
-      </Container>
+          {items &&
+            items.length > 0 &&
+            items.map((item, index) => (
+              <div key={index}>
+                <img src={item.src} alt="Imóvel" />
+              </div>
+            ))}
+        </SliderNav2>
+      </div>
     </Modal>
   );
 }

@@ -7,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   height: 46px;
   padding: 10px 20px;
-  border: 1px solid ${({ theme }) => theme.colors.greyDark};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
   background-color: ${({ theme }) => theme.colors.white};
 
   ${media.greaterThan('769px')`

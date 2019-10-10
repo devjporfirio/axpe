@@ -7,7 +7,10 @@ export const Container = styled.div`
 
   .slick-slide {
     width: calc(100vw - 500px);
-    max-width: 600px;
+
+    ${media.greaterThan('769px')`
+      max-width: 600px;
+    `}
   }
 `;
 

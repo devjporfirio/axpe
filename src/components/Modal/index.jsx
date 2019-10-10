@@ -1,25 +1,33 @@
 import React from 'react';
-import ReactModal from 'react-modal';
+import { Container, ButtonClose } from './styles';
+import IClose from 'assets/icons/close.svg';
 
-ReactModal.setAppElement('#main');
+const customStyles = {
+  overlay: {
+    top: '67px',
+    zIndex: 10
+  }
+};
 
 export default function Modal({
   open = true,
   afterOpenModal = () => {},
   closeModal = () => {},
-  customStyles = {},
   label = 'Example Modal',
   children
 }) {
   return (
-    <ReactModal
+    <Container
       isOpen={open}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      style={customStyles}
       contentLabel={label}
+      style={customStyles}
     >
+      <ButtonClose onClick={closeModal}>
+        <img src={IClose} alt="Fechar" />
+      </ButtonClose>
       {children}
-    </ReactModal>
+    </Container>
   );
 }

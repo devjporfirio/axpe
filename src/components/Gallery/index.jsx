@@ -37,7 +37,9 @@ export default function Gallery({ items, tour360 }) {
         <span>{items.length}</span>
       </SizeGallery>
 
-      {showGalleryNav && <GalleryNav />}
+      {showGalleryNav && (
+        <GalleryNav items={items} onClose={() => setShowGalleryNav(false)} />
+      )}
     </Container>
   );
 }
