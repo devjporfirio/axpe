@@ -9,28 +9,28 @@ export const Release = ({ release }) =>
     </Price>
   );
 
-export const Rent = ({ rent }) =>
+export const Rent = ({ rent, iptu, condo }) =>
   !!rent && (
     <Price>
       <p>Aluguel:</p>
       <p>R$ {rent}</p>
       <p>
-        Total locação: R$ 11.550,00
+        Total locação: R${rent + iptu + condo}
         <br />
         (Aluguel + IPTU + Cond.)
       </p>
     </Price>
   );
 
-export const Sell = ({ sell }) =>
+export const Sell = ({ sell, iptu, condo }) =>
   !!sell && (
     <Price>
       <p>Venda:</p>
       <p>{sell}</p>
       <p>
-        IPTU: 10x R$150
+        IPTU: 10x R$ {iptu}
         <br />
-        Condominio: R$ 1400,00
+        Condominio: R$ {condo}
       </p>
     </Price>
   );

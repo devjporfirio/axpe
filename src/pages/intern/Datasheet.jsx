@@ -39,9 +39,15 @@ export default function Datasheet({ property }) {
         </div>
 
         <GroupButton>
-          <Button label={'Novidade'} icon="star" color="blueLight" />
-          <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
-          <Button label={'Mobiliado'} icon="sofa" color="yellowLight" />
+          {property.label.is_new && (
+            <Button label={'Novidade'} icon="star" color="blueLight" />
+          )}
+          {property.label.is_exclusive && (
+            <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
+          )}
+          {property.label.is_furnished && (
+            <Button label={'Mobiliado'} icon="sofa" color="yellowLight" />
+          )}
         </GroupButton>
       </BlockOne>
       {property.content && (
@@ -51,8 +57,16 @@ export default function Datasheet({ property }) {
       )}
       <BlockThree>
         <Release release={property.values.release} />
-        <Rent rent={property.values.rent} />
-        <Sell sell={property.values.sell} />
+        <Rent
+          rent={property.values.rent}
+          iptu={property.values.iptu}
+          condo={property.values.condo}
+        />
+        <Sell
+          sell={property.values.sell}
+          iptu={property.values.iptu}
+          condo={property.values.condo}
+        />
         <Bedrooms
           bedrooms={property.infos.bedrooms}
           suites={property.infos.suites}

@@ -12,7 +12,6 @@ export const Container = styled(Modal)`
     max-height: calc(100vh - 67px);
 
     ${media.greaterThan('769px')`
-      width: auto !important;
       margin: auto;
       display: block !important;
       max-height: calc(100vh - 150px);
