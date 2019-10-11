@@ -7,7 +7,8 @@ export const Container = styled(Modal)`
   top: 0;
   background-color: ${({ theme }) => theme.colors.greenDark};
 
-  img {
+  img,
+  iframe {
     max-width: 100vw;
     max-height: calc(100vh - 67px);
 
@@ -17,7 +18,12 @@ export const Container = styled(Modal)`
       max-height: calc(100vh - 150px);
     `}
   }
-  
+
+  iframe {
+    display: none;
+    height: calc(100vh - 100px);
+  }
+
   .slick-slider {
     width: 80%;
     margin: auto;
@@ -29,7 +35,21 @@ export const Container = styled(Modal)`
 `;
 
 export const ButtonClose = styled.button`
-  display: none;
+  position: absolute;
+  top: -47px;
+  right: 20px;
+  background-color: ${({ theme }) => theme.colors.white};
+  width: 30px;
+  height: 30px;
+
+  img {
+    width: 15px;
+    height: 15px;
+  }
+  
+  span {
+    display: none;
+  }
 
   ${media.greaterThan('769px')`
     display: block;

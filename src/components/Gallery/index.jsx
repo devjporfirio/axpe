@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from '../Slider';
-import { Container, Image, Button360, SizeGallery } from './styles';
+import { Container, Image, Video, Button360, SizeGallery } from './styles';
 import I360 from 'assets/icons/360.svg';
 import IGrid from 'assets/icons/grid.svg';
 import GalleryNav from '../GalleryNav';
@@ -39,6 +39,16 @@ export default function Gallery({ items, tour360 }) {
                     }}
                     key={index}
                     url={item.src}
+                  />
+                );
+              case 'video':
+                return (
+                  <Video
+                    key={index}
+                    src={item.video}
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
                   />
                 );
             }

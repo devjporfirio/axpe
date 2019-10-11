@@ -3,7 +3,7 @@ import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import Api from 'services';
 
-import { Container, Alert, Delivery } from './styles';
+import { Container, Alert, Delivery, HowWeLove } from './styles';
 
 import DataSheet from './Datasheet';
 
@@ -54,6 +54,10 @@ export default function Intern({ match }) {
         imagens são meramente ilustrativas e os valores estão sujeitos a
         alteração de tabela.
       </Alert>
+      <HowWeLove>
+        <p>Porque adoramos esse imovel</p>
+      </HowWeLove>
+      <br/>
     </Container>
   );
 }
