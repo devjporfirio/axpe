@@ -5,9 +5,12 @@ import { Container, Image, Button360, SizeGallery } from './styles';
 import I360 from 'assets/icons/360.svg';
 import IGrid from 'assets/icons/grid.svg';
 import GalleryNav from '../GalleryNav';
+import FullImage from '../FullImage';
 
 export default function Gallery({ items, tour360 }) {
   const [ showGalleryNav, setShowGalleryNav ] = useState(false);
+  const [ showFullImage, setShowFullImage ] = useState(false);
+  const [ imageSelected, setImageSelected ] = useState(null);
 
   return (
     <Container>
@@ -28,7 +31,16 @@ export default function Gallery({ items, tour360 }) {
           items.map((item, index) => {
             switch (item.tipo) {
               case 'imagem':
-                return <Image key={index} url={item.src} />;
+                return (
+                  <Image
+                    onClick={() => {
+                      setImageSelected(index);
+                      setShowFullImage(true);
+                    }}
+                    key={index}
+                    url={item.src}
+                  />
+                );
             }
           })}
       </Slider>
@@ -39,6 +51,14 @@ export default function Gallery({ items, tour360 }) {
 
       {showGalleryNav && (
         <GalleryNav items={items} onClose={() => setShowGalleryNav(false)} />
+      )}
+
+      {showFullImage && (
+        <FullImage
+          goTo={imageSelected}
+          items={items}
+          onClose={() => setShowFullImage(false)}
+        />
       )}
     </Container>
   );

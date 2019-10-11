@@ -1,5 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+
+const galleryFullArrow = css`
+  background-color: #fff;
+  opacity: 0.8;
+  margin: auto;
+  bottom: unset;
+  top: 45%;
+  margin-left: -24px;
+
+  ${media.lessThan('medium')`
+    display: none;
+  `}
+`;
+
+const galleryFullNext = css`
+  margin-left: 100% !important;
+  margin-top: 0;
+
+  ${media.lessThan('medium')`
+    display: none;
+  `}
+`;
 
 /* Gallery */
 const galleryArrow = `
@@ -76,6 +98,7 @@ const Arrow = styled.div`
   margin-bottom: 30px;
 
   ${props => props.type === 'gallery' && galleryArrow}
+  ${props => props.type === 'galleryFull' && galleryFullArrow}
   ${props => props.type === 'slickGrid' && slickGridArrow}
   ${props => props.type === 'slickLarge' && slickLargeArrow}
   ${props => props.type === 'slickSmall' && slickSmallArrow}
@@ -103,6 +126,7 @@ export const ArrowNext = styled(Arrow)`
   margin-left: 60px;
 
   ${props => props.type === 'gallery' && galleryNext}
+  ${props => props.type === 'galleryFull' && galleryFullNext}
   ${props => props.type === 'slickGrid' && slickGridNext}
 
   ${media.greaterThan('769px')`margin-left: 160px;`}

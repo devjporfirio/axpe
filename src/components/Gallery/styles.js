@@ -15,9 +15,8 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.div`
-  object-fit: cover;
   background: url(${props => props.url}) center center no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
   box-sizing: border-box;
   border: 2.5px solid ${({ theme }) => theme.colors.white};
   border-top: none;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Slider from '../Slider';
-import { SliderNav2 } from './styles';
+import { SliderNav2, ButtonClose } from './styles';
 import Modal from '../Modal';
+import IClose from 'assets/icons/close-green.svg';
 
 export default function GalleryNav({ items = [], onClose }) {
   const [ nav1, setNav1 ] = useState(null);
@@ -11,6 +12,10 @@ export default function GalleryNav({ items = [], onClose }) {
 
   return (
     <Modal isOpen={true} label="Galeria de fotos" closeModal={onClose}>
+      <ButtonClose onClick={onClose}>
+        <img src={IClose} alt="Fechar" />
+        <span>Fechar</span>
+      </ButtonClose>
       <div>
         <Slider
           asNavFor={nav2}

@@ -8,6 +8,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function Slick({
+  adaptiveHeight = false,
+  initialSlide = 1,
   slidesPerRow = 1,
   slidesToShow = 1,
   slidesToScroll = 1,
@@ -27,6 +29,8 @@ export default function Slick({
   className
 }) {
   const settings = {
+    adaptiveHeight,
+    initialSlide,
     slidesPerRow,
     slidesToShow,
     slidesToScroll,

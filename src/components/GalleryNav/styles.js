@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import Slider from '../Slider';
 
 export const SliderNav2 = styled(Slider)`
@@ -10,3 +11,29 @@ export const SliderNav2 = styled(Slider)`
     opacity: 1;
   }
 `;
+
+export const ButtonClose = styled.button`
+  position: absolute;
+  top: -47px;
+  right: 20px;
+  background-color: ${({ theme }) => theme.colors.white};
+  width: 30px;
+  height: 30px;
+
+  img {
+    width: 15px;
+    height: 15px;
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.white};
+    text-transform: uppercase;
+  }
+
+  ${media.lessThan('medium')`
+    span {
+      display: none;
+    }
+  `}
+`;
+
