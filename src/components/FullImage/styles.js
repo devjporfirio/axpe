@@ -34,36 +34,3 @@ export const Container = styled(Modal)`
     `}
   }
 `;
-
-export const ButtonClose = styled.button`
-  position: absolute;
-  top: -47px;
-  right: 20px;
-  background-color: ${({ theme }) => theme.colors.white};
-  width: 30px;
-  height: 30px;
-
-  img {
-    width: 15px;
-    height: 15px;
-  }
-
-  span {
-    display: none;
-  }
-
-  ${media.greaterThan('769px')`
-    display: block;
-    background: none;
-    font: 14px 'RalewaySemiBold';
-    margin: 75px 78px 20px auto;
-    display: flex;
-    align-items: center;
-    width: auto;
-
-    span {
-      color: ${({ theme }) => theme.colors.white};
-      display: block;
-    }
-  `}
-`;

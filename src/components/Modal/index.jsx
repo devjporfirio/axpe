@@ -1,5 +1,8 @@
 import React from 'react';
-import { Container } from './styles';
+import { Container, ButtonClose } from './styles';
+
+import IClose from 'assets/icons/close-white.svg';
+import ICloseGreen from 'assets/icons/close-green.svg';
 
 export default function Modal({
   open = true,
@@ -8,7 +11,9 @@ export default function Modal({
   label = 'Example Modal',
   children,
   stylesC = {},
-  className
+  className,
+  styleCButtonClose = {},
+  iconButtonWhite = true
 }) {
   const customStyles = {
     overlay: {
@@ -30,6 +35,19 @@ export default function Modal({
       contentLabel={label}
       style={customStyles}
     >
+      <ButtonClose
+        iconButtonWhite={iconButtonWhite}
+        style={styleCButtonClose}
+        onClick={closeModal}
+      >
+        <span>Fechar</span>
+        <img
+          src={
+            window.innerWidth > 769 && iconButtonWhite ? IClose : ICloseGreen
+          }
+          alt="Fechar"
+        />
+      </ButtonClose>
       {children}
     </Container>
   );

@@ -1,9 +1,7 @@
 import React from 'react';
 import Slider from '../Slider';
-import IClose from 'assets/icons/close-white.svg';
-import ICloseGreen from 'assets/icons/close-green.svg';
 
-import { Container, ButtonClose } from './styles';
+import { Container } from './styles';
 
 export default function FullImage({ goTo, onClose, items }) {
   return (
@@ -12,13 +10,7 @@ export default function FullImage({ goTo, onClose, items }) {
       label="Galeria de fotos"
       closeModal={onClose}
     >
-      <ButtonClose onClick={onClose}>
-        <span>Fechar</span>
-        <img
-          src={window.innerWidth > 769 ? IClose : ICloseGreen}
-          alt="Fechar"
-        />
-      </ButtonClose>
+      
 
       <Slider
         propsArrow={{ type: 'galleryFull' }}

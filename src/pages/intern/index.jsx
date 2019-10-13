@@ -50,6 +50,7 @@ export default function Intern({ match }) {
           </p>
         </Delivery>
       )}
+      <br />
       <Alert>
         Todas as informações aqui contidas, incluindo preço, metragem quadrada e
         valores são aproximadas e não garantidas, devendo ser confirmadas
@@ -88,7 +89,10 @@ export default function Intern({ match }) {
       />
 
       {showModalPlant && (
-        <ModalPlant onClose={() => setShowModalPlant(false)} />
+        <ModalPlant
+          property={property}
+          onClose={() => setShowModalPlant(false)}
+        />
       )}
     </Container>
   );

@@ -180,6 +180,10 @@ function renderSelection(type, item) {
   }
 }
 
-export default function Slick({ type, item }) {
-  return <Container type={type}>{renderSelection(type, item)}</Container>;
+export default function Slick({ type, item, className }) {
+  return (
+    <Container className={className} type={type}>
+      {renderSelection(type, item)}
+    </Container>
+  );
 }

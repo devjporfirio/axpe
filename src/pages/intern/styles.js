@@ -46,7 +46,6 @@ export const BlockOne = styled(Block)`
     justify-content: ${props =>
       props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
     align-items: flex-start;
-    width: 230px;
     flex-shrink: 0;
   `}
 
@@ -127,7 +126,7 @@ export const GroupButton = styled.div`
 `;
 
 export const Alert = styled.p`
-  max-width: 1000px;
+  max-width: 970px;
   margin: auto;
   text-align: center;
   font: 10.6px 'BitterRegular';
@@ -166,14 +165,14 @@ export const InfoValue = styled.div`
   }
 `;
 
-
 export const HowWeLove = styled.div`
   width: 100vw;
   height: 552px;
-  background-color: #91A8AB;
+  background-color: #91a8ab;
 
   ${media.greaterThan('medium')`
-    width: 1000px;
+    max-width: 1000px;
+    width: 100%;
     margin: auto;
     height: 564px;
   `}

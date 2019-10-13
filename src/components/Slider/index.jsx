@@ -9,7 +9,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 export default function Slick({
   adaptiveHeight = false,
-  initialSlide = 1,
+  initialSlide = 0,
   slidesPerRow = 1,
   slidesToShow = 1,
   slidesToScroll = 1,

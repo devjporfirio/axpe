@@ -32,6 +32,10 @@
   src: url('../assets/fonts/Raleway/Raleway-ExtraBold.ttf') format('truetype');
 }
 @font-face {
+  font-family: 'RalewayBold';
+  src: url('../assets/fonts/Raleway/Raleway-Bold.ttf') format('truetype');
+}
+@font-face {
   font-family: 'RalewayBlack';
   src: url('../assets/fonts/Raleway/Raleway-Black.ttf') format('truetype');
 }
