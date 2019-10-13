@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
+import BlockHighlighted from 'components/BlockHighlighted';
 import Api from 'services';
 
 import { Container, Alert, Delivery, HowWeLove } from './styles';
@@ -57,7 +58,32 @@ export default function Intern({ match }) {
       <HowWeLove>
         <p>Porque adoramos esse imovel</p>
       </HowWeLove>
-      <br/>
+      <br />
+
+      <BlockHighlighted
+        texts={[
+          {
+            text: 'Veja a ',
+            color: 'white',
+            fontFamily: 'BitterBold'
+          },
+          {
+            text: 'planta ',
+            color: 'greenLight',
+            fontFamily: 'RalewayMedium'
+          },
+          {
+            text: 'desse imóvel',
+            color: 'white',
+            fontFamily: 'BitterBold'
+          }
+        ]}
+        colorButton="greenLight"
+        message="E descubra se ela é a ideal
+        para você"
+        labelButton="Veja as plantas"
+        onClickButton={() => {}}
+      />
     </Container>
   );
 }

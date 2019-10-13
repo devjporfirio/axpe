@@ -3,7 +3,7 @@ import { Container, Banner } from './styles';
 import Api from 'services/';
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
-import Footer from 'components/Footer';
+import BlockHighlighted from 'components/BlockHighlighted';
 import { suffle } from 'helpers/utils';
 
 const COMPONENT_SLICK = {
@@ -49,12 +49,39 @@ export default function Home() {
           component.items &&
           component.items.length > 0 && (
             <>
-              <SlickSection type={COMPONENT_SLICK[type]} items={component.items} />
+              <SlickSection
+                type={COMPONENT_SLICK[type]}
+                items={component.items}
+              />
             </>
           )
         );
       case 'contact':
-        return <Footer />;
+        return (
+          <BlockHighlighted
+            texts={[
+              {
+                text: 'Sem tempo ',
+                color: 'greenLight',
+                fontFamily: 'RalewayMedium'
+              },
+              {
+                text: 'para buscar e visitar  ',
+                color: 'white',
+                fontFamily: 'BitterBold'
+              },
+              {
+                text: 'imóveis?',
+                color: 'orange',
+                fontFamily: 'RalewayMedium'
+              }
+            ]}
+            colorButton="orange"
+            message="Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos"
+            labelButton="Entre em contato"
+            onClickButton={() => {}}
+          />
+        );
     }
   }
 

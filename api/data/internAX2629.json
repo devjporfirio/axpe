@@ -17,7 +17,14 @@
       "rent": 0,
       "release": 0,
       "sell": 1980000,
-      "free": 0
+      "free": 0,
+      "iptu": 0,
+      "condo": 0
+    },
+    "label": {
+      "is_new": true,
+      "is_exclusive": false,
+      "is_furnished": false
     },
     "infos": {
       "use": "RESIDENCIAL",
@@ -76,33 +83,15 @@
       }
     ],
     "components": {
-      "porque-adoramos": [
-        
-      ],
-      "destaque-1": [
-        
-      ],
-      "destaque-2": [
-        
-      ],
-      "destaque-3": [
-        
-      ],
-      "galeria-imagens-texto": [
-        
-      ],
-      "imagem-destaque": [
-        
-      ],
-      "destaque-texto": [
-        
-      ],
-      "destaque-texto-bullets": [
-        
-      ],
-      "plantas": [
-        
-      ]
+      "porque-adoramos": [],
+      "destaque-1": [],
+      "destaque-2": [],
+      "destaque-3": [],
+      "galeria-imagens-texto": [],
+      "imagem-destaque": [],
+      "destaque-texto": [],
+      "destaque-texto-bullets": [],
+      "plantas": []
     }
   }
 }
