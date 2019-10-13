@@ -12,7 +12,7 @@ export default function Modal({
 }) {
   const customStyles = {
     overlay: {
-      top: '67px',
+      top: window.innerWidth > 769 ? 0 : '67px',
       zIndex: 10,
       ...stylesC.overlay
     },

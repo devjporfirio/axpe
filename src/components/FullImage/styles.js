@@ -25,11 +25,12 @@ export const Container = styled(Modal)`
   }
 
   .slick-slider {
-    width: 80%;
-    margin: auto;
+    width: 100%;
 
-    ${media.lessThan('medium')`
-      width: 100%;
+    ${media.greaterThan('769px')`
+      width: 80%;
+      margin: auto;
+      top: 77px;
     `}
   }
 `;
@@ -46,17 +47,23 @@ export const ButtonClose = styled.button`
     width: 15px;
     height: 15px;
   }
-  
+
   span {
     display: none;
   }
 
   ${media.greaterThan('769px')`
     display: block;
-    color: ${({ theme }) => theme.colors.white};
+    background: none;
     font: 14px 'RalewaySemiBold';
     margin: 75px 78px 20px auto;
     display: flex;
     align-items: center;
+    width: auto;
+
+    span {
+      color: ${({ theme }) => theme.colors.white};
+      display: block;
+    }
   `}
 `;

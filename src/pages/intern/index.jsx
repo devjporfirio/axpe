@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import BlockHighlighted from 'components/BlockHighlighted';
+import ModalPlant from 'components/ModalPlant';
 import Api from 'services';
 
 import { Container, Alert, Delivery, HowWeLove } from './styles';
@@ -11,6 +12,7 @@ import DataSheet from './Datasheet';
 export default function Intern({ match }) {
   const { reference } = match.params;
   const [ property, setProperty ] = useState({});
+  const [ showModalPlant, setShowModalPlant ] = useState(false);
 
   useEffect(() => {
     async function loadIntern() {
@@ -82,8 +84,12 @@ export default function Intern({ match }) {
         message="E descubra se ela é a ideal
         para você"
         labelButton="Veja as plantas"
-        onClickButton={() => {}}
+        onClickButton={() => setShowModalPlant(true)}
       />
+
+      {showModalPlant && (
+        <ModalPlant onClose={() => setShowModalPlant(false)} />
+      )}
     </Container>
   );
 }

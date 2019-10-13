@@ -11,7 +11,6 @@ export default function FullImage({ goTo, onClose, items }) {
       isOpen={true}
       label="Galeria de fotos"
       closeModal={onClose}
-      stylesC={{ overlay: { top: window.innerWidth > 769 ? 0 : '67px' } }}
     >
       <ButtonClose onClick={onClose}>
         <span>Fechar</span>
