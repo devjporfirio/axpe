@@ -68,7 +68,9 @@ export default function Intern({ match }) {
       )}
       <br />
 
-      <Planta property={property} />
+      <Planta file={property.components.find(
+            x => x.module.slug === 'plantas'
+          ).data.file} />
 
       <BlockHighlighted
         texts={[
