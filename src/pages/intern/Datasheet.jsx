@@ -39,13 +39,13 @@ export default function Datasheet({ property }) {
         </div>
 
         <GroupButton>
-          {property.label.is_new && (
+          {property.label && property.label.is_new && (
             <Button label={'Novidade'} icon="star" color="blueLight" />
           )}
-          {property.label.is_exclusive && (
+          {property.label && property.label.is_exclusive && (
             <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
           )}
-          {property.label.is_furnished && (
+          {property.label && property.label.is_furnished && (
             <Button label={'Mobiliado'} icon="sofa" color="yellowLight" />
           )}
         </GroupButton>

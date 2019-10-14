@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import BlockHighlighted from 'components/BlockHighlighted';
-import ModalPlant from 'components/ModalPlant';
 import Api from 'services';
 
 import { Container, Alert, Delivery, HowWeLove } from './styles';
 
 import DataSheet from './Datasheet';
+import Planta from './Planta';
 
 export default function Intern({ match }) {
   const { reference } = match.params;
   const [ property, setProperty ] = useState({});
-  const [ showModalPlant, setShowModalPlant ] = useState(false);
 
   useEffect(() => {
     async function loadIntern() {
@@ -63,39 +62,31 @@ export default function Intern({ match }) {
       </HowWeLove>
       <br />
 
-      {property.components && property.components.plantas.length > 0 && (
-        <BlockHighlighted
-          texts={[
-            {
-              text: 'Veja a ',
-              color: 'white',
-              fontFamily: 'BitterBold'
-            },
-            {
-              text: 'planta ',
-              color: 'greenLight',
-              fontFamily: 'RalewayMedium'
-            },
-            {
-              text: 'desse imóvel',
-              color: 'white',
-              fontFamily: 'BitterBold'
-            }
-          ]}
-          colorButton="greenLight"
-          message="E descubra se ela é a ideal
-        para você"
-          labelButton="Veja as plantas"
-          onClickButton={() => setShowModalPlant(true)}
-        />
-      )}
+      <Planta property={property} />
 
-      {showModalPlant && (
-        <ModalPlant
-          property={property}
-          onClose={() => setShowModalPlant(false)}
-        />
-      )}
+      <BlockHighlighted
+        texts={[
+          {
+            text: 'Não encontrou o ',
+            color: 'white',
+            fontFamily: 'BitterBold'
+          },
+          {
+            text: 'imóvel ',
+            color: 'greenLight',
+            fontFamily: 'RalewayMedium'
+          },
+          {
+            text: 'que busca?',
+            color: 'orange',
+            fontFamily: 'RalewayMedium'
+          }
+        ]}
+        colorButton="orange"
+        message="Que tal um imóvel na planta? Conheça nossas opções de imóveis em lançamento"
+        labelButton="Entre em contato"
+        onClickButton={() => {}}
+      />
     </Container>
   );
 }
