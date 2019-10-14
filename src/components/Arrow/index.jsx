@@ -6,23 +6,35 @@ import IArrowPrev from 'assets/icons/arrow-prev-white.svg';
 import IArrowNextBlack from 'assets/icons/arrow-next-black.svg';
 import IArrowPrevBlack from 'assets/icons/arrow-prev-black.svg';
 
-export const NextArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
+export const NextArrow = ({
+  type = 'slickSmall',
+  color = 'black',
+  position = 'center',
+  onClick = () => {}
+}) => {
   return (
     <ArrowNext
+      position={position}
       type={type}
       onClick={onClick}
       src={IArrowNext}
-      src={type === 'slick' ? IArrowNext : IArrowNextBlack}
+      src={type === 'slick' || color === 'white' ? IArrowNext : IArrowNextBlack}
     />
   );
 };
 
-export const PrevArrow = ({ type = 'slickSmall', onClick = () => {} }) => {
+export const PrevArrow = ({
+  type = 'slickSmall',
+  color = 'black',
+  position = 'center',
+  onClick = () => {}
+}) => {
   return (
     <ArrowPrev
+      position={position}
       type={type}
       onClick={onClick}
-      src={type === 'slick' ? IArrowPrev : IArrowPrevBlack}
+      src={type === 'slick' || color === 'white' ? IArrowPrev : IArrowPrevBlack}
     />
   );
 };

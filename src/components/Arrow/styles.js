@@ -119,6 +119,11 @@ const Arrow = styled.div`
   ${props =>
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-left: -25px;`}
+
+  ${props => props.position === 'center' && `
+    margin-bottom: 120px !important;
+    margin-left: 0 !important;
+  `}
 `;
 
 export const ArrowNext = styled(Arrow)`
@@ -148,6 +153,11 @@ export const ArrowNext = styled(Arrow)`
   ${props =>
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-right: -30px;`}
+
+  ${props => props.position === 'center' && `
+    margin-right: 0 !important;
+    right: 0;
+  `}
 `;
 
 export const ArrowPrev = styled(Arrow)``;

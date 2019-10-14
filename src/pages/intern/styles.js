@@ -164,16 +164,3 @@ export const InfoValue = styled.div`
     font: 18px 'RalewayRegular';
   }
 `;
-
-export const HowWeLove = styled.div`
-  width: 100vw;
-  height: 552px;
-  background-color: #91a8ab;
-
-  ${media.greaterThan('medium')`
-    max-width: 1000px;
-    width: 100%;
-    margin: auto;
-    height: 564px;
-  `}
-`;

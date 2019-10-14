@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import BlockHighlighted from 'components/BlockHighlighted';
+import HowWeLove from './HowWeLove';
 import Api from 'services';
 
-import { Container, Alert, Delivery, HowWeLove } from './styles';
+import { Container, Alert, Delivery } from './styles';
 
 import DataSheet from './Datasheet';
 import Planta from './Planta';
@@ -57,9 +58,14 @@ export default function Intern({ match }) {
         imagens são meramente ilustrativas e os valores estão sujeitos a
         alteração de tabela.
       </Alert>
-      <HowWeLove>
-        <p>Porque adoramos esse imovel</p>
-      </HowWeLove>
+
+      {property.components && property.components.length > 0 && (
+        <HowWeLove
+          reasons={property.components.find(
+            x => x.module.slug === 'porque-adoramos'
+          )}
+        />
+      )}
       <br />
 
       <Planta property={property} />
