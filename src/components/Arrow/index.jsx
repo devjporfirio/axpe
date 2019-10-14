@@ -9,7 +9,7 @@ import IArrowPrevBlack from 'assets/icons/arrow-prev-black.svg';
 export const NextArrow = ({
   type = 'slickSmall',
   color = 'black',
-  position = 'center',
+  position = '',
   onClick = () => {}
 }) => {
   return (
@@ -26,7 +26,7 @@ export const NextArrow = ({
 export const PrevArrow = ({
   type = 'slickSmall',
   color = 'black',
-  position = 'center',
+  position = '',
   onClick = () => {}
 }) => {
   return (
