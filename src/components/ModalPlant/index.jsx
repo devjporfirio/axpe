@@ -19,40 +19,47 @@ export default function ModalPlant({ onClose, property }) {
       closeModal={onClose}
       styleC={{ overlay: { backgroundColor: '#37474F' } }}
       iconButtonWhite={false}
+      header={window.innerWidth < 769 && 'Plantas'}
     >
       <Left>
         <Infos>
           <Category>Casa</Category>
-          <p>Ilha Bela</p>
-          <p>ax3715</p>
-          <p>105M²</p>
+          <div>
+            <p>Ilha Bela</p>
+            <p>ax3715</p>
+            <p>105M²</p>
+          </div>
           <hr />
           <span>Piso Superior</span>
         </Infos>
 
         <ImagesGroup>
-          {property.gallery.map((i, index) => (
-            <Image
-              selected={imgSelect === index}
-              key={index}
-              src={i.src}
-              alt="Imóvel"
-              onClick={() => {
-                setImgSelect(index);
-                sliderRef.current.slickGoTo(index);
-              }}
-            />
-          ))}
+          {property.components &&
+            property.components.plantas.length > 0 &&
+            property.components.plantas.map((i, index) => (
+              <Image
+                selected={imgSelect === index}
+                key={index}
+                src={i.src}
+                alt="Imóvel"
+                onClick={() => {
+                  setImgSelect(index);
+                  sliderRef.current.slickGoTo(index);
+                }}
+              />
+            ))}
         </ImagesGroup>
       </Left>
 
       <Right
+        arrows={window.innerWidth > 769}
         reference={slider => {
           return (sliderRef.current = slider);
         }}
       >
-        {property.gallery.length > 0 &&
-          property.gallery.map((item, index) => (
+        {property.components &&
+          property.components.plantas.length > 0 &&
+          property.components.plantas.map((item, index) => (
             <div key={index}>
               <img src={item.src} alt="Imóvel" />
             </div>

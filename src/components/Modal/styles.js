@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import Breadcrumb from '../Breadcrumb';
 
 Modal.setAppElement('#main');
 
@@ -48,4 +49,11 @@ export const ButtonClose = styled.button`
       display: ${props => (props.iconButtonWhite ? 'block' : 'none')};
     }
   `}
+`;
+
+export const Header = styled(Breadcrumb)`
+  position: absolute;
+  width: 100vw;
+  background-color: ${props => props.theme.colors.white};
+  top: -67px;
 `;

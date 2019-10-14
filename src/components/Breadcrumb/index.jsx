@@ -18,9 +18,9 @@ import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
 import Phone from '../Phone';
 
-export default function Breadcrumb({ category, local, reference, search }) {
+export default function Breadcrumb({ category, local, reference, search, className }) {
   return (
-    <Container>
+    <Container className={className}>
       <InfoLeft>
         <BackDesktop href="javascript:history.back()">
           <img src={IArrowOrange} alt="Voltar" />
@@ -31,20 +31,22 @@ export default function Breadcrumb({ category, local, reference, search }) {
         </BackMobile>
         <div>
           <p>{category}</p>
-          <a href={`/search/${search}`}>{local}</a>
+          {search && <a href={`/search/${search}`}>{local}</a>}
         </div>
       </InfoLeft>
 
-      <InfoRight>
-        <Reference>Ref {reference}</Reference>
-        <FavoriteMobile src={IHeartOrange} alt="Favoritos" />
-        <FavoriteDesktop>
-          <span>3</span>
-          <img src={IHeartBlack} alt="Favoritos" />
-        </FavoriteDesktop>
-        <Button label="Mais Informações" />
-        <Phone color="orange" />
-      </InfoRight>
+      {reference && (
+        <InfoRight>
+          <Reference>Ref {reference}</Reference>
+          <FavoriteMobile src={IHeartOrange} alt="Favoritos" />
+          <FavoriteDesktop>
+            <span>3</span>
+            <img src={IHeartBlack} alt="Favoritos" />
+          </FavoriteDesktop>
+          <Button label="Mais Informações" />
+          <Phone color="orange" />
+        </InfoRight>
+      )}
     </Container>
   );
 }

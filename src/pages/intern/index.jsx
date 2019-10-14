@@ -63,30 +63,32 @@ export default function Intern({ match }) {
       </HowWeLove>
       <br />
 
-      <BlockHighlighted
-        texts={[
-          {
-            text: 'Veja a ',
-            color: 'white',
-            fontFamily: 'BitterBold'
-          },
-          {
-            text: 'planta ',
-            color: 'greenLight',
-            fontFamily: 'RalewayMedium'
-          },
-          {
-            text: 'desse imóvel',
-            color: 'white',
-            fontFamily: 'BitterBold'
-          }
-        ]}
-        colorButton="greenLight"
-        message="E descubra se ela é a ideal
+      {property.components && property.components.plantas.length > 0 && (
+        <BlockHighlighted
+          texts={[
+            {
+              text: 'Veja a ',
+              color: 'white',
+              fontFamily: 'BitterBold'
+            },
+            {
+              text: 'planta ',
+              color: 'greenLight',
+              fontFamily: 'RalewayMedium'
+            },
+            {
+              text: 'desse imóvel',
+              color: 'white',
+              fontFamily: 'BitterBold'
+            }
+          ]}
+          colorButton="greenLight"
+          message="E descubra se ela é a ideal
         para você"
-        labelButton="Veja as plantas"
-        onClickButton={() => setShowModalPlant(true)}
-      />
+          labelButton="Veja as plantas"
+          onClickButton={() => setShowModalPlant(true)}
+        />
+      )}
 
       {showModalPlant && (
         <ModalPlant
