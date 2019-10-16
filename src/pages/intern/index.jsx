@@ -5,7 +5,7 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import HowWeLove from './HowWeLove';
 import Api from 'services';
 
-import { Container, Alert, Delivery } from './styles';
+import { Container, Alert } from './styles';
 
 import DataSheet from './Datasheet';
 import Planta from './Planta';
@@ -43,13 +43,6 @@ export default function Intern({ match }) {
 
       <DataSheet property={property} />
 
-      {property.type !== 'pronto' && (
-        <Delivery>
-          <p>
-            Previsão de entrega em <span>{property.infos.releaseDelivery}</span>
-          </p>
-        </Delivery>
-      )}
       <br />
       <Alert>
         Todas as informações aqui contidas, incluindo preço, metragem quadrada e

@@ -24,7 +24,7 @@ const galleryFullNext = css`
 `;
 
 /* Gallery */
-const galleryArrow = `
+const galleryArrow = css`
   ${media.greaterThan('769px')`
     background-color: #fff;
     opacity: 0.8;
@@ -32,32 +32,33 @@ const galleryArrow = `
     margin-top: 252px;
     margin-right: auto;
     margin-left: 173px;
-  `.join('')}
+  `}
 
   ${media.lessThan('medium')`
     background-color: #fff;
     opacity: 0.8;
     top: 0;
     margin: 176px 0 0 0;
-  `.join('')}
+  `}
 
   ${media.between('769px', '1202px')`
     margin-left: 15%;
-  `.join('')}
+  `}
 `;
-const galleryNext = `
+
+const galleryNext = css`
   ${media.greaterThan('769px')`
       right: 173px;
-  `.join('')}
+  `}
 
   ${media.lessThan('medium')`
     right: 0;
     margin-right: 0 !important;
-  `.join('')}
+  `}
 
   ${media.between('769px', '1202px')`
     right: 15%;
-  `.join('')}
+  `}
 `;
 
 /* Slick Grid */
