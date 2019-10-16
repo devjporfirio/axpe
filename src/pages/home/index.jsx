@@ -33,14 +33,20 @@ export default function Home() {
           <>
             <Banner
               onClick={() =>
-                window.open(component.link.url, component.link.target)
+                window.open(
+                  component.link.url,
+                  item.link.external ? '_blank' : '_self'
+                )
               }
               mq="mobile"
               src={component.images.mobile}
             />
             <Banner
               onClick={() =>
-                window.open(component.link.url, component.link.target)
+                window.open(
+                  component.link.url,
+                  item.link.external ? '_blank' : '_self'
+                )
               }
               mq="desktop"
               src={component.images.desktop}
