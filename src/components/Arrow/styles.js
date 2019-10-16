@@ -88,6 +88,7 @@ const slickSmallArrow = `
 `;
 
 const Arrow = styled.div`
+  cursor: pointer;
   background: url(${props => props.src}) center center no-repeat;
   width: 24px;
   height: 24px;

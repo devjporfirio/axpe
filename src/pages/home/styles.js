@@ -7,6 +7,7 @@ export const Container = styled.main`
 `;
 
 export const Banner = styled.img`
+  cursor: pointer;
   ${props =>
     props.mq === 'mobile'
       ? media.greaterThan('769px')`
