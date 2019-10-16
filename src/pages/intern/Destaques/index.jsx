@@ -7,14 +7,15 @@ export default function Destaque({ type, item }) {
     <Container type={type}>
       {item.mediaType == 'video' && (
         <Video
+          type={type}
           src={item.src}
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         />
       )}
-      {item.mediaType == 'imagem' && <Image src={item.image} />}
-      <Text type="" item={item} />
+      {item.mediaType == 'imagem' && <Image type={type} src={item.image} />}
+      <Text type={type} item={item} />
     </Container>
   );
 }

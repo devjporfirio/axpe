@@ -1,7 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 import Section from 'components/Section';
+
+export const Destaque1 = css`
+  height: 372px;
+  flex-direction: row-reverse;
+`;
+
+export const Destaque2 = css`
+  height: 299px;
+  flex-direction: row;
+`;
+
+export const Destaque3 = css`
+  height: 299px;
+  flex-direction: row-reverse;
+`;
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
@@ -12,9 +27,25 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: row-reverse;
-    height: 372px;
+    ${props => props.type === 'destaque-1' && Destaque1}
+    ${props => props.type === 'destaque-2' && Destaque2}
+    ${props => props.type === 'destaque-3' && Destaque3}
   `};
+`;
+
+export const Image1 = css`
+  height: 372px;
+  max-width: 614px;
+`;
+
+export const Image2 = css`
+  height: 299px;
+  max-width: 560px;
+`;
+
+export const Image3 = css`
+  height: 299px;
+  max-width: 487px;
 `;
 
 export const Image = styled.div`
@@ -24,8 +55,9 @@ export const Image = styled.div`
   height: 50vw;
 
   ${media.greaterThan('769px')`
-    height: 372px;
-    max-width: 614px;
+    ${props => props.type === 'destaque-1' && Image1}
+    ${props => props.type === 'destaque-2' && Image2}
+    ${props => props.type === 'destaque-3' && Image3}
   `}
 `;
 
@@ -34,10 +66,13 @@ export const Video = styled.iframe`
   height: 50vw;
 
   ${media.greaterThan('769px')`
-    height: 372px;
-    max-width: 614px;
+    ${props => props.type === 'destaque-1' && Image1}
+    ${props => props.type === 'destaque-2' && Image2}
+    ${props => props.type === 'destaque-3' && Image3}
   `}
 `;
+
+
 
 export const Text = styled(Section)`
   width: auto;
@@ -50,8 +85,11 @@ export const Text = styled(Section)`
   ${media.greaterThan('769px')`
     position: initial;
     margin-left: 0;
-    max-width: 319px;
     flex-shrink: 0;
+
+    ${props => props.type === 'destaque-1' && css`max-width: 319px`}
+    ${props => props.type === 'destaque-2' && css`max-width: 380px`}
+    ${props => props.type === 'destaque-3' && css`max-width: 400px`}
 
     hr {
       margin: 20px 0 25px;

@@ -21,7 +21,9 @@ export default function Modules({ modules }) {
       case 'porque-adoramos':
         return <HowWeLove reasons={component.data} />;
       case 'destaque-1':
-        return <Destaques type="destaque-1" item={component.data} />;
+      case 'destaque-2':
+      case 'destaque-3':
+        return <Destaques type={type} item={component.data} />;Î
     }
   };
 
