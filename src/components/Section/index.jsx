@@ -3,12 +3,12 @@ import Button from '../Button';
 
 import { Container, Local, Infos } from './styles';
 
-function sectionSlick(item) {
+function sectionInfo(item) {
   return (
     <>
       <h4>{item.title}</h4>
       {item.title && <hr />}
-      <Infos>{item.content}</Infos>
+      <Infos>{item.content || item.text}</Infos>
     </>
   );
 }
@@ -39,7 +39,7 @@ function selectionMultiInfos(item, labelTitle) {
 function renderSelection(type, item) {
   switch (type) {
     case 'slick':
-      return sectionSlick(item);
+      return sectionInfo(item);
     case 'slickLeft':
       return selectionMultiInfos(item, 'title');
     case 'slickGrid':
@@ -47,6 +47,8 @@ function renderSelection(type, item) {
     case 'slickLarge':
     case 'slickSmall':
       return selectionMultiInfos(item);
+    default:
+      return sectionInfo(item);
   }
 }
 

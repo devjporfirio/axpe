@@ -9,7 +9,9 @@ import {
   FavoriteMobile,
   FavoriteDesktop,
   BackMobile,
-  BackDesktop
+  BackDesktop,
+  Category,
+  Local
 } from './styles';
 
 import IArrowOrange from '../../assets/icons/arrow-prev-orange.svg';
@@ -18,7 +20,7 @@ import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
 import Phone from '../Phone';
 
-export default function Breadcrumb({ category, local, reference, search, className }) {
+export default function Breadcrumb({ category, local, reference, className }) {
   return (
     <Container className={className}>
       <InfoLeft>
@@ -30,8 +32,8 @@ export default function Breadcrumb({ category, local, reference, search, classNa
           <img src={IArrowBlack} alt="Voltar" />
         </BackMobile>
         <div>
-          <p>{category}</p>
-          {search && <a href={`/search/${search}`}>{local}</a>}
+          <Category>{category}</Category>
+          <Local>{local}</Local>
         </div>
       </InfoLeft>
 

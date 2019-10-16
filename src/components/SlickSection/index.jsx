@@ -60,7 +60,7 @@ function SlickSection({ type = 'slick', items = [], color }) {
           <Slide
             key={item.id || index}
             href={item.link ? item.link.url : '#'}
-            target={item.link ? item.link.target : ''}
+            target={item.link && item.link.external ? '_blank' : '_self'}
             type={type}
           >
             {renderBackground(type, item)}
