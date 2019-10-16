@@ -99,7 +99,7 @@ export default function Home() {
 
   return (
     <Container>
-      <SlickSection items={hero} />
+      <SlickSection color="white" items={hero} />
 
       {components &&
         components.length > 0 &&

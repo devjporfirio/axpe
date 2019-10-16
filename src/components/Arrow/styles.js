@@ -61,30 +61,32 @@ const galleryNext = `
 `;
 
 /* Slick Grid */
-const slickGridArrow = `
+const slickGridArrow = css`
   ${media.greaterThan('769px')`
-    right: 20%;
-    margin-bottom: 50px;
-  `.join('')}
+    margin-left: 70%
+    margin-bottom: 40px;
+  `}
 `;
-const slickGridNext = `
-  ${media.greaterThan('769px')`right: 16%;`.join('')}
+const slickGridNext = css`
+  ${media.greaterThan('769px')`
+    margin-left: calc(70% + 34px);
+  `}
 `;
 
 /* SlickLarge*/
-const slickLargeArrow = `
+const slickLargeArrow = css`
   ${media.greaterThan('769px')`
     margin-left: -30px;
     margin-bottom: 308px;
-  `.join('')}
+  `}
 `;
 
 /* SlickSmall*/
-const slickSmallArrow = `
+const slickSmallArrow = css`
   ${media.greaterThan('769px')`
     margin-left: -30px;
     margin-bottom: 230px;
-  `.join('')}
+  `}
 `;
 
 const Arrow = styled.div`
@@ -97,6 +99,13 @@ const Arrow = styled.div`
   bottom: 0;
   margin-left: 20px;
   margin-bottom: 30px;
+  
+  ${props =>
+    [ 'slick', 'slickLeft', 'slickGrid' ].includes(props.type) &&
+    media.greaterThan('769px')`
+      padding: 10px 10px 0 0;
+      border-right: 2px solid ${props => props.theme.colors[props.color]};
+    `}
 
   ${props => props.type === 'gallery' && galleryArrow}
   ${props => props.type === 'galleryFull' && galleryFullArrow}
@@ -107,7 +116,7 @@ const Arrow = styled.div`
   ${props =>
     [ 'slick', 'slickLeft' ].includes(props.type) &&
     media.greaterThan('769px')`
-    margin-left: 120px;
+    margin-left: 126px;
     margin-bottom: 120px;
   `}
 
@@ -121,7 +130,9 @@ const Arrow = styled.div`
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-left: -25px;`}
 
-  ${props => props.position === 'center' && `
+  ${props =>
+    props.position === 'center' &&
+    `
     margin-bottom: 120px !important;
     margin-left: -12 !important;
   `}
@@ -131,11 +142,17 @@ export const ArrowNext = styled(Arrow)`
   margin-top: -100px;
   margin-left: 60px;
 
+  ${props =>
+    [ 'slick', 'slickLeft', 'slickGrid' ].includes(props.type) &&
+    media.greaterThan('769px')`
+      border-right: none;
+      border-left: 2px solid ${props => props.theme.colors[props.color]};
+    `}
+
+  ${media.greaterThan('769px')`margin-left: 160px;`}
   ${props => props.type === 'gallery' && galleryNext}
   ${props => props.type === 'galleryFull' && galleryFullNext}
   ${props => props.type === 'slickGrid' && slickGridNext}
-
-  ${media.greaterThan('769px')`margin-left: 160px;`}
 
   ${props =>
     props.type !== 'slick' &&
@@ -155,7 +172,9 @@ export const ArrowNext = styled(Arrow)`
     [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
     media.lessThan('medium')`margin-right: -30px;`}
 
-  ${props => props.position === 'center' && `
+  ${props =>
+    props.position === 'center' &&
+    `
     margin-right: 0 !important;
     right: 0;
   `}

@@ -13,7 +13,7 @@ import {
 } from './styles';
 
 import IArrowOrange from '../../assets/icons/arrow-prev-orange.svg';
-import IArrowBlack from '../../assets/icons/arrow-prev-black.svg';
+import IArrowBlack from '../../assets/icons/arrow-prev-green.svg';
 import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
 import Phone from '../Phone';

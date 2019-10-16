@@ -29,7 +29,7 @@ function renderBackground(type, item) {
   }
 }
 
-function SlickSection({ type = 'slick', items = [] }) {
+function SlickSection({ type = 'slick', items = [], color }) {
   let slidesToShow = 1;
   let rows = 1;
   let slidesPerRow = 1;
@@ -52,6 +52,7 @@ function SlickSection({ type = 'slick', items = [] }) {
       slidesToShow={slidesToShow}
       slidesPerRow={slidesPerRow}
       rows={rows}
+      propsArrow={{ color: color, type: type }}
     >
       {items &&
         lengthItems > 0 &&
