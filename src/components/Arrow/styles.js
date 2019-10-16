@@ -122,7 +122,7 @@ const Arrow = styled.div`
 
   ${props => props.position === 'center' && `
     margin-bottom: 120px !important;
-    margin-left: 0 !important;
+    margin-left: -12 !important;
   `}
 `;
 
