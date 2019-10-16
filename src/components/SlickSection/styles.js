@@ -91,7 +91,7 @@ export const Image = styled.div`
     `
       width: 100%;
       margin-left: 0;
-      background-size: 100% 100%;
+      background-position: center right;
     `}
 
   ${props =>
