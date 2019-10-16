@@ -31,8 +31,20 @@ export default function Home() {
       case 'banner':
         return (
           <>
-            <Banner mq="mobile" src={component.images.mobile} />
-            <Banner mq="desktop" src={component.images.desktop} />
+            <Banner
+              onClick={() =>
+                window.open(component.link.url, component.link.target)
+              }
+              mq="mobile"
+              src={component.images.mobile}
+            />
+            <Banner
+              onClick={() =>
+                window.open(component.link.url, component.link.target)
+              }
+              mq="desktop"
+              src={component.images.desktop}
+            />
             <br />
             <br />
           </>

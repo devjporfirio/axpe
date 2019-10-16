@@ -1,4 +1,4 @@
 {
-  "apiUrl": "http://localhost:3000",
-  "apiUrl_": "https://futurebrand.com.br/projetos/axpe/painel/api"
+  "apiUrl_": "http://localhost:3000",
+  "apiUrl": "https://futurebrand.com.br/projetos/axpe/painel/api"
 }

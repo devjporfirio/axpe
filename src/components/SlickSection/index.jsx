@@ -58,7 +58,7 @@ function SlickSection({ type = 'slick', items = [] }) {
         items.map((item, index) => (
           <Slide
             key={item.id || index}
-            to={item.link ? item.link.url : '#'}
+            href={item.link ? item.link.url : '#'}
             target={item.link ? item.link.target : ''}
             type={type}
           >
