@@ -7,7 +7,7 @@ export default function GalleryNav({
   items = [],
   onClose,
   isModal = true,
-  nav2SlidesToShow = 3,
+  nav2SlidesToShow = 4,
   nav2SlidesPerRow,
   nav2CenterMode = true,
   nav2Arrows = false,

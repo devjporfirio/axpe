@@ -25,7 +25,7 @@ export default function Intern({ match }) {
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;
   }
-
+  
   return (
     <Container>
       <Breadcrumb
@@ -68,9 +68,13 @@ export default function Intern({ match }) {
       )}
       <br />
 
-      <Planta file={property.components.find(
-            x => x.module.slug === 'plantas'
-          ).data.file} />
+      {property.components.find(x => x.module.slug === 'plantas') && (
+        <Planta
+          file={
+            property.components.find(x => x.module.slug === 'plantas').data.file
+          }
+        />
+      )}
 
       <BlockHighlighted
         texts={[

@@ -16,6 +16,20 @@ export const Container = styled.div`
   `}
 `;
 
+export const Category = styled.p`
+  font: 18px/32px 'BitterRegular';
+
+  ${media.greaterThan('769px')`
+    margin-right: 20px;
+  `}
+`;
+
+export const Local = styled.p`
+  font: 14px/28px 'RalewayBold';
+  color: ${({ theme }) => theme.colors.orange};
+  text-transform: uppercase;
+`;
+
 export const InfoLeft = styled.div`
   display: flex;
   align-items: center;
@@ -26,23 +40,9 @@ export const InfoLeft = styled.div`
     justify-content: space-around;
     margin-left: 20px;
 
-    p {
-      font: 18px/28px 'BitterRegular';
-    }
-
-    a {
-      font: 18px/28px 'BitterRegular';
-      color: ${({ theme }) => theme.colors.orange};
-      text-transform: uppercase;
-    }
-
     ${media.greaterThan('769px')`
       flex-direction: row;
       align-items: center;
-
-      p {
-        margin-right: 20px;
-      }
     `}
   }
 `;
@@ -100,9 +100,6 @@ export const FavoriteDesktop = styled.div`
 
 export const BackMobile = styled.a`
   ${media.greaterThan('769px')`display: none;`}
-  img {
-    width: 13px;
-  }
 `;
 export const BackDesktop = styled.a`
   ${media.lessThan('medium')`display: none;`}
