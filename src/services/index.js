@@ -1,9 +1,11 @@
 import Usuario from './Usuario';
 import home from './home';
+import intern from './intern';
 
 const Api = {
   Usuario,
-  home
+  home,
+  intern
 }
 
 export default Api;

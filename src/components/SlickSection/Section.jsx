@@ -36,8 +36,7 @@ const Container = styled.section`
       props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.greenDark};
-    font-family: 'BitterRegular';
-    font-size: 41px;
+    font: 41px 'BitterRegular';
   }
 
   hr {
@@ -51,10 +50,7 @@ const Container = styled.section`
       props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.greenDark};
-
-    font-family: 'RalewaySemiBold';
-    font-size: 18px;
-    line-height: 25px;
+    font: 18px/25px 'RalewaySemiBold';
   }
 
   ${media.lessThan('medium')`
@@ -110,6 +106,11 @@ const Container = styled.section`
       padding: 25px 4% 0 4%;
       height: 238px;
       width: 32%;
+
+      h4 {
+        font-size: 22px; 
+        margin-bottom: 15px;
+      }
     `}
   `};
 `;
@@ -137,7 +138,10 @@ function selectionSlickLeft(item, labelTitle) {
       <br />
       <p>REF {item.building.reference}</p>
       <br />
-      <Button label="Saiba mais" />
+      <Button
+        label="Saiba mais"
+        onClick={() => (location.href = `intern/${item.building.slug}`)}
+      />
     </>
   );
 }
@@ -154,7 +158,10 @@ function selectionSlickLarge(item) {
       <br />
       <p>REF {item.building.reference}</p>
       <br />
-      <Button label="Saiba mais" />
+      <Button
+        label="Saiba mais"
+        onClick={() => (location.href = `intern/${item.building.slug}`)}
+      />
     </>
   );
 }
@@ -173,6 +180,10 @@ function renderSelection(type, item) {
   }
 }
 
-export default function Slick({ type, item }) {
-  return <Container type={type}>{renderSelection(type, item)}</Container>;
+export default function Slick({ type, item, className }) {
+  return (
+    <Container className={className} type={type}>
+      {renderSelection(type, item)}
+    </Container>
+  );
 }

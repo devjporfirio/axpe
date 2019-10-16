@@ -18,8 +18,7 @@ export const Container = styled.div`
 
 export const Title = styled.h4`
   color: ${({ theme }) => theme.colors.green};
-  font-family: 'BitterBold';
-  font-size: 41px;
+  font: 41px/40px 'BitterBold';
   line-height: 40px;
   margin: 20px 0;
 `;
@@ -28,9 +27,7 @@ export const SubTitle = styled.p`
   padding-left: 23px;
   margin-left: 23px;
   width: 220px;
-  font-size: 16px;
-  line-height: 19px;
-  font-family: 'RalewayLight';
+  font: 16px/19px 'RalewayLight';
   border-left: 2px solid ${({ theme }) => theme.colors.orange};
   color: ${({ theme }) => theme.colors.green};
 `;

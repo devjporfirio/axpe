@@ -53,6 +53,11 @@ export default createGlobalStyle`
 
   /* End RESET */
 
+  * {
+    color: ${({ theme }) => theme.colors.greenDark};
+    outline:none;
+    box-shadow: none;
+  }
 
   html,
   body {
@@ -66,6 +71,7 @@ export default createGlobalStyle`
 
   a {
     transition: all 300ms ease;
+    text-decoration: none;
   }
 
   p,
@@ -89,5 +95,10 @@ export default createGlobalStyle`
     cursor: pointer;
     border-radius: 0;
     -webkit-appearance: none;
+  }
+
+  button:focus {
+    outline:none;
+    box-shadow: none;
   }
 `;
