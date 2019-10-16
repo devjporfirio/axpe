@@ -22,7 +22,7 @@ const SectionSlickLeftMobile = css`
 
 export const Container = styled.section`
   z-index: 4;
-  top: 110px;
+  top: 80px;
   position: absolute;
   width: 245px;
   margin-left: 20px;

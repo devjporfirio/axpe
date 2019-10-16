@@ -60,20 +60,15 @@ export const Image = styled.div`
   ${props =>
     [ 'slick' ].includes(props.type) &&
     `      
-      background-size: 100% 100%;
+      background-size: cover;
       ::after {
         content: ""; 
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+        width: calc(100vw - 200px);
         height: 100%;
-        background-image: linear-gradient(
-          to right,
-          rgba(0, 0, 0, 100),
-          rgba(0, 0, 0, 0)
-        );
-        opacity: 0.3;
+        background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.0001) 21.8%, #000000 100.96%);
+        mix-blend-mode: normal;
+        opacity: 0.78;
       }
   `}
 
