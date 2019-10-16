@@ -50,7 +50,7 @@ const Container = styled.section`
       props.type === 'slick'
         ? props.theme.colors.white
         : props.theme.colors.greenDark};
-    font: 18px/25px 'RalewaySemiBold';
+    font: 18px/25px 'RalewayRegular';
   }
 
   ${media.lessThan('medium')`
