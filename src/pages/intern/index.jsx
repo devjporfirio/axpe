@@ -53,8 +53,7 @@ export default function Intern({ match }) {
       <br />
 
       <Modules modules={property.components} />
-
-      <br />
+      
       <BlockHighlighted
         texts={[
           {
