@@ -42,8 +42,8 @@ export default function HowWeLove({ reasons }) {
           }
         ]}
       >
-        {reasons.data &&
-          reasons.data.map((reason, index) => (
+        {reasons &&
+          reasons.map((reason, index) => (
             <Section key={index}>
               <h1>{reason.title}</h1>
               <p>{reason.text}</p>

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import BlockHighlighted from 'components/BlockHighlighted';
-import HowWeLove from './HowWeLove';
 import Api from 'services';
 
 import { Container, Alert } from './styles';
 
 import DataSheet from './Datasheet';
-import Planta from './Planta';
+import Modules from './Modules';
 
 export default function Intern({ match }) {
   const { reference } = match.params;
@@ -25,7 +24,7 @@ export default function Intern({ match }) {
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;
   }
-  
+
   return (
     <Container>
       <Breadcrumb
@@ -51,24 +50,11 @@ export default function Intern({ match }) {
         imagens são meramente ilustrativas e os valores estão sujeitos a
         alteração de tabela.
       </Alert>
-
-      {property.components && property.components.length > 0 && (
-        <HowWeLove
-          reasons={property.components.find(
-            x => x.module.slug === 'porque-adoramos'
-          )}
-        />
-      )}
       <br />
 
-      {property.components.find(x => x.module.slug === 'plantas') && (
-        <Planta
-          file={
-            property.components.find(x => x.module.slug === 'plantas').data.file
-          }
-        />
-      )}
+      <Modules modules={property.components} />
 
+      <br />
       <BlockHighlighted
         texts={[
           {
