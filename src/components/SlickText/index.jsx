@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, GroupText, Title, Text } from './styles';
 
 export default function SlickText({ items }) {
   return (
@@ -13,9 +13,22 @@ export default function SlickText({ items }) {
     >
       {items.map((item, index) => (
         <div key={index}>
-          <img src={item.image} alt="" />
-          {item.title}
-          {item.text}
+          {item.mediaType === 'video' && (
+            <iframe
+              title={item.title}
+              src={item.src}
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          )}
+          {item.mediaType === 'imagem' && (
+            <img src={item.image} alt={item.title} />
+          )}
+          <GroupText>
+            <Title>{item.title}</Title>
+            <Text>{item.text}</Text>
+          </GroupText>
         </div>
       ))}
     </Container>

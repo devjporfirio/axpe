@@ -67,7 +67,6 @@ export const Section = styled.section`
   }
 
   ${media.greaterThan('769px')`
-    margin: 0 20px;
     max-width: 156px;
 
     h1 , p {
