@@ -52,7 +52,13 @@ function SlickSection({ type = 'slick', items = [], color }) {
       slidesToShow={slidesToShow}
       slidesPerRow={slidesPerRow}
       rows={rows}
-      propsArrow={{ color: color, type: type }}
+      propsArrow={{
+        color: color,
+        type: [ 'slick', 'slickLeft', 'slickGrid' ].includes(type)
+          ? 'together'
+          : '',
+        position: type === 'slickGrid' ? 'right' : 'outside'
+      }}
     >
       {items &&
         lengthItems > 0 &&

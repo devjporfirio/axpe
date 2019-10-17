@@ -32,7 +32,7 @@ export const Container = styled(Slider)`
 
 export const Slide = styled.a`
   ${props =>
-    props.type === 'slickGrid' && media.greaterThan('769px')`height: 650px;`}
+    props.type === 'slickGrid' && media.greaterThan('769px')`height: 680px;`}
 `;
 
 export const Image = styled.div`

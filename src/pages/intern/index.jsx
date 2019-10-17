@@ -52,8 +52,10 @@ export default function Intern({ match }) {
       </Alert>
       <br />
 
-      <Modules modules={property.components} />
-      
+      {Object.keys(property.components).length > 0 && (
+        <Modules modules={property.components} />
+      )}
+
       <BlockHighlighted
         texts={[
           {

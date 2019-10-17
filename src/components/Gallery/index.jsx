@@ -20,7 +20,7 @@ export default function Gallery({ items, tour360 }) {
         </Button360>
       )}
       <Slider
-        propsArrow={{ type: 'gallery' }}
+        propsArrow={{ type: 'gallery-show-3', backgroundColor: 'white' }}
         slidesToShow={1}
         centerMode={window.innerWidth >= 769 ? true : false}
         className="center"

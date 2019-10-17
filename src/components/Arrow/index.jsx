@@ -7,9 +7,10 @@ import IArrowNextBlack from 'assets/icons/arrow-next-green.svg';
 import IArrowPrevBlack from 'assets/icons/arrow-prev-green.svg';
 
 export const NextArrow = ({
-  type = 'slickSmall',
+  type = '',
   color = 'greenDark',
   position = '',
+  backgroundColor= '',
   onClick = () => {}
 }) => {
   return (
@@ -17,6 +18,7 @@ export const NextArrow = ({
       color={color}
       position={position}
       type={type}
+      backgroundColor={backgroundColor}
       onClick={onClick}
       src={type === 'slick' || color === 'white' ? IArrowNext : IArrowNextBlack}
     />
@@ -24,9 +26,10 @@ export const NextArrow = ({
 };
 
 export const PrevArrow = ({
-  type = 'slickSmall',
+  type = '',
   color = 'greenDark',
   position = '',
+  backgroundColor= '',
   onClick = () => {}
 }) => {
   return (
@@ -34,6 +37,7 @@ export const PrevArrow = ({
       color={color}
       position={position}
       type={type}
+      backgroundColor={backgroundColor}
       onClick={onClick}
       src={type === 'slick' || color === 'white' ? IArrowPrev : IArrowPrevBlack}
     />

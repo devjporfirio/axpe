@@ -1,44 +1,62 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-const galleryFullArrow = css`
+const backgroundColorWhite = css`
   background-color: #fff;
   opacity: 0.8;
-  margin: auto;
-  bottom: unset;
-  top: 45%;
-  margin-left: -24px;
-
-  ${media.lessThan('medium')`
-    display: none;
-  `}
 `;
 
-const galleryFullNext = css`
-  margin-left: 100% !important;
-  margin-top: 0;
-
-  ${media.lessThan('medium')`
-    display: none;
-  `}
+const positionCenterNext = css`
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+const positionCenterPrev = css`
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
 `;
 
-/* Gallery */
-const galleryArrow = css`
+const positionInsideNext = css`
+  right: 0;
+`;
+const positionInsidePrev = css`
+  margin-left: 0;
+`;
+
+const positionOutsideNext = css`
+  top: 0;
+  bottom: 0;
+  right: -24px;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+const positionOutsidePrev = css`
+  top: 0;
+  bottom: 0;
+  left: -24px;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+const galeriaImagensTexto = css`
+  margin: 0;
+  top: 181px;
+`;
+
+const galeriaShow3 = css`
   ${media.greaterThan('769px')`
-    background-color: #fff;
-    opacity: 0.8;
-    top: 0;
-    margin-top: 252px;
+    top: 252px;
     margin-right: auto;
     margin-left: 173px;
   `}
 
   ${media.lessThan('medium')`
-    background-color: #fff;
-    opacity: 0.8;
-    top: 0;
-    margin: 176px 0 0 0;
+    top: 176px;
   `}
 
   ${media.between('769px', '1202px')`
@@ -46,14 +64,13 @@ const galleryArrow = css`
   `}
 `;
 
-const galleryNext = css`
+const galeriaShow3Next = css`
   ${media.greaterThan('769px')`
-      right: 173px;
+    right: 173px;
   `}
 
   ${media.lessThan('medium')`
     right: 0;
-    margin-right: 0 !important;
   `}
 
   ${media.between('769px', '1202px')`
@@ -61,33 +78,30 @@ const galleryNext = css`
   `}
 `;
 
-/* Slick Grid */
-const slickGridArrow = css`
-  ${media.greaterThan('769px')`
-    margin-left: 70%
-    margin-bottom: 40px;
-  `}
-`;
-const slickGridNext = css`
-  ${media.greaterThan('769px')`
-    margin-left: calc(70% + 34px);
-  `}
+const typeTogether = css`
+  padding: 2px 10px;
 `;
 
-/* SlickLarge*/
-const slickLargeArrow = css`
-  ${media.greaterThan('769px')`
-    margin-left: -30px;
-    margin-bottom: 308px;
-  `}
+const typeTogetherPrev = css`
+  top: 611px;
+  left: 112px;
+  border-right: 2px solid ${props => props.theme.colors[props.color]};
 `;
 
-/* SlickSmall*/
-const slickSmallArrow = css`
-  ${media.greaterThan('769px')`
-    margin-left: -30px;
-    margin-bottom: 230px;
-  `}
+const typeTogetherNext = css`
+  top: 610px;
+  left: 156px;
+  border-left: 2px solid ${props => props.theme.colors[props.color]};
+`;
+
+const positionRightPrev = css`
+  right: 212px;
+  left: auto;
+`;
+
+const positionRightNext = css`
+  right: 256px;
+  left: auto;
 `;
 
 const Arrow = styled.div`
@@ -97,88 +111,27 @@ const Arrow = styled.div`
   height: 24px;
   z-index: 3;
   position: absolute;
-  bottom: 0;
-  margin-left: 20px;
-  margin-bottom: 30px;
-  
-  ${props =>
-    [ 'slick', 'slickLeft', 'slickGrid' ].includes(props.type) &&
-    media.greaterThan('769px')`
-      padding: 10px 10px 0 0;
-      border-right: 2px solid ${props => props.theme.colors[props.color]};
-    `}
 
-  ${props => props.type === 'gallery' && galleryArrow}
-  ${props => props.type === 'galleryFull' && galleryFullArrow}
-  ${props => props.type === 'slickGrid' && slickGridArrow}
-  ${props => props.type === 'slickLarge' && slickLargeArrow}
-  ${props => props.type === 'slickSmall' && slickSmallArrow}
-  
-  ${props =>
-    [ 'slick', 'slickLeft' ].includes(props.type) &&
-    media.greaterThan('769px')`
-    margin-left: 126px;
-    margin-bottom: 120px;
-  `}
-
-  ${props =>
-    props.type !== 'slick' &&
-    media.lessThan('medium')`
-      margin-bottom: 175px;
-    `}
-
-  ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    media.lessThan('medium')`margin-left: -25px;`}
-
-  ${props =>
-    props.position === 'center' &&
-    `
-    margin-bottom: 120px !important;
-    margin-left: -12 !important;
-  `}
+  ${props => props.backgroundColor === 'white' && backgroundColorWhite}
+  ${props => props.type === 'galeria-imagens-texto' && galeriaImagensTexto}
+  ${props => props.type === 'gallery-show-3' && galeriaShow3}
+  ${props => props.type === 'together' && typeTogether}
 `;
 
 export const ArrowNext = styled(Arrow)`
-  margin-top: -100px;
-  margin-left: 60px;
+  ${props => props.position === 'center' && positionCenterNext}
+  ${props => props.position === 'inside' && positionInsideNext}
+  ${props => props.position === 'outside' && positionOutsideNext}
 
-  ${props =>
-    [ 'slick', 'slickLeft', 'slickGrid' ].includes(props.type) &&
-    media.greaterThan('769px')`
-      border-right: none;
-      border-left: 2px solid ${props => props.theme.colors[props.color]};
-    `}
-
-  ${media.greaterThan('769px')`margin-left: 160px;`}
-  ${props => props.type === 'gallery' && galleryNext}
-  ${props => props.type === 'galleryFull' && galleryFullNext}
-  ${props => props.type === 'slickGrid' && slickGridNext}
-
-  ${props =>
-    props.type !== 'slick' &&
-    media.lessThan('medium')`
-      margin-right: 20px;
-      right: 0;
-    `}
-  
-  ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    window.innerWidth > 769 &&
-    media.greaterThan('769px')`
-      right: -25px;
-    `}
-
-  ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    media.lessThan('medium')`margin-right: -30px;`}
-
-  ${props =>
-    props.position === 'center' &&
-    `
-    margin-right: 0 !important;
-    right: 0;
-  `}
+  ${props => props.type === 'together' && typeTogetherNext}
+  ${props => props.type === 'gallery-show-3' && galeriaShow3Next}
+  ${props => props.position === 'right' && positionRightPrev}
 `;
 
-export const ArrowPrev = styled(Arrow)``;
+export const ArrowPrev = styled(Arrow)`
+  ${props => props.position === 'center' && positionCenterPrev}
+  ${props => props.position === 'inside' && positionInsidePrev}
+  ${props => props.position === 'outside' && positionOutsidePrev}
+  ${props => props.type === 'together' && typeTogetherPrev}
+  ${props => props.position === 'right' && positionRightNext}
+`;

@@ -5,15 +5,9 @@ import { Container } from './styles';
 
 export default function FullImage({ goTo, onClose, items }) {
   return (
-    <Container
-      isOpen={true}
-      label="Galeria de fotos"
-      closeModal={onClose}
-    >
-      
-
+    <Container isOpen={true} label="Galeria de fotos" closeModal={onClose}>
       <Slider
-        propsArrow={{ type: 'galleryFull' }}
+        propsArrow={{ position: 'center', backgroundColor: 'white' }}
         slidesToShow={1}
         initialSlide={goTo}
       >

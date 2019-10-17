@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import HowWeLove from './HowWeLove';
 import Planta from './Planta';
 import Destaques from './Destaques';
+import SlickText from 'components/SlickText';
 
 export default function Modules({ modules }) {
   const renderModules = (type, component) => {
@@ -23,7 +24,9 @@ export default function Modules({ modules }) {
       case 'destaque-1':
       case 'destaque-2':
       case 'destaque-3':
-        return <Destaques type={type} item={component.data} />;Î
+        return <Destaques type={type} item={component.data} />;
+      case 'galeria-imagens-texto':
+        return <SlickText type={type} items={component.data} />;
     }
   };
 
