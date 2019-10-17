@@ -8,12 +8,11 @@ export const Container = styled.main`
 
 export const Banner = styled.img`
   cursor: pointer;
-  ${props =>
-    props.mq === 'mobile'
-      ? media.greaterThan('769px')`
-        display: none !important;
-      `
-      : media.lessThan('medium')`
-        display: none !important;
-      `}
+  ${props => props.mq === 'mobile' && media.greaterThan('769px')`
+    display: none !important;
+  `}
+
+  ${props => props.mq === 'desktop' && media.lessThan('medium')`
+    display: none !important;
+  `}
 `;

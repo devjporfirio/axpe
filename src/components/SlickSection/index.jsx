@@ -34,15 +34,49 @@ function SlickSection({ type = 'slick', items = [], color }) {
   let rows = 1;
   let slidesPerRow = 1;
   const lengthItems = items.length;
+
   if (type === 'slickLarge') {
     rows = 2;
     slidesPerRow = 1;
   }
 
   if (type === 'slickSmall') {
-    slidesToShow =
-      window.innerWidth >= 769 ? (lengthItems >= 3 ? 3 : lengthItems) : 1;
+    slidesToShow = lengthItems >= 3 ? 3 : lengthItems;
   }
+
+  const responsive = {
+    slickSmall: [
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: lengthItems >= 3 ? 3 : lengthItems
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ],
+    slickLarge: [
+      {
+        breakpoint: 769,
+        settings: {
+          rows: 2,
+          slidesToShow: 2,
+          slidesPerRow: 1
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          rows: 1,
+        }
+      }
+    ]
+  };
 
   return (
     <Container
@@ -52,12 +86,15 @@ function SlickSection({ type = 'slick', items = [], color }) {
       slidesToShow={slidesToShow}
       slidesPerRow={slidesPerRow}
       rows={rows}
+      responsive={responsive[type]}
       propsArrow={{
+        typeSection: type,
         color: color,
         type: [ 'slick', 'slickLeft', 'slickGrid' ].includes(type)
           ? 'together'
           : '',
-        position: type === 'slickGrid' ? 'right' : 'outside'
+        position:
+          type === 'slickGrid' ? 'right' : type === 'slick' ? 'left' : 'outside'
       }}
     >
       {items &&

@@ -36,19 +36,18 @@ export const Slide = styled.a`
 `;
 
 export const Image = styled.div`
-  height: ${props => (props.mq === 'mobile' ? '507px' : '700px')};
+  height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
   z-index: 1;
-  object-fit: cover;
   background: url(${props => props.url}) center center no-repeat;
   
   ${media.lessThan('medium')`
-    background-size: 100% 100%;
+    background-size: cover;
   `}
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
     media.lessThan('medium')`
-      background-size: 100% auto;
+      background-size: cover;
       height: 0;
       padding-top: 66.64%;
   ` &&
@@ -60,6 +59,7 @@ export const Image = styled.div`
   ${props =>
     [ 'slick' ].includes(props.type) &&
     `      
+      min-height: 507px;
       background-size: cover;
       ::after {
         content: ""; 

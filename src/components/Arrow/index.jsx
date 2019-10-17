@@ -20,7 +20,7 @@ export const NextArrow = ({
       type={type}
       backgroundColor={backgroundColor}
       onClick={onClick}
-      src={type === 'slick' || color === 'white' ? IArrowNext : IArrowNextBlack}
+      src={color === 'white' ? IArrowNext : IArrowNextBlack}
     />
   );
 };
@@ -39,7 +39,7 @@ export const PrevArrow = ({
       type={type}
       backgroundColor={backgroundColor}
       onClick={onClick}
-      src={type === 'slick' || color === 'white' ? IArrowPrev : IArrowPrevBlack}
+      src={color === 'white' ? IArrowPrev : IArrowPrevBlack}
     />
   );
 };

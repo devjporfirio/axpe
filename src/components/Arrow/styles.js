@@ -80,18 +80,34 @@ const galeriaShow3Next = css`
 
 const typeTogether = css`
   padding: 2px 10px;
+
+  ${media.lessThan('medium')`
+    top: 400px;
+    border: none;
+  `}
 `;
 
 const typeTogetherPrev = css`
   top: 611px;
   left: 112px;
   border-right: 2px solid ${props => props.theme.colors[props.color]};
+
+  ${media.lessThan('medium')`
+    top: 70vw !important;
+    ${positionCenterPrev}
+  `}
 `;
 
 const typeTogetherNext = css`
   top: 610px;
   left: 156px;
   border-left: 2px solid ${props => props.theme.colors[props.color]};
+
+  ${media.lessThan('medium')`
+    left: auto;
+    top: 70vw !important;
+    ${positionCenterNext}
+  `}
 `;
 
 const positionRightPrev = css`
@@ -102,6 +118,26 @@ const positionRightPrev = css`
 const positionRightNext = css`
   right: 256px;
   left: auto;
+`;
+
+const positionLeftPrev = css`
+  left: 15px !important;
+  top: 400px !important;
+
+  ${media.greaterThan('769px')`
+    top: 611px !important;
+    left: 112px !important;
+  `}
+`;
+
+const positionLeftNext = css`
+  left: 78px !important;
+  top: 400px !important;
+
+  ${media.greaterThan('769px')`
+    top: 610px !important;
+    left: 156px !important;
+  `}
 `;
 
 const Arrow = styled.div`
@@ -122,10 +158,10 @@ export const ArrowNext = styled(Arrow)`
   ${props => props.position === 'center' && positionCenterNext}
   ${props => props.position === 'inside' && positionInsideNext}
   ${props => props.position === 'outside' && positionOutsideNext}
-
   ${props => props.type === 'together' && typeTogetherNext}
   ${props => props.type === 'gallery-show-3' && galeriaShow3Next}
   ${props => props.position === 'right' && positionRightPrev}
+  ${props => props.position === 'left' && positionLeftNext}
 `;
 
 export const ArrowPrev = styled(Arrow)`
@@ -134,4 +170,5 @@ export const ArrowPrev = styled(Arrow)`
   ${props => props.position === 'outside' && positionOutsidePrev}
   ${props => props.type === 'together' && typeTogetherPrev}
   ${props => props.position === 'right' && positionRightNext}
+  ${props => props.position === 'left' && positionLeftPrev}
 `;
