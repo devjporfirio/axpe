@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import HowWeLove from './HowWeLove';
+import HowWeLove from 'components/HowWeLove';
 import Planta from './Planta';
-import Destaques from './Destaques';
+import DestaquesSection from 'components/DestaquesSection';
 import SlickText from 'components/SlickText';
 
 export default function Modules({ modules }) {
@@ -24,9 +24,17 @@ export default function Modules({ modules }) {
       case 'destaque-1':
       case 'destaque-2':
       case 'destaque-3':
-        return <Destaques type={type} item={component.data} />;
+        return <DestaquesSection type={type} item={component.data} />;
       case 'galeria-imagens-texto':
         return <SlickText type={type} items={component.data} />;
+      case 'imagem-destaque':
+        return (
+          <DestaquesSection
+            showHorizontalRule={false}
+            type={type}
+            item={component.data}
+          />
+        );
     }
   };
 

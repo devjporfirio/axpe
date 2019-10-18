@@ -41,6 +41,8 @@ export const Container = styled.section`
     width: 50px;
     border: 2px solid ${({ theme }) => theme.colors.orange};
     margin: 40px 0 25px;
+
+    ${props => !props.showHorizontalRule && `visibility: hidden;`}
   }
 
   p {

@@ -21,19 +21,23 @@ function selectionMultiInfos(item, labelTitle) {
       {labelTitle && item[labelTitle] && <hr />}
 
       <Local>{address.local}</Local>
-      
+
       <br />
-      
+
       <Infos>
         {infos.use}, {infos.areaTotal}
       </Infos>
-      {values.sell || values.release ? <Infos>Venda: {values.sell || values.release}</Infos> : ''}
+      {values.sell || values.release ? (
+        <Infos>Venda: {values.sell || values.release}</Infos>
+      ) : (
+        ''
+      )}
       {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
 
       <br />
-      
+
       <Infos>Ref {reference}</Infos>
-      
+
       <br />
       <Button
         label="Saiba mais"
@@ -59,9 +63,18 @@ function renderSelection(type, item) {
   }
 }
 
-export default function Slick({ type, item, className }) {
+export default function Slick({
+  type,
+  item,
+  className,
+  showHorizontalRule = true
+}) {
   return (
-    <Container className={className} type={type}>
+    <Container
+      className={className}
+      type={type}
+      showHorizontalRule={showHorizontalRule}
+    >
       {renderSelection(type, item)}
     </Container>
   );

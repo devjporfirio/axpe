@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, Text, Image, Video } from './styles';
 
-export default function Destaque({ type, item }) {
+export default function DestaquesSection({ type, item, showHorizontalRule }) {
   return (
     <Container type={type}>
       {item.mediaType == 'video' && (
@@ -15,7 +15,7 @@ export default function Destaque({ type, item }) {
         />
       )}
       {item.mediaType == 'imagem' && <Image type={type} src={item.image} />}
-      <Text type={type} item={item} />
+      <Text type={type} item={item} showHorizontalRule={showHorizontalRule} />
     </Container>
   );
 }

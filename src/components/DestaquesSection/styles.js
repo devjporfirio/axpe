@@ -18,6 +18,10 @@ export const Destaque3 = css`
   flex-direction: row-reverse;
 `;
 
+export const ImagemDestaque = css`
+  height: 454px;
+`;
+
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   max-width: 1000px;
@@ -33,6 +37,7 @@ export const Container = styled.div`
     ${props => props.type === 'destaque-1' && Destaque1}
     ${props => props.type === 'destaque-2' && Destaque2}
     ${props => props.type === 'destaque-3' && Destaque3}
+    ${props => props.type === 'imagem-destaque' && ImagemDestaque}
   `};
 `;
 
@@ -51,9 +56,12 @@ export const Image3 = css`
   max-width: 487px;
 `;
 
-export const Image = styled.div`
-  background: url(${props => props.src}) center no-repeat;
-  background-size: cover;
+export const ImageImagemDestaque = css`
+  height: 454px;
+  max-width: 616px;
+`;
+
+export const Image = styled.img`
   height: 50vw;
   width: calc(100vw - 40px);
   border-radius: 8px 8px 0 0;
@@ -65,12 +73,13 @@ export const Image = styled.div`
     ${props => props.type === 'destaque-1' && Image1}
     ${props => props.type === 'destaque-2' && Image2}
     ${props => props.type === 'destaque-3' && Image3}
+    ${props => props.type === 'imagem-destaque' && ImageImagemDestaque}
   `}
 `;
 
 export const Video = styled.iframe`
   height: 50vw;
-  width: calc(100vw -  40px);
+  width: calc(100vw - 40px);
   border-radius: 8px 8px 0 0;
 
   ${media.greaterThan('769px')`
@@ -80,6 +89,20 @@ export const Video = styled.iframe`
     ${props => props.type === 'destaque-1' && Image1}
     ${props => props.type === 'destaque-2' && Image2}
     ${props => props.type === 'destaque-3' && Image3}
+    ${props => props.type === 'imagem-destaque' && ImageImagemDestaque}
+  `}
+`;
+
+const SectionImagemDestaque = css`
+  max-width: 320px;
+
+  ${media.greaterThan('769px')`
+    h4 {
+      font-size: 22px !important;
+    }
+    p {
+      font-size: 16px !important;
+    }
   `}
 `;
 
@@ -112,6 +135,8 @@ export const Text = styled(Section)`
         max-width: 400px;
       `}
 
+    ${props => props.type === 'imagem-destaque' && SectionImagemDestaque}
+    
     hr {
       margin: 20px 0 25px;
     }
