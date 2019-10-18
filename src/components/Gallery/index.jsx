@@ -38,7 +38,7 @@ export default function Gallery({ items, tour360 }) {
                       setShowFullImage(true);
                     }}
                     key={index}
-                    url={item.src}
+                    src={item.src}
                   />
                 );
               case 'video':

@@ -10,7 +10,6 @@ export const Container = styled(Modal)`
   width: 100vw;
   height: calc(100vh - 67px);
   position: absolute;
-  bottom: 0;
   z-index: 5;
 `;
 

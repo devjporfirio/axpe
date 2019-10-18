@@ -12,18 +12,18 @@ function renderBackground(type, item) {
             <div>
               <p>{item.titleGreen}</p>
             </div>
-            <Image type={type} mq="desktop" url={item.images.desktop1} />
-            <Image type={type} mq="desktop" url={item.images.desktop2} />
-            <Image type={type} mq="desktop" url={item.images.desktop3} />
+            <Image type={type} mq="desktop" src={item.images.desktop1} />
+            <Image type={type} mq="desktop" src={item.images.desktop2} />
+            <Image type={type} mq="desktop" src={item.images.desktop3} />
           </ImagesGrid>
-          <Image type={type} mq="mobile" url={item.images.mobile} />
+          <Image type={type} mq="mobile" src={item.images.mobile} />
         </>
       );
     default:
       return (
         <>
-          <Image type={type} mq="desktop" url={item.images.desktop} />
-          <Image type={type} mq="mobile" url={item.images.mobile} />
+          <Image type={type} mq="desktop" src={item.images.desktop} />
+          <Image type={type} mq="mobile" src={item.images.mobile} />
         </>
       );
   }

@@ -14,10 +14,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Image = styled.div`
-  background: url(${props => props.url}) center center no-repeat;
-  background-size: cover;
-  box-sizing: border-box;
+export const Image = styled.img`
   border: 2.5px solid ${({ theme }) => theme.colors.white};
   border-top: none;
   border-bottom: none;

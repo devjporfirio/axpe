@@ -35,24 +35,20 @@ export const Slide = styled.a`
     props.type === 'slickGrid' && media.greaterThan('769px')`height: 680px;`}
 `;
 
-export const Image = styled.div`
+export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
-  z-index: 1;
-  background: url(${props => props.url}) center center no-repeat;
+  background-size: cover;
+  display: block;
+  /* background: url(${props => props.url}) center center no-repeat; */
   
-  ${media.lessThan('medium')`
-    background-size: cover;
-  `}
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
     media.lessThan('medium')`
-      background-size: cover;
       height: 0;
       padding-top: 66.64%;
   ` &&
     media.greaterThan('769px')`
-      background-size: 100% 100%;
       height: auto;
   `}
       
@@ -60,7 +56,6 @@ export const Image = styled.div`
     [ 'slick' ].includes(props.type) &&
     `      
       min-height: 507px;
-      background-size: cover;
       ::after {
         content: ""; 
         position: absolute;
@@ -73,20 +68,22 @@ export const Image = styled.div`
   `}
 
   ${props =>
-    props.mq === 'mobile'
-      ? media.greaterThan('769px')`
-        display: none !important;
-      `
-      : media.lessThan('medium')`
-        display: none !important;
-      `}
+    props.mq === 'mobile' &&
+    media.greaterThan('769px')`
+      display: none !important;
+  `}
+
+  ${props =>
+    props.mq === 'desktop' &&
+    media.lessThan('medium')`
+      display: none !important;
+  `}
 
   ${props =>
     props.type === 'slickLeft' &&
     `
       width: 100%;
       margin-left: 0;
-      background-position: center right;
     `}
 
   ${props =>
