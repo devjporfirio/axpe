@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Container, Banner } from './styles';
 import Api from 'services/';
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
@@ -12,6 +11,8 @@ const COMPONENT_SLICK = {
   buildingsSeen: 'slickLarge',
   buildingsForYou: 'slickSmall'
 };
+
+import { Container, Banner, Contact } from './styles';
 
 export default function Home() {
   const [ hero, setHero ] = useState([]);
@@ -142,6 +143,12 @@ export default function Home() {
             <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>
           );
         })}
+
+        <Contact>
+          <p>Fale com a gente</p>
+          <p>(11) 3074-3600</p>
+          <p>Creci 19111J </p>
+        </Contact>
     </Container>
   );
 }
