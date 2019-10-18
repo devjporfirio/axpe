@@ -1,7 +1,15 @@
 import React from 'react';
 import Button from '../Button';
 
-import { Container, Local, Infos } from './styles';
+import {
+  Container,
+  Local,
+  Infos,
+  Block1DestaqueTexto,
+  Block2DestaqueTexto,
+  Block1DestaqueTextoBullet,
+  Block2DestaqueTextoBullet
+} from './styles';
 
 function sectionInfo(item) {
   return (
@@ -16,10 +24,15 @@ function sectionInfo(item) {
 function sectionDestaqueText(item) {
   return (
     <>
-      <h4>{item.title}</h4>
-      {item.title && <hr />}
-      <Infos>{item.text1}</Infos>
-      <Infos>{item.text2}</Infos>
+      <Block1DestaqueTexto>
+        <h4>{item.title}</h4>
+        {item.title && <hr />}
+        <Infos>{item.text1}</Infos>
+      </Block1DestaqueTexto>
+      <br />
+      <Block2DestaqueTexto>
+        <Infos>{item.text2}</Infos>
+      </Block2DestaqueTexto>
     </>
   );
 }
@@ -27,15 +40,19 @@ function sectionDestaqueText(item) {
 function sectionDestaqueTextBullets(item) {
   return (
     <>
-      <h4>{item.texts.title}</h4>
-      {item.texts.title && <hr />}
-      <Infos>{item.texts.text}</Infos>
+      <Block1DestaqueTextoBullet>
+        <h4>{item.texts.title}</h4>
+        {item.texts.title && <hr />}
+        <Infos>{item.texts.text}</Infos>
+      </Block1DestaqueTextoBullet>
       <br />
-      <ul>
-        {item.bullets.map(bullet => (
-          <li key={bullet}>{bullet}</li>
-        ))}
-      </ul>
+      <Block2DestaqueTextoBullet>
+        <ul>
+          {item.bullets.map(bullet => (
+            <li key={bullet}>{bullet}</li>
+          ))}
+        </ul>
+      </Block2DestaqueTextoBullet>
     </>
   );
 }

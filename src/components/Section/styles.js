@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+import IRectangle from 'assets/icons/rectangle.svg';
+
 const TypeSlickLargeDesktop = css`
   position: unset;
   margin-top: -302px;
@@ -70,6 +72,25 @@ const TypeSlickSmall = css`
 const TypeDestaqueTexto = css`
   width: auto !important;
   padding: 20px 30px !important;
+
+  ${media.greaterThan('769px')`
+    background: url(${IRectangle}) center no-repeat;
+    position: initial;
+    max-width: 1000px;
+    padding: 0 !important;
+    display: flex;
+    margin: auto;
+    margin-left: auto !important;
+    height: 479px;
+
+    h4 {
+      font: 23px/28px 'BitterRegular';
+    }
+
+    p {
+      font: 16px/23px 'RalewayRegular';
+    }
+  `}
 `;
 
 const TypeDestaqueTextoBullets = css`
@@ -86,6 +107,50 @@ const TypeDestaqueTextoBullets = css`
     color: ${({ theme }) => theme.colors.white};
     font: 16px/40px 'RalewayRegular';
   }
+`;
+
+export const Block1DestaqueTexto = styled.div`
+  ${media.greaterThan('769px')`
+    width: 50%;
+    height: 371px;
+    padding: 30px;
+    background-color: ${({ theme }) => theme.colors.white};
+  `}
+`;
+
+export const Block2DestaqueTexto = styled.div`
+  ${media.greaterThan('769px')`
+    width: 50%;
+    height: 371px;
+    background-color: ${({ theme }) => theme.colors.green};
+    margin-top: 109px;
+
+    p {
+      color: ${({ theme }) => theme.colors.white} !important;
+      width: 411px;
+      margin: 30px auto;
+    }
+  `}
+`;
+
+export const Block1DestaqueTextoBullet = styled(Block1DestaqueTexto)`
+  ${media.greaterThan('769px')`
+    background-color: ${({ theme }) => theme.colors.green};
+  `}
+`;
+
+export const Block2DestaqueTextoBullet = styled(Block2DestaqueTexto)`
+  ${media.greaterThan('769px')`
+    background-color: ${({ theme }) => theme.colors.white};
+
+    ul {
+      margin: 60px;
+    }
+
+    li {
+      color: ${({ theme }) => theme.colors.greenDark} !important;
+    }
+  `}
 `;
 
 export const Container = styled.section`
