@@ -122,7 +122,8 @@ const positionRightNext = css`
 
 const positionLeftPrev = css`
   left: 15px !important;
-  top: 400px !important;
+  bottom: 40px !important;
+  margin-bottom: 0 !important;
 
   ${media.greaterThan('769px')`
     top: 611px !important;
@@ -132,7 +133,8 @@ const positionLeftPrev = css`
 
 const positionLeftNext = css`
   left: 78px !important;
-  top: 400px !important;
+  bottom: 40px !important;
+  margin-bottom: 0 !important;
 
   ${media.greaterThan('769px')`
     top: 610px !important;
