@@ -76,7 +76,7 @@ export default function Datasheet({ property }) {
             start={property.infos.areaUsefulStart}
             end={property.infos.areaUsefulEnd}
           />
-          <Caracteristics.AreaTotal areaTotal={property.infos.areaTotal} /> */}
+          <Caracteristics.AreaTotal areaTotal={property.infos.areaTotal} />
         </BlockThree>
       </DatasheetContent>
       {property.type !== 'pronto' && (
