@@ -19,7 +19,11 @@ export const Destaque3 = css`
 `;
 
 export const ImagemDestaque = css`
-  height: 454px;
+  width: 100vw;
+
+  ${media.greaterThan('769px')`
+    height: 454px;
+  `}
 `;
 
 export const Container = styled.div`
@@ -37,8 +41,9 @@ export const Container = styled.div`
     ${props => props.type === 'destaque-1' && Destaque1}
     ${props => props.type === 'destaque-2' && Destaque2}
     ${props => props.type === 'destaque-3' && Destaque3}
-    ${props => props.type === 'imagem-destaque' && ImagemDestaque}
   `};
+
+  ${props => props.type === 'imagem-destaque' && ImagemDestaque}
 `;
 
 export const Image1 = css`
@@ -58,7 +63,13 @@ export const Image3 = css`
 
 export const ImageImagemDestaque = css`
   height: 454px;
-  max-width: 616px;
+  width: 100%;
+  border-radius: 0;
+
+  ${media.greaterThan('769px')`
+    max-width: 616px;
+    height: 454px;
+  `}
 `;
 
 export const Image = styled.img`
@@ -73,8 +84,8 @@ export const Image = styled.img`
     ${props => props.type === 'destaque-1' && Image1}
     ${props => props.type === 'destaque-2' && Image2}
     ${props => props.type === 'destaque-3' && Image3}
-    ${props => props.type === 'imagem-destaque' && ImageImagemDestaque}
   `}
+  ${props => props.type === 'imagem-destaque' && ImageImagemDestaque}
 `;
 
 export const Video = styled.iframe`
@@ -89,8 +100,8 @@ export const Video = styled.iframe`
     ${props => props.type === 'destaque-1' && Image1}
     ${props => props.type === 'destaque-2' && Image2}
     ${props => props.type === 'destaque-3' && Image3}
-    ${props => props.type === 'imagem-destaque' && ImageImagemDestaque}
   `}
+  ${props => props.type === 'imagem-destaque' && ImageImagemDestaque}
 `;
 
 const SectionImagemDestaque = css`

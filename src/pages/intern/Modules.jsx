@@ -3,6 +3,7 @@ import HowWeLove from 'components/HowWeLove';
 import Planta from './Planta';
 import DestaquesSection from 'components/DestaquesSection';
 import SlickText from 'components/SlickText';
+import Section from 'components/Section';
 
 export default function Modules({ modules }) {
   const renderModules = (type, component) => {
@@ -17,8 +18,6 @@ export default function Modules({ modules }) {
     // plantas
 
     switch (type) {
-      case 'plantas':
-        return <Planta file={component.data.file} />;
       case 'porque-adoramos':
         return <HowWeLove reasons={component.data} />;
       case 'destaque-1':
@@ -35,6 +34,11 @@ export default function Modules({ modules }) {
             item={component.data}
           />
         );
+      case 'destaque-texto':
+      case 'destaque-texto-bullets':
+        return <Section type={type} item={component.data} />;
+      case 'plantas':
+        return <Planta file={component.data.file} />;
     }
   };
 
