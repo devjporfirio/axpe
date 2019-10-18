@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Section from 'components/Section';
-import { Container, Slide, Image, ImagesGrid } from './styles';
+import { Container, Slide, Image, ImagesGrid, Gradient } from './styles';
 
 function renderBackground(type, item) {
   switch (type) {
@@ -29,7 +29,12 @@ function renderBackground(type, item) {
   }
 }
 
-function SlickSection({ type = 'slick', items = [], color }) {
+function SlickSection({
+  type = 'slick',
+  items = [],
+  color,
+  useGradient = false
+}) {
   let slidesToShow = 1;
   let rows = 1;
   let slidesPerRow = 1;
@@ -72,7 +77,7 @@ function SlickSection({ type = 'slick', items = [], color }) {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          rows: 1,
+          rows: 1
         }
       }
     ]
@@ -106,6 +111,7 @@ function SlickSection({ type = 'slick', items = [], color }) {
             target={item.link && item.link.external ? '_blank' : '_self'}
             type={type}
           >
+            {useGradient && <Gradient />}
             {renderBackground(type, item)}
             <Section type={type} item={item} />
           </Slide>

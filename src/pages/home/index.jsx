@@ -106,7 +106,7 @@ export default function Home() {
 
   return (
     <Container>
-      <SlickSection color="white" items={hero} />
+      <SlickSection useGradient={true} color="white" items={hero} />
 
       {components &&
         components.length > 0 &&
@@ -144,11 +144,11 @@ export default function Home() {
           );
         })}
 
-        <Contact>
-          <p>Fale com a gente</p>
-          <p>(11) 3074-3600</p>
-          <p>Creci 19111J </p>
-        </Contact>
+      <Contact>
+        <p>Fale com a gente</p>
+        <p>(11) 3074-3600</p>
+        <p>Creci 19111J </p>
+      </Contact>
     </Container>
   );
 }

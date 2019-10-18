@@ -56,15 +56,6 @@ export const Image = styled.img`
     [ 'slick' ].includes(props.type) &&
     `      
       min-height: 507px;
-      ::after {
-        content: ""; 
-        position: absolute;
-        width: calc(100vw - 200px);
-        height: 100%;
-        background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.0001) 21.8%, #000000 100.96%);
-        mix-blend-mode: normal;
-        opacity: 0.78;
-      }
   `}
 
   ${props =>
@@ -145,5 +136,22 @@ export const ImagesGrid = styled.div`
         text-align: center;
       }
     }
+  `}
+`;
+
+export const Gradient = styled.div`
+  width: 100%;
+  height: 507px;
+  position: absolute;
+  background-image: linear-gradient(
+    270deg,
+    rgba(0, 0, 0, 0.0001) 21.8%,
+    #000000 100.96%
+  );
+  mix-blend-mode: normal;
+  opacity: 0.78;
+
+  ${media.greaterThan('769px')`
+    height: 700px;
   `}
 `;
