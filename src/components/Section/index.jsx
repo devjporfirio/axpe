@@ -13,7 +13,34 @@ function sectionInfo(item) {
   );
 }
 
-function selectionMultiInfos(item, labelTitle) {
+function sectionDestaqueText(item) {
+  return (
+    <>
+      <h4>{item.title}</h4>
+      {item.title && <hr />}
+      <Infos>{item.text1}</Infos>
+      <Infos>{item.text2}</Infos>
+    </>
+  );
+}
+
+function sectionDestaqueTextBullets(item) {
+  return (
+    <>
+      <h4>{item.texts.title}</h4>
+      {item.texts.title && <hr />}
+      <Infos>{item.texts.text}</Infos>
+      <br />
+      <ul>
+        {item.bullets.map(bullet => (
+          <li key={bullet}>{bullet}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function sectionMultiInfos(item, labelTitle) {
   const { values, infos, reference, slug, address } = item.building;
   return (
     <>
@@ -52,12 +79,16 @@ function renderSelection(type, item) {
     case 'slick':
       return sectionInfo(item);
     case 'slickLeft':
-      return selectionMultiInfos(item, 'title');
+      return sectionMultiInfos(item, 'title');
     case 'slickGrid':
-      return selectionMultiInfos(item, 'titleWhite');
+      return sectionMultiInfos(item, 'titleWhite');
     case 'slickLarge':
     case 'slickSmall':
-      return selectionMultiInfos(item);
+      return sectionMultiInfos(item);
+    case 'destaque-texto':
+      return sectionDestaqueText(item);
+    case 'destaque-texto-bullets':
+      return sectionDestaqueTextBullets(item);
     default:
       return sectionInfo(item);
   }

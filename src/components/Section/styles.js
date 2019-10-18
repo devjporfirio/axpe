@@ -1,7 +1,31 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-const SectionSlickLeftMobile = css`
+const TypeSlickLargeDesktop = css`
+  position: unset;
+  margin-top: -302px;
+  margin-left: 59%;
+  padding: 25px 4% 0 4%;
+  height: 238px;
+  width: 32%;
+
+  h4 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+`;
+
+const TypeSlickLeftDesktop = css`
+  position: absolute;
+  top: 0;
+  padding: 100px 30px;
+  margin: 0;
+  background-color: #fff;
+  width: 320px;
+  height: 100%;
+`;
+
+const TypeSlickLeftMobile = css`
   position: initial;
   width: 70%;
   margin: auto;
@@ -20,6 +44,50 @@ const SectionSlickLeftMobile = css`
   }
 `;
 
+const TypeSlick = css`
+  h4,
+  p {
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
+const TypeSlickSmall = css`
+  ${media.greaterThan('769px')`
+    ${TypeSlickLeftMobile}
+    margin-left: 20px !important;
+    padding: 20px 8%;
+    
+    p {
+      font-size: 16px;
+    }
+
+    button {
+      display: none;
+    }
+  `}
+`;
+
+const TypeDestaqueTexto = css`
+  width: auto !important;
+  padding: 20px 30px !important;
+`;
+
+const TypeDestaqueTextoBullets = css`
+  ${TypeSlick}
+  ${TypeDestaqueTexto}
+  background-color: ${({ theme }) => theme.colors.green};
+
+  ul {
+    columns: 2;
+    padding: 0 17px;
+  }
+  li {
+    list-style: disc;
+    color: ${({ theme }) => theme.colors.white};
+    font: 16px/40px 'RalewayRegular';
+  }
+`;
+
 export const Container = styled.section`
   z-index: 4;
   top: 80px;
@@ -30,10 +98,7 @@ export const Container = styled.section`
     props.type !== 'slick' && props.theme.colors.white};
 
   h4 {
-    color: ${props =>
-      props.type === 'slick'
-        ? props.theme.colors.white
-        : props.theme.colors.greenDark};
+    color: ${({ theme }) => theme.colors.greenDark};
     font: 41px 'BitterRegular';
   }
 
@@ -46,73 +111,34 @@ export const Container = styled.section`
   }
 
   p {
-    color: ${props =>
-      props.type === 'slick'
-        ? props.theme.colors.white
-        : props.theme.colors.greenDark};
-    
+    color: ${({ theme }) => theme.colors.greenDark};
   }
 
-  ${media.lessThan('medium')`
-  ${props => props.type !== 'slick' && SectionSlickLeftMobile}
-
+  ${props => props.type === 'slick' && TypeSlick}
+  ${props => props.type === 'slickSmall' && TypeSlickSmall}
+  ${props => props.type === 'destaque-texto' && TypeDestaqueTexto}
   ${props =>
-    [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
-    `
-    width: 86%;
-    padding: 20px 8%;
+    props.type === 'destaque-texto-bullets' && TypeDestaqueTextoBullets}
+
+  ${media.lessThan('medium')`
+    ${props => props.type !== 'slick' && TypeSlickLeftMobile}
+
+    ${props =>
+      [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
+      `
+      width: 86%;
+      padding: 20px 8%;
   `}
   
 `};
 
-  ${props =>
-    props.type === 'slickSmall' &&
-    media.greaterThan('769px')`
-    ${SectionSlickLeftMobile}
-    margin-left: 20px !important;
-    padding: 20px 8%;
-    
-    p {
-      font-size: 16px;
-    }
-
-    button {
-      display: none;
-    }
-  `}
-
   ${media.greaterThan('769px')`
-  margin-left: 120px;
+    margin-left: 120px;
 
-  ${props =>
-    props.type === 'slickLeft' &&
-    `
-      position: absolute;
-      top: 0;
-      padding: 100px 30px;
-      margin: 0;
-      background-color: #fff;
-      width: 320px;
-      height: 100%;
-  `}
-
-  ${props => props.type === 'slickGrid' && `margin-left: 14%;`}
-  ${props =>
-    props.type === 'slickLarge' &&
-    `
-    position: unset;
-    margin-top: -302px;
-    margin-left: 59%;
-    padding: 25px 4% 0 4%;
-    height: 238px;
-    width: 32%;
-
-    h4 {
-      font-size: 22px; 
-      margin-bottom: 15px;
-    }
-  `}
-`};
+    ${props => props.type === 'slickLeft' && TypeSlickLeftDesktop}
+    ${props => props.type === 'slickGrid' && `margin-left: 14%;`}
+    ${props => props.type === 'slickLarge' && TypeSlickLargeDesktop}
+  `};
 `;
 
 export const Local = styled.p`
