@@ -14,23 +14,30 @@ function sectionInfo(item) {
 }
 
 function selectionMultiInfos(item, labelTitle) {
+  const { values, infos, reference, slug, address } = item.building;
   return (
     <>
       {labelTitle && <h4>{item[labelTitle]}</h4>}
       {labelTitle && item[labelTitle] && <hr />}
-      <Local>{item.building.address.local}</Local>
+
+      <Local>{address.local}</Local>
+      
       <br />
+      
       <Infos>
-        {item.building.infos.use}, {item.building.infos.areaTotal}
+        {infos.use}, {infos.areaTotal}
       </Infos>
-      <Infos>Venda: {item.building.values.sell}</Infos>
-      <Infos>Aluguel: {item.building.values.rent}</Infos>
+      {values.sell || values.release ? <Infos>Venda: {values.sell || values.release}</Infos> : ''}
+      {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
+
       <br />
-      <Infos>Ref {item.building.reference}</Infos>
+      
+      <Infos>Ref {reference}</Infos>
+      
       <br />
       <Button
         label="Saiba mais"
-        onClick={() => (location.href = `intern/${item.building.slug}`)}
+        onClick={() => (location.href = `intern/${slug}`)}
       />
     </>
   );
