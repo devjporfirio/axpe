@@ -4,6 +4,7 @@ import Planta from './Planta';
 import DestaquesSection from 'components/DestaquesSection';
 import SlickText from 'components/SlickText';
 import Section from 'components/Section';
+import Around from '../../components/Around';
 
 export default function Modules({ modules }) {
   const renderModules = (type, component) => {
@@ -39,6 +40,10 @@ export default function Modules({ modules }) {
         return <Section type={type} item={component.data} />;
       case 'plantas':
         return <Planta file={component.data.file} />;
+      case 'vizinhanca':
+        return (
+          <Around cep={component.data.cep} text={component.data.text} />
+        );
     }
   };
 
