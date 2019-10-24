@@ -1,11 +1,13 @@
 import React from 'react';
+import { formatCurrency } from 'helpers/utils';
+
 import { Price, InfoValue } from './styles';
 
 export const Release = ({ release }) =>
   !!release && (
     <Price>
       <p></p>
-      <p>A partir de:R$ {release}</p>
+      <p>A partir de: {formatCurrency.format(release)}</p>
     </Price>
   );
 
@@ -13,9 +15,9 @@ export const Rent = ({ rent, iptu, condo }) =>
   !!rent && (
     <Price>
       <p>Aluguel:</p>
-      <p>R$ {rent}</p>
+      <p>{formatCurrency.format(rent)}</p>
       <p>
-        Total locação: R${rent + iptu + condo}
+        Total locação: {formatCurrency.format(rent + iptu + condo)}
         <br />
         (Aluguel + IPTU + Cond.)
       </p>
@@ -28,9 +30,9 @@ export const Sell = ({ sell, iptu, condo }) =>
       <p>Venda:</p>
       <p>{sell}</p>
       <p>
-        IPTU: 10x R$ {iptu}
+        IPTU: 10x {formatCurrency.format(iptu)}
         <br />
-        Condominio: R$ {condo}
+        Condominio: {formatCurrency.format(condo)}
       </p>
     </Price>
   );

@@ -63,7 +63,7 @@ export const BlockThree = styled(Block)`
 
   ${media.greaterThan('769px')`
     div {
-      margin-right: 20px;
+      flex-basis: 50%;
     }
   `}
 `;

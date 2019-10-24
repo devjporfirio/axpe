@@ -20,7 +20,7 @@ export const Mapa = styled.div`
     width: 100%;
     height: 100%;
 
-    .directions-card{
+    .directions-card {
       display: none;
     }
   }
@@ -54,11 +54,14 @@ export const Text = styled(Section)`
     width: 70%;
     margin: -1px 0 0 0;
     height: 368px;
+
+    p {
+      margin-top: 120px;
+    }
   `}
 
   p {
     font-family: 'RalewaySemiBold';
-    margin-top: 120px;
     width: 240px;
   }
 `;

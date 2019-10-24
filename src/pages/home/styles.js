@@ -20,29 +20,3 @@ export const Banner = styled.img`
     display: none !important;
   `}
 `;
-
-export const Contact = styled.div`
-  background-color: ${({ theme }) => theme.colors.greyLight};
-  text-align: center;
-  padding: 18px;
-
-  ${media.greaterThan('769px')`
-    display: none;
-  `}
-
-  p {
-    color: ${({ theme }) => theme.colors.greenDark};
-
-    &:nth-child(1){
-      font: 18px/16px 'BitterRegular';
-    }
-
-    &:nth-child(2){
-      font: 20px/25px 'RalewayBold';
-    }
-
-    &:nth-child(3){
-      font: 12px/12px 'RalewayMedium';
-    }
-  }
-`;
