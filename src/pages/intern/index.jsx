@@ -26,7 +26,9 @@ export default function Intern({ match }) {
         property.building,
         3
       );
-      const buildings = similar.buildings.filter(x => x.reference !== property.building.reference);
+      const buildings = similar.buildings.filter(
+        x => x.reference !== property.building.reference
+      );
       setSimilarBuildings(buildings);
     }
     loadInit();
@@ -67,14 +69,15 @@ export default function Intern({ match }) {
         <Modules modules={property.components} />
       )}
 
-      <PanelBuildings title="Pessoas que viram este imóvel também viram:">
-        {property.type === 'lancamento' &&
-          similarBuildings &&
-          similarBuildings.length > 0 &&
-          similarBuildings.map(building => (
-            <SimilarBuilding item={building} key={building.reference} />
-          ))}
-      </PanelBuildings>
+      {property.type === 'lancamento' &&
+        similarBuildings &&
+        similarBuildings.length > 0 && (
+          <PanelBuildings title="Pessoas que viram este imóvel também viram:">
+            {similarBuildings.map(building => (
+              <SimilarBuilding item={building} key={building.reference} />
+            ))}
+          </PanelBuildings>
+        )}
 
       <BlockHighlighted
         texts={[
