@@ -7,23 +7,31 @@ import IGrid from 'assets/icons/grid.svg';
 import GalleryNav from '../GalleryNav';
 import FullImage from '../FullImage';
 
-export default function Gallery({ items, tour360 }) {
+export default function Gallery({
+  items,
+  center = true,
+  tour360,
+  showSizeGallery = true,
+  className,
+  propsArrow = { type: 'gallery-show-3', backgroundColor: 'white' },
+  showClickImage = true
+}) {
   const [ showGalleryNav, setShowGalleryNav ] = useState(false);
   const [ showFullImage, setShowFullImage ] = useState(false);
   const [ imageSelected, setImageSelected ] = useState(null);
 
   return (
-    <Container>
+    <Container className={className}>
       {tour360 && (
         <Button360>
           <img src={I360} alt="Tour 360" />
         </Button360>
       )}
       <Slider
-        propsArrow={{ type: 'gallery-show-3', backgroundColor: 'white' }}
+        propsArrow={propsArrow}
         slidesToShow={1}
-        centerMode={window.innerWidth >= 769 ? true : false}
-        className="center"
+        centerMode={center && window.innerWidth >= 769 ? true : false}
+        className={center ? 'center' : ''}
         variableWidth={window.innerWidth >= 769 ? true : false}
       >
         {items &&
@@ -34,8 +42,10 @@ export default function Gallery({ items, tour360 }) {
                 return (
                   <Image
                     onClick={() => {
-                      setImageSelected(index);
-                      setShowFullImage(true);
+                      if (showClickImage) {
+                        setImageSelected(index);
+                        setShowFullImage(true);
+                      }
                     }}
                     key={index}
                     src={item.src}
@@ -54,10 +64,12 @@ export default function Gallery({ items, tour360 }) {
             }
           })}
       </Slider>
-      <SizeGallery onClick={() => setShowGalleryNav(true)}>
-        <img src={IGrid} alt="Galeria de fotos" />
-        <span>{items.length}</span>
-      </SizeGallery>
+      {showSizeGallery && (
+        <SizeGallery onClick={() => setShowGalleryNav(true)}>
+          <img src={IGrid} alt="Galeria de fotos" />
+          <span>{items.length}</span>
+        </SizeGallery>
+      )}
 
       {showGalleryNav && (
         <GalleryNav items={items} onClose={() => setShowGalleryNav(false)} />

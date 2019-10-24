@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import BlockHighlighted from 'components/BlockHighlighted';
+import Contact from 'components/Contact';
+import PanelBuildings from 'components/PanelBuildings';
+import SimilarBuilding from 'components/SimilarBuilding';
 import Api from 'services';
 
 import { Container, Alert } from './styles';
@@ -12,13 +15,23 @@ import Modules from './Modules';
 export default function Intern({ match }) {
   const { reference } = match.params;
   const [ property, setProperty ] = useState({});
+  const [ similarBuildings, setSimilarBuildings ] = useState([]);
 
   useEffect(() => {
-    async function loadIntern() {
+    async function loadInit() {
       const property = await Api.intern.loadIntern(reference);
       setProperty(property.building);
+
+      const similar = await Api.building.getBuildingsSimilar(
+        property.building,
+        3
+      );
+      const buildings = similar.buildings.filter(
+        x => x.reference !== property.building.reference
+      );
+      setSimilarBuildings(buildings);
     }
-    loadIntern();
+    loadInit();
   }, []);
 
   if (!property || !Object.keys(property).length > 0) {
@@ -56,6 +69,16 @@ export default function Intern({ match }) {
         <Modules modules={property.components} />
       )}
 
+      {property.type === 'lancamento' &&
+        similarBuildings &&
+        similarBuildings.length > 0 && (
+          <PanelBuildings title="Pessoas que viram este imóvel também viram:">
+            {similarBuildings.map(building => (
+              <SimilarBuilding item={building} key={building.reference} />
+            ))}
+          </PanelBuildings>
+        )}
+
       <BlockHighlighted
         texts={[
           {
@@ -79,6 +102,7 @@ export default function Intern({ match }) {
         labelButton="Entre em contato"
         onClickButton={() => {}}
       />
+      <Contact />
     </Container>
   );
 }

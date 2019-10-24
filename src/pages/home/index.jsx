@@ -3,6 +3,8 @@ import Api from 'services/';
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
 import BlockHighlighted from 'components/BlockHighlighted';
+import Contact from 'components/Contact';
+
 import { suffle } from 'helpers/utils';
 
 const COMPONENT_SLICK = {
@@ -12,7 +14,7 @@ const COMPONENT_SLICK = {
   buildingsForYou: 'slickSmall'
 };
 
-import { Container, Banner, Contact } from './styles';
+import { Container, Banner } from './styles';
 
 export default function Home() {
   const [ hero, setHero ] = useState([]);
@@ -144,11 +146,7 @@ export default function Home() {
           );
         })}
 
-      <Contact>
-        <p>Fale com a gente</p>
-        <p>(11) 3074-3600</p>
-        <p>Creci 19111J </p>
-      </Contact>
+      <Contact />
     </Container>
   );
 }
