@@ -7,7 +7,6 @@ import IHeartBlack from '../../assets/icons/heart-black.svg';
 import {
   Container,
   Infos,
-  Image,
   Category,
   Local,
   Reference,
@@ -16,20 +15,26 @@ import {
   ValuesFavGroup,
   CatLocGroup,
   Price,
+  Slider,
   Disclaimer
 } from './styles';
 
 export default function SimilarBuilding({ item }) {
-  const { values, imageFeatured, address, infos } = item;
+  const { values, gallery, address, infos, slug, category } = item;
 
   return (
-    <Container href={`/intern/${item.slug}`}>
-      <Image mq="desktop" src={imageFeatured.desktop} />
-      <Image mq="mobile" src={imageFeatured.mobile} />
+    <Container href={`/intern/${slug}`}>
+      <Slider
+        propsArrow={{ position: 'center', type: '', backgroundColor: 'white' }}
+        center={false}
+        showSizeGallery={false}
+        items={gallery}
+        showClickImage={false}
+      />
       <Infos>
         <CatLocGroup>
           <div>
-            <Category>{item.category}</Category>
+            <Category>{category}</Category>
             <Local>{address.local}</Local>
           </div>
           <Reference>Ref {item.reference}</Reference>

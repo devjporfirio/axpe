@@ -61,10 +61,12 @@ export const BlockThree = styled(Block)`
   justify-content: flex-start;
   height: 240px;
 
-  ${media.greaterThan('769px')`
-    div {
+  div {
       flex-basis: 50%;
     }
+
+  ${media.greaterThan('769px')`
+    
   `}
 `;
 

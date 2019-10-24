@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+import Gallery from 'components/Gallery';
+
 export const Container = styled.a`
   background-color: ${({ theme }) => theme.colors.white};
 
@@ -18,6 +20,7 @@ export const Container = styled.a`
 `;
 
 export const Infos = styled.div`
+  display: block;
   padding: 20px;
   margin-bottom: 20px;
   background-color: ${({ theme }) => theme.colors.white};
@@ -28,11 +31,15 @@ export const Infos = styled.div`
   `}
 `;
 
-export const Image = styled.img`
+export const Slider = styled(Gallery)`
+  position: initial;
+
+  .slick-slide img {
+    height: auto;
+  }
   
   ${media.greaterThan('769px')`
     max-width: 565px;
-    max-height: 365px;
   `}
 
   ${props =>
