@@ -43,9 +43,8 @@ export default function SimilarBuilding({ item }) {
         <ValuesFavGroup>
           {!!values.sell || !!values.release ? (
             <Price>
-              Venda:{' '}
-              {formatCurrency.format(values.sell) ||
-                formatCurrency.format(values.release)}
+              Venda: {!!values.sell && formatCurrency.format(values.sell)}
+              {!!values.release && formatCurrency.format(values.release)}
             </Price>
           ) : (
             ''

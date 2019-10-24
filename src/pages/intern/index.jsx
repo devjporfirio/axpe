@@ -22,8 +22,12 @@ export default function Intern({ match }) {
       const property = await Api.intern.loadIntern(reference);
       setProperty(property.building);
 
-      const similar = await Api.building.getBuildings();
-      setSimilarBuildings(similar.buildings);
+      const similar = await Api.building.getBuildingsSimilar(
+        property.building,
+        3
+      );
+      const buildings = similar.buildings.filter(x => x.reference !== property.building.reference);
+      setSimilarBuildings(buildings);
     }
     loadInit();
   }, []);
@@ -63,10 +67,9 @@ export default function Intern({ match }) {
         <Modules modules={property.components} />
       )}
 
-      <PanelBuildings
-        title="Pessoas que viram este imóvel também viram:"
-      >
+      <PanelBuildings title="Pessoas que viram este imóvel também viram:">
         {property.type === 'lancamento' &&
+          similarBuildings &&
           similarBuildings.length > 0 &&
           similarBuildings.map(building => (
             <SimilarBuilding item={building} key={building.reference} />

@@ -33,13 +33,19 @@ export const Infos = styled.div`
 
 export const Slider = styled(Gallery)`
   position: initial;
-
+    
   .slick-slide img {
-    height: auto;
+    ${media.greaterThan('769px')`
+      max-width: 565px;
+      max-height: 470px;
+    `}
   }
   
   ${media.greaterThan('769px')`
-    max-width: 565px;
+    .slick-slider{
+      max-width: 565px;
+      max-height: 470px;
+    }
   `}
 
   ${props =>
