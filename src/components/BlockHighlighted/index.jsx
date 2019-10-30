@@ -1,27 +1,59 @@
 import React from 'react';
-import TextCustom from 'components/TextCustom';
 import { Container, Highlighted, Link } from './styles';
 
-export default function BlockHighlighted({
-  texts = [],
-  message = '',
-  labelButton = '',
-  onClickButton = () => {},
-  colorButton = ''
-}) {
+const Contact = () => (
+  <>
+    <Highlighted type="contact">
+      <span>Sem tempo </span>
+      <span>para buscar e visitar </span>
+      <span>imóveis?</span>
+    </Highlighted>
+    <div>
+      <p>
+        Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
+      </p>
+      <Link color="orange" label="Entre em contato" onClick={() => {}} />
+    </div>
+  </>
+);
+
+const NotFound = () => (
+  <>
+    <Highlighted type="notfound">
+      <span>Não encontrou o </span>
+      <span>imóvel </span>
+      <span>que busca?</span>
+    </Highlighted>
+    <div>
+      <p>
+        Que tal um imóvel na planta? Conheça nossas opções de imóveis em
+        lançamento
+      </p>
+      <Link color="orange" label="Entre em contato" onClick={() => {}} />
+    </div>
+  </>
+);
+
+const Planta = () => (
+  <>
+    <Highlighted type="planta">
+      <span>Veja a </span>
+      <span>planta </span>
+      <span>desse imóvel</span>
+    </Highlighted>
+    <div>
+      <p>E descubra se ela é a ideal para você</p>
+      <Link color="greenLight" label="Veja as plantas" onClick={() => {}} />
+    </div>
+  </>
+);
+
+export default function BlockHighlighted({ type }) {
   return (
     <Container>
-      <Highlighted>
-        {texts.map(t => (
-          <TextCustom key={t.text} color={t.color} fontFamily={t.fontFamily}>
-            {t.text}
-          </TextCustom>
-        ))}
-      </Highlighted>
-      <div>
-        <p>{message}</p>
-        <Link color={colorButton} label={labelButton} onClick={onClickButton} />
-      </div>
+      {type === 'contact' && <Contact />}
+      {type === 'notfound' && <NotFound />}
+      {type === 'planta' && <Planta />}
     </Container>
   );
 }

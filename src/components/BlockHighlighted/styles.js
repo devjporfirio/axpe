@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import Button from 'components/Button';
 
@@ -33,9 +33,63 @@ export const Container = styled.div`
   `}
 `;
 
+const Contact = css`
+  span:nth-child(1) {
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+  span:nth-child(2) { 
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+  span:nth-child(3) {
+    color: ${({ theme }) => theme.colors.orange};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+`;
+
+const NotFound = css`
+  span:nth-child(1) {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+  span:nth-child(2) {
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+  span:nth-child(3) {
+    color: ${({ theme }) => theme.colors.orange};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+`;
+
+const Planta = css`
+  span:nth-child(1) {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+  span:nth-child(2) {
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+  span:nth-child(3) {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+`;
+
 export const Link = styled(Button)`
   background-color: ${props => props.theme.colors[props.color]};
-  color: ${props => props.theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   width: 240px;
   height: 45px;
   border-radius: 6px;
@@ -43,9 +97,15 @@ export const Link = styled(Button)`
 `;
 
 export const Highlighted = styled.p`
-  font: 40px/47px 'Raleway';
-  font-weight: ${({ theme }) => theme.fontsWeight.black};
   text-align: left;
-  color: ${({ theme }) => theme.colors.white};
   width: 315px;
+  
+  span {
+    font-size: 40px;
+    line-height: 47px;
+  }
+
+  ${props => props.type === 'contact' && Contact}
+  ${props => props.type === 'notfound' && NotFound}
+  ${props => props.type === 'planta' && Planta}
 `;

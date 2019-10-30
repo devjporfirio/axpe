@@ -59,34 +59,7 @@ function Home({ hero, components }) {
           )
         );
       case 'contact':
-        return (
-          <BlockHighlighted
-            texts={[
-              {
-                text: 'Sem tempo ',
-                color: 'greenLight',
-                fontFamily: 'Raleway',
-                fontWeight: '500'
-              },
-              {
-                text: 'para buscar e visitar  ',
-                color: 'white',
-                fontFamily: 'BitterBold',
-                fontWeight: '700'
-              },
-              {
-                text: 'imóveis?',
-                color: 'orange',
-                fontFamily: 'Raleway',
-                fontWeight: '500'
-              }
-            ]}
-            colorButton="orange"
-            message="Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos"
-            labelButton="Entre em contato"
-            onClickButton={() => {}}
-          />
-        );
+        return <BlockHighlighted type="contact" />;
     }
   }
 

@@ -12,7 +12,6 @@ import Modules from 'pages/Building/modules';
 import { Container, Alert } from 'pages/Building/styles';
 
 function Building({ property, similarBuildings }) {
-
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;
   }
@@ -58,29 +57,7 @@ function Building({ property, similarBuildings }) {
           </PanelBuildings>
         )}
 
-      <BlockHighlighted
-        texts={[
-          {
-            text: 'Não encontrou o ',
-            color: 'white',
-            fontFamily: 'BitterBold'
-          },
-          {
-            text: 'imóvel ',
-            color: 'greenLight',
-            fontFamily: 'Raleway'
-          },
-          {
-            text: 'que busca?',
-            color: 'orange',
-            fontFamily: 'Raleway'
-          }
-        ]}
-        colorButton="orange"
-        message="Que tal um imóvel na planta? Conheça nossas opções de imóveis em lançamento"
-        labelButton="Entre em contato"
-        onClickButton={() => {}}
-      />
+      <BlockHighlighted type="notfound" />
       <Contact />
     </Container>
   );
@@ -89,14 +66,17 @@ function Building({ property, similarBuildings }) {
 Building.getInitialProps = async({ query }) => {
   const reference = query.reference;
   const response = await Api.Building.getPage(reference);
-  const similar = await Api.Building.getSimilar(
-    response.building,
-    3
-  );
-  const buildings = similar && similar.buildings && similar.buildings.length > 0 && similar.buildings.filter(
-    x => x.reference !== reference
-  );
-  return { reference: query.reference, property: response.building, similarBuildings: buildings };
-}
+  const similar = await Api.Building.getSimilar(response.building, 3);
+  const buildings =
+    similar &&
+    similar.buildings &&
+    similar.buildings.length > 0 &&
+    similar.buildings.filter(x => x.reference !== reference);
+  return {
+    reference: query.reference,
+    property: response.building,
+    similarBuildings: buildings
+  };
+};
 
 export default Building;

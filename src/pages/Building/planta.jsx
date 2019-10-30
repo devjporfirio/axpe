@@ -7,32 +7,7 @@ export default function Planta({ file }) {
 
   return (
     <>
-      {file && (
-        <BlockHighlighted
-          texts={[
-            {
-              text: 'Veja a ',
-              color: 'white',
-              fontFamily: 'BitterBold'
-            },
-            {
-              text: 'planta ',
-              color: 'greenLight',
-              fontFamily: 'RalewayMedium'
-            },
-            {
-              text: 'desse imóvel',
-              color: 'white',
-              fontFamily: 'BitterBold'
-            }
-          ]}
-          colorButton="greenLight"
-          message="E descubra se ela é a ideal
-        para você"
-          labelButton="Veja as plantas"
-          onClickButton={() => window.open(file)}
-        />
-      )}
+      {file && <BlockHighlighted type="planta" />}
 
       {/* {showModalPlant && (
         <ModalPlant
