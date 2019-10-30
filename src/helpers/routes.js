@@ -1,5 +1,6 @@
 import Home from 'pages/home';
 import Intern from 'pages/intern';
+import talk from 'pages/talk';
 
 const Routes = [
   {
@@ -10,6 +11,11 @@ const Routes = [
   {
     path: '/intern/:reference',
     component: Intern,
+    exact: true
+  },
+  {
+    path: '/talk',
+    component: talk,
     exact: true
   }
 ];

@@ -33,11 +33,6 @@ export const Container = styled.div`
   `}
 `;
 
-export const Text = styled.span`
-  color: ${props => props.theme.colors[props.color]};
-  font-family: ${props => props.fontFamily};
-`;
-
 export const Link = styled(Button)`
   background-color: ${props => props.theme.colors[props.color]};
   color: ${props => props.theme.colors.white};

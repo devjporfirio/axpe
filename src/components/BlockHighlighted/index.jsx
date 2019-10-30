@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Highlighted, Text, Link } from './styles';
+import TextCustom from 'components/TextCustom';
+import { Container, Highlighted, Link } from './styles';
 
 export default function BlockHighlighted({
   texts = [],
@@ -12,9 +13,9 @@ export default function BlockHighlighted({
     <Container>
       <Highlighted>
         {texts.map(t => (
-          <Text key={t.text} color={t.color} fontFamily={t.fontFamily}>
+          <TextCustom key={t.text} color={t.color} fontFamily={t.fontFamily}>
             {t.text}
-          </Text>
+          </TextCustom>
         ))}
       </Highlighted>
       <div>
