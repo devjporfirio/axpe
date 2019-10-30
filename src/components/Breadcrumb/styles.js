@@ -53,12 +53,13 @@ export const InfoRight = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  button {
+  a {
     width: 155px;
     height: 32px;
     font-size: 13px;
     line-height: 32px;
     border-radius: 6px;
+    margin-right: 5px;
   }
 
   ${media.greaterThan('769px')`
@@ -82,9 +83,11 @@ export const FavoriteMobile = styled.img`
   ${media.greaterThan('769px')`display: none;`}
   width: 25px;
 `;
+
 export const FavoriteDesktop = styled.div`
   ${media.lessThan('medium')`display: none;`}
 
+  margin-right: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;

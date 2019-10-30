@@ -19,7 +19,7 @@ export default function Button({
   ...props
 }) {
   return (
-    <Container {...props} color={color}>
+    <Container {...props} color={color} icon={icon}>
       {icon && <img src={ICONS[icon]} alt={label} />}
       {label}
     </Container>

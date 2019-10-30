@@ -83,10 +83,7 @@ function sectionMultiInfos(item, labelTitle) {
       <Infos>Ref {reference}</Infos>
 
       <br />
-      <Button
-        label="Saiba mais"
-        onClick={() => (location.href = `building/${slug}`)}
-      />
+      <Button label="Saiba mais" href={`building/${slug}`} />
     </>
   );
 }
