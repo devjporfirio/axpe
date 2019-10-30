@@ -24,7 +24,8 @@ Here are the commands that are used in the project:
 | ----------- | ---------------------------------------------- |
 | yarn dev    | Run the project in development with hot loader |
 | yarn build  | Build project                                  |
-| yarn server | Run build project in a production server       |
+| yarn start  | Run build project in a production server       |
+| yarn api    | Api Mockup to tests                            |
 
 ## Setup of your IDE
 
