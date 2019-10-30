@@ -93,7 +93,7 @@ Building.getInitialProps = async({ query }) => {
     response.building,
     3
   );
-  const buildings = similar.buildings.filter(
+  const buildings = similar && similar.buildings && similar.buildings.length > 0 && similar.buildings.filter(
     x => x.reference !== reference
   );
   return { reference: query.reference, property: response.building, similarBuildings: buildings };

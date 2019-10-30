@@ -1,3 +1,4 @@
+import { getUrl } from 'helpers/utils';
 const baseMaps = 'https://maps.googleapis.com/maps/api/';
 
 export default {
@@ -35,14 +36,14 @@ export default {
     )
       .then(response => response.json())
       .then(data => data);
-     return result.results[0];
+    return result.results[0];
   },
   async getSimilar(property, limit) {
     const params = {
       source: property.source,
       use: property.infos.use,
       finality: property.infos.type,
-      category: property.category,
+      category: property.catergory,
       local: property.address.local,
       furniture: property.label.is_furnished,
       type: property.type,
@@ -57,15 +58,9 @@ export default {
     };
     const url = `${process.env.config.apiUrl}/buildings/find`;
 
-    const paramsJoin = Object.keys(params).reduce(
-      (old, p) => (params[p] ? old + '&' + p + '=' + params[p] : old),
-      '?'
-    );
-
-    const result = await fetch(url + paramsJoin)
+    const result = await fetch(url + getUrl(params))
       .then(response => response.json())
       .then(data => data);
-
     return result;
   }
 };
