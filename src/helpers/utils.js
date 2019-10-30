@@ -8,3 +8,11 @@ export const formatCurrency = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
   minimumFractionDigits: 3
 });
+
+export const getUrl = params => {
+  const paramsJoin = Object.keys(params).reduce(
+    (old, p) => (params[p] ? old + '&' + p + '=' + params[p] : old),
+    '?'
+  );
+  return encodeURI(paramsJoin);
+};
