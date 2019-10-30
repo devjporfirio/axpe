@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 
 export const Category = styled.p`
-  font: 18px/32px 'BitterRegular';
+  font: 18px/32px 'Bitter';
 
   ${media.greaterThan('769px')`
     margin-right: 20px;
@@ -25,7 +25,8 @@ export const Category = styled.p`
 `;
 
 export const Local = styled.p`
-  font: 14px/28px 'RalewayBold';
+  font: 14px/28px 'Raleway';
+  font-weight: 700;
   color: ${({ theme }) => theme.colors.orange};
   text-transform: uppercase;
 `;
@@ -73,7 +74,7 @@ export const InfoRight = styled.div`
 `;
 
 export const Reference = styled.span`
-  font: 14px 'BitterRegular';
+  font: 14px 'Bitter';
   width: 90px;
 `;
 
@@ -89,7 +90,7 @@ export const FavoriteDesktop = styled.div`
   justify-content: space-between;
 
   span {
-    font: 13px/15px 'Bitterregular';
+    font: 13px/15px 'Bitter';
   }
 
   img {
@@ -110,7 +111,8 @@ export const BackDesktop = styled.a`
   width: 85px;
 
   span {
-    font: 14px 'RalewaySemiBold';
+    font: 14px 'Raleway';
+    font-weight: 600;
     color: ${({ theme }) => theme.colors.orange};
     text-transform: uppercase;
   }

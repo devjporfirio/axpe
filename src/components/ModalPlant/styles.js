@@ -21,7 +21,7 @@ export const Container = styled(Modal)`
   }
 
   span {
-    font: 16px 'RalewayRegular';
+    font: 16px 'Raleway';
     width: 100%;
   }
 
@@ -39,7 +39,7 @@ export const Container = styled(Modal)`
 `;
 
 export const Category = styled.h2`
-  font: 37px 'BitterRegular';
+  font: 37px 'Bitter';
   color: ${({ theme }) => theme.colors.greenDark};
   margin-bottom: 38px;
   width: 50%;
@@ -66,7 +66,8 @@ export const Infos = styled.div`
 
   p {
     color: ${({ theme }) => theme.colors.greenDark};
-    font: 16px 'RalewayBold';
+    font: 16px 'Raleway';
+    font-weight: 700;
   }
 
   div {

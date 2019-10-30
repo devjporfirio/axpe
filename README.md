@@ -1,4 +1,4 @@
-# Boilerplate React Hooks
+# Axpe Website
 
 Project stack:
 
@@ -47,7 +47,7 @@ there is an error or some non-default code of the site will generate an error
 and you will not be able to commit.
 
 
-## Git Flow 
+## Git Flow
 
 ```
   git flow init

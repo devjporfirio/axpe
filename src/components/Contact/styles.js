@@ -14,15 +14,17 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.colors.greenDark};
 
     &:nth-child(1) {
-      font: 18px/16px 'BitterRegular';
+      font: 18px/16px 'Bitter';
     }
 
     &:nth-child(2) {
-      font: 20px/25px 'RalewayBold';
+      font: 20px/25px 'Raleway';
+      font-weight: 700;
     }
 
     &:nth-child(3) {
-      font: 12px/12px 'RalewayMedium';
+      font: 12px/12px 'Raleway';
+      font-weight: 500;
     }
   }
 `;

@@ -61,7 +61,8 @@ export const Text = styled(Section)`
   `}
 
   p {
-    font-family: 'RalewaySemiBold';
+    font-family: 'Raleway';
+    font-weight: 600;
     width: 240px;
   }
 `;

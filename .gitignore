@@ -59,6 +59,9 @@ validation-status.json
 # Folders to ignore
 bower_components
 node_modules
+.next
+_next
+out
 
 # Local Netlify folder
 .netlify

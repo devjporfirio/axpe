@@ -19,22 +19,22 @@ export const Container = styled(Slider)`
 `;
 
 export const Title = styled.h1`
-  font: 22px/28px 'BitterRegular';
+  font: 22px/28px 'Bitter';
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: 20px;
 
   ${media.greaterThan('769px')`
-    font: 20px/25px 'BitterRegular';
+    font: 20px/25px 'Bitter';
     margin-right: 60px;
   `}
 `;
 
 export const Text = styled.p`
-  font: 18px/25px 'RalewayRegular';
+  font: 18px/25px 'Raleway';
   color: ${({ theme }) => theme.colors.white};
 
   ${media.greaterThan('769px')`
-    font: 16px/23px 'RalewayRegular';
+    font: 16px/23px 'Raleway';
   `}
 `;
 

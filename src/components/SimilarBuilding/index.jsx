@@ -1,8 +1,8 @@
 import React from 'react';
-import * as Caracteristics from '../../pages/intern/Datasheet/Caracteristics';
+import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 import { formatCurrency } from 'helpers/utils';
 
-import IHeartBlack from '../../assets/icons/heart-black.svg';
+import IHeartBlack from 'assets/icons/heart-black.svg';
 
 import {
   Container,

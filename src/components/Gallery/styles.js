@@ -74,7 +74,7 @@ export const SizeGallery = styled.div`
   margin-left: calc(100vw - 45px);
 
   span {
-    font: 10px 'BitterRegular';
+    font: 10px 'Bitter';
     color: ${({ theme }) => theme.colors.grey};
   }
 

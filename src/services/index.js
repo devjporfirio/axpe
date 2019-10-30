@@ -1,13 +1,11 @@
-import Usuario from './Usuario';
-import home from './home';
-import intern from './intern';
-import building from './building';
+import User from './user';
+import Home from './home';
+import Building from './building';
 
 const Api = {
-  Usuario,
-  home,
-  intern,
-  building
+  User,
+  Home,
+  Building
 }
 
 export default Api;

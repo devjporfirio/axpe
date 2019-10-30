@@ -66,12 +66,13 @@ export const Favorito = styled.img`
 `;
 
 export const Category = styled.h4`
-  font: 24px 'BitterRegular';
+  font: 24px 'Bitter';
 `;
 
 export const Local = styled.h4`
   color: ${({ theme }) => theme.colors.orange} !important;
-  font: 18px 'RalewayBold';
+  font: 18px 'Raleway';
+  font-weight: 700;
 
   ${media.greaterThan('769px')`
     font-size: 16px;
@@ -79,11 +80,12 @@ export const Local = styled.h4`
 `;
 
 export const Reference = styled.p`
-  font: 14px 'RalewayRegular';
+  font: 14px 'Raleway';
 `;
 
 export const Price = styled.p`
-  font: 18px 'RalewayBold';
+  font: 18px 'Raleway';
+  font-weight: 700;
 
   ${media.greaterThan('769px')`
     font-size: 16px;

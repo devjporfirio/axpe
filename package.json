@@ -1,32 +1,28 @@
 {
-  "name": "boilerplate-react-hooks",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "engines": {
-    "node": ">10.13.0"
-  },
+  "name": "nextjs",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --hot --config webpack/webpack.config.js",
-    "build": "NODE_ENV=production webpack --config webpack/webpack.config.js",
-    "lint-staged": "lint-staged",
-    "server": "http-server build -o",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next build && NODE_ENV=production node server.js",
     "api": "node api/index.js",
-    "deploy": "yarn build && cp build/index.html build/404.html",
-    "netlify": "netlify deploy --prod --dir=build"
+    "lint-staged": "lint-staged"
   },
-  "author": "",
-  "license": "ISC",
   "lint-staged": {
-    "src/**/*.scss": [
-      "stylelint --syntax=scss",
-      "git add"
-    ],
     "src/**/*.js": [
       "eslint",
       "git add"
     ],
     "src/**/*.jsx": [
+      "eslint",
+      "git add"
+    ],
+    "pages/**/*.js": [
+      "eslint",
+      "git add"
+    ],
+    "pages/**/*.jsx": [
       "eslint",
       "git add"
     ]
@@ -37,69 +33,45 @@
     ">1%"
   ],
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
     "cors": "^2.8.5",
-    "css-loader": "^3.2.0",
+    "express": "^4.17.1",
+    "file-loader": "^4.2.0",
     "google-map-react": "^1.1.5",
-    "history": "^4.9.0",
-    "promise-polyfill": "^8.1.3",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-modal": "^3.10.1",
-    "react-redux": "^7.1.0",
-    "react-router-dom": "^5.0.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "9.1.1",
+    "next-fonts": "^0.19.0",
+    "next-redux-wrapper": "^4.0.1",
+    "node-sass": "^4.13.0",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "react-modal": "^3.11.1",
+    "react-redux": "^7.1.1",
     "react-slick": "^0.25.2",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
-    "style-loader": "^1.0.0",
-    "styled-components": "^4.3.2",
+    "styled-components": "^4.4.0",
     "styled-media-query": "^2.1.2",
-    "whatwg-fetch": "^3.0.0"
+    "webpack": "^4.41.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "@hot-loader/react-dom": "^16.8.6",
-    "autoprefixer": "^9.6.1",
-    "babel-eslint": "^10.0.2",
-    "babel-loader": "^8.0.6",
+    "babel-eslint": "^10.0.3",
     "babel-plugin-styled-components": "^1.10.6",
-    "babel-polyfill": "^6.26.0",
-    "eslint": "^6.1.0",
-    "eslint-config-google": "^0.13.0",
-    "eslint-config-prettier": "^6.0.0",
+    "eslint": "^6.6.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-compat": "^3.3.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "favicons-webpack-plugin": "^1.0.2",
-    "file-loader": "^4.1.0",
-    "html-webpack-plugin": "^3.2.0",
-    "http-server": "^0.11.1",
-    "lint-staged": "^9.2.1",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "lint-staged": "^9.4.2",
     "pre-commit": "^1.2.2",
     "prettier": "^1.18.2",
-    "react-hot-loader": "^4.12.10",
-    "reactotron-react-js": "^3.3.2",
-    "reactotron-redux": "^3.1.1",
-    "redux-devtools-extension": "^2.13.8",
-    "stylelint": "^10.1.0",
-    "stylelint-config-recommended": "^3.0.0",
-    "stylelint-config-standard": "^18.3.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-order": "^3.0.1",
-    "stylelint-processor-styled-components": "^1.8.0",
-    "terser-webpack-plugin": "^1.4.1",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2",
-    "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^4.2.1"
+    "redux-logger": "^3.0.6",
+    "url-loader": "^2.2.0"
   }
 }

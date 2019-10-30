@@ -1,39 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+// components
 import Header from 'components/Header';
-import Routes from 'helpers/routes';
 
+// styles
 import GlobalStyle from './globalStyle';
 import ThemeStyle from './themeStyle';
 
-import './fonts.css';
-
-function Main() {
-  function getRoutes() {
-    const routeComponents = Routes.map(({ path, exact, component }, key) => (
-      <Route
-        path={path}
-        exact={exact}
-        component={component}
-        key={`route-${key}`}
-      />
-    ));
-
-    return routeComponents;
-  }
-
+function Main({ children }) {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={ThemeStyle}>
-        <>
-          <GlobalStyle />
-          <Header />
-          {getRoutes()}
-        </>
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={ThemeStyle}>
+      <>
+        <GlobalStyle />
+        <Header />
+        {children}
+      </>
+    </ThemeProvider>
   );
 }
 

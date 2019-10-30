@@ -1,7 +1,6 @@
 {
-  "stylelint.enable": true,
   "editor.formatOnSave": false,
-  // "javascript.format.enable": true,
+  "javascript.format.enable": true,
   "workbench.editor.enablePreview": false,
   "editor.tabSize": 2,
   "files.exclude": {

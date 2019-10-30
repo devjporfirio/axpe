@@ -8,7 +8,8 @@ export const Container = styled.header`
   background-color: gray;
 
   h1 {
-    font-family: 'RalewayLight';
+    font-family: 'Raleway';
+    font-weight: 300;
   }
 
   ${media.lessThan('medium')`

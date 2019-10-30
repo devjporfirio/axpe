@@ -17,7 +17,7 @@ export const Container = styled.div`
 
     p {
       max-width: 240px;
-      font: 18px/21px 'RalewayRegular';
+      font: 18px/21px 'Raleway';
       color: ${({ theme }) => theme.colors.white};
       margin-bottom: 24px;
     }
@@ -43,7 +43,8 @@ export const Link = styled(Button)`
 `;
 
 export const Highlighted = styled.p`
-  font: 40px/47px 'RalewayBlack';
+  font: 40px/47px 'Raleway';
+  font-weight: 900;
   text-align: left;
   color: ${({ theme }) => theme.colors.white};
   width: 315px;

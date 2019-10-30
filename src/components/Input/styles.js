@@ -9,7 +9,8 @@ const BaseInput = css`
   border-radius: 4px;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.green};
-  font: 14px 'RalewayMedium';
+  font: 14px 'Raleway';
+  font-weight: 500;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.green};

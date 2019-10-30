@@ -1,11 +1,12 @@
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import Breadcrumb from '../Breadcrumb';
 
-Modal.setAppElement('#main');
+// Modal.setAppElement('#main');
 
-export const Container = styled(Modal)`
+// export const Container = styled(Modal)`
+export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   width: 100vw;
   height: calc(100vh - 67px);
@@ -33,12 +34,13 @@ export const ButtonClose = styled.button`
   ${media.greaterThan('769px')`
     display: block;
     background: none;
-    font: 14px 'RalewaySemiBold';
+    font: 14px 'Raleway';
+    font-weight: 600;
     margin: 75px 78px 20px auto;
     display: flex;
     align-items: center;
     width: auto;
-    
+
     span {
       color: ${props =>
         props.iconButtonWhite

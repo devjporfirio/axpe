@@ -120,7 +120,7 @@ export const ImagesGrid = styled.div`
       grid-area: title;
       width: 80%;
       color: ${({ theme }) => theme.colors.white};
-      font: 27px 'BitterRegular';
+      font: 27px 'Bitter';
       text-align: left;
     }
   }

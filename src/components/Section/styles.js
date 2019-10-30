@@ -84,11 +84,11 @@ const TypeDestaqueTexto = css`
     height: 479px;
 
     h4 {
-      font: 23px/28px 'BitterRegular';
+      font: 23px/28px 'Bitter';
     }
 
     p {
-      font: 16px/23px 'RalewayRegular';
+      font: 16px/23px 'Raleway';
     }
   `}
 `;
@@ -105,7 +105,7 @@ const TypeDestaqueTextoBullets = css`
   li {
     list-style: disc;
     color: ${({ theme }) => theme.colors.white};
-    font: 16px/40px 'RalewayRegular';
+    font: 16px/40px 'Raleway';
   }
 `;
 
@@ -164,7 +164,7 @@ export const Container = styled.section`
 
   h4 {
     color: ${({ theme }) => theme.colors.greenDark};
-    font: 41px 'BitterRegular';
+    font: 41px 'Bitter';
   }
 
   hr {
@@ -208,9 +208,10 @@ export const Container = styled.section`
 
 export const Local = styled.p`
   text-transform: uppercase;
-  font: 18px/25px 'RalewaySemiBold';
+  font: 18px/25px 'Raleway';
+  font-weight: 600;
 `;
 
 export const Infos = styled.p`
-  font: 18px/25px 'RalewayRegular';
+  font: 18px/25px 'Raleway';
 `;
