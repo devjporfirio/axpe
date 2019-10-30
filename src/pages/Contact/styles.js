@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import Phone from 'components/Phone';
 
-export const Container = styled.div`
+export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
 
   hr {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-export const Container = styled.main`
+export const Wrapper = styled.div`
   width: 100%;
   padding-top: 70px;
 

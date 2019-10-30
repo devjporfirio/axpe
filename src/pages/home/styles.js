@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-export const Container = styled.main``;
+export const Container = styled.section``;
 
 export const Banner = styled.a`
   cursor: pointer;

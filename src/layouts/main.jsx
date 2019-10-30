@@ -7,7 +7,7 @@ import Header from 'components/Header';
 // styles
 import GlobalStyle from './globalStyle';
 import ThemeStyle from './themeStyle';
-import { Container } from './styles';
+import { Wrapper } from './styles';
 
 function Main({ children }) {
   return (
@@ -15,9 +15,9 @@ function Main({ children }) {
       <>
         <GlobalStyle />
         <Header />
-        <Container>
+        <Wrapper>
           {children}
-        </Container>
+        </Wrapper>
       </>
     </ThemeProvider>
   );

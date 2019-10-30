@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.main`
+export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
   border: 1px solid ${({ theme }) => theme.colors.greyDark};
 `;
