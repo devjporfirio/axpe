@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-export const Container = styled.main`
-  height: 100vh;
-  overflow-y: scroll;
-`;
+export const Container = styled.main``;
 
 export const Banner = styled.a`
   cursor: pointer;
