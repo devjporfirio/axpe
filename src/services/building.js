@@ -42,7 +42,7 @@ export default {
       source: property.source,
       use: property.infos.use,
       finality: property.infos.type,
-      category: property.catergory,
+      category: property.category,
       local: property.address.local,
       furniture: property.label.is_furnished,
       type: property.type,
@@ -61,9 +61,11 @@ export default {
       (old, p) => (params[p] ? old + '&' + p + '=' + params[p] : old),
       '?'
     );
+
     const result = await fetch(url + paramsJoin)
       .then(response => response.json())
       .then(data => data);
+
     return result;
   }
 };
