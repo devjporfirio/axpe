@@ -9,7 +9,7 @@ export const Container = styled.button`
   height: 45px;
   border-radius: 4px;
   font: 15px 'Raleway';
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   line-height: 45px;
   display: block;
   text-align: center;

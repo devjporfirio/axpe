@@ -44,7 +44,7 @@ export const Link = styled(Button)`
 
 export const Highlighted = styled.p`
   font: 40px/47px 'Raleway';
-  font-weight: 900;
+  font-weight: ${({ theme }) => theme.fontsWeight.black};
   text-align: left;
   color: ${({ theme }) => theme.colors.white};
   width: 315px;

@@ -62,7 +62,7 @@ export const Text = styled(Section)`
 
   p {
     font-family: 'Raleway';
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     width: 240px;
   }
 `;

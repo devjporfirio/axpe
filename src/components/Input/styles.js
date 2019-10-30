@@ -10,7 +10,7 @@ const BaseInput = css`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.green};
   font: 14px 'Raleway';
-  font-weight: 500;
+  font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.green};

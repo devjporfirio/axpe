@@ -15,21 +15,15 @@ const theme = {
     blueLight: '#77D0DD',
     yellowLight: '#FFDBA8'
   },
-  fonts: {
-    Bitter: {
-      italic: '400i',
-      regular: 400,
-      bold: 700
-    },
-    Raleway: {
-      light: 300,
-      regular: 400,
-      medium: 500,
-      semiBold: 600,
-      bold: 700,
-      extraBold: 800,
-      black: 900
-    }
+
+  fontsWeight: {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
+    extraBold: 800,
+    black: 900
   },
 
   /* Mixins */

@@ -22,7 +22,7 @@ export const Title = styled.div`
   span {
     color: ${({ theme }) => theme.colors.white};
     font: 40px 'Bitter';
-    font-weight: 700;
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 
   span:nth-child(2) {
@@ -54,7 +54,7 @@ export const Section = styled.section`
   h1 {
     color: ${({ theme }) => theme.colors.orange};
     font: 18px/20px 'Bitter';
-    font-weight: 700;
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
     margin-bottom: 23px;
   }
 

@@ -19,12 +19,12 @@ export const Container = styled.div`
 
     &:nth-child(2) {
       font: 20px/25px 'Raleway';
-      font-weight: 700;
+      font-weight: ${({ theme }) => theme.fontsWeight.bold};
     }
 
     &:nth-child(3) {
       font: 12px/12px 'Raleway';
-      font-weight: 500;
+      font-weight: ${({ theme }) => theme.fontsWeight.medium};
     }
   }
 `;

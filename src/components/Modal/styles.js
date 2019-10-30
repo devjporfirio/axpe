@@ -35,7 +35,7 @@ export const ButtonClose = styled.button`
     display: block;
     background: none;
     font: 14px 'Raleway';
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     margin: 75px 78px 20px auto;
     display: flex;
     align-items: center;

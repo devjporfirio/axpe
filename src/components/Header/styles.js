@@ -9,7 +9,7 @@ export const Container = styled.header`
 
   h1 {
     font-family: 'Raleway';
-    font-weight: 300;
+    font-weight: ${({ theme }) => theme.fontsWeight.light};
   }
 
   ${media.lessThan('medium')`

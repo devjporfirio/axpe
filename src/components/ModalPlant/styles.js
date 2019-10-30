@@ -67,7 +67,7 @@ export const Infos = styled.div`
   p {
     color: ${({ theme }) => theme.colors.greenDark};
     font: 16px 'Raleway';
-    font-weight: 700;
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 
   div {

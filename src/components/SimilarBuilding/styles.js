@@ -72,7 +72,7 @@ export const Category = styled.h4`
 export const Local = styled.h4`
   color: ${({ theme }) => theme.colors.orange} !important;
   font: 18px 'Raleway';
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
   ${media.greaterThan('769px')`
     font-size: 16px;
@@ -85,7 +85,7 @@ export const Reference = styled.p`
 
 export const Price = styled.p`
   font: 18px 'Raleway';
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
   ${media.greaterThan('769px')`
     font-size: 16px;

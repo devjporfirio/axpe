@@ -26,7 +26,7 @@ export const Category = styled.p`
 
 export const Local = styled.p`
   font: 14px/28px 'Raleway';
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
   color: ${({ theme }) => theme.colors.orange};
   text-transform: uppercase;
 `;
@@ -112,7 +112,7 @@ export const BackDesktop = styled.a`
 
   span {
     font: 14px 'Raleway';
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     color: ${({ theme }) => theme.colors.orange};
     text-transform: uppercase;
   }

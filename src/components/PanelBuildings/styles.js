@@ -20,7 +20,7 @@ export const Container = styled.div`
 export const Title = styled.h4`
   color: ${({ theme }) => theme.colors.green};
   font: 41px/40px 'Bitter';
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
   line-height: 40px;
   margin: 20px 0;
 `;
@@ -30,7 +30,7 @@ export const SubTitle = styled.p`
   margin-left: 23px;
   width: 220px;
   font: 16px/19px 'Raleway';
-  font-weight: 300;
+  font-weight: ${({ theme }) => theme.fontsWeight.light};
   border-left: 2px solid ${({ theme }) => theme.colors.orange};
   color: ${({ theme }) => theme.colors.green};
 `;

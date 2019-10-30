@@ -209,7 +209,7 @@ export const Container = styled.section`
 export const Local = styled.p`
   text-transform: uppercase;
   font: 18px/25px 'Raleway';
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 `;
 
 export const Infos = styled.p`
