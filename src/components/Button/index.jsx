@@ -4,6 +4,7 @@ import { Container } from './styles';
 import IStar from 'assets/icons/star-blue.svg';
 import ICheck from 'assets/icons/check-green.svg';
 import ISofa from 'assets/icons/sofa.svg';
+import Link from 'next/link';
 
 const ICONS = {
   star: IStar,
@@ -16,13 +17,16 @@ export default function Button({
   label,
   icon,
   color,
+  href = '',
   ...props
 }) {
   return (
-    <Container {...props} color={color} icon={icon}>
-      {icon && <img src={ICONS[icon]} alt={label} />}
-      {label}
-    </Container>
+    <Link href={href}>
+      <Container {...props} color={color} icon={icon}>
+        {icon && <img src={ICONS[icon]} alt={label} />}
+        {label}
+      </Container>
+    </Link>
   );
 }
 
