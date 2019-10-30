@@ -39,9 +39,9 @@ export default function Datasheet({ property }) {
             )}
           </GroupButton>
         </BlockOne>
-        {property.infos.disclaimer && (
+        {property.infos.shortDescription && (
           <BlockTwo>
-            <Content>{property.infos.disclaimer}</Content>
+            <Content>{property.infos.shortDescription}</Content>
           </BlockTwo>
         )}
         <BlockThree>

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from 'react';
 import Api from 'services';
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
@@ -22,25 +22,19 @@ function Home({ hero, components }) {
         return (
           <>
             <Banner
-              onClick={() =>
-                window.open(
-                  component.link.url,
-                  item.link.external ? '_blank' : '_self'
-                )
-              }
+              href={component.link.url}
+              target={component.link.external ? '_blank' : '_self'}
               mq="mobile"
-              src={component.images.mobile}
-            />
+            >
+              <img src={component.images.mobile} alt="" />
+            </Banner>
             <Banner
-              onClick={() =>
-                window.open(
-                  component.link.url,
-                  item.link.external ? '_blank' : '_self'
-                )
-              }
+              href={component.link.url}
+              target={component.link.external ? '_blank' : '_self'}
               mq="desktop"
-              src={component.images.desktop}
-            />
+            >
+              <img src={component.images.mobile} alt="" />
+            </Banner>
             <br />
             <br />
           </>

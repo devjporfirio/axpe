@@ -85,7 +85,7 @@ function sectionMultiInfos(item, labelTitle) {
       <br />
       <Button
         label="Saiba mais"
-        onClick={() => (location.href = `intern/${slug}`)}
+        onClick={() => (location.href = `building/${slug}`)}
       />
     </>
   );

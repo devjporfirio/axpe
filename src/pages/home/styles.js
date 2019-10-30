@@ -6,17 +6,20 @@ export const Container = styled.main`
   overflow-y: scroll;
 `;
 
-export const Banner = styled.img`
+export const Banner = styled.a`
   cursor: pointer;
-  ${props =>
-    props.mq === 'mobile' &&
-    media.greaterThan('769px')`
-    display: none !important;
-  `}
 
-  ${props =>
-    props.mq === 'desktop' &&
-    media.lessThan('medium')`
-    display: none !important;
-  `}
+  img {
+    ${props =>
+      props.mq === 'mobile' &&
+      media.greaterThan('769px')`
+      display: none !important;
+    `}
+
+    ${props =>
+      props.mq === 'desktop' &&
+      media.lessThan('medium')`
+      display: none !important;
+    `}
+  }
 `;

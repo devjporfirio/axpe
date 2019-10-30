@@ -23,7 +23,7 @@ export default function SimilarBuilding({ item }) {
   const { values, gallery, address, infos, slug, category } = item;
 
   return (
-    <Container href={`/intern/${slug}`}>
+    <Container href={`/building/${slug}`}>
       <Slider
         propsArrow={{ position: 'center', type: '', backgroundColor: 'white' }}
         center={false}

@@ -18,7 +18,7 @@ export default {
     return result;
   },
   async getGeocode(cep) {
-    const apiKey = process.env.coig.keyMap;
+    const apiKey = process.env.config.keyMap;
     const result = await fetch(
       `${baseMaps}geocode/json?address=${cep}${apiKey}`
       // `${process.env.config.apiUrl}/geocode`
