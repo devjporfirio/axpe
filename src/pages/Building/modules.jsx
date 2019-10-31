@@ -1,10 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Planta from 'pages/Building/planta';
 import HowWeLove from 'components/HowWeLove';
 import DestaquesSection from 'components/DestaquesSection';
 import SlickText from 'components/SlickText';
 import Section from 'components/Section';
 import Around from 'components/Around';
+
+import { Module } from './styles';
 
 export default function Modules({ modules }) {
   const renderModules = (type, component) => {
@@ -41,19 +43,16 @@ export default function Modules({ modules }) {
       case 'plantas':
         return <Planta file={component.data.file} />;
       case 'vizinhanca':
-        return (
-          <Around cep={component.data.cep} text={component.data.text} />
-        );
+        return <Around cep={component.data.cep} text={component.data.text} />;
     }
   };
 
   return (
     <>
       {modules.map((component, index) => (
-        <Fragment key={index}>
+        <Module key={index}>
           {renderModules(component.module.slug, component)}
-          <br />
-        </Fragment>
+        </Module>
       ))}
     </>
   );

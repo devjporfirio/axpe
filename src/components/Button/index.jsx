@@ -1,30 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
-import IStar from 'assets/icons/star-blue.svg';
-import ICheck from 'assets/icons/check-green.svg';
-import ISofa from 'assets/icons/sofa.svg';
-import Link from 'next/link';
 
-const ICONS = {
-  star: IStar,
-  check: ICheck,
-  sofa: ISofa
-};
+import Link from 'next/link';
 
 export default function Button({
   type = 'button',
   label,
-  icon,
-  color,
   href = '',
   as = '',
   ...props
 }) {
   return (
     <Link href={href} as={as}>
-      <Container {...props} color={color} icon={icon}>
-        {icon && <img src={ICONS[icon]} alt={label} />}
+      <Container {...props}>
         {label}
       </Container>
     </Link>

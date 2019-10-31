@@ -1,7 +1,5 @@
 import React from 'react';
 import Api from 'services';
-import Breadcrumb from 'components/Breadcrumb';
-import Gallery from 'components/Gallery';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import PanelBuildings from 'components/PanelBuildings';
@@ -9,7 +7,7 @@ import SimilarBuilding from 'components/SimilarBuilding';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 
-import { Container, Alert } from 'pages/Building/styles';
+import { Container, Header, Images, Alert } from 'pages/Building/styles';
 
 function Building({ property, similarBuildings }) {
   if (!property || !Object.keys(property).length > 0) {
@@ -18,30 +16,31 @@ function Building({ property, similarBuildings }) {
 
   return (
     <Container>
-      <Breadcrumb
+      <Header
         category={property.category}
         local={property.address.local}
         source={property.source}
         reference={property.reference}
       />
 
-      <br />
       {property.gallery && (
-        <Gallery items={property.gallery} tour360={property.tour360} />
+        <Images items={property.gallery} tour360={property.tour360} />
       )}
-      <br />
 
       <DataSheet property={property} />
 
-      <br />
       <Alert>
-        Todas as informações aqui contidas, incluindo preço, metragem quadrada e
-        valores são aproximadas e não garantidas, devendo ser confirmadas
-        pessoalmente pelos interessados. No caso de imóveis em lançamento, as
-        imagens são meramente ilustrativas e os valores estão sujeitos a
-        alteração de tabela.
+        <p>
+          Todas as informações aqui contidas, incluindo preço, metragem quadrada
+          e valores são aproximadas e não garantidas, devendo ser confirmadas
+          pessoalmente pelos interessados.
+        </p>
+
+        <p>
+          No caso de imóveis em lançamento, as imagens são meramente
+          ilustrativas e os valores estão sujeitos a alteração de tabela.
+        </p>
       </Alert>
-      <br />
 
       {Object.keys(property.components).length > 0 && (
         <Modules modules={property.components} />

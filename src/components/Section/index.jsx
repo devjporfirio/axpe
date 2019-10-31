@@ -5,6 +5,7 @@ import {
   Container,
   Local,
   Infos,
+  Reference,
   Block1DestaqueTexto,
   Block2DestaqueTexto,
   Block1DestaqueTextoBullet,
@@ -29,7 +30,6 @@ function sectionDestaqueText(item) {
         {item.title && <hr />}
         <Infos>{item.text1}</Infos>
       </Block1DestaqueTexto>
-      <br />
       <Block2DestaqueTexto>
         <Infos>{item.text2}</Infos>
       </Block2DestaqueTexto>
@@ -45,7 +45,6 @@ function sectionDestaqueTextBullets(item) {
         {item.texts.title && <hr />}
         <Infos>{item.texts.text}</Infos>
       </Block1DestaqueTextoBullet>
-      <br />
       <Block2DestaqueTextoBullet>
         <ul>
           {item.bullets.map(bullet => (
@@ -65,11 +64,8 @@ function sectionMultiInfos(item, labelTitle) {
       {labelTitle && item[labelTitle] && <hr />}
 
       <Local>{address.local}</Local>
-
-      <br />
-
       <Infos>
-        {infos.use}, {infos.areaTotal}
+        {infos.use}, {infos.areaTotal + ' m²'}
       </Infos>
       {values.sell || values.release ? (
         <Infos>Venda: {values.sell || values.release}</Infos>
@@ -78,11 +74,8 @@ function sectionMultiInfos(item, labelTitle) {
       )}
       {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
 
-      <br />
-
-      <Infos>Ref {reference}</Infos>
-
-      <br />
+      <Reference>Ref {reference}</Reference>
+      
       <Button
         label="Saiba mais"
         href="/building/[reference]"

@@ -20,12 +20,6 @@ export const Block = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.greenBorder};
-
-  div {
-    width: 150px;
-    min-height: 45px;
-  }
 
   ${media.greaterThan('769px')`
     border-bottom: none;
@@ -49,6 +43,7 @@ export const BlockOne = styled(Block)`
     flex-shrink: 0;
   `}
 `;
+
 export const BlockTwo = styled(Block)`
   ${media.greaterThan('769px')`
     width: 200px;
@@ -62,16 +57,18 @@ export const BlockThree = styled(Block)`
   height: 240px;
 
   div {
-      flex-basis: 50%;
-    }
+    flex-basis: 50%;
+  }
 
   ${media.greaterThan('769px')`
-    
+    border: none;
   `}
 `;
 
 export const Type = styled.p`
-  font: 18px 'BitterRegular';
+  font: 18px 'Bitter';
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  margin-bottom: 21px;
 `;
 
 export const Neighborhood = styled.p`
@@ -82,10 +79,17 @@ export const Neighborhood = styled.p`
 
 export const Ref = styled.p`
   font: 14px 'Raleway';
+
+  ${media.greaterThan('medium')`
+    font-size: 12px;
+  `}
 `;
 
-export const GroupButton = styled.div`
-  button + button {
+export const GroupTags = styled.div`
+  width: 144px;
+  margin-top: 30px;
+
+  div + div {
     margin-top: 10px;
   }
 `;
@@ -107,7 +111,8 @@ export const Price = styled.div`
     font: 22px 'Raleway';
     font-weight: 600;
   }
-  p:nth-child(3) {
+  p:nth-child(3),
+  p:nth-child(4) {
     font: 11px 'Raleway';
   }
 `;
@@ -132,7 +137,8 @@ export const Delivery = styled.div`
     text-align: center;
     background-color: ${({ theme }) => theme.colors.greenLight};
     color: ${({ theme }) => theme.colors.white};
-    font: 16px 'RalewayMedium';
+    font: 16px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
     height: 35px;
     line-height: 35px;
 

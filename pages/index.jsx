@@ -33,10 +33,8 @@ function Home({ hero, components }) {
               target={component.link.external ? '_blank' : '_self'}
               mq="desktop"
             >
-              <img src={component.images.mobile} alt="" />
+              <img src={component.images.desktop} alt="" />
             </Banner>
-            <br />
-            <br />
           </>
         );
       case 'buildingsSquare':
@@ -50,12 +48,10 @@ function Home({ hero, components }) {
         return (
           component.items &&
           component.items.length > 0 && (
-            <>
-              <SlickSection
-                type={COMPONENT_SLICK[type]}
-                items={component.items}
-              />
-            </>
+            <SlickSection
+              type={COMPONENT_SLICK[type]}
+              items={component.items}
+            />
           )
         );
       case 'contact':
@@ -106,11 +102,11 @@ function Home({ hero, components }) {
       <Contact />
     </Container>
   );
-};
+}
 
 Home.getInitialProps = async() => {
   const response = await Api.Home.getPage();
-  return { hero: response.hero, components: response.components }
-}
+  return { hero: response.hero, components: response.components };
+};
 
 export default Home;

@@ -15,11 +15,8 @@ export const Rent = ({ rent, iptu, condo }) =>
     <Price>
       <p>Aluguel:</p>
       <p>{formatCurrency.format(rent)}</p>
-      <p>
-        Total locação: {formatCurrency.format(rent + iptu + condo)}
-        <br />
-        (Aluguel + IPTU + Cond.)
-      </p>
+      <p>Total locação: {formatCurrency.format(rent + iptu + condo)}</p>
+      <p>(Aluguel + IPTU + Cond.)</p>
     </Price>
   );
 
@@ -28,11 +25,8 @@ export const Sell = ({ sell, iptu, condo }) =>
     <Price>
       <p>Venda:</p>
       <p>{sell}</p>
-      <p>
-        IPTU: 10x {formatCurrency.format(iptu)}
-        <br />
-        Condominio: {formatCurrency.format(condo)}
-      </p>
+      <p>IPTU: 10x {formatCurrency.format(iptu)}</p>
+      <p>Condominio: {formatCurrency.format(condo)}</p>
     </Price>
   );
 

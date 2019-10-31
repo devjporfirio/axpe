@@ -110,6 +110,10 @@ const TypeDestaqueTextoBullets = css`
 `;
 
 export const Block1DestaqueTexto = styled.div`
+  p {
+    margin-bottom: 25px;
+  }
+
   ${media.greaterThan('769px')`
     width: 50%;
     height: 371px;
@@ -210,8 +214,13 @@ export const Local = styled.p`
   text-transform: uppercase;
   font: 18px/25px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  margin-bottom: 25px;
 `;
 
 export const Infos = styled.p`
   font: 18px/25px 'Raleway';
+`;
+
+export const Reference = styled(Infos)`
+  margin: 25px 0;
 `;

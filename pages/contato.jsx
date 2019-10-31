@@ -45,7 +45,6 @@ function Contact() {
         </p>
 
         <h2>Seus dados de contato</h2>
-        <br />
         <Input.Text placeholder="Nome" />
         <Input.Text placeholder="Sobrenome" />
         <Input.Email placeholder="E-mail" />
@@ -53,12 +52,10 @@ function Contact() {
         <Input.Phone placeholder="Celular" />
 
         <h2>Assunto:</h2>
-        <br />
         <Input.Select items={[{ label: 'Selecione o assunto', value: 0 }]} />
         <Input.Select items={[{ label: 'Selecione o assunto', value: 0 }]} />
 
         <h2>Sua Mensagem</h2>
-        <br />
         <Input.Area />
 
         <Input.Checkbox

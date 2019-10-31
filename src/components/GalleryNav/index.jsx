@@ -38,8 +38,6 @@ export default function GalleryNav({
           ))}
       </SliderNav1>
 
-      <br />
-
       <SliderNav2
         asNavFor={nav1}
         reference={slider => {

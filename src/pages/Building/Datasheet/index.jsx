@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/Button';
+import Tag from 'components/Tag';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 
 import {
@@ -8,7 +8,7 @@ import {
   Type,
   Neighborhood,
   Ref,
-  GroupButton,
+  GroupTags,
   BlockTwo,
   Content,
   BlockThree,
@@ -22,22 +22,20 @@ export default function Datasheet({ property }) {
         <BlockOne type={property.type}>
           <div>
             <Type>{property.infos.releaseStatus}</Type>
-            <br />
             <Neighborhood>{property.address.local}</Neighborhood>
             <Ref>Ref {property.reference}</Ref>
           </div>
-
-          <GroupButton>
+          <GroupTags>
             {property.label && property.label.is_new && (
-              <Button label={'Novidade'} icon="star" color="blueLight" />
+              <Tag label={'Novidade'} icon="star" color="blueLight" />
             )}
             {property.label && property.label.is_exclusive && (
-              <Button label={'Só na Axpe'} icon="check" color="greenLight2" />
+              <Tag label={'Só na Axpe'} icon="check" color="greenLight2" />
             )}
             {property.label && property.label.is_furnished && (
-              <Button label={'Mobiliado'} icon="sofa" color="yellowLight" />
+              <Tag label={'Mobiliado'} icon="sofa" color="yellowLight" />
             )}
-          </GroupButton>
+          </GroupTags>
         </BlockOne>
         {property.infos.shortDescription && (
           <BlockTwo>

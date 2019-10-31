@@ -17,6 +17,8 @@ const SlickLarge = media.greaterThan('769px')`
 `;
 
 export const Container = styled(Slider)`
+  margin-bottom: 40px;
+
   ${props =>
     props.type === 'slickLarge' && window.innerWidth > 769 && SlickLarge}
 

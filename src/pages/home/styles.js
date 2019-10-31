@@ -5,8 +5,10 @@ export const Container = styled.section``;
 
 export const Banner = styled.a`
   cursor: pointer;
-
+  
   img {
+    margin-bottom: 10px;
+
     ${props =>
       props.mq === 'mobile' &&
       media.greaterThan('769px')`
