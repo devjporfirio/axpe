@@ -12,7 +12,7 @@ export const Container = styled(Modal)`
     max-width: 100vw;
     max-height: calc(100vh - 67px);
 
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       margin: auto;
       display: block !important;
       max-height: calc(100vh - 150px);
@@ -27,7 +27,7 @@ export const Container = styled(Modal)`
   .slick-slider {
     width: 100%;
 
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       width: 80%;
       margin: auto;
       top: 77px;

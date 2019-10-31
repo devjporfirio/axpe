@@ -11,7 +11,7 @@ export const Banner = styled.a`
 
     ${props =>
       props.mq === 'mobile' &&
-      media.greaterThan('769px')`
+      media.greaterThan('medium')`
       display: none !important;
     `}
 

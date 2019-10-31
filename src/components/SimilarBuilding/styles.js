@@ -6,7 +6,7 @@ import Gallery from 'components/Gallery';
 export const Container = styled.a`
   background-color: ${({ theme }) => theme.colors.white};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     max-width: 1000px;
     margin: auto auto 20px auto;
     display: flex;
@@ -25,7 +25,7 @@ export const Infos = styled.div`
   margin-bottom: 20px;
   background-color: ${({ theme }) => theme.colors.white};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     padding: 40px 55px;
     width: 100%;
   `}
@@ -35,13 +35,13 @@ export const Slider = styled(Gallery)`
   position: initial;
     
   .slick-slide img {
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       max-width: 565px;
       max-height: 470px;
     `}
   }
   
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     .slick-slider{
       max-width: 565px;
       max-height: 470px;
@@ -50,7 +50,7 @@ export const Slider = styled(Gallery)`
 
   ${props =>
     props.mq === 'mobile' &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
       display: none !important;
   `}
 
@@ -74,7 +74,7 @@ export const Local = styled.h4`
   font: 18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     font-size: 16px;
   `};
 `;
@@ -87,7 +87,7 @@ export const Price = styled.p`
   font: 18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     font-size: 16px;
   `};
 `;

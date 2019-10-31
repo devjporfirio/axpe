@@ -11,7 +11,7 @@ export const ItemLink = styled(Link)`
   z-index: 9;
 `;
 
-const SlickLarge = media.greaterThan('769px')`
+const SlickLarge = media.greaterThan('medium')`
   .slick-track {
     height: 600px;
   }
@@ -34,7 +34,7 @@ export const Container = styled(Slider)`
   ${props =>
     props.type === 'slickGrid' &&
     props.length === 1 &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
       section {
         margin-left: 70%;
       }
@@ -43,7 +43,7 @@ export const Container = styled(Slider)`
 
 export const Slide = styled.div`
   ${props =>
-    props.type === 'slickGrid' && media.greaterThan('769px')`height: 686px;`}
+    props.type === 'slickGrid' && media.greaterThan('medium')`height: 686px;`}
 `;
 
 export const Image = styled.img`
@@ -57,7 +57,7 @@ export const Image = styled.img`
       height: 0;
       padding-top: 66.64%;
   ` &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
       height: auto;
   `}
       
@@ -70,7 +70,7 @@ export const Image = styled.img`
 
   ${props =>
     props.mq === 'mobile' &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
       display: none !important;
   `}
 
@@ -86,14 +86,14 @@ export const Image = styled.img`
       width: 100%;
       margin-left: 0;
 
-      ${media.greaterThan('769px')`
+      ${media.greaterThan('medium')`
         height: 680px;
       `}
     `}
 
   ${props =>
     props.type === 'slickLarge' &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
       width: 64%;
       height: 230px;
     `}
@@ -112,7 +112,7 @@ export const Image = styled.img`
 
   ${props =>
     props.type === 'slickSmall' &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
       margin: 0 20px;
       width: 86%;   
   `}
@@ -199,7 +199,7 @@ export const Gradient = styled.div`
   mix-blend-mode: normal;
   opacity: 0.78;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     height: 700px;
   `}
 `;

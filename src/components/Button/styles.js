@@ -14,7 +14,7 @@ export const Container = styled.a`
   display: block;
   text-align: center;
 
-  ${props => !props.color && media.greaterThan('769px')` 
+  ${props => !props.color && media.greaterThan('medium')` 
     width: 140px;
   `};
 `;

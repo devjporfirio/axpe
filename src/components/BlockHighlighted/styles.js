@@ -24,7 +24,7 @@ export const Container = styled.div`
     }
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     justify-content: space-around;
     flex-direction: row;
 

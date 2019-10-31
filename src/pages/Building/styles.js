@@ -15,7 +15,7 @@ export const Container = styled.section`
   border: 1px solid ${({ theme }) => theme.colors.greyDark};
 `;
 
-export const Alert = styled.p`
+export const Alert = styled.div`
   max-width: 1000px;
   margin: auto;
   padding: 20px;

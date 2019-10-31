@@ -50,7 +50,7 @@ const TypeSlick = css`
     color: ${({ theme }) => theme.colors.white};
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     h4 {
       font-size: 38px;
     }
@@ -58,7 +58,7 @@ const TypeSlick = css`
 `;
 
 const TypeSlickSmall = css`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     ${TypeSlickLeftMobile}
     margin-left: 20px !important;
     padding: 20px 8%;
@@ -77,7 +77,7 @@ const TypeDestaqueTexto = css`
   width: auto !important;
   padding: 20px 30px !important;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     background: url(${IRectangle}) center no-repeat;
     position: initial;
     max-width: 1000px;
@@ -118,7 +118,7 @@ export const Block1DestaqueTexto = styled.div`
     margin-bottom: 25px;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 50%;
     height: 371px;
     padding: 30px;
@@ -127,7 +127,7 @@ export const Block1DestaqueTexto = styled.div`
 `;
 
 export const Block2DestaqueTexto = styled.div`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 50%;
     height: 371px;
     background-color: ${({ theme }) => theme.colors.green};
@@ -142,13 +142,13 @@ export const Block2DestaqueTexto = styled.div`
 `;
 
 export const Block1DestaqueTextoBullet = styled(Block1DestaqueTexto)`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.green};
   `}
 `;
 
 export const Block2DestaqueTextoBullet = styled(Block2DestaqueTexto)`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.white};
 
     ul {
@@ -210,7 +210,7 @@ export const Container = styled.section`
   
 `};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     margin-left: 120px;
 
     ${props => props.type === 'slickLeft' && TypeSlickLeftDesktop}

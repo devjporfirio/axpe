@@ -10,7 +10,7 @@ export const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
   background-color: ${({ theme }) => theme.colors.white};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     height: 40px;
     border: none;
   `}
@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const Category = styled.p`
   font: 18px/32px 'Bitter';
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     margin-right: 20px;
   `}
 `;
@@ -41,7 +41,7 @@ export const InfoLeft = styled.div`
     justify-content: space-around;
     margin-left: 20px;
 
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       flex-direction: row;
       align-items: center;
     `}
@@ -62,7 +62,7 @@ export const InfoRight = styled.div`
     margin-right: 5px;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     justify-content: space-between;
     width: 400px;
   `};
@@ -80,7 +80,7 @@ export const Reference = styled.span`
 `;
 
 export const FavoriteMobile = styled.img`
-  ${media.greaterThan('769px')`display: none;`}
+  ${media.greaterThan('medium')`display: none;`}
   width: 25px;
 `;
 
@@ -103,7 +103,7 @@ export const FavoriteDesktop = styled.div`
 `;
 
 export const BackMobile = styled.a`
-  ${media.greaterThan('769px')`display: none;`}
+  ${media.greaterThan('medium')`display: none;`}
 `;
 export const BackDesktop = styled.a`
   ${media.lessThan('medium')`display: none;`}

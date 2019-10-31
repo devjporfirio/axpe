@@ -30,7 +30,7 @@ export const Title = styled.div`
     font: 40px 'Raleway';
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     padding: 45px 80px;
   `}
 `;
@@ -68,7 +68,7 @@ export const Section = styled.section`
     width: 156px;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     max-width: 156px;
 
     h1 , p {
