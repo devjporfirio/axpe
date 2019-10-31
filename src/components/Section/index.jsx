@@ -85,7 +85,8 @@ function sectionMultiInfos(item, labelTitle) {
       <br />
       <Button
         label="Saiba mais"
-        href={`/building/${slug}`}
+        href="/building/[reference]"
+        as={`/building/${slug}`}
       />
     </>
   );

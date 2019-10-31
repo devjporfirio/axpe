@@ -18,10 +18,11 @@ export default function Button({
   icon,
   color,
   href = '',
+  as = '',
   ...props
 }) {
   return (
-    <Link href={href}>
+    <Link href={href} as={as}>
       <Container {...props} color={color} icon={icon}>
         {icon && <img src={ICONS[icon]} alt={label} />}
         {label}
