@@ -9,7 +9,7 @@ import Modules from 'pages/Building/modules';
 
 import { Container, Header, Images, Alert } from 'pages/Building/styles';
 
-function Building({ property, similarBuildings }) {
+function Building ({ property, similarBuildings }) {
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;
   }
@@ -62,7 +62,7 @@ function Building({ property, similarBuildings }) {
   );
 }
 
-Building.getInitialProps = async({ query }) => {
+Building.getInitialProps = async ({ query }) => {
   const reference = query.reference;
   const response = await Api.Building.getPage(reference);
   const similar = await Api.Building.getSimilar(response.building, 3);

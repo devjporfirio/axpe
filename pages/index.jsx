@@ -15,8 +15,8 @@ const COMPONENT_SLICK = {
 
 import { Container, Banner } from 'pages/Home/styles';
 
-function Home({ hero, components }) {
-  function renderComponents(type, component) {
+function Home ({ hero, components }) {
+  function renderComponents (type, component) {
     switch (type) {
       case 'banner':
         return (
@@ -104,7 +104,7 @@ function Home({ hero, components }) {
   );
 }
 
-Home.getInitialProps = async() => {
+Home.getInitialProps = async () => {
   const response = await Api.Home.getPage();
   return { hero: response.hero, components: response.components };
 };
