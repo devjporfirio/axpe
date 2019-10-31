@@ -12,7 +12,6 @@ const TypeSlickLargeDesktop = css`
   width: 32%;
 
   h4 {
-    font-size: 22px;
     margin-bottom: 15px;
   }
 `;
@@ -33,10 +32,6 @@ const TypeSlickLeftMobile = css`
   margin: auto;
   padding: 20px 0;
 
-  h4 {
-    font-size: 22px;
-  }
-
   hr {
     margin: 20px 0;
   }
@@ -47,10 +42,19 @@ const TypeSlickLeftMobile = css`
 `;
 
 const TypeSlick = css`
-  h4,
+  h4 {
+    color: ${({ theme }) => theme.colors.white};
+    font-size: 41px;
+  }
   p {
     color: ${({ theme }) => theme.colors.white};
   }
+
+  ${media.greaterThan('769px')`
+    h4 {
+      font-size: 38px;
+    }
+  `};
 `;
 
 const TypeSlickSmall = css`
@@ -167,8 +171,11 @@ export const Container = styled.section`
     props.type !== 'slick' && props.theme.colors.white};
 
   h4 {
-    color: ${({ theme }) => theme.colors.greenDark};
-    font: 41px 'Bitter';
+    font: 22px 'Bitter';
+
+    ${media.greaterThan('medium')`
+      font-size: 37px;
+    `}
   }
 
   hr {
@@ -180,6 +187,8 @@ export const Container = styled.section`
   }
 
   p {
+    font: 18px/25px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
     color: ${({ theme }) => theme.colors.greenDark};
   }
 

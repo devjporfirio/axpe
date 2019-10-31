@@ -1,6 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import Slider from '../Slider';
+import Link from 'components/Link';
+
+export const ItemLink = styled(Link)`
+  height: 700px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  z-index: 9;
+`;
 
 const SlickLarge = media.greaterThan('769px')`
   .slick-track {
@@ -17,10 +26,10 @@ const SlickLarge = media.greaterThan('769px')`
 `;
 
 export const Container = styled(Slider)`
-  margin-bottom: 40px;
+  ${props => props.type !== 'slick' && `margin-bottom: 40px;`}
 
   ${props =>
-    props.type === 'slickLarge' && window.innerWidth > 769 && SlickLarge}
+    props.type === 'slickLarge' && media.greaterThan('medium')`${SlickLarge}`}
 
   ${props =>
     props.type === 'slickGrid' &&
@@ -32,17 +41,15 @@ export const Container = styled(Slider)`
   `}
 `;
 
-export const Slide = styled.a`
+export const Slide = styled.div`
   ${props =>
-    props.type === 'slickGrid' && media.greaterThan('769px')`height: 680px;`}
+    props.type === 'slickGrid' && media.greaterThan('769px')`height: 686px;`}
 `;
 
 export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
   background-size: cover;
   display: block;
-  /* background: url(${props => props.url}) center center no-repeat; */
-  
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
@@ -56,9 +63,10 @@ export const Image = styled.img`
       
   ${props =>
     [ 'slick' ].includes(props.type) &&
-    `      
+    css`
+      height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
       min-height: 507px;
-  `}
+    `}
 
   ${props =>
     props.mq === 'mobile' &&
@@ -74,9 +82,13 @@ export const Image = styled.img`
 
   ${props =>
     props.type === 'slickLeft' &&
-    `
+    css`
       width: 100%;
       margin-left: 0;
+
+      ${media.greaterThan('769px')`
+        height: 680px;
+      `}
     `}
 
   ${props =>
@@ -106,37 +118,71 @@ export const Image = styled.img`
   `}
 `;
 
-export const ImagesGrid = styled.div`
-  display: grid;
-  grid-template-columns: 25% 40%;
-  grid-template-rows: 277px 403px;
-
-  div {
+export const GreenBlock = styled.div`
+  width: 100%;
+  height: 102px;
+  text-align: center;
+  background-color: ${({ theme }) => theme.colors.green};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  p {
+    font: 22px 'Bitter';
+    width: 238px;
     text-align: center;
-    background-color: ${({ theme }) => theme.colors.green};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    p {
-      grid-area: title;
-      width: 80%;
-      color: ${({ theme }) => theme.colors.white};
-      font: 27px 'Bitter';
-      text-align: left;
-    }
+    color: ${({ theme }) => theme.colors.white};
   }
 
-  ${media.lessThan('medium')`
-    display: block;
+  ${media.greaterThan('medium')`
+    width: 25vw;
+    max-width: 331px;
+    height: 277px;
+    border: 3.5px solid ${({ theme }) => theme.colors.white};
 
-    div {
-      height: 102px;
-      p {
-        font-size: 22px;
-        width: 238px;
-        text-align: center;
-      }
+    p {
+      font-size: 27px;
+      text-align: left;
+      width: 80%;
+    }
+  `}
+`;
+
+export const Row1 = styled.div`
+  display: flex;
+  img {
+    max-width: 520px;
+    width: 30vw;
+    height: 277px;
+  }
+`;
+
+export const Row2 = styled.div`
+  display: flex;
+  img {
+    height: 403px;
+  }
+  img:nth-child(1) {
+    max-width: 331px;
+    width: 25vw;
+  }
+
+  img:nth-child(2) {
+    max-width: 520px;
+    width: 30vw;
+  }
+`;
+
+export const ImagesGrid = styled.div`
+  display: block;
+
+  ${media.greaterThan('medium')`
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+
+    img {
+      border: 3.5px solid ${({ theme }) => theme.colors.white};
     }
   `}
 `;

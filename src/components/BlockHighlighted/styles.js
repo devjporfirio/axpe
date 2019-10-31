@@ -18,6 +18,7 @@ export const Container = styled.div`
     p {
       max-width: 240px;
       font: 18px/21px 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.medium};
       color: ${({ theme }) => theme.colors.white};
       margin-bottom: 24px;
     }
