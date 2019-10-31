@@ -49,7 +49,7 @@ const galeriaImagensTexto = css`
 `;
 
 const galeriaShow3 = css`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     top: 252px;
     margin-right: auto;
     margin-left: 173px;
@@ -59,13 +59,13 @@ const galeriaShow3 = css`
     top: 176px;
   `}
 
-  ${media.between('769px', '1202px')`
+  ${media.between('medium', '1202px')`
     margin-left: 15%;
   `}
 `;
 
 const galeriaShow3Next = css`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     right: 173px;
   `}
 
@@ -73,7 +73,7 @@ const galeriaShow3Next = css`
     right: 0;
   `}
 
-  ${media.between('769px', '1202px')`
+  ${media.between('medium', '1202px')`
     right: 15%;
   `}
 `;
@@ -125,7 +125,7 @@ const positionLeftPrev = css`
   bottom: 40px !important;
   margin-bottom: 0 !important;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     top: 611px !important;
     left: 112px !important;
   `}
@@ -136,7 +136,7 @@ const positionLeftNext = css`
   bottom: 40px !important;
   margin-bottom: 0 !important;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     top: 610px !important;
     left: 156px !important;
   `}

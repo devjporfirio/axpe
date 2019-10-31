@@ -1,20 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Section from 'components/Section';
-import { Container, Slide, Image, ImagesGrid, Gradient } from './styles';
+import {
+  Container,
+  ItemLink,
+  Slide,
+  Image,
+  Row1,
+  Row2,
+  ImagesGrid,
+  GreenBlock,
+  Gradient
+} from './styles';
 
-function renderBackground(type, item) {
+function renderBackground (type, item) {
   switch (type) {
     case 'slickGrid':
       return (
         <>
           <ImagesGrid>
-            <div>
-              <p>{item.titleGreen}</p>
-            </div>
-            <Image type={type} mq="desktop" src={item.images.desktop1} />
-            <Image type={type} mq="desktop" src={item.images.desktop2} />
-            <Image type={type} mq="desktop" src={item.images.desktop3} />
+            <Row1>
+              <GreenBlock>
+                <p>{item.titleGreen}</p>
+              </GreenBlock>
+              <Image type={type} mq="desktop" src={item.images.desktop1} />
+            </Row1>
+            <Row2>
+              <Image type={type} mq="desktop" src={item.images.desktop2} />
+              <Image type={type} mq="desktop" src={item.images.desktop3} />
+            </Row2>
           </ImagesGrid>
           <Image type={type} mq="mobile" src={item.images.mobile} />
         </>
@@ -29,7 +43,7 @@ function renderBackground(type, item) {
   }
 }
 
-function SlickSection({
+function SlickSection ({
   type = 'slick',
   items = [],
   color,
@@ -105,12 +119,10 @@ function SlickSection({
       {items &&
         lengthItems > 0 &&
         items.map((item, index) => (
-          <Slide
-            key={item.id || index}
-            href={item.link ? item.link.url : '#'}
-            target={item.link && item.link.external ? '_blank' : '_self'}
-            type={type}
-          >
+          <Slide key={item.id || index} type={type}>
+            {item.link && !!item.link.url && (
+              <ItemLink url={item.link.url} isExternal={item.link.external} />
+            )}
             {useGradient && <Gradient />}
             {renderBackground(type, item)}
             <Section type={type} item={item} />

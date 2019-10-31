@@ -15,7 +15,7 @@ export const Container = styled(Modal)`
     width: 60px;
     margin: 0 0 20px 0;
 
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       margin: 21px 0;
     `}
   }
@@ -25,7 +25,7 @@ export const Container = styled(Modal)`
     width: 100%;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 85%;
     height: 70vh;
     margin: auto;
@@ -49,7 +49,7 @@ export const Left = styled.div`
   display: flex;
   justify-content: space-between;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 30%; 
     flex-direction: column;
   `}
@@ -74,7 +74,7 @@ export const Infos = styled.div`
     width: 50%;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     flex-direction: column;
     max-width: 250px;
   `}
@@ -84,7 +84,7 @@ export const Right = styled(Slider)`
   width: 90vw;
   margin: 40px auto 0 auto;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 65vh;
     height: 65vh;
     margin: 0;
@@ -102,7 +102,7 @@ export const ImagesGroup = styled.div`
   justify-content: center;
   margin-left: 5px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     flex-wrap: wrap;
     max-width: 300px;
     width: 90vw;

@@ -8,7 +8,7 @@ export const Container = styled.div`
   .slick-slide {
     width: calc(100vw - 500px);
 
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       max-width: 600px;
     `}
   }
@@ -20,7 +20,7 @@ export const Image = styled.img`
   border-bottom: none;
   height: 376px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     height: 525px;
   `}
 `;
@@ -28,7 +28,7 @@ export const Image = styled.img`
 export const Video = styled.iframe`
   height: 376px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     height: 525px;
   `}
 `;
@@ -51,7 +51,7 @@ export const Button360 = styled.div`
     width: 32px;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 66px;
     height: 66px;
 
@@ -83,7 +83,7 @@ export const SizeGallery = styled.div`
     margin-top: 7px;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: none;
   `}
 `;

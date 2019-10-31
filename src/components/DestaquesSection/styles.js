@@ -21,7 +21,7 @@ export const Destaque3 = css`
 export const ImagemDestaque = css`
   width: 100vw;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     height: 454px;
   `}
 `;
@@ -32,7 +32,7 @@ export const Container = styled.div`
   margin: auto;
   width: calc(100vw - 40px);
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -66,7 +66,7 @@ export const ImageImagemDestaque = css`
   width: 100%;
   border-radius: 0;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     max-width: 616px;
     height: 454px;
   `}
@@ -77,7 +77,7 @@ export const Image = styled.img`
   width: calc(100vw - 40px);
   border-radius: 8px 8px 0 0;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 100vw;
     border-radius: 0;
 
@@ -93,7 +93,7 @@ export const Video = styled.iframe`
   width: calc(100vw - 40px);
   border-radius: 8px 8px 0 0;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 100vw;
     border-radius: 0;
 
@@ -107,7 +107,7 @@ export const Video = styled.iframe`
 const SectionImagemDestaque = css`
   max-width: 320px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     h4 {
       font-size: 22px !important;
     }
@@ -125,7 +125,7 @@ export const Text = styled(Section)`
     font-size: 22px;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     position: initial;
     margin-left: 0;
     flex-shrink: 0;

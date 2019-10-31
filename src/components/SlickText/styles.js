@@ -11,7 +11,7 @@ export const Container = styled(Slider)`
     width: 100vw;
     height: 376px;
 
-    ${media.greaterThan('769px')`
+    ${media.greaterThan('medium')`
       max-width: 1000px;
       height: 385px;
     `}
@@ -23,7 +23,7 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: 20px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     font: 20px/25px 'Bitter';
     margin-right: 60px;
   `}
@@ -33,7 +33,7 @@ export const Text = styled.p`
   font: 18px/25px 'Raleway';
   color: ${({ theme }) => theme.colors.white};
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     font: 16px/23px 'Raleway';
   `}
 `;
@@ -42,7 +42,7 @@ export const GroupText = styled.div`
   background-color: ${({ theme }) => theme.colors.greenDark};
   padding: 20px 30px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: flex;
   `}
 `;

@@ -6,7 +6,7 @@ export const Container = styled.div`
   max-width: 1000px;
   margin: auto;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: flex;
   `}
 `;
@@ -25,7 +25,7 @@ export const Mapa = styled.div`
     }
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     max-width: 572px;
     height: 426px;
   `}
@@ -36,7 +36,7 @@ export const Pin = styled.img`
   width: 28px;
   margin: -20px 0 0 30px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: ${props => (props.mq === 'mobile' ? 'none' : 'block')};
     margin: 0 -80px 0 0;
     z-index: 5;
@@ -49,7 +49,7 @@ export const Text = styled(Section)`
   margin-top: -20px;
   padding: 20px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     padding: 60px 0 0 60px;
     width: 70%;
     margin: -1px 0 0 0;

@@ -9,7 +9,7 @@ export const DatasheetContent = styled.div`
     color: ${({ theme }) => theme.colors.white};
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: flex;
     height: 268px;
   `}
@@ -21,14 +21,14 @@ export const Block = styled.div`
   justify-content: space-between;
   padding: 20px;
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     border-bottom: none;
     border-right: 2px solid ${({ theme }) => theme.colors.greenBorder};
   `}
 `;
 
 export const BlockOne = styled(Block)`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     flex-direction: column;
     justify-content: ${props =>
       props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
@@ -38,14 +38,14 @@ export const BlockOne = styled(Block)`
 
   ${props =>
     props.type !== 'pronto' &&
-    media.greaterThan('769px')`
+    media.greaterThan('medium')`
     width: 308px;
     flex-shrink: 0;
   `}
 `;
 
 export const BlockTwo = styled(Block)`
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     width: 200px;
     flex-shrink: 0;
   `}
@@ -60,7 +60,7 @@ export const BlockThree = styled(Block)`
     flex-basis: 50%;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     border: none;
   `}
 `;
@@ -149,7 +149,7 @@ export const Delivery = styled.div`
     }
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     max-width: 1000px;
     margin: auto;
 

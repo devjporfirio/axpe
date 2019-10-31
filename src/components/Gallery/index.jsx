@@ -7,7 +7,7 @@ import I360 from 'assets/icons/360.svg';
 import IGrid from 'assets/icons/grid.svg';
 import { Container, Image, Video, Button360, SizeGallery } from './styles';
 
-export default function Gallery({
+export default function Gallery ({
   items,
   center = true,
   tour360,
@@ -30,11 +30,18 @@ export default function Gallery({
       <Slider
         propsArrow={propsArrow}
         slidesToShow={1}
-        // centerMode={center && window.innerWidth >= 769 ? true : false}
         centerMode={true}
         className={center ? 'center' : ''}
-        // variableWidth={window.innerWidth >= 769 ? true : false}
         variableWidth={true}
+        responsive={center ? [
+          {
+            breakpoint: 769,
+            settings: {
+              centerMode: false,
+              variableWidth: false
+            }
+          }
+        ] : []}
       >
         {items &&
           items.length > 0 &&

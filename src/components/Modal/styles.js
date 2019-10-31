@@ -31,7 +31,7 @@ export const ButtonClose = styled.button`
     display: none;
   }
 
-  ${media.greaterThan('769px')`
+  ${media.greaterThan('medium')`
     display: block;
     background: none;
     font: 14px 'Raleway';
