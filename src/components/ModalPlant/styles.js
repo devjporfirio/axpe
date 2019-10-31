@@ -117,7 +117,6 @@ export const Image = styled.img`
   ${props =>
     props.selected &&
     css`
-      box-sizing: border-box;
       border: 3px solid ${({ theme }) => theme.colors.orange};
     `}
 `;

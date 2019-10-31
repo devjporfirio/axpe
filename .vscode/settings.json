@@ -15,8 +15,13 @@
   "eslint.autoFixOnSave": true,
   "eslint.run": "onSave",
   "prettier.singleQuote": true,
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
   "emmet.includeLanguages": {
     "nunjucks": "html",
     "erb": "html"
   }
 }
+
+

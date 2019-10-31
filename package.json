@@ -2,6 +2,9 @@
   "name": "nextjs",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^10.13.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -46,6 +49,7 @@
     "node-sass": "^4.13.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",
+    "react-inlinesvg": "^1.1.7",
     "react-modal": "^3.11.1",
     "react-redux": "^7.1.1",
     "react-slick": "^0.25.2",
