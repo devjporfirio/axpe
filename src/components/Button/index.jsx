@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
+import Link from 'components/Link';
 
-import Link from 'next/link';
-
-export default function Button({
-  type = 'button',
+export default function Button ({
+  className,
+  color = 'orange',
   label,
   href = '',
   as = '',
-  ...props
+  isExternal,
 }) {
   return (
-    <Link href={href} as={as}>
-      <Container {...props}>
+    <Link href={href} as={as} isExternal={isExternal}>
+      <Container className={className} color={color}>
         {label}
       </Container>
     </Link>
