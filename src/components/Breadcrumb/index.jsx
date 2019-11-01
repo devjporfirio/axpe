@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'components/Button';
 
 import {
   Container,
@@ -11,7 +10,8 @@ import {
   BackMobile,
   BackDesktop,
   Category,
-  Local
+  Local,
+  MoreInfo
 } from './styles';
 
 import IArrowOrange from '../../assets/icons/arrow-prev-orange.svg';
@@ -20,7 +20,7 @@ import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
 import Phone from '../Phone';
 
-export default function Breadcrumb({ category, local, reference, className }) {
+export default function Breadcrumb ({ category, local, reference, className }) {
   return (
     <Container className={className}>
       <InfoLeft>
@@ -45,7 +45,7 @@ export default function Breadcrumb({ category, local, reference, className }) {
             <span>3</span>
             <img src={IHeartBlack} alt="Favoritos" />
           </FavoriteDesktop>
-          <Button label="Mais Informações" />
+          <MoreInfo label="Mais Informações" />
           <Phone color="orange" />
         </InfoRight>
       )}

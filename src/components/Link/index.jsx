@@ -1,17 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function MyLink ({ url, isExternal, children, className }) {
+export default function MyLink ({ href, as, isExternal, children, className }) {
   if (isExternal) {
     return (
-      <a className={className} href={url} target="_blank">
+      <a className={className} href={href} target="_blank">
         {children}
       </a>
     );
   }
   return (
-    <Link href={url}>
-      <a href={url} className={className} target="_self">
+    <Link href={href} as={as}>
+      <a href={href} className={className} target="_self">
         {children}
       </a>
     </Link>

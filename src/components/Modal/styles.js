@@ -1,22 +1,21 @@
-// import Modal from 'react-modal';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import Breadcrumb from '../Breadcrumb';
 
-// Modal.setAppElement('#main');
-
-// export const Container = styled(Modal)`
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   width: 100vw;
   height: calc(100vh - 67px);
-  position: absolute;
-  z-index: 5;
+  position: fixed;
+  left: 0;
+  z-index: 10;
+  overflow: hidden;
+  height: 100vh;
 `;
 
 export const ButtonClose = styled.button`
   position: absolute;
-  top: -47px;
+  top: 23px;
   right: 20px;
   background-color: ${({ theme }) => theme.colors.white};
   width: 30px;
@@ -42,12 +41,9 @@ export const ButtonClose = styled.button`
     width: auto;
 
     span {
-      color: ${props =>
-        props.iconButtonWhite
-          ? props.theme.colors.white
-          : props.theme.colors.green};
+      color: ${({ theme }) => theme.colors.white};
       text-transform: uppercase;
-      display: ${props => (props.iconButtonWhite ? 'block' : 'none')};
+      display: 'block';
     }
   `}
 `;
@@ -55,6 +51,10 @@ export const ButtonClose = styled.button`
 export const Header = styled(Breadcrumb)`
   position: absolute;
   width: 100vw;
-  background-color: ${props => props.theme.colors.white};
-  top: -67px;
+  background-color: ${({ theme }) => theme.colors.white};
+  top: 0;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
 `;

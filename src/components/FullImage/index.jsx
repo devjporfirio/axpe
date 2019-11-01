@@ -3,9 +3,14 @@ import Slider from '../Slider';
 
 import { Container } from './styles';
 
-export default function FullImage({ goTo, onClose, items }) {
+export default function FullImage ({ goTo, onClose, items, category, local }) {
   return (
-    <Container isOpen={true} label="Galeria de fotos" closeModal={onClose}>
+    <Container
+      category={category}
+      local={local}
+      isOpen={true}
+      closeModal={onClose}
+    >
       <Slider
         propsArrow={{ position: 'center', backgroundColor: 'white' }}
         slidesToShow={1}
@@ -16,7 +21,9 @@ export default function FullImage({ goTo, onClose, items }) {
           items.map((item, index) => {
             switch (item.tipo) {
               case 'imagem':
-                return <img key={index} alt="Foto do Imóvel" src={item.src} />;
+                return (
+                  <img key={index} alt="Foto do Imóvel" src={item.src} />
+                );
               case 'video':
                 return (
                   <iframe

@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import Button from 'components/Button';
+
+export const MoreInfo = styled(Button)`
+  width: 155px;
+  height: 32px;
+  font-size: 13px;
+  line-height: 32px;
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -76,7 +84,7 @@ export const InfoRight = styled.div`
 
 export const Reference = styled.span`
   font: 14px 'Bitter';
-  width: 90px;
+  width: 120px;
 `;
 
 export const FavoriteMobile = styled.img`

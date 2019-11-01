@@ -121,7 +121,7 @@ function SlickSection ({
         items.map((item, index) => (
           <Slide key={item.id || index} type={type}>
             {item.link && !!item.link.url && (
-              <ItemLink url={item.link.url} isExternal={item.link.external} />
+              <ItemLink href={item.link.url} isExternal={item.link.external} />
             )}
             {useGradient && <Gradient />}
             {renderBackground(type, item)}

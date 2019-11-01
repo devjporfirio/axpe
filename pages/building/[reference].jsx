@@ -24,7 +24,12 @@ function Building ({ property, similarBuildings }) {
       />
 
       {property.gallery && (
-        <Images items={property.gallery} tour360={property.tour360} />
+        <Images
+          category={property.category}
+          local={property.address.local}
+          items={property.gallery}
+          tour360={property.tour360}
+        />
       )}
 
       <DataSheet property={property} />

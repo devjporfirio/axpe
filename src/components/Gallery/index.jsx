@@ -14,7 +14,9 @@ export default function Gallery ({
   showSizeGallery = true,
   className,
   propsArrow = { type: 'gallery-show-3', backgroundColor: 'white' },
-  showClickImage = true
+  showClickImage = true,
+  category,
+  local
 }) {
   const [ showGalleryNav, setShowGalleryNav ] = useState(false);
   const [ showFullImage, setShowFullImage ] = useState(false);
@@ -33,7 +35,7 @@ export default function Gallery ({
         centerMode={true}
         className={center ? 'center' : ''}
         variableWidth={true}
-        responsive={center ? [
+        responsive={[
           {
             breakpoint: 769,
             settings: {
@@ -41,7 +43,7 @@ export default function Gallery ({
               variableWidth: false
             }
           }
-        ] : []}
+        ]}
       >
         {items &&
           items.length > 0 &&
@@ -81,7 +83,13 @@ export default function Gallery ({
       )}
 
       {showGalleryNav && (
-        <GalleryNav items={items} onClose={() => setShowGalleryNav(false)} />
+        <GalleryNav
+          items={items}
+          isModal={true}
+          onClose={() => setShowGalleryNav(false)}
+          category={category}
+          local={local}
+        />
       )}
 
       {showFullImage && (
@@ -89,6 +97,8 @@ export default function Gallery ({
           goTo={imageSelected}
           items={items}
           onClose={() => setShowFullImage(false)}
+          category={category}
+          local={local}
         />
       )}
     </Container>

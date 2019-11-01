@@ -34,7 +34,7 @@ const NotFound = () => (
   </>
 );
 
-const Planta = () => (
+const Planta = ({ href }) => (
   <>
     <Highlighted type="planta">
       <span>Veja a </span>
@@ -43,17 +43,22 @@ const Planta = () => (
     </Highlighted>
     <div>
       <p>E descubra se ela é a ideal para você</p>
-      <Link color="greenLight" label="Veja as plantas" onClick={() => {}} />
+      <Link
+        color="greenLight"
+        label="Veja as plantas"
+        href={href}
+        isExternal={true}
+      />
     </div>
   </>
 );
 
-export default function BlockHighlighted({ type }) {
+export default function BlockHighlighted ({ type, href }) {
   return (
     <Container>
       {type === 'contact' && <Contact />}
       {type === 'notfound' && <NotFound />}
-      {type === 'planta' && <Planta />}
+      {type === 'planta' && <Planta href={href} />}
     </Container>
   );
 }

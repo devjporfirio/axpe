@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 import Slider from '../Slider';
+import Modal from 'components/Modal';
+
+export const Container = styled(Modal)`
+  top: 0;
+`;
 
 export const SliderNav1 = styled(Slider)`
   height: 100vw;
+  top: 67px;
 
   img {
-    max-height:100vw;
+    max-height: 100vw;
     max-width: 100vw;
     margin: auto;
     width: auto;
@@ -22,6 +28,9 @@ export const SliderNav2 = styled(Slider)`
   }
 
   height: 100px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 
   img {
     max-height: 100px;

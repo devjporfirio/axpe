@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import Modal from '../Modal';
+import Modal from 'components/Modal';
 
 export const Container = styled(Modal)`
   height: 100vh;
@@ -26,6 +26,7 @@ export const Container = styled(Modal)`
 
   .slick-slider {
     width: 100%;
+    margin-top: 67px;
 
     ${media.greaterThan('medium')`
       width: 80%;

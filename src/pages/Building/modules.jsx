@@ -1,6 +1,6 @@
 import React from 'react';
-import Planta from 'pages/Building/planta';
 import HowWeLove from 'components/HowWeLove';
+import BlockHighlighted from 'components/BlockHighlighted';
 import DestaquesSection from 'components/DestaquesSection';
 import SlickText from 'components/SlickText';
 import Section from 'components/Section';
@@ -8,7 +8,7 @@ import Around from 'components/Around';
 
 import { Module } from './styles';
 
-export default function Modules({ modules }) {
+export default function Modules ({ modules }) {
   const renderModules = (type, component) => {
     // porque-adoramos
     // destaque-1
@@ -41,7 +41,7 @@ export default function Modules({ modules }) {
       case 'destaque-texto-bullets':
         return <Section type={type} item={component.data} />;
       case 'plantas':
-        return <Planta file={component.data.file} />;
+        return <BlockHighlighted type="planta" href={component.data.file} />;
       case 'vizinhanca':
         return <Around cep={component.data.cep} text={component.data.text} />;
     }
