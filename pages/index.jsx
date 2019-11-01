@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import Api from 'services';
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
@@ -17,33 +17,45 @@ const COMPONENT_SLICK = {
 import { Container, Banner, GroupSlider } from 'pages/Home/styles';
 
 function Home ({ hero, components }) {
-  const [ buildingsSeen, setBuildingsSeen ] = useState([]);
-  const [ buildingsForYou, setBuildingsForYou ] = useState([]);
+  const buildingsSeen = [];
+  const buildingsForYou = [];
+  // const [ buildingsSeen, setBuildingsSeen ] = useState([]);
+  // const [ buildingsForYou, setBuildingsForYou ] = useState([]);
 
-  useEffect(() => {
-    async function loadBuildinsSeen () {
-      // const buildingsSeenCookie = User.getBuildingsSeen();
-      // console.log('buildingsSeenCookie: ', buildingsSeenCookie);
+  // useEffect(() => {
+  //   async function loadBuildinsSeen () {
+  //     let buildingsSeenCookie = User.getBuildingsSeen();
+  //     // console.log('buildingsSeenCookie: ', buildingsSeenCookie);
 
-      const AX2629 = await Api.Building.getPage('AX2629');
-      const AX10010 = await Api.Building.getPage('AX10010');
-      const AX130883 = await Api.Building.getPage('AX130883');
+  //     if (!!buildingsSeenCookie) {
+  //       buildingsSeenCookie = !!buildingsSeenCookie
+  //         ? JSON.parse(buildingsSeenCookie)
+  //         : [];
 
-      setBuildingsSeen([ AX2629, AX10010, AX130883, AX10010 ]);
-      setBuildingsForYou([
-        AX2629,
-        AX10010,
-        AX130883,
-        AX2629,
-        AX10010,
-        AX130883,
-        AX2629,
-        AX10010,
-        AX130883
-      ]);
-    }
-    loadBuildinsSeen();
-  }, []);
+  //       const listBuildingsSeen = await Promise.all(
+  //         buildingsSeenCookie.map(async b => {
+  //           const building = await Api.Building.getPage(b);
+  //           return building;
+  //         })
+  //       );
+
+  //       let listForYou = await Api.Building.getSimilar(
+  //         listBuildingsSeen[0].building,
+  //         10
+  //       );
+
+  //       listForYou = listForYou.buildings.map(l => ({
+  //         building: { ...l }
+  //       }));
+
+  //       // console.log('listBuildings: ', listBuildingsSeen.slice(0, 15));
+  //       // console.log('listForYou: ', listForYou);
+  //       setBuildingsSeen(listBuildingsSeen);
+  //       setBuildingsForYou(listForYou);
+  //     }
+  //   }
+  //   loadBuildinsSeen();
+  // }, []);
 
   function renderComponents (type, component) {
     switch (type) {

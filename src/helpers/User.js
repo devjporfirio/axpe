@@ -18,7 +18,7 @@ class User {
     if (buildings) {
       newBuildings.push(...JSON.parse(buildings));
     }
-    Cookies.set('buildingsSeen', JSON.stringify(newBuildings), { expires: 7 });
+    Cookies.set('buildingsSeen', JSON.stringify(newBuildings), { expires: 15 });
   }
 
   getInfos () {

@@ -17,10 +17,6 @@ const TypeSlickLargeDesktop = css`
   p:nth-child(4) {
     margin: 0 0 16px 0;
   }
-
-  a div {
-    width: 140px;
-  }
 `;
 
 const TypeSlickLeftDesktop = css`
@@ -69,7 +65,7 @@ const TypeSlickSmall = css`
     ${TypeSlickLeftMobile}
     width: calc(100% - 14px);
     margin-left: 0 !important;
-    padding: 20px 10px;
+    padding: 20px;
     
     p {
       font-size: 16px;
@@ -79,7 +75,7 @@ const TypeSlickSmall = css`
       }
     }
 
-    button {
+    a {
       display: none;
     }
   `}
@@ -202,6 +198,10 @@ export const Container = styled.section`
     font: 18px/25px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     color: ${({ theme }) => theme.colors.greenDark};
+  }
+
+  a div {
+    width: 140px !important;
   }
 
   ${props => props.type === 'slick' && TypeSlick}
