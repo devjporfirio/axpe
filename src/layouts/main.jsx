@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components';
 
 // components
 import Header from 'components/Header';
+import Loading from 'components/Loading';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -15,6 +16,7 @@ function Main({ children }) {
       <>
         <GlobalStyle />
         <Header />
+        <Loading />
         <Wrapper>
           {children}
         </Wrapper>

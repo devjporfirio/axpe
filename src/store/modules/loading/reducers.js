@@ -1,4 +1,4 @@
-const initialState = { active: false };
+const initialState = { active: true };
 
 function loading(state = initialState, action) {
   switch (action.type) {

@@ -44,6 +44,8 @@ class MyApp extends App {
     Router.events.on('routeChangeComplete', () => {
       this.props.store.dispatch(setLoading({ active: false }));
     });
+
+    this.props.store.dispatch(setLoading({ active: false }));
   }
 
   render() {
