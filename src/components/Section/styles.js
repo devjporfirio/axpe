@@ -4,15 +4,22 @@ import media from 'styled-media-query';
 import IRectangle from 'assets/icons/rectangle.svg';
 
 const TypeSlickLargeDesktop = css`
-  position: unset;
-  margin-top: -302px;
-  margin-left: 59%;
+  position: initial;
   padding: 25px 4% 0 4%;
-  height: 238px;
-  width: 32%;
+  height: 258px;
+  width: 100%;
+  max-width: 319px;
+  margin-left: 0;
 
-  h4 {
-    margin-bottom: 15px;
+  p:nth-child(1) {
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+  p:nth-child(4) {
+    margin: 0 0 16px 0;
+  }
+
+  a div {
+    width: 140px;
   }
 `;
 
@@ -60,11 +67,16 @@ const TypeSlick = css`
 const TypeSlickSmall = css`
   ${media.greaterThan('medium')`
     ${TypeSlickLeftMobile}
-    margin-left: 20px !important;
-    padding: 20px 8%;
+    width: calc(100% - 14px);
+    margin-left: 0 !important;
+    padding: 20px 10px;
     
     p {
       font-size: 16px;
+
+      &:nth-child(1){
+        font-weight: ${({ theme }) => theme.fontsWeight.bold}
+      }
     }
 
     button {

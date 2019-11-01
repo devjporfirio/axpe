@@ -53,7 +53,7 @@ export const Text = styled(Section)`
     padding: 60px 0 0 60px;
     width: 70%;
     margin: -1px 0 0 0;
-    height: 368px;
+    height: 428px;
 
     p {
       margin-top: 120px;

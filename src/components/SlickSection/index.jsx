@@ -36,8 +36,8 @@ function renderBackground (type, item) {
     default:
       return (
         <>
-          <Image type={type} mq="desktop" src={item.images.desktop} />
-          <Image type={type} mq="mobile" src={item.images.mobile} />
+          <Image type={type} mq="desktop" src={item.images ? item.images.desktop: item.building.imageFeatured.desktop} />
+          <Image type={type} mq="mobile" src={item.images ? item.images.mobile: item.building.imageFeatured.mobile} />
         </>
       );
   }

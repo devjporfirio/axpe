@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
+import PanelBuildings from 'components/PanelBuildings';
+
+export const PanelSimilar = styled(PanelBuildings)`
+  header {
+    max-width: 1000px;
+    h4 {
+      width: 100%;
+      max-width: 1000px;
+    }
+  }
+`;
 
 export const Header = styled(Breadcrumb)`
   margin-bottom: 20px;

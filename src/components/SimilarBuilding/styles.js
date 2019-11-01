@@ -8,6 +8,7 @@ export const Container = styled.a`
 
   ${media.greaterThan('medium')`
     max-width: 1000px;
+    height: 365px;
     margin: auto auto 20px auto;
     display: flex;
     justify-content: space-between;
@@ -33,18 +34,23 @@ export const Infos = styled.div`
 
 export const Slider = styled(Gallery)`
   position: initial;
+  height: 365px;
     
-  .slick-slide img {
-    ${media.greaterThan('medium')`
-      max-width: 565px;
-      max-height: 470px;
-    `}
+  .slick-slide {
+    width: auto;
+
+    img {
+      ${media.greaterThan('medium')`
+        max-width: 565px;
+        max-height: 365px;
+      `}
+    }
   }
   
   ${media.greaterThan('medium')`
     .slick-slider{
       max-width: 565px;
-      max-height: 470px;
+      max-height: 365px;
     }
   `}
 
@@ -92,8 +98,9 @@ export const Price = styled.p`
   `};
 `;
 
-export const Disclaimer = styled.p`
-  font: 17px 'RaleRegular';
+export const Description = styled.p`
+  font: 17px 'Raleway';
+  margin-top: 20px;
 `;
 
 const CenterBetween = css`
@@ -105,10 +112,10 @@ const CenterBetween = css`
 export const CaracteristicsGroup = styled.div`
   ${CenterBetween};
   flex-wrap: wrap;
-  margin-top: 20px;
 
   div {
     flex-basis: 50%;
+    height: 65px;
   }
 `;
 
