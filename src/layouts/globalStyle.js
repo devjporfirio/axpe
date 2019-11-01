@@ -77,8 +77,9 @@ export default createGlobalStyle`
   }
 
   a {
-    transition: all 300ms ease;
     text-decoration: none;
+    cursor: pointer;
+    transition: all 300ms ease;
   }
 
   p,

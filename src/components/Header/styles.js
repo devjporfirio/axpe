@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 import AxpeLogoSVG from 'assets/axpe-logo.svg';
+import AxpeFullLogoSVG from 'assets/axpe-full-logo.svg';
 import ChristiesLogoSVG from 'assets/christies-logo.svg';
 import SearchIconSVG from 'assets/icons/search.svg';
 
@@ -20,17 +21,13 @@ export const Container = styled.header`
     font-weight: ${({ theme }) => theme.fontsWeight.light};
   }
 
-  ${media.greaterThan('768px')`
+  ${media.greaterThan('medium')`
     width: 200px;
     height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 0;
   `}
-
-  ${props =>
-    props.navToggle
-      ? `
-    nav {}
-  `
-      : ``}
 `;
 
 export const Wrapper = styled.div`
@@ -40,6 +37,13 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   padding: 0 30px;
+
+  ${media.greaterThan('medium')`
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+  `}
 `;
 
 export const AxpeLogo = styled.h1`
@@ -47,8 +51,19 @@ export const AxpeLogo = styled.h1`
   width: 60px;
   margin-right: 20px;
 
+  ${media.greaterThan('medium')`
+    width: 83px;
+    margin: 0 auto 20px auto;
+  `}
+
   a {
     background: url(${AxpeLogoSVG}) no-repeat;
+    background-size: contain;
+
+    ${media.greaterThan('medium')`
+      height: 40px;
+      background-image: url(${AxpeFullLogoSVG});
+    `}
   }
 `;
 
@@ -56,8 +71,14 @@ export const ChristiesLogo = styled.h2`
   display: block;
   width: 108px;
 
+  ${media.greaterThan('medium')`
+    width: 97px;
+    margin: 0 auto 35px auto;
+  `}
+
   a {
     background: url(${ChristiesLogoSVG}) no-repeat;
+    background-size: contain;
   }
 `;
 
@@ -78,6 +99,10 @@ export const ButtonSearch = styled.button`
   font-size: 0;
   background: url(${SearchIconSVG}) no-repeat;
   background-size: contain;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
 `;
 
 export const ButtonToggle = styled.button`
@@ -87,6 +112,10 @@ export const ButtonToggle = styled.button`
   height: 17px;
   margin-left: 20px;
 
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
+
   i {
     display: block;
     position: absolute;
@@ -95,6 +124,7 @@ export const ButtonToggle = styled.button`
     width: 100%;
     height: 1px;
     background: ${({ theme }) => theme.colors.green};
+    transition: all 300ms ease;
 
     &:nth-child(2) {
       top: 8px;
@@ -103,6 +133,24 @@ export const ButtonToggle = styled.button`
     &:nth-child(3) {
       top: 16px;
     }
+
+    ${props =>
+      props.navToggle &&
+      `
+      &:nth-child(1) {
+        top: 8px;
+        transform: rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        width: 0%;
+      }
+
+      &:nth-child(3) {
+        top: 8px;
+        transform: rotate(-45deg);
+      }
+    `}
   }
 `;
 
@@ -116,14 +164,34 @@ export const Box = styled.div`
   overflow: hidden;
   overflow-y: auto;
   background: ${({ theme }) => theme.colors.white};
+
+  ${props => (props.navToggle ? `display: block;` : `display: none;`)}
+
+  ${media.greaterThan('medium')`
+    display: block;
+    height: auto;
+    position: relative;
+    top: 0;
+    overflow: none;
+    padding: 0;
+    background: transparent;
+  `}
 `;
 
 export const NavMain = styled.nav`
   margin-bottom: 40px;
 
+  ${media.greaterThan('medium')`
+    margin-bottom: 30px;
+  `}
+
   li {
     &:not(:last-child) {
       margin-bottom: 25px;
+
+      ${media.greaterThan('medium')`
+        margin-bottom: 10px;
+      `}
     }
   }
 `;
@@ -189,14 +257,28 @@ export const NavMainButtonText = styled.span`
   font: 20px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`
+    padding-left: 40px;
+    font-size: 14px;
+    line-height: 20px;
+  `}
 `;
 
 export const NavSecondary = styled.nav`
   margin-bottom: 30px;
 
+  ${media.greaterThan('medium')`
+    margin-bottom: 15px;
+  `}
+
   li {
     &:not(:last-child) {
       margin-bottom: 25px;
+
+      ${media.greaterThan('medium')`
+        margin-bottom: 8px;
+      `}
     }
   }
 `;
@@ -205,10 +287,23 @@ export const NavSecondaryButton = styled.a`
   text-transform: uppercase;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`
+    font-size: 14px;
+  `}
 `;
 
 export const NavLangs = styled.nav`
   margin-bottom: 25px;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    margin-top: 5px;
+    background: ${({ theme }) => theme.colors.green};
+  }
 
   ul {
     width: auto;
@@ -223,6 +318,10 @@ export const NavLangs = styled.nav`
 
     &:nth-child(2) {
       margin: 0 15px;
+
+      ${media.greaterThan('medium')`
+        margin: 0 5px;
+      `}
     }
   }
 `;
@@ -245,12 +344,24 @@ export const WhatsappButton = styled.a`
   color: ${({ theme }) => theme.colors.green2};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
+  ${media.greaterThan('medium')`
+    width: 100%;
+    font-size: 14px;
+    line-height: 16px;
+  `}
+
   svg {
     display: block;
     width: 29px;
     min-width: 29px;
     height: 30px;
     margin-right: 10px;
+
+    ${media.greaterThan('medium')`
+      width: 16px;
+      min-width: 16px;
+      height: 17px;
+    `}
   }
 `;
 
@@ -263,6 +374,14 @@ export const Contact = styled.p`
   text-align: center;
   background: ${({ theme }) => theme.colors.greyLight};
 
+  ${media.greaterThan('medium')`
+    padding: 0;
+    margin-bottom: 15px;
+    background: transparent;
+    font-size: 0;
+    text-align: left;
+  `}
+
   &:before,
   &:after {
     content: '';
@@ -272,6 +391,10 @@ export const Contact = styled.p`
     width: 30px;
     height: 100%;
     background: ${({ theme }) => theme.colors.greyLight};
+
+    ${media.greaterThan('medium')`
+      display: none;
+    `}
   }
 
   &:before {
@@ -286,6 +409,10 @@ export const Contact = styled.p`
     display: block;
     font: 26px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
+
+    ${media.greaterThan('medium')`
+      font-size: 16px;
+    `}
   }
 `;
 
@@ -300,6 +427,11 @@ export const NewsletterButton = styled.button`
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
 
+  ${media.greaterThan('medium')`
+    font-size: 11px;
+    text-align: left;
+  `}
+
   strong {
     display: block;
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
@@ -310,17 +442,33 @@ export const Footer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${media.greaterThan('medium')`
+    display: block;
+  `}
 `;
 
 export const Socials = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${media.greaterThan('medium')`
+    justify-content: flex-start;
+  `}
 `;
 
 export const SocialsButton = styled.button`
   display: block;
   margin: 0 12px;
+
+  ${media.greaterThan('medium')`
+    margin: 0 8px 0 0;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  `}
 
   svg {
     display: block;
@@ -358,4 +506,8 @@ export const Creci = styled.p`
   font: 16px 'Raleway';
   color: ${({ theme }) => theme.colors.greenDark};
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
+
+  ${media.greaterThan('medium')`
+    font-size: 11px;
+  `}
 `;

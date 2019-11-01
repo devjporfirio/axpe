@@ -47,11 +47,11 @@ export default function Header() {
   }
 
   return (
-    <Container navToggle={navToggle}>
+    <Container>
       <Wrapper>
 
         <AxpeLogo type="axpe">
-          <Link href="/">
+          <Link href="/" passHref>
             <LogoLink>
               Axpe. Imóveis Especiais
             </LogoLink>
@@ -59,7 +59,7 @@ export default function Header() {
         </AxpeLogo>
 
         <ChristiesLogo type="christies">
-          <Link href="/sobre">
+          <Link href="/sobre" passHref>
             <LogoLink>
               Christie's Real Estate São Paulo
             </LogoLink>
@@ -67,11 +67,11 @@ export default function Header() {
         </ChristiesLogo>
 
         <ButtonSearch type="button">Buscar</ButtonSearch>
-        <ButtonToggle type="button" onClick={handleToggle}>
+        <ButtonToggle type="button" onClick={handleToggle} navToggle={navToggle}>
           <i></i><i></i><i></i>
         </ButtonToggle>
 
-        <Box>
+        <Box navToggle={navToggle}>
           <NavMain>
             <ul>
               <li>
@@ -87,7 +87,7 @@ export default function Header() {
                 </NavMainButton>
               </li>
               <li>
-                <Link href="/so-quero-sonhar">
+                <Link href="/so-quero-sonhar" passHref>
                   <NavMainButton type="dream">
                     <SVG src={CloudIconSVG} />
                     <NavMainButtonText>Só quero sonhar</NavMainButtonText>
@@ -100,22 +100,22 @@ export default function Header() {
           <NavSecondary>
             <ul>
               <li>
-                <Link href="/sobre">
+                <Link href="/sobre" passHref>
                   <NavSecondaryButton>Sobre a Axpe</NavSecondaryButton>
                 </Link>
               </li>
               <li>
-                <Link href="/contato">
+                <Link href="/contato" passHref>
                   <NavSecondaryButton>Fale com a gente</NavSecondaryButton>
                 </Link>
               </li>
               <li>
-                <Link href="/minha-conta">
+                <Link href="/minha-conta" passHref>
                   <NavSecondaryButton>Meu perfil</NavSecondaryButton>
                 </Link>
               </li>
               <li>
-                <Link href="/minha-conta/favoritos">
+                <Link href="/minha-conta/favoritos" passHref>
                   <NavSecondaryButton>Meus favoritos</NavSecondaryButton>
                 </Link>
               </li>
@@ -125,7 +125,7 @@ export default function Header() {
           <NavLangs>
             <ul>
               <li>
-                <Link>
+                <Link href="/en" passHref>
                   <NavLangsButton>
                     EN
                   </NavLangsButton>
@@ -133,7 +133,7 @@ export default function Header() {
               </li>
               <li>|</li>
               <li>
-                <Link>
+                <Link href="es" passHref>
                   <NavLangsButton>
                     ES
                   </NavLangsButton>
@@ -159,9 +159,9 @@ export default function Header() {
 
           <Footer>
             <Socials>
-              <SocialsButton type="facebook"><SVG src={FacebookIconSVG} /></SocialsButton>
-              <SocialsButton type="instagram"><SVG src={InstagramIconSVG} /></SocialsButton>
-              <SocialsButton type="linkedin"><SVG src={LinkedinIconSVG} /></SocialsButton>
+              <SocialsButton type="facebook" href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997" target="_blank"><SVG src={FacebookIconSVG} /></SocialsButton>
+              <SocialsButton type="instagram" href="http://instagram.com/axpe_imoveis" target="_blank"><SVG src={InstagramIconSVG} /></SocialsButton>
+              <SocialsButton type="linkedin" href="https://br.linkedin.com/company/axpe-im-veis" target="_blank"><SVG src={LinkedinIconSVG} /></SocialsButton>
             </Socials>
             <Creci>CRECI 19111J</Creci>
           </Footer>
