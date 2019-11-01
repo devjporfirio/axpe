@@ -4,7 +4,7 @@ import { Container, ButtonClose, Header } from './styles';
 import IClose from 'assets/icons/close-white.svg';
 import ICloseGreen from 'assets/icons/close-green.svg';
 
-export default function Modal ({
+export default function Modal({
   closeModal = () => {},
   children,
   className,

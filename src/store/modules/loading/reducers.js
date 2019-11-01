@@ -1,10 +1,9 @@
-const initialState = {};
+const initialState = { active: false };
 
 function loading(state = initialState, action) {
   switch (action.type) {
     case '@loading/SET_LOADING':
-      const { active } = action.payload;
-      return { ...state, active };
+      return { ...state, ...action.payload };
     default:
       return state;
   }

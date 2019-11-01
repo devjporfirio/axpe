@@ -15,8 +15,8 @@ const COMPONENT_SLICK = {
 
 import { Container, Banner } from 'pages/Home/styles';
 
-function Home ({ hero, components }) {
-  function renderComponents (type, component) {
+function Home({ hero, components }) {
+  function renderComponents(type, component) {
     switch (type) {
       case 'banner':
         return (

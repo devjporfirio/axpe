@@ -37,13 +37,13 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    Router.onRouteChangeStart = () => {
-      this.props.store.dispatch(setLoading(true));
-    };
+    Router.events.on('routeChangeStart', () => {
+      this.props.store.dispatch(setLoading({ active: true }));
+    });
 
-    Router.onRouteChangeComplete = () => {
-      this.props.store.dispatch(setLoading(false));
-    };
+    Router.events.on('routeChangeComplete', () => {
+      this.props.store.dispatch(setLoading({ active: false }));
+    });
   }
 
   render() {
