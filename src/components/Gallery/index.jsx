@@ -7,7 +7,7 @@ import I360 from 'assets/icons/360.svg';
 import IGrid from 'assets/icons/grid.svg';
 import { Container, Image, Video, Button360, SizeGallery } from './styles';
 
-export default function Gallery ({
+export default function Gallery({
   items,
   center = true,
   tour360,

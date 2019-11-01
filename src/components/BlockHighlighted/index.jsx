@@ -53,7 +53,7 @@ const Planta = ({ href }) => (
   </>
 );
 
-export default function BlockHighlighted ({ type, href }) {
+export default function BlockHighlighted({ type, href }) {
   return (
     <Container>
       {type === 'contact' && <Contact />}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, SliderNav2, SliderNav1 } from './styles';
 
-export default function GalleryNav ({
+export default function GalleryNav({
   className,
   items = [],
   onClose,

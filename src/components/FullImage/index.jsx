@@ -3,7 +3,7 @@ import Slider from '../Slider';
 
 import { Container } from './styles';
 
-export default function FullImage ({ goTo, onClose, items, category, local }) {
+export default function FullImage({ goTo, onClose, items, category, local }) {
   return (
     <Container
       category={category}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container } from './styles';
 import Link from 'components/Link';
 
-export default function Button ({
+export default function Button({
   className,
   color = 'orange',
   label,

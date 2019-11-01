@@ -20,7 +20,7 @@ import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
 import Phone from '../Phone';
 
-export default function Breadcrumb ({ category, local, reference, className }) {
+export default function Breadcrumb({ category, local, reference, className }) {
   return (
     <Container className={className}>
       <InfoLeft>

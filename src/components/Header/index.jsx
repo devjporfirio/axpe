@@ -46,13 +46,17 @@ export default function Header() {
     setNavToggle(!navToggle);
   }
 
+  function cancelToggle() {
+    setNavToggle(false);
+  }
+
   return (
     <Container>
       <Wrapper>
 
         <AxpeLogo type="axpe">
           <Link href="/" passHref>
-            <LogoLink>
+            <LogoLink onClick={cancelToggle}>
               Axpe. Imóveis Especiais
             </LogoLink>
           </Link>
@@ -60,7 +64,7 @@ export default function Header() {
 
         <ChristiesLogo type="christies">
           <Link href="/sobre" passHref>
-            <LogoLink>
+            <LogoLink onClick={cancelToggle}>
               Christie's Real Estate São Paulo
             </LogoLink>
           </Link>
@@ -88,7 +92,7 @@ export default function Header() {
               </li>
               <li>
                 <Link href="/so-quero-sonhar" passHref>
-                  <NavMainButton type="dream">
+                  <NavMainButton type="dream" onClick={cancelToggle}>
                     <SVG src={CloudIconSVG} />
                     <NavMainButtonText>Só quero sonhar</NavMainButtonText>
                   </NavMainButton>
@@ -101,22 +105,22 @@ export default function Header() {
             <ul>
               <li>
                 <Link href="/sobre" passHref>
-                  <NavSecondaryButton>Sobre a Axpe</NavSecondaryButton>
+                  <NavSecondaryButton onClick={cancelToggle}>Sobre a Axpe</NavSecondaryButton>
                 </Link>
               </li>
               <li>
                 <Link href="/contato" passHref>
-                  <NavSecondaryButton>Fale com a gente</NavSecondaryButton>
+                  <NavSecondaryButton onClick={cancelToggle}>Fale com a gente</NavSecondaryButton>
                 </Link>
               </li>
               <li>
                 <Link href="/minha-conta" passHref>
-                  <NavSecondaryButton>Meu perfil</NavSecondaryButton>
+                  <NavSecondaryButton onClick={cancelToggle}>Meu perfil</NavSecondaryButton>
                 </Link>
               </li>
               <li>
                 <Link href="/minha-conta/favoritos" passHref>
-                  <NavSecondaryButton>Meus favoritos</NavSecondaryButton>
+                  <NavSecondaryButton onClick={cancelToggle}>Meus favoritos</NavSecondaryButton>
                 </Link>
               </li>
             </ul>
@@ -126,7 +130,7 @@ export default function Header() {
             <ul>
               <li>
                 <Link href="/en" passHref>
-                  <NavLangsButton>
+                  <NavLangsButton onClick={cancelToggle}>
                     EN
                   </NavLangsButton>
                 </Link>
@@ -134,7 +138,7 @@ export default function Header() {
               <li>|</li>
               <li>
                 <Link href="es" passHref>
-                  <NavLangsButton>
+                  <NavLangsButton onClick={cancelToggle}>
                     ES
                   </NavLangsButton>
                 </Link>

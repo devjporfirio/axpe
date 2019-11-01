@@ -126,7 +126,7 @@ export const GreenBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   p {
     font: 22px 'Bitter';
     width: 238px;
