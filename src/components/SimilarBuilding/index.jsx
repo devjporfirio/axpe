@@ -16,10 +16,10 @@ import {
   CatLocGroup,
   Price,
   Slider,
-  Disclaimer
+  Description
 } from './styles';
 
-export default function SimilarBuilding({ item }) {
+export default function SimilarBuilding ({ item }) {
   const { values, gallery, address, infos, slug, category } = item;
 
   return (
@@ -81,7 +81,7 @@ export default function SimilarBuilding({ item }) {
           <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
         </CaracteristicsGroup>
 
-        <Disclaimer>{infos.disclaimer}</Disclaimer>
+        <Description>{infos.shortDescription}</Description>
       </Infos>
     </Container>
   );

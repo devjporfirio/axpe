@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 1000px;
+  width: 100%;
   margin: auto;
   background-color: #f5f5f0;
 
   header {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    max-width: 957px;
+    margin: auto;
   }
 
   &.buildingsSeen,
   &.buildingsForYou {
-    margin-top: 20px;
     padding: 40px;
   }
 `;
@@ -23,6 +25,7 @@ export const Title = styled.h4`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   line-height: 40px;
   margin: 20px 0;
+  max-width: 450px;
 `;
 
 export const SubTitle = styled.p`

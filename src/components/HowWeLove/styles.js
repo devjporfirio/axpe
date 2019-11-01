@@ -17,7 +17,7 @@ export const Container = styled.div`
 
 export const Title = styled.div`
   padding: 30px 40px;
-  max-width: 342px;
+  max-width: 420px;
 
   span {
     color: ${({ theme }) => theme.colors.white};

@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Api from 'services';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import PanelBuildings from 'components/PanelBuildings';
 import SimilarBuilding from 'components/SimilarBuilding';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 
-import { Container, Header, Images, Alert } from 'pages/Building/styles';
+import User from 'helpers/User';
+
+import { Container, Header, Images, Alert, PanelSimilar } from 'pages/Building/styles';
 
 function Building ({ property, similarBuildings }) {
+  useEffect(() => {
+    User.setBuildingSeen(property);
+  });
+
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;
   }
@@ -54,11 +59,11 @@ function Building ({ property, similarBuildings }) {
       {property.type === 'lancamento' &&
         similarBuildings &&
         similarBuildings.length > 0 && (
-          <PanelBuildings title="Pessoas que viram este imóvel também viram:">
+          <PanelSimilar title="Pessoas que viram este imóvel também viram:">
             {similarBuildings.map(building => (
               <SimilarBuilding item={building} key={building.reference} />
             ))}
-          </PanelBuildings>
+          </PanelSimilar>
         )}
 
       <BlockHighlighted type="notfound" />

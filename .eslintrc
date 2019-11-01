@@ -36,11 +36,7 @@
     ],
     "skipBlankLines": 0,
     "func-call-spacing": ["error", "never"],
-    "space-before-function-paren": ["error", {
-      "anonymous": "never",
-      "named": "never",
-      "asyncArrow": "always"
-    }],
+    "space-before-function-paren": ["error", "always"],
     "object-curly-spacing": ["error", "always"],
     "multiline-ternary": 0,
     "one-var": ["error", { "initialized": "never" }],

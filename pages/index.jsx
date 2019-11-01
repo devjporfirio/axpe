@@ -5,6 +5,7 @@ import PanelBuildings from 'components/PanelBuildings';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import { suffle } from 'helpers/utils';
+// import User from 'helpers/User';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -13,10 +14,50 @@ const COMPONENT_SLICK = {
   buildingsForYou: 'slickSmall'
 };
 
-import { Container, Banner } from 'pages/Home/styles';
+import { Container, Banner, GroupSlider } from 'pages/Home/styles';
 
-function Home({ hero, components }) {
-  function renderComponents(type, component) {
+function Home ({ hero, components }) {
+  const buildingsSeen = [];
+  const buildingsForYou = [];
+  // const [ buildingsSeen, setBuildingsSeen ] = useState([]);
+  // const [ buildingsForYou, setBuildingsForYou ] = useState([]);
+
+  // useEffect(() => {
+  //   async function loadBuildinsSeen () {
+  //     let buildingsSeenCookie = User.getBuildingsSeen();
+  //     // console.log('buildingsSeenCookie: ', buildingsSeenCookie);
+
+  //     if (!!buildingsSeenCookie) {
+  //       buildingsSeenCookie = !!buildingsSeenCookie
+  //         ? JSON.parse(buildingsSeenCookie)
+  //         : [];
+
+  //       const listBuildingsSeen = await Promise.all(
+  //         buildingsSeenCookie.map(async b => {
+  //           const building = await Api.Building.getPage(b);
+  //           return building;
+  //         })
+  //       );
+
+  //       let listForYou = await Api.Building.getSimilar(
+  //         listBuildingsSeen[0].building,
+  //         10
+  //       );
+
+  //       listForYou = listForYou.buildings.map(l => ({
+  //         building: { ...l }
+  //       }));
+
+  //       // console.log('listBuildings: ', listBuildingsSeen.slice(0, 15));
+  //       // console.log('listForYou: ', listForYou);
+  //       setBuildingsSeen(listBuildingsSeen);
+  //       setBuildingsForYou(listForYou);
+  //     }
+  //   }
+  //   loadBuildinsSeen();
+  // }, []);
+
+  function renderComponents (type, component) {
     switch (type) {
       case 'banner':
         return (
@@ -44,7 +85,6 @@ function Home({ hero, components }) {
         if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
           component.items = suffle(component.items);
         }
-
         return (
           component.items &&
           component.items.length > 0 && (
@@ -62,34 +102,41 @@ function Home({ hero, components }) {
   return (
     <Container>
       <SlickSection useGradient={true} color="white" items={hero} />
-
       {components &&
         components.length > 0 &&
         components.map(c => {
           if (c.type === 'buildingsSeen') {
             return (
-              c.items &&
-              c.items.length > 0 && (
+              buildingsSeen &&
+              buildingsSeen.length > 2 && (
                 <PanelBuildings
                   key={c.type}
                   className={c.type}
                   title="Imóveis que você viu"
                 >
-                  {renderComponents(c.type, c)}
+                  <GroupSlider>
+                    {renderComponents('buildingsSeen', {
+                      items: buildingsSeen
+                    })}
+                  </GroupSlider>
                 </PanelBuildings>
               )
             );
           } else if (c.type === 'buildingsForYou') {
             return (
-              c.items &&
-              c.items.length > 0 && (
+              buildingsForYou &&
+              buildingsForYou.length > 0 && (
                 <PanelBuildings
                   key={c.type}
                   className={c.type}
                   title="Indicados para você"
                   subTitle="Selecionamos alguns imóveis que acabaram de chegar"
                 >
-                  {renderComponents(c.type, c)}
+                  <GroupSlider>
+                    {renderComponents('buildingsForYou', {
+                      items: buildingsForYou
+                    })}
+                  </GroupSlider>
                 </PanelBuildings>
               )
             );
@@ -106,7 +153,8 @@ function Home({ hero, components }) {
 
 Home.getInitialProps = async () => {
   const response = await Api.Home.getPage();
-  return { hero: response.hero, components: response.components };
+  const components = response.components;
+  return { hero: response.hero, components };
 };
 
 export default Home;

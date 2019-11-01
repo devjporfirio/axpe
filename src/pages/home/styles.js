@@ -3,9 +3,14 @@ import media from 'styled-media-query';
 
 export const Container = styled.section``;
 
+export const GroupSlider = styled.div`
+  max-width: 954px;
+  margin: auto;
+`;
+
 export const Banner = styled.a`
   cursor: pointer;
-  
+
   img {
     margin-bottom: 10px;
 

@@ -11,17 +11,19 @@ export const ItemLink = styled(Link)`
   z-index: 9;
 `;
 
-const SlickLarge = media.greaterThan('medium')`
+const SlickLarge = media.greaterThan('medium')`  
   .slick-track {
-    height: 600px;
+    height: 560px;
   }
   .slick-slide {
-    height: 260px !important;
-    
-    div {
-      height: 260px;
-      margin-bottom: 40px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .slick-slide.slick-active div {
+    width: 100%;
   }
 `;
 
@@ -44,6 +46,15 @@ export const Container = styled(Slider)`
 export const Slide = styled.div`
   ${props =>
     props.type === 'slickGrid' && media.greaterThan('medium')`height: 686px;`}
+  ${props =>
+    props.type === 'slickLarge' &&
+    media.greaterThan('medium')`
+      display: flex !important;
+      height: 258px;
+      margin-bottom: 40px;
+      max-width: 954px;
+      width: auto !important;
+    `}
 `;
 
 export const Image = styled.img`
@@ -95,7 +106,8 @@ export const Image = styled.img`
     props.type === 'slickLarge' &&
     media.greaterThan('medium')`
       width: 64%;
-      height: 230px;
+      max-width: 635px;
+      height: 258px;
     `}
 
   ${props =>
@@ -113,8 +125,8 @@ export const Image = styled.img`
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('medium')`
-      margin: 0 20px;
-      width: 86%;   
+      max-width: 304px;
+      border-radius: 6px;
   `}
 `;
 

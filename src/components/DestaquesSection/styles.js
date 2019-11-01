@@ -6,6 +6,11 @@ import Section from 'components/Section';
 export const Destaque1 = css`
   height: 372px;
   flex-direction: row-reverse;
+
+  section {
+    height: 372px;
+    max-width: 387px;
+  }
 `;
 
 export const Destaque2 = css`
@@ -37,6 +42,13 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    section {
+      padding: 30px 36px;
+      height: 299px;
+      width: 100%;
+      max-width: 512px;
+    }
 
     ${props => props.type === 'destaque-1' && Destaque1}
     ${props => props.type === 'destaque-2' && Destaque2}
