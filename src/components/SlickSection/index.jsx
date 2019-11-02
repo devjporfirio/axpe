@@ -36,8 +36,24 @@ function renderBackground (type, item) {
     default:
       return (
         <>
-          <Image type={type} mq="desktop" src={item.images ? item.images.desktop: item.building.imageFeatured.desktop} />
-          <Image type={type} mq="mobile" src={item.images ? item.images.mobile: item.building.imageFeatured.mobile} />
+          <Image
+            type={type}
+            mq="desktop"
+            src={
+              item.images
+                ? item.images.desktop
+                : item.building.imageFeatured.desktop
+            }
+          />
+          <Image
+            type={type}
+            mq="mobile"
+            src={
+              item.images
+                ? item.images.mobile
+                : item.building.imageFeatured.mobile
+            }
+          />
         </>
       );
   }
@@ -112,8 +128,12 @@ function SlickSection ({
         type: [ 'slick', 'slickLeft', 'slickGrid' ].includes(type)
           ? 'together'
           : '',
-        position:
-          type === 'slickGrid' ? 'right' : type === 'slick' ? 'left' : 'outside'
+        position: (() => {
+          if (type === 'slickGrid') return 'right';
+          if (type === 'slick') return '';
+          if (type === 'slickLeft') return 'left';
+          return 'outside';
+        })()
       }}
     >
       {items &&

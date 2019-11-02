@@ -52,7 +52,7 @@ const galeriaShow3 = css`
   ${media.greaterThan('medium')`
     top: 252px;
     margin-right: auto;
-    margin-left: 173px;
+    margin-left: 8%;
   `}
 
   ${media.lessThan('medium')`
@@ -66,7 +66,7 @@ const galeriaShow3 = css`
 
 const galeriaShow3Next = css`
   ${media.greaterThan('medium')`
-    right: 173px;
+    right: 8%;
   `}
 
   ${media.lessThan('medium')`
@@ -88,9 +88,10 @@ const typeTogether = css`
 `;
 
 const typeTogetherPrev = css`
-  top: 611px;
+  top: 610px;
   left: 112px;
   border-right: 2px solid ${props => props.theme.colors[props.color]};
+  padding-right: 20px;
 
   ${media.lessThan('medium')`
     top: 70vw !important;
@@ -100,8 +101,9 @@ const typeTogetherPrev = css`
 
 const typeTogetherNext = css`
   top: 610px;
-  left: 156px;
+  left: 142px;
   border-left: 2px solid ${props => props.theme.colors[props.color]};
+  padding-left: 20px;
 
   ${media.lessThan('medium')`
     left: auto;
@@ -111,34 +113,34 @@ const typeTogetherNext = css`
 `;
 
 const positionRightPrev = css`
-  right: 212px;
+  right: 299px;
   left: auto;
 `;
 
 const positionRightNext = css`
-  right: 256px;
+  right: 269px;
   left: auto;
 `;
 
 const positionLeftPrev = css`
-  left: 15px !important;
-  bottom: 40px !important;
-  margin-bottom: 0 !important;
+  left: 15px;
+  bottom: 40px;
+  margin-bottom: 0;
 
   ${media.greaterThan('medium')`
-    top: 611px !important;
-    left: 112px !important;
+    top: 610px ;
+    left: 25px ;
   `}
 `;
 
 const positionLeftNext = css`
-  left: 78px !important;
-  bottom: 40px !important;
-  margin-bottom: 0 !important;
+  left: 78px;
+  bottom: 40px;
+  margin-bottom: 0;
 
   ${media.greaterThan('medium')`
-    top: 610px !important;
-    left: 156px !important;
+    top: 610px;
+    left: 55px;
   `}
 `;
 
@@ -162,7 +164,7 @@ export const ArrowNext = styled(Arrow)`
   ${props => props.position === 'outside' && positionOutsideNext}
   ${props => props.type === 'together' && typeTogetherNext}
   ${props => props.type === 'gallery-show-3' && galeriaShow3Next}
-  ${props => props.position === 'right' && positionRightPrev}
+  ${props => props.position === 'right' && positionRightNext}
   ${props => props.position === 'left' && positionLeftNext}
 `;
 
@@ -171,6 +173,6 @@ export const ArrowPrev = styled(Arrow)`
   ${props => props.position === 'inside' && positionInsidePrev}
   ${props => props.position === 'outside' && positionOutsidePrev}
   ${props => props.type === 'together' && typeTogetherPrev}
-  ${props => props.position === 'right' && positionRightNext}
+  ${props => props.position === 'right' && positionRightPrev}
   ${props => props.position === 'left' && positionLeftPrev}
 `;
