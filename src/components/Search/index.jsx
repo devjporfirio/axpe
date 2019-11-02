@@ -7,12 +7,13 @@ import Api from 'services';
 import Input from 'components/Search/FormElements/Input'
 import InputSource from 'components/Search/FormElements/InputSource'
 import ButtonSource from 'components/Search/FormElements/ButtonSource'
+import RangeSlider from 'components/Search/FormElements/RangeSlider'
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 // styles
-import { Container, Form, FormGroup, FormClose, FormHeader, FormHeaderTitle, FormButtonsFilter, FormButtonsFilterTitle, FormButtonsFilterRow, FormButtonsFilterItemRadio, FormButtonFilter, FormFooter, FormButtonSubmit, FormButtonAlert, FormTab, FormTabButtonBack, FormTabTitle, FormTabContent, FormTabListItemTitle, FormTabListItemButton, FormTabGroup, FormTabGroupTitle } from './styles';
+import { Container, Form, FormGroup, FormClose, FormHeader, FormHeaderTitle, FormButtonsFilter, FormButtonsFilterTitle, FormButtonsFilterRow, FormButtonsFilterItemRadio, FormButtonFilter, FormFooter, FormButtonSubmit, FormButtonAlert, FormTab, FormTabButtonBack, FormTabTitle, FormTabContent, FormTabListItemTitle, FormTabListItemButton, FormTabSlider, FormTabSliderTitle } from './styles';
 
 function Search({ dispatch }) {
   const [ usesData, setUsesData ] = useState(null);
@@ -114,6 +115,18 @@ function Search({ dispatch }) {
       const response = await Api.Search.getFilters(params);
 
       // console.log('filters', response)
+
+      if(response.prices && response.prices.length) {
+        response.prices = response.prices.map(price => parseInt(price));
+      }
+
+      if(response.area && response.area.length) {
+        response.area = response.area.map(area => parseInt(area));
+      }
+
+      if(response.bedrooms && response.bedrooms.length) {
+        response.bedrooms = response.bedrooms.map(bedroom => parseInt(bedroom));
+      }
 
       formik.setFieldValue('category', []);
       formik.setFieldValue('local', []);
@@ -306,15 +319,32 @@ function Search({ dispatch }) {
               </FormTabButtonBack>
               <FormTabTitle>Locais</FormTabTitle>
               <FormTabContent>
-                <FormTabGroup>
-                  <FormTabGroupTitle>Valor</FormTabGroupTitle>
-                </FormTabGroup>
-                <FormTabGroup>
-                  <FormTabGroupTitle>Área útil</FormTabGroupTitle>
-                </FormTabGroup>
-                <FormTabGroup>
-                  <FormTabGroupTitle>Dormitórios</FormTabGroupTitle>
-                </FormTabGroup>
+                {filtersData.prices && filtersData.prices.length ? (
+                  <FormTabSlider>
+                    <FormTabSliderTitle>Valor</FormTabSliderTitle>
+                    <RangeSlider data={filtersData.prices} prefix="R$ " onChange={values => {
+                      // console.log('prices callback', values)
+                    }} />
+                  </FormTabSlider>
+                ) : null}
+
+                {filtersData.area && filtersData.area.length ? (
+                  <FormTabSlider>
+                    <FormTabSliderTitle>Área útil</FormTabSliderTitle>
+                    <RangeSlider data={filtersData.area} sep="a" step={1} suffix=" m" onChange={values => {
+                      // console.log('area callback', values)
+                    }} />
+                  </FormTabSlider>
+                ) : null}
+
+                {filtersData.bedrooms && filtersData.bedrooms.length ? (
+                  <FormTabSlider>
+                    <FormTabSliderTitle>Dormitórios</FormTabSliderTitle>
+                    <RangeSlider data={filtersData.bedrooms} sep="a" step={1} onChange={values => {
+                      // console.log('bedrooms callback', values)
+                    }} />
+                  </FormTabSlider>
+                ) : null}
               </FormTabContent>
             </FormTab>
           ) : null}

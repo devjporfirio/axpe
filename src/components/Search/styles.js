@@ -359,12 +359,16 @@ export const FormTabListItemButtonActive = css`
   }
 `;
 
-export const FormTabGroup = styled.div`
+export const FormTabSlider = styled.div`
   width: 100%;
   margin-bottom: 30px;
+
+  & > div {
+    touch-action: none;
+  }
 `;
 
-export const FormTabGroupTitle = styled.h4`
+export const FormTabSliderTitle = styled.h4`
   font: 18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
