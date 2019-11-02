@@ -8,7 +8,7 @@ export const Container = styled.div`
   height: calc(100vh - 67px);
   position: fixed;
   left: 0;
-  z-index: 10;
+  z-index: 110;
   overflow: hidden;
   height: 100vh;
 `;
