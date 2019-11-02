@@ -154,7 +154,7 @@ export const Delivery = styled.div`
     margin: auto;
 
     p {
-      width: 348px;
+      width: 308px;
       margin-top: -35px;
     }
   `}
