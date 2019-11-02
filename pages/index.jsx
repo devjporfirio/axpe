@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Api from 'services';
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import { suffle } from 'helpers/utils';
-// import User from 'helpers/User';
+import User from 'helpers/User';
+import Promise from 'promise-polyfill';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -17,45 +18,40 @@ const COMPONENT_SLICK = {
 import { Container, Banner, GroupSlider } from 'pages/Home/styles';
 
 function Home ({ hero, components }) {
-  const buildingsSeen = [];
-  const buildingsForYou = [];
-  // const [ buildingsSeen, setBuildingsSeen ] = useState([]);
-  // const [ buildingsForYou, setBuildingsForYou ] = useState([]);
+  const [ buildingsSeen, setBuildingsSeen ] = useState([]);
+  const [ buildingsForYou, setBuildingsForYou ] = useState([]);
 
-  // useEffect(() => {
-  //   async function loadBuildinsSeen () {
-  //     let buildingsSeenCookie = User.getBuildingsSeen();
-  //     // console.log('buildingsSeenCookie: ', buildingsSeenCookie);
+  useEffect(() => {
+    async function loadBuildinsSeen () {
+      let buildingsSeenCookie = User.getBuildingsSeen();
 
-  //     if (!!buildingsSeenCookie) {
-  //       buildingsSeenCookie = !!buildingsSeenCookie
-  //         ? JSON.parse(buildingsSeenCookie)
-  //         : [];
+      if (!!buildingsSeenCookie) {
+        buildingsSeenCookie = !!buildingsSeenCookie
+          ? JSON.parse(buildingsSeenCookie)
+          : [];
 
-  //       const listBuildingsSeen = await Promise.all(
-  //         buildingsSeenCookie.map(async b => {
-  //           const building = await Api.Building.getPage(b);
-  //           return building;
-  //         })
-  //       );
+        const listBuildingsSeen = await Promise.all(
+          buildingsSeenCookie.map(async b => {
+            const building = await Api.Building.getPage(b);
+            return building;
+          })
+        );
 
-  //       let listForYou = await Api.Building.getSimilar(
-  //         listBuildingsSeen[0].building,
-  //         10
-  //       );
+        let listForYou = await Api.Building.getSimilar(
+          listBuildingsSeen[0].building,
+          10
+        );
 
-  //       listForYou = listForYou.buildings.map(l => ({
-  //         building: { ...l }
-  //       }));
+        listForYou = listForYou.buildings.map(l => ({
+          building: { ...l }
+        }));
 
-  //       // console.log('listBuildings: ', listBuildingsSeen.slice(0, 15));
-  //       // console.log('listForYou: ', listForYou);
-  //       setBuildingsSeen(listBuildingsSeen);
-  //       setBuildingsForYou(listForYou);
-  //     }
-  //   }
-  //   loadBuildinsSeen();
-  // }, []);
+        setBuildingsSeen(listBuildingsSeen);
+        setBuildingsForYou(listForYou);
+      }
+    }
+    loadBuildinsSeen();
+  }, []);
 
   function renderComponents (type, component) {
     switch (type) {

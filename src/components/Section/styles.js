@@ -66,6 +66,7 @@ const TypeSlickSmall = css`
     width: calc(100% - 14px);
     margin-left: 0 !important;
     padding: 20px;
+    height: 240px;
     
     p {
       font-size: 16px;

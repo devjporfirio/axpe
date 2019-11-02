@@ -14,10 +14,10 @@ import { setMain } from 'store/modules/main/actions';
 
 import 'isomorphic-unfetch';
 // import 'babel-polyfill';
-// import 'promise-polyfill/src/polyfill';
+import 'promise-polyfill/lib/polyfill';
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps ({ Component, ctx }) {
     const config = process.env.config;
 
     const pageProps = Component.getInitialProps
@@ -36,7 +36,7 @@ class MyApp extends App {
     return { pageProps, config, main };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Router.events.on('routeChangeStart', () => {
       this.props.store.dispatch(setLoading({ active: true }));
     });
@@ -48,7 +48,7 @@ class MyApp extends App {
     this.props.store.dispatch(setLoading({ active: false }));
   }
 
-  render() {
+  render () {
     const { Component, pageProps, store, main } = this.props;
 
     return (
