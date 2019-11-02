@@ -34,8 +34,8 @@ const theme = {
     visibility: hidden;
   `,
   show: `
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
   `,
 
   /* Functions */

@@ -10,7 +10,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.9);
-  z-index: 101;
+  z-index: 110;
   transition: all 300ms ease;
 
   ${props =>
