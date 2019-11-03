@@ -213,20 +213,6 @@ export const FormButtonsFilterItemRadio = styled.label`
     transform: translateY(-50%);
   }
 
-  ${props =>
-    props.twoColumns &&
-    `
-    width: calc(50% - 20px);
-
-    &:last-child {
-      margin-left: 40px;
-
-      &:before {
-        display: block;
-      }
-    }
-  `}
-
   input {
     display: block;
     width: 100%;
@@ -259,6 +245,29 @@ export const FormButtonsFilterItemRadio = styled.label`
     border-radius: 3px;
     transition: all 300ms ease;
   }
+
+  ${props =>
+    props.twoColumns &&
+    `
+    width: calc(50% - 20px);
+
+    &:last-child {
+      margin-left: 40px;
+
+      &:before {
+        display: block;
+      }
+    }
+  `}
+
+  ${media.greaterThan('1024px')`
+    &:hover {
+      span {
+        background: ${({ theme }) => theme.colors.white};
+        color: ${({ theme }) => theme.colors.green};
+      }
+    }
+  `}
 `;
 
 export const FormButtonFilter = styled.button`
@@ -653,6 +662,7 @@ export const FormButtonAlert = styled.button`
   text-decoration: underline;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
+  transition: all 300ms ease;
 
   svg {
     display: block;
@@ -663,6 +673,7 @@ export const FormButtonAlert = styled.button`
 
     path {
       fill: ${({ theme }) => theme.colors.white};
+      transition: all 300ms ease;
     }
   }
 
@@ -681,14 +692,22 @@ export const FormButtonAlert = styled.button`
     }
   `};
 
+  ${media.greaterThan('1024px')`
+    &:not([disabled]):hover {
+      color: ${({ theme }) => theme.colors.orange};
+
+      svg path {
+        fill: ${({ theme }) => theme.colors.orange};
+      }
+    }
+  `}
+
   ${props => props.active && FormButtonAlertActive}
 `;
 
 export const FormButtonAlertActive = css`
-  svg {
-    path {
-      fill: ${({ theme }) => theme.colors.orange};
-    }
+  svg path {
+    fill: ${({ theme }) => theme.colors.orange};
   }
 `;
 
@@ -699,6 +718,7 @@ export const FormButtonClear = styled.button`
   text-decoration: underline;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
+  transition: all 300ms ease;
 
   &[disabled] {
     opacity: 0.2;
@@ -708,4 +728,10 @@ export const FormButtonClear = styled.button`
   ${media.greaterThan('medium')`
     font-size: 12px;
   `};
+
+  ${media.greaterThan('1024px')`
+    &:not([disabled]):hover {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  `}
 `;

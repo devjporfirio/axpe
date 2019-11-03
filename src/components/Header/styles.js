@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 import AxpeLogoSVG from 'assets/axpe-logo.svg';
@@ -217,6 +217,37 @@ export const NavMainButtonSearch = styled.button`
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+
+    path,
+    polyline {
+      transition: all 300ms ease;
+    }
+  }
+
+  ${media.greaterThan('medium')`
+    &:hover {
+      span {
+        color: ${({ theme }) => theme.colors.orange};
+      }
+
+      svg path,
+      svg polyline {
+        stroke: ${({ theme }) => theme.colors.orange};
+      }
+    }
+  `}
+
+  ${props => props.active && NavMainButtonSearchActive}
+`;
+
+export const NavMainButtonSearchActive = css`
+  svg path,
+  svg polyline {
+    stroke: ${({ theme }) => theme.colors.orange};
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.orange};
   }
 `;
 
@@ -246,6 +277,19 @@ export const NavMainButton = styled.a`
       height: 16px;
     `}
   }
+
+  ${media.greaterThan('medium')`
+    &:hover {
+      span {
+        color: ${({ theme }) => theme.colors.orange};
+      }
+
+      svg path,
+      svg polyline {
+        stroke: ${({ theme }) => theme.colors.orange};
+      }
+    }
+  `}
 `;
 
 export const NavMainButtonText = styled.span`
@@ -257,6 +301,7 @@ export const NavMainButtonText = styled.span`
   font: 20px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   color: ${({ theme }) => theme.colors.green};
+  transition: all 300ms ease;
 
   ${media.greaterThan('medium')`
     padding-left: 40px;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const Button = styled.button`
   display: inline-block;
@@ -16,4 +17,11 @@ export const Button = styled.button`
     transparent 100%
   );
   color: ${({ theme }) => theme.colors.white};
+  transition: all 300ms ease;
+
+  ${media.greaterThan('1024px')`
+    &:hover {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  `}
 `;
