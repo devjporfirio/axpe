@@ -17,6 +17,7 @@ import RangeSlider from 'components/Search/FormElements/RangeSlider'
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
+import AlertIconSVG from 'assets/icons/alert.svg';
 
 // styles
 import {
@@ -33,7 +34,10 @@ import {
   FormButtonFilter,
   FormFooter,
   FormButtonSubmit,
+  FormAlert,
+  FormAlertTooltip,
   FormButtonAlert,
+  FormButtonClear,
   FormTab,
   FormTabButtonBack,
   FormTabTitle,
@@ -46,6 +50,7 @@ import {
 
 function Search({ dispatch }) {
   const { active } = useSelector(state => state.search);
+  const [ alertCreated, setAlertCreated ] = useState(false);
   const [ usesData, setUsesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
   const [ tabActive, setTabActive ] = useState(null);
@@ -95,6 +100,14 @@ function Search({ dispatch }) {
 
   function closeSearch() {
     dispatch(setSearch({ active: false }))
+  }
+
+  function createAlert() {
+    setAlertCreated(true);
+  }
+
+  function closeAlertTooltip() {
+    setAlertCreated(false);
   }
 
   function setArrayValue(name, value) {
@@ -429,7 +442,15 @@ function Search({ dispatch }) {
               <SVG src={SearchIconSVG} />
             </FormGroup>
             <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
-            <FormButtonAlert type="button"></FormButtonAlert>
+            <FormAlert>
+              <FormAlertTooltip active={alertCreated} onClick={closeAlertTooltip}>
+                <p><strong>Alerta criado com sucesso!</strong> Você pode acompanhar seus alertas no seu perfil.</p>
+              </FormAlertTooltip>
+              <FormButtonAlert type="button" active={alertCreated} disabled={!formik.isSubmitting && !filtersData && !formik.values.reference} onClick={createAlert}>
+                <SVG src={AlertIconSVG} /> Criar alerta
+              </FormButtonAlert>
+            </FormAlert>
+            <FormButtonClear type="button" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Limpar filtros</FormButtonClear>
           </FormFooter>
 
         </Form>

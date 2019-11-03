@@ -423,6 +423,7 @@ export const FormButtonSubmit = styled.button`
   display: block;
   width: 100%;
   height: 48px;
+  margin-bottom: 30px;
   font: 20px/48px 'Raleway';
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.white};
@@ -437,9 +438,96 @@ export const FormButtonSubmit = styled.button`
   }
 `;
 
-export const FormButtonAlert = styled.button`
+export const FormAlert = styled.div`
+  position: relative;
+`;
+
+export const FormAlertTooltip = styled.div`
   display: block;
-  font: 12px 'Raleway';
+  position: absolute;
+  top: -80px;
+  left: -8px;
+  width: 210px;
+  padding: 15px;
+  font: 12px/15px 'Raleway';
+  background: ${({ theme }) => theme.colors.yellowLight};
+  border-radius: 1px;
+  transition: all 300ms ease;
+  ${({ theme }) => theme.hide}
+
+  ${props => props.active && FormAlertTooltipActive}
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid ${({ theme }) => theme.colors.yellowLight};
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  strong {
+    display: block;
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  }
+`;
+
+export const FormAlertTooltipActive = css`
+  top: -90px;
+  ${({ theme }) => theme.show}
+`;
+
+export const FormButtonAlert = styled.button`
+  display: flex;
+  align-items: center;
+  font: 15px 'Raleway';
   text-decoration: underline;
+  text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
+
+  ${props => props.active && FormButtonAlertActive}
+
+  svg {
+    display: block;
+    margin-right: 10px;
+    width: 24px;
+    min-width: 24px;
+    height: 23px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.white};
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.2;
+    cursor: default;
+  }
+`;
+
+export const FormButtonAlertActive = css`
+  svg {
+    path {
+      fill: ${({ theme }) => theme.colors.orange};
+    }
+  }
+`;
+
+export const FormButtonClear = styled.button`
+  display: block;
+  margin-left: auto;
+  font: 14px 'Raleway';
+  text-decoration: underline;
+  text-transform: lowercase;
+  color: ${({ theme }) => theme.colors.white};
+
+  &[disabled] {
+    opacity: 0.2;
+    cursor: default;
+  }
 `;
