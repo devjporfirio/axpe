@@ -10,9 +10,15 @@ export const formatCurrency = new Intl.NumberFormat('pt-BR', {
 });
 
 export const getUrl = params => {
+  const initial = '?';
   const paramsJoin = Object.keys(params).reduce(
-    (old, p) => (params[p] ? old + '&' + p + '=' + params[p] : old),
-    '?'
+    (acc, key, i) =>
+      !params[key]
+        ? acc
+        : acc == initial
+        ? `${acc}${key}=${params[key]}`
+        : `${acc}&${key}=${params[key]}`,
+    initial
   );
   return encodeURI(paramsJoin);
 };

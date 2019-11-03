@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import Router from 'next/router';
 import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
-import { formatCurrency } from 'helpers/utils';
+import { formatCurrency, getUrl } from 'helpers/utils';
 
 // actions
 import { setSearch } from 'store/modules/search/actions';
@@ -94,7 +95,21 @@ function Search({ dispatch }) {
     },
 
     onSubmit: values => {
-      // console.log('submit', values)
+      const data = {};
+
+      Object.keys(values).forEach(key => {
+        if(key == 'source' && values[key].value) {
+          data[key] = values[key].value;
+        } else if(Array.isArray(values[key]) && values[key].length) {
+          data[key] = values[key].join(',');
+        } else if(!Array.isArray(values[key]) && values[key]) {
+          data[key] = values[key];
+        }
+      });
+
+      const params = getUrl(data);
+
+      Router.push(`/busca${params}`)
     }
   });
 
@@ -186,7 +201,6 @@ function Search({ dispatch }) {
         }
       })
 
-      formik.setFieldValue('category', []);
       formik.setFieldValue('local', []);
 
       setFiltersData(response);
@@ -393,7 +407,7 @@ function Search({ dispatch }) {
               </FormTabButtonBack>
               <FormTabTitle>Locais</FormTabTitle>
               <FormTabContent>
-                {filtersData.prices && filtersData.prices.length && filtersData.prices[0] && filtersData.prices[1] ? (
+                {filtersData.prices && filtersData.prices.length && filtersData.prices[0] != filtersData.prices[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Valor</FormTabSliderTitle>
                     <RangeSlider type="prices" data={filtersData.prices} prefix="R$ " onChange={values => {
@@ -403,7 +417,7 @@ function Search({ dispatch }) {
                   </FormTabSlider>
                 ) : null}
 
-                {filtersData.area && filtersData.area.length && filtersData.area[0] && filtersData.area[1] ? (
+                {filtersData.area && filtersData.area.length && filtersData.area[0] != filtersData.area[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Área útil</FormTabSliderTitle>
                     <RangeSlider data={filtersData.area} sep="a" step={1} suffix=" m" onChange={values => {
@@ -413,7 +427,7 @@ function Search({ dispatch }) {
                   </FormTabSlider>
                 ) : null}
 
-                {filtersData.bedrooms && filtersData.bedrooms.length && filtersData.bedrooms[0] && filtersData.bedrooms[1] ? (
+                {filtersData.bedrooms && filtersData.bedrooms.length && filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Dormitórios</FormTabSliderTitle>
                     <RangeSlider data={filtersData.bedrooms} sep="a" step={1} onChange={values => {
@@ -423,7 +437,7 @@ function Search({ dispatch }) {
                   </FormTabSlider>
                 ) : null}
 
-                {filtersData.parking && filtersData.parking.length && filtersData.parking[0] && filtersData.parking[1] ? (
+                {filtersData.parking && filtersData.parking.length && filtersData.parking[0] != filtersData.parking[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Vagas de estacionamento</FormTabSliderTitle>
                     <RangeSlider data={filtersData.parking} sep="a" step={1} onChange={values => {
