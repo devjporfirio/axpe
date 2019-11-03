@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   position: fixed;
@@ -10,11 +10,13 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.9);
-  z-index: 101;
+  z-index: 110;
   transition: all 300ms ease;
 
   ${props =>
     props.active ? ({ theme }) => theme.show : ({ theme }) => theme.hide}
+
+  ${props => props.active && props.type === 'search' && ContainerSearch}
 
   svg {
     display: block;
@@ -23,4 +25,8 @@ export const Container = styled.div`
     margin: auto;
     transition: all 300ms ease;
   }
+`;
+
+export const ContainerSearch = css`
+  background: rgba(63, 90, 94, 0.8);
 `;

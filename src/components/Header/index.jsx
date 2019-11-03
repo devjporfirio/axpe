@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Link from 'next/link'
 import SVG from 'react-inlinesvg';
+
+// actions
+import { setSearch } from 'store/modules/search/actions';
 
 // assets
 import SearchIconSVG from 'assets/icons/search';
@@ -39,11 +43,15 @@ import {
   Creci
 } from './styles';
 
-export default function Header() {
+function Header({ dispatch }) {
   const [ navToggle, setNavToggle ] = useState(false)
 
   function handleToggle() {
     setNavToggle(!navToggle);
+  }
+
+  function openSearch() {
+    dispatch(setSearch({ active: true }))
   }
 
   function cancelToggle() {
@@ -70,7 +78,7 @@ export default function Header() {
           </Link>
         </ChristiesLogo>
 
-        <ButtonSearch type="button">Buscar</ButtonSearch>
+        <ButtonSearch type="button" onClick={openSearch}>Buscar</ButtonSearch>
         <ButtonToggle type="button" onClick={handleToggle} navToggle={navToggle}>
           <i></i><i></i><i></i>
         </ButtonToggle>
@@ -79,7 +87,7 @@ export default function Header() {
           <NavMain>
             <ul>
               <li>
-                <NavMainButtonSearch type="button">
+                <NavMainButtonSearch type="button" onClick={openSearch}>
                   <SVG src={SearchIconSVG} />
                   <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                 </NavMainButtonSearch>
@@ -174,3 +182,5 @@ export default function Header() {
     </Container>
   );
 }
+
+export default connect()(Header);

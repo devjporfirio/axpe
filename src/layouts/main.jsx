@@ -2,8 +2,9 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 // components
-import Header from 'components/Header';
 import Loading from 'components/Loading';
+import Header from 'components/Header';
+import Search from 'components/Search';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -15,8 +16,9 @@ function Main({ children }) {
     <ThemeProvider theme={ThemeStyle}>
       <>
         <GlobalStyle />
-        <Header />
         <Loading />
+        <Header />
+        <Search />
         <Wrapper>
           {children}
         </Wrapper>
