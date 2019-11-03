@@ -55,7 +55,7 @@ function Search({ dispatch }) {
   const [ filtersData, setFiltersData ] = useState(null);
   const [ tabActive, setTabActive ] = useState(null);
 
-  const types = [
+  const readyReleases = [
     { label: 'Prontos', value: 'pronto' },
     { label: 'Lançamentos', value: 'lancamento' }
   ];
@@ -78,9 +78,9 @@ function Search({ dispatch }) {
       source: sources[0],
       finality: '',
       use: '',
-      type: '',
+      ready_release: '',
       furnished: '',
-      category: [],
+      types: [],
       local: [],
       price_start: '',
       price_end: '',
@@ -130,12 +130,12 @@ function Search({ dispatch }) {
       params.push(`use=${formik.values.use}`);
     }
 
-    if(formik.values.type) {
-      params.push(`type=${formik.values.type}`);
+    if(formik.values.ready_release) {
+      params.push(`ready_release=${formik.values.ready_release}`);
     }
 
-    if(formik.values.category.length) {
-      params.push(`category=${formik.values.category.join(',')}`);
+    if(formik.values.types.length) {
+      params.push(`types=${formik.values.types.join(',')}`);
     }
 
     if(formik.values.local.length) {
@@ -148,9 +148,9 @@ function Search({ dispatch }) {
   function resetValuesOnChange() {
     formik.setFieldValue('use', '');
     formik.setFieldValue('finality', '');
-    formik.setFieldValue('type', '');
+    formik.setFieldValue('ready_release', '');
     formik.setFieldValue('furnished', '');
-    formik.setFieldValue('category', []);
+    formik.setFieldValue('types', []);
     formik.setFieldValue('local', []);
     formik.setFieldValue('price_start', '');
     formik.setFieldValue('price_end', '');
@@ -245,10 +245,10 @@ function Search({ dispatch }) {
               {/* Prontos, Lançamentos */}
               {formik.values.source.value == 'sao-paulo' && formik.values.finality === 'venda' && (
                 <FormButtonsFilterRow>
-                  {types.map((type, typeIndex) => (
-                    <FormButtonsFilterItemRadio twoColumns={true} key={`radio-type-${typeIndex}`}>
-                      <input type="radio" name="type" value={type.value} onChange={formik.handleChange} checked={formik.values.type === type.value} />
-                      <span>{type.label}</span>
+                  {readyReleases.map((item, itemIndex) => (
+                    <FormButtonsFilterItemRadio twoColumns={true} key={`radio-item-${itemIndex}`}>
+                      <input type="radio" name="ready_release" value={item.value} onChange={formik.handleChange} checked={formik.values.ready_release === item.value} />
+                      <span>{item.label}</span>
                     </FormButtonsFilterItemRadio>
                   ))}
                 </FormButtonsFilterRow>
@@ -275,7 +275,7 @@ function Search({ dispatch }) {
             ((
               formik.values.source.value == 'sao-paulo' &&
               formik.values.finality === 'venda' &&
-              formik.values.type
+              formik.values.ready_release
             ) ||
             (
               formik.values.source.value == 'sao-paulo' &&
@@ -286,9 +286,9 @@ function Search({ dispatch }) {
             ) ? (
             <>
               {filtersData.types && filtersData.types.length ? (
-                <FormButtonFilter type="button" onClick={() => setTabActive('categories')}>
+                <FormButtonFilter type="button" onClick={() => setTabActive('types')}>
                   <strong>Tipo de imóvel</strong>
-                  {formik.values.category.length ? <span>{formik.values.category.join(', ')}</span> : null}
+                  {formik.values.types.length ? <span>{formik.values.types.join(', ')}</span> : null}
                   <SVG src={ArrowIconSVG} />
                 </FormButtonFilter>
               ) : null}
@@ -342,7 +342,7 @@ function Search({ dispatch }) {
           </FormTab>
 
           {filtersData && filtersData.types && filtersData.types.length ? (
-            <FormTab active={tabActive === 'categories'}>
+            <FormTab active={tabActive === 'types'}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} />
               </FormTabButtonBack>
@@ -351,7 +351,7 @@ function Search({ dispatch }) {
                 <ul>
                   {filtersData.types.map((type, typeIndex) => (
                     <li key={`type-${type}-${typeIndex}`}>
-                      <FormTabListItemButton type="button" active={formik.values.category.includes(type)} onClick={() => setArrayValue('category', type)}>{type}</FormTabListItemButton>
+                      <FormTabListItemButton type="button" active={formik.values.types.includes(type)} onClick={() => setArrayValue('types', type)}>{type}</FormTabListItemButton>
                     </li>
                   ))}
                 </ul>

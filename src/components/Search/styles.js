@@ -490,8 +490,6 @@ export const FormButtonAlert = styled.button`
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
 
-  ${props => props.active && FormButtonAlertActive}
-
   svg {
     display: block;
     margin-right: 10px;
@@ -508,6 +506,8 @@ export const FormButtonAlert = styled.button`
     opacity: 0.2;
     cursor: default;
   }
+
+  ${props => props.active && FormButtonAlertActive}
 `;
 
 export const FormButtonAlertActive = css`
