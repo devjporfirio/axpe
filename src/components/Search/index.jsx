@@ -24,6 +24,7 @@ import AlertIconSVG from 'assets/icons/alert.svg';
 import {
   Container,
   Form,
+  FormWrapper,
   FormGroup,
   FormClose,
   FormHeader,
@@ -41,6 +42,7 @@ import {
   FormButtonClear,
   FormTab,
   FormTabButtonBack,
+  FormTabClose,
   FormTabTitle,
   FormTabContent,
   FormTabListItemTitle,
@@ -218,131 +220,166 @@ function Search({ dispatch }) {
   return (
     <Container active={active}>
         <Form onSubmit={formik.handleSubmit}>
-          <FormHeader>
-            <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
-            <FormClose type="button" onClick={closeSearch}>Fechar</FormClose>
-          </FormHeader>
+          <FormWrapper active={active}>
+            <FormHeader>
+              <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
+              <FormClose type="button" onClick={closeSearch}>Fechar</FormClose>
+            </FormHeader>
 
-          <FormGroup>
-            <InputSource type="text" name="source" onChange={formik.handleChange} onBlur={formik.handleChange} value={formik.values.source ? formik.values.source.label : ''} disabled={true} />
-            <ButtonSource type="button" onClick={() => setTabActive('sources')}>Alterar localização</ButtonSource>
-          </FormGroup>
+            <FormGroup>
+              <InputSource type="text" name="source" onChange={formik.handleChange} onBlur={formik.handleChange} value={formik.values.source ? formik.values.source.label : ''} disabled={true} />
+              <ButtonSource type="button" onClick={() => setTabActive('sources')}>Alterar localização</ButtonSource>
+            </FormGroup>
 
-          {formik.values.source.value ? (
-            <FormButtonsFilter>
-              <FormButtonsFilterTitle>Para:</FormButtonsFilterTitle>
+            {formik.values.source.value ? (
+              <FormButtonsFilter>
+                <FormButtonsFilterTitle>Para:</FormButtonsFilterTitle>
 
-              {/* Residencial, Comercial */}
-              {formik.values.source.value == 'sao-paulo' && usesData && (
-                <FormButtonsFilterRow>
-                  {Object.keys(usesData).map((use, useIndex) => (
-                    <FormButtonsFilterItemRadio twoColumns={true} key={`radio-use-${useIndex}`}>
-                      <input type="radio" name="use" value={use} onChange={formik.handleChange} checked={formik.values.use === use} />
-                      <span>{use.toLowerCase() == 'residencial' ? 'Morar' : 'Trabalhar'}</span>
+                {/* Residencial, Comercial */}
+                {formik.values.source.value == 'sao-paulo' && usesData && (
+                  <FormButtonsFilterRow>
+                    {Object.keys(usesData).map((use, useIndex) => (
+                      <FormButtonsFilterItemRadio twoColumns={true} key={`radio-use-${useIndex}`}>
+                        <input type="radio" name="use" value={use} onChange={formik.handleChange} checked={formik.values.use === use} />
+                        <span>{use.toLowerCase() == 'residencial' ? 'Morar' : 'Trabalhar'}</span>
+                      </FormButtonsFilterItemRadio>
+                    ))}
+                  </FormButtonsFilterRow>
+                )}
+
+                {/* Comprar, Alugar */}
+                {(formik.values.source.value == 'sao-paulo' && formik.values.use) || formik.values.source.value != 'sao-paulo' ? (
+                  <FormButtonsFilterRow>
+                    {finalities.map((finality, finalityIndex) => finality.sources.includes(formik.values.source.value) ? (
+                      <FormButtonsFilterItemRadio twoColumns={formik.values.source.value == 'sao-paulo' ? true : false} key={`radio-finality-${finalityIndex}`}>
+                        <input type="radio" name="finality" value={finality.value} onChange={formik.handleChange} checked={formik.values.finality === finality.value} />
+                        <span>{finality.label}</span>
+                      </FormButtonsFilterItemRadio>
+                    ) : null)}
+                  </FormButtonsFilterRow>
+                ) : null}
+
+                {/* Prontos, Lançamentos */}
+                {formik.values.source.value == 'sao-paulo' && formik.values.finality === 'venda' && (
+                  <FormButtonsFilterRow>
+                    {readyReleases.map((item, itemIndex) => (
+                      <FormButtonsFilterItemRadio twoColumns={true} key={`radio-item-${itemIndex}`}>
+                        <input type="radio" name="ready_release" value={item.value} onChange={formik.handleChange} checked={formik.values.ready_release === item.value} />
+                        <span>{item.label}</span>
+                      </FormButtonsFilterItemRadio>
+                    ))}
+                  </FormButtonsFilterRow>
+                )}
+
+                {/* Sem mobilia, com mobilia */}
+                {formik.values.source.value == 'sao-paulo' && formik.values.finality === 'aluguel' && (
+                  <FormButtonsFilterRow>
+                    <FormButtonsFilterItemRadio twoColumns={true}>
+                      <input type="radio" name="furnished" value="Sem mobília" onChange={formik.handleChange} checked={formik.values.furnished === 'Sem mobília'} />
+                      <span>Sem mobília</span>
                     </FormButtonsFilterItemRadio>
-                  ))}
-                </FormButtonsFilterRow>
-              )}
-
-              {/* Comprar, Alugar */}
-              {(formik.values.source.value == 'sao-paulo' && formik.values.use) || formik.values.source.value != 'sao-paulo' ? (
-                <FormButtonsFilterRow>
-                  {finalities.map((finality, finalityIndex) => finality.sources.includes(formik.values.source.value) ? (
-                    <FormButtonsFilterItemRadio twoColumns={formik.values.source.value == 'sao-paulo' ? true : false} key={`radio-finality-${finalityIndex}`}>
-                      <input type="radio" name="finality" value={finality.value} onChange={formik.handleChange} checked={formik.values.finality === finality.value} />
-                      <span>{finality.label}</span>
+                    <FormButtonsFilterItemRadio twoColumns={true}>
+                      <input type="radio" name="furnished" value="Com mobília" onChange={formik.handleChange} checked={formik.values.furnished === 'Com mobília'} />
+                      <span>Com mobília</span>
                     </FormButtonsFilterItemRadio>
-                  ) : null)}
-                </FormButtonsFilterRow>
-              ) : null}
+                  </FormButtonsFilterRow>
+                )}
+              </FormButtonsFilter>
+            ) : null}
 
-              {/* Prontos, Lançamentos */}
-              {formik.values.source.value == 'sao-paulo' && formik.values.finality === 'venda' && (
-                <FormButtonsFilterRow>
-                  {readyReleases.map((item, itemIndex) => (
-                    <FormButtonsFilterItemRadio twoColumns={true} key={`radio-item-${itemIndex}`}>
-                      <input type="radio" name="ready_release" value={item.value} onChange={formik.handleChange} checked={formik.values.ready_release === item.value} />
-                      <span>{item.label}</span>
-                    </FormButtonsFilterItemRadio>
-                  ))}
-                </FormButtonsFilterRow>
-              )}
+            {
+              formik.values.source.value && formik.values.finality && filtersData &&
+              ((
+                formik.values.source.value == 'sao-paulo' &&
+                formik.values.finality === 'venda' &&
+                formik.values.ready_release
+              ) ||
+              (
+                formik.values.source.value == 'sao-paulo' &&
+                formik.values.finality === 'aluguel' &&
+                formik.values.furnished
+              ) ||
+                formik.values.source.value != 'sao-paulo'
+              ) ? (
+              <>
+                {filtersData.types && filtersData.types.length ? (
+                  <FormButtonFilter type="button" active={tabActive === 'types'} onClick={() => setTabActive('types')}>
+                    <strong>Tipo de imóvel</strong>
+                    {formik.values.types.length ? <span>{formik.values.types.join(', ')}</span> : null}
+                    <SVG src={ArrowIconSVG} />
+                  </FormButtonFilter>
+                ) : null}
 
-              {/* Sem mobilia, com mobilia */}
-              {formik.values.source.value == 'sao-paulo' && formik.values.finality === 'aluguel' && (
-                <FormButtonsFilterRow>
-                  <FormButtonsFilterItemRadio twoColumns={true}>
-                    <input type="radio" name="furnished" value="Sem mobília" onChange={formik.handleChange} checked={formik.values.furnished === 'Sem mobília'} />
-                    <span>Sem mobília</span>
-                  </FormButtonsFilterItemRadio>
-                  <FormButtonsFilterItemRadio twoColumns={true}>
-                    <input type="radio" name="furnished" value="Com mobília" onChange={formik.handleChange} checked={formik.values.furnished === 'Com mobília'} />
-                    <span>Com mobília</span>
-                  </FormButtonsFilterItemRadio>
-                </FormButtonsFilterRow>
-              )}
-            </FormButtonsFilter>
-          ) : null}
+                {filtersData.locals && Object.keys(filtersData.locals).length ? (
+                  <FormButtonFilter type="button" active={tabActive === 'locals'} onClick={() => setTabActive('locals')}>
+                    <strong>Selecione a localização</strong>
+                    {formik.values.local.length ? <span>{formik.values.local.join(', ')}</span> : null}
+                    <SVG src={ArrowIconSVG} />
+                  </FormButtonFilter>
+                ) : null}
 
-          {
-            formik.values.source.value && formik.values.finality && filtersData &&
-            ((
-              formik.values.source.value == 'sao-paulo' &&
-              formik.values.finality === 'venda' &&
-              formik.values.ready_release
-            ) ||
-            (
-              formik.values.source.value == 'sao-paulo' &&
-              formik.values.finality === 'aluguel' &&
-              formik.values.furnished
-            ) ||
-              formik.values.source.value != 'sao-paulo'
-            ) ? (
-            <>
-              {filtersData.types && filtersData.types.length ? (
-                <FormButtonFilter type="button" onClick={() => setTabActive('types')}>
-                  <strong>Tipo de imóvel</strong>
-                  {formik.values.types.length ? <span>{formik.values.types.join(', ')}</span> : null}
-                  <SVG src={ArrowIconSVG} />
-                </FormButtonFilter>
-              ) : null}
+                {
+                  (filtersData.prices && filtersData.prices.length && filtersData.prices[0] != filtersData.prices[1]) ||
+                  (filtersData.area && filtersData.area.length && filtersData.area[0] != filtersData.area[1]) ||
+                  (filtersData.bedrooms && filtersData.bedrooms.length && filtersData.bedrooms[0] != filtersData.bedrooms[1]) ||
+                  (filtersData.parking && filtersData.parking.length && filtersData.parking[0] != filtersData.parking[1]) ?
+                (
+                  <FormButtonFilter type="button" active={tabActive === 'filters'} onClick={() => setTabActive('filters')}>
+                    <strong>Mais filtros</strong>
+                    {
+                      (formik.values.price_start && formik.values.price_end) ||
+                      (formik.values.area_start && formik.values.area_end) ||
+                      (formik.values.bedroom_start && formik.values.bedroom_end) ||
+                      (formik.values.parking_start && formik.values.parking_end) ?
+                    (
+                      <span>
+                        {formik.values.price_start && formik.values.price_end ? (
+                          `Valor R$ ${formatCurrency.format(formik.values.price_start)} a R$ ${formatCurrency.format(formik.values.price_end)}, `
+                        ) : null}
 
-              {filtersData.locals ? (
-                <FormButtonFilter type="button" onClick={() => setTabActive('locals')}>
-                  <strong>Selecione a localização</strong>
-                  {formik.values.local.length ? <span>{formik.values.local.length > 5 ? `${formik.values.local.slice(0, 5).join(', ')}...` : formik.values.local.join(', ')}</span> : null}
-                  <SVG src={ArrowIconSVG} />
-                </FormButtonFilter>
-              ) : null}
+                        {formik.values.area_start && formik.values.area_end ? (
+                          `Area de ${formik.values.area_start}m a ${formik.values.area_end}m, `
+                        ) : null}
 
-              <FormButtonFilter type="button" onClick={() => setTabActive('filters')}>
-                <strong>Mais filtros</strong>
-                <span>
-                  {formik.values.price_start && formik.values.price_end ? (
-                    `Valor R$ ${formatCurrency.format(formik.values.price_start)} a R$ ${formatCurrency.format(formik.values.price_end)}, `
-                  ) : null}
+                        {formik.values.bedroom_start && formik.values.bedroom_end ? (
+                          `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
+                        ) : null}
 
-                  {formik.values.area_start && formik.values.area_end ? (
-                    `Area de ${formik.values.area_start}m a ${formik.values.area_end}m, `
-                  ) : null}
+                        {formik.values.parking_start && formik.values.parking_end ? (
+                          `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
+                        ) : null}
+                      </span>
+                    ) : null}
+                    <SVG src={ArrowIconSVG} />
+                  </FormButtonFilter>
+                ) : null}
+              </>
+            ) : null}
 
-                  {formik.values.bedroom_start && formik.values.bedroom_end ? (
-                    `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
-                  ) : null}
+            <FormFooter>
+              <FormGroup type="reference">
+                <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} />
+                <SVG src={SearchIconSVG} />
+              </FormGroup>
+              <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
+              <FormAlert>
+                <FormAlertTooltip active={alertCreated} onClick={closeAlertTooltip}>
+                  <p><strong>Alerta criado com sucesso!</strong> Você pode acompanhar seus alertas no seu perfil.</p>
+                </FormAlertTooltip>
+                <FormButtonAlert type="button" active={alertCreated} disabled={!formik.isSubmitting && !filtersData && !formik.values.reference} onClick={createAlert}>
+                  <SVG src={AlertIconSVG} /> Criar alerta
+                </FormButtonAlert>
+              </FormAlert>
+              <FormButtonClear type="button" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Limpar filtros</FormButtonClear>
+            </FormFooter>
 
-                  {formik.values.parking_start && formik.values.parking_end ? (
-                    `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
-                  ) : null}
-                </span>
-                <SVG src={ArrowIconSVG} />
-              </FormButtonFilter>
-            </>
-          ) : null}
+          </FormWrapper>
 
           <FormTab active={tabActive === 'sources'}>
             <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
               <SVG src={ArrowIconSVG} />
             </FormTabButtonBack>
+            <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
             <FormTabTitle>Locais</FormTabTitle>
             <FormTabContent>
               <ul>
@@ -360,6 +397,7 @@ function Search({ dispatch }) {
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} />
               </FormTabButtonBack>
+              <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
               <FormTabTitle>Tipo de imóvel</FormTabTitle>
               <FormTabContent>
                 <ul>
@@ -378,6 +416,7 @@ function Search({ dispatch }) {
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} />
               </FormTabButtonBack>
+              <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
               <FormTabTitle>Locais</FormTabTitle>
               <FormTabContent>
                 <ul>
@@ -405,6 +444,7 @@ function Search({ dispatch }) {
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} />
               </FormTabButtonBack>
+              <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
               <FormTabTitle>Locais</FormTabTitle>
               <FormTabContent>
                 {filtersData.prices && filtersData.prices.length && filtersData.prices[0] != filtersData.prices[1] ? (
@@ -449,24 +489,6 @@ function Search({ dispatch }) {
               </FormTabContent>
             </FormTab>
           ) : null}
-
-          <FormFooter>
-            <FormGroup type="reference">
-              <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} />
-              <SVG src={SearchIconSVG} />
-            </FormGroup>
-            <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
-            <FormAlert>
-              <FormAlertTooltip active={alertCreated} onClick={closeAlertTooltip}>
-                <p><strong>Alerta criado com sucesso!</strong> Você pode acompanhar seus alertas no seu perfil.</p>
-              </FormAlertTooltip>
-              <FormButtonAlert type="button" active={alertCreated} disabled={!formik.isSubmitting && !filtersData && !formik.values.reference} onClick={createAlert}>
-                <SVG src={AlertIconSVG} /> Criar alerta
-              </FormButtonAlert>
-            </FormAlert>
-            <FormButtonClear type="button" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Limpar filtros</FormButtonClear>
-          </FormFooter>
-
         </Form>
     </Container>
   )

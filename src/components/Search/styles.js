@@ -9,12 +9,9 @@ export const Container = styled.section`
   position: fixed;
   top: 0;
   left: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
   z-index: 105;
   background: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
@@ -22,6 +19,13 @@ export const Container = styled.section`
   ${({ theme }) => theme.hide};
 
   ${props => props.active && ContainerActive}
+
+  ${media.greaterThan('medium')`
+    left: 200px;
+    width: calc(100% - 200px);
+    background: rgba(38, 50, 56, 0.8);
+    z-index: 99;
+  `};
 `;
 
 export const ContainerActive = css`
@@ -31,13 +35,46 @@ export const ContainerActive = css`
 `;
 
 export const Form = styled.form`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+
+  ${media.greaterThan('medium')`
+    overflow: visible;
+  `};
+`;
+
+export const FormWrapper = styled.div`
   position: relative;
   width: 100%;
   padding: 30px;
+  padding-bottom: 0;
   display: flex;
-  flex-wrap: wrap;
   align-items: flex-start;
   flex-direction: column;
+
+  ${media.greaterThan('medium')`
+    position: absolute;
+    top: 0;
+    width: 360px;
+    height: 100vh;
+    padding: 80px 30px 0 30px;
+    background: ${({ theme }) => theme.colors.green};
+    transform: translateX(-100%);
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 5;
+    transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
+
+    ${props =>
+      props.active &&
+      `
+      transform: translateX(0%);
+      transition-duration: 300ms;
+    `}
+  `};
 `;
 
 export const FormClose = styled.button`
@@ -48,6 +85,10 @@ export const FormClose = styled.button`
   width: 15px;
   height: 15px;
   font-size: 0;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `};
 
   &:before,
   &:after {
@@ -74,6 +115,10 @@ export const FormHeader = styled.header`
   position: relative;
   width: 100%;
   padding-top: 10px;
+
+  ${media.greaterThan('medium')`
+    padding-top: 0;
+  `}
 `;
 
 export const FormHeaderTitle = styled.h2`
@@ -83,6 +128,10 @@ export const FormHeaderTitle = styled.h2`
   letter-spacing: 1px;
   color: ${({ theme }) => theme.colors.white};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+
+  ${media.greaterThan('medium')`
+    font-size: 16px;
+  `}
 `;
 
 export const FormGroup = styled.div`
@@ -118,6 +167,11 @@ export const FormButtonsFilter = styled.div`
   width: 100%;
   margin: 10px 0 0 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
+
+  ${media.greaterThan('medium')`
+    border-bottom: 0;
+    margin-bottom: 10px;
+  `}
 `;
 
 export const FormButtonsFilterTitle = styled.h3`
@@ -133,6 +187,10 @@ export const FormButtonsFilterRow = styled.div`
   flex-wrap: wrap;
   width: 100%;
   margin-bottom: 20px;
+
+  ${media.greaterThan('medium')`
+    margin-bottom: 10px;
+  `}
 `;
 
 export const FormButtonsFilterItemRadio = styled.label`
@@ -154,20 +212,6 @@ export const FormButtonsFilterItemRadio = styled.label`
     color: ${({ theme }) => theme.colors.white};
     transform: translateY(-50%);
   }
-
-  ${props =>
-    props.twoColumns &&
-    `
-    width: calc(50% - 20px);
-
-    &:last-child {
-      margin-left: 40px;
-
-      &:before {
-        display: block;
-      }
-    }
-  `}
 
   input {
     display: block;
@@ -201,6 +245,29 @@ export const FormButtonsFilterItemRadio = styled.label`
     border-radius: 3px;
     transition: all 300ms ease;
   }
+
+  ${props =>
+    props.twoColumns &&
+    `
+    width: calc(50% - 20px);
+
+    &:last-child {
+      margin-left: 40px;
+
+      &:before {
+        display: block;
+      }
+    }
+  `}
+
+  ${media.greaterThan('1024px')`
+    &:hover {
+      span {
+        background: ${({ theme }) => theme.colors.white};
+        color: ${({ theme }) => theme.colors.green};
+      }
+    }
+  `}
 `;
 
 export const FormButtonFilter = styled.button`
@@ -210,6 +277,7 @@ export const FormButtonFilter = styled.button`
   flex-wrap: wrap;
   width: 100%;
   height: 60px;
+  min-height: 60px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
   font: 12px 'Raleway';
 
@@ -226,20 +294,17 @@ export const FormButtonFilter = styled.button`
     font-size: 17px;
     letter-spacing: 0.5px;
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    transition: all 300ms ease;
   }
 
   span {
     margin-top: 2px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
     letter-spacing: 0.5px;
-
-    i {
-      content: ', ';
-      color: ${({ theme }) => theme.colors.white};
-
-      &:last-child {
-        display: none;
-      }
-    }
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   svg {
@@ -255,6 +320,44 @@ export const FormButtonFilter = styled.button`
     rect {
       fill: ${({ theme }) => theme.colors.white};
     }
+  }
+
+  ${props => props.active && FormButtonFilterActive}
+
+  ${media.greaterThan('medium')`
+    display: block;
+    border-bottom: 0;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    height: auto;
+    min-height: 0;
+    text-align: left;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    strong {
+      display: block;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    span {
+      margin-top: 5px;
+
+      &:before {
+        display: inline-block;
+        content: 'Selecionado(s):';
+        margin-right: 5px;
+      }
+    }
+  `}
+`;
+
+export const FormButtonFilterActive = css`
+  strong {
+    color: ${({ theme }) => theme.colors.orange};
   }
 `;
 
@@ -272,14 +375,28 @@ export const FormTab = styled.div`
   background: ${({ theme }) => theme.colors.white};
   transition: all 300ms ease;
 
-  ${props =>
-    props.active &&
-    `
-    left: 0%;
+  ${media.greaterThan('medium')`
+    left: 0;
+    padding: 80px 30px 30px;
+    width: 250px;
+    z-index: 3;
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    ${({ theme }) => theme.hide}
+  `}
 
-    & > button {
-      left: 0%;
-    }
+  ${props => props.active && FormTabActive}
+`;
+
+export const FormTabActive = css`
+  left: 0%;
+
+  & > button:first-child {
+    left: 0%;
+  }
+
+  ${media.greaterThan('medium')`
+    left: 360px;
+    ${({ theme }) => theme.show}
   `}
 `;
 
@@ -296,6 +413,10 @@ export const FormTabButtonBack = styled.button`
   background: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
 
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
+
   svg {
     display: block;
     width: 24px;
@@ -308,6 +429,40 @@ export const FormTabButtonBack = styled.button`
   }
 `;
 
+export const FormTabClose = styled.button`
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 30px;
+  height: 30px;
+  font-size: 0;
+
+  ${media.greaterThan('medium')`
+    display: block;
+  `};
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 30px;
+    background: ${({ theme }) => theme.colors.green};
+  }
+
+  &:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+`;
+
 export const FormTabTitle = styled.h3`
   margin-bottom: 30px;
   font: 18px 'Raleway';
@@ -315,6 +470,10 @@ export const FormTabTitle = styled.h3`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`
+    font-size: 16px;
+  `}
 `;
 
 export const FormTabContent = styled.div`
@@ -351,6 +510,10 @@ export const FormTabListItemTitle = styled.h4`
     background-size: contain;
     transform: rotate(90deg);
   }
+
+  ${media.greaterThan('medium')`
+    font-size: 13px;
+  `}
 `;
 
 export const FormTabListItemButton = styled.button`
@@ -361,14 +524,9 @@ export const FormTabListItemButton = styled.button`
   text-align: left;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
+  transition: all 300ms ease;
 
   ${props => props.active && FormTabListItemButtonActive}
-
-  ${media.greaterThan('1024px')`
-    &:hover {
-      color: ${({ theme }) => theme.colors.orange};
-    }
-  `};
 
   &:before {
     content: '';
@@ -384,6 +542,16 @@ export const FormTabListItemButton = styled.button`
     transition: all 300ms ease;
     ${({ theme }) => theme.hide};
   }
+
+  ${media.greaterThan('medium')`
+    font-size: 13px;
+  `}
+
+  ${media.greaterThan('1024px')`
+    &:hover {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  `};
 `;
 
 export const FormTabListItemButtonActive = css`
@@ -409,6 +577,10 @@ export const FormTabSliderTitle = styled.h4`
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`
+    font-size: 13px;
+  `};
 `;
 
 export const FormFooter = styled.footer`
@@ -417,6 +589,7 @@ export const FormFooter = styled.footer`
   margin-top: auto;
   width: 100%;
   padding-top: 30px;
+  padding-bottom: 30px;
 `;
 
 export const FormButtonSubmit = styled.button`
@@ -489,6 +662,7 @@ export const FormButtonAlert = styled.button`
   text-decoration: underline;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
+  transition: all 300ms ease;
 
   svg {
     display: block;
@@ -499,6 +673,7 @@ export const FormButtonAlert = styled.button`
 
     path {
       fill: ${({ theme }) => theme.colors.white};
+      transition: all 300ms ease;
     }
   }
 
@@ -507,14 +682,32 @@ export const FormButtonAlert = styled.button`
     cursor: default;
   }
 
+  ${media.greaterThan('medium')`
+    font-size: 12px;
+
+    svg {
+      width: 18px;
+      min-width: 18px;
+      height: 18px;
+    }
+  `};
+
+  ${media.greaterThan('1024px')`
+    &:not([disabled]):hover {
+      color: ${({ theme }) => theme.colors.orange};
+
+      svg path {
+        fill: ${({ theme }) => theme.colors.orange};
+      }
+    }
+  `}
+
   ${props => props.active && FormButtonAlertActive}
 `;
 
 export const FormButtonAlertActive = css`
-  svg {
-    path {
-      fill: ${({ theme }) => theme.colors.orange};
-    }
+  svg path {
+    fill: ${({ theme }) => theme.colors.orange};
   }
 `;
 
@@ -525,9 +718,20 @@ export const FormButtonClear = styled.button`
   text-decoration: underline;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
+  transition: all 300ms ease;
 
   &[disabled] {
     opacity: 0.2;
     cursor: default;
   }
+
+  ${media.greaterThan('medium')`
+    font-size: 12px;
+  `};
+
+  ${media.greaterThan('1024px')`
+    &:not([disabled]):hover {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  `}
 `;

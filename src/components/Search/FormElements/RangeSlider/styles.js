@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const Container = styled.div`
   width: 100%;
@@ -70,4 +71,8 @@ export const Text = styled.p`
   text-align: center;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`
+    font-size: 13px;
+  `};
 `;

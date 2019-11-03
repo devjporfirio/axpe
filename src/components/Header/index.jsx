@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Link from 'next/link'
 import SVG from 'react-inlinesvg';
 
@@ -44,14 +44,15 @@ import {
 } from './styles';
 
 function Header({ dispatch }) {
+  const search = useSelector(state => state.search);
   const [ navToggle, setNavToggle ] = useState(false)
 
   function handleToggle() {
     setNavToggle(!navToggle);
   }
 
-  function openSearch() {
-    dispatch(setSearch({ active: true }))
+  function toggleSearch() {
+    dispatch(setSearch({ active: !search.active }))
   }
 
   function cancelToggle() {
@@ -78,7 +79,7 @@ function Header({ dispatch }) {
           </Link>
         </ChristiesLogo>
 
-        <ButtonSearch type="button" onClick={openSearch}>Buscar</ButtonSearch>
+        <ButtonSearch type="button" onClick={toggleSearch}>Buscar</ButtonSearch>
         <ButtonToggle type="button" onClick={handleToggle} navToggle={navToggle}>
           <i></i><i></i><i></i>
         </ButtonToggle>
@@ -87,7 +88,7 @@ function Header({ dispatch }) {
           <NavMain>
             <ul>
               <li>
-                <NavMainButtonSearch type="button" onClick={openSearch}>
+                <NavMainButtonSearch type="button" active={search.active} onClick={toggleSearch}>
                   <SVG src={SearchIconSVG} />
                   <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                 </NavMainButtonSearch>
