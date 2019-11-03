@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
+import { formatCurrency } from 'helpers/utils';
+
+// actions
+import { setSearch } from 'store/modules/search/actions';
 
 // components
+import SearchIconSVG from 'assets/icons/search';
 import Input from 'components/Search/FormElements/Input'
 import InputSource from 'components/Search/FormElements/InputSource'
 import ButtonSource from 'components/Search/FormElements/ButtonSource'
@@ -13,9 +19,33 @@ import RangeSlider from 'components/Search/FormElements/RangeSlider'
 import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 // styles
-import { Container, Form, FormGroup, FormClose, FormHeader, FormHeaderTitle, FormButtonsFilter, FormButtonsFilterTitle, FormButtonsFilterRow, FormButtonsFilterItemRadio, FormButtonFilter, FormFooter, FormButtonSubmit, FormButtonAlert, FormTab, FormTabButtonBack, FormTabTitle, FormTabContent, FormTabListItemTitle, FormTabListItemButton, FormTabSlider, FormTabSliderTitle } from './styles';
+import {
+  Container,
+  Form,
+  FormGroup,
+  FormClose,
+  FormHeader,
+  FormHeaderTitle,
+  FormButtonsFilter,
+  FormButtonsFilterTitle,
+  FormButtonsFilterRow,
+  FormButtonsFilterItemRadio,
+  FormButtonFilter,
+  FormFooter,
+  FormButtonSubmit,
+  FormButtonAlert,
+  FormTab,
+  FormTabButtonBack,
+  FormTabTitle,
+  FormTabContent,
+  FormTabListItemTitle,
+  FormTabListItemButton,
+  FormTabSlider,
+  FormTabSliderTitle
+} from './styles';
 
 function Search({ dispatch }) {
+  const { active } = useSelector(state => state.search);
   const [ usesData, setUsesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
   const [ tabActive, setTabActive ] = useState(null);
@@ -47,6 +77,14 @@ function Search({ dispatch }) {
       furnished: '',
       category: [],
       local: [],
+      price_start: '',
+      price_end: '',
+      area_start: '',
+      area_end: '',
+      bedroom_start: '',
+      bedroom_end: '',
+      parking_start: '',
+      parking_end: '',
       reference: ''
     },
 
@@ -54,6 +92,10 @@ function Search({ dispatch }) {
       // console.log('submit', values)
     }
   });
+
+  function closeSearch() {
+    dispatch(setSearch({ active: false }))
+  }
 
   function setArrayValue(name, value) {
     const arr = formik.values[name];
@@ -97,6 +139,14 @@ function Search({ dispatch }) {
     formik.setFieldValue('furnished', '');
     formik.setFieldValue('category', []);
     formik.setFieldValue('local', []);
+    formik.setFieldValue('price_start', '');
+    formik.setFieldValue('price_end', '');
+    formik.setFieldValue('area_start', '');
+    formik.setFieldValue('area_end', '');
+    formik.setFieldValue('bedroom_start', '');
+    formik.setFieldValue('bedroom_end', '');
+    formik.setFieldValue('parking_start', '');
+    formik.setFieldValue('parking_end', '');
   }
 
   function setSource(source) {
@@ -113,20 +163,15 @@ function Search({ dispatch }) {
     const getFilters = async () => {
       const params = getFiltersParams();
       const response = await Api.Search.getFilters(params);
+      const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
 
-      // console.log('filters', response)
-
-      if(response.prices && response.prices.length) {
-        response.prices = response.prices.map(price => parseInt(price));
-      }
-
-      if(response.area && response.area.length) {
-        response.area = response.area.map(area => parseInt(area));
-      }
-
-      if(response.bedrooms && response.bedrooms.length) {
-        response.bedrooms = response.bedrooms.map(bedroom => parseInt(bedroom));
-      }
+      // Make sure that all data are Number
+      valuesStringToNumber.forEach(key => {
+        const obj = response[key];
+        if(obj && obj.length) {
+          response[key] = response[key].map(value => parseInt(value));
+        }
+      })
 
       formik.setFieldValue('category', []);
       formik.setFieldValue('local', []);
@@ -144,11 +189,11 @@ function Search({ dispatch }) {
   }, [ formik.values.source.value, formik.values.use, formik.values.finality, formik.values.type, formik.values.furnished ]);
 
   return (
-    <Container>
+    <Container active={active}>
         <Form onSubmit={formik.handleSubmit}>
           <FormHeader>
             <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
-            <FormClose type="button">Fechar</FormClose>
+            <FormClose type="button" onClick={closeSearch}>Fechar</FormClose>
           </FormHeader>
 
           <FormGroup>
@@ -245,7 +290,23 @@ function Search({ dispatch }) {
 
               <FormButtonFilter type="button" onClick={() => setTabActive('filters')}>
                 <strong>Mais filtros</strong>
-                <span></span>
+                <span>
+                  {formik.values.price_start && formik.values.price_end ? (
+                    `Valor R$ ${formatCurrency.format(formik.values.price_start)} a R$ ${formatCurrency.format(formik.values.price_end)}, `
+                  ) : null}
+
+                  {formik.values.area_start && formik.values.area_end ? (
+                    `Area de ${formik.values.area_start}m a ${formik.values.area_end}m, `
+                  ) : null}
+
+                  {formik.values.bedroom_start && formik.values.bedroom_end ? (
+                    `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
+                  ) : null}
+
+                  {formik.values.parking_start && formik.values.parking_end ? (
+                    `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
+                  ) : null}
+                </span>
                 <SVG src={ArrowIconSVG} />
               </FormButtonFilter>
             </>
@@ -319,29 +380,42 @@ function Search({ dispatch }) {
               </FormTabButtonBack>
               <FormTabTitle>Locais</FormTabTitle>
               <FormTabContent>
-                {filtersData.prices && filtersData.prices.length ? (
+                {filtersData.prices && filtersData.prices.length && filtersData.prices[0] && filtersData.prices[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Valor</FormTabSliderTitle>
-                    <RangeSlider data={filtersData.prices} prefix="R$ " onChange={values => {
-                      // console.log('prices callback', values)
+                    <RangeSlider type="prices" data={filtersData.prices} prefix="R$ " onChange={values => {
+                      formik.setFieldValue('price_start', values[0]);
+                      formik.setFieldValue('price_end', values[1]);
                     }} />
                   </FormTabSlider>
                 ) : null}
 
-                {filtersData.area && filtersData.area.length ? (
+                {filtersData.area && filtersData.area.length && filtersData.area[0] && filtersData.area[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Área útil</FormTabSliderTitle>
                     <RangeSlider data={filtersData.area} sep="a" step={1} suffix=" m" onChange={values => {
-                      // console.log('area callback', values)
+                      formik.setFieldValue('area_start', values[0]);
+                      formik.setFieldValue('area_end', values[1]);
                     }} />
                   </FormTabSlider>
                 ) : null}
 
-                {filtersData.bedrooms && filtersData.bedrooms.length ? (
+                {filtersData.bedrooms && filtersData.bedrooms.length && filtersData.bedrooms[0] && filtersData.bedrooms[1] ? (
                   <FormTabSlider>
                     <FormTabSliderTitle>Dormitórios</FormTabSliderTitle>
                     <RangeSlider data={filtersData.bedrooms} sep="a" step={1} onChange={values => {
-                      // console.log('bedrooms callback', values)
+                      formik.setFieldValue('bedroom_start', values[0]);
+                      formik.setFieldValue('bedroom_end', values[1]);
+                    }} />
+                  </FormTabSlider>
+                ) : null}
+
+                {filtersData.parking && filtersData.parking.length && filtersData.parking[0] && filtersData.parking[1] ? (
+                  <FormTabSlider>
+                    <FormTabSliderTitle>Vagas de estacionamento</FormTabSliderTitle>
+                    <RangeSlider data={filtersData.parking} sep="a" step={1} onChange={values => {
+                      formik.setFieldValue('parking_start', values[0]);
+                      formik.setFieldValue('parking_end', values[1]);
                     }} />
                   </FormTabSlider>
                 ) : null}
@@ -350,8 +424,9 @@ function Search({ dispatch }) {
           ) : null}
 
           <FormFooter>
-            <FormGroup>
+            <FormGroup type="reference">
               <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} />
+              <SVG src={SearchIconSVG} />
             </FormGroup>
             <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
             <FormButtonAlert type="button"></FormButtonAlert>
@@ -362,4 +437,4 @@ function Search({ dispatch }) {
   )
 }
 
-export default Search;
+export default connect()(Search);

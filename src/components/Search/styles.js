@@ -8,7 +8,7 @@ import ArrowIconSVG from 'assets/icons/arrow.svg';
 export const Container = styled.section`
   position: fixed;
   top: 0;
-  left: 0;
+  left: 100%;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -19,11 +19,15 @@ export const Container = styled.section`
   background: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
 
-  ${props =>
-    props.active &&
-    `
-    left: 0%;
-  `}
+  ${({ theme }) => theme.hide};
+
+  ${props => props.active && ContainerActive}
+`;
+
+export const ContainerActive = css`
+  left: 0%;
+
+  ${({ theme }) => theme.show};
 `;
 
 export const Form = styled.form`
@@ -85,6 +89,29 @@ export const FormGroup = styled.div`
   width: 100%;
   position: relative;
   margin-bottom: 10px;
+
+  ${props => props.type === 'reference' && FormGroupReference}
+`;
+
+export const FormGroupReference = css`
+  input {
+    padding-right: 50px;
+  }
+
+  svg {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 11px;
+    height: 14px;
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    & > g {
+      stroke-width: 2px;
+    }
+  }
 `;
 
 export const FormButtonsFilter = styled.div`
@@ -204,6 +231,15 @@ export const FormButtonFilter = styled.button`
   span {
     margin-top: 2px;
     letter-spacing: 0.5px;
+
+    i {
+      content: ', ';
+      color: ${({ theme }) => theme.colors.white};
+
+      &:last-child {
+        display: none;
+      }
+    }
   }
 
   svg {

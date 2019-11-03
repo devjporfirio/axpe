@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import ReactSlider from 'react-slider'
+import React, { useState, useEffect } from 'react';
+import ReactSlider from 'react-slider';
+import { formatCurrency } from 'helpers/utils';
 
 // styles
 import { Container, Text } from './styles'
 
-function RangeSlider({ data, suffix = '', prefix = '', sep = '-', step = 100, onChange }) {
+function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 100, onChange }) {
 
   const [ values, setValues ] = useState(null);
 
-  useEffect(() => {
+  function saveValues(params) {
     setValues({
-      first: data[0],
-      last: data[1]
+      first: type == 'prices' ? formatCurrency.format(params[0]) : `${prefix}${params[0]}${suffix}`,
+      last: type == 'prices' ? formatCurrency.format(params[1]) : `${prefix}${params[1]}${suffix}`
     })
+  }
+
+  useEffect(() => {
+    saveValues(data);
   }, [])
 
   return (
     <Container>
       {values ? (
         <Text>
-          {`${prefix}${values.first}${suffix}`} {sep} {`${prefix}${values.last}${suffix}`}
+          {`${values.first} ${sep} ${values.last}`}
         </Text>
       ) : null}
       {data.length ? (
@@ -33,10 +38,7 @@ function RangeSlider({ data, suffix = '', prefix = '', sep = '-', step = 100, on
           ariaValuetext={state => state.valueNow}
           renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
           onAfterChange={params => onChange([ params[0], params[1] ])}
-          onChange={params => setValues({
-            first: params[0],
-            last: params[1]
-          })}
+          onChange={saveValues}
         />
       ) : null}
     </Container>

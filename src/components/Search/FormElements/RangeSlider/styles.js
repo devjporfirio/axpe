@@ -28,6 +28,7 @@ export const Container = styled.div`
     font-size: 0;
     z-index: 3;
     transform: translateY(-50%);
+    cursor: pointer;
 
     &:before {
       content: '';
@@ -64,6 +65,7 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.p`
+  margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
   font: 18px 'Raleway';

@@ -7,10 +7,10 @@ import { Container } from './styles';
 import AxpeFullLogoSVG from 'assets/axpe-full-logo.svg';
 
 function Loading(props) {
-  const { active } = useSelector(state => state.loading);
+  const { active, type } = useSelector(state => state.loading);
 
   return (
-    <Container active={active}>
+    <Container active={active} type={type}>
       <SVG src={AxpeFullLogoSVG} />
     </Container>
   )
