@@ -17,7 +17,7 @@ export const getUrl = params => {
         ? acc
         : acc == initial
         ? `${acc}${key}=${params[key]}`
-        : `${acc}&${key}=${params[key]}`,
+        : `${acc}&amp;${key}=${params[key]}`,
     initial
   );
   return encodeURI(paramsJoin);

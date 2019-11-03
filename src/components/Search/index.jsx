@@ -159,7 +159,7 @@ function Search({ dispatch }) {
       params.push(`local=${formik.values.local.join(',')}`);
     }
 
-    return params.join('&');
+    return `?${params.join('&')}`;
   }
 
   function resetValuesOnChange() {
