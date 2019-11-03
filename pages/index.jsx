@@ -17,12 +17,12 @@ const COMPONENT_SLICK = {
 
 import { Container, Banner, GroupSlider } from 'pages/Home/styles';
 
-function Home ({ hero, components }) {
+function Home({ hero, components }) {
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
 
   useEffect(() => {
-    async function loadBuildinsSeen () {
+    async function loadBuildinsSeen() {
       let buildingsSeenCookie = User.getBuildingsSeen();
 
       if (!!buildingsSeenCookie) {
@@ -53,7 +53,7 @@ function Home ({ hero, components }) {
     loadBuildinsSeen();
   }, []);
 
-  function renderComponents (type, component) {
+  function renderComponents(type, component) {
     switch (type) {
       case 'banner':
         return (

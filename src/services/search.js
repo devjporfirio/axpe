@@ -13,7 +13,13 @@ export default {
   },
   async getFilters(params) {
     const response = await fetch(
-      `${process.env.config.apiUrl}/buildings/filters?${params}`
+      `${process.env.config.apiUrl}/buildings/filters${params}`
+    ).then(response => response.json());
+    return response;
+  },
+  async getBuildings(params) {
+    const response = await fetch(
+      `${process.env.config.apiUrl}/buildings/find${params}`
     ).then(response => response.json());
     return response;
   }

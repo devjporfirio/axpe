@@ -10,7 +10,7 @@ import User from 'helpers/User';
 
 import { Container, Header, Images, Alert, PanelSimilar } from 'pages/Building/styles';
 
-function Building ({ property, similarBuildings }) {
+function Building({ property, similarBuildings }) {
   useEffect(() => {
     User.setBuildingSeen(property);
   });
