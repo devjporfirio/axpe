@@ -11,26 +11,17 @@ export const Container = styled.div`
   min-height: 268px;
   padding: 30px;
 
-  div {
-    width: 315px;
-    margin-top: 24px;
-
-    p {
-      max-width: 240px;
-      font: 18px/21px 'Raleway';
-      font-weight: ${({ theme }) => theme.fontsWeight.medium};
-      color: ${({ theme }) => theme.colors.white};
-      margin-bottom: 24px;
-    }
+  p {
+    max-width: 240px;
+    font: 18px/21px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    color: ${({ theme }) => theme.colors.white};
+    margin-bottom: 24px;
   }
 
   ${media.greaterThan('medium')`
     justify-content: space-around;
     flex-direction: row;
-
-    div {
-      width: 240px;
-    }
   `}
 
   ${props =>
@@ -130,7 +121,7 @@ export const Link = styled(Button)`
   display: block;
 `;
 
-export const Highlighted = styled.p`
+export const Highlighted = styled.div`
   text-align: left;
   width: 315px;
   

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import media from 'styled-media-query';
 import Phone from 'components/Phone';
 
 export const Container = styled.section`
@@ -35,6 +36,7 @@ const Phones = css`
 
 export const Tel = styled(Phone)`
   ${Phones}
+  margin-right: 40px;
 `;
 
 export const Whats = styled(Phone)`
@@ -52,6 +54,10 @@ export const PhoneNumber = styled.div`
 export const Numbers = styled.div`
   display: flex;
   justify-content: space-between;
+
+  ${media.greaterThan('medium')`
+    justify-content: flex-start;
+  `}
 `;
 
 export const Form = styled.form`
