@@ -56,7 +56,7 @@ const NotFound = () => (
         <span>Não encontrou o </span>
       </strong>
       <span>imóvel </span>
-      <span>que busca?</span>w
+      <span>que busca?</span>
     </Highlighted>
     <div>
       <p>

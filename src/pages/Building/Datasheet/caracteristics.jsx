@@ -1,13 +1,12 @@
 import React from 'react';
 import { formatCurrency } from 'helpers/utils';
-import { Price, InfoValue } from './styles';
+import { Price, InfoValue, PriceRelease } from './styles';
 
 export const Release = ({ release }) =>
   !!release && (
-    <Price>
-      <p></p>
+    <PriceRelease>
       <p>A partir de: {formatCurrency.format(release)}</p>
-    </Price>
+    </PriceRelease>
   );
 
 export const Rent = ({ rent, iptu, condo }) =>

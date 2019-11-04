@@ -20,6 +20,7 @@ export const Block = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.greenBorder};
 
   ${media.greaterThan('medium')`
     border-bottom: none;
@@ -50,6 +51,7 @@ export const BlockTwo = styled(Block)`
     flex-shrink: 0;
   `}
 `;
+
 export const BlockThree = styled(Block)`
   flex-wrap: wrap;
   align-items: flex-start;
@@ -114,6 +116,16 @@ export const Price = styled.div`
   p:nth-child(3),
   p:nth-child(4) {
     font: 11px 'Raleway';
+  }
+`;
+
+export const PriceRelease = styled.div`
+  height: 26px;
+  flex-basis: 100% !important;
+
+  p {
+    font: 22px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   }
 `;
 

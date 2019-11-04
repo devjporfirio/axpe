@@ -21,7 +21,6 @@ export const Container = styled.div`
   align-items: center;
   height: 66px;
   padding: 10px 20px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
   background-color: ${({ theme }) => theme.colors.white};
 
   ${media.greaterThan('medium')`

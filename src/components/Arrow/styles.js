@@ -2,8 +2,9 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 const backgroundColorWhite = css`
-  background-color: #fff;
-  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 35px;
+  height: 35px;
 `;
 
 const positionCenterNext = css`

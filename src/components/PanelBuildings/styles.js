@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const Container = styled.div`
   width: 100%;
@@ -21,11 +22,15 @@ export const Container = styled.div`
 
 export const Title = styled.h4`
   color: ${({ theme }) => theme.colors.green};
-  font: 41px/40px 'Bitter';
+  font: 22px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
-  line-height: 40px;
   margin: 20px 0;
   max-width: 450px;
+
+  ${media.greaterThan('medium')`
+    font-size: 41px;
+    line-height: 40px;
+  `}
 `;
 
 export const SubTitle = styled.p`

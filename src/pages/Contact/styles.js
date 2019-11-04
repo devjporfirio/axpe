@@ -7,9 +7,10 @@ export const Container = styled.section`
 `;
 
 export const Body = styled.div`
+  margin: auto 30px;
+
   ${media.greaterThan('medium')`
     max-width: 1000px;
-    margin: auto;
     display: flex;
   `}
 `;

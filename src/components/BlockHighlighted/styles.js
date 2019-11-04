@@ -5,11 +5,16 @@ import Button from 'components/Button';
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.green};
   display: flex;
-  align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
   min-height: 268px;
   padding: 30px;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  div {
+    margin-top: 20px;
+  }
 
   p {
     max-width: 240px;
@@ -30,21 +35,14 @@ export const Container = styled.div`
     css`
       padding: 0;
       min-height: auto;
-      width: 1000px;
+      max-width: 1000px;
       margin: auto;
     `}
 
   ${props =>
     props.type === 'contactWork' &&
     css`
-      align-items: flex-start !important;
-      justify-content: flex-start !important;
-      padding: 0;
       padding: 30px;
-
-      div {
-        margin-top: 20px;
-      }
 
       ${media.greaterThan('medium')`
         border-radius: 8px;

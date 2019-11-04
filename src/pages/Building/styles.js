@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import Breadcrumb from 'components/Breadcrumb';
 import Gallery from 'components/Gallery';
 import PanelBuildings from 'components/PanelBuildings';
@@ -14,7 +15,9 @@ export const PanelSimilar = styled(PanelBuildings)`
 `;
 
 export const Header = styled(Breadcrumb)`
-  margin-bottom: 20px;
+  ${media.greaterThan('medium')`
+    margin-bottom: 20px;
+  `}
 `;
 
 export const Images = styled(Gallery)`
