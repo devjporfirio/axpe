@@ -36,10 +36,15 @@ export const Headerbar = styled.div`
   }
 
   ${media.greaterThan('medium')`
+    position: fixed;
+    top: 0;
+    left: 200px;
+    width: calc(100% - 200px);
     padding: 15px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 10;
 
     h3 {
       margin-left: 30px;
@@ -164,7 +169,7 @@ export const Header = styled.header`
 
   ${media.greaterThan('medium')`
     width: 80%;
-    margin: 0 auto 20px auto;
+    margin: 62px auto 20px auto;
     padding: 50px 0 0;
     flex-direction: row;
     align-items: flex-end;
@@ -197,7 +202,8 @@ export const HeaderCombo = styled.div`
     border-radius: 4px;
 
     span {
-      display: none;
+      margin-left: 10px;
+      font-weight: ${({ theme }) => theme.fontsWeight.regular};
     }
 
     &:after {
@@ -233,12 +239,6 @@ export const HeaderCombo = styled.div`
       border: 0;
       height: auto;
       line-height: 15px;
-
-      span {
-        display: block;
-        margin-left: 10px;
-        font-weight: ${({ theme }) => theme.fontsWeight.regular};
-      }
     }
   `}
 `;
@@ -276,4 +276,18 @@ export const ButtonBack = styled.button`
       }
     }
   `}
+`;
+
+export const Buildings = styled.div`
+  width: 100%;
+`;
+
+export const BuildingsNotFound = styled.div`
+  p {
+    width: 100%;
+    font: 20px/23px 'Bitter';
+    text-align: center;
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    color: ${({ theme }) => theme.colors.green};
+  }
 `;

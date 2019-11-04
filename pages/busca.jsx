@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
+
+// components
+import SimilarBuilding from 'components/SimilarBuilding';
 
 // helpers
 import { getUrl } from 'helpers/utils'
@@ -20,12 +23,23 @@ import {
   Header,
   HeaderCombo,
   Wrapper,
-  ButtonBack
+  ButtonBack,
+  Buildings,
+  BuildingsNotFound
 } from 'pages/Search/styles'
 
 function Search({ buildings }) {
-  function handleOrderBy() {
+  const orderOptions = [
+    { label: 'Mais Recentes', value: 'mais-recentes' },
+    { label: 'Maior área útil', value: 'maior-area-util' },
+    { label: 'Menor Preço', value: 'menor-preco' },
+    { label: 'Maior Preço', value: 'maior-preco' }
+  ]
+  const [ orderBy, setOrderBy ] = useState(orderOptions[0].value);
+  const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
+  function handleOrderBy(event) {
+    setOrderBy(event.target.value);
   }
 
   return (
@@ -45,14 +59,20 @@ function Search({ buildings }) {
         </div>
       </Headerbar>
       <Header>
-        <h3>Encontramos <strong>04 imóveis</strong> do jeitinho que pediu</h3>
+        {buildings.length ? (
+          <h3>Encontramos <strong>{buildings.length} imóveis</strong> do jeitinho que pediu</h3>
+         ) : null}
         <HeaderCombo>
-          <button type="button"><strong>Ordenar por:</strong> <span>Mais recentes</span></button>
-          <select name="orderBy" handleChange={handleOrderBy}>
-            <option value="Mais Recentes">Mais Recentes</option>
-            <option value="Maior área útil">Maior área útil</option>
-            <option value="Menor Preço">Menor Preço</option>
-            <option value="Maior Preço">Maior Preço</option>
+          <button type="button">
+            <strong>Ordenar por:</strong>
+            {orderBySelected.length ? (
+              <span>{orderBySelected[0].label}</span>
+            ) : null}
+          </button>
+          <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
+            {orderOptions.map((orderItem, orderItemIndex) => (
+              <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
+            ))}
           </select>
         </HeaderCombo>
       </Header>
@@ -60,7 +80,13 @@ function Search({ buildings }) {
         <ButtonBack type="button">
           <SVG src={ArrowIconSVG} uniquifyIDs={true} />
         </ButtonBack>
-        {JSON.stringify(buildings)}
+        <Buildings>
+          {buildings.length ? buildings.map(building => (
+              <SimilarBuilding item={building} key={building.reference} />
+            )): <BuildingsNotFound>
+              <p>Nenhum imóvel encontrado =(</p>
+            </BuildingsNotFound> }
+        </Buildings>
       </Wrapper>
     </Container>
   )

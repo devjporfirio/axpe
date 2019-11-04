@@ -9,9 +9,9 @@ export const formatCurrency = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 3
 });
 
-export const getUrl = (params, toServer) => {
+export const getUrl = (params, isBackend) => {
   const initial = '?';
-  const sep = toServer ? '&amp;' : '&';
+  const sep = '&';
   const paramsJoin = Object.keys(params).reduce(
     (acc, key, i) =>
       !params[key]
