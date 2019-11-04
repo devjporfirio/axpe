@@ -1,7 +1,8 @@
 import React from 'react';
 import TextCustom from 'components/TextCustom';
 import Button from 'components/Button';
-import * as Input from 'components/Input';
+import BlockHighlighted from 'components/BlockHighlighted';
+import * as Input from 'components/FormElements';
 
 import {
   Container,
@@ -19,12 +20,7 @@ function Contact() {
   return (
     <Container>
       <Header>
-        <TextCustom color="greenLight" fontFamily="Raleway" fontWeight="500">
-          Pergunte
-        </TextCustom>
-        <TextCustom color="white" fontFamily="Bitter" fontWeight="400">
-          , peça um imóvel ou reclame. Pode elogiar também.
-        </TextCustom>
+        <BlockHighlighted type="contact" />
         <hr />
         <Numbers>
           <PhoneNumber>

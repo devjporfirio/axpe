@@ -32,38 +32,71 @@ export const Container = styled.div`
       width: 240px;
     }
   `}
+
+  ${props =>
+    props.type === 'contact' &&
+    css`
+      padding: 0;
+      min-height: auto;
+    `}
 `;
 
-const Contact = css`
-  span:nth-child(1) {
+const ContactHome = css`
+  h4:nth-child(1) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  span:nth-child(2) { 
+  h4:nth-child(2) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
-  span:nth-child(3) {
+  h4:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
 `;
 
-const NotFound = css`
-  span:nth-child(1) {
-    color: ${({ theme }) => theme.colors.white};
-    font-family: 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+const Contact = css`
+  width: 100% !important;
+  margin: 0 !important;
+
+  h4 {
+    font-size: 22px;
+    line-height: 28px;
+
+    ${media.greaterThan('medium')`
+      font-size: 41px;
+      line-height: 49px;
+    `}
   }
-  span:nth-child(2) {
+
+  h4:nth-child(1) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  span:nth-child(3) {
+  h4:nth-child(2) {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+`;
+
+const NotFound = css`
+  h4:nth-child(1) {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+  h4:nth-child(2) {
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+  h4:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
@@ -71,17 +104,17 @@ const NotFound = css`
 `;
 
 const Planta = css`
-  span:nth-child(1) {
+  h4:nth-child(1) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
-  span:nth-child(2) {
+  h4:nth-child(2) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  span:nth-child(3) {
+  h4:nth-child(3) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -101,11 +134,12 @@ export const Highlighted = styled.p`
   text-align: left;
   width: 315px;
   
-  span {
+  h4 {
     font-size: 40px;
     line-height: 47px;
   }
 
+  ${props => props.type === 'contactHome' && ContactHome}
   ${props => props.type === 'contact' && Contact}
   ${props => props.type === 'notfound' && NotFound}
   ${props => props.type === 'planta' && Planta}
