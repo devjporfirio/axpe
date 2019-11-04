@@ -12,7 +12,7 @@ import {
   Block2DestaqueTextoBullet
 } from './styles';
 
-function sectionInfo (item) {
+function sectionInfo(item) {
   return (
     <>
       <h4>{item.title}</h4>
@@ -22,7 +22,7 @@ function sectionInfo (item) {
   );
 }
 
-function sectionDestaqueText (item) {
+function sectionDestaqueText(item) {
   return (
     <>
       <Block1DestaqueTexto>
@@ -37,7 +37,7 @@ function sectionDestaqueText (item) {
   );
 }
 
-function sectionDestaqueTextBullets (item) {
+function sectionDestaqueTextBullets(item) {
   return (
     <>
       <Block1DestaqueTextoBullet>
@@ -56,7 +56,7 @@ function sectionDestaqueTextBullets (item) {
   );
 }
 
-function sectionMultiInfos (item, labelTitle) {
+function sectionMultiInfos(item, labelTitle) {
   const { values, infos, reference, slug, address } = item.building;
   return (
     <>
@@ -75,17 +75,16 @@ function sectionMultiInfos (item, labelTitle) {
       {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
 
       <Reference>Ref {reference}</Reference>
-      
+
       <Button
-        label="Saiba mais"
         href="/building/[reference]"
         as={`/building/${slug}`}
-      />
+      >Saiba mais</Button>
     </>
   );
 }
 
-function renderSelection (type, item) {
+function renderSelection(type, item) {
   switch (type) {
     case 'slick':
       return sectionInfo(item);
@@ -105,7 +104,7 @@ function renderSelection (type, item) {
   }
 }
 
-export default function Slick ({
+export default function Slick({
   type,
   item,
   className,

@@ -62,7 +62,7 @@ function Contact() {
           label="Declaro que li e concordo com a política de privacidade da Axpe."
         />
 
-        <Button label="Enviar" />
+        <Button type="submit">Enviar</Button>
       </Form>
       <Header>
         <TextCustom color="white" fontFamily="Bitter">
@@ -75,7 +75,7 @@ function Contact() {
           Nosso ambiente de trabalho é profissional, informal e divertido. Tem
           tudo a ver com você?
         </SubText>
-        <Button label="Trabalhe Conosco" />
+        <Button>Trabalhe Conosco</Button>
       </Header>
       {/* -46.67402236422859!3d-23.57775316878633 */}
       <Mapa>
