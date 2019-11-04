@@ -9,15 +9,16 @@ export const formatCurrency = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 3
 });
 
-export const getUrl = params => {
+export const getUrl = (params, isBackend) => {
   const initial = '?';
+  const sep = '&';
   const paramsJoin = Object.keys(params).reduce(
     (acc, key, i) =>
       !params[key]
         ? acc
         : acc == initial
         ? `${acc}${key}=${params[key]}`
-        : `${acc}&amp;${key}=${params[key]}`,
+        : `${acc}${sep}${key}=${params[key]}`,
     initial
   );
   return encodeURI(paramsJoin);

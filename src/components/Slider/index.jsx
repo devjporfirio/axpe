@@ -47,7 +47,7 @@ export default function Slick({
     infinite: true,
     speed: 500,
     dots: false,
-    lazyLoad: !centerMode,
+    lazyLoad: true,
     arrows,
     nextArrow: <NextArrow {...propsArrow} />,
     prevArrow: <PrevArrow {...propsArrow} />

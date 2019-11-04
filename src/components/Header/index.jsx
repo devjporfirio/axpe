@@ -52,6 +52,9 @@ function Header({ dispatch }) {
   }
 
   function toggleSearch() {
+    if(!search.active && navToggle) {
+      handleToggle();
+    }
     dispatch(setSearch({ active: !search.active }))
   }
 
@@ -89,20 +92,20 @@ function Header({ dispatch }) {
             <ul>
               <li>
                 <NavMainButtonSearch type="button" active={search.active} onClick={toggleSearch}>
-                  <SVG src={SearchIconSVG} />
+                  <SVG src={SearchIconSVG} uniquifyIDs={true} />
                   <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                 </NavMainButtonSearch>
               </li>
               <li>
                 <NavMainButton type="register">
-                  <SVG src={HomeIconSVG} />
+                  <SVG src={HomeIconSVG} uniquifyIDs={true} />
                   <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                 </NavMainButton>
               </li>
               <li>
                 <Link href="/so-quero-sonhar" passHref>
                   <NavMainButton type="dream" onClick={cancelToggle}>
-                    <SVG src={CloudIconSVG} />
+                    <SVG src={CloudIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Só quero sonhar</NavMainButtonText>
                   </NavMainButton>
                 </Link>
@@ -157,7 +160,7 @@ function Header({ dispatch }) {
 
           <Whatsapp>
             <WhatsappButton href="https://api.whatsapp.com/send?phone=551130743600" target="_blank">
-              <SVG src={WhatsappIconSVG} />
+              <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
               Fale conosco pelo Whatsapp
             </WhatsappButton>
           </Whatsapp>
@@ -172,9 +175,9 @@ function Header({ dispatch }) {
 
           <Footer>
             <Socials>
-              <SocialsButton type="facebook" href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997" target="_blank"><SVG src={FacebookIconSVG} /></SocialsButton>
-              <SocialsButton type="instagram" href="http://instagram.com/axpe_imoveis" target="_blank"><SVG src={InstagramIconSVG} /></SocialsButton>
-              <SocialsButton type="linkedin" href="https://br.linkedin.com/company/axpe-im-veis" target="_blank"><SVG src={LinkedinIconSVG} /></SocialsButton>
+              <SocialsButton type="facebook" href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997" target="_blank"><SVG src={FacebookIconSVG} uniquifyIDs={true} /></SocialsButton>
+              <SocialsButton type="instagram" href="http://instagram.com/axpe_imoveis" target="_blank"><SVG src={InstagramIconSVG} uniquifyIDs={true} /></SocialsButton>
+              <SocialsButton type="linkedin" href="https://br.linkedin.com/company/axpe-im-veis" target="_blank"><SVG src={LinkedinIconSVG} uniquifyIDs={true} /></SocialsButton>
             </Socials>
             <Creci>CRECI 19111J</Creci>
           </Footer>
