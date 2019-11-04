@@ -217,7 +217,7 @@ export const Container = styled.section`
     ${props =>
       [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
       `
-      width: 86%;
+      width: 100%;
       padding: 20px 8%;
   `}
   

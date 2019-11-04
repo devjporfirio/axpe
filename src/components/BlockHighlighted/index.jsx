@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container, Highlighted, Link } from './styles';
 
-const Contact = () => (
+const ContactHome = () => (
   <>
-    <Highlighted type="contact">
+    <Highlighted type="contactHome">
       <span>Sem tempo </span>
-      <span>para buscar e visitar </span>
+      <strong>
+        <span>para buscar e visitar </span>
+      </strong>
       <span>imóveis?</span>
     </Highlighted>
     <div>
@@ -17,12 +19,44 @@ const Contact = () => (
   </>
 );
 
+const Contact = () => (
+  <>
+    <Highlighted type="contact">
+      <strong>
+        <span>Pergunte</span>
+      </strong>
+      <span>, peça um imóvel ou reclame. Pode elogiar também.</span>
+      <hr />
+    </Highlighted>
+  </>
+);
+
+const ContactWork = () => (
+  <>
+    <Highlighted type="contactWork">
+      <span>Gostaria de fazer parte da </span>
+      <strong>
+        <span>nossa equipe?</span>
+      </strong>
+    </Highlighted>
+    <div>
+      <p>
+        Nosso ambiente de trabalho é profissional, informal e divertido. Tem
+        tudo a ver com você?
+      </p>
+      <Link color="orange" label="Trabalhe Conosco" href="" />
+    </div>
+  </>
+);
+
 const NotFound = () => (
   <>
     <Highlighted type="notfound">
-      <span>Não encontrou o </span>
+      <strong>
+        <span>Não encontrou o </span>
+      </strong>
       <span>imóvel </span>
-      <span>que busca?</span>
+      <span>que busca?</span>w
     </Highlighted>
     <div>
       <p>
@@ -38,7 +72,9 @@ const Planta = ({ href }) => (
   <>
     <Highlighted type="planta">
       <span>Veja a </span>
-      <span>planta </span>
+      <strong>
+        <span>planta </span>
+      </strong>
       <span>desse imóvel</span>
     </Highlighted>
     <div>
@@ -55,10 +91,12 @@ const Planta = ({ href }) => (
 
 export default function BlockHighlighted({ type, href }) {
   return (
-    <Container>
+    <Container type={type}>
+      {type === 'contactHome' && <ContactHome />}
       {type === 'contact' && <Contact />}
       {type === 'notfound' && <NotFound />}
       {type === 'planta' && <Planta href={href} />}
+      {type === 'contactWork' && <ContactWork />}
     </Container>
   );
 }

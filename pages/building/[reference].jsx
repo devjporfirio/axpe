@@ -8,7 +8,13 @@ import Modules from 'pages/Building/modules';
 
 import User from 'helpers/User';
 
-import { Container, Header, Images, Alert, PanelSimilar } from 'pages/Building/styles';
+import {
+  Container,
+  Header,
+  Images,
+  Alert,
+  PanelSimilar
+} from 'pages/Building/styles';
 
 function Building({ property, similarBuildings }) {
   useEffect(() => {
@@ -78,9 +84,10 @@ Building.getInitialProps = async ({ query }) => {
   const similar = await Api.Building.getSimilar(response.building, 3);
   const buildings =
     similar &&
-    similar.buildings &&
-    similar.buildings.length > 0 &&
-    similar.buildings.filter(x => x.reference !== reference);
+    similar.data &&
+    similar.data.length > 0 &&
+    similar.data.filter(x => x.reference !== reference);
+  
   return {
     reference: query.reference,
     property: response.building,

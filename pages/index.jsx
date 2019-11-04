@@ -96,7 +96,7 @@ function Home({ hero, components }) {
           )
         );
       case 'contact':
-        return <BlockHighlighted type="contact" />;
+        return <BlockHighlighted type="contactHome" />;
     }
   }
 
