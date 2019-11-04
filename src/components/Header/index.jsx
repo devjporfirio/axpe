@@ -52,6 +52,9 @@ function Header({ dispatch }) {
   }
 
   function toggleSearch() {
+    if(!search.active && navToggle) {
+      handleToggle();
+    }
     dispatch(setSearch({ active: !search.active }))
   }
 
