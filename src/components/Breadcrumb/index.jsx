@@ -11,14 +11,14 @@ import {
   BackDesktop,
   Category,
   Local,
-  MoreInfo
+  MoreInfo,
+  NumberPhone
 } from './styles';
 
 import IArrowOrange from '../../assets/icons/arrow-prev-orange.svg';
 import IArrowBlack from '../../assets/icons/arrow-prev-green.svg';
 import IHeartBlack from '../../assets/icons/heart-black.svg';
 import IHeartOrange from '../../assets/icons/heart-orange.svg';
-import Phone from '../Phone';
 
 export default function Breadcrumb({ category, local, reference, className }) {
   return (
@@ -46,7 +46,7 @@ export default function Breadcrumb({ category, local, reference, className }) {
             <img src={IHeartBlack} alt="Favoritos" />
           </FavoriteDesktop>
           <MoreInfo label="Mais Informações" />
-          <Phone color="orange" />
+          <NumberPhone color="orange" />
         </InfoRight>
       )}
     </Container>

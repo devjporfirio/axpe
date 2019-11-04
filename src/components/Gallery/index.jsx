@@ -13,7 +13,7 @@ export default function Gallery({
   tour360,
   showSizeGallery = true,
   className,
-  propsArrow = { type: 'gallery-show-3', backgroundColor: 'white' },
+  propsArrow = { position: 'center', backgroundColor: 'white' },
   showClickImage = true,
   category,
   local
@@ -30,6 +30,7 @@ export default function Gallery({
         </Button360>
       )}
       <Slider
+        lazyLoad={false}
         propsArrow={propsArrow}
         slidesToShow={1}
         centerMode={true}

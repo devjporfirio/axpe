@@ -23,7 +23,6 @@ export const Images = styled(Gallery)`
 
 export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
-  border: 1px solid ${({ theme }) => theme.colors.greyDark};
 `;
 
 export const Alert = styled.div`
@@ -34,7 +33,7 @@ export const Alert = styled.div`
   p {
     color: ${({ theme }) => theme.colors.greenDark};
     text-align: center;
-    font: 10.6px 'Bitter';
+    font: 10.62px 'Bitter';
   }
 `;
 

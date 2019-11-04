@@ -22,6 +22,7 @@ export default function Slick({
   propsArrow,
   arrows = true,
   responsive = null,
+  lazyLoad = true,
 
   reference = null,
   children,
@@ -47,7 +48,7 @@ export default function Slick({
     infinite: true,
     speed: 500,
     dots: false,
-    lazyLoad: true,
+    lazyLoad,
     arrows,
     nextArrow: <NextArrow {...propsArrow} />,
     prevArrow: <PrevArrow {...propsArrow} />

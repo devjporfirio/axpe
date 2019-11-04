@@ -1,12 +1,18 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import Button from 'components/Button';
+import Phone from 'components/Phone';
 
 export const MoreInfo = styled(Button)`
   width: 155px;
   height: 32px;
   font-size: 13px;
   line-height: 32px;
+`;
+
+export const NumberPhone = styled(Phone)`
+  width: auto;
+  margin-left: 10px;
 `;
 
 export const Container = styled.div`
@@ -19,7 +25,6 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
 
   ${media.greaterThan('medium')`
-    height: 40px;
     border: none;
   `}
 `;
@@ -61,18 +66,8 @@ export const InfoRight = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  a {
-    width: 155px;
-    height: 32px;
-    font-size: 13px;
-    line-height: 32px;
-    border-radius: 6px;
-    margin-right: 5px;
-  }
-
   ${media.greaterThan('medium')`
     justify-content: space-between;
-    width: 400px;
   `};
 
   ${media.lessThan('medium')`
@@ -84,7 +79,7 @@ export const InfoRight = styled.div`
 
 export const Reference = styled.span`
   font: 14px 'Bitter';
-  width: 120px;
+  margin-right: 30px;
 `;
 
 export const FavoriteMobile = styled.img`
@@ -95,7 +90,7 @@ export const FavoriteMobile = styled.img`
 export const FavoriteDesktop = styled.div`
   ${media.lessThan('medium')`display: none;`}
 
-  margin-right: 5px;
+  margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
