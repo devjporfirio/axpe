@@ -20,7 +20,11 @@ export const Select = props => {
     <InputSelect>
       {items &&
         items.length > 0 &&
-        items.map(i => <option key={i.value} value={i.value}>{i.label}</option>)}
+        items.map(i => (
+          <option key={i.value} value={i.value}>
+            {i.label}
+          </option>
+        ))}
     </InputSelect>
   );
 };
@@ -32,9 +36,9 @@ export const Area = props => {
 export const Checkbox = props => {
   const { label, name } = props;
   return (
-    <div>
-      <InputCheckbox name={name} {...props} type="checkbox" />
-      <label htmlFor={name}>{label}</label>
-    </div>
+    <InputCheckbox htmlFor={name}>
+      <input name={name} type="checkbox" />
+      <span>{label}</span>
+    </InputCheckbox>
   );
 };

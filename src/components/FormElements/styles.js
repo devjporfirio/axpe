@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 const BaseInput = css`
   height: 45px;
-  width: calc(100% - 15px);
+  width: 100%;
   margin-bottom: 15px;
   padding-left: 15px;
   border: none;
@@ -21,8 +21,29 @@ export const Input = styled.input`
   ${BaseInput}
 `;
 
-export const InputCheckbox = styled.input`
-  /* ${BaseInput} */
+export const InputCheckbox = styled.label`
+  ${BaseInput};
+  background: none;
+  padding-left: 0;
+
+  span {
+    display: block;
+    width: calc(100% - 47px);
+    float: right;
+    font: 16px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+
+    a {
+      text-decoration: underline;
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  }
+
+  input {
+    width: 27px;
+    height: 27px;
+    margin-right: 10px;
+  }
 `;
 
 export const InputSelect = styled.select`

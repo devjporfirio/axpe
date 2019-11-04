@@ -4,9 +4,11 @@ import { Container, Highlighted, Link } from './styles';
 const ContactHome = () => (
   <>
     <Highlighted type="contactHome">
-      <h4>Sem tempo </h4>
-      <h4>para buscar e visitar </h4>
-      <h4>imóveis?</h4>
+      <span>Sem tempo </span>
+      <strong>
+        <span>para buscar e visitar </span>
+      </strong>
+      <span>imóveis?</span>
     </Highlighted>
     <div>
       <p>
@@ -18,20 +20,40 @@ const ContactHome = () => (
 );
 
 const Contact = () => (
+  <Highlighted type="contact">
+    <strong>
+      <span>Pergunte, </span>
+    </strong>
+    <span>peça um imóvel ou reclame. Pode elogiar também.</span>
+  </Highlighted>
+);
+
+const ContactWork = () => (
   <>
-    <Highlighted type="contact">
-      <h4>Pergunte, </h4>
-      <h4>peça um imóvel ou reclame. Pode elogiar também.</h4>
+    <Highlighted type="contactWork">
+      <span>Gostaria de fazer parte da </span>
+      <strong>
+        <span>nossa equipe?</span>
+      </strong>
     </Highlighted>
+    <div>
+      <p>
+        Nosso ambiente de trabalho é profissional, informal e divertido. Tem
+        tudo a ver com você?
+      </p>
+      <Link color="orange" label="Trabalhe Conosco" href="" />
+    </div>
   </>
 );
 
 const NotFound = () => (
   <>
     <Highlighted type="notfound">
-      <h4>Não encontrou o </h4>
-      <h4>imóvel </h4>
-      <h4>que busca?</h4>
+      <strong>
+        <span>Não encontrou o </span>
+      </strong>
+      <span>imóvel </span>
+      <span>que busca?</span>w
     </Highlighted>
     <div>
       <p>
@@ -46,9 +68,11 @@ const NotFound = () => (
 const Planta = ({ href }) => (
   <>
     <Highlighted type="planta">
-      <h4>Veja a </h4>
-      <h4>planta </h4>
-      <h4>desse imóvel</h4>
+      <span>Veja a </span>
+      <strong>
+        <span>planta </span>
+      </strong>
+      <span>desse imóvel</span>
     </Highlighted>
     <div>
       <p>E descubra se ela é a ideal para você</p>
@@ -69,6 +93,7 @@ export default function BlockHighlighted({ type, href }) {
       {type === 'contact' && <Contact />}
       {type === 'notfound' && <NotFound />}
       {type === 'planta' && <Planta href={href} />}
+      {type === 'contactWork' && <ContactWork />}
     </Container>
   );
 }

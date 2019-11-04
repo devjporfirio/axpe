@@ -22,6 +22,7 @@ export const Container = styled.div`
   ${media.greaterThan('medium')`
     justify-content: space-around;
     flex-direction: row;
+    align-items: center;
   `}
 
   ${props =>
@@ -30,20 +31,31 @@ export const Container = styled.div`
       padding: 0;
       min-height: auto;
     `}
+
+  ${props =>
+    props.type === 'contactWork' &&
+    css`
+      align-items: flex-start;
+      padding: 0;
+
+      div {
+        margin-top: 20px;
+      }
+    `}
 `;
 
 const ContactHome = css`
-  h4:nth-child(1) {
+  span {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  h4:nth-child(2) {
+  strong span {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
-  h4:nth-child(3) {
+  span:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
@@ -54,7 +66,7 @@ const Contact = css`
   width: 100% !important;
   margin: 0 !important;
 
-  h4 {
+  span {
     font-size: 22px;
     line-height: 28px;
 
@@ -64,30 +76,51 @@ const Contact = css`
     `}
   }
 
-  h4:nth-child(1) {
+  span:nth-child(1) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  h4:nth-child(2) {
+  span:nth-child(2) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
 `;
 
+const ContactWork = css`
+  span {
+    font-size: 24px;
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    color: ${({ theme }) => theme.colors.white};
+    line-height: 28px;
+
+    ${media.greaterThan('medium')`
+      font-size: 40px;
+      line-height: 47px;
+    `}
+  }
+
+  strong span {
+    color: ${({ theme }) => theme.colors.orange};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+`;
+
 const NotFound = css`
-  h4:nth-child(1) {
+  span:nth-child(1) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
-  h4:nth-child(2) {
+  span:nth-child(2) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  h4:nth-child(3) {
+  span:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
@@ -95,20 +128,15 @@ const NotFound = css`
 `;
 
 const Planta = css`
-  h4:nth-child(1) {
+  span {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
-  h4:nth-child(2) {
+  strong span {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
-  }
-  h4:nth-child(3) {
-    color: ${({ theme }) => theme.colors.white};
-    font-family: 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 `;
 
@@ -121,17 +149,18 @@ export const Link = styled(Button)`
   display: block;
 `;
 
-export const Highlighted = styled.div`
+export const Highlighted = styled.h4`
   text-align: left;
   width: 315px;
   
-  h4 {
+  span {
     font-size: 40px;
     line-height: 47px;
   }
 
   ${props => props.type === 'contactHome' && ContactHome}
   ${props => props.type === 'contact' && Contact}
+  ${props => props.type === 'contactWork' && ContactWork}
   ${props => props.type === 'notfound' && NotFound}
   ${props => props.type === 'planta' && Planta}
 `;
