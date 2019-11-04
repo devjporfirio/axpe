@@ -30,17 +30,27 @@ export const Container = styled.div`
     css`
       padding: 0;
       min-height: auto;
+      width: 1000px;
+      margin: auto;
     `}
 
   ${props =>
     props.type === 'contactWork' &&
     css`
-      align-items: flex-start;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
       padding: 0;
+      padding: 30px;
 
       div {
         margin-top: 20px;
       }
+
+      ${media.greaterThan('medium')`
+        border-radius: 8px;
+        width: 100%;
+        max-width: 416px;
+      `}
     `}
 `;
 
@@ -65,6 +75,12 @@ const ContactHome = css`
 const Contact = css`
   width: 100% !important;
   margin: 0 !important;
+
+  hr {
+    border: 2px solid ${({ theme }) => theme.colors.orange};
+    width: 55px;
+    margin: 30px 0;
+  }
 
   span {
     font-size: 22px;
@@ -106,6 +122,10 @@ const ContactWork = css`
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  div a div {
+    width: 192px;
   }
 `;
 

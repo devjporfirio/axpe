@@ -20,12 +20,15 @@ const ContactHome = () => (
 );
 
 const Contact = () => (
-  <Highlighted type="contact">
-    <strong>
-      <span>Pergunte, </span>
-    </strong>
-    <span>peça um imóvel ou reclame. Pode elogiar também.</span>
-  </Highlighted>
+  <>
+    <Highlighted type="contact">
+      <strong>
+        <span>Pergunte</span>
+      </strong>
+      <span>, peça um imóvel ou reclame. Pode elogiar também.</span>
+      <hr />
+    </Highlighted>
+  </>
 );
 
 const ContactWork = () => (

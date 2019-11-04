@@ -4,18 +4,26 @@ import Phone from 'components/Phone';
 
 export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
+`;
 
-  hr {
-    border: 2px solid ${({ theme }) => theme.colors.orange};
-    width: 55px;
-    margin: 30px 0;
-  }
+export const Body = styled.div`
+  ${media.greaterThan('medium')`
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+  `}
+`;
+
+export const BlockForm = styled.div`
+  ${media.greaterThan('medium')`
+    width: 50%;
+  `}
 `;
 
 export const Message = styled.p`
   font: 14px/22px 'Raleway';
   font-weight: 500;
-  padding: 30px;
+  padding: 30px 75px 30px 0;
 `;
 
 export const Header = styled.header`
@@ -51,11 +59,13 @@ export const Numbers = styled.div`
 
   ${media.greaterThan('medium')`
     justify-content: flex-start;
+    max-width: 1000px;
+    margin: auto;
   `}
 `;
 
 export const Form = styled.form`
-  padding: 0 30px 30px 30px;
+  padding: 0 75px 30px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,4 +89,11 @@ export const Mapa = styled.div`
     width: 100%;
     height: 652px;
   }
+  ${media.greaterThan('medium')`
+    width: 50%;
+
+    iframe {
+      height: 1322px;
+    }
+  `}
 `;
