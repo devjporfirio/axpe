@@ -46,7 +46,7 @@ function Home({ hero, components }) {
           10
         );
 
-        listForYou = listForYou.buildings.map(l => ({
+        listForYou = listForYou.data.map(l => ({
           building: { ...l }
         }));
 

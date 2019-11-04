@@ -29,7 +29,7 @@ const NotFound = () => (
         Que tal um imóvel na planta? Conheça nossas opções de imóveis em
         lançamento
       </p>
-      <Link type="button" onClick={() => {}}>Entre em contato</Link>
+      <Link type="button" onClick={() => { }}>Entre em contato</Link>
     </div>
   </>
 );

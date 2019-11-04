@@ -1,4 +1,6 @@
 import React from 'react';
+
+// components
 import Button from 'components/Button';
 
 import {
@@ -76,10 +78,7 @@ function sectionMultiInfos(item, labelTitle) {
 
       <Reference>Ref {reference}</Reference>
 
-      <Button
-        href="/building/[reference]"
-        as={`/building/${slug}`}
-      >Saiba mais</Button>
+      <Button href="/building/[reference]" as={`/building/${slug}`}>Saiba mais</Button>
     </>
   );
 }

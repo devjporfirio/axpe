@@ -1,17 +1,18 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import Slider from '../Slider';
-import Link from 'components/Link';
+import Slider from 'components/Slider';
+import Button from 'components/Button';
 
-export const ItemLink = styled(Link)`
+export const ItemLink = styled(Button)`
   height: 700px;
   width: 100%;
   display: block;
   position: absolute;
+  background-color: transparent !important;
   z-index: 9;
 `;
 
-const SlickLarge = media.greaterThan('medium')`  
+const SlickLarge = media.greaterThan('medium')`
   .slick-track {
     height: 560px;
   }
