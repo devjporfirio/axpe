@@ -40,7 +40,7 @@ const Contact = css`
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
-  span:nth-child(2) { 
+  span:nth-child(2) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};

@@ -5,7 +5,9 @@ import { useRouter } from 'next/router'
 
 // components
 import Button from 'components/Button';
+import BlockHighlighted from 'components/BlockHighlighted';
 import SimilarBuilding from 'components/SimilarBuilding';
+import Contact from 'components/Contact';
 
 // helpers
 import { getUrl } from 'helpers/utils'
@@ -163,13 +165,15 @@ function Search({ currentPage, perPage, totalPages, data }) {
 
               {buildings.length && page < totalPages ? (
                 <BuildingsLoadMore>
-                  <Button type="button" color="orange" onClick={loadMore} disabled={isLoading}>
+                  <Button type="button" onClick={loadMore} disabled={isLoading}>
                     {isLoading ? 'Carregando...' : 'Carregar mais'}
                   </Button>
                 </BuildingsLoadMore>
               ) : null}
             </Buildings>
           </Wrapper>
+          <BlockHighlighted type="notfound" />
+          <Contact />
         </>
       : null}
     </Container>

@@ -14,7 +14,6 @@ import { setMain } from 'store/modules/main/actions';
 import { setSearch } from 'store/modules/search/actions';
 
 import 'isomorphic-unfetch';
-// import 'babel-polyfill';
 import 'promise-polyfill/lib/polyfill';
 
 class MyApp extends App {

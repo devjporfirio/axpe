@@ -1,12 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Api from 'services';
+
+// components
 import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
+
+// helpers
 import { suffle } from 'helpers/utils';
 import User from 'helpers/User';
-import Promise from 'promise-polyfill';
+
+// styles
+import { Container, Banner, GroupSlider } from 'pages/Home/styles';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -14,8 +20,6 @@ const COMPONENT_SLICK = {
   buildingsSeen: 'slickLarge',
   buildingsForYou: 'slickSmall'
 };
-
-import { Container, Banner, GroupSlider } from 'pages/Home/styles';
 
 function Home({ hero, components }) {
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
