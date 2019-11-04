@@ -37,17 +37,22 @@ function Home({ hero, components }) {
           })
         );
 
-        let listForYou = await Api.Building.getSimilar(
-          listBuildingsSeen[0].building,
-          10
-        );
-
-        listForYou = listForYou.buildings.map(l => ({
-          building: { ...l }
-        }));
-
-        setBuildingsSeen(listBuildingsSeen);
-        setBuildingsForYou(listForYou);
+        if (listBuildingsSeen.length > 0) {
+          let listForYou = await Api.Building.getSimilar(
+            listBuildingsSeen[0].building,
+            10
+          );
+          
+          listForYou =
+            listForYou &&
+            listForYou.data &&
+            listForYou.data.length > 0 &&
+            listForYou.data.map(l => ({
+              building: { ...l }
+            }));
+          setBuildingsForYou(listForYou);
+          setBuildingsSeen(listBuildingsSeen);
+        }
       }
     }
     loadBuildinsSeen();
