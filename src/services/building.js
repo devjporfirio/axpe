@@ -58,7 +58,7 @@ export default {
     };
     const url = `${process.env.config.apiUrl}/buildings/find`;
 
-    const result = await fetch(url + getUrl(params))
+    const result = await fetch(url + getUrl(params, true))
       .then(response => response.json())
       .then(data => data);
     return result;

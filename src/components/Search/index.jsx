@@ -306,7 +306,7 @@ function Search({ dispatch }) {
                   <FormButtonFilter type="button" active={tabActive === 'types'} onClick={() => setTabActive('types')}>
                     <strong>Tipo de imóvel</strong>
                     {formik.values.types.length ? <span>{formik.values.types.join(', ')}</span> : null}
-                    <SVG src={ArrowIconSVG} />
+                    <SVG src={ArrowIconSVG} uniquifyIDs={true} />
                   </FormButtonFilter>
                 ) : null}
 
@@ -314,7 +314,7 @@ function Search({ dispatch }) {
                   <FormButtonFilter type="button" active={tabActive === 'locals'} onClick={() => setTabActive('locals')}>
                     <strong>Selecione a localização</strong>
                     {formik.values.local.length ? <span>{formik.values.local.join(', ')}</span> : null}
-                    <SVG src={ArrowIconSVG} />
+                    <SVG src={ArrowIconSVG} uniquifyIDs={true} />
                   </FormButtonFilter>
                 ) : null}
 
@@ -350,7 +350,7 @@ function Search({ dispatch }) {
                         ) : null}
                       </span>
                     ) : null}
-                    <SVG src={ArrowIconSVG} />
+                    <SVG src={ArrowIconSVG} uniquifyIDs={true} />
                   </FormButtonFilter>
                 ) : null}
               </>
@@ -359,7 +359,7 @@ function Search({ dispatch }) {
             <FormFooter>
               <FormGroup type="reference">
                 <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} />
-                <SVG src={SearchIconSVG} />
+                <SVG src={SearchIconSVG} uniquifyIDs={true} />
               </FormGroup>
               <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
               <FormAlert>
@@ -367,7 +367,7 @@ function Search({ dispatch }) {
                   <p><strong>Alerta criado com sucesso!</strong> Você pode acompanhar seus alertas no seu perfil.</p>
                 </FormAlertTooltip>
                 <FormButtonAlert type="button" active={alertCreated} disabled={!formik.isSubmitting && !filtersData && !formik.values.reference} onClick={createAlert}>
-                  <SVG src={AlertIconSVG} /> Criar alerta
+                  <SVG src={AlertIconSVG} uniquifyIDs={true} /> Criar alerta
                 </FormButtonAlert>
               </FormAlert>
               <FormButtonClear type="button" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Limpar filtros</FormButtonClear>
@@ -377,7 +377,7 @@ function Search({ dispatch }) {
 
           <FormTab active={tabActive === 'sources'}>
             <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} />
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
             </FormTabButtonBack>
             <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
             <FormTabTitle>Locais</FormTabTitle>
@@ -395,7 +395,7 @@ function Search({ dispatch }) {
           {filtersData && filtersData.types && filtersData.types.length ? (
             <FormTab active={tabActive === 'types'}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                <SVG src={ArrowIconSVG} />
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
               <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
               <FormTabTitle>Tipo de imóvel</FormTabTitle>
@@ -414,7 +414,7 @@ function Search({ dispatch }) {
           {filtersData && filtersData.locals ? (
             <FormTab active={tabActive === 'locals'}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                <SVG src={ArrowIconSVG} />
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
               <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
               <FormTabTitle>Locais</FormTabTitle>
@@ -442,7 +442,7 @@ function Search({ dispatch }) {
           {filtersData ? (
             <FormTab active={tabActive === 'filters'}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                <SVG src={ArrowIconSVG} />
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
               <FormTabClose type="button" onClick={() => setTabActive(null)}>Fechar</FormTabClose>
               <FormTabTitle>Locais</FormTabTitle>
