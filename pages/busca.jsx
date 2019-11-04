@@ -28,7 +28,7 @@ import {
   BuildingsNotFound
 } from 'pages/Search/styles'
 
-function Search({ buildings }) {
+function Search({ data }) {
   const orderOptions = [
     { label: 'Mais Recentes', value: 'mais-recentes' },
     { label: 'Maior área útil', value: 'maior-area-util' },
@@ -59,8 +59,8 @@ function Search({ buildings }) {
         </div>
       </Headerbar>
       <Header>
-        {buildings.length ? (
-          <h3>Encontramos <strong>{buildings.length} imóveis</strong> do jeitinho que pediu</h3>
+        {data.length ? (
+          <h3>Encontramos <strong>{data.length} imóveis</strong> do jeitinho que pediu</h3>
          ) : null}
         <HeaderCombo>
           <button type="button">
@@ -81,7 +81,7 @@ function Search({ buildings }) {
           <SVG src={ArrowIconSVG} uniquifyIDs={true} />
         </ButtonBack>
         <Buildings>
-          {buildings.length ? buildings.map(building => (
+          {data.length ? data.map(building => (
               <SimilarBuilding item={building} key={building.reference} />
             )): <BuildingsNotFound>
               <p>Nenhum imóvel encontrado =(</p>
