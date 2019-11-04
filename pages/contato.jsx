@@ -74,7 +74,7 @@ function Contact() {
               }
             />
 
-            <Button label="Enviar" />
+            <Button type="button">Enviar</Button>
           </Form>
           <BlockHighlighted type="contactWork" />
         </BlockForm>

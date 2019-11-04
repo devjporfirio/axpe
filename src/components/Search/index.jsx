@@ -385,7 +385,10 @@ function Search({ dispatch }) {
               <ul>
                 {sources.map((source, sourceIndex) => (
                   <li key={`local-${sourceIndex}`}>
-                    <FormTabListItemButton type="button" active={formik.values.source && formik.values.source.value === source.value} onClick={() => setSource(source)}>{source.label}</FormTabListItemButton>
+                    <FormTabListItemButton type="button" active={formik.values.source && formik.values.source.value === source.value} onClick={() => {
+                      setTabActive(null);
+                      setSource(source);
+                    }}>{source.label}</FormTabListItemButton>
                   </li>
                 ))}
               </ul>

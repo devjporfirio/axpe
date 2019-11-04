@@ -20,7 +20,7 @@
   },
   "rules": {
     "strict": 0,
-    "compat/compat": 2,
+    "compat/compat": 1,
     "require-jsdoc": 0,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",

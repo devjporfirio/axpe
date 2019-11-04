@@ -1,5 +1,12 @@
 import React from 'react';
 
+// assets
+import IArrowOrange from 'assets/icons/arrow-prev-orange';
+import IArrowBlack from 'assets/icons/arrow-prev-green';
+import IHeartBlack from 'assets/icons/heart-black';
+import IHeartOrange from 'assets/icons/heart-orange';
+
+// styles
 import {
   Container,
   InfoLeft,
@@ -14,11 +21,6 @@ import {
   MoreInfo,
   NumberPhone
 } from './styles';
-
-import IArrowOrange from '../../assets/icons/arrow-prev-orange.svg';
-import IArrowBlack from '../../assets/icons/arrow-prev-green.svg';
-import IHeartBlack from '../../assets/icons/heart-black.svg';
-import IHeartOrange from '../../assets/icons/heart-orange.svg';
 
 export default function Breadcrumb({ category, local, reference, className }) {
   return (
@@ -45,7 +47,7 @@ export default function Breadcrumb({ category, local, reference, className }) {
             <span>3</span>
             <img src={IHeartBlack} alt="Favoritos" />
           </FavoriteDesktop>
-          <MoreInfo label="Mais Informações" />
+          <MoreInfo type="button">Mais Informações</MoreInfo>
           <NumberPhone color="orange" />
         </InfoRight>
       )}

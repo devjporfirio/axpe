@@ -1,27 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Container } from './styles';
-import Link from 'components/Link';
+import Link from 'next/link';
 
-export default function Button({
-  className,
-  color = 'orange',
-  label,
-  href = '',
-  as = '',
-  isExternal,
-}) {
-  return (
-    <Link href={href} as={as} isExternal={isExternal}>
-      <Container className={className} color={color}>
-        {label}
-      </Container>
+// styles
+import { ButtonContainer, ButtonLinkContainer } from './styles';
+
+function Button(props) {
+  const { as, className, children, color, href, target, type } = props;
+
+  return type && (type === 'button' || type === 'submit') ? (
+    <ButtonContainer {...props} color={color ? color : 'orange'}>
+      {children}
+    </ButtonContainer>
+  ) : (target && target === 'blank') || href.search('http') === 0 ? (
+    <ButtonLinkContainer href={href} className={className} color={color ? color : 'orange'} target={target}>
+      {children}
+    </ButtonLinkContainer>
+  ) : (
+    <Link href={href} as={as} passHref>
+      <ButtonLinkContainer className={className} color={color ? color : 'orange'}>
+        {children}
+      </ButtonLinkContainer>
     </Link>
   );
 }
 
-Button.propTypes = {
-  type: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  icon: PropTypes.oneOf([ 'star', 'check', 'sofa' ])
-};
+export default Button;

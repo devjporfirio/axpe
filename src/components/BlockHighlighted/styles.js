@@ -170,7 +170,7 @@ export const Link = styled(Button)`
 export const Highlighted = styled.h4`
   text-align: left;
   width: 315px;
-  
+
   span {
     font-size: 40px;
     line-height: 47px;

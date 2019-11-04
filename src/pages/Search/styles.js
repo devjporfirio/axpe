@@ -22,6 +22,10 @@ export const Headerbar = styled.div`
     font: 18px/28px 'Bitter';
     color: ${({ theme }) => theme.colors.orange};
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
   }
 
   h3 {
@@ -244,9 +248,12 @@ export const HeaderCombo = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  padding-bottom: 30px;
+
   ${media.greaterThan('medium')`
     width: 80%;
     margin: 0 auto;
+    padding-bottom: 60px;
   `}
 `;
 
@@ -290,4 +297,9 @@ export const BuildingsNotFound = styled.div`
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
     color: ${({ theme }) => theme.colors.green};
   }
+`;
+
+export const BuildingsLoadMore = styled.div`
+  display: flex;
+  justify-content: center;
 `;

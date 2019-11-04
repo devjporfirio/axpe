@@ -14,7 +14,7 @@ const ContactHome = () => (
       <p>
         Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
       </p>
-      <Link color="orange" label="Entre em contato" onClick={() => {}} />
+      <Link type="button" onClick={() => {}}>Entre em contato</Link>
     </div>
   </>
 );
@@ -63,7 +63,7 @@ const NotFound = () => (
         Que tal um imóvel na planta? Conheça nossas opções de imóveis em
         lançamento
       </p>
-      <Link color="orange" label="Entre em contato" onClick={() => {}} />
+      <Link type="button" onClick={() => { }}>Entre em contato</Link>
     </div>
   </>
 );
@@ -79,12 +79,7 @@ const Planta = ({ href }) => (
     </Highlighted>
     <div>
       <p>E descubra se ela é a ideal para você</p>
-      <Link
-        color="greenLight"
-        label="Veja as plantas"
-        href={href}
-        isExternal={true}
-      />
+      <Link href={href} color="greenLight" target="_blank">Veja as plantas</Link>
     </div>
   </>
 );

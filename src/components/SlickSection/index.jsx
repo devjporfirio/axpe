@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// components
 import Section from 'components/Section';
+
+// styles
 import {
   Container,
   ItemLink,
@@ -13,7 +17,7 @@ import {
   Gradient
 } from './styles';
 
-function renderBackground (type, item) {
+function renderBackground(type, item) {
   switch (type) {
     case 'slickGrid':
       return (
@@ -59,7 +63,7 @@ function renderBackground (type, item) {
   }
 }
 
-function SlickSection ({
+function SlickSection({
   type = 'slick',
   items = [],
   color,
@@ -141,7 +145,7 @@ function SlickSection ({
         items.map((item, index) => (
           <Slide key={item.id || index} type={type}>
             {item.link && !!item.link.url && (
-              <ItemLink href={item.link.url} isExternal={item.link.external} />
+              <ItemLink {...item.link} href={item.link.url} />
             )}
             {useGradient && <Gradient />}
             {renderBackground(type, item)}
