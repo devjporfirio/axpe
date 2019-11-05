@@ -145,7 +145,7 @@ function SlickSection({
         items.map((item, index) => (
           <Slide key={item.id || index} type={type}>
             {item.link && !!item.link.url && (
-              <ItemLink {...item.link} href={item.link.url} />
+              <ItemLink fullWidth={true} {...item.link} href={item.link.url} />
             )}
             {useGradient && <Gradient />}
             {renderBackground(type, item)}

@@ -161,7 +161,6 @@ const Planta = css`
 export const Link = styled(Button)`
   background-color: ${props => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
-  width: 240px;
   height: 45px;
   border-radius: 6px;
   display: block;

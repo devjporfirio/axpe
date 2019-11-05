@@ -14,7 +14,9 @@ const ContactHome = () => (
       <p>
         Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
       </p>
-      <Link type="button" onClick={() => {}}>Entre em contato</Link>
+      <Link fullWidth={true} type="button" onClick={() => {}}>
+        Entre em contato
+      </Link>
     </div>
   </>
 );
@@ -44,7 +46,9 @@ const ContactWork = () => (
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
         tudo a ver com você?
       </p>
-      <Link color="orange" label="Trabalhe Conosco" href="" />
+      <Link fullWidth={true} href="">
+        Trabalhe Conosco
+      </Link>
     </div>
   </>
 );
@@ -63,7 +67,9 @@ const NotFound = () => (
         Que tal um imóvel na planta? Conheça nossas opções de imóveis em
         lançamento
       </p>
-      <Link type="button" onClick={() => { }}>Entre em contato</Link>
+      <Link fullWidth={true} type="button" onClick={() => {}}>
+        Entre em contato
+      </Link>
     </div>
   </>
 );
@@ -79,7 +85,9 @@ const Planta = ({ href }) => (
     </Highlighted>
     <div>
       <p>E descubra se ela é a ideal para você</p>
-      <Link href={href} color="greenLight" target="_blank">Veja as plantas</Link>
+      <Link href={href} color="greenLight" target="_blank">
+        Veja as plantas
+      </Link>
     </div>
   </>
 );

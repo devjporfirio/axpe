@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import Phone from 'components/Phone';
+import Button from 'components/Button';
 
 export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
@@ -66,11 +67,15 @@ export const Numbers = styled.div`
 `;
 
 export const Form = styled.form`
-  padding: 0 75px 30px 0;
+  padding: 0 0 30px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  ${media.greaterThan('medium')`
+    padding: 0 75px 30px 0;
+  `}
 `;
 
 export const FormGroup = styled.div`
@@ -97,4 +102,10 @@ export const Mapa = styled.div`
       height: 1322px;
     }
   `}
+`;
+
+export const ButtonContainer = styled(Button)`
+  width: 100%;
+
+  ${media.greaterThan('medium')`width: auto`}
 `;

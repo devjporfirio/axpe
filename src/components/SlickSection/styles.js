@@ -5,8 +5,6 @@ import Button from 'components/Button';
 
 export const ItemLink = styled(Button)`
   height: 700px;
-  width: 100%;
-  display: block;
   position: absolute;
   background-color: transparent !important;
   z-index: 9;

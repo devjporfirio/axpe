@@ -5,6 +5,7 @@ import Button from 'components/Button';
 
 import {
   Container,
+  LinkContainer,
   Local,
   Infos,
   Reference,
@@ -77,8 +78,11 @@ function sectionMultiInfos(item, labelTitle) {
       {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
 
       <Reference>Ref {reference}</Reference>
-
-      <Button href="/building/[reference]" as={`/building/${slug}`}>Saiba mais</Button>
+      <LinkContainer>
+        <Button href="/building/[reference]" as={`/building/${slug}`}>
+          Saiba mais
+        </Button>
+      </LinkContainer>
     </>
   );
 }

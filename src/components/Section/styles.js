@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+// assets
 import IRectangle from 'assets/icons/rectangle.svg';
 
 const TypeSlickLargeDesktop = css`
@@ -37,10 +38,6 @@ const TypeSlickLeftMobile = css`
 
   hr {
     margin: 20px 0;
-  }
-
-  button {
-    width: 100%;
   }
 `;
 
@@ -201,10 +198,6 @@ export const Container = styled.section`
     color: ${({ theme }) => theme.colors.greenDark};
   }
 
-  a div {
-    width: 140px !important;
-  }
-
   ${props => props.type === 'slick' && TypeSlick}
   ${props => props.type === 'slickSmall' && TypeSlickSmall}
   ${props => props.type === 'destaque-texto' && TypeDestaqueTexto}
@@ -245,4 +238,14 @@ export const Infos = styled.p`
 
 export const Reference = styled(Infos)`
   margin: 25px 0;
+`;
+
+export const LinkContainer = styled.div`
+  & > a {
+    width: 100%;
+
+    ${media.greaterThan('medium')`
+      width: auto;
+    `}
+  }
 `;
