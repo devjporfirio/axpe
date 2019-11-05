@@ -155,6 +155,23 @@ export const HeaderbarContactButton = styled.button`
   `}
 `;
 
+export const Wrapper = styled.div`
+  width: 100%;
+  padding-bottom: 30px;
+
+  ${media.greaterThan('medium')`
+    padding: 0 30px;
+    margin: 62px auto 0 auto;
+    padding-bottom: 60px;
+  `}
+
+  ${media.greaterThan('1024px')`
+    width: 80%;
+    padding-left: 0;
+    padding-right: 0;
+  `}
+`;
+
 export const Header = styled.header`
   padding: 15px;
   display: flex;
@@ -172,8 +189,6 @@ export const Header = styled.header`
   }
 
   ${media.greaterThan('medium')`
-    width: 80%;
-    margin: 62px auto 20px auto;
     padding: 50px 0 0;
     flex-direction: row;
     align-items: flex-end;
@@ -247,16 +262,6 @@ export const HeaderCombo = styled.div`
   `}
 `;
 
-export const Wrapper = styled.div`
-  padding-bottom: 30px;
-
-  ${media.greaterThan('medium')`
-    width: 80%;
-    margin: 0 auto;
-    padding-bottom: 60px;
-  `}
-`;
-
 export const ButtonBack = styled.button`
   display: none;
 
@@ -290,13 +295,29 @@ export const Buildings = styled.div`
 `;
 
 export const BuildingsNotFound = styled.div`
-  p {
-    width: 100%;
-    font: 20px/23px 'Bitter';
-    text-align: center;
+  width: 100%;
+  padding: 50px 30px;
+  margin-bottom: 50px;
+
+  h6 {
+    margin-bottom: 20px;
+    font: 20px/26px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
-    color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.orange};
   }
+
+  p {
+    font: 22px/26px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  }
+
+  button {
+    text-decoration: underline;
+  }
+
+  ${media.greaterThan('medium')`
+
+  `}
 `;
 
 export const BuildingsLoadMore = styled.div`

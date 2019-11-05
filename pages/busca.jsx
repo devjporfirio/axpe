@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { connect, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import { useRouter } from 'next/router'
+
+// store
+import { setSearch } from 'store/modules/search/actions'
 
 // components
 import Button from 'components/Button';
@@ -33,8 +37,9 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ currentPage, total, totalPages, data }) {
-  const router = useRouter()
+function Search({ dispatch, currentPage, total, totalPages, data }) {
+  const router = useRouter();
+  const search = useSelector(state => state.search);
   const { query, query: { source, finality } } = router;
 
   const orderOptions = [
@@ -47,6 +52,7 @@ function Search({ currentPage, total, totalPages, data }) {
   const [ orderBy, setOrderBy ] = useState(orderOptions[0].value);
   const [ page, setPage ] = useState(+query.page || 1);
   const [ buildings, setBuildings ] = useState(null);
+  const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
@@ -70,12 +76,16 @@ function Search({ currentPage, total, totalPages, data }) {
     }
   }
 
+  function toggleSearch() {
+    dispatch(setSearch({ active: !search.active }))
+  }
+
   function handleOrderBy(event) {
     setOrderBy(event.target.value);
   }
 
-  function setNewData(newData) {
-    const newBuildings = buildings && buildings.length ? [ ...buildings, ...newData ] : [ ...newData ];
+  function setNewData(newData, first) {
+    const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
     setBuildings(newBuildings);
     setIsLoading(false);
   }
@@ -99,15 +109,16 @@ function Search({ currentPage, total, totalPages, data }) {
       setIsLoading(true);
       getDataByPage();
     } else {
-      setNewData(data);
+      setNewData(data, true);
     }
 
-  }, [ page ]);
+    setDataLoaded(true);
+  }, [ page, total ]);
 
   return (
     <Container>
       <Headerbar>
-        <HeaderbarBackButton type="button">Voltar</HeaderbarBackButton>
+        <HeaderbarBackButton type="button" onClick={toggleSearch}>Voltar</HeaderbarBackButton>
 
         {source && (
           <h2>{getSourceText()}</h2>
@@ -128,42 +139,43 @@ function Search({ currentPage, total, totalPages, data }) {
         </div>
       </Headerbar>
 
-      {buildings ?
+      {dataLoaded ?
         <>
-          <Header>
-            {buildings.length ? (
-              <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
-            ) : null}
-            <HeaderCombo>
-              <button type="button">
-                <strong>Ordenar por:</strong>
-                {orderBySelected.length ? (
-                  <span>{orderBySelected[0].label}</span>
-                ) : null}
-              </button>
-              <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
-                {orderOptions.map((orderItem, orderItemIndex) => (
-                  <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
-                ))}
-              </select>
-            </HeaderCombo>
-          </Header>
-
           <Wrapper>
-            <ButtonBack type="button">
+            {total ? (
+              <Header>
+                <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
+                <HeaderCombo>
+                  <button type="button">
+                    <strong>Ordenar por:</strong>
+                    {orderBySelected.length ? (
+                      <span>{orderBySelected[0].label}</span>
+                    ) : null}
+                  </button>
+                  <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
+                    {orderOptions.map((orderItem, orderItemIndex) => (
+                      <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
+                    ))}
+                  </select>
+                </HeaderCombo>
+              </Header>
+            ) : null}
+
+            <ButtonBack type="button" onClick={toggleSearch}>
               <SVG src={ArrowIconSVG} uniquifyIDs={true} />
             </ButtonBack>
 
             <Buildings>
-              {buildings.length ? buildings.map((building, buildingIndex) => (
+              {total ? buildings.map((building, buildingIndex) => (
                   <SimilarBuilding item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
                 )) : (
                 <BuildingsNotFound>
-                  <p>Nenhum imóvel encontrado =(</p>
+                  <h6>Não encontramos o imóvel que você procura<br/>:(</h6>
+                  <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
                 </BuildingsNotFound>
               )}
 
-              {buildings.length && page < totalPages ? (
+              {total && page < totalPages ? (
                 <BuildingsLoadMore>
                   <Button type="button" onClick={loadMore} disabled={isLoading}>
                     {isLoading ? 'Carregando...' : 'Carregar mais'}
@@ -186,4 +198,4 @@ Search.getInitialProps = async ({ query }) => {
   return response;
 }
 
-export default Search;
+export default connect()(Search);

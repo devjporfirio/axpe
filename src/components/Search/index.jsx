@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Router from 'next/router';
+import { useRouter } from 'next/router'
 import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
@@ -52,6 +52,7 @@ import {
 } from './styles';
 
 function Search({ dispatch }) {
+  const router = useRouter()
   const { active } = useSelector(state => state.search);
   const [ alertCreated, setAlertCreated ] = useState(false);
   const [ usesData, setUsesData ] = useState(null);
@@ -111,7 +112,9 @@ function Search({ dispatch }) {
 
       const params = getUrl(data);
 
-      Router.push(`/busca${params}`)
+      setTabActive(null);
+
+      router.push(`/busca${params}`)
     }
   });
 
