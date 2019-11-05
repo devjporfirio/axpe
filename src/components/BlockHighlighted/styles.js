@@ -168,7 +168,7 @@ export const Link = styled(Button)`
 
 export const Highlighted = styled.h4`
   text-align: left;
-  width: 315px;
+  max-width: 320px;
 
   span {
     font-size: 40px;
