@@ -21,7 +21,7 @@ export default function Datasheet({ property }) {
       <DatasheetContent>
         <BlockOne type={property.type}>
           <div>
-            <Type>{property.infos.releaseStatus}</Type>
+            <Type>{property.infos.use}</Type>
             <Neighborhood>{property.address.local}</Neighborhood>
             <Ref>Ref {property.reference}</Ref>
           </div>
@@ -37,9 +37,9 @@ export default function Datasheet({ property }) {
             )}
           </GroupTags>
         </BlockOne>
-        {property.infos.shortDescription && (
+        {(!!property.content || !!property.infos.shortDescription) && (
           <BlockTwo>
-            <Content>{property.infos.shortDescription}</Content>
+            <Content>{property.content || property.infos.shortDescription}</Content>
           </BlockTwo>
         )}
         <BlockThree>
