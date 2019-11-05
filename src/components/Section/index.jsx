@@ -1,10 +1,11 @@
 import React from 'react';
 
 // components
-import Button from 'components/Button';
+// import Button from 'components/Button';
 
 import {
   Container,
+  Link,
   Local,
   Infos,
   Reference,
@@ -78,7 +79,9 @@ function sectionMultiInfos(item, labelTitle) {
 
       <Reference>Ref {reference}</Reference>
 
-      <Button href="/building/[reference]" as={`/building/${slug}`}>Saiba mais</Button>
+      <Link href="/building/[reference]" as={`/building/${slug}`}>
+        Saiba mais
+      </Link>
     </>
   );
 }

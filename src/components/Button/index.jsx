@@ -5,19 +5,38 @@ import Link from 'next/link';
 import { ButtonContainer, ButtonLinkContainer } from './styles';
 
 function Button(props) {
-  const { as, className, children, color, href, target, type } = props;
+  const {
+    as,
+    className,
+    children,
+    color = 'orange',
+    href,
+    target,
+    type,
+    fullWidth = false
+  } = props;
 
   return type && (type === 'button' || type === 'submit') ? (
-    <ButtonContainer {...props} color={color ? color : 'orange'}>
+    <ButtonContainer {...props} color={color} fullWidth={fullWidth}>
       {children}
     </ButtonContainer>
-  ) : (target && target === 'blank') || href.search('http') === 0 ? (
-    <ButtonLinkContainer href={href} className={className} color={color ? color : 'orange'} target={target}>
+  ) : (target && target === 'blank') || (href && href.search('http')) === 0 ? (
+    <ButtonLinkContainer
+      href={href}
+      className={className}
+      color={color}
+      fullWidth={fullWidth}
+      target={target}
+    >
       {children}
     </ButtonLinkContainer>
   ) : (
     <Link href={href} as={as} passHref>
-      <ButtonLinkContainer className={className} color={color ? color : 'orange'}>
+      <ButtonLinkContainer
+        className={className}
+        color={color}
+        fullWidth={fullWidth}
+      >
         {children}
       </ButtonLinkContainer>
     </Link>
