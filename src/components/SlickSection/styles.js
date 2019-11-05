@@ -44,7 +44,12 @@ export const Container = styled(Slider)`
 
 export const Slide = styled.div`
   ${props =>
-    props.type === 'slickGrid' && media.greaterThan('medium')`height: 686px;`}
+    props.type === 'slickGrid' &&
+    media.greaterThan('medium')`
+      display: flex !important;
+      height: 686px;
+      justify-content: space-between;
+  `}
   ${props =>
     props.type === 'slickLarge' &&
     media.greaterThan('medium')`
@@ -54,6 +59,15 @@ export const Slide = styled.div`
       max-width: 954px;
       width: auto !important;
     `}
+
+  ${props =>
+    props.type === 'slickLeft' &&
+    media.greaterThan('medium')`
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+  `}
 `;
 
 export const Image = styled.img`
@@ -94,6 +108,7 @@ export const Image = styled.img`
     props.type === 'slickLeft' &&
     css`
       width: 100%;
+      max-width: 705px;
       margin-left: 0;
 
       ${media.greaterThan('medium')`
@@ -146,15 +161,13 @@ export const GreenBlock = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    width: 25vw;
-    max-width: 331px;
+    width: 331px;
     height: 277px;
     border: 3.5px solid ${({ theme }) => theme.colors.white};
 
     p {
-      font-size: 27px;
+      font-size: 37px;
       text-align: left;
-      width: 80%;
     }
   `}
 `;
@@ -163,7 +176,6 @@ export const Row1 = styled.div`
   display: flex;
   img {
     max-width: 520px;
-    width: 30vw;
     height: 277px;
   }
 `;
@@ -180,7 +192,6 @@ export const Row2 = styled.div`
 
   img:nth-child(2) {
     max-width: 520px;
-    width: 30vw;
   }
 `;
 

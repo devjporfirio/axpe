@@ -21,10 +21,7 @@ const TypeSlickLargeDesktop = css`
 `;
 
 const TypeSlickLeftDesktop = css`
-  position: absolute;
-  top: 0;
-  padding: 100px 30px;
-  margin: 0;
+  position: initial;
   background-color: #fff;
   width: 320px;
   height: 100%;
@@ -41,7 +38,16 @@ const TypeSlickLeftMobile = css`
   }
 `;
 
+const TypeSlickGridDesktop = css`
+  margin: auto auto auto 60px;
+  position: initial;
+  background-color: #fff;
+`;
+
 const TypeSlick = css`
+  margin-left: 120px !important;
+  animation: ${({ theme }) => theme.fadeInOpacity} 600ms ease-in;
+
   h4 {
     color: ${({ theme }) => theme.colors.white};
     font-size: 41px;
@@ -175,12 +181,14 @@ export const Container = styled.section`
   margin-left: 20px;
   background-color: ${props =>
     props.type !== 'slick' && props.theme.colors.white};
+  opacity: 1;
 
   h4 {
     font: 22px 'Bitter';
 
     ${media.greaterThan('medium')`
       font-size: 37px;
+      line-height: 42px;
     `}
   }
 
@@ -190,12 +198,6 @@ export const Container = styled.section`
     margin: 40px 0 25px;
 
     ${props => !props.showHorizontalRule && `visibility: hidden;`}
-  }
-
-  p {
-    font: 18px/25px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
-    color: ${({ theme }) => theme.colors.greenDark};
   }
 
   ${props => props.type === 'slick' && TypeSlick}
@@ -217,10 +219,10 @@ export const Container = styled.section`
 `};
 
   ${media.greaterThan('medium')`
-    margin-left: 120px;
+    margin: auto;
 
     ${props => props.type === 'slickLeft' && TypeSlickLeftDesktop}
-    ${props => props.type === 'slickGrid' && `margin-left: 14%;`}
+    ${props => props.type === 'slickGrid' && TypeSlickGridDesktop}
     ${props => props.type === 'slickLarge' && TypeSlickLargeDesktop}
   `};
 `;

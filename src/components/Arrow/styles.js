@@ -130,7 +130,7 @@ const positionLeftPrev = css`
 
   ${media.greaterThan('medium')`
     top: 610px ;
-    left: 25px ;
+    left: 112px;
   `}
 `;
 
@@ -141,7 +141,7 @@ const positionLeftNext = css`
 
   ${media.greaterThan('medium')`
     top: 610px;
-    left: 55px;
+    left: 141px;
   `}
 `;
 
