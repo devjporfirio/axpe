@@ -4,7 +4,6 @@ import Button from 'components/Button';
 import Phone from 'components/Phone';
 
 export const MoreInfo = styled(Button)`
-  width: 155px;
   height: 32px;
   font-size: 13px;
   line-height: 32px;

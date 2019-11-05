@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from 'components/Button';
 import BlockHighlighted from 'components/BlockHighlighted';
 import * as Input from 'components/FormElements';
 
 import {
+  ButtonContainer,
   Container,
   Header,
   Body,
@@ -74,7 +74,7 @@ function Contact() {
               }
             />
 
-            <Button type="button">Enviar</Button>
+            <ButtonContainer type="button">Enviar</ButtonContainer>
           </Form>
           <BlockHighlighted type="contactWork" />
         </BlockForm>

@@ -243,5 +243,9 @@ export const Reference = styled(Infos)`
 export const LinkContainer = styled.div`
   & > a {
     width: 100%;
+
+    ${media.greaterThan('medium')`
+      width: auto;
+    `}
   }
 `;

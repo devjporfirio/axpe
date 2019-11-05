@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import media from 'styled-media-query';
 
 export const ButtonStyle = css`
   display: inline-block;
@@ -24,12 +23,6 @@ export const ButtonStyle = css`
     opacity: 0.2;
     cursor: default;
   }
-
-  ${props =>
-    !props.color &&
-    media.greaterThan('medium')`
-    width: 140px;
-  `};
 `;
 
 export const ButtonContainer = styled.button`
