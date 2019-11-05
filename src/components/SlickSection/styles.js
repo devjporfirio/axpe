@@ -4,10 +4,14 @@ import Slider from 'components/Slider';
 import Button from 'components/Button';
 
 export const ItemLink = styled(Button)`
-  height: 700px;
   position: absolute;
   background-color: transparent !important;
   z-index: 9;
+  height: 507px;
+
+  ${media.greaterThan('medium')`
+    height: 700px;
+  `}
 `;
 
 const SlickLarge = media.greaterThan('medium')`
@@ -175,7 +179,7 @@ export const GreenBlock = styled.div`
 export const Row1 = styled.div`
   display: flex;
   img {
-    max-width: 520px;
+    width: 520px;
     height: 277px;
   }
 `;
@@ -186,12 +190,11 @@ export const Row2 = styled.div`
     height: 403px;
   }
   img:nth-child(1) {
-    max-width: 331px;
-    width: 25vw;
+    width: 331px;
   }
 
   img:nth-child(2) {
-    max-width: 520px;
+    width: 520px;
   }
 `;
 
@@ -210,18 +213,25 @@ export const ImagesGrid = styled.div`
 `;
 
 export const Gradient = styled.div`
-  width: calc(100vw - 200px);
+  width: 100vw;
   height: 507px;
   position: absolute;
   background-image: linear-gradient(
     270deg,
-    rgba(0, 0, 0, 0.0001) 21.8%,
-    #000000 100.96%
+    rgba(0, 0, 0, 0.01) -23.53%,
+    rgba(0, 0, 0, 0.6) 100.96%
   );
+  background-blend-mode: multiply;
   mix-blend-mode: normal;
-  opacity: 0.78;
+  opacity: 0.6;
 
   ${media.greaterThan('medium')`
+    background-image: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.0001) 21.8%,
+      #000000 100.96%
+    );
+    width: calc(100vw - 200px);
     height: 700px;
   `}
 `;

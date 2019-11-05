@@ -95,8 +95,14 @@ const typeTogetherPrev = css`
   padding-right: 20px;
 
   ${media.lessThan('medium')`
-    top: 70vw !important;
-    ${positionCenterPrev}
+    top: 456px;
+    ${props => props.position !== 'left' && positionCenterPrev}
+
+    ${props =>
+      props.position === 'left' &&
+      css`
+        left: 28px;
+      `}
   `}
 `;
 
@@ -108,8 +114,15 @@ const typeTogetherNext = css`
 
   ${media.lessThan('medium')`
     left: auto;
-    top: 70vw !important;
-    ${positionCenterNext}
+    top: 456px;
+
+    ${props => props.position !== 'left' && positionCenterNext}
+
+    ${props =>
+      props.position === 'left' &&
+      css`
+        left: 78px;
+      `}
   `}
 `;
 

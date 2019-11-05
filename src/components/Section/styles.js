@@ -45,20 +45,28 @@ const TypeSlickGridDesktop = css`
 `;
 
 const TypeSlick = css`
-  margin-left: 120px !important;
+  margin-left: 28px !important;
+  top: 109px;
   animation: ${({ theme }) => theme.fadeInOpacity} 600ms ease-in;
+
+  hr {
+    margin: 29px 0;
+  }
 
   h4 {
     color: ${({ theme }) => theme.colors.white};
-    font-size: 41px;
+    font-size: 38px;
+    line-height: 38px;
   }
   p {
     color: ${({ theme }) => theme.colors.white};
   }
 
   ${media.greaterThan('medium')`
+    margin-left: 120px !important;
     h4 {
-      font-size: 38px;
+      font-size: 41px;
+      line-height: 40px;
     }
   `};
 `;

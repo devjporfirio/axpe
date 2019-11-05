@@ -134,7 +134,7 @@ function SlickSection({
           : '',
         position: (() => {
           if (type === 'slickGrid') return 'right';
-          if (type === 'slick') return '';
+          if (type === 'slick') return 'left';
           if (type === 'slickLeft') return 'left';
           return 'outside';
         })()
