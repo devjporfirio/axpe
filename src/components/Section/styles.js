@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-import Button from 'components/Button';
-
+// assets
 import IRectangle from 'assets/icons/rectangle.svg';
 
 const TypeSlickLargeDesktop = css`
@@ -241,6 +240,8 @@ export const Reference = styled(Infos)`
   margin: 25px 0;
 `;
 
-export const Link = styled(Button)`
-  width: 100%;
+export const LinkContainer = styled.div`
+  & > a {
+    width: 100%;
+  }
 `;

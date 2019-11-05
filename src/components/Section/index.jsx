@@ -1,11 +1,11 @@
 import React from 'react';
 
 // components
-// import Button from 'components/Button';
+import Button from 'components/Button';
 
 import {
   Container,
-  Link,
+  LinkContainer,
   Local,
   Infos,
   Reference,
@@ -78,10 +78,11 @@ function sectionMultiInfos(item, labelTitle) {
       {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
 
       <Reference>Ref {reference}</Reference>
-
-      <Link href="/building/[reference]" as={`/building/${slug}`}>
-        Saiba mais
-      </Link>
+      <LinkContainer>
+        <Button href="/building/[reference]" as={`/building/${slug}`}>
+          Saiba mais
+        </Button>
+      </LinkContainer>
     </>
   );
 }
