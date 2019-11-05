@@ -31,10 +31,20 @@ const TypeSlickLeftMobile = css`
   position: initial;
   width: 70%;
   margin: auto;
-  padding: 20px 0;
+  padding: 10px 0;
+  height: 299px;
 
   hr {
     margin: 20px 0;
+
+    & + p {
+      display: none;
+    }
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 19px;
   }
 `;
 
@@ -60,6 +70,8 @@ const TypeSlick = css`
   }
   p {
     color: ${({ theme }) => theme.colors.white};
+    font-size: 18px;
+    line-height: 19px;
   }
 
   ${media.greaterThan('medium')`
@@ -222,6 +234,7 @@ export const Container = styled.section`
       `
       width: 100%;
       padding: 20px 8%;
+      height: 240px;
   `}
   
 `};

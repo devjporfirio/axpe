@@ -39,7 +39,7 @@ const positionOutsideNext = css`
 const positionOutsidePrev = css`
   top: 0;
   bottom: 0;
-  left: -44px;
+  left: -30px;
   margin-top: auto;
   margin-bottom: auto;
 `;
@@ -96,12 +96,23 @@ const typeTogetherPrev = css`
 
   ${media.lessThan('medium')`
     top: 456px;
-    ${props => props.position !== 'left' && positionCenterPrev}
+    ${props => props.position !== 'together' && positionCenterPrev}
 
+    ${props =>
+      props.position === 'together' &&
+      css`
+        left: 28px;
+      `}
+      
     ${props =>
       props.position === 'left' &&
       css`
-        left: 28px;
+        top: 175px;
+      `}
+    ${props =>
+      props.position === 'right' &&
+      css`
+        top: 255px;
       `}
   `}
 `;
@@ -116,12 +127,23 @@ const typeTogetherNext = css`
     left: auto;
     top: 456px;
 
-    ${props => props.position !== 'left' && positionCenterNext}
+    ${props => props.position !== 'together' && positionCenterNext}
+
+    ${props =>
+      props.position === 'together' &&
+      css`
+        left: 78px;
+      `}
 
     ${props =>
       props.position === 'left' &&
       css`
-        left: 78px;
+        top: 175px;
+      `}
+    ${props =>
+      props.position === 'right' &&
+      css`
+        top: 255px;
       `}
   `}
 `;
