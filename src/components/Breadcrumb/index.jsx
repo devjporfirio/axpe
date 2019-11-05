@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router'
 
 // assets
 import IArrowOrange from 'assets/icons/arrow-prev-orange';
@@ -26,11 +27,11 @@ export default function Breadcrumb({ category, local, reference, className }) {
   return (
     <Container className={className}>
       <InfoLeft>
-        <BackDesktop href="javascript:history.back()">
+        <BackDesktop onClick={() => Router.back()}>
           <img src={IArrowOrange} alt="Voltar" />
           <span>Voltar</span>
         </BackDesktop>
-        <BackMobile href="javascript:history.back()">
+        <BackMobile onClick={() => Router.back()}>
           <img src={IArrowBlack} alt="Voltar" />
         </BackMobile>
         <div>
