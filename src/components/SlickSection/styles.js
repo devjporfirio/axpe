@@ -199,7 +199,7 @@ export const ImagesGrid = styled.div`
 `;
 
 export const Gradient = styled.div`
-  width: 100%;
+  width: calc(100vw - 200px);
   height: 507px;
   position: absolute;
   background-image: linear-gradient(
