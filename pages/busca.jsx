@@ -33,7 +33,7 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ currentPage, perPage, totalPages, data }) {
+function Search({ currentPage, total, totalPages, data }) {
   const router = useRouter()
   const { query, query: { source, finality } } = router;
 
@@ -132,7 +132,7 @@ function Search({ currentPage, perPage, totalPages, data }) {
         <>
           <Header>
             {buildings.length ? (
-              <h3>Encontramos <strong>{buildings.length} imóveis</strong> do jeitinho que pediu</h3>
+              <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
             ) : null}
             <HeaderCombo>
               <button type="button">
@@ -183,12 +183,7 @@ function Search({ currentPage, perPage, totalPages, data }) {
 Search.getInitialProps = async ({ query }) => {
   const params = getUrl(query, true);
   const response = await Api.Search.getBuildings(params);
-  return {
-    ...response,
-    teste: 2,
-    currentPage: parseInt(response.current_page),
-    totalPages: response.total_pages,
-    perPage: parseInt(response.per_page) };
+  return response;
 }
 
 export default Search;
