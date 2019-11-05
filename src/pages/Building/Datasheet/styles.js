@@ -23,6 +23,7 @@ export const Block = styled.div`
   border-bottom: 2px solid ${({ theme }) => theme.colors.greenBorder};
 
   ${media.greaterThan('medium')`
+    width: 100%;
     border-bottom: none;
     border-right: 2px solid ${({ theme }) => theme.colors.greenBorder};
   `}
@@ -40,14 +41,14 @@ export const BlockOne = styled(Block)`
   ${props =>
     props.type !== 'pronto' &&
     media.greaterThan('medium')`
-    width: 308px;
+    max-width: 349px;
     flex-shrink: 0;
   `}
 `;
 
 export const BlockTwo = styled(Block)`
   ${media.greaterThan('medium')`
-    width: 200px;
+  max-width: 264px;
     flex-shrink: 0;
   `}
 `;
@@ -166,7 +167,8 @@ export const Delivery = styled.div`
     margin: auto;
 
     p {
-      width: 308px;
+      width: 100%;
+      max-width: 349px;
       margin-top: -35px;
     }
   `}
