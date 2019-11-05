@@ -103,10 +103,10 @@ export const FavoriteDesktop = styled.div`
   }
 `;
 
-export const BackMobile = styled.a`
+export const BackMobile = styled.button`
   ${media.greaterThan('medium')`display: none;`}
 `;
-export const BackDesktop = styled.a`
+export const BackDesktop = styled.button`
   ${media.lessThan('medium')`display: none;`}
 
   display: flex;

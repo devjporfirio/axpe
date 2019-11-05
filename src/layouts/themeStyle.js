@@ -1,3 +1,5 @@
+import { keyframes } from 'styled-components';
+
 const theme = {
   /* Variables */
   colors: {
@@ -37,6 +39,18 @@ const theme = {
   show: `
     opacity: 1 !important;
     visibility: visible !important;
+  `,
+
+  /* Keyframes */
+  fadeInOpacity: keyframes`
+   0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0px)
+    }
   `,
 
   /* Functions */

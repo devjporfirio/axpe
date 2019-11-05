@@ -32,16 +32,10 @@ export const Block = styled.div`
 export const BlockOne = styled(Block)`
   ${media.greaterThan('medium')`
     flex-direction: column;
+    max-width: 349px;
     justify-content: ${props =>
       props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
     align-items: flex-start;
-    flex-shrink: 0;
-  `}
-
-  ${props =>
-    props.type !== 'pronto' &&
-    media.greaterThan('medium')`
-    max-width: 349px;
     flex-shrink: 0;
   `}
 `;

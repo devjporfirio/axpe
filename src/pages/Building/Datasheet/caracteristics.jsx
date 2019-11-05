@@ -23,7 +23,7 @@ export const Sell = ({ sell, iptu, condo }) =>
   !!sell && (
     <Price>
       <p>Venda:</p>
-      <p>{sell}</p>
+      <p>{formatCurrency.format(sell)}</p>
       <p>IPTU: 10x {formatCurrency.format(iptu)}</p>
       <p>Condominio: {formatCurrency.format(condo)}</p>
     </Price>

@@ -4,10 +4,14 @@ import Slider from 'components/Slider';
 import Button from 'components/Button';
 
 export const ItemLink = styled(Button)`
-  height: 700px;
   position: absolute;
   background-color: transparent !important;
   z-index: 9;
+  height: 507px;
+
+  ${media.greaterThan('medium')`
+    height: 700px;
+  `}
 `;
 
 const SlickLarge = media.greaterThan('medium')`
@@ -27,7 +31,11 @@ const SlickLarge = media.greaterThan('medium')`
 `;
 
 export const Container = styled(Slider)`
-  ${props => props.type !== 'slick' && `margin-bottom: 40px;`}
+  ${props =>
+    props.type !== 'slick' &&
+    media.greaterThan('medium')`
+    margin-bottom: 40px;
+  `}
 
   ${props =>
     props.type === 'slickLarge' && media.greaterThan('medium')`${SlickLarge}`}
@@ -44,7 +52,12 @@ export const Container = styled(Slider)`
 
 export const Slide = styled.div`
   ${props =>
-    props.type === 'slickGrid' && media.greaterThan('medium')`height: 686px;`}
+    props.type === 'slickGrid' &&
+    media.greaterThan('medium')`
+      display: flex !important;
+      height: 686px;
+      justify-content: space-between;
+  `}
   ${props =>
     props.type === 'slickLarge' &&
     media.greaterThan('medium')`
@@ -54,6 +67,15 @@ export const Slide = styled.div`
       max-width: 954px;
       width: auto !important;
     `}
+
+  ${props =>
+    props.type === 'slickLeft' &&
+    media.greaterThan('medium')`
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+  `}
 `;
 
 export const Image = styled.img`
@@ -94,10 +116,12 @@ export const Image = styled.img`
     props.type === 'slickLeft' &&
     css`
       width: 100%;
+      max-width: 705px;
+      max-height: 244px;
       margin-left: 0;
 
       ${media.greaterThan('medium')`
-        height: 680px;
+        max-height: 680px;
       `}
     `}
 
@@ -113,6 +137,12 @@ export const Image = styled.img`
     props.type === 'slickLarge' &&
     media.lessThan('medium')`
       height: 230px;
+  `}
+
+  ${props =>
+    props.type === 'slickGrid' &&
+    media.lessThan('medium')`
+      max-height: 221px;
   `}
 
   ${props =>
@@ -146,15 +176,13 @@ export const GreenBlock = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    width: 25vw;
-    max-width: 331px;
+    width: 331px;
     height: 277px;
     border: 3.5px solid ${({ theme }) => theme.colors.white};
 
     p {
-      font-size: 27px;
+      font-size: 37px;
       text-align: left;
-      width: 80%;
     }
   `}
 `;
@@ -162,8 +190,7 @@ export const GreenBlock = styled.div`
 export const Row1 = styled.div`
   display: flex;
   img {
-    max-width: 520px;
-    width: 30vw;
+    width: 520px;
     height: 277px;
   }
 `;
@@ -174,13 +201,11 @@ export const Row2 = styled.div`
     height: 403px;
   }
   img:nth-child(1) {
-    max-width: 331px;
-    width: 25vw;
+    width: 331px;
   }
 
   img:nth-child(2) {
-    max-width: 520px;
-    width: 30vw;
+    width: 520px;
   }
 `;
 
@@ -199,18 +224,25 @@ export const ImagesGrid = styled.div`
 `;
 
 export const Gradient = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 507px;
   position: absolute;
   background-image: linear-gradient(
     270deg,
-    rgba(0, 0, 0, 0.0001) 21.8%,
-    #000000 100.96%
+    rgba(0, 0, 0, 0.01) -23.53%,
+    rgba(0, 0, 0, 0.6) 100.96%
   );
+  background-blend-mode: multiply;
   mix-blend-mode: normal;
-  opacity: 0.78;
+  opacity: 0.6;
 
   ${media.greaterThan('medium')`
+    background-image: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.0001) 21.8%,
+      #000000 100.96%
+    );
+    width: calc(100vw - 200px);
     height: 700px;
   `}
 `;

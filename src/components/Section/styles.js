@@ -21,10 +21,7 @@ const TypeSlickLargeDesktop = css`
 `;
 
 const TypeSlickLeftDesktop = css`
-  position: absolute;
-  top: 0;
-  padding: 100px 30px;
-  margin: 0;
+  position: initial;
   background-color: #fff;
   width: 320px;
   height: 100%;
@@ -34,25 +31,54 @@ const TypeSlickLeftMobile = css`
   position: initial;
   width: 70%;
   margin: auto;
-  padding: 20px 0;
+  padding: 10px 0;
+  height: 299px;
 
   hr {
     margin: 20px 0;
+
+    & + p {
+      display: none;
+    }
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 19px;
   }
 `;
 
+const TypeSlickGridDesktop = css`
+  margin: auto auto auto 60px;
+  position: initial;
+  background-color: #fff;
+`;
+
 const TypeSlick = css`
+  margin-left: 28px !important;
+  top: 109px;
+  animation: ${({ theme }) => theme.fadeInOpacity} 600ms ease-in;
+
+  hr {
+    margin: 29px 0;
+  }
+
   h4 {
     color: ${({ theme }) => theme.colors.white};
-    font-size: 41px;
+    font-size: 38px;
+    line-height: 38px;
   }
   p {
     color: ${({ theme }) => theme.colors.white};
+    font-size: 18px;
+    line-height: 19px;
   }
 
   ${media.greaterThan('medium')`
+    margin-left: 120px !important;
     h4 {
-      font-size: 38px;
+      font-size: 41px;
+      line-height: 40px;
     }
   `};
 `;
@@ -175,12 +201,14 @@ export const Container = styled.section`
   margin-left: 20px;
   background-color: ${props =>
     props.type !== 'slick' && props.theme.colors.white};
+  opacity: 1;
 
   h4 {
     font: 22px 'Bitter';
 
     ${media.greaterThan('medium')`
       font-size: 37px;
+      line-height: 42px;
     `}
   }
 
@@ -190,12 +218,6 @@ export const Container = styled.section`
     margin: 40px 0 25px;
 
     ${props => !props.showHorizontalRule && `visibility: hidden;`}
-  }
-
-  p {
-    font: 18px/25px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
-    color: ${({ theme }) => theme.colors.greenDark};
   }
 
   ${props => props.type === 'slick' && TypeSlick}
@@ -212,15 +234,16 @@ export const Container = styled.section`
       `
       width: 100%;
       padding: 20px 8%;
+      height: 240px;
   `}
   
 `};
 
   ${media.greaterThan('medium')`
-    margin-left: 120px;
+    margin: auto;
 
     ${props => props.type === 'slickLeft' && TypeSlickLeftDesktop}
-    ${props => props.type === 'slickGrid' && `margin-left: 14%;`}
+    ${props => props.type === 'slickGrid' && TypeSlickGridDesktop}
     ${props => props.type === 'slickLarge' && TypeSlickLargeDesktop}
   `};
 `;

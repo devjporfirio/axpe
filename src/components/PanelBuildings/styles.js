@@ -26,14 +26,18 @@ export const Title = styled.h4`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   margin: 20px 0;
   max-width: 450px;
+  text-align: center;
+  width: 100%;
 
   ${media.greaterThan('medium')`
     font-size: 41px;
     line-height: 40px;
+    width: auto;
   `}
 `;
 
 export const SubTitle = styled.p`
+  display: none;
   padding-left: 23px;
   margin-left: 23px;
   width: 220px;
@@ -41,4 +45,6 @@ export const SubTitle = styled.p`
   font-weight: ${({ theme }) => theme.fontsWeight.light};
   border-left: 2px solid ${({ theme }) => theme.colors.orange};
   color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`display: block`}
 `;
