@@ -37,9 +37,9 @@ export default function Datasheet({ property }) {
             )}
           </GroupTags>
         </BlockOne>
-        {(!!property.content || !!property.infos.shortDescription) && (
+        {!!property.infos.internalDescription && (
           <BlockTwo>
-            <Content>{property.content || property.infos.shortDescription}</Content>
+            <Content>{property.infos.internalDescription}</Content>
           </BlockTwo>
         )}
         <BlockThree>
@@ -67,7 +67,9 @@ export default function Datasheet({ property }) {
             start={property.infos.parkingStart}
             end={property.infos.parkingEnd}
           />
-          <Caracteristics.AreaBuilding areaBuilding={property.infos.areaBuilding} />
+          <Caracteristics.AreaBuilding
+            areaBuilding={property.infos.areaBuilding}
+          />
           <Caracteristics.AreaGround areaGround={property.infos.areaGround} />
           <Caracteristics.AreaUseFul areaUseful={property.infos.areaUseful} />
           <Caracteristics.AreaUseFulBetween
