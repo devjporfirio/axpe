@@ -41,20 +41,21 @@ export default function Building({ item }) {
         </CatLocGroup>
 
         <ValuesFavGroup>
-          {!!values.sell || !!values.release ? (
-            <Price>
-              Venda: {!!values.sell && formatCurrency.format(values.sell)}
-              {!!values.release && formatCurrency.format(values.release)}
-            </Price>
-          ) : (
-            ''
-          )}
-          {!!values.rent ? (
-            <Price>Locação: {formatCurrency.format(values.rent)}</Price>
-          ) : (
-            ''
-          )}
-
+          <div>
+            {!!values.sell || !!values.release ? (
+              <Price>
+                Venda: {!!values.sell && formatCurrency.format(values.sell)}
+                {!!values.release && formatCurrency.format(values.release)}
+              </Price>
+            ) : (
+              ''
+            )}
+            {!!values.rent ? (
+              <Price>Locação: {formatCurrency.format(values.rent)}</Price>
+            ) : (
+              ''
+            )}
+          </div>
           <Favorito src={IHeartBlack} alt="Favorito" />
         </ValuesFavGroup>
         <CaracteristicsGroup>
