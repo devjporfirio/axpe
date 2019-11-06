@@ -19,7 +19,7 @@ import {
   Description
 } from './styles';
 
-export default function SimilarBuilding({ item }) {
+export default function Building({ item }) {
   const { values, gallery, address, infos, slug, category } = item;
 
   return (
