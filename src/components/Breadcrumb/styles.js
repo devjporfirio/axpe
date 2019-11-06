@@ -3,6 +3,24 @@ import media from 'styled-media-query';
 import Button from 'components/Button';
 import Phone from 'components/Phone';
 
+export const Container = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 100vw;
+  padding: 10px 20px;
+  background-color: ${({ theme }) => theme.colors.white};
+
+  ${media.greaterThan('medium')`
+    border: none;
+    width: calc(100% - 200px);
+    z-index: 99;
+    top: 0;
+  `}
+`;
+
 export const MoreInfo = styled(Button)`
   height: 32px;
   font-size: 13px;
@@ -12,19 +30,6 @@ export const MoreInfo = styled(Button)`
 export const NumberPhone = styled(Phone)`
   width: auto;
   margin-left: 10px;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 66px;
-  padding: 10px 20px;
-  background-color: ${({ theme }) => theme.colors.white};
-
-  ${media.greaterThan('medium')`
-    border: none;
-  `}
 `;
 
 export const Category = styled.p`
