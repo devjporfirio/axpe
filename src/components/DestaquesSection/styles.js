@@ -4,8 +4,8 @@ import media from 'styled-media-query';
 import Section from 'components/Section';
 
 export const Destaque1 = css`
-  height: 372px;
   flex-direction: row-reverse;
+  ${media.greaterThan('medium')`height: 372px;`}
 
   section {
     height: 372px;
@@ -14,13 +14,13 @@ export const Destaque1 = css`
 `;
 
 export const Destaque2 = css`
-  height: 299px;
   flex-direction: row;
+  ${media.greaterThan('medium')`height: 299px;`}
 `;
 
 export const Destaque3 = css`
-  height: 299px;
   flex-direction: row-reverse;
+  ${media.greaterThan('medium')`height: 299px;`}
 `;
 
 export const ImagemDestaque = css`
@@ -131,10 +131,16 @@ const SectionImagemDestaque = css`
 
 export const Text = styled(Section)`
   width: auto;
+  height: auto;
   padding: 30px;
 
   h4 {
     font-size: 22px;
+  }
+
+  hr + p {
+    display: block;
+    line-height: 25px;
   }
 
   ${media.greaterThan('medium')`

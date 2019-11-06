@@ -22,7 +22,11 @@ export const Header = styled(Breadcrumb)`
 
 export const Images = styled(Gallery)`
   margin-bottom: 5px;
-  padding-top: 80px;
+  padding-top: 60px;
+
+  ${media.greaterThan('medium')`
+    padding-top: 80px;
+  `}
 `;
 
 export const Container = styled.section`

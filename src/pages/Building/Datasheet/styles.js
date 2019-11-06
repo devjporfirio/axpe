@@ -51,7 +51,7 @@ export const BlockThree = styled(Block)`
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  height: 240px;
+  min-height: 240px;
 
   div {
     flex-basis: 50%;
