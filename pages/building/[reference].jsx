@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Api from 'services';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import SimilarBuilding from 'components/SimilarBuilding';
+import SimilarBuilding from 'components/Building';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // components
 import Button from 'components/Button';
 import BlockHighlighted from 'components/BlockHighlighted';
-import SimilarBuilding from 'components/SimilarBuilding';
+import Building from 'components/Building';
 import Contact from 'components/Contact';
 
 // helpers
@@ -156,7 +156,7 @@ function Search({ currentPage, total, totalPages, data }) {
 
             <Buildings>
               {buildings.length ? buildings.map((building, buildingIndex) => (
-                  <SimilarBuilding item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                  <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
                 )) : (
                 <BuildingsNotFound>
                   <p>Nenhum imóvel encontrado =(</p>

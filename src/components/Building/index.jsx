@@ -19,7 +19,7 @@ import {
   Description
 } from './styles';
 
-export default function SimilarBuilding({ item }) {
+export default function Building({ item }) {
   const { values, gallery, address, infos, slug, category } = item;
 
   return (
@@ -41,20 +41,21 @@ export default function SimilarBuilding({ item }) {
         </CatLocGroup>
 
         <ValuesFavGroup>
-          {!!values.sell || !!values.release ? (
-            <Price>
-              Venda: {!!values.sell && formatCurrency.format(values.sell)}
-              {!!values.release && formatCurrency.format(values.release)}
-            </Price>
-          ) : (
-            ''
-          )}
-          {!!values.rent ? (
-            <Price>Locação: {formatCurrency.format(values.rent)}</Price>
-          ) : (
-            ''
-          )}
-
+          <div>
+            {!!values.sell || !!values.release ? (
+              <Price>
+                Venda: {!!values.sell && formatCurrency.format(values.sell)}
+                {!!values.release && formatCurrency.format(values.release)}
+              </Price>
+            ) : (
+              ''
+            )}
+            {!!values.rent ? (
+              <Price>Locação: {formatCurrency.format(values.rent)}</Price>
+            ) : (
+              ''
+            )}
+          </div>
           <Favorito src={IHeartBlack} alt="Favorito" />
         </ValuesFavGroup>
         <CaracteristicsGroup>
@@ -81,7 +82,7 @@ export default function SimilarBuilding({ item }) {
           <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
         </CaracteristicsGroup>
 
-        <Description>{infos.shortDescription}</Description>
+        <Description>{infos.internalDescription}</Description>
       </Infos>
     </Container>
   );

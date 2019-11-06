@@ -5,9 +5,10 @@ import Gallery from 'components/Gallery';
 
 export const Container = styled.a`
   background-color: ${({ theme }) => theme.colors.white};
+  max-width: calc(100vw - 32px);
 
   ${media.greaterThan('medium')`
-    max-width: 1000px;
+    max-width: calc(1000px - 40px);
     height: 365px;
     margin: auto auto 20px auto;
     display: flex;
@@ -34,20 +35,23 @@ export const Infos = styled.div`
 
 export const Slider = styled(Gallery)`
   position: initial;
-  height: 365px;
+  max-height: 244px;
     
   .slick-slide {
     width: auto;
 
     img {
+      max-height: 244px;
       ${media.greaterThan('medium')`
-        max-width: 565px;
+        object-fit: cover;
+        width: 565px !important;
         max-height: 365px;
       `}
     }
   }
   
   ${media.greaterThan('medium')`
+    max-height: 365px;
     .slick-slider{
       max-width: 565px;
       max-height: 365px;
@@ -67,8 +71,14 @@ export const Slider = styled(Gallery)`
   `}
 `;
 
-export const Favorito = styled.img`
-  width: 17px;
+export const CatLocGroup = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  ${media.greaterThan('medium')`
+    align-items: flex-end;
+  `}
 `;
 
 export const Category = styled.h4`
@@ -79,6 +89,7 @@ export const Local = styled.h4`
   color: ${({ theme }) => theme.colors.orange} !important;
   font: 18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  text-transform: uppercase;
 
   ${media.greaterThan('medium')`
     font-size: 16px;
@@ -89,18 +100,13 @@ export const Reference = styled.p`
   font: 14px 'Raleway';
 `;
 
-export const Price = styled.p`
-  font: 18px 'Raleway';
-  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+export const Description = styled.p`
+  font: 17px 'Raleway';
+  margin-top: 20px;
 
   ${media.greaterThan('medium')`
     font-size: 16px;
   `};
-`;
-
-export const Description = styled.p`
-  font: 17px 'Raleway';
-  margin-top: 20px;
 `;
 
 const CenterBetween = css`
@@ -110,13 +116,32 @@ const CenterBetween = css`
 `;
 
 export const CaracteristicsGroup = styled.div`
-  ${CenterBetween};
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
 
   div {
-    flex-basis: 50%;
-    height: 65px;
+    margin-top: 17px;
+    height: 40px;
+    flex: 0 50%;
+
+    p {
+      font-size: 17px;
+    }
   }
+
+  ${media.greaterThan('medium')`
+    div {
+      margin-top: 20px;
+      height: 31px;
+      flex: 0 50%;
+    }
+    p{ 
+      font-size: 14px !important;
+      line-height: 14px !important;
+    }
+  `};
 `;
 
 export const ValuesFavGroup = styled.div`
@@ -124,8 +149,18 @@ export const ValuesFavGroup = styled.div`
   margin-top: 20px;
 `;
 
-export const CatLocGroup = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+export const Favorito = styled.img`
+  width: 17px;
+`;
+
+export const Price = styled.p`
+  width: 100%;
+  font: 18px 'Raleway';
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  line-height: 28px;
+
+  ${media.greaterThan('medium')`
+    line-height: 16px;
+    font-size: 16px;
+  `};
 `;

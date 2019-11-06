@@ -25,7 +25,7 @@ export const Container = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: row;
     align-items: center;
   `}
@@ -53,6 +53,7 @@ export const Container = styled.div`
 `;
 
 const ContactHome = css`
+  width: 305px;
   span {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
@@ -103,6 +104,7 @@ const Contact = css`
 `;
 
 const ContactWork = css`
+  width: 301px;
   span {
     font-size: 24px;
     font-family: 'Raleway';
@@ -128,6 +130,7 @@ const ContactWork = css`
 `;
 
 const NotFound = css`
+  width: 288px;
   span:nth-child(1) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
@@ -146,6 +149,7 @@ const NotFound = css`
 `;
 
 const Planta = css`
+  width: 257px;
   span {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
@@ -168,12 +172,13 @@ export const Link = styled(Button)`
 
 export const Highlighted = styled.h4`
   text-align: left;
-  width: 315px;
 
   span {
     font-size: 40px;
     line-height: 47px;
   }
+
+  ${media.greaterThan('medium')`margin-right: 107px;`}
 
   ${props => props.type === 'contactHome' && ContactHome}
   ${props => props.type === 'contact' && Contact}

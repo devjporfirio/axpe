@@ -82,6 +82,7 @@ export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
   background-size: cover;
   display: block;
+  object-fit: cover;
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
