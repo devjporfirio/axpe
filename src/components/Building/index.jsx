@@ -81,7 +81,7 @@ export default function Building({ item }) {
           <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
         </CaracteristicsGroup>
 
-        <Description>{infos.shortDescription}</Description>
+        <Description>{infos.internalDescription}</Description>
       </Infos>
     </Container>
   );

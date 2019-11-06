@@ -34,15 +34,15 @@ export const Infos = styled.div`
 
 export const Slider = styled(Gallery)`
   position: initial;
-  height: 365px;
     
   .slick-slide {
     width: auto;
 
     img {
       ${media.greaterThan('medium')`
-        max-width: 565px;
-        max-height: 365px;
+        object-fit: cover;
+        width: 565px !important;
+        height: 365px;
       `}
     }
   }

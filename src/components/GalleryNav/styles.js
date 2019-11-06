@@ -11,6 +11,7 @@ export const SliderNav1 = styled(Slider)`
   top: 67px;
 
   img {
+    object-fit: cover;
     max-height: 100vw;
     max-width: 100vw;
     margin: auto;
@@ -33,6 +34,7 @@ export const SliderNav2 = styled(Slider)`
   width: 100%;
 
   img {
+    object-fit: cover;
     max-height: 100px;
     max-width: 100px;
     margin: auto;
