@@ -85,7 +85,7 @@ export const Socials = styled.div`
 export const SocialsButton = styled.a`
   display: block;
   width: 70px;
-  font: 14px 'Raleway';
+  font: 12px 'Raleway';
   text-align: center;
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   transition: all 300ms ease;
@@ -101,6 +101,10 @@ export const SocialsButton = styled.a`
     margin: 0 auto 10px auto;
     transition: all 300ms ease;
   }
+
+  ${media.greaterThan('medium')`
+    font-size: 14px;
+  `}
 
   ${media.greaterThan('1024px')`
     &:hover {

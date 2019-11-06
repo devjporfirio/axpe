@@ -82,6 +82,14 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
     dispatch(setSearch({ active: !search.active }))
   }
 
+  function toggleShare() {
+    setShareActive(!shareActive)
+  }
+
+  function shareOnClose() {
+    setShareActive(!shareActive)
+  }
+
   function handleOrderBy(event) {
     setOrderBy(event.target.value);
   }
@@ -137,7 +145,7 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
                 <HeaderbarButton type="button">
                   <SVG src={AlertIconSVG} uniquifyIDs={true} />
                 </HeaderbarButton>
-                <HeaderbarButton type="button" onClick={() => setShareActive(true)}>
+                <HeaderbarButton type="button" onClick={toggleShare}>
                   <SVG src={ShareIconSVG} uniquifyIDs={true} />
                 </HeaderbarButton>
                 <HeaderbarContactButton>Fale conosco</HeaderbarContactButton>
@@ -196,7 +204,7 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
         </>
       : null}
 
-      <Share active={shareActive} path={router.asPath} title={`Axpe - Resultado de Busca`} />
+      <Share active={shareActive} path={router.asPath} title={`Axpe - Resultado de Busca`} onClose={shareOnClose} />
     </Container>
   )
 }

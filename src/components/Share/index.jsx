@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import SVG from 'react-inlinesvg';
 import ClipboardJS from 'clipboard';
 
@@ -9,8 +10,14 @@ import TwitterRoundedIconSVG from 'assets/icons/twitter-rounded';
 import LinkedinRoundedIconSVG from 'assets/icons/linkedin-rounded';
 
 // styles
-import { Container, Wrapper, Header, Socials, SocialsButton, Copy } from './styles';
-
+import {
+  Container,
+  Wrapper,
+  Header,
+  Socials,
+  SocialsButton,
+  Copy
+} from './styles';
 
 function Share({ active, path, title, onClose }) {
   const [ url, setUrl ] = useState(null);
@@ -18,6 +25,7 @@ function Share({ active, path, title, onClose }) {
   const copySubmitButton = useRef(null);
 
   function handleClose() {
+    onClose();
   }
 
   function attachClipboard() {
@@ -37,8 +45,8 @@ function Share({ active, path, title, onClose }) {
   }, [ active ])
 
   return (
-    <Container active={active}>
-      <Wrapper>
+    <Container active={active} onClick={handleClose}>
+      <Wrapper onClick={event => event.stopPropagation()}>
         <Header>
           <h6>Compartilhar</h6>
           <button type="button" onClick={handleClose}>Fechar</button>
@@ -66,6 +74,12 @@ function Share({ active, path, title, onClose }) {
       </Wrapper>
     </Container>
   )
+}
+
+Share.propTypes = {
+  active: PropTypes.bool.isRequired,
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default Share;
