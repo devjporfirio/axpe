@@ -10,8 +10,9 @@ import { setSearch } from 'store/modules/search/actions'
 // components
 import Button from 'components/Button';
 import BlockHighlighted from 'components/BlockHighlighted';
-import SimilarBuilding from 'components/SimilarBuilding';
 import Contact from 'components/Contact';
+import SimilarBuilding from 'components/SimilarBuilding';
+import Share from 'components/Share';
 
 // helpers
 import { getUrl } from 'helpers/utils'
@@ -54,6 +55,7 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
   const [ buildings, setBuildings ] = useState(null);
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
+  const [ shareActive, setShareActive ] = useState(false);
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
   function getSourceText() {
@@ -117,30 +119,32 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
 
   return (
     <Container>
-      <Headerbar>
-        <HeaderbarBackButton type="button" onClick={toggleSearch}>Voltar</HeaderbarBackButton>
-
-        {source && (
-          <h2>{getSourceText()}</h2>
-        )}
-
-        {finality && (
-          <h3>Imóveis para {getFinalityText()}</h3>
-        )}
-
-        <div>
-          <HeaderbarButton type="button">
-            <SVG src={AlertIconSVG} uniquifyIDs={true} />
-          </HeaderbarButton>
-          <HeaderbarButton type="button">
-            <SVG src={ShareIconSVG} uniquifyIDs={true} />
-          </HeaderbarButton>
-          <HeaderbarContactButton>Fale conosco</HeaderbarContactButton>
-        </div>
-      </Headerbar>
-
       {dataLoaded ?
         <>
+          {total ? (
+            <Headerbar>
+              <HeaderbarBackButton type="button" onClick={toggleSearch}>Voltar</HeaderbarBackButton>
+
+              {source && (
+                <h2>{getSourceText()}</h2>
+              )}
+
+              {finality && (
+                <h3>Imóveis para {getFinalityText()}</h3>
+              )}
+
+              <div>
+                <HeaderbarButton type="button">
+                  <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                </HeaderbarButton>
+                <HeaderbarButton type="button" onClick={() => setShareActive(true)}>
+                  <SVG src={ShareIconSVG} uniquifyIDs={true} />
+                </HeaderbarButton>
+                <HeaderbarContactButton>Fale conosco</HeaderbarContactButton>
+              </div>
+            </Headerbar>
+          ) : null}
+
           <Wrapper>
             {total ? (
               <Header>
@@ -161,16 +165,18 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
               </Header>
             ) : null}
 
-            <ButtonBack type="button" onClick={toggleSearch}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </ButtonBack>
+            {total ? (
+              <ButtonBack type="button" onClick={toggleSearch}>
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+              </ButtonBack>
+            ) : null}
 
             <Buildings>
               {total ? buildings.map((building, buildingIndex) => (
                   <SimilarBuilding item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
                 )) : (
                 <BuildingsNotFound>
-                  <h6>Não encontramos o imóvel que você procura<br/>:(</h6>
+                  <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
                   <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
                 </BuildingsNotFound>
               )}
@@ -184,10 +190,13 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
               ) : null}
             </Buildings>
           </Wrapper>
+
           <BlockHighlighted type="notfound" />
           <Contact />
         </>
       : null}
+
+      <Share active={shareActive} path={router.asPath} title={`Axpe - Resultado de Busca`} />
     </Container>
   )
 }

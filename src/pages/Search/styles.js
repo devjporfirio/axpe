@@ -160,8 +160,9 @@ export const Wrapper = styled.div`
   padding-bottom: 30px;
 
   ${media.greaterThan('medium')`
-    padding: 0 30px;
-    margin: 62px auto 0 auto;
+    padding: 62px 30px 0 30px;
+    margin: 0 auto;
+    min-height: calc(100vh - 268px);
     padding-bottom: 60px;
   `}
 
@@ -273,7 +274,7 @@ export const ButtonBack = styled.button`
     bottom: 0;
     left: 200px;
     width: 24px;
-    height: calc(100% - 62px);
+    height: calc(100%);
     background: ${({ theme }) => theme.colors.green};
     font-size: 0;
 
@@ -301,14 +302,18 @@ export const BuildingsNotFound = styled.div`
 
   h6 {
     margin-bottom: 20px;
-    font: 20px/26px 'Bitter';
+    font: 30px/40px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
     color: ${({ theme }) => theme.colors.orange};
+
+    span {
+      display: block;
+      color: ${({ theme }) => theme.colors.orange};
+    }
   }
 
   p {
-    font: 22px/26px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    font: 30px/36px 'Bitter';
   }
 
   button {
@@ -316,7 +321,18 @@ export const BuildingsNotFound = styled.div`
   }
 
   ${media.greaterThan('medium')`
+    h6 {
+      font-size: 45px;
+      line-height: 55px;
 
+      span {
+        display: inline;
+      }
+    }
+
+    p {
+      line-height: 49px;
+    }
   `}
 `;
 
