@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'components/Slider';
-import GalleryNav from 'components/GalleryNav';
-import FullImage from 'components/FullImage';
+import GalleryNav from './GalleryNav';
+import GalleryFull from './GalleryFull';
 import I360 from 'assets/icons/360.svg';
 import IGrid from 'assets/icons/grid.svg';
 import { Container, Image, Video, Button360, SizeGallery } from './styles';
@@ -19,7 +19,7 @@ export default function Gallery({
   local
 }) {
   const [ showGalleryNav, setShowGalleryNav ] = useState(false);
-  const [ showFullImage, setShowFullImage ] = useState(false);
+  const [ showGalleryFull, setShowGalleryFull ] = useState(false);
   const [ imageSelected, setImageSelected ] = useState(null);
 
   return (
@@ -56,7 +56,7 @@ export default function Gallery({
                     onClick={() => {
                       if (showClickImage) {
                         setImageSelected(index);
-                        setShowFullImage(true);
+                        setShowGalleryFull(true);
                       }
                     }}
                     key={index}
@@ -93,11 +93,11 @@ export default function Gallery({
         />
       )}
 
-      {showFullImage && (
-        <FullImage
+      {showGalleryFull && (
+        <GalleryFull
           goTo={imageSelected}
           items={items}
-          onClose={() => setShowFullImage(false)}
+          onClose={() => setShowGalleryFull(false)}
           category={category}
           local={local}
         />

@@ -107,7 +107,16 @@ const TypeSlickSmall = css`
 
 const TypeDestaqueTexto = css`
   width: auto !important;
+  height: auto !important;
   padding: 20px 30px !important;
+
+  hr + p {
+    display: block !important;
+  }
+
+  p {
+    line-height: 25px !important;
+  }
 
   ${media.greaterThan('medium')`
     background: url(${IRectangle}) center no-repeat;
@@ -133,6 +142,12 @@ const TypeDestaqueTextoBullets = css`
   ${TypeSlick}
   ${TypeDestaqueTexto}
   background-color: ${({ theme }) => theme.colors.green};
+  margin-left: 0 !important;
+
+  h4 {
+    font-size: 22px;
+    line-height: 28.6px;
+  }
 
   ul {
     columns: 2;
@@ -236,7 +251,6 @@ export const Container = styled.section`
       padding: 20px 8%;
       height: 240px;
   `}
-  
 `};
 
   ${media.greaterThan('medium')`

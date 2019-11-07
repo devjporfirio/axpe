@@ -76,12 +76,17 @@ export const Slide = styled.div`
       justify-content: space-between;
       flex-direction: row-reverse;
   `}
+
+  ${props =>
+    props.type === 'slickSmall' &&
+    media.greaterThan('medium')`max-width: 304px;`}
 `;
 
 export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
   background-size: cover;
   display: block;
+  object-fit: cover;
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&

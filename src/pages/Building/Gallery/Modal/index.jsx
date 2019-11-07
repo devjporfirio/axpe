@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ButtonClose, Header } from './styles';
+import { Container, ButtonClose, Header, Icon } from './styles';
 
 import IClose from 'assets/icons/close-white.svg';
 import ICloseGreen from 'assets/icons/close-green.svg';
@@ -18,8 +18,8 @@ export default function Modal({
         onClick={closeModal}
       >
         <span>Fechar</span>
-        <img mq="mobile" src={ICloseGreen} alt="Fechar" />
-        <img mq="dektop" src={IClose} alt="Fechar" />
+        <Icon mq="mobile" src={ICloseGreen} alt="Fechar" />
+        <Icon mq="dektop" src={IClose} alt="Fechar" />
       </ButtonClose>
 
       {children}
