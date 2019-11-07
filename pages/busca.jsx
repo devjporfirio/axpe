@@ -146,10 +146,13 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
     if(currentPage !== page) {
       setIsLoading(true);
       getDataByPage();
-    } else if(!dataLoaded) {
-      dispatch(setMain({ headerHiding: true }));
+    } else {
       setNewData(data, true);
-      setDataLoaded(true);
+
+      if(!dataLoaded) {
+        dispatch(setMain({ headerHiding: true }));
+        setDataLoaded(true);
+      }
     }
   }, [ page, total ]);
 

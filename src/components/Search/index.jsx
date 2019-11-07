@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -11,10 +11,10 @@ import { setMain } from 'store/modules/main/actions';
 
 // components
 import SearchIconSVG from 'assets/icons/search';
-import Input from 'components/Search/FormElements/Input'
-import InputSource from 'components/Search/FormElements/InputSource'
-import ButtonSource from 'components/Search/FormElements/ButtonSource'
-import RangeSlider from 'components/Search/FormElements/RangeSlider'
+import Input from 'components/Search/FormElements/Input';
+import InputSource from 'components/Search/FormElements/InputSource';
+import ButtonSource from 'components/Search/FormElements/ButtonSource';
+import RangeSlider from 'components/Search/FormElements/RangeSlider';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
