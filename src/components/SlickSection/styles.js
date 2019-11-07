@@ -185,6 +185,7 @@ export const GreenBlock = styled.div`
   }
 
   ${media.greaterThan('medium')`
+    min-width: 331px;
     width: 331px;
     height: 277px;
     border: 3.5px solid ${({ theme }) => theme.colors.white};
