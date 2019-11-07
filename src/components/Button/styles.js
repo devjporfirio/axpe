@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import media from 'styled-media-query';
 
 export const ButtonStyle = css`
   display: inline-block;
@@ -12,6 +13,12 @@ export const ButtonStyle = css`
   color: ${({ theme }) => theme.colors.white};
   text-transform: uppercase;
   padding: 0 25px;
+  transition: all 300ms ease;
+
+  &[disabled] {
+    opacity: 0.2;
+    cursor: default;
+  }
 
   ${props =>
     props.fullWidth &&
@@ -19,9 +26,16 @@ export const ButtonStyle = css`
       width: 100%;
     `}
 
-  &[disabled] {
-    opacity: 0.2;
-    cursor: default;
+  ${media.greaterThan('1024px')`
+    ${props =>
+      !props.color || (props.color === 'orange' && ButtonStyleDesktopOrange)}
+  `}
+`;
+
+export const ButtonStyleDesktopOrange = css`
+  &:hover {
+    /* background-color: ${({ theme }) => theme.colors.orange}; */
+    opacity: 0.7;
   }
 `;
 
