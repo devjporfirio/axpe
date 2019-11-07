@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Api from 'services';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
@@ -16,10 +16,25 @@ import {
   PanelSimilar
 } from 'pages/Building/styles';
 
-function Building({ property, similarBuildings }) {
+function Building({ property }) {
+  const [ similarBuildings, setSimilarBuildings ] = useState([]);
+
   useEffect(() => {
     User.setBuildingSeen(property);
-  });
+
+    async function loadSimilarBuildings() {
+      const similar = await Api.Building.getSimilar(property, 3);
+      const buildings =
+        similar &&
+        similar.data &&
+        similar.data.length > 0 &&
+        similar.data.filter(x => x.reference !== property.reference);
+
+      setSimilarBuildings(buildings);
+    }
+
+    loadSimilarBuildings();
+  }, []);
 
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;
@@ -81,17 +96,10 @@ function Building({ property, similarBuildings }) {
 Building.getInitialProps = async ({ query }) => {
   const reference = query.reference;
   const response = await Api.Building.getPage(reference);
-  const similar = await Api.Building.getSimilar(response.building, 3);
-  const buildings =
-    similar &&
-    similar.data &&
-    similar.data.length > 0 &&
-    similar.data.filter(x => x.reference !== reference);
-  
+
   return {
     reference: query.reference,
-    property: response.building,
-    similarBuildings: buildings
+    property: response.building
   };
 };
 

@@ -113,7 +113,7 @@ function Home({ hero, components }) {
           if (c.type === 'buildingsSeen') {
             return (
               buildingsSeen &&
-              buildingsSeen.length > 2 && (
+              buildingsSeen.length > 0 && (
                 <PanelBuildings
                   key={c.type}
                   className={c.type}
