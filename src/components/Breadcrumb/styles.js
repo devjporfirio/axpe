@@ -12,11 +12,11 @@ export const Container = styled.div`
   width: 100vw;
   padding: 10px 20px;
   background-color: ${({ theme }) => theme.colors.white};
+  z-index: 99;
 
   ${media.greaterThan('medium')`
     border: none;
     width: calc(100% - 200px);
-    z-index: 99;
     top: 0;
   `}
 `;

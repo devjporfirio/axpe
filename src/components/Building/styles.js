@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-import Gallery from 'components/Gallery';
+import Gallery from 'components/Slider';
 
-export const Container = styled.a`
+export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   max-width: calc(100vw - 32px);
+  margin: auto;
 
   ${media.greaterThan('medium')`
     max-width: calc(1000px - 40px);
@@ -36,38 +37,20 @@ export const Infos = styled.div`
 export const Slider = styled(Gallery)`
   position: initial;
   max-height: 244px;
-    
-  .slick-slide {
-    width: auto;
+
+  img {
+    max-height: 244px;
+  }
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+    max-width: 565px;
+    max-height: 365px;
 
     img {
-      max-height: 244px;
-      ${media.greaterThan('medium')`
-        object-fit: cover;
-        width: 565px !important;
-        max-height: 365px;
-      `}
-    }
-  }
-  
-  ${media.greaterThan('medium')`
-    max-height: 365px;
-    .slick-slider{
       max-width: 565px;
       max-height: 365px;
     }
-  `}
-
-  ${props =>
-    props.mq === 'mobile' &&
-    media.greaterThan('medium')`
-      display: none !important;
-  `}
-
-  ${props =>
-    props.mq === 'desktop' &&
-    media.lessThan('medium')`
-      display: none !important;
   `}
 `;
 

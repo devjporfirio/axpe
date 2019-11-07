@@ -20,17 +20,31 @@ import {
 } from './styles';
 
 export default function Building({ item }) {
-  const { values, gallery, address, infos, slug, category } = item;
+  const { values, gallery, address, infos, category } = item;
 
   return (
-    <Container href={`/building/${slug}`}>
-      <Slider
-        propsArrow={{ position: 'center', type: '', backgroundColor: 'white' }}
-        center={false}
-        showSizeGallery={false}
-        items={gallery}
-        showClickImage={false}
-      />
+    <Container>
+      <Slider propsArrow={{ type: 'building', backgroundColor: 'white' }}>
+        {gallery &&
+          gallery.length > 0 &&
+          gallery.map((item, index) => {
+            switch (item.tipo) {
+              case 'imagem':
+                return <img key={index} src={item.src} alt="Imóvel" />;
+              case 'video':
+                return (
+                  <iframe
+                    title={index}
+                    key={index}
+                    src={item.video}
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  />
+                );
+            }
+          })}
+      </Slider>
       <Infos>
         <CatLocGroup>
           <div>

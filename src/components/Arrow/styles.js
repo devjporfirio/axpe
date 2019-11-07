@@ -202,6 +202,17 @@ export const ArrowNext = styled(Arrow)`
   ${props => props.type === 'gallery-show-3' && galeriaShow3Next}
   ${props => props.position === 'right' && positionRightNext}
   ${props => props.position === 'left' && positionLeftNext}
+  ${props =>
+    props.type === 'building' &&
+    css`
+      margin-top: -142.5px;
+      right: 15px;
+      ${media.greaterThan('medium')`
+        right: auto;
+        margin-top: -200px;
+        margin-left: 530px;
+      `}
+    `}
 `;
 
 export const ArrowPrev = styled(Arrow)`
@@ -211,4 +222,12 @@ export const ArrowPrev = styled(Arrow)`
   ${props => props.type === 'together' && typeTogetherPrev}
   ${props => props.position === 'right' && positionRightPrev}
   ${props => props.position === 'left' && positionLeftPrev}
+  ${props =>
+    props.type === 'building' &&
+    css`
+      margin-top: 104.5px;
+      ${media.greaterThan('medium')`
+        margin-top: 165px;
+      `}
+    `}
 `;
