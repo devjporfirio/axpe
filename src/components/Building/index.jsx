@@ -32,13 +32,11 @@ export default function Building({ item }) {
             switch (item.tipo) {
               case 'imagem':
                 return (
-                  <Link
-                    key={index}
-                    href="/building/[reference]"
-                    as={`/building/${slug}`}
-                  >
-                    <img src={item.src} alt="Imóvel" />
-                  </Link>
+                  <div key={index}>
+                    <Link href="/building/[reference]" as={`/building/${slug}`}>
+                      <img src={item.src} alt="Imóvel" />
+                    </Link>
+                  </div>
                 );
               case 'video':
                 return (
@@ -46,9 +44,9 @@ export default function Building({ item }) {
                     title={index}
                     key={index}
                     src={item.video}
-                    frameborder="0"
+                    frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
+                    allowFullScreen
                   />
                 );
             }

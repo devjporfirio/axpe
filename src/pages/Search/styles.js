@@ -14,9 +14,14 @@ export const Container = styled.section`
 `;
 
 export const Headerbar = styled.div`
-  position: relative;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
   padding: 10px 30px 10px 60px;
   background: ${({ theme }) => theme.colors.white};
+  z-index: 10;
+  transition: all 50ms ease;
 
   h2 {
     font: 18px/28px 'Bitter';
@@ -40,7 +45,6 @@ export const Headerbar = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    position: fixed;
     top: 0;
     left: 200px;
     width: calc(100% - 200px);
@@ -48,7 +52,6 @@ export const Headerbar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 10;
 
     h3 {
       margin-left: 30px;
@@ -155,6 +158,23 @@ export const HeaderbarContactButton = styled.button`
   `}
 `;
 
+export const Wrapper = styled.div`
+  width: 100%;
+  padding: 62px 0 30px 0;
+
+  ${media.greaterThan('medium')`
+    padding: 62px 30px;
+    margin: 0 auto;
+    min-height: calc(100vh - 268px);
+  `}
+
+  ${media.greaterThan('1024px')`
+    width: 80%;
+    padding-left: 0;
+    padding-right: 0;
+  `}
+`;
+
 export const Header = styled.header`
   padding: 15px;
   display: flex;
@@ -172,8 +192,6 @@ export const Header = styled.header`
   }
 
   ${media.greaterThan('medium')`
-    width: 80%;
-    margin: 62px auto 20px auto;
     padding: 50px 0 0;
     flex-direction: row;
     align-items: flex-end;
@@ -247,16 +265,6 @@ export const HeaderCombo = styled.div`
   `}
 `;
 
-export const Wrapper = styled.div`
-  padding-bottom: 30px;
-
-  ${media.greaterThan('medium')`
-    width: 80%;
-    margin: 0 auto;
-    padding-bottom: 60px;
-  `}
-`;
-
 export const ButtonBack = styled.button`
   display: none;
 
@@ -268,7 +276,7 @@ export const ButtonBack = styled.button`
     bottom: 0;
     left: 200px;
     width: 24px;
-    height: calc(100% - 62px);
+    height: calc(100%);
     background: ${({ theme }) => theme.colors.green};
     font-size: 0;
 
@@ -290,13 +298,44 @@ export const Buildings = styled.div`
 `;
 
 export const BuildingsNotFound = styled.div`
-  p {
-    width: 100%;
-    font: 20px/23px 'Bitter';
-    text-align: center;
+  width: 100%;
+  padding: 50px 30px;
+  margin-bottom: 50px;
+
+  h6 {
+    margin-bottom: 20px;
+    font: 30px/40px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
-    color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.orange};
+
+    span {
+      display: block;
+      color: ${({ theme }) => theme.colors.orange};
+    }
   }
+
+  p {
+    font: 30px/36px 'Bitter';
+  }
+
+  button {
+    text-decoration: underline;
+  }
+
+  ${media.greaterThan('medium')`
+    h6 {
+      font-size: 45px;
+      line-height: 55px;
+
+      span {
+        display: inline;
+      }
+    }
+
+    p {
+      line-height: 49px;
+    }
+  `}
 `;
 
 export const BuildingsLoadMore = styled.div`

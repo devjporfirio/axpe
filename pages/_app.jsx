@@ -11,7 +11,6 @@ import configureStore from 'store';
 // actions
 import { setLoading } from 'store/modules/loading/actions';
 import { setMain } from 'store/modules/main/actions';
-import { setSearch } from 'store/modules/search/actions';
 
 import 'isomorphic-unfetch';
 import 'promise-polyfill/lib/polyfill';
@@ -38,7 +37,10 @@ class MyApp extends App {
 
   componentDidMount() {
     Router.events.on('routeChangeStart', () => {
-      this.props.store.dispatch(setSearch({ active: false }));
+      this.props.store.dispatch(setMain({
+        searchFormActive: false,
+        headerHiding: false
+      }));
       this.props.store.dispatch(setLoading({ active: true }));
     });
 

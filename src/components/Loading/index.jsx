@@ -1,17 +1,13 @@
 import React from 'react'
 import { connect, useSelector } from 'react-redux';
-import SVG from 'react-inlinesvg';
-import { Container } from './styles';
+import { Container, Loader } from './styles';
 
-// assets
-import AxpeFullLogoSVG from 'assets/axpe-full-logo.svg';
-
-function Loading(props) {
+function Loading() {
   const { active, type } = useSelector(state => state.loading);
 
   return (
     <Container active={active} type={type}>
-      <SVG src={AxpeFullLogoSVG} />
+      <Loader />
     </Container>
   )
 }

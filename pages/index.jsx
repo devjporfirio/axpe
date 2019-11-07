@@ -9,7 +9,7 @@ import Contact from 'components/Contact';
 
 // helpers
 import { suffle } from 'helpers/utils';
-import User from 'helpers/User';
+import User from 'helpers/user';
 
 // styles
 import { Container, Banner, GroupSlider } from 'pages/Home/styles';

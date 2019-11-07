@@ -68,9 +68,9 @@ export default function Gallery({
                   <Video
                     key={index}
                     src={item.video}
-                    frameborder="0"
+                    frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
+                    allowFullScreen
                   />
                 );
             }

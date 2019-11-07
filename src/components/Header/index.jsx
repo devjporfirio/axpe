@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link'
 import SVG from 'react-inlinesvg';
 
 // actions
-import { setSearch } from 'store/modules/search/actions';
+import { setMain } from 'store/modules/main/actions';
+
+// helpers
+import useScrollPosition from 'helpers/scroll-position';
 
 // assets
 import SearchIconSVG from 'assets/icons/search';
@@ -43,27 +46,54 @@ import {
   Creci
 } from './styles';
 
-function Header({ dispatch }) {
-  const search = useSelector(state => state.search);
-  const [ navToggle, setNavToggle ] = useState(false)
+function Header() {
+  const dispatch = useDispatch();
+  const refHeader = useRef(null);
+  const { headerHiding, searchFormActive } = useSelector(state => state.main);
+  const [ navToggle, setNavToggle ] = useState(false);
+  const scrollPosition = useScrollPosition();
 
-  function handleToggle() {
+  const handleScrollPosition = useCallback(([ curTop, oldTop ]) => {
+    if(!refHeader || !headerHiding) return false;
+
+    if(window.innerWidth >= 768) {
+      refHeader.current.style.top = `0px`;
+      return false;
+    }
+
+    let top = curTop > oldTop ? -curTop : 0;
+
+    if(top <= -70) {
+      top = -70;
+    } else if(top > 0) {
+      top = 0;
+    }
+
+    refHeader.current.style.top = `${top}px`;
+  }, [ headerHiding ]);
+
+  const handleToggle = useCallback(() => {
     setNavToggle(!navToggle);
-  }
+  }, [ navToggle ])
 
-  function toggleSearch() {
-    if(!search.active && navToggle) {
+  const toggleSearch = useCallback(() => {
+    if(!searchFormActive && navToggle) {
       handleToggle();
     }
-    dispatch(setSearch({ active: !search.active }))
-  }
+
+    dispatch(setMain({ searchFormActive: !searchFormActive }))
+  }, [ searchFormActive, navToggle ])
 
   function cancelToggle() {
     setNavToggle(false);
   }
 
+  useEffect(() => {
+    handleScrollPosition(scrollPosition);
+  }, [ scrollPosition ])
+
   return (
-    <Container>
+    <Container ref={refHeader}>
       <Wrapper>
 
         <AxpeLogo type="axpe">
@@ -91,7 +121,7 @@ function Header({ dispatch }) {
           <NavMain>
             <ul>
               <li>
-                <NavMainButtonSearch type="button" active={search.active} onClick={toggleSearch}>
+                <NavMainButtonSearch type="button" active={searchFormActive} onClick={toggleSearch}>
                   <SVG src={SearchIconSVG} uniquifyIDs={true} />
                   <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                 </NavMainButtonSearch>
@@ -187,4 +217,4 @@ function Header({ dispatch }) {
   );
 }
 
-export default connect()(Header);
+export default Header;

@@ -6,7 +6,7 @@ import SimilarBuilding from 'components/Building';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 
-import User from 'helpers/User';
+import User from 'helpers/user';
 
 import {
   Container,

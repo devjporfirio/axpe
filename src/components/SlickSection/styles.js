@@ -25,6 +25,10 @@ const SlickLarge = media.greaterThan('medium')`
     flex-direction: column;
   }
 
+  .slick-list {
+    height: 560px;
+  }
+
   .slick-slide.slick-active div {
     width: 100%;
   }

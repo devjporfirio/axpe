@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { connect, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import { useRouter } from 'next/router'
+
+// store
+import { setMain } from 'store/modules/main/actions'
 
 // components
 import Button from 'components/Button';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Building from 'components/Building';
 import Contact from 'components/Contact';
+import Share from 'components/Share';
 
 // helpers
+import useScrollPosition from 'helpers/scroll-position';
 import { getUrl } from 'helpers/utils'
 
 // assets
@@ -33,9 +39,12 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ currentPage, total, totalPages, data }) {
-  const router = useRouter()
+function Search({ dispatch, currentPage, total, totalPages, data }) {
+  const router = useRouter();
   const { query, query: { source, finality } } = router;
+  const { searchFormActive } = useSelector(state => state.main);
+  const refHeaderbar = useRef(null);
+  const scrollPosition = useScrollPosition();
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'mais-recentes' },
@@ -47,19 +56,46 @@ function Search({ currentPage, total, totalPages, data }) {
   const [ orderBy, setOrderBy ] = useState(orderOptions[0].value);
   const [ page, setPage ] = useState(+query.page || 1);
   const [ buildings, setBuildings ] = useState(null);
+  const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
+  const [ shareActive, setShareActive ] = useState(false);
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
-  function getSourceText() {
+  const handleScrollPosition = ([ curTop, oldTop ]) => {
+    const startTopHeaderbar = window.innerWidth < 768 ? 70 : 0;
+
+    if(!refHeaderbar || !refHeaderbar.current) return false;
+
+    if(!startTopHeaderbar) {
+      refHeaderbar.current.style.top = `0px`;
+      return false;
+    }
+
+    let topHeaderbar = curTop > oldTop ? startTopHeaderbar - curTop : startTopHeaderbar;
+
+    if(topHeaderbar < 0) {
+      topHeaderbar = 0;
+    } else if(topHeaderbar > startTopHeaderbar) {
+      topHeaderbar = startTopHeaderbar;
+    }
+
+    refHeaderbar.current.style.top = `${topHeaderbar}px`;
+  };
+
+  useEffect(() => {
+    handleScrollPosition(scrollPosition);
+  }, scrollPosition);
+
+  const getSourceText = useCallback(() => {
     switch(source) {
       case 'sao-paulo':
         return 'São Paulo';
       default:
         return source;
     }
-  }
+  }, [ source ])
 
-  function getFinalityText() {
+  const getFinalityText = useCallback(() => {
     switch(finality) {
       case 'venda':
         return 'comprar';
@@ -68,21 +104,33 @@ function Search({ currentPage, total, totalPages, data }) {
       default:
         return finality;
     }
-  }
+  }, [ finality ]);
 
-  function handleOrderBy(event) {
+  const toggleSearch = useCallback(() => {
+    dispatch(setMain({ searchFormActive: !searchFormActive }))
+  }, [ searchFormActive ]);
+
+  const toggleShare = useCallback(() => {
+    setShareActive(!shareActive)
+  }, [ shareActive ]);
+
+  const shareOnClose = useCallback(() => {
+    setShareActive(!shareActive)
+  }, [ shareActive ]);
+
+  const handleOrderBy = (event) => {
     setOrderBy(event.target.value);
   }
 
-  function setNewData(newData) {
-    const newBuildings = buildings && buildings.length ? [ ...buildings, ...newData ] : [ ...newData ];
+  const setNewData = useCallback((newData, first) => {
+    const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
     setBuildings(newBuildings);
     setIsLoading(false);
-  }
+  }, [ buildings ]);
 
-  function loadMore() {
+  const loadMore = useCallback(() => {
     setPage(page + 1);
-  }
+  }, [ page ])
 
   useEffect(() => {
     const getDataByPage = async () => {
@@ -98,72 +146,78 @@ function Search({ currentPage, total, totalPages, data }) {
     if(currentPage !== page) {
       setIsLoading(true);
       getDataByPage();
-    } else {
-      setNewData(data);
+    } else if(!dataLoaded) {
+      dispatch(setMain({ headerHiding: true }));
+      setNewData(data, true);
+      setDataLoaded(true);
     }
-
-  }, [ page ]);
+  }, [ page, total ]);
 
   return (
     <Container>
-      <Headerbar>
-        <HeaderbarBackButton type="button">Voltar</HeaderbarBackButton>
-
-        {source && (
-          <h2>{getSourceText()}</h2>
-        )}
-
-        {finality && (
-          <h3>Imóveis para {getFinalityText()}</h3>
-        )}
-
-        <div>
-          <HeaderbarButton type="button">
-            <SVG src={AlertIconSVG} uniquifyIDs={true} />
-          </HeaderbarButton>
-          <HeaderbarButton type="button">
-            <SVG src={ShareIconSVG} uniquifyIDs={true} />
-          </HeaderbarButton>
-          <HeaderbarContactButton>Fale conosco</HeaderbarContactButton>
-        </div>
-      </Headerbar>
-
-      {buildings ?
+      {dataLoaded ?
         <>
-          <Header>
-            {buildings.length ? (
-              <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
-            ) : null}
-            <HeaderCombo>
-              <button type="button">
-                <strong>Ordenar por:</strong>
-                {orderBySelected.length ? (
-                  <span>{orderBySelected[0].label}</span>
-                ) : null}
-              </button>
-              <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
-                {orderOptions.map((orderItem, orderItemIndex) => (
-                  <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
-                ))}
-              </select>
-            </HeaderCombo>
-          </Header>
+          {total ? (
+            <Headerbar ref={refHeaderbar}>
+              <HeaderbarBackButton type="button" onClick={toggleSearch}>Voltar</HeaderbarBackButton>
+
+              {source && (
+                <h2>{getSourceText()}</h2>
+              )}
+
+              {finality && (
+                <h3>Imóveis para {getFinalityText()}</h3>
+              )}
+
+              <div>
+                <HeaderbarButton type="button">
+                  <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                </HeaderbarButton>
+                <HeaderbarButton type="button" onClick={toggleShare}>
+                  <SVG src={ShareIconSVG} uniquifyIDs={true} />
+                </HeaderbarButton>
+                <HeaderbarContactButton>Fale conosco</HeaderbarContactButton>
+              </div>
+            </Headerbar>
+          ) : null}
 
           <Wrapper>
-            <ButtonBack type="button">
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </ButtonBack>
+            {total ? (
+              <Header>
+                <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
+                <HeaderCombo>
+                  <button type="button">
+                    <strong>Ordenar por:</strong>
+                    {orderBySelected.length ? (
+                      <span>{orderBySelected[0].label}</span>
+                    ) : null}
+                  </button>
+                  <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
+                    {orderOptions.map((orderItem, orderItemIndex) => (
+                      <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
+                    ))}
+                  </select>
+                </HeaderCombo>
+              </Header>
+            ) : null}
+
+            {total ? (
+              <ButtonBack type="button" onClick={toggleSearch}>
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+              </ButtonBack>
+            ) : null}
 
             <Buildings>
-              {buildings.length ? buildings.map((building, buildingIndex) => (
+              {total ? buildings.map((building, buildingIndex) => (
                   <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
                 )) : (
                 <BuildingsNotFound>
-                  <p>Nenhum imóvel encontrado =(</p>
+                  <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
+                  <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
                 </BuildingsNotFound>
               )}
 
-              {buildings.length && page < totalPages ? (
+              {total && page < totalPages ? (
                 <BuildingsLoadMore>
                   <Button type="button" onClick={loadMore} disabled={isLoading}>
                     {isLoading ? 'Carregando...' : 'Carregar mais'}
@@ -172,10 +226,13 @@ function Search({ currentPage, total, totalPages, data }) {
               ) : null}
             </Buildings>
           </Wrapper>
+
           <BlockHighlighted type="notfound" />
           <Contact />
         </>
       : null}
+
+      <Share active={shareActive} path={router.asPath} title={`Axpe - Resultado de Busca`} onClose={shareOnClose} />
     </Container>
   )
 }
@@ -186,4 +243,4 @@ Search.getInitialProps = async ({ query }) => {
   return response;
 }
 
-export default Search;
+export default connect()(Search);

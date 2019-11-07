@@ -17,9 +17,9 @@ export default function SlickText({ items }) {
             <iframe
               title={item.title}
               src={item.src}
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+              allowFullScreen
             />
           )}
           {item.mediaType === 'imagem' && (
