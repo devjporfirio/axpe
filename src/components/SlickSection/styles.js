@@ -76,6 +76,10 @@ export const Slide = styled.div`
       justify-content: space-between;
       flex-direction: row-reverse;
   `}
+
+  ${props =>
+    props.type === 'slickSmall' &&
+    media.greaterThan('medium')`max-width: 304px;`}
 `;
 
 export const Image = styled.img`
