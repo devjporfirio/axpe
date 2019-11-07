@@ -187,6 +187,13 @@ function Search({ dispatch }) {
     resetValuesOnChange();
   }
 
+  // if finality value change, reset values: ready_release, furnished
+  useEffect(() => {
+    formik.setFieldValue('ready_release', '');
+    formik.setFieldValue('furnished', '');
+    setTabActive(null);
+  }, [ formik.values.finality ])
+
   useEffect(() => {
     const getUses = async () => {
       const response = await Api.Search.getUses();
@@ -198,7 +205,7 @@ function Search({ dispatch }) {
       const response = await Api.Search.getFilters(params);
       const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
 
-      // Make sure that all data are Number
+      // make sure that all data are Number
       valuesStringToNumber.forEach(key => {
         const obj = response[key];
         if(obj && obj.length) {
