@@ -94,6 +94,8 @@ export default createGlobalStyle`
 
   input {
     outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
   }
 
   button {

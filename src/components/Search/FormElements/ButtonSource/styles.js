@@ -11,11 +11,8 @@ export const Button = styled.button`
   line-height: 40px;
   text-transform: lowercase;
   text-decoration: underline;
-  background: linear-gradient(
-    to left,
-    ${({ theme }) => theme.colors.green} 80%,
-    transparent 100%
-  );
+  box-shadow: none;
+  border-radius: 0;
   color: ${({ theme }) => theme.colors.white};
   transition: all 300ms ease;
 
