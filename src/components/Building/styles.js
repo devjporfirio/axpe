@@ -38,15 +38,17 @@ export const Slider = styled(Gallery)`
   position: initial;
   height: 244px;
 
+  iframe,
   img {
     height: 244px;
+    object-fit: cover;
   }
 
   ${media.greaterThan('medium')`
     width: 565px;
     height: 365px;
 
-    img {
+    iframe,img {
       width: 565px;
       height: 365px;
     }

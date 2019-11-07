@@ -9,9 +9,9 @@ export default function DestaquesSection({ type, item, showHorizontalRule }) {
         <Video
           type={type}
           src={item.src}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         />
       )}
       {item.mediaType == 'imagem' && <Image type={type} src={item.image} />}
