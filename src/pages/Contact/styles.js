@@ -11,6 +11,7 @@ export const Body = styled.div`
   margin: auto 30px;
 
   ${media.greaterThan('medium')`
+    margin: auto;
     max-width: 1000px;
     display: flex;
   `}
@@ -99,7 +100,7 @@ export const Mapa = styled.div`
     width: 50%;
 
     iframe {
-      height: 1322px;
+      height: 100%;
     }
   `}
 `;

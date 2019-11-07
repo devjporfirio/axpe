@@ -1,6 +1,6 @@
 import React from 'react';
 import BlockHighlighted from 'components/BlockHighlighted';
-import * as Input from 'components/FormElements';
+import FormElements from 'components/FormElements';
 
 import {
   ButtonContainer,
@@ -46,29 +46,30 @@ function Contact() {
           <Form onSubmit={() => {}}>
             <FormGroup>
               <h1>Seus dados de contato</h1>
-              <Input.Text placeholder="Nome" />
-              <Input.Text placeholder="Sobrenome" />
-              <Input.Email placeholder="E-mail" />
-              <Input.Phone placeholder="Telefone" />
-              <Input.Phone placeholder="Celular" />
+              <FormElements name="nome" label="Nome" />
+              <FormElements name="sobrenome" label="Sobrenome" />
+              <FormElements name="email" label="E-mail" />
+              <FormElements name="telefone" label="Telefone" />
+              <FormElements name="celular" label="Celular" />
             </FormGroup>
 
             <FormGroup>
               <h1>Assunto:</h1>
-              <Input.Select
-                items={[{ label: 'Selecione o assunto', value: 0 }]}
-              />
-              <Input.Select
+              <FormElements
+                name="assunto"
+                type="select"
                 items={[{ label: 'Selecione o assunto', value: 0 }]}
               />
             </FormGroup>
 
             <FormGroup>
               <h1>Sua Mensagem</h1>
-              <Input.Area />
+              <FormElements type="area" name="mensagem" />
             </FormGroup>
 
-            <Input.Checkbox
+            <FormElements
+              type="checkbox"
+              name="politica"
               label={
                 <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
               }
