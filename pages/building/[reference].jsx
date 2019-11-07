@@ -34,7 +34,7 @@ function Building({ property }) {
     }
 
     loadSimilarBuildings();
-  });
+  }, []);
 
   if (!property || !Object.keys(property).length > 0) {
     return <h1>Loading..</h1>;

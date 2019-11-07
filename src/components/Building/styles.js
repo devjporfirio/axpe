@@ -36,20 +36,19 @@ export const Infos = styled.div`
 
 export const Slider = styled(Gallery)`
   position: initial;
-  max-height: 244px;
+  height: 244px;
 
   img {
-    max-height: 244px;
+    height: 244px;
   }
 
   ${media.greaterThan('medium')`
-    width: 100%;
-    max-width: 565px;
-    max-height: 365px;
+    width: 565px;
+    height: 365px;
 
     img {
-      max-width: 565px;
-      max-height: 365px;
+      width: 565px;
+      height: 365px;
     }
   `}
 `;
