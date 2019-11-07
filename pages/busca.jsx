@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { connect, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import { useRouter } from 'next/router'
 
 // store
-import { setSearch } from 'store/modules/search/actions'
+import { setMain } from 'store/modules/main/actions'
 
 // components
 import Button from 'components/Button';
@@ -15,6 +15,7 @@ import SimilarBuilding from 'components/SimilarBuilding';
 import Share from 'components/Share';
 
 // helpers
+import useScrollPosition from 'helpers/scroll-position';
 import { getUrl } from 'helpers/utils'
 
 // assets
@@ -40,8 +41,10 @@ import {
 
 function Search({ dispatch, currentPage, total, totalPages, data }) {
   const router = useRouter();
-  const search = useSelector(state => state.search);
   const { query, query: { source, finality } } = router;
+  const { searchFormActive } = useSelector(state => state.main);
+  const refHeaderbar = useRef(null);
+  const scrollPosition = useScrollPosition();
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'mais-recentes' },
@@ -58,16 +61,41 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
   const [ shareActive, setShareActive ] = useState(false);
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
-  function getSourceText() {
+  const handleScrollPosition = ([ curTop, oldTop ]) => {
+    const startTopHeaderbar = window.innerWidth < 768 ? 70 : 0;
+
+    if(!refHeaderbar || !refHeaderbar.current) return false;
+
+    if(!startTopHeaderbar) {
+      refHeaderbar.current.style.top = `0px`;
+      return false;
+    }
+
+    let topHeaderbar = curTop > oldTop ? startTopHeaderbar - curTop : startTopHeaderbar;
+
+    if(topHeaderbar < 0) {
+      topHeaderbar = 0;
+    } else if(topHeaderbar > startTopHeaderbar) {
+      topHeaderbar = startTopHeaderbar;
+    }
+
+    refHeaderbar.current.style.top = `${topHeaderbar}px`;
+  };
+
+  useEffect(() => {
+    handleScrollPosition(scrollPosition);
+  }, scrollPosition);
+
+  const getSourceText = useCallback(() => {
     switch(source) {
       case 'sao-paulo':
         return 'São Paulo';
       default:
         return source;
     }
-  }
+  }, [ source ])
 
-  function getFinalityText() {
+  const getFinalityText = useCallback(() => {
     switch(finality) {
       case 'venda':
         return 'comprar';
@@ -76,33 +104,33 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
       default:
         return finality;
     }
-  }
+  }, [ finality ]);
 
-  function toggleSearch() {
-    dispatch(setSearch({ active: !search.active }))
-  }
+  const toggleSearch = useCallback(() => {
+    dispatch(setMain({ searchFormActive: !searchFormActive }))
+  }, [ searchFormActive ]);
 
-  function toggleShare() {
+  const toggleShare = useCallback(() => {
     setShareActive(!shareActive)
-  }
+  }, [ shareActive ]);
 
-  function shareOnClose() {
+  const shareOnClose = useCallback(() => {
     setShareActive(!shareActive)
-  }
+  }, [ shareActive ]);
 
-  function handleOrderBy(event) {
+  const handleOrderBy = (event) => {
     setOrderBy(event.target.value);
   }
 
-  function setNewData(newData, first) {
+  const setNewData = useCallback((newData, first) => {
     const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
     setBuildings(newBuildings);
     setIsLoading(false);
-  }
+  }, [ buildings ]);
 
-  function loadMore() {
+  const loadMore = useCallback(() => {
     setPage(page + 1);
-  }
+  }, [ page ])
 
   useEffect(() => {
     const getDataByPage = async () => {
@@ -118,11 +146,11 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
     if(currentPage !== page) {
       setIsLoading(true);
       getDataByPage();
-    } else {
+    } else if(!dataLoaded) {
+      dispatch(setMain({ headerHiding: true }));
       setNewData(data, true);
+      setDataLoaded(true);
     }
-
-    setDataLoaded(true);
   }, [ page, total ]);
 
   return (
@@ -130,7 +158,7 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
       {dataLoaded ?
         <>
           {total ? (
-            <Headerbar>
+            <Headerbar ref={refHeaderbar}>
               <HeaderbarBackButton type="button" onClick={toggleSearch}>Voltar</HeaderbarBackButton>
 
               {source && (

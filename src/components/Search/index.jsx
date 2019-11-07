@@ -7,7 +7,7 @@ import Api from 'services';
 import { formatCurrency, getUrl } from 'helpers/utils';
 
 // actions
-import { setSearch } from 'store/modules/search/actions';
+import { setMain } from 'store/modules/main/actions';
 
 // components
 import SearchIconSVG from 'assets/icons/search';
@@ -53,7 +53,7 @@ import {
 
 function Search({ dispatch }) {
   const router = useRouter()
-  const { active } = useSelector(state => state.search);
+  const { searchFormActive } = useSelector(state => state.main);
   const [ alertCreated, setAlertCreated ] = useState(false);
   const [ usesData, setUsesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
@@ -119,7 +119,7 @@ function Search({ dispatch }) {
   });
 
   function closeSearch() {
-    dispatch(setSearch({ active: false }))
+    dispatch(setMain({ searchFormActive: false }))
   }
 
   function createAlert() {
@@ -221,9 +221,9 @@ function Search({ dispatch }) {
   }, [ formik.values.source.value, formik.values.use, formik.values.finality, formik.values.type, formik.values.furnished ]);
 
   return (
-    <Container active={active}>
+    <Container active={searchFormActive}>
         <Form onSubmit={formik.handleSubmit}>
-          <FormWrapper active={active}>
+          <FormWrapper active={searchFormActive}>
             <FormHeader>
               <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
               <FormClose type="button" onClick={closeSearch}>Fechar</FormClose>

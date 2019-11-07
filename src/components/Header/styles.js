@@ -21,6 +21,10 @@ export const Container = styled.header`
     font-weight: ${({ theme }) => theme.fontsWeight.light};
   }
 
+  ${media.lessThan('767px')`
+    transition: all 50ms ease;
+  `}
+
   ${media.greaterThan('medium')`
     width: 200px;
     height: 100%;

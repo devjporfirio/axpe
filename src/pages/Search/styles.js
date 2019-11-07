@@ -14,9 +14,14 @@ export const Container = styled.section`
 `;
 
 export const Headerbar = styled.div`
-  position: relative;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
   padding: 10px 30px 10px 60px;
   background: ${({ theme }) => theme.colors.white};
+  z-index: 10;
+  transition: all 50ms ease;
 
   h2 {
     font: 18px/28px 'Bitter';
@@ -40,7 +45,6 @@ export const Headerbar = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    position: fixed;
     top: 0;
     left: 200px;
     width: calc(100% - 200px);
@@ -48,7 +52,6 @@ export const Headerbar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 10;
 
     h3 {
       margin-left: 30px;
@@ -157,13 +160,12 @@ export const HeaderbarContactButton = styled.button`
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding-bottom: 30px;
+  padding: 62px 0 30px 0;
 
   ${media.greaterThan('medium')`
-    padding: 62px 30px 0 30px;
+    padding: 62px 30px;
     margin: 0 auto;
     min-height: calc(100vh - 268px);
-    padding-bottom: 60px;
   `}
 
   ${media.greaterThan('1024px')`

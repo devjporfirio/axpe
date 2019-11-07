@@ -1,18 +1,18 @@
 import Cookies from 'js-cookie';
 
 class User {
-  constructor (infos, buildingsSeen) {
+  constructor(infos, buildingsSeen) {
     this.buildingsSeen = buildingsSeen;
     this.infos = infos;
     this.login = false;
   }
 
-  getBuildingsSeen () {
+  getBuildingsSeen() {
     const buildings = Cookies.get('buildingsSeen');
     return buildings;
   }
 
-  setBuildingSeen (building) {
+  setBuildingSeen(building) {
     const buildings = Cookies.get('buildingsSeen') || '';
     const newBuildings = [ building.reference ];
     if (buildings) {
@@ -21,11 +21,11 @@ class User {
     Cookies.set('buildingsSeen', JSON.stringify(newBuildings), { expires: 15 });
   }
 
-  getInfos () {
+  getInfos() {
     return this.infos;
   }
 
-  setInfos (infos) {
+  setInfos(infos) {
     this.infos = infos;
   }
 }

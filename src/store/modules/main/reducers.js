@@ -1,5 +1,7 @@
 const initialState = {
-  loaded: false
+  loaded: false,
+  headerHiding: false,
+  searchFormActive: false
 };
 
 function main(state = initialState, action) {
