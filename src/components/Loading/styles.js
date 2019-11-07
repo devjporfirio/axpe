@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.8);
   z-index: 110;
   transition: all 300ms ease;
 
