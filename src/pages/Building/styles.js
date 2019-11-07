@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import Breadcrumb from 'components/Breadcrumb';
-import Gallery from 'components/Gallery';
+import Gallery from './Gallery';
 import PanelBuildings from 'components/PanelBuildings';
 
 export const PanelSimilar = styled(PanelBuildings)`

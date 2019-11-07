@@ -13,7 +13,7 @@ export default function Around({ cep, text }) {
   useEffect(() => {
     async function loadOverviewPolyline() {
       const geocode = await Api.Building.getGeocode(cep.replace('-', ''));
-      if (geocode) {
+      if (geocode && geocode.geometry && geocode.geometry.viewport) {
         const directions = await Api.Building.getDirections(
           geocode.geometry.viewport.northeast,
           geocode.geometry.viewport.southwest

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import Slider from '../Slider';
-import Modal from 'components/Modal';
+import Slider from 'components/Slider';
+import Modal from '../Modal';
 
 export const Container = styled(Modal)`
   top: 0;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const SliderNav1 = styled(Slider)`
