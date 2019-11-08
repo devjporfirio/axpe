@@ -4,7 +4,7 @@ export const Label = styled.label`
   display: block;
   overflow: auto;
   position: relative;
-  height: 45px;
+  min-height: 45px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   width: 100%;
@@ -15,6 +15,12 @@ export const Label = styled.label`
     position: absolute;
     top: 15px;
   }
+
+  ${props =>
+    props.type === 'area' &&
+    css`
+      height: 100px;
+    `}
 `;
 
 export const Span = styled.span`
@@ -34,6 +40,7 @@ const BaseInput = css`
   color: ${({ theme }) => theme.colors.green};
   font: 14px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  background-color: ${({ theme }) => theme.colors.white};
   cursor: text;
   -webkit-appearance: none;
 
@@ -85,10 +92,16 @@ export const InputCheckbox = styled.label`
 
 export const InputSelect = styled.select`
   ${BaseInput}
+
+  height: 45px;
+  top: 0;
+
   width: 100%;
   appearance: none;
 `;
 
 export const InputTextArea = styled.textarea`
   ${BaseInput}
+  height: 100px;
+  top: 8px;
 `;

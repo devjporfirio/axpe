@@ -17,9 +17,9 @@ const TYPE_FIELD = {
   text: Text
 };
 
-const Field = ({ component: Component, label, ...props }) => {
+const Field = ({ type, component: Component, label, ...props }) => {
   return (
-    <Label htmlFor={props.name}>
+    <Label type={type} htmlFor={props.name}>
       <Component label={label} {...props}></Component>
       {label && <Span>{label}</Span>}
     </Label>
@@ -27,5 +27,5 @@ const Field = ({ component: Component, label, ...props }) => {
 };
 
 export default function FormElements({ type = 'text', ...props }) {
-  return <Field component={TYPE_FIELD[type]} {...props} />;
+  return <Field component={TYPE_FIELD[type]} type={type} {...props} />;
 }
