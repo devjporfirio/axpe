@@ -6,6 +6,8 @@ import Phone from './Phone';
 import Select from './Select';
 import Text from './Text';
 
+import { Label, Span } from './styles';
+
 const TYPE_FIELD = {
   area: Area,
   checkbox: Checkbox,
@@ -17,10 +19,10 @@ const TYPE_FIELD = {
 
 const Field = ({ component: Component, label, ...props }) => {
   return (
-    <label htmlFor={props.name}>
-      {label && <span>{label}</span>}
+    <Label htmlFor={props.name}>
       <Component label={label} {...props}></Component>
-    </label>
+      {label && <Span>{label}</Span>}
+    </Label>
   );
 };
 

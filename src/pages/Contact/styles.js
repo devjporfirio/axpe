@@ -11,7 +11,7 @@ export const Body = styled.div`
   margin: auto 30px;
 
   ${media.greaterThan('medium')`
-    margin: auto;
+    margin: 0 auto 0 30px;
     max-width: 1000px;
     display: flex;
   `}

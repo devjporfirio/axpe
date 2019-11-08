@@ -46,11 +46,23 @@ function Contact() {
           <Form onSubmit={() => {}}>
             <FormGroup>
               <h1>Seus dados de contato</h1>
-              <FormElements name="nome" label="Nome" />
-              <FormElements name="sobrenome" label="Sobrenome" />
-              <FormElements name="email" label="E-mail" />
-              <FormElements name="telefone" label="Telefone" />
-              <FormElements name="celular" label="Celular" />
+              <FormElements name="nome" label="Nome" placeholder="Nome" />
+              <FormElements
+                name="sobrenome"
+                label="Sobrenome"
+                placeholder="Sobrenome"
+              />
+              <FormElements name="email" label="E-mail" placeholder="E-mail" />
+              <FormElements
+                name="telefone"
+                label="Telefone"
+                placeholder="Telefone"
+              />
+              <FormElements
+                name="celular"
+                label="Celular"
+                placeholder="Celular"
+              />
             </FormGroup>
 
             <FormGroup>
