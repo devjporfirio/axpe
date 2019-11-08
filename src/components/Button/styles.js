@@ -5,9 +5,8 @@ export const ButtonStyle = css`
   display: inline-block;
   height: 45px;
   border-radius: 4px;
-  font: 15px 'Raleway';
+  font: 15px/45px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-  line-height: 45px;
   text-align: center;
   background-color: ${props => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
@@ -26,17 +25,27 @@ export const ButtonStyle = css`
       width: 100%;
     `}
 
+  ${props => props.size === 'small' && ButtonSmall}
+  ${props => props.color === 'orange' && ButtonOrange}
+
   ${media.greaterThan('1024px')`
-    ${props =>
-      !props.color || (props.color === 'orange' && ButtonStyleDesktopOrange)}
+    &:hover {
+      opacity: 0.7;
+    }
   `}
 `;
 
-export const ButtonStyleDesktopOrange = css`
-  &:hover {
-    /* background-color: ${({ theme }) => theme.colors.orange}; */
-    opacity: 0.7;
-  }
+export const ButtonSmall = css`
+  height: 32px;
+  line-height: 32px;
+`;
+
+export const ButtonOrange = css`
+  ${media.greaterThan('1024px')`
+    &:hover {
+      background: black;
+    }
+  `}
 `;
 
 export const ButtonContainer = styled.button`

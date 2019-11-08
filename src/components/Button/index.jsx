@@ -11,22 +11,24 @@ function Button(props) {
     children,
     color = 'orange',
     href,
+    size = 'normal',
     target,
     type,
     fullWidth = false
   } = props;
 
   return type && (type === 'button' || type === 'submit') ? (
-    <ButtonContainer {...props} color={color} fullWidth={fullWidth}>
+    <ButtonContainer {...props} color={color}>
       {children}
     </ButtonContainer>
   ) : (target && target === 'blank') || (href && href.search('http')) === 0 ? (
     <ButtonLinkContainer
-      href={href}
       className={className}
       color={color}
-      fullWidth={fullWidth}
+      href={href}
       target={target}
+      size={size}
+      fullWidth={fullWidth}
     >
       {children}
     </ButtonLinkContainer>
@@ -35,6 +37,7 @@ function Button(props) {
       <ButtonLinkContainer
         className={className}
         color={color}
+        size={size}
         fullWidth={fullWidth}
       >
         {children}
