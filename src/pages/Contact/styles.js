@@ -11,8 +11,7 @@ export const Body = styled.div`
   margin: auto 30px;
 
   ${media.greaterThan('medium')`
-    margin: 0 auto 0 30px;
-    max-width: 1000px;
+    margin: 0;
     display: flex;
   `}
 `;
@@ -20,6 +19,7 @@ export const Body = styled.div`
 export const BlockForm = styled.div`
   ${media.greaterThan('medium')`
     width: 50%;
+    padding: 30px;
   `}
 `;
 
@@ -75,12 +75,24 @@ export const Form = styled.form`
   flex-direction: column;
 
   ${media.greaterThan('medium')`
-    padding: 0 75px 30px 0;
+    padding: 0;
   `}
+`;
+
+export const FormGroupButton = styled.div`
+  width: 100%;
+  margin: 15px 0 30px 0;
+  display: flex;
+  align-items: center;
 `;
 
 export const FormGroup = styled.div`
   width: 100%;
+
+  label {
+    margin-bottom: 16px;
+    min-height: 45px;
+  }
 
   h1 {
     font: 18px 'Raleway';

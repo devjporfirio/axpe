@@ -4,11 +4,9 @@ export const Label = styled.label`
   display: block;
   overflow: auto;
   position: relative;
-  min-height: 45px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   width: 100%;
-  margin-bottom: 16px;
 
   input ~ span {
     transition: top 0.2s ease;
@@ -20,6 +18,29 @@ export const Label = styled.label`
     props.type === 'area' &&
     css`
       height: 100px;
+    `}
+
+  ${props =>
+    props.type === 'checkbox' &&
+    css`
+      padding-left: 0;
+      background: none;
+
+      span {
+        position: initial;
+        top: 0 !important;
+        width: calc(100% - 47px);
+        font: 12px 'Raleway';
+        font-weight: ${({ theme }) => theme.fontsWeight.medium};
+        padding-left: 11px;
+        max-width: 200px;
+        line-height: 14px;
+
+        a {
+          text-decoration: underline;
+          color: ${({ theme }) => theme.colors.orange};
+        }
+      }
     `}
 `;
 
@@ -66,42 +87,18 @@ export const Input = styled.input`
   ${BaseInput}
 `;
 
-export const InputCheckbox = styled.label`
-  background: none;
-  padding-left: 0;
-
-  span {
-    display: block;
-    width: calc(100% - 47px);
-    float: right;
-    font: 16px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
-
-    a {
-      text-decoration: underline;
-      color: ${({ theme }) => theme.colors.orange};
-    }
-  }
-
-  input {
-    width: 27px;
-    height: 27px;
-    margin-right: 10px;
-  }
-`;
-
 export const InputSelect = styled.select`
   ${BaseInput}
 
   height: 45px;
   top: 0;
-
   width: 100%;
   appearance: none;
 `;
 
 export const InputTextArea = styled.textarea`
   ${BaseInput}
+
   height: 100px;
   top: 8px;
 `;

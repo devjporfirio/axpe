@@ -20,7 +20,7 @@ const TYPE_FIELD = {
 const Field = ({ type, component: Component, label, ...props }) => {
   return (
     <Label type={type} htmlFor={props.name}>
-      <Component label={label} {...props}></Component>
+      <Component {...props}></Component>
       {label && <Span>{label}</Span>}
     </Label>
   );

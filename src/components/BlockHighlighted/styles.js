@@ -45,9 +45,9 @@ export const Container = styled.div`
       padding: 30px;
 
       ${media.greaterThan('medium')`
+        justify-content: flex-start;
         border-radius: 8px;
         width: 100%;
-        max-width: 416px;
       `}
     `}
 `;

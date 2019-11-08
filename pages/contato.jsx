@@ -15,6 +15,7 @@ import {
   Whats,
   Form,
   FormGroup,
+  FormGroupButton,
   Mapa
 } from 'pages/Contact/styles';
 
@@ -79,15 +80,16 @@ function Contact() {
               <FormElements type="area" name="mensagem" />
             </FormGroup>
 
-            <FormElements
-              type="checkbox"
-              name="politica"
-              label={
-                <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
-              }
-            />
-
-            <ButtonContainer type="button">Enviar</ButtonContainer>
+            <FormGroupButton>
+              <FormElements
+                type="checkbox"
+                name="politica"
+                label={
+                  <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
+                }
+              />
+              <ButtonContainer type="button">Enviar</ButtonContainer>
+            </FormGroupButton>
           </Form>
           <BlockHighlighted type="contactWork" />
         </BlockForm>
