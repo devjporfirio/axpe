@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+// components
 import Slider from 'components/Slider';
 import GalleryNav from './GalleryNav';
 import GalleryFull from './GalleryFull';
-import I360 from 'assets/icons/360.svg';
-import IGrid from 'assets/icons/grid.svg';
+
+// assets
+import I360 from 'assets/icons/360';
+import IGrid from 'assets/icons/grid';
+
+// styles
 import { Container, Image, Video, Button360, SizeGallery } from './styles';
 
-export default function Gallery({
+function Gallery({
   items,
   center = true,
   tour360,
@@ -29,6 +35,7 @@ export default function Gallery({
           <img src={I360} alt="Tour 360" />
         </Button360>
       )}
+
       <Slider
         lazyLoad={false}
         propsArrow={propsArrow}
@@ -76,6 +83,7 @@ export default function Gallery({
             }
           })}
       </Slider>
+
       {showSizeGallery && (
         <SizeGallery onClick={() => setShowGalleryNav(true)}>
           <img src={IGrid} alt="Galeria de fotos" />
@@ -109,3 +117,5 @@ export default function Gallery({
 Gallery.propTypes = {
   items: PropTypes.array.isRequired
 };
+
+export default Gallery;

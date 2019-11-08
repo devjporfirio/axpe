@@ -14,8 +14,10 @@ import Share from 'components/Share';
 import useScrollPosition from 'helpers/scroll-position';
 
 // assets
+import ArrowIconSVG from 'assets/icons/arrow';
 import AlertIconSVG from 'assets/icons/alert';
 import ShareIconSVG from 'assets/icons/share';
+import HeartIconSVG from 'assets/icons/heart-black';
 
 // styles
 import {
@@ -24,10 +26,14 @@ import {
   Column,
   ButtonBack,
   ButtonIcon,
-  ButtonContact
+  ButtonContact,
+  Text,
+  ButtonLike,
+  ButtonMoreInformation,
+  PhoneContact
 } from './styles';
 
-function Headerbar({ type, title, subtitle }) {
+function Headerbar({ type, title, subtitle, building }) {
   const refEl = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -42,6 +48,12 @@ function Headerbar({ type, title, subtitle }) {
   const shareOnClose = useCallback(() => {
     setShareActive(!shareActive)
   }, [ shareActive ]);
+
+  const buttonBack = () => {
+    if(type === 'search') {
+      toggleSearch();
+    }
+  }
 
   const toggleSearch = useCallback(() => {
     dispatch(setMain({ searchFormActive: !searchFormActive }))
@@ -69,8 +81,10 @@ function Headerbar({ type, title, subtitle }) {
   };
 
   useEffect(() => {
+    if(type === 'modal') return false;
+
     handleScrollPosition(scrollPosition);
-  }, scrollPosition);
+  }, type !== 'modal' ? scrollPosition : []);
 
   useEffect(() => {
     dispatch(setMain({ headerHiding: true }));
@@ -80,7 +94,9 @@ function Headerbar({ type, title, subtitle }) {
     <>
       <Container type={type}>
         <Wrapper ref={refEl}>
-          <ButtonBack type="button" onClick={toggleSearch}>Voltar</ButtonBack>
+          <ButtonBack type="button" onClick={buttonBack}>
+            <SVG src={ArrowIconSVG} /> Voltar
+          </ButtonBack>
 
           {title && (
             <h2 dangerouslySetInnerHTML={{ __html: title }} />
@@ -90,15 +106,30 @@ function Headerbar({ type, title, subtitle }) {
             <h3 dangerouslySetInnerHTML={{ __html: subtitle }} />
           )}
 
-          <Column>
-            <ButtonIcon type="button">
-              <SVG src={AlertIconSVG} uniquifyIDs={true} />
-            </ButtonIcon>
-            <ButtonIcon type="button" onClick={toggleShare}>
-              <SVG src={ShareIconSVG} uniquifyIDs={true} />
-            </ButtonIcon>
-            <ButtonContact type="button" size="small">Fale conosco</ButtonContact>
-          </Column>
+          {type === 'search' && (
+            <Column>
+              <ButtonIcon type="button">
+                <SVG src={AlertIconSVG} uniquifyIDs={true} />
+              </ButtonIcon>
+              <ButtonIcon type="button" onClick={toggleShare}>
+                <SVG src={ShareIconSVG} uniquifyIDs={true} />
+              </ButtonIcon>
+              <ButtonContact type="button" size="small">Fale conosco</ButtonContact>
+            </Column>
+          )}
+
+          {type === 'building' && (
+            <Column>
+              <Text>Ref {building.reference}</Text>
+              <ButtonLike>
+                {building.likes}
+                <SVG src={HeartIconSVG} uniquifyIDs={true} />
+              </ButtonLike>
+              <ButtonMoreInformation type="button" size="small">Mais informações</ButtonMoreInformation>
+              <PhoneContact>11 3074-3600</PhoneContact>
+            </Column>
+          )}
+
         </Wrapper>
       </Container>
       <Share active={shareActive} path={router.asPath} title={`Axpe - Resultado de Busca`} onClose={shareOnClose} />

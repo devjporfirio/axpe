@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import Breadcrumb from 'components/Breadcrumb';
 
 export const Icon = styled.img`
   ${props =>
@@ -27,11 +26,12 @@ export const Container = styled.div`
 `;
 
 export const ButtonClose = styled.button`
-  position: absolute;
+  position: fixed;
   top: 23px;
   right: 20px;
   width: 30px;
   height: 30px;
+  z-index: 10;
 
   img {
     width: 15px;
@@ -57,17 +57,5 @@ export const ButtonClose = styled.button`
       text-transform: uppercase;
       display: block;
     }
-  `}
-`;
-
-export const Header = styled(Breadcrumb)`
-  position: absolute;
-  width: 100vw;
-  height: 67px;
-  background-color: ${({ theme }) => theme.colors.white};
-  top: 0;
-
-  ${media.greaterThan('medium')`
-    display: none;
   `}
 `;
