@@ -1,12 +1,14 @@
 import { getUrl } from 'helpers/utils';
 const baseMaps = 'https://maps.googleapis.com/maps/api/';
+// https://maps.googleapis.com/maps/api/geocode/json?address=52050370&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
+// https://maps.googleapis.com/maps/api/directions/json?origin=-26.9040582,-49.0882946&destination=-26.9061099,-49.09195949999999&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
 
 export default {
   async getPage(reference) {
     // category  - type
     // AX1111    - Apartamento - lancamento
     // AX2629    - Casa        - pronto
-    // AX10010   - Apartamento - pronto
+    // AX10010   - Apartamento - pronto - zipcode
     // AX130883  - Cobertura   - pronto
     // AX129334  - Terreno     - pronto
     // AX141776  - Apartamento - pronto
@@ -20,23 +22,21 @@ export default {
   },
   async getGeocode(cep) {
     const apiKey = process.env.config.keyMap;
-    const result = await fetch(
+    const res = await fetch(
       `${baseMaps}geocode/json?address=${cep}&key=${apiKey}`
-      // https://maps.googleapis.com/maps/api/geocode/json?address=52050370&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
     )
       .then(response => response.json())
       .then(data => data);
-    return result && result.lenght > 0 ? result.results[0] : [];
+    return res.results && res.results.length > 0 ? res.results[0] : [];
   },
   async getDirections(northeast, southwest) {
     const apiKey = process.env.config.keyMap;
-    const result = await fetch(
+    const res = await fetch(
       `${baseMaps}directions/json?origin=${northeast.lat},${northeast.lng}&destination=${southwest.lat},${southwest.lng}&key=${apiKey}`
-      // https://maps.googleapis.com/maps/api/directions/json?origin=-26.9040582,-49.0882946&destination=-26.9061099,-49.09195949999999&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
     )
       .then(response => response.json())
       .then(data => data);
-    return result && result.lenght > 0 ? result.results[0] : [];
+    return res.results && res.results.length > 0 ? res.results[0] : [];
   },
   async getSimilar(property, limit) {
     const params = {

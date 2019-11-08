@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Api from 'services';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
+import Around from 'components/Around';
 import SimilarBuilding from 'components/Building';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
@@ -72,6 +73,10 @@ function Building({ property }) {
           ilustrativas e os valores estão sujeitos a alteração de tabela.
         </p>
       </Alert>
+
+      {property.type === 'pronto' && (
+        <Around cep={property.address.zipcode} text={property.address.zipcode} />
+      )}
 
       {Object.keys(property.components).length > 0 && (
         <Modules modules={property.components} />
