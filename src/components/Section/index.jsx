@@ -60,7 +60,7 @@ function sectionDestaqueTextBullets(item) {
 }
 
 function sectionMultiInfos(item, labelTitle) {
-  const { values, infos, reference, slug, address } = item.building;
+  const { category, values, infos, reference, slug, address } = item.building;
   return (
     <>
       {labelTitle && <h4>{item[labelTitle]}</h4>}
@@ -68,7 +68,7 @@ function sectionMultiInfos(item, labelTitle) {
 
       <Local>{address.local}</Local>
       <Infos>
-        {infos.use}, {infos.areaTotal + ' m²'}
+        {category}, {infos.areaTotal + ' m²'}
       </Infos>
       {values.sell || values.release ? (
         <Infos>Venda: {values.sell || values.release}</Infos>

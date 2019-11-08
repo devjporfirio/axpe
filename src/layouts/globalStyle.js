@@ -1,11 +1,10 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 export default createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
     v2.0 | 20110126
     License: none (public domain)
   */
-
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, button, abbr, acronym, address, big, cite, code,
@@ -111,4 +110,14 @@ export default createGlobalStyle`
     outline:none;
     box-shadow: none;
   }
+
+  ${props => props.vendorsStyle.length && VendorsStyle}
 `;
+
+export const VendorsStyle = ({ vendorsStyle }) => {
+  const styles = [];
+  vendorsStyle.forEach(vendor => styles.push(vendor));
+  return css`
+    ${styles.join('')}
+  `;
+};

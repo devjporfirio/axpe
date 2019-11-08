@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -11,10 +11,10 @@ import { setMain } from 'store/modules/main/actions';
 
 // components
 import SearchIconSVG from 'assets/icons/search';
-import Input from 'components/Search/FormElements/Input'
-import InputSource from 'components/Search/FormElements/InputSource'
-import ButtonSource from 'components/Search/FormElements/ButtonSource'
-import RangeSlider from 'components/Search/FormElements/RangeSlider'
+import Input from 'components/Search/FormElements/Input';
+import InputSource from 'components/Search/FormElements/InputSource';
+import ButtonSource from 'components/Search/FormElements/ButtonSource';
+import RangeSlider from 'components/Search/FormElements/RangeSlider';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
@@ -187,6 +187,13 @@ function Search({ dispatch }) {
     resetValuesOnChange();
   }
 
+  // if finality value change, reset values: ready_release, furnished
+  useEffect(() => {
+    formik.setFieldValue('ready_release', '');
+    formik.setFieldValue('furnished', '');
+    setTabActive(null);
+  }, [ formik.values.finality ])
+
   useEffect(() => {
     const getUses = async () => {
       const response = await Api.Search.getUses();
@@ -198,7 +205,7 @@ function Search({ dispatch }) {
       const response = await Api.Search.getFilters(params);
       const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
 
-      // Make sure that all data are Number
+      // make sure that all data are Number
       valuesStringToNumber.forEach(key => {
         const obj = response[key];
         if(obj && obj.length) {

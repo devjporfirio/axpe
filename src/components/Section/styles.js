@@ -31,7 +31,7 @@ const TypeSlickLeftMobile = css`
   position: initial;
   width: 70%;
   margin: auto;
-  padding: 10px 0;
+  padding: 15px 0;
   height: 299px;
 
   hr {

@@ -3,66 +3,6 @@ import media from 'styled-media-query';
 
 export const Container = styled.div`
   width: 100%;
-
-  .slider {
-    width: 100%;
-    height: 12px;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: ${({ theme }) => theme.colors.orange};
-      opacity: 0.4;
-    }
-  }
-
-  .thumb {
-    display: block;
-    top: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 0;
-    z-index: 3;
-    transform: translateY(-50%);
-    cursor: pointer;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      width: 12px;
-      height: 12px;
-      background: ${({ theme }) => theme.colors.orange};
-      border-radius: 50%;
-      transform: translateY(-50%);
-    }
-
-    &.thumb-0 {
-      &:before {
-        left: 0;
-      }
-    }
-
-    &.thumb-1 {
-      &:before {
-        right: 0;
-      }
-    }
-  }
-
-  .track-1 {
-    display: block;
-    top: 50%;
-    height: 1px;
-    background: ${({ theme }) => theme.colors.orange};
-    z-index: 2;
-  }
 `;
 
 export const Text = styled.p`
@@ -75,4 +15,66 @@ export const Text = styled.p`
   ${media.greaterThan('medium')`
     font-size: 13px;
   `};
+`;
+
+export const Slider = styled.div`
+  width: 100%;
+
+  &.noUi-horizontal {
+    height: 12px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: ${({ theme }) => theme.colors.orange};
+      opacity: 0.4;
+      border-radius: 4px;
+    }
+  }
+
+  .noUi-handle {
+    display: block;
+    width: 12px;
+    height: 12px;
+    top: 1px !important;
+    right: -6px !important;
+    border: 0;
+    font-size: 0;
+    background: ${({ theme }) => theme.colors.orange};
+    border-radius: 50%;
+    box-shadow: none;
+    z-index: 5;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+
+  .noUi-connect {
+    position: absolute;
+    background: transparent;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: ${({ theme }) => theme.colors.orange};
+      opacity: 0.4;
+      border-radius: 4px;
+    }
+  }
 `;
