@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import { useRouter } from 'next/router'
@@ -9,27 +9,20 @@ import { setMain } from 'store/modules/main/actions'
 
 // components
 import Button from 'components/Button';
+import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Building from 'components/Building';
 import Contact from 'components/Contact';
-import Share from 'components/Share';
 
 // helpers
-import useScrollPosition from 'helpers/scroll-position';
 import { getUrl } from 'helpers/utils'
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
-import AlertIconSVG from 'assets/icons/alert';
-import ShareIconSVG from 'assets/icons/share';
 
 // styles
 import {
   Container,
-  Headerbar,
-  HeaderbarBackButton,
-  HeaderbarButton,
-  HeaderbarContactButton,
   Header,
   HeaderCombo,
   Wrapper,
@@ -39,12 +32,11 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ dispatch, currentPage, total, totalPages, data }) {
+function Search({ currentPage, total, totalPages, data }) {
   const router = useRouter();
   const { query, query: { source, finality } } = router;
+  const dispatch = useDispatch();
   const { searchFormActive } = useSelector(state => state.main);
-  const refHeaderbar = useRef(null);
-  const scrollPosition = useScrollPosition();
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'mais-recentes' },
@@ -58,33 +50,7 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
   const [ buildings, setBuildings ] = useState(null);
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
-  const [ shareActive, setShareActive ] = useState(false);
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
-
-  const handleScrollPosition = ([ curTop, oldTop ]) => {
-    const startTopHeaderbar = window.innerWidth < 768 ? 70 : 0;
-
-    if(!refHeaderbar || !refHeaderbar.current) return false;
-
-    if(!startTopHeaderbar) {
-      refHeaderbar.current.style.top = `0px`;
-      return false;
-    }
-
-    let topHeaderbar = curTop > oldTop ? startTopHeaderbar - curTop : startTopHeaderbar;
-
-    if(topHeaderbar < 0) {
-      topHeaderbar = 0;
-    } else if(topHeaderbar > startTopHeaderbar) {
-      topHeaderbar = startTopHeaderbar;
-    }
-
-    refHeaderbar.current.style.top = `${topHeaderbar}px`;
-  };
-
-  useEffect(() => {
-    handleScrollPosition(scrollPosition);
-  }, scrollPosition);
 
   const getSourceText = useCallback(() => {
     switch(source) {
@@ -109,14 +75,6 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
   const toggleSearch = useCallback(() => {
     dispatch(setMain({ searchFormActive: !searchFormActive }))
   }, [ searchFormActive ]);
-
-  const toggleShare = useCallback(() => {
-    setShareActive(!shareActive)
-  }, [ shareActive ]);
-
-  const shareOnClose = useCallback(() => {
-    setShareActive(!shareActive)
-  }, [ shareActive ]);
 
   const handleOrderBy = (event) => {
     setOrderBy(event.target.value);
@@ -150,7 +108,6 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
       setNewData(data, true);
 
       if(!dataLoaded) {
-        dispatch(setMain({ headerHiding: true }));
         setDataLoaded(true);
       }
     }
@@ -161,27 +118,10 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
       {dataLoaded ?
         <>
           {total ? (
-            <Headerbar ref={refHeaderbar}>
-              <HeaderbarBackButton type="button" onClick={toggleSearch}>Voltar</HeaderbarBackButton>
-
-              {source && (
-                <h2>{getSourceText()}</h2>
-              )}
-
-              {finality && (
-                <h3>Imóveis para {getFinalityText()}</h3>
-              )}
-
-              <div>
-                <HeaderbarButton type="button">
-                  <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                </HeaderbarButton>
-                <HeaderbarButton type="button" onClick={toggleShare}>
-                  <SVG src={ShareIconSVG} uniquifyIDs={true} />
-                </HeaderbarButton>
-                <HeaderbarContactButton>Fale conosco</HeaderbarContactButton>
-              </div>
-            </Headerbar>
+            <Headerbar
+              title={getSourceText()}
+              subtitle={`Imóveis para ${getFinalityText()}`}
+            />
           ) : null}
 
           <Wrapper>
@@ -234,8 +174,6 @@ function Search({ dispatch, currentPage, total, totalPages, data }) {
           <Contact />
         </>
       : null}
-
-      <Share active={shareActive} path={router.asPath} title={`Axpe - Resultado de Busca`} onClose={shareOnClose} />
     </Container>
   )
 }
@@ -246,4 +184,4 @@ Search.getInitialProps = async ({ query }) => {
   return response;
 }
 
-export default connect()(Search);
+export default Search;

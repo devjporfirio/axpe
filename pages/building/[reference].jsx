@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Api from 'services';
+
+// components
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import SimilarBuilding from 'components/Building';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 
+
+// helpers
 import User from 'helpers/user';
 
+// styles
 import {
   Container,
   Header,
