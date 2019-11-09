@@ -1,6 +1,7 @@
 import React from 'react';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
+import GoogleMapReact from 'google-map-react';
 
 import {
   ButtonContainer,
@@ -16,7 +17,11 @@ import {
   Form,
   FormGroup,
   FormGroupButton,
-  Mapa
+  Mapa,
+  Balloon,
+  Pin,
+  Circle,
+  Rec
 } from 'pages/Contact/styles';
 
 function Contact() {
@@ -94,13 +99,30 @@ function Contact() {
           <BlockHighlighted type="contactWork" />
         </BlockForm>
         <Mapa>
-          <iframe
-            title="addressAxpe"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.7407389658424!2d-46.67402236422859!3d-23.57775316878633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce57611a6b76ad%3A0x108a9f3f5c35785e!2sAv.%20Nove%20de%20Julho%2C%205017%20-%20Jardim%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001406-200!5e0!3m2!1spt-BR!2sbr!4v1572438069962!5m2!1spt-BR!2sbr"
-            frameBorder="0"
-            style={{ border: 0 }}
-            allowFullScreen=""
-          />
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto'
+            }}
+            defaultCenter={{
+              lat: -23.577706,
+              lng: -46.673809
+            }}
+            defaultZoom={12}
+          >
+            <Pin lat={-23.577706} lng={-46.673809}>
+              <Balloon>
+                <div></div>
+                <h4>Nosso escritório</h4>
+                <p>
+                  Avenida Nove de Julho, 5017, 10° Andar. Jardim Paulista - São
+                  Paulo, SP
+                </p>
+                <a href="https://g.page/axpe_imoveis?share">Como chegar?</a>
+              </Balloon>
+              <Rec></Rec>
+              <Circle></Circle>
+            </Pin>
+          </GoogleMapReact>
         </Mapa>
       </Body>
     </Container>

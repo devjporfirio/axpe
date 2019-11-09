@@ -8,8 +8,6 @@ export const Container = styled.section`
 `;
 
 export const Body = styled.div`
-  margin: auto 30px;
-
   ${media.greaterThan('medium')`
     margin: 0;
     display: flex;
@@ -26,7 +24,8 @@ export const BlockForm = styled.div`
 export const Message = styled.p`
   font: 14px/22px 'Raleway';
   font-weight: 500;
-  padding: 30px 75px 30px 0;
+  padding: 30px;
+  ${media.greaterThan('medium')`padding: 30px 75px 30px 0;`}
 `;
 
 export const Header = styled.header`
@@ -73,9 +72,11 @@ export const Form = styled.form`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: auto 30px;
 
   ${media.greaterThan('medium')`
     padding: 0;
+    margin: 0;
   `}
 `;
 
@@ -84,6 +85,21 @@ export const FormGroupButton = styled.div`
   margin: 15px 0 30px 0;
   display: flex;
   align-items: center;
+  flex-direction: column;
+
+  ${media.greaterThan('medium')`
+    flex-direction: row;
+  `}
+`;
+
+export const ButtonContainer = styled(Button)`
+  width: 100%;
+  margin-top: 28px;
+
+  ${media.greaterThan('medium')`
+    width: auto;
+    margin-top: 0;
+  `}
 `;
 
 export const FormGroup = styled.div`
@@ -104,21 +120,68 @@ export const FormGroup = styled.div`
 `;
 
 export const Mapa = styled.div`
-  iframe {
-    width: 100%;
-    height: 652px;
-  }
+  width: 100%;
+  height: 652px;
+
   ${media.greaterThan('medium')`
     width: 50%;
-
-    iframe {
-      height: 100%;
-    }
+    height: 1336px;
   `}
 `;
 
-export const ButtonContainer = styled(Button)`
-  width: 100%;
+export const Rec = styled.div`
+  width: 3px;
+  height: 19.93px;
+  background: #ee6900;
+  border-radius: 1.5px;
+`;
 
-  ${media.greaterThan('medium')`width: auto`}
+export const Circle = styled.div`
+  width: 15px;
+  height: 13px;
+  background: #ee6900;
+  border-radius: 50%;
+  margin-top: -30px;
+  margin-left: -5px;
+`;
+
+export const Pin = styled.div``;
+
+export const Balloon = styled.div`
+  width: 318px;
+  height: 117px;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: -150px;
+  margin-left: -232px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.160836);
+  position: absolute;
+
+  div {
+    width: 26px;
+    height: 26px;
+    background-color: ${({ theme }) => theme.colors.white};
+    position: absolute;
+    transform: rotate(45deg);
+    margin-top: 96px;
+    margin-left: 211px;
+    box-shadow: 7px 3px 6px rgba(0, 0, 0, 0.160836);
+  }
+
+  h4 {
+    font: 16px/26px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+
+  p,
+  a {
+    font: 16px/26px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  a {
+    color: ${({ theme }) => theme.colors.orange};
+    text-decoration: underline;
+  }
 `;
