@@ -31,7 +31,7 @@ export const Label = styled.label`
         position: initial;
         top: 0 !important;
         width: calc(100% - 47px);
-        font: 12px 'Raleway';
+        font: 14px 'Raleway';
         font-weight: ${({ theme }) => theme.fontsWeight.medium};
         padding-left: 11px;
         max-width: 200px;
@@ -81,6 +81,24 @@ const BaseInput = css`
 
   &:focus {
     outline: 0;
+  }
+`;
+
+export const FormGroup = styled.div`
+  width: 100%;
+
+  label {
+    margin-bottom: 16px;
+    min-height: 45px;
+  }
+
+  h1,
+  h2 {
+    font: 18px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    text-transform: uppercase;
+    width: 100%;
+    margin: 30px 0 17px 0;
   }
 `;
 

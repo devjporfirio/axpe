@@ -102,23 +102,6 @@ export const ButtonContainer = styled(Button)`
   `}
 `;
 
-export const FormGroup = styled.div`
-  width: 100%;
-
-  label {
-    margin-bottom: 16px;
-    min-height: 45px;
-  }
-
-  h1 {
-    font: 18px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-    text-transform: uppercase;
-    width: 100%;
-    margin: 30px 0 17px 0;
-  }
-`;
-
 export const Mapa = styled.div`
   width: 100%;
   height: 652px;

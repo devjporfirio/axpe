@@ -4,6 +4,7 @@ import FormElements from 'components/FormElements';
 import GoogleMapReact from 'google-map-react';
 import { useFormik } from 'formik';
 
+import { FormGroup } from 'components/FormElements/styles';
 import {
   ButtonContainer,
   Container,
@@ -16,7 +17,6 @@ import {
   Message,
   Whats,
   Form,
-  FormGroup,
   FormGroupButton,
   Mapa,
   Balloon,
