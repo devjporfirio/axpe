@@ -2,6 +2,7 @@ import React from 'react';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import GoogleMapReact from 'google-map-react';
+import { useFormik } from 'formik';
 
 import {
   ButtonContainer,
@@ -27,6 +28,21 @@ import {
 function Contact() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
 
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      lastName: '',
+      phone: '',
+      mobile: '',
+      subject: '',
+      message: ''
+    },
+
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    }
+  });
+
   return (
     <Container>
       <Header>
@@ -49,22 +65,35 @@ function Contact() {
             assunto. Pedir um imóvel bem específico, tirar dúvidas, pedir uma
             informação e também reclamar, dar sugestões, elogiar.
           </Message>
-          <Form onSubmit={() => {}}>
+          <Form onSubmit={formik.handleSubmit}>
             <FormGroup>
               <h1>Seus dados de contato</h1>
-              <FormElements name="nome" label="Nome" placeholder="Nome" />
+              <FormElements
+                name="nome"
+                label="Nome"
+                placeholder="Nome"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
               <FormElements
                 name="sobrenome"
                 label="Sobrenome"
                 placeholder="Sobrenome"
               />
-              <FormElements name="email" label="E-mail" placeholder="E-mail" />
               <FormElements
+                type="email"
+                name="email"
+                label="E-mail"
+                placeholder="E-mail"
+              />
+              <FormElements
+                type="phone"
                 name="telefone"
                 label="Telefone"
                 placeholder="Telefone"
               />
               <FormElements
+                type="phone"
                 name="celular"
                 label="Celular"
                 placeholder="Celular"

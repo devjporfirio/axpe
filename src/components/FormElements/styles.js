@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import MaskedInput from 'react-text-mask';
 
 export const Label = styled.label`
   display: block;
@@ -81,6 +82,14 @@ const BaseInput = css`
   &:focus {
     outline: 0;
   }
+`;
+
+export const PhoneMask = styled(MaskedInput)`
+  ${BaseInput}
+`;
+
+export const EmailMask = styled(MaskedInput)`
+  ${BaseInput}
 `;
 
 export const Input = styled.input`
