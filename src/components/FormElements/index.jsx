@@ -5,6 +5,7 @@ import Email from './Email';
 import Phone from './Phone';
 import Select from './Select';
 import Text from './Text';
+import CPF from './CPF';
 
 import { Label, Span } from './styles';
 
@@ -12,16 +13,18 @@ const TYPE_FIELD = {
   area: Area,
   checkbox: Checkbox,
   checkboxLink: Checkbox,
-  email: Email,
+  radio: Checkbox,
+  emailmask: Email,
   phone: Phone,
   select: Select,
-  text: Text
+  text: Text,
+  cpf: CPF
 };
 
 const Field = ({ type, component: Component, label, ...props }) => {
   return (
     <Label type={type} htmlFor={props.name}>
-      <Component {...props}></Component>
+      <Component type={type} {...props}></Component>
       {!!label && <Span>{label}</Span>}
     </Label>
   );

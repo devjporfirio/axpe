@@ -90,7 +90,7 @@ function Contact() {
                 onChange={handleChange}
               />
               <FormElements
-                type="email"
+                type="emailmask"
                 name="email"
                 label="E-mail"
                 placeholder="E-mail"

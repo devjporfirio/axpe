@@ -147,6 +147,10 @@ export const PhoneMask = styled(MaskedInput)`
   ${BaseInput}
 `;
 
+export const CPFMask = styled(MaskedInput)`
+  ${BaseInput}
+`;
+
 export const EmailMask = styled(MaskedInput)`
   ${BaseInput}
 `;
