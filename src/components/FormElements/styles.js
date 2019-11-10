@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import media from 'styled-media-query';
 import MaskedInput from 'react-text-mask';
 
 export const Label = styled.label`
@@ -16,31 +17,53 @@ export const Label = styled.label`
   }
 
   ${props =>
+    props.children[1] &&
+    css`
+      input::placeholder {
+        opacity: 0;
+      }
+    `} 
+
+  ${props =>
     props.type === 'area' &&
     css`
       height: 100px;
     `}
 
+
   ${props =>
-    props.type === 'checkbox' &&
+    [ 'checkboxLink', 'checkbox' ].includes(props.type) &&
     css`
       padding-left: 0;
       background: none;
 
       span {
         position: initial;
-        top: 0 !important;
-        width: calc(100% - 47px);
-        font: 14px 'Raleway';
-        font-weight: ${({ theme }) => theme.fontsWeight.medium};
-        padding-left: 11px;
-        max-width: 200px;
-        line-height: 14px;
+        top: 5px !important;
 
         a {
           text-decoration: underline;
           color: ${({ theme }) => theme.colors.orange};
         }
+      }
+    `}
+
+
+  ${props =>
+    props.type === 'checkboxLink' &&
+    css`
+      span {
+        padding-left: 11px;
+        max-width: 230px;
+        line-height: 14px;
+        top: 0 !important;
+
+        ${media.greaterThan('medium')`width: calc(100% - 47px);`}
+      }
+
+      input {
+        width: 27px;
+        height: 27px;
       }
     `}
 `;
@@ -73,15 +96,31 @@ const BaseInput = css`
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.greyDark2};
     font: 14px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
-    opacity: 0;
   }
 
   &:focus {
     outline: 0;
+    &::placeholder {
+      opacity: 1;
+    }
   }
+`;
+
+export const FormGroupYesNo = styled.div`
+  ${media.greaterThan('medium')`
+    max-width: 175px;
+    display: flex;
+    align-items: center;
+
+    label {
+      width: auto;
+      margin-bottom: 0;
+      width: 90px;
+    }
+  `}
 `;
 
 export const FormGroup = styled.div`
@@ -94,11 +133,13 @@ export const FormGroup = styled.div`
 
   h1,
   h2 {
-    font: 18px 'Raleway';
+    font: 16px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     text-transform: uppercase;
     width: 100%;
     margin: 30px 0 17px 0;
+
+    ${media.greaterThan('medium')`font-size: 18px;`}
   }
 `;
 

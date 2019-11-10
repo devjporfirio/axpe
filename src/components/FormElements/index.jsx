@@ -11,6 +11,7 @@ import { Label, Span } from './styles';
 const TYPE_FIELD = {
   area: Area,
   checkbox: Checkbox,
+  checkboxLink: Checkbox,
   email: Email,
   phone: Phone,
   select: Select,
@@ -21,7 +22,7 @@ const Field = ({ type, component: Component, label, ...props }) => {
   return (
     <Label type={type} htmlFor={props.name}>
       <Component {...props}></Component>
-      {label && <Span>{label}</Span>}
+      {!!label && <Span>{label}</Span>}
     </Label>
   );
 };

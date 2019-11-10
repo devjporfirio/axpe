@@ -1,8 +1,16 @@
 import React from 'react';
 import FormElements from 'components/FormElements';
 
-import { FormGroup } from 'components/FormElements/styles';
-import { Container, Form, FormGroupButton, ButtonContainer } from 'pages/Work/styles';
+import { FormGroup, FormGroupYesNo } from 'components/FormElements/styles';
+import {
+  Container,
+  Form,
+  FormGroupButton,
+  FormGroupBrokerExperience,
+  ButtonContainer,
+  FormGroupBasics,
+  FormGroupLang
+} from 'pages/Work/styles';
 
 function Work() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
@@ -12,52 +20,58 @@ function Work() {
         <h1>Quero trabalhar na Axpe</h1>
         <FormGroup>
           <h2>Você já trabalhou ou trabalha como corretor de imóveis?*</h2>
-          <FormElements name="brokerExperience" type="checkbox" label="Não" />
-          <FormElements
-            name="brokerExperience"
-            type="checkbox"
-            label="Sim, em imobiliária"
-          />
-          <FormElements
-            name="brokerExperience"
-            type="checkbox"
-            label="Sim, como autônomo"
-          />
+          <FormGroupBrokerExperience>
+            <FormElements name="brokerExperience" type="checkbox" label="Não" />
+            <FormElements
+              name="brokerExperience"
+              type="checkbox"
+              label="Sim, em imobiliária"
+            />
+            <FormElements
+              name="brokerExperience"
+              type="checkbox"
+              label="Sim, como autônomo"
+            />
+          </FormGroupBrokerExperience>
         </FormGroup>
 
         <FormGroup>
           <h2>POSSUI CRECI?*</h2>
-          <FormElements name="haveBelieved" type="checkbox" label="Não" />
-          <FormElements name="haveBelieved" type="checkbox" label="Sim" />
+          <FormGroupYesNo>
+            <FormElements name="haveBelieved" type="checkbox" label="Não" />
+            <FormElements name="haveBelieved" type="checkbox" label="Sim" />
+          </FormGroupYesNo>
         </FormGroup>
 
         <FormGroup>
           <h2>SEUS DADOS BÁSICOS*</h2>
-          <FormElements name="name" label="Nome" placeholder="Nome" />
-          <FormElements
-            name="lastName"
-            label="Sobrenome"
-            placeholder="Sobrenome"
-          />
-          <FormElements name="cpf" label="CPF" placeholder="CPF" />
-          <FormElements
-            type="email"
-            name="email"
-            label="E-mail pessoal"
-            placeholder="E-mail pessoal"
-          />
-          <FormElements
-            type="phone"
-            name="phone"
-            label="Telefone"
-            placeholder="Telefone"
-          />
-          <FormElements
-            type="phone"
-            name="mobile"
-            label="Celular"
-            placeholder="Celular"
-          />
+          <FormGroupBasics>
+            <FormElements name="name" label="Nome" placeholder="Nome" />
+            <FormElements
+              name="lastName"
+              label="Sobrenome"
+              placeholder="Sobrenome"
+            />
+            <FormElements name="cpf" label="CPF" placeholder="CPF" />
+            <FormElements
+              type="email"
+              name="email"
+              label="E-mail pessoal"
+              placeholder="E-mail pessoal"
+            />
+            <FormElements
+              type="phone"
+              name="phone"
+              label="Telefone"
+              placeholder="Telefone"
+            />
+            <FormElements
+              type="phone"
+              name="mobile"
+              label="Celular"
+              placeholder="Celular"
+            />
+          </FormGroupBasics>
         </FormGroup>
 
         <FormGroup>
@@ -91,10 +105,12 @@ function Work() {
 
         <FormGroup>
           <h2>idiomas que falo fluentemente</h2>
-          <FormElements name="lang" label="Idioma" placeholder="Idioma" />
-          <FormElements name="lang" label="Idioma" placeholder="Idioma" />
-          <FormElements name="lang" label="Idioma" placeholder="Idioma" />
-          <FormElements name="lang" label="Idioma" placeholder="Idioma" />
+          <FormGroupLang>
+            <FormElements name="lang" label="Idioma" placeholder="Idioma" />
+            <FormElements name="lang" label="Idioma" placeholder="Idioma" />
+            <FormElements name="lang" label="Idioma" placeholder="Idioma" />
+            <FormElements name="lang" label="Idioma" placeholder="Idioma" />
+          </FormGroupLang>
         </FormGroup>
 
         <FormGroup>
@@ -115,19 +131,21 @@ function Work() {
         </FormGroup>
         <FormGroup>
           <h2>conhece alguém na Axpe?</h2>
-          <FormElements name="wasIndicated" type="checkbox" label="Não" />
-          <FormElements name="wasIndicated" type="checkbox" label="Sim" />
-          <FormElements name="facebook" placeholder="Quem?" />
+          <FormGroupYesNo>
+            <FormElements name="wasIndicated" type="checkbox" label="Não" />
+            <FormElements name="wasIndicated" type="checkbox" label="Sim" />
+          </FormGroupYesNo>
+          <FormElements name="whoIndicated" placeholder="Quem?" />
         </FormGroup>
+        <FormGroupButton>
+          <FormElements
+            type="checkboxLink"
+            name="politica"
+            label={<>Concordo com a {linkPolitics} da Axpe.</>}
+          />
+          <ButtonContainer type="button">Enviar</ButtonContainer>
+        </FormGroupButton>
       </Form>
-      <FormGroupButton>
-        <FormElements
-          type="checkbox"
-          name="politica"
-          label={<>Concordo com a {linkPolitics} da Axpe.</>}
-        />
-        <ButtonContainer type="button">Enviar</ButtonContainer>
-      </FormGroupButton>
     </Container>
   );
 }

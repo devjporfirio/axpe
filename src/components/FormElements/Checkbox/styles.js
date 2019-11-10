@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import CheckedIconSVG from 'assets/icons/checked.svg';
 
 export const InputCheckbox = styled.input`
-  width: 27px;
-  height: 27px;
+  width: 24px;
+  height: 24px;
   border: 1.6px solid ${({ theme }) => theme.colors.green};
   border-radius: 4px;
   position: initial;

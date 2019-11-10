@@ -116,7 +116,7 @@ function Contact() {
 
             <FormGroupButton>
               <FormElements
-                type="checkbox"
+                type="checkboxLink"
                 name="politica"
                 label={
                   <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
