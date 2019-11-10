@@ -3,6 +3,7 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import GoogleMapReact from 'google-map-react';
 import { useFormik } from 'formik';
+import Api from 'services';
 
 import { FormGroup } from 'components/FormElements/styles';
 import {
@@ -28,18 +29,26 @@ import {
 function Contact() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
 
-  const formik = useFormik({
+  const { handleSubmit, handleChange } = useFormik({
     initialValues: {
       name: '',
       lastName: '',
+      email: '',
       phone: '',
       mobile: '',
       subject: '',
-      message: ''
+      message: '',
+      terms: false
     },
-
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async values => {
+      if (!values.terms) {
+        alert('Aceite os termos :D');
+        return;
+      }
+      const resp = await Api.Contact.postContact(values);
+      if (resp.status === 'success') {
+        alert(resp.status);
+      }
     }
   });
 
@@ -65,64 +74,77 @@ function Contact() {
             assunto. Pedir um imóvel bem específico, tirar dúvidas, pedir uma
             informação e também reclamar, dar sugestões, elogiar.
           </Message>
-          <Form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <FormGroup>
               <h1>Seus dados de contato</h1>
               <FormElements
-                name="nome"
+                name="name"
                 label="Nome"
                 placeholder="Nome"
-                onChange={formik.handleChange}
-                value={formik.values.name}
+                onChange={handleChange}
               />
               <FormElements
-                name="sobrenome"
+                name="lastName"
                 label="Sobrenome"
                 placeholder="Sobrenome"
+                onChange={handleChange}
               />
               <FormElements
                 type="email"
                 name="email"
                 label="E-mail"
                 placeholder="E-mail"
+                onChange={handleChange}
               />
               <FormElements
                 type="phone"
-                name="telefone"
+                name="phone"
                 label="Telefone"
                 placeholder="Telefone"
+                onChange={handleChange}
               />
               <FormElements
                 type="phone"
-                name="celular"
+                name="mobile"
                 label="Celular"
                 placeholder="Celular"
+                onChange={handleChange}
               />
             </FormGroup>
 
             <FormGroup>
               <h1>Assunto:</h1>
               <FormElements
-                name="assunto"
+                name="subject"
                 type="select"
-                items={[{ label: 'Selecione o assunto', value: 0 }]}
+                items={[
+                  { label: 'Selecione o assunto', value: '' },
+                  { label: 'Compra', value: 'compra' },
+                  { label: 'Venda', value: 'venda' }
+                ]}
+                onChange={handleChange}
               />
             </FormGroup>
 
             <FormGroup>
               <h1>Sua Mensagem</h1>
-              <FormElements type="area" name="mensagem" />
+              <FormElements
+                type="area"
+                name="message"
+                onChange={handleChange}
+              />
             </FormGroup>
 
             <FormGroupButton>
               <FormElements
                 type="checkboxLink"
-                name="politica"
+                name="terms"
                 label={
                   <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
                 }
+                onChange={handleChange}
               />
-              <ButtonContainer type="button">Enviar</ButtonContainer>
+              <ButtonContainer type="submit">Enviar</ButtonContainer>
             </FormGroupButton>
           </Form>
           <BlockHighlighted type="contactWork" />

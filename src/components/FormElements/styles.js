@@ -78,7 +78,7 @@ export const Span = styled.span`
 const BaseInput = css`
   position: absolute;
   top: 20px;
-  height: 16px;
+  height: 25px;
   width: 100%;
   padding-left: 12px;
   border: none;
