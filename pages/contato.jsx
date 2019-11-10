@@ -1,7 +1,11 @@
 import React from 'react';
 import BlockHighlighted from 'components/BlockHighlighted';
-import * as Input from 'components/FormElements';
+import FormElements from 'components/FormElements';
+import GoogleMapReact from 'google-map-react';
+import { useFormik } from 'formik';
+import Api from 'services';
 
+import { FormGroup } from 'components/FormElements/styles';
 import {
   ButtonContainer,
   Container,
@@ -14,12 +18,39 @@ import {
   Message,
   Whats,
   Form,
-  FormGroup,
-  Mapa
+  FormGroupButton,
+  Mapa,
+  Balloon,
+  Pin,
+  Circle,
+  Rec
 } from 'pages/Contact/styles';
 
 function Contact() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
+
+  const { handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      name: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      mobile: '',
+      subject: '',
+      message: '',
+      terms: false
+    },
+    onSubmit: async values => {
+      if (!values.terms) {
+        alert('Aceite os termos :D');
+        return;
+      }
+      const resp = await Api.Contact.postContact(values);
+      if (resp.status === 'success') {
+        alert(resp.status);
+      }
+    }
+  });
 
   return (
     <Container>
@@ -43,49 +74,106 @@ function Contact() {
             assunto. Pedir um imóvel bem específico, tirar dúvidas, pedir uma
             informação e também reclamar, dar sugestões, elogiar.
           </Message>
-          <Form onSubmit={() => {}}>
+          <Form onSubmit={handleSubmit}>
             <FormGroup>
               <h1>Seus dados de contato</h1>
-              <Input.Text placeholder="Nome" />
-              <Input.Text placeholder="Sobrenome" />
-              <Input.Email placeholder="E-mail" />
-              <Input.Phone placeholder="Telefone" />
-              <Input.Phone placeholder="Celular" />
+              <FormElements
+                name="name"
+                label="Nome"
+                placeholder="Nome"
+                onChange={handleChange}
+              />
+              <FormElements
+                name="lastName"
+                label="Sobrenome"
+                placeholder="Sobrenome"
+                onChange={handleChange}
+              />
+              <FormElements
+                type="emailmask"
+                name="email"
+                label="E-mail"
+                placeholder="E-mail"
+                onChange={handleChange}
+              />
+              <FormElements
+                type="phone"
+                name="phone"
+                label="Telefone"
+                placeholder="Telefone"
+                onChange={handleChange}
+              />
+              <FormElements
+                type="phone"
+                name="mobile"
+                label="Celular"
+                placeholder="Celular"
+                onChange={handleChange}
+              />
             </FormGroup>
 
             <FormGroup>
               <h1>Assunto:</h1>
-              <Input.Select
-                items={[{ label: 'Selecione o assunto', value: 0 }]}
-              />
-              <Input.Select
-                items={[{ label: 'Selecione o assunto', value: 0 }]}
+              <FormElements
+                name="subject"
+                type="select"
+                items={[
+                  { label: 'Selecione o assunto', value: '' },
+                  { label: 'Compra', value: 'compra' },
+                  { label: 'Venda', value: 'venda' }
+                ]}
+                onChange={handleChange}
               />
             </FormGroup>
 
             <FormGroup>
               <h1>Sua Mensagem</h1>
-              <Input.Area />
+              <FormElements
+                type="area"
+                name="message"
+                onChange={handleChange}
+              />
             </FormGroup>
 
-            <Input.Checkbox
-              label={
-                <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
-              }
-            />
-
-            <ButtonContainer type="button">Enviar</ButtonContainer>
+            <FormGroupButton>
+              <FormElements
+                type="checkboxLink"
+                name="terms"
+                label={
+                  <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
+                }
+                onChange={handleChange}
+              />
+              <ButtonContainer type="submit">Enviar</ButtonContainer>
+            </FormGroupButton>
           </Form>
           <BlockHighlighted type="contactWork" />
         </BlockForm>
         <Mapa>
-          <iframe
-            title="addressAxpe"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.7407389658424!2d-46.67402236422859!3d-23.57775316878633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce57611a6b76ad%3A0x108a9f3f5c35785e!2sAv.%20Nove%20de%20Julho%2C%205017%20-%20Jardim%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001406-200!5e0!3m2!1spt-BR!2sbr!4v1572438069962!5m2!1spt-BR!2sbr"
-            frameBorder="0"
-            style={{ border: 0 }}
-            allowFullScreen=""
-          />
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto'
+            }}
+            defaultCenter={{
+              lat: -23.577706,
+              lng: -46.673809
+            }}
+            defaultZoom={12}
+          >
+            <Pin lat={-23.577706} lng={-46.673809}>
+              <Balloon>
+                <div></div>
+                <h4>Nosso escritório</h4>
+                <p>
+                  Avenida Nove de Julho, 5017, 10° Andar. Jardim Paulista - São
+                  Paulo, SP
+                </p>
+                <a href="https://g.page/axpe_imoveis?share">Como chegar?</a>
+              </Balloon>
+              <Rec></Rec>
+              <Circle></Circle>
+            </Pin>
+          </GoogleMapReact>
         </Mapa>
       </Body>
     </Container>

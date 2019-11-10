@@ -1,44 +1,35 @@
 import React from 'react';
+import Area from './Area';
+import Checkbox from './Checkbox';
+import Email from './Email';
+import Phone from './Phone';
+import Select from './Select';
+import Text from './Text';
+import CPF from './CPF';
 
-import { Input, InputCheckbox, InputSelect, InputTextArea } from './styles';
+import { Label, Span } from './styles';
 
-export const Text = props => {
-  return <Input {...props} />;
+const TYPE_FIELD = {
+  area: Area,
+  checkbox: Checkbox,
+  checkboxLink: Checkbox,
+  radio: Checkbox,
+  emailmask: Email,
+  phone: Phone,
+  select: Select,
+  text: Text,
+  cpf: CPF
 };
 
-export const Email = props => {
-  return <Input {...props} />;
-};
-
-export const Phone = props => {
-  return <Input {...props} />;
-};
-
-export const Select = props => {
-  const { items } = props;
+const Field = ({ type, component: Component, label, ...props }) => {
   return (
-    <InputSelect>
-      {items &&
-        items.length > 0 &&
-        items.map(i => (
-          <option key={i.value} value={i.value}>
-            {i.label}
-          </option>
-        ))}
-    </InputSelect>
+    <Label type={type} htmlFor={props.name}>
+      <Component type={type} {...props}></Component>
+      {!!label && <Span>{label}</Span>}
+    </Label>
   );
 };
 
-export const Area = props => {
-  return <InputTextArea {...props}></InputTextArea>;
-};
-
-export const Checkbox = props => {
-  const { label, name } = props;
-  return (
-    <InputCheckbox htmlFor={name}>
-      <input name={name} type="checkbox" />
-      <span>{label}</span>
-    </InputCheckbox>
-  );
-};
+export default function FormElements({ type = 'text', ...props }) {
+  return <Field component={TYPE_FIELD[type]} type={type} {...props} />;
+}

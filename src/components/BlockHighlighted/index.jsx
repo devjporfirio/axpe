@@ -46,7 +46,7 @@ const ContactWork = () => (
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
         tudo a ver com você?
       </p>
-      <Link fullWidth={true} href="">
+      <Link fullWidth={true} href="/trabalhe-conosco">
         Trabalhe Conosco
       </Link>
     </div>
