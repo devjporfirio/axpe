@@ -118,14 +118,21 @@ export const Video = styled.iframe`
 `;
 
 const SectionImagemDestaque = css`
-  max-width: 320px;
+  max-width: 350px !important;
 
   ${media.greaterThan('medium')`
+    height: 454px !important;
     h4 {
       font-size: 22px !important;
+      line-height: 28.6px;
+    }
+    hr {
+      display: none;
     }
     p {
+      margin-top: 20px;
       font-size: 16px !important;
+      line-height: 28.6px;
     }
   `}
 `;
