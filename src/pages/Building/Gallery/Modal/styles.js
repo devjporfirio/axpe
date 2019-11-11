@@ -1,20 +1,5 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import Breadcrumb from 'components/Breadcrumb';
-
-export const Icon = styled.img`
-  ${props =>
-    props.mq === 'mobile' &&
-    media.greaterThan('medium')`
-      display: none;
-  `}
-
-  ${props =>
-    props.mq === 'desktop' &&
-    media.lessThan('medium')`
-      display: none;
-  `}
-`;
 
 export const Container = styled.div`
   width: 100vw;
@@ -27,19 +12,40 @@ export const Container = styled.div`
 `;
 
 export const ButtonClose = styled.button`
-  position: absolute;
+  position: fixed;
   top: 23px;
-  right: 20px;
-  width: 30px;
-  height: 30px;
-
-  img {
-    width: 15px;
-    height: 15px;
-  }
+  right: 30px;
+  z-index: 10;
 
   span {
     display: none;
+  }
+
+  i {
+    display: block;
+    position: relative;
+    width: 15px;
+    height: 15px;
+
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 15px;
+      background: ${({ theme }) => theme.colors.green};
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
   }
 
   ${media.greaterThan('medium')`
@@ -57,17 +63,12 @@ export const ButtonClose = styled.button`
       text-transform: uppercase;
       display: block;
     }
-  `}
-`;
 
-export const Header = styled(Breadcrumb)`
-  position: absolute;
-  width: 100vw;
-  height: 67px;
-  background-color: ${({ theme }) => theme.colors.white};
-  top: 0;
-
-  ${media.greaterThan('medium')`
-    display: none;
+    i {
+      &:before,
+      &:after {
+        background: ${({ theme }) => theme.colors.white};
+      }
+    }
   `}
 `;

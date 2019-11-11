@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Api from 'services';
 
 // components
+import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import SimilarBuilding from 'components/Building';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
-
 
 // helpers
 import User from 'helpers/user';
@@ -15,7 +15,6 @@ import User from 'helpers/user';
 // styles
 import {
   Container,
-  Header,
   Images,
   Alert,
   PanelSimilar
@@ -41,17 +40,17 @@ function Building({ property }) {
     loadSimilarBuildings();
   }, []);
 
-  if (!property || !Object.keys(property).length > 0) {
-    return <h1>Loading..</h1>;
-  }
-
-  return (
+  return property && Object.keys(property).length ? (
     <Container>
-      <Header
-        category={property.category}
-        local={property.address.local}
-        source={property.source}
-        reference={property.reference}
+      <Headerbar
+        type="building"
+        title={property.category}
+        subtitle={property.address.local}
+        building={{
+          reference: property.reference,
+          source: property.source,
+          likes: 135
+        }}
       />
 
       {property.gallery && (
@@ -95,7 +94,7 @@ function Building({ property }) {
       <BlockHighlighted type="notfound" />
       <Contact />
     </Container>
-  );
+  ) : null;
 }
 
 Building.getInitialProps = async ({ query }) => {

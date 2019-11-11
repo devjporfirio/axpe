@@ -119,6 +119,7 @@ function Search({ currentPage, total, totalPages, data }) {
         <>
           {total ? (
             <Headerbar
+              type="search"
               title={getSourceText()}
               subtitle={`Imóveis para ${getFinalityText()}`}
             />

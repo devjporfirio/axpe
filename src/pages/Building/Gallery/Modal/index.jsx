@@ -1,8 +1,10 @@
 import React from 'react';
-import { Container, ButtonClose, Header, Icon } from './styles';
 
-import IClose from 'assets/icons/close-white.svg';
-import ICloseGreen from 'assets/icons/close-green.svg';
+// components
+import Headerbar from 'components/Headerbar';
+
+// styles
+import { Container, ButtonClose } from './styles';
 
 export default function Modal({
   closeModal = () => {},
@@ -13,13 +15,12 @@ export default function Modal({
 }) {
   return (
     <Container className={className}>
-      <Header category={category} local={local} />
+      <Headerbar type="modal" title={category} subtitle={local} />
       <ButtonClose
         onClick={closeModal}
       >
         <span>Fechar</span>
-        <Icon mq="mobile" src={ICloseGreen} alt="Fechar" />
-        <Icon mq="dektop" src={IClose} alt="Fechar" />
+        <i></i>
       </ButtonClose>
 
       {children}

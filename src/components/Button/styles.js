@@ -25,25 +25,26 @@ export const ButtonStyle = css`
       width: 100%;
     `}
 
-  ${props => props.size === 'small' && ButtonSmall}
-  ${props => props.color === 'orange' && ButtonOrange}
-
   ${media.greaterThan('1024px')`
     &:hover {
       opacity: 0.7;
     }
   `}
+
+  ${props => props.size === 'small' && ButtonSmall}
+  ${props => props.color === 'orange' && ButtonOrange}
 `;
 
 export const ButtonSmall = css`
   height: 32px;
+  padding: 0 10px;
   line-height: 32px;
 `;
 
 export const ButtonOrange = css`
   ${media.greaterThan('1024px')`
     &:hover {
-      background: black;
+      /* background: black; */
     }
   `}
 `;
