@@ -184,11 +184,7 @@ export const FormButtonsFilterRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin-bottom: 20px;
-
-  ${media.greaterThan('medium')`
-    margin-bottom: 10px;
-  `}
+  margin-bottom: 10px;
 `;
 
 export const FormButtonsFilterItemRadio = styled.label`
@@ -233,9 +229,9 @@ export const FormButtonsFilterItemRadio = styled.label`
   span {
     display: block;
     width: 100%;
-    height: 40px;
+    height: 30px;
     text-align: center;
-    font: 14px/36px 'Raleway';
+    font: 13px/26px 'Raleway';
     text-transform: uppercase;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     color: ${({ theme }) => theme.colors.white};
@@ -255,6 +251,14 @@ export const FormButtonsFilterItemRadio = styled.label`
       &:before {
         display: block;
       }
+    }
+  `}
+
+  ${media.greaterThan('medium')`
+    span {
+      height: 40px;
+      line-height: 36px;
+      font-xize: 14px;
     }
   `}
 
@@ -289,7 +293,7 @@ export const FormButtonFilter = styled.button`
 
   strong {
     text-transform: uppercase;
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 0.5px;
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     transition: all 300ms ease;
@@ -587,8 +591,12 @@ export const FormFooter = styled.footer`
   flex-wrap: wrap;
   margin-top: auto;
   width: 100%;
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 30px;
+
+  ${media.greaterThan('medium')`
+    padding-top: 30px;
+  `};
 `;
 
 export const FormButtonSubmit = styled.button`
