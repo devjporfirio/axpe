@@ -232,8 +232,8 @@ function Search({ dispatch }) {
 
   return (
     <Container active={searchFormActive}>
-        <Form onSubmit={formik.handleSubmit}>
-          <FormWrapper active={searchFormActive}>
+        <Form onSubmit={formik.handleSubmit} onClick={closeSearch}>
+          <FormWrapper active={searchFormActive} onClick={event => event.stopPropagation()}>
             <FormHeader>
               <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
               <FormClose type="button" onClick={closeSearch}>Fechar</FormClose>
@@ -388,7 +388,7 @@ function Search({ dispatch }) {
 
           </FormWrapper>
 
-          <FormTab active={tabActive === 'sources'}>
+          <FormTab active={tabActive === 'sources'} onClick={event => event.stopPropagation()}>
             <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
               <SVG src={ArrowIconSVG} uniquifyIDs={true} />
             </FormTabButtonBack>
@@ -409,7 +409,7 @@ function Search({ dispatch }) {
           </FormTab>
 
           {filtersData && filtersData.types && filtersData.types.length ? (
-            <FormTab active={tabActive === 'types'}>
+            <FormTab active={tabActive === 'types'} onClick={event => event.stopPropagation()}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
@@ -428,7 +428,7 @@ function Search({ dispatch }) {
           ) : null}
 
           {filtersData && filtersData.locals ? (
-            <FormTab active={tabActive === 'locals'}>
+            <FormTab active={tabActive === 'locals'} onClick={event => event.stopPropagation()}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
@@ -456,7 +456,7 @@ function Search({ dispatch }) {
           ) : null}
 
           {filtersData ? (
-            <FormTab active={tabActive === 'filters'}>
+            <FormTab active={tabActive === 'filters'} onClick={event => event.stopPropagation()}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>

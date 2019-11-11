@@ -86,10 +86,6 @@ export const FormClose = styled.button`
   height: 15px;
   font-size: 0;
 
-  ${media.greaterThan('medium')`
-    display: none;
-  `};
-
   &:before,
   &:after {
     content: '';
