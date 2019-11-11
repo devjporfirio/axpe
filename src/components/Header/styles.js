@@ -32,6 +32,14 @@ export const Container = styled.header`
     align-items: center;
     border-bottom: 0;
   `}
+
+  ${css`
+    @media (min-width: 768px) and (max-height: 640px) {
+      display: block;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+  `}
 `;
 
 export const Wrapper = styled.div`
@@ -47,6 +55,12 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: flex-start;
     height: auto;
+  `}
+
+  ${css`
+    @media (min-width: 768px) and (max-height: 640px) {
+      padding: 30px;
+    }
   `}
 `;
 

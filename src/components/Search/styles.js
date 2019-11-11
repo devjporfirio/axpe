@@ -43,6 +43,7 @@ export const Form = styled.form`
 
   ${media.greaterThan('medium')`
     overflow: visible;
+    cursor: pointer;
   `};
 `;
 
@@ -67,6 +68,7 @@ export const FormWrapper = styled.div`
     overflow-y: auto;
     z-index: 5;
     transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    cursor: default;
 
     ${props =>
       props.active &&
@@ -326,7 +328,7 @@ export const FormButtonFilter = styled.button`
     padding: 5px 0;
     margin-bottom: 10px;
     height: auto;
-    min-height: 0;
+    min-height: 30px;
     text-align: left;
 
     &:last-of-type {
@@ -377,6 +379,7 @@ export const FormTab = styled.div`
     width: 250px;
     z-index: 3;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    cursor: default;
     ${({ theme }) => theme.hide}
   `}
 
