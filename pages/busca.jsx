@@ -15,7 +15,7 @@ import Building from 'components/Building';
 import Contact from 'components/Contact';
 
 // helpers
-import { getUrl } from 'helpers/utils'
+import { getParamsFromObject } from 'helpers/utils'
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
@@ -92,7 +92,7 @@ function Search({ currentPage, total, totalPages, data }) {
 
   useEffect(() => {
     const getDataByPage = async () => {
-      const params = getUrl({
+      const params = getParamsFromObject({
         ...query,
         page: page
       });
@@ -120,8 +120,8 @@ function Search({ currentPage, total, totalPages, data }) {
           {total ? (
             <Headerbar
               type="search"
-              title={getSourceText()}
-              subtitle={`Imóveis para ${getFinalityText()}`}
+              title={source && getSourceText()}
+              subtitle={finality && `Imóveis para ${getFinalityText()}`}
             />
           ) : null}
 
@@ -180,7 +180,7 @@ function Search({ currentPage, total, totalPages, data }) {
 }
 
 Search.getInitialProps = async ({ query }) => {
-  const params = getUrl(query, true);
+  const params = getParamsFromObject(query, true);
   const response = await Api.Search.getBuildings(params);
   return response;
 }

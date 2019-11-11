@@ -4,7 +4,7 @@ import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
-import { formatCurrency, getUrl } from 'helpers/utils';
+import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -110,11 +110,13 @@ function Search({ dispatch }) {
         }
       });
 
-      const params = getUrl(data);
+      const params = getParamsFromObject(data);
+
+      formik.setFieldValue('reference', '');
 
       setTabActive(null);
 
-      router.push(`/busca${params}`)
+      router.push(`/busca${params}`);
     }
   });
 
@@ -368,7 +370,7 @@ function Search({ dispatch }) {
 
             <FormFooter>
               <FormGroup type="reference">
-                <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} />
+                <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} value={formik.values.reference} />
                 <SVG src={SearchIconSVG} uniquifyIDs={true} />
               </FormGroup>
               <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
