@@ -186,6 +186,7 @@ function Search({ dispatch }) {
 
   function setSource(source) {
     formik.setFieldValue('source', source);
+    setFiltersData(null);
     resetValuesOnChange();
   }
 
