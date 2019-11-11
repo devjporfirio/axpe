@@ -1,4 +1,4 @@
-import { getUrl } from 'helpers/utils';
+import { getParamsFromObject } from 'helpers/utils';
 const baseMaps = 'https://maps.googleapis.com/maps/api/';
 
 export default {
@@ -58,7 +58,7 @@ export default {
     };
     const url = `${process.env.config.apiUrl}/buildings/find`;
 
-    const result = await fetch(url + getUrl(params))
+    const result = await fetch(url + getParamsFromObject(params))
       .then(response => response.json())
       .then(data => data);
     return result;

@@ -4,7 +4,7 @@ import { connect, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
-import { formatCurrency, getUrl } from 'helpers/utils';
+import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -110,11 +110,13 @@ function Search({ dispatch }) {
         }
       });
 
-      const params = getUrl(data);
+      const params = getParamsFromObject(data);
+
+      formik.setFieldValue('reference', '');
 
       setTabActive(null);
 
-      router.push(`/busca${params}`)
+      router.push(`/busca${params}`);
     }
   });
 
@@ -184,6 +186,7 @@ function Search({ dispatch }) {
 
   function setSource(source) {
     formik.setFieldValue('source', source);
+    setFiltersData(null);
     resetValuesOnChange();
   }
 
@@ -229,8 +232,8 @@ function Search({ dispatch }) {
 
   return (
     <Container active={searchFormActive}>
-        <Form onSubmit={formik.handleSubmit}>
-          <FormWrapper active={searchFormActive}>
+        <Form onSubmit={formik.handleSubmit} onClick={closeSearch}>
+          <FormWrapper active={searchFormActive} onClick={event => event.stopPropagation()}>
             <FormHeader>
               <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
               <FormClose type="button" onClick={closeSearch}>Fechar</FormClose>
@@ -368,7 +371,7 @@ function Search({ dispatch }) {
 
             <FormFooter>
               <FormGroup type="reference">
-                <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} />
+                <Input type="text" name="reference" placeholder="buscar por referência" onChange={formik.handleChange} onBlur={formik.handleChange} value={formik.values.reference} />
                 <SVG src={SearchIconSVG} uniquifyIDs={true} />
               </FormGroup>
               <FormButtonSubmit type="submit" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Buscar</FormButtonSubmit>
@@ -385,7 +388,7 @@ function Search({ dispatch }) {
 
           </FormWrapper>
 
-          <FormTab active={tabActive === 'sources'}>
+          <FormTab active={tabActive === 'sources'} onClick={event => event.stopPropagation()}>
             <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
               <SVG src={ArrowIconSVG} uniquifyIDs={true} />
             </FormTabButtonBack>
@@ -406,7 +409,7 @@ function Search({ dispatch }) {
           </FormTab>
 
           {filtersData && filtersData.types && filtersData.types.length ? (
-            <FormTab active={tabActive === 'types'}>
+            <FormTab active={tabActive === 'types'} onClick={event => event.stopPropagation()}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
@@ -425,7 +428,7 @@ function Search({ dispatch }) {
           ) : null}
 
           {filtersData && filtersData.locals ? (
-            <FormTab active={tabActive === 'locals'}>
+            <FormTab active={tabActive === 'locals'} onClick={event => event.stopPropagation()}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
@@ -453,7 +456,7 @@ function Search({ dispatch }) {
           ) : null}
 
           {filtersData ? (
-            <FormTab active={tabActive === 'filters'}>
+            <FormTab active={tabActive === 'filters'} onClick={event => event.stopPropagation()}>
               <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
                 <SVG src={ArrowIconSVG} uniquifyIDs={true} />
               </FormTabButtonBack>
