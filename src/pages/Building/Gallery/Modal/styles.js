@@ -1,20 +1,6 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-export const Icon = styled.img`
-  ${props =>
-    props.mq === 'mobile' &&
-    media.greaterThan('medium')`
-      display: none;
-  `}
-
-  ${props =>
-    props.mq === 'desktop' &&
-    media.lessThan('medium')`
-      display: none;
-  `}
-`;
-
 export const Container = styled.div`
   width: 100vw;
   height: calc(100vh - 67px);
@@ -28,18 +14,38 @@ export const Container = styled.div`
 export const ButtonClose = styled.button`
   position: fixed;
   top: 23px;
-  right: 20px;
-  width: 30px;
-  height: 30px;
+  right: 30px;
   z-index: 10;
-
-  img {
-    width: 15px;
-    height: 15px;
-  }
 
   span {
     display: none;
+  }
+
+  i {
+    display: block;
+    position: relative;
+    width: 15px;
+    height: 15px;
+
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 15px;
+      background: ${({ theme }) => theme.colors.green};
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
   }
 
   ${media.greaterThan('medium')`
@@ -56,6 +62,13 @@ export const ButtonClose = styled.button`
       color: ${({ theme }) => theme.colors.white};
       text-transform: uppercase;
       display: block;
+    }
+
+    i {
+      &:before,
+      &:after {
+        background: ${({ theme }) => theme.colors.white};
+      }
     }
   `}
 `;
