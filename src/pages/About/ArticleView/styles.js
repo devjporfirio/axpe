@@ -1,17 +1,9 @@
 import styled from 'styled-components';
+import { BaseArticles } from 'pages/About/styles';
 
-export const ArticleOne = styled.article`
+export const Container = styled(BaseArticles)`
   padding-bottom: 55px;
-
-  p {
-    padding: 0 30px;
-    font: 18px/25px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  }
-
-  p + p {
-    margin-top: 25px;
-  }
+  margin-bottom: 0;
 `;
 
 export const BlockImage = styled.div`

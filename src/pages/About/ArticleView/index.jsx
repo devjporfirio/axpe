@@ -1,11 +1,11 @@
 import React from 'react';
-import AboutSec1 from 'pages/About/sec1-about.jpg';
 import { TitleSection } from 'pages/About/styles';
-import { ArticleOne, BlockImage } from 'pages/About/ArticleView/styles';
+import { Container, BlockImage } from 'pages/About/ArticleView/styles';
+import ISecView from './sec-view.jpg';
 
 export default function ArticleView() {
   return (
-    <ArticleOne id="view">
+    <Container id="nosso-jeito">
       <header>
         <TitleSection>
           Uma imobiliária com uma <span>visão diferente</span> do morar.
@@ -14,7 +14,7 @@ export default function ArticleView() {
 
       <BlockImage>
         <div></div>
-        <img src={AboutSec1} alt="" />
+        <img src={ISecView} alt="" />
       </BlockImage>
 
       <p>
@@ -36,6 +36,6 @@ export default function ArticleView() {
         número de banheiros.
       </p>
       <p>Fique tranquilo, você encontrou.</p>
-    </ArticleOne>
+    </Container>
   );
 }

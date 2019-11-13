@@ -1,8 +1,18 @@
 import React from 'react';
 import ArticleView from 'pages/About/ArticleView';
+import ArticleBrokers from 'pages/About/ArticleBrokers';
+import ArticleVisit from 'pages/About/ArticleVisit';
+import ArticleHi from 'pages/About/ArticleHi';
+import ArticleRight from 'pages/About/ArticleRight';
+import ArticleClient from 'pages/About/ArticleClient';
+import ArticleChristie from 'pages/About/ArticleChristie';
+import ArticleElement from 'pages/About/ArticleElement';
+import ArticleSecurity from 'pages/About/ArticleSecurity';
+import ArticleOffice from 'pages/About/ArticleOffice';
+import ArticleName from 'pages/About/ArticleName';
+import Cover from 'pages/About/Cover';
 
-import AboutCover from 'pages/About/cover-about.jpg';
-import { Container, Tab, Li, Header, Gradient } from 'pages/About/styles';
+import { Container, Tab, Li } from 'pages/About/styles';
 
 function About() {
   return (
@@ -10,26 +20,32 @@ function About() {
       <Tab>
         <ul>
           <Li active>
-            <a href="#view">Nosso jeito</a>
+            <a href="#nosso-jeito">Nosso jeito</a>
           </Li>
           <Li>
-            <a href="#home">Nossa casa</a>
+            <a href="#nossa-casa">Nossa casa</a>
           </Li>
           <Li>
-            <a href="name">Nosso nome</a>
+            <a href="#nosso-nome">Nosso nome</a>
           </Li>
           <Li>
-            <a href="#christie’s">Christie’s International Real Estate</a>
+            <a href="#christie">Christie’s International Real Estate</a>
           </Li>
         </ul>
       </Tab>
-      <Header>
-        <Gradient />
-        <img src={AboutCover} alt="Foto de uma estante de livros" />
-        <h1>Nosso Jeito</h1>
-        <hr />
-      </Header>
+      <Cover />
+
       <ArticleView />
+      <ArticleBrokers />
+      <ArticleVisit />
+      <ArticleHi />
+      <ArticleRight />
+      <ArticleClient />
+      <ArticleChristie />
+      <ArticleElement />
+      <ArticleSecurity />
+      <ArticleOffice />
+      <ArticleName />
     </Container>
   );
 }

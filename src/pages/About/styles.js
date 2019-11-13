@@ -7,6 +7,8 @@ export const Tab = styled.nav`
   ul {
     white-space: nowrap;
     padding-left: 30px;
+    width: 100vw;
+    overflow: scroll;
   }
 `;
 
@@ -79,8 +81,31 @@ export const TitleSection = styled.h2`
   padding: 30px 35px;
   font: 24px/28px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  color: ${({ theme }) => theme.colors.greenDark};
 
   span {
     color: ${({ theme }) => theme.colors.orange};
+  }
+`;
+
+export const BaseArticles = styled.article`
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+
+  p {
+    padding: 0 30px;
+    font: 18px/25px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    color: ${({ theme }) => theme.colors.greenDark};
+  }
+
+  p + p {
+    margin-top: 25px;
+  }
+
+  hr {
+    border: 2px solid ${({ theme }) => theme.colors.orange};
+    width: 72px;
+    margin: 22px 0 0 30px;
   }
 `;
