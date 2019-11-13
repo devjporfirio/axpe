@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleClient/styles';
-import ISecClient from './sec-client.jpg';
 
 export default function ArticleClient() {
   return (
@@ -11,7 +10,7 @@ export default function ArticleClient() {
           Cliente é <span>como filho</span>
         </TitleSection>
       </header>
-      <img src={ISecClient} alt="Imagem de sala" />
+      <img src="static/about/sec-client.jpg" alt="Imagem de sala" />
 
       <p>
         A gente nem prefere e nem gosta mais de um do que do outro. Toda

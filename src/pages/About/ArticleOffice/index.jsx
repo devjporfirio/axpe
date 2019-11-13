@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleBrokers/styles';
-import ISecOffice from './sec-office.jpg';
 
 export default function ArticleOffice() {
   return (
@@ -12,7 +11,7 @@ export default function ArticleOffice() {
           direito a por do sol todos os dias.
         </TitleSection>
       </header>
-      <img src={ISecOffice} alt="Imagem de quadros" />
+      <img src="static/about/sec-office.jpg" alt="Imagem de quadros" />
 
       <p>
         E ainda está num prédio modernista projetado pelo arquiteto Rino Levi.

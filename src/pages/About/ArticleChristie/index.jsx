@@ -1,8 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleChristie/styles';
-import ISecChristie1 from './sec-christie1.jpg';
-import ISecChristie2 from './sec-christie2.jpg';
 
 export default function ArticleChristie() {
   return (
@@ -12,7 +10,7 @@ export default function ArticleChristie() {
           Corretores com <span>olhar</span> e <span>ouvidos</span> apurados.
         </TitleSection>
       </header>
-      <img src={ISecChristie1} alt="Imagem de quadros" />
+      <img src="static/about/sec-christie1.jpg" alt="Imagem de quadros" />
 
       <p>
         A Christie’s International Real Estate é a única rede global de
@@ -23,7 +21,7 @@ export default function ArticleChristie() {
         discrição e excelência.
       </p>
 
-      <img src={ISecChristie2} alt="Imagem de quadros" />
+      <img src="static/about/sec-christie2.jpg" alt="Imagem de quadros" />
     </Container>
   );
 }

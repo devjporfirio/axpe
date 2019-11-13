@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container, BlockImage } from 'pages/About/ArticleView/styles';
-import ISecView from './sec-view.jpg';
 
 export default function ArticleView() {
   return (
@@ -14,7 +13,7 @@ export default function ArticleView() {
 
       <BlockImage>
         <div></div>
-        <img src={ISecView} alt="" />
+        <img src="static/about/sec-view.jpg" alt="Imagem de Sala" />
       </BlockImage>
 
       <p>

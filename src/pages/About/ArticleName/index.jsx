@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleBrokers/styles';
-import ISecName from './sec-name.jpg';
 
 export default function ArticleName() {
   return (
@@ -13,7 +12,7 @@ export default function ArticleName() {
           Axpe é uma pequena aldeia no País Basco, Espanha. É um local especial.
         </TitleSection>
       </header>
-      <img src={ISecName} alt="Imagem de quadros" />
+      <img src="static/about/sec-name.jpg" alt="Imagem de quadros" />
       <hr />
       <p>
         Onde a quietude é quebrada apenas pelo sininho das ovelhas no pasto. Em

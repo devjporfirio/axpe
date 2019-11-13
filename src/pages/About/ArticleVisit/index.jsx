@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleVisit/styles';
-import ISecVisit from './sec-visit.jpg';
 
 export default function ArticleVisit() {
   return (
@@ -12,7 +11,7 @@ export default function ArticleVisit() {
           <span>Ninguém merece.</span>
         </TitleSection>
       </header>
-      <img src={ISecVisit} alt="Imagem de uma sala" />
+      <img src="static/about/sec-visit.jpg" alt="Imagem de uma sala" />
 
       <p>
         Com certeza, mais cedo ou mais tarde, às vezes bem mais tarde, você vai

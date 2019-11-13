@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleRight/styles';
-import ISecRight from './sec-right.jpg';
 
 export default function ArticleRight() {
   return (
@@ -12,7 +11,7 @@ export default function ArticleRight() {
           <span>O que é errado é errado.</span>
         </TitleSection>
       </header>
-      <img src={ISecRight} alt="Imagem de uma sala" />
+      <img src="static/about/sec-right.jpg" alt="Imagem de uma sala" />
 
       <p>
         Na Axpe, seguimos as regras do mercado, cumprimos todas as leis, e

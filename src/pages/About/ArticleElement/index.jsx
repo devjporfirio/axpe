@@ -1,7 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
 import { Container } from 'pages/About/ArticleBrokers/styles';
-import ISecElement from './sec-element.jpg';
 
 export default function ArticleElement() {
   return (
@@ -12,7 +11,7 @@ export default function ArticleElement() {
           matéria-prima dos imóveis comerciais na Axpe
         </TitleSection>
       </header>
-      <img src={ISecElement} alt="Imagem de sala" />
+      <img src="static/about/sec-element.jpg" alt="Imagem de sala" />
 
       <p>
         Somos reconhecidos por nosso apuro estético, um olho clínico
