@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
 // import media from 'styled-media-query';
 
-export const Container = styled.section``;
+export const Container = styled.section`
+  img {
+    object-fit: cover;
+  }
+`;
 
 export const Tab = styled.nav`
   ul {
@@ -58,8 +62,8 @@ export const Header = styled.header`
   }
 
   img {
+    width: 100vw;
     height: 314px;
-    object-fit: cover;
   }
 `;
 

@@ -6,5 +6,6 @@ export const Container = styled(BaseArticles)`
 
   img {
     padding-bottom: 40px;
+    height: 332px;
   }
 `;

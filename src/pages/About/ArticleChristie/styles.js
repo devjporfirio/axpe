@@ -11,9 +11,11 @@ export const Container = styled(BaseArticles)`
 
   img {
     padding-bottom: 40px;
+    height: 304px;
   }
 
   img:nth-child(4) {
     padding-bottom: 0;
+    height: 404px;
   }
 `;

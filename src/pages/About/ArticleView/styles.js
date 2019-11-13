@@ -16,7 +16,6 @@ export const BlockImage = styled.div`
   }
 
   img {
-    object-fit: cover;
     width: calc(100vw - 30px);
     height: 381px;
     margin: -421px 0 0 30px;

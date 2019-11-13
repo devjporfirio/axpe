@@ -1,6 +1,6 @@
 import React from 'react';
 import { TitleSection } from 'pages/About/styles';
-import { Container } from 'pages/About/ArticleBrokers/styles';
+import { Container } from 'pages/About/ArticleElement/styles';
 
 export default function ArticleElement() {
   return (
