@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
+
 import { BaseArticles } from 'pages/About/styles';
 
 export const Container = styled(BaseArticles)`
@@ -8,4 +10,52 @@ export const Container = styled(BaseArticles)`
     padding-bottom: 40px;
     height: 426px;
   }
+
+  ${media.greaterThan('medium')`
+    background-color: ${({ theme }) => theme.colors.white};  
+    header {
+      max-width: 510px;
+      margin: 80px 0 0 0;
+    }
+
+    p {
+      max-width: 400px;
+      padding: 0px;
+      margin-left: 32px;
+    }
+
+    img {
+      width: 419px;
+      height: 584px;
+      padding: 0;
+      position: absolute;
+      margin-top: 54px;
+      left: 60%;
+
+      ${media.greaterThan('huge')`
+        left: auto;
+        margin-left: 700px;
+      `}
+    }
+  `}
+
+  ${media.greaterThan('1280px')`
+    header {
+      margin: 80px 0 0 62px;
+    }
+    p {
+      margin-left: 97px;
+    }
+  `}
+`;
+
+export const Group = styled.div`
+  ${media.greaterThan('medium')`
+    background-color: ${({ theme }) => theme.colors.greyLight};
+    max-width: 777px;
+    height: 609px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  `}
 `;
