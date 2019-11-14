@@ -24,6 +24,11 @@ export const Tab = styled.nav`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-left: 0;
+    }
+  `}
+  ${media.between('medium', '1024px')`
+    ul {
       padding-left: 140px;
     }
   `}
@@ -102,7 +107,7 @@ export const Header = styled.header`
     }
   `}
 
-  ${media.greaterThan('1024px')`
+  ${media.between('medium', '1024px')`
     h1 {
       width: 100%;
     }
@@ -130,7 +135,7 @@ export const Gradient = styled.div`
     background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 25.36%, #000000 97.86%);
     height: 512px;
   `}
-  ${media.greaterThan('1024px')`
+  ${media.between('medium', '1024px')`
     width: 100%;
   `}
 `;
