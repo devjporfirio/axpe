@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import { BaseArticles } from 'pages/About/styles';
 
 export const Container = styled(BaseArticles)`
@@ -8,4 +9,10 @@ export const Container = styled(BaseArticles)`
     padding-bottom: 40px;
     height: 272px;
   }
+
+  ${media.greaterThan('medium')`
+    img {
+      display: none;
+    }
+  `}
 `;

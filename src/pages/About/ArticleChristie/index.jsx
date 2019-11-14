@@ -7,7 +7,8 @@ export default function ArticleChristie() {
     <Container id="christie">
       <header>
         <TitleSection>
-          Corretores com <span>olhar</span> e <span>ouvidos</span> apurados.
+          Um convite da <span>Christie’s</span> não chega a qualquer
+          imobiliária.
         </TitleSection>
       </header>
       <img src="static/about/sec-christie1.jpg" alt="Imagem de quadros" />

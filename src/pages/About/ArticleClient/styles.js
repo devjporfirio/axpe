@@ -12,6 +12,7 @@ export const Container = styled(BaseArticles)`
 
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.white};
+    padding-bottom: 142px;
 
     header {
       h2 {
