@@ -12,7 +12,9 @@ export const Container = styled(BaseArticles)`
   }
 
   ${media.greaterThan('medium')`
+    margin-top: 25px;
     background-color: ${({ theme }) => theme.colors.white};  
+
     header {
       max-width: 510px;
       margin: 80px 0 0 0;
@@ -30,12 +32,7 @@ export const Container = styled(BaseArticles)`
       padding: 0;
       position: absolute;
       margin-top: 54px;
-      left: 60%;
-
-      ${media.greaterThan('huge')`
-        left: auto;
-        margin-left: 700px;
-      `}
+      left: 56%;
     }
   `}
 
@@ -45,6 +42,11 @@ export const Container = styled(BaseArticles)`
     }
     p {
       margin-left: 97px;
+    }
+
+    img {
+      left: auto;
+      margin-left: 540px;
     }
   `}
 `;

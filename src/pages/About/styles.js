@@ -128,6 +128,15 @@ export const TitleSection = styled.h2`
     font: 24px/28px 'Raleway';
     color: ${({ theme }) => theme.colors.orange};
   }
+
+  ${media.greaterThan('medium')`
+    font-size: 37px;
+    line-height: 42px;
+    span {
+      font-size: 37px;
+      line-height: 42px;
+    }
+  `}
 `;
 
 export const BaseArticles = styled.article`
@@ -152,7 +161,7 @@ export const BaseArticles = styled.article`
   }
 
   ${media.greaterThan('medium')`
-    max-width: 1119px;
+    max-width: 956px;
     margin: auto;
   `}
 `;

@@ -7,8 +7,8 @@ export default function ArticleRight() {
     <Container id="certo">
       <header>
         <TitleSection>
-          O que é certo é certo.
-          <span>O que é errado é errado.</span>
+          O que é certo é certo. <br />
+          <span> O que é errado é errado.</span>
         </TitleSection>
       </header>
       <img src="static/about/sec-right.jpg" alt="Imagem de uma sala" />

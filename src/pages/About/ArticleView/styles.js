@@ -5,15 +5,9 @@ import { BaseArticles, TitleSection } from 'pages/About/styles';
 export const Title = styled(TitleSection)`
   ${media.greaterThan('medium')`
     text-align: center;
-    font-size: 37px;
-    line-height: 42px;
     width: 564px;
     height: 150px;
     margin: auto;
-    span {
-      font-size: 37px;
-      line-height: 42px;
-    }
   `}
 `;
 
@@ -41,13 +35,12 @@ export const BlockImage = styled.div`
     padding-bottom: 40px;
     div {
       height: 538px;
-      max-width: 583px;
-      width: 100%;
+      width: 478px;
     }
     img {
-      margin: -500px 0 0 101px;
-      height: 463px;
-      max-width: 499px;
+      margin: -478px 0 0 30px;
+      height: 416px;
+      width: 448px;
     }
   `}
 `;
@@ -60,7 +53,7 @@ export const GroupBody = styled.div`
     div:nth-child(2) {
       width: 400px;
       height: 400px;
-      margin: auto;
+      margin: 70px 59px;
 
       p {
         padding: 0;
