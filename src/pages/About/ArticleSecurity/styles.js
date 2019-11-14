@@ -11,6 +11,8 @@ export const Container = styled(BaseArticles)`
   }
 
   ${media.greaterThan('medium')`
+    margin-bottom: 80px;
+
     img {
       display: none;
     }

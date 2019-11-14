@@ -38,10 +38,12 @@ export const Container = styled(BaseArticles)`
 `;
 
 export const Group = styled.div`
-  width: 400px;
-  margin: 40px 0 0 545px;
+  ${media.greaterThan('medium')`
+    width: 400px;
+    margin: 40px 0 0 545px;
 
-  p {
-    padding: 0;
-  }
+    p {
+      padding: 0;
+    }
+  `}
 `;
