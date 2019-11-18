@@ -86,7 +86,7 @@ const TypeSlick = css`
 const TypeSlickSmall = css`
   ${media.greaterThan('medium')`
     ${TypeSlickLeftMobile}
-    width: calc(100% - 14px);
+    width: 100%;
     margin-left: 0 !important;
     padding: 20px;
     height: 240px;

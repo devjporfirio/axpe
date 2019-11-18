@@ -38,26 +38,26 @@ function renderBackground(type, item) {
         </>
       );
     default:
+      const urlImageDesktop =
+        item.images && item.images.desktop
+          ? item.images.desktop
+          : item.building &&
+            item.building.imageFeatured &&
+            item.building.imageFeatured
+          ? item.building.imageFeatured.desktop
+          : '';
+      const urlImageMobile =
+        item.images && item.images.mobile
+          ? item.images.mobile
+          : item.building &&
+            item.building.imageFeatured &&
+            item.building.imageFeatured
+          ? item.building.imageFeatured.mobile
+          : '';
       return (
         <>
-          <Image
-            type={type}
-            mq="desktop"
-            src={
-              item.images
-                ? item.images.desktop
-                : item.building.imageFeatured.desktop
-            }
-          />
-          <Image
-            type={type}
-            mq="mobile"
-            src={
-              item.images
-                ? item.images.mobile
-                : item.building.imageFeatured.mobile
-            }
-          />
+          <Image type={type} mq="desktop" src={urlImageDesktop} />
+          <Image type={type} mq="mobile" src={urlImageMobile} />
         </>
       );
   }

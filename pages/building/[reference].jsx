@@ -13,12 +13,7 @@ import Modules from 'pages/Building/modules';
 import User from 'helpers/user';
 
 // styles
-import {
-  Container,
-  Images,
-  Alert,
-  PanelSimilar
-} from 'pages/Building/styles';
+import { Container, Images, Alert, PanelSimilar } from 'pages/Building/styles';
 
 function Building({ property }) {
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
@@ -33,7 +28,7 @@ function Building({ property }) {
         similar.data &&
         similar.data.length > 0 &&
         similar.data.filter(x => x.reference !== property.reference);
-
+        
       setSimilarBuildings(buildings);
     }
 
@@ -81,15 +76,13 @@ function Building({ property }) {
         <Modules modules={property.components} />
       )}
 
-      {property.type === 'lancamento' &&
-        similarBuildings &&
-        similarBuildings.length > 0 && (
-          <PanelSimilar title="Pessoas que viram este imóvel também viram:">
-            {similarBuildings.map(building => (
-              <SimilarBuilding item={building} key={building.reference} />
-            ))}
-          </PanelSimilar>
-        )}
+      {similarBuildings && similarBuildings.length > 0 && (
+        <PanelSimilar title="Pessoas que viram este imóvel também viram:">
+          {similarBuildings.map(building => (
+            <SimilarBuilding item={building} key={building.reference} />
+          ))}
+        </PanelSimilar>
+      )}
 
       <BlockHighlighted type="notfound" />
       <Contact />
