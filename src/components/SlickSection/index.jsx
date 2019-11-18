@@ -45,6 +45,8 @@ function renderBackground(type, item) {
             item.building.imageFeatured &&
             item.building.imageFeatured
           ? item.building.imageFeatured.desktop
+          : item.imageFeatured
+          ? item.imageFeatured.desktop
           : '';
       const urlImageMobile =
         item.images && item.images.mobile
@@ -53,6 +55,8 @@ function renderBackground(type, item) {
             item.building.imageFeatured &&
             item.building.imageFeatured
           ? item.building.imageFeatured.mobile
+          : item.imageFeatured
+          ? item.imageFeatured.mobile
           : '';
       return (
         <>
@@ -67,7 +71,8 @@ function SlickSection({
   type = 'slick',
   items = [],
   color,
-  useGradient = false
+  useGradient = false,
+  className
 }) {
   let slidesToShow = 1;
   let rows = 1;
@@ -119,6 +124,7 @@ function SlickSection({
 
   return (
     <Container
+      className={className}
       type={type}
       length={lengthItems}
       propsArrow={{ type }}

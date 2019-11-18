@@ -110,6 +110,10 @@ export default createGlobalStyle`
     outline:none;
     box-shadow: none;
   }
+  
+  hr {
+    border: 2px solid ${({ theme }) => theme.colors.orange};
+  }
 
   ${props => props.vendorsStyle.length && VendorsStyle}
 `;

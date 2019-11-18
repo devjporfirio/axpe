@@ -60,7 +60,10 @@ function sectionDestaqueTextBullets(item) {
 }
 
 function sectionMultiInfos(item, labelTitle) {
-  const { category, values, infos, reference, slug, address } = item.building;
+  const { category, values, infos, reference, slug, address } =
+    item && item.building && Object.keys(item.building).lenght > 0
+      ? item.building
+      : item;
   return (
     <>
       {labelTitle && <h4>{item[labelTitle]}</h4>}
