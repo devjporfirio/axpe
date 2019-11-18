@@ -44,21 +44,6 @@ function Landing({ slug, page }) {
         )}
       </GroupText>
 
-      <Banner>
-        {Object.keys(imagesBanner) && (
-          <>
-            <Image mq="desktop" src={imagesBanner.desktop} />
-            <Image mq="mobile" src={imagesBanner.mobile} />
-          </>
-        )}
-        <Link
-          href={imagesBanner.link.url}
-          target={imagesBanner.link.external ? '_blank' : '_self'}
-        >
-          Saiba Mais
-        </Link>
-      </Banner>
-
       {componentes &&
         componentes.length > 0 &&
         componentes.map(comp => {
@@ -95,6 +80,20 @@ function Landing({ slug, page }) {
               );
           }
         })}
+      <Banner>
+        {Object.keys(imagesBanner) && (
+          <>
+            <Image mq="desktop" src={imagesBanner.desktop} />
+            <Image mq="mobile" src={imagesBanner.mobile} />
+          </>
+        )}
+        <Link
+          href={imagesBanner.link.url}
+          target={imagesBanner.link.external ? '_blank' : '_self'}
+        >
+          Saiba Mais
+        </Link>
+      </Banner>
       <BlockHighlighted type="landing" />
       <Contact />
     </Container>
