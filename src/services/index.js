@@ -3,13 +3,15 @@ import Search from './search';
 import Home from './home';
 import Building from './building';
 import Contact from './contact';
+import Landing from './landing';
 
 const Api = {
   User,
   Search,
   Home,
   Building,
-  Contact
+  Contact,
+  Landing
 };
 
 export default Api;
