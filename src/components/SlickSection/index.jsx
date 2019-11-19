@@ -38,26 +38,30 @@ function renderBackground(type, item) {
         </>
       );
     default:
+      const urlImageDesktop =
+        item.images && item.images.desktop
+          ? item.images.desktop
+          : item.building &&
+            item.building.imageFeatured &&
+            item.building.imageFeatured
+          ? item.building.imageFeatured.desktop
+          : item.imageFeatured
+          ? item.imageFeatured.desktop
+          : '';
+      const urlImageMobile =
+        item.images && item.images.mobile
+          ? item.images.mobile
+          : item.building &&
+            item.building.imageFeatured &&
+            item.building.imageFeatured
+          ? item.building.imageFeatured.mobile
+          : item.imageFeatured
+          ? item.imageFeatured.mobile
+          : '';
       return (
         <>
-          <Image
-            type={type}
-            mq="desktop"
-            src={
-              item.images
-                ? item.images.desktop
-                : item.building.imageFeatured.desktop
-            }
-          />
-          <Image
-            type={type}
-            mq="mobile"
-            src={
-              item.images
-                ? item.images.mobile
-                : item.building.imageFeatured.mobile
-            }
-          />
+          <Image type={type} mq="desktop" src={urlImageDesktop} />
+          <Image type={type} mq="mobile" src={urlImageMobile} />
         </>
       );
   }
@@ -67,7 +71,8 @@ function SlickSection({
   type = 'slick',
   items = [],
   color,
-  useGradient = false
+  useGradient = false,
+  className
 }) {
   let slidesToShow = 1;
   let rows = 1;
@@ -119,6 +124,7 @@ function SlickSection({
 
   return (
     <Container
+      className={className}
       type={type}
       length={lengthItems}
       propsArrow={{ type }}

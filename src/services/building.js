@@ -41,19 +41,19 @@ export default {
   async getSimilar(property, limit) {
     const params = {
       source: property.source,
-      use: property.infos.use,
-      finality: property.infos.type,
+      use: property.infos ? property.infos.use : '',
+      finality: property.infos ? property.infos.type : '',
       category: property.catergory,
-      local: property.address.local,
-      furniture: property.label.is_furnished,
+      local: property.address ? property.address.local : '',
+      furniture: property.label ? property.label.is_furnished : '',
       type: property.type,
-      price_start: property.values.release,
-      area_start: property.infos.areaUsefulStart,
-      area_end: property.infos.areaUsefulEnd,
-      bedroom_start: property.infos.bedroomsStart,
-      bedroom_end: property.infos.bedroomsEnd,
-      parking_start: property.infos.parkingStart,
-      parking_end: property.infos.parkingEnd,
+      price_start: property.values ? property.values.release : '',
+      area_start: property.infos ? property.infos.areaUsefulStart : '',
+      area_end: property.infos ? property.infos.areaUsefulEnd : '',
+      bedroom_start: property.infos ? property.infos.bedroomsStart : '',
+      bedroom_end: property.infos ? property.infos.bedroomsEnd : '',
+      parking_start: property.infos ? property.infos.parkingStart : '',
+      parking_end: property.infos ? property.infos.parkingEnd : '',
       limit
     };
     const url = `${process.env.config.apiUrl}/buildings/find`;

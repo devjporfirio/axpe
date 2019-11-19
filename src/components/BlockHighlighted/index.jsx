@@ -92,6 +92,27 @@ const Planta = ({ href }) => (
   </>
 );
 
+const Landing = () => (
+  <>
+    <Highlighted type="landing">
+      <span>Por que não um </span>
+      <span>imóvel </span>
+      <strong>
+        <span>novo? </span>
+      </strong>
+    </Highlighted>
+    <div>
+      <p>
+        Na AxPe, você econtra aquele imóvel lindo onde cabem todos os sonhos. <br/>
+        Onde pode construir um refúgio, uma vida. Mas isso é só o começo.
+      </p>
+      <Link href="/contato" target="_blank">
+        Entre em contato
+      </Link>
+    </div>
+  </>
+);
+
 export default function BlockHighlighted({ type, href }) {
   return (
     <Container type={type}>
@@ -100,6 +121,7 @@ export default function BlockHighlighted({ type, href }) {
       {type === 'notfound' && <NotFound />}
       {type === 'planta' && <Planta href={href} />}
       {type === 'contactWork' && <ContactWork />}
+      {type === 'landing' && <Landing />}
     </Container>
   );
 }

@@ -76,7 +76,6 @@ export const Header = styled.header`
   }
 
   hr {
-    border: 2px solid ${({ theme }) => theme.colors.orange};
     width: 193px;
     position: absolute;
     margin: -42px auto 0 auto;
@@ -177,7 +176,6 @@ export const BaseArticles = styled.article`
   }
 
   hr {
-    border: 2px solid ${({ theme }) => theme.colors.orange};
     width: 72px;
     margin: 22px 0 0 30px;
   }

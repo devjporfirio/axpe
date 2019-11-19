@@ -86,7 +86,7 @@ const TypeSlick = css`
 const TypeSlickSmall = css`
   ${media.greaterThan('medium')`
     ${TypeSlickLeftMobile}
-    width: calc(100% - 14px);
+    width: 100%;
     margin-left: 0 !important;
     padding: 20px;
     height: 240px;
@@ -229,7 +229,6 @@ export const Container = styled.section`
 
   hr {
     width: 50px;
-    border: 2px solid ${({ theme }) => theme.colors.orange};
     margin: 40px 0 25px;
 
     ${props => !props.showHorizontalRule && `visibility: hidden;`}

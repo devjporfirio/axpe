@@ -50,6 +50,14 @@ export const Container = styled.div`
         width: 100%;
       `}
     `}
+
+  ${props =>
+    props.type === 'landing' &&
+    css`
+      p {
+        max-width: 275px;
+      }
+    `}
 `;
 
 const ContactHome = css`
@@ -76,7 +84,6 @@ const Contact = css`
   margin: 0 !important;
 
   hr {
-    border: 2px solid ${({ theme }) => theme.colors.orange};
     width: 55px;
     margin: 30px 0;
   }
@@ -162,6 +169,25 @@ const Planta = css`
   }
 `;
 
+const Landing = css`
+  width: 288px;
+  span:nth-child(1) {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+  span:nth-child(2) {
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+  strong span:nth-child(1) {
+    color: ${({ theme }) => theme.colors.orange};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+`;
+
 export const Link = styled(Button)`
   background-color: ${props => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
@@ -185,4 +211,5 @@ export const Highlighted = styled.h4`
   ${props => props.type === 'contactWork' && ContactWork}
   ${props => props.type === 'notfound' && NotFound}
   ${props => props.type === 'planta' && Planta}
+  ${props => props.type === 'landing' && Landing}
 `;
