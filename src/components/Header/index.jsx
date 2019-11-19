@@ -127,10 +127,12 @@ function Header() {
                 </NavMainButtonSearch>
               </li>
               <li>
-                <NavMainButton type="register">
-                  <SVG src={HomeIconSVG} uniquifyIDs={true} />
-                  <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
-                </NavMainButton>
+                <Link href="/cadastrar" passHref>
+                  <NavMainButton type="register">
+                    <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                    <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                  </NavMainButton>
+                </Link>
               </li>
               <li>
                 <Link href="/so-quero-sonhar" passHref>

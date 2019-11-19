@@ -73,12 +73,12 @@ function sectionMultiInfos(item, labelTitle) {
       <Infos>
         {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : ''}
       </Infos>
-      {values.sell || values.release ? (
+      {values && Object.keys(values).length > 0 && (values.sell || values.release) ? (
         <Infos>Venda: {values.sell || values.release}</Infos>
       ) : (
         ''
       )}
-      {!!values.rent && <Infos>Aluguel: {values.rent}</Infos>}
+      {values && Object.keys(values).length > 0 && values.rent && <Infos>Aluguel: {values.rent}</Infos>}
 
       <Reference>Ref {reference}</Reference>
       <LinkContainer>
