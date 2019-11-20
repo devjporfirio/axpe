@@ -33,10 +33,6 @@ const SizeSmall = css`
     background: url(${CheckedIconSVG}) no-repeat;
     background-size: contain;
     background-position: 2px;
-
-    & + span {
-      color: ${({ theme }) => theme.colors.orange};
-    }
   }
 `;
 

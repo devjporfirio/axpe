@@ -59,6 +59,11 @@ export const CheckLinkTerms = styled(FormElements)`
   input {
     width: 40px;
     height: 40px;
+
+    &:checked {
+      background-size: initial;
+      background-position: 10px;
+    }
   }
 
   span {
