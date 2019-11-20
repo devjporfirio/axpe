@@ -13,6 +13,7 @@ import {
   Container,
   Body,
   Form,
+  FormGroupTwo,
   Description,
   InfoLogin,
   Info,
@@ -110,20 +111,22 @@ function RegisterProperty() {
 
           <FormGroup>
             <h2>O que você deseja?</h2>
-            <FormElements
-              name="finality"
-              type="checkbox"
-              label="Vender"
-              checked={values.finality === 'Vender'}
-              onChange={() => setFieldValue('finality', 'Vender')}
-            />
-            <FormElements
-              name="finality"
-              type="checkbox"
-              label="Alugar"
-              checked={values.finality === 'Alugar'}
-              onChange={() => setFieldValue('finality', 'Alugar')}
-            />
+            <FormGroupTwo>
+              <FormElements
+                name="finality"
+                type="checkbox"
+                label="Vender"
+                checked={values.finality === 'Vender'}
+                onChange={() => setFieldValue('finality', 'Vender')}
+              />
+              <FormElements
+                name="finality"
+                type="checkbox"
+                label="Alugar"
+                checked={values.finality === 'Aluguel'}
+                onChange={() => setFieldValue('finality', 'Aluguel')}
+              />
+            </FormGroupTwo>
           </FormGroup>
 
           <FormGroup>
@@ -192,18 +195,22 @@ function RegisterProperty() {
               placeholder="Área útil (m²)"
               onChange={handleChange}
             />
-            <FormElements
-              name="numDorms"
-              label="Dormitórios"
-              placeholder="Dormitórios"
-              onChange={handleChange}
-            />
-            <FormElements
-              name="numSuites"
-              label="Sendo suítes"
-              placeholder="Sendo suítes"
-              onChange={handleChange}
-            />
+            {values.type === 'Residencial' && (
+              <>
+                <FormElements
+                  name="numDorms"
+                  label="Dormitórios"
+                  placeholder="Dormitórios"
+                  onChange={handleChange}
+                />
+                <FormElements
+                  name="numSuites"
+                  label="Sendo suítes"
+                  placeholder="Sendo suítes"
+                  onChange={handleChange}
+                />
+              </>
+            )}
             <FormElements
               name="numParking"
               label="Vagas de garagem"
@@ -244,20 +251,25 @@ function RegisterProperty() {
 
           <FormGroup>
             <h2>Valores do imóvel</h2>
-            <FormElements
-              name="valueRequested"
-              label="Qual o valor de venda que gostaria?"
-              placeholder="R$"
-              onChange={handleChange}
-              message="(Incluindo 6% de comissão)"
-            />
 
-            <FormElements
-              name="rent"
-              label="Qual o valor de aluguel que gostaria?"
-              placeholder="R$"
-              onChange={handleChange}
-            />
+            {values.finality === 'Vender' && (
+              <FormElements
+                name="valueRequested"
+                label="Qual o valor de venda que gostaria?"
+                placeholder="R$"
+                onChange={handleChange}
+                message="(Incluindo 6% de comissão)"
+              />
+            )}
+            {values.finality === 'Aluguel' && (
+              <FormElements
+                name="valueRequested"
+                label="Qual o valor de aluguel que gostaria?"
+                placeholder="R$"
+                onChange={handleChange}
+              />
+            )}
+
             <FormElements
               name="valueTax"
               label="Valor mensal de IPTU"

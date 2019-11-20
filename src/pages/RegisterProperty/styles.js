@@ -12,6 +12,11 @@ export const Body = styled.div`
 
 export const Form = styled.form``;
 
+export const FormGroupTwo = styled.div`
+  display: flex;
+  height: 35px;
+`;
+
 export const Description = styled.p`
   font: 14px/18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
