@@ -76,7 +76,7 @@ function Contact() {
           </Message>
           <Form onSubmit={handleSubmit}>
             <FormGroup>
-              <h1>Seus dados de contato</h1>
+              <h2>Seus dados de contato</h2>
               <FormElements
                 name="name"
                 label="Nome"
@@ -113,7 +113,7 @@ function Contact() {
             </FormGroup>
 
             <FormGroup>
-              <h1>Assunto:</h1>
+              <h2>Assunto:</h2>
               <FormElements
                 name="subject"
                 type="select"
@@ -127,10 +127,11 @@ function Contact() {
             </FormGroup>
 
             <FormGroup>
-              <h1>Sua Mensagem</h1>
+              <h2>Sua Mensagem</h2>
               <FormElements
                 type="area"
                 name="message"
+                placeholder="Digite sua mensagem"
                 onChange={handleChange}
               />
             </FormGroup>

@@ -1,22 +1,17 @@
 import React from 'react';
 import { BaseMask } from '../styles';
 
-export default function CPF(props) {
+export default function CEP(props) {
   return (
     <BaseMask
       mask={[
         /[0-9]/,
         /[0-9]/,
         /[0-9]/,
-        '.',
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        '.',
-        /[0-9]/,
         /[0-9]/,
         /[0-9]/,
         '-',
+        /[0-9]/,
         /[0-9]/,
         /[0-9]/
       ]}
@@ -24,3 +19,6 @@ export default function CPF(props) {
     />
   );
 }
+
+
+89035-360

@@ -75,6 +75,14 @@ export const Span = styled.span`
   padding-left: 12px;
 `;
 
+export const Message = styled.p`
+  font: 12px 'Raleway';
+  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  color: ${({ theme }) => theme.colors.green};
+  margin-top: -12px;
+  margin-bottom: 10px;
+`;
+
 const BaseInput = css`
   position: absolute;
   top: 20px;
@@ -131,7 +139,6 @@ export const FormGroup = styled.div`
     min-height: 45px;
   }
 
-  h1,
   h2 {
     font: 16px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
@@ -143,15 +150,7 @@ export const FormGroup = styled.div`
   }
 `;
 
-export const PhoneMask = styled(MaskedInput)`
-  ${BaseInput}
-`;
-
-export const CPFMask = styled(MaskedInput)`
-  ${BaseInput}
-`;
-
-export const EmailMask = styled(MaskedInput)`
+export const BaseMask = styled(MaskedInput)`
   ${BaseInput}
 `;
 
@@ -171,6 +170,6 @@ export const InputSelect = styled.select`
 export const InputTextArea = styled.textarea`
   ${BaseInput}
 
-  height: 100px;
+  height: 90px;
   top: 8px;
 `;

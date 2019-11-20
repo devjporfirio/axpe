@@ -1,17 +1,49 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import CheckedIconSVG from 'assets/icons/checked.svg';
 
-export const InputCheckbox = styled.input`
+const SizeBig = css`
+  width: calc(100% - 4px);
+  height: 50px;
+
+  & + span {
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0;
+    margin-top: 15px;
+  }
+
+  &:checked {
+    background-color: ${({ theme }) => theme.colors.green};
+
+    & + span {
+      color: ${({ theme }) => theme.colors.white};
+      font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    }
+  }
+`;
+
+const SizeSmall = css`
   width: 24px;
   height: 24px;
-  border: 1.6px solid ${({ theme }) => theme.colors.green};
-  border-radius: 4px;
-  position: initial;
 
   &:checked {
     border: 1.6px solid ${({ theme }) => theme.colors.orange};
     background: url(${CheckedIconSVG}) no-repeat;
     background-size: contain;
     background-position: 2px;
+
+    & + span {
+      color: ${({ theme }) => theme.colors.orange};
+    }
   }
+`;
+
+export const InputCheckbox = styled.input`
+  border: 1.6px solid ${({ theme }) => theme.colors.green};
+  border-radius: 4px;
+  position: initial;
+
+  ${props => props.size === 'small' && SizeSmall};
+  ${props => props.size === 'big' && SizeBig};
 `;

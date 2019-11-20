@@ -1,8 +1,8 @@
 import React from 'react';
 import emailMask from 'text-mask-addons/dist/emailMask';
 
-import { EmailMask } from '../styles';
+import { BaseMask } from '../styles';
 
 export default function Email(props) {
-  return <EmailMask mask={emailMask} {...props} />;
+  return <BaseMask mask={emailMask} {...props} />;
 }

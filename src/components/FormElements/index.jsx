@@ -6,8 +6,9 @@ import Phone from './Phone';
 import Select from './Select';
 import Text from './Text';
 import CPF from './CPF';
+import CEP from './CEP';
 
-import { Label, Span } from './styles';
+import { Label, Span, Message } from './styles';
 
 const TYPE_FIELD = {
   area: Area,
@@ -18,18 +19,34 @@ const TYPE_FIELD = {
   phone: Phone,
   select: Select,
   text: Text,
-  cpf: CPF
+  cpf: CPF,
+  cep: CEP
 };
 
-const Field = ({ type, component: Component, label, ...props }) => {
+const Field = ({ className, type, component: Component, label, message, ...props }) => {
   return (
-    <Label type={type} htmlFor={props.name}>
-      <Component type={type} {...props}></Component>
-      {!!label && <Span>{label}</Span>}
-    </Label>
+    <>
+      <Label className={className} type={type} htmlFor={props.name}>
+        <Component type={type} {...props}></Component>
+        {!!label && (
+          <Span
+            onClick={
+              [ 'checkbox', 'checkboxLink', 'radio' ].includes(type)
+                ? props.onChange
+                : () => {
+                    document.getElementsByName(props.name)[0].focus();
+                  }
+            }
+          >
+            {label}
+          </Span>
+        )}
+      </Label>
+      {!!message && <Message>{message}</Message>}
+    </>
   );
 };
 
-export default function FormElements({ type = 'text', ...props }) {
-  return <Field component={TYPE_FIELD[type]} type={type} {...props} />;
+export default function FormElements({ className, type = 'text', ...props }) {
+  return <Field className={className} component={TYPE_FIELD[type]} type={type} {...props} />;
 }
