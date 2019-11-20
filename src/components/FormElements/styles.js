@@ -4,7 +4,7 @@ import MaskedInput from 'react-text-mask';
 
 export const Label = styled.label`
   display: block;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;

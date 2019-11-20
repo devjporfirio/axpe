@@ -4,7 +4,7 @@ import SVG from 'react-inlinesvg';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
-// import Api from 'services';
+import Api from 'services';
 
 import IUser from 'assets/icons/user';
 
@@ -46,7 +46,6 @@ function RegisterProperty() {
       isVacant: '',
       managerKey: '',
       valueRequested: '',
-      rent: '',
       valueTax: '',
       valueCondo: '',
       positiveCharacteristics: '',
@@ -59,10 +58,10 @@ function RegisterProperty() {
         alert('Aceite os termos :D');
         return;
       }
-      // const resp = await Api.Contact.postContact(values);
-      // if (resp.status === 'success') {
-      //   alert(resp.status);
-      // }
+      const resp = await Api.RegisterProperty.postProperty(values);
+      if (resp.status === 'success') {
+        alert(resp.status);
+      }
     }
   });
 
