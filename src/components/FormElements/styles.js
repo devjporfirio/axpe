@@ -165,6 +165,14 @@ export const InputSelect = styled.select`
   top: 0;
   width: 100%;
   appearance: none;
+
+  & + svg {
+    transform: rotate(90deg);
+    margin-left: calc(100% - 31px);
+    position: absolute;
+    margin-top: 12px;
+    width: 16px;
+  }
 `;
 
 export const InputTextArea = styled.textarea`

@@ -174,7 +174,7 @@ function RegisterProperty() {
               label="Bairro"
               type="select"
               items={[
-                { label: 'Selecione', value: '' },
+                { label: 'Selecione o Bairro', value: '' },
                 { label: 'Centro', value: 'centro' },
                 { label: 'Consolacao', value: 'consolacao' }
               ]}
