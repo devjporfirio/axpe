@@ -25,6 +25,21 @@ export const Label = styled.label`
     `} 
 
   ${props =>
+    props.type === 'select' &&
+    props.children[0].props.placeholder &&
+    css`
+      select {
+        padding-top: 10px;
+      }
+      span {
+        position: absolute;
+        top: 4px;
+        font-size: 10px;
+      }
+    `}
+
+
+  ${props =>
     props.type === 'area' &&
     css`
       height: 100px;

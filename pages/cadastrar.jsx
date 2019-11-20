@@ -171,10 +171,11 @@ function RegisterProperty() {
             />
             <FormElements
               name="neighborhood"
+              placeholder="Bairro"
               label="Bairro"
               type="select"
               items={[
-                { label: 'Selecione o Bairro', value: '' },
+                { label: 'Selecione', value: '' },
                 { label: 'Centro', value: 'centro' },
                 { label: 'Consolacao', value: 'consolacao' }
               ]}
