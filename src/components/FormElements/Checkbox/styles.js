@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import media from 'styled-media-query';
 import CheckedIconSVG from 'assets/icons/checked.svg';
 
 const SizeBig = css`
@@ -22,6 +23,14 @@ const SizeBig = css`
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
     }
   }
+
+  ${media.greaterThan('medium')`
+    height: 45px;
+
+    & + span {
+      margin-top: 10px;
+    }
+  `}
 `;
 
 const SizeSmall = css`

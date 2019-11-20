@@ -64,8 +64,14 @@ export const Container = styled.div`
     css`
       padding: 40px 30px;
       min-height: auto;
-      max-width: 1000px;
       margin: auto;
+
+      ${media.greaterThan('medium')`
+        padding: 139px 119px;
+        height: 451px;
+        margin: 0;
+        justify-content: flex-start;
+      `}
     `}
 `;
 
@@ -208,13 +214,27 @@ const RegisterProperty = css`
   strong span {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
 
   hr {
     width: 55px;
     margin: 30px 0;
   }
+
+  ${media.greaterThan('medium')`
+    width: 497px;
+    margin: 0;
+
+    span {
+      font-size: 41px;
+      line-height: 49px;
+    }
+
+    strong span {
+      color: ${({ theme }) => theme.colors.white};
+      font-family: 'Bitter';
+    }
+  `}
 `;
 
 export const Link = styled(Button)`
