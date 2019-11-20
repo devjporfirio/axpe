@@ -11,6 +11,7 @@ const SizeBig = css`
     text-align: center;
     padding: 0;
     margin-top: 15px;
+    font-size: 16px;
   }
 
   &:checked {
