@@ -18,10 +18,12 @@ import {
   FormRow,
   FormGroupValues,
   FormGroupAddress,
+  FormGroupPhotos,
   Description,
   InfoLogin,
   Info,
   ButtonPhotos,
+  FormGroupFooter,
   CheckLinkTerms,
   ButtonSubmit
 } from 'pages/RegisterProperty/styles';
@@ -324,40 +326,46 @@ function RegisterProperty() {
 
           <FormGroup>
             <h2>FOTOS</h2>
-            <Description>
-              Por favor, envie algumas fotos que podem ser tiradas com o seu
-              celular. Elas nos ajudarão a planejar a sessão de fotos que
-              faremos no seu imóvel.
-            </Description>
-            <ButtonPhotos type="button" onClick={() => {}}>
-              Selecionar fotos
-            </ButtonPhotos>
+            <FormGroupPhotos>
+              <Description>
+                {/* Por favor, envie algumas fotos que podem ser tiradas com o seu
+                celular. Elas nos ajudarão a planejar a sessão de fotos que
+                faremos no seu imóvel. */}
+                Para agilizar o cadastro do seu imóvel, por favor, envie algumas
+                fotos
+              </Description>
+              <ButtonPhotos type="button" onClick={() => {}}>
+                Selecionar fotos
+              </ButtonPhotos>
+            </FormGroupPhotos>
           </FormGroup>
 
-          <CheckLinkTerms
-            type="checkboxLink"
-            name="terms"
-            label="Concordo com o termo de autorização de comercialização de imóveis"
-            checked={values.terms}
-            onChange={() => setFieldValue('terms', !values.terms)}
-          />
+          <FormGroupFooter>
+            <CheckLinkTerms
+              type="checkboxLink"
+              name="terms"
+              label="Concordo com o termo de autorização de comercialização de imóveis"
+              checked={values.terms}
+              onChange={() => setFieldValue('terms', !values.terms)}
+            />
 
-          <InfoLogin>
-            <SVG src={IUser} uniquifyIDs={true} />
-            <Info>
-              <p>
-                Você está logado como <br />
-                <strong>Rodrigo Alarcon</strong>
-                <br />
-                Tel.: (11) 3082 5693 | E-mail: ralarcon@futuebrand.com
-                <br />
-                Se não for você
-              </p>
-              <a href="/">clique aqui</a>
-            </Info>
-          </InfoLogin>
+            <InfoLogin>
+              <SVG src={IUser} uniquifyIDs={true} />
+              <Info>
+                <p>
+                  Você está logado como
+                  <strong> Rodrigo Alarcon</strong>
+                </p>
+                <p>Tel.: (11) 3082 5693</p>
+                <p>E-mail: ralarcon@futuebrand.com</p>
+                <p>
+                  Se não for você <a href="/">clique aqui</a>
+                </p>
+              </Info>
+            </InfoLogin>
 
-          <ButtonSubmit type="submit">Salvar</ButtonSubmit>
+            <ButtonSubmit type="submit">Enviar</ButtonSubmit>
+          </FormGroupFooter>
         </Form>
       </Body>
       <Contact />

@@ -96,13 +96,40 @@ export const FormGroupAddress = styled.div`
   `}
 `;
 
+export const FormGroupPhotos = styled.div`
+  ${media.greaterThan('medium')`
+    display: flex;
+    align-items: center;
+  `}
+`;
+
 export const Description = styled.p`
   font: 14px/18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   margin-bottom: 30px;
+
+  ${media.greaterThan('medium')`
+    width: 255px;
+    margin-right: 29px;
+    margin-bottom: 0;
+  `}
+`;
+
+export const ButtonPhotos = styled(Button)`
+  width: 100%;
+
+  ${media.greaterThan('medium')`
+    border: 1px solid ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.orange};
+    background: none;
+    width: 145px;
+    text-transform: initial;
+    padding: 0;
+  `}
 `;
 
 export const InfoLogin = styled.div`
+  width: 100%;
   height: 190px;
   padding-top: 23px;
 
@@ -111,15 +138,34 @@ export const InfoLogin = styled.div`
     margin-top: -23px;
     margin-left: 15px;
   }
+
+  ${media.greaterThan('medium')`
+    background-color: ${({ theme }) => theme.colors.white};
+    width: 370px;
+    min-width: 360px;
+    height: 88px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 42px;
+
+    svg {
+      width: 32px;
+      height: 46px;
+      position: initial;
+      margin: 0;
+    }
+  `}
 `;
 
 export const Info = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   height: 167px;
+  padding: 49px 15px 0 15px;
 
   p,
   a {
-    padding: 49px 15px 0 15px;
     font: 14px/18px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
@@ -135,32 +181,76 @@ export const Info = styled.div`
     display: block;
     margin-top: -18px;
   }
+
+  ${media.greaterThan('medium')`
+    height: auto;
+    padding: 0;
+
+    a {
+      color: ${({ theme }) => theme.colors.orange};
+      margin: 0;
+      display: inline;
+    }
+  `}
+`;
+
+export const FormGroupFooter = styled.div`
+  ${media.greaterThan('medium')`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 50px 0 100px 0;
+
+    div {
+      order: 1;
+    }
+
+    label {
+      order: 2;
+      margin: 0;
+    }
+
+    button {
+      order: 3;
+    }
+  `}
 `;
 
 export const CheckLinkTerms = styled(FormElements)`
   margin: 30px 0;
 
-  input {
-    width: 40px;
-    height: 40px;
+  ${media.lessThan('medium')`
+    input {
+      width: 40px;
+      height: 40px;
 
-    &:checked {
-      background-size: initial;
-      background-position: 10px;
+      &:checked {
+        background-size: initial;
+        background-position: 10px;
+      }
     }
-  }
 
-  span {
-    margin-top: 9px;
-    max-width: initial;
-  }
-`;
+    span {
+      margin-top: 9px;
+      max-width: initial;
+    }
+  `}
 
-export const ButtonPhotos = styled(Button)`
-  width: 100%;
+  ${media.greaterThan('medium')`
+    min-width: 250px;
+    width: 250px;
+
+    span {
+      font-size: 10px;
+    }
+  `}
 `;
 
 export const ButtonSubmit = styled(Button)`
   width: 100%;
   margin-top: 20px;
+
+  ${media.greaterThan('medium')`
+    width: 181px;
+  `}
 `;
