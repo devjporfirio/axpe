@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import MaskedInput from 'react-text-mask';
+import Button from 'components/Button';
 
 export const Label = styled.label`
   display: block;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
@@ -23,6 +24,21 @@ export const Label = styled.label`
         opacity: 0;
       }
     `} 
+
+  ${props =>
+    props.type === 'select' &&
+    props.children[0].props.placeholder &&
+    css`
+      select {
+        padding-top: 10px;
+      }
+      span {
+        position: absolute;
+        top: 4px;
+        font-size: 10px;
+      }
+    `}
+
 
   ${props =>
     props.type === 'area' &&
@@ -73,6 +89,14 @@ export const Span = styled.span`
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   color: ${({ theme }) => theme.colors.green};
   padding-left: 12px;
+`;
+
+export const Message = styled.p`
+  font: 12px 'Raleway';
+  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  color: ${({ theme }) => theme.colors.green};
+  margin-top: -12px;
+  margin-bottom: 10px;
 `;
 
 const BaseInput = css`
@@ -131,7 +155,6 @@ export const FormGroup = styled.div`
     min-height: 45px;
   }
 
-  h1,
   h2 {
     font: 16px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
@@ -143,20 +166,16 @@ export const FormGroup = styled.div`
   }
 `;
 
-export const PhoneMask = styled(MaskedInput)`
-  ${BaseInput}
-`;
-
-export const CPFMask = styled(MaskedInput)`
-  ${BaseInput}
-`;
-
-export const EmailMask = styled(MaskedInput)`
+export const BaseMask = styled(MaskedInput)`
   ${BaseInput}
 `;
 
 export const Input = styled.input`
   ${BaseInput}
+
+  &[type='file'] {
+    display: none;
+  }
 `;
 
 export const InputSelect = styled.select`
@@ -166,11 +185,32 @@ export const InputSelect = styled.select`
   top: 0;
   width: 100%;
   appearance: none;
+
+  & + svg {
+    transform: rotate(90deg);
+    margin-left: calc(100% - 31px);
+    position: absolute;
+    margin-top: 12px;
+    width: 16px;
+  }
 `;
 
 export const InputTextArea = styled.textarea`
   ${BaseInput}
 
-  height: 100px;
+  height: 90px;
   top: 8px;
+`;
+
+export const ButtonFile = styled(Button)`
+  width: 100%;
+
+  ${media.greaterThan('medium')`
+    border: 1px solid ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.orange};
+    background: none;
+    width: 145px;
+    text-transform: initial;
+    padding: 0;
+  `}
 `;

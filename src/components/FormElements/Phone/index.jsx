@@ -1,9 +1,9 @@
 import React from 'react';
-import { PhoneMask } from '../styles';
+import { BaseMask } from '../styles';
 
 export default function Phone(props) {
   return (
-    <PhoneMask
+    <BaseMask
       mask={[
         '(',
         /[1-9]/,

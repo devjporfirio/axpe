@@ -1,15 +1,15 @@
 import React from 'react';
-import { Container, Highlighted, Link } from './styles';
+import { Container, HighlightedH1, HighlightedH4, Link } from './styles';
 
 const ContactHome = () => (
   <>
-    <Highlighted type="contactHome">
+    <HighlightedH4 type="contactHome">
       <span>Sem tempo </span>
       <strong>
         <span>para buscar e visitar </span>
       </strong>
       <span>imóveis?</span>
-    </Highlighted>
+    </HighlightedH4>
     <div>
       <p>
         Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
@@ -23,24 +23,24 @@ const ContactHome = () => (
 
 const Contact = () => (
   <>
-    <Highlighted type="contact">
+    <HighlightedH1 type="contact">
       <strong>
         <span>Pergunte</span>
       </strong>
       <span>, peça um imóvel ou reclame. Pode elogiar também.</span>
       <hr />
-    </Highlighted>
+    </HighlightedH1>
   </>
 );
 
 const ContactWork = () => (
   <>
-    <Highlighted type="contactWork">
+    <HighlightedH4 type="contactWork">
       <span>Gostaria de fazer parte da </span>
       <strong>
         <span>nossa equipe?</span>
       </strong>
-    </Highlighted>
+    </HighlightedH4>
     <div>
       <p>
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
@@ -55,13 +55,13 @@ const ContactWork = () => (
 
 const NotFound = () => (
   <>
-    <Highlighted type="notfound">
+    <HighlightedH4 type="notfound">
       <strong>
         <span>Não encontrou o </span>
       </strong>
       <span>imóvel </span>
       <span>que busca?</span>
-    </Highlighted>
+    </HighlightedH4>
     <div>
       <p>
         Que tal um imóvel na planta? Conheça nossas opções de imóveis em
@@ -76,13 +76,13 @@ const NotFound = () => (
 
 const Planta = ({ href }) => (
   <>
-    <Highlighted type="planta">
+    <HighlightedH4 type="planta">
       <span>Veja a </span>
       <strong>
         <span>planta </span>
       </strong>
       <span>desse imóvel</span>
-    </Highlighted>
+    </HighlightedH4>
     <div>
       <p>E descubra se ela é a ideal para você</p>
       <Link href={href} color="greenLight" target="_blank">
@@ -94,13 +94,13 @@ const Planta = ({ href }) => (
 
 const Landing = () => (
   <>
-    <Highlighted type="landing">
+    <HighlightedH4 type="landing">
       <span>Por que não um </span>
       <span>imóvel </span>
       <strong>
         <span>novo? </span>
       </strong>
-    </Highlighted>
+    </HighlightedH4>
     <div>
       <p>
         Na AxPe, você econtra aquele imóvel lindo onde cabem todos os sonhos. <br/>
@@ -113,7 +113,19 @@ const Landing = () => (
   </>
 );
 
-export default function BlockHighlighted({ type, href }) {
+const RegisterProperty = () => (
+  <>
+    <HighlightedH1 type="registerProperty">
+      <strong>
+        <span>Cadastre seu imóvel.</span>
+      </strong><br />
+      <span> Com certeza tem alguém procurando por ele</span>
+      <hr />
+    </HighlightedH1>
+  </>
+);
+
+export default function BlockHighlightedH4({ type, href }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
@@ -122,6 +134,7 @@ export default function BlockHighlighted({ type, href }) {
       {type === 'planta' && <Planta href={href} />}
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
+      {type === 'registerProperty' && <RegisterProperty />}
     </Container>
   );
 }

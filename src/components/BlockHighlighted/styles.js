@@ -58,6 +58,21 @@ export const Container = styled.div`
         max-width: 275px;
       }
     `}
+
+  ${props =>
+    props.type === 'registerProperty' &&
+    css`
+      padding: 40px 30px;
+      min-height: auto;
+      margin: auto;
+
+      ${media.greaterThan('medium')`
+        padding: 139px 119px;
+        height: 451px;
+        margin: 0;
+        justify-content: flex-start;
+      `}
+    `}
 `;
 
 const ContactHome = css`
@@ -188,6 +203,40 @@ const Landing = css`
   }
 `;
 
+const RegisterProperty = css`
+  width: 316px;
+  span {
+    color: ${({ theme }) => theme.colors.white};
+    font: 22px/27px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  strong span {
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-family: 'Raleway';
+  }
+
+  hr {
+    width: 55px;
+    margin: 30px 0;
+  }
+
+  ${media.greaterThan('medium')`
+    width: 497px;
+    margin: 0;
+
+    span {
+      font-size: 41px;
+      line-height: 49px;
+    }
+
+    strong span {
+      color: ${({ theme }) => theme.colors.white};
+      font-family: 'Bitter';
+    }
+  `}
+`;
+
 export const Link = styled(Button)`
   background-color: ${props => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
@@ -196,7 +245,7 @@ export const Link = styled(Button)`
   display: block;
 `;
 
-export const Highlighted = styled.h4`
+const BaseHighlighted = css`
   text-align: left;
 
   span {
@@ -205,10 +254,17 @@ export const Highlighted = styled.h4`
   }
 
   ${media.greaterThan('medium')`margin-right: 107px;`}
+`;
 
-  ${props => props.type === 'contactHome' && ContactHome}
+export const HighlightedH1 = styled.h1`${BaseHighlighted}
   ${props => props.type === 'contact' && Contact}
+  ${props => props.type === 'registerProperty' && RegisterProperty}
+`;
+
+export const HighlightedH4 = styled.h4`
+  ${BaseHighlighted}
   ${props => props.type === 'contactWork' && ContactWork}
+  ${props => props.type === 'contactHome' && ContactHome}
   ${props => props.type === 'notfound' && NotFound}
   ${props => props.type === 'planta' && Planta}
   ${props => props.type === 'landing' && Landing}
