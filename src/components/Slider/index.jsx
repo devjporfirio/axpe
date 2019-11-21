@@ -27,7 +27,7 @@ export default function Slick({
   reference = null,
   children,
   type,
-  lenght,
+  length,
   className
 }) {
   const settings = {
@@ -59,7 +59,7 @@ export default function Slick({
       {...settings}
       className={className}
       type={type}
-      lenght={lenght}
+      length={length}
       ref={reference}
     >
       {children}
@@ -83,6 +83,6 @@ Slick.propTypes = {
     PropTypes.node
   ]),
   type: PropTypes.string,
-  lenght: PropTypes.number,
+  length: PropTypes.number,
   className: PropTypes.string
 };
