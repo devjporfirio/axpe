@@ -21,7 +21,10 @@ export default {
     formData.append('valueCondo', values.valueCondo);
     formData.append('positiveCharacteristics', values.positiveCharacteristics);
     formData.append('negativeCharacteristics', values.negativeCharacteristics);
-    formData.append('images', values.images);
+
+    values.images &&
+      values.images.length > 0 &&
+      values.images.map(img => formData.append('images', img, img.name));
 
     const response = await fetch(
       `${process.env.config.apiUrl}/form/register_your_building`,

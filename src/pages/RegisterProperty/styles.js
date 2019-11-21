@@ -233,6 +233,42 @@ export const CheckLinkTerms = styled(FormElements)`
   `}
 `;
 
+export const GroupImages = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const GroupImage = styled.div`
+  svg {
+    position: absolute;
+    width: 29px;
+    height: 31px;
+    margin-top: 28px;
+    margin-left: calc(100% - 105px);
+
+    ${media.greaterThan('medium')`
+      width: 7px;
+      height: 8px;
+      margin-left: 168px;
+      margin-top: 23px;
+    `}
+  }
+`;
+
+export const Image = styled.img`
+  object-fit: cover;
+  border-radius: 4px;
+  height: 202px;
+  width: calc(100vw - 60px);
+  margin: 15px 0;
+
+  ${media.greaterThan('medium')`
+    width: 183px;
+    height: 100px;
+    margin: 16px 16px 0 0;
+  `}
+`;
+
 export const ButtonSubmit = styled(Button)`
   width: 100%;
   margin-top: 20px;

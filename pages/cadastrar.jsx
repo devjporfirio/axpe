@@ -7,6 +7,7 @@ import Contact from 'components/Contact';
 import Api from 'services';
 
 import IUser from 'assets/icons/user';
+import IClose from 'assets/icons/close-white';
 
 import { FormGroup } from 'components/FormElements/styles';
 import {
@@ -22,6 +23,9 @@ import {
   Description,
   InfoLogin,
   Info,
+  GroupImages,
+  GroupImage,
+  Image,
   FormGroupFooter,
   CheckLinkTerms,
   ButtonSubmit
@@ -63,6 +67,12 @@ function RegisterProperty() {
       }
     }
   });
+
+  const handleRemoveImage = position => {
+    const newList = [ ...values.images ];
+    newList.splice(position, 1);
+    setFieldValue('images', newList);
+  };
 
   return (
     <Container>
@@ -337,16 +347,28 @@ function RegisterProperty() {
                 type="file"
                 multiple
                 onChange={e => {
-                  setFieldValue('images', [ ...event.target.files ]);
+                  setFieldValue('images', [ ...values.images, ...e.target.files ]);
                 }}
               ></FormElements>
             </FormGroupPhotos>
-            <div>
+            <GroupImages>
               {values.images.length > 0 &&
                 values.images.map((imgSrc, index) => {
-                  return <img key={index} alt={imgSrc.name} src={URL.createObjectURL(imgSrc)} />;
+                  return (
+                    <GroupImage key={index}>
+                      <SVG
+                        src={IClose}
+                        uniquifyIDs={true}
+                        onClick={() => handleRemoveImage(index)}
+                      />
+                      <Image
+                        alt={imgSrc.name}
+                        src={URL.createObjectURL(imgSrc)}
+                      />
+                    </GroupImage>
+                  );
                 })}
-            </div>
+            </GroupImages>
           </FormGroup>
 
           <FormGroupFooter>
