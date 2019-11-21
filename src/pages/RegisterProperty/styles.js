@@ -115,19 +115,6 @@ export const Description = styled.p`
   `}
 `;
 
-export const ButtonPhotos = styled(Button)`
-  width: 100%;
-
-  ${media.greaterThan('medium')`
-    border: 1px solid ${({ theme }) => theme.colors.orange};
-    color: ${({ theme }) => theme.colors.orange};
-    background: none;
-    width: 145px;
-    text-transform: initial;
-    padding: 0;
-  `}
-`;
-
 export const InfoLogin = styled.div`
   width: 100%;
   height: 190px;

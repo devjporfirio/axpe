@@ -22,7 +22,6 @@ import {
   Description,
   InfoLogin,
   Info,
-  ButtonPhotos,
   FormGroupFooter,
   CheckLinkTerms,
   ButtonSubmit
@@ -333,10 +332,21 @@ function RegisterProperty() {
                 Para agilizar o cadastro do seu imóvel, por favor, envie algumas
                 fotos
               </Description>
-              <ButtonPhotos type="button" onClick={() => {}}>
-                Selecionar fotos
-              </ButtonPhotos>
+
+              <FormElements
+                type="file"
+                multiple
+                onChange={e => {
+                  setFieldValue('images', [ ...event.target.files ]);
+                }}
+              ></FormElements>
             </FormGroupPhotos>
+            <div>
+              {values.images.length > 0 &&
+                values.images.map((imgSrc, index) => {
+                  return <img key={index} alt={imgSrc.name} src={URL.createObjectURL(imgSrc)} />;
+                })}
+            </div>
           </FormGroup>
 
           <FormGroupFooter>

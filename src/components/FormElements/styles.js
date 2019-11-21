@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import MaskedInput from 'react-text-mask';
+import Button from 'components/Button';
 
 export const Label = styled.label`
   display: block;
@@ -171,6 +172,10 @@ export const BaseMask = styled(MaskedInput)`
 
 export const Input = styled.input`
   ${BaseInput}
+
+  &[type='file'] {
+    display: none;
+  }
 `;
 
 export const InputSelect = styled.select`
@@ -195,4 +200,17 @@ export const InputTextArea = styled.textarea`
 
   height: 90px;
   top: 8px;
+`;
+
+export const ButtonFile = styled(Button)`
+  width: 100%;
+
+  ${media.greaterThan('medium')`
+    border: 1px solid ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.orange};
+    background: none;
+    width: 145px;
+    text-transform: initial;
+    padding: 0;
+  `}
 `;
