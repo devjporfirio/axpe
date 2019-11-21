@@ -46,17 +46,15 @@ function Landing({ slug, page }) {
 
       {componentes &&
         componentes.length > 0 &&
-        componentes.map(comp => {
+        componentes.map((comp, index) => {
           switch (comp.type) {
             case 'imoveis-vertical':
               return (
-                <Module>
+                <Module key={index}>
                   <TitleModule>
-                    <strong>Casas lindas</strong> com lareira e vistas incríveis
+                    <strong>{comp.info.title}</strong> {comp.info.subtitle}
                   </TitleModule>
-                  <TextModule>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </TextModule>
+                  <TextModule>{comp.info.text}</TextModule>
 
                   {comp.buildings &&
                     comp.buildings.length > 0 &&
@@ -67,14 +65,14 @@ function Landing({ slug, page }) {
               );
             case 'imoveis-horizontal':
               return (
-                <Module>
+                <Module key={index}>
                   <TitleModule>
-                    <strong>{comp.total_buildings}</strong> Casas charmosas e
-                    aconchegantes
+                    <strong>
+                      {comp.total_buildings} {comp.info.title}
+                    </strong>{' '}
+                    {comp.info.subtitle}
                   </TitleModule>
-                  <TextModule>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </TextModule>
+                  <TextModule>{comp.info.text}</TextModule>
                   <SlideSmall type="slickSmall" items={comp.buildings} />
                 </Module>
               );
