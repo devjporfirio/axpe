@@ -1,10 +1,13 @@
 import React from 'react';
-import { ArrowNext, ArrowPrev } from './styles';
 
-import IArrowNext from 'assets/icons/arrow-next-white.svg';
-import IArrowPrev from 'assets/icons/arrow-prev-white.svg';
-import IArrowNextBlack from 'assets/icons/arrow-next-green.svg';
-import IArrowPrevBlack from 'assets/icons/arrow-prev-green.svg';
+// assets
+import IArrowNext from 'assets/icons/arrow-next-white';
+import IArrowPrev from 'assets/icons/arrow-prev-white';
+import IArrowNextBlack from 'assets/icons/arrow-next-green';
+import IArrowPrevBlack from 'assets/icons/arrow-prev-green';
+
+// styles
+import { ArrowNext, ArrowPrev } from './styles';
 
 export const NextArrow = ({
   type = '',
