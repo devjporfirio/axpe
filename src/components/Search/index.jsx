@@ -55,7 +55,7 @@ function Search({ dispatch }) {
   const router = useRouter()
   const { searchFormActive } = useSelector(state => state.main);
   const [ alertCreated, setAlertCreated ] = useState(false);
-  const [ usesData, setUsesData ] = useState(null);
+  const [ categoriesData, setCategoriesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
   const [ tabActive, setTabActive ] = useState(null);
 
@@ -198,9 +198,9 @@ function Search({ dispatch }) {
   }, [ formik.values.finality ])
 
   useEffect(() => {
-    const getUses = async () => {
-      const response = await Api.Search.getUses();
-      setUsesData(response);
+    const getCategories = async () => {
+      const response = await Api.Search.getCategories();
+      setCategoriesData(response);
     }
 
     const getFilters = async () => {
@@ -221,8 +221,8 @@ function Search({ dispatch }) {
       setFiltersData(response);
     }
 
-    if(!usesData) {
-      getUses();
+    if(!categoriesData) {
+      getCategories();
     }
 
     if(formik.values.finality) {
@@ -249,9 +249,9 @@ function Search({ dispatch }) {
                 <FormButtonsFilterTitle>Para:</FormButtonsFilterTitle>
 
                 {/* Residencial, Comercial */}
-                {formik.values.source.value == 'sao-paulo' && usesData && (
+                {formik.values.source.value == 'sao-paulo' && categoriesData && (
                   <FormButtonsFilterRow>
-                    {Object.keys(usesData).map((use, useIndex) => (
+                    {Object.keys(categoriesData).map((use, useIndex) => (
                       <FormButtonsFilterItemRadio twoColumns={true} key={`radio-use-${useIndex}`}>
                         <input type="radio" name="use" value={use} onChange={formik.handleChange} checked={formik.values.use === use} />
                         <span>{use.toLowerCase() == 'residencial' ? 'Morar' : 'Trabalhar'}</span>

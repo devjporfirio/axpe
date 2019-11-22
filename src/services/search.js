@@ -5,8 +5,10 @@ export default {
       .then(json => (json.data ? json.data : null));
     return response;
   },
-  async getUses() {
-    const response = await fetch(`${process.env.config.apiUrl}/building/types`)
+  async getCategories() {
+    const response = await fetch(
+      `${process.env.config.apiUrl}/building/categories`
+    )
       .then(response => response.json())
       .then(json => (json.data ? json.data : null));
     return response;
