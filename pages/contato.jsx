@@ -4,6 +4,7 @@ import FormElements from 'components/FormElements';
 import GoogleMapReact from 'google-map-react';
 import { useFormik } from 'formik';
 import Api from 'services';
+import * as Yup from 'yup';
 
 // components
 import { FormGroup } from 'components/FormElements/styles';
@@ -31,8 +32,36 @@ import {
 
 function Contact() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
+  const contatoSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2)
+      .required(),
+    lastName: Yup.string()
+      .min(2)
+      .required(),
+    email: Yup.string()
+      .email()
+      .required(),
+    phone: Yup.string().required(),
+    mobile: Yup.string().required(),
+    subject: Yup.string().required(),
+    message: Yup.string()
+      .min(2)
+      .required(),
+    terms: Yup.boolean()
+      .oneOf([ true ])
+      .required()
+  });
 
-  const { handleSubmit, handleChange } = useFormik({
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    values,
+    touched,
+    errors
+  } = useFormik({
     initialValues: {
       name: '',
       lastName: '',
@@ -43,14 +72,13 @@ function Contact() {
       message: '',
       terms: false
     },
-    onSubmit: async values => {
-      if (!values.terms) {
-        alert('Aceite os termos :D');
-        return;
-      }
+    validationSchema: contatoSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
       const resp = await Api.Contact.postContact(values);
+      setSubmitting(false);
       if (resp.status === 'success') {
         alert(resp.status);
+        resetForm({});
       }
     }
   });
@@ -85,12 +113,18 @@ function Contact() {
                 label="Nome"
                 placeholder="Nome"
                 onChange={handleChange}
+                error={touched.name && errors.name}
+                value={values.name}
+                onBlur={handleBlur}
               />
               <FormElements
                 name="lastName"
                 label="Sobrenome"
                 placeholder="Sobrenome"
                 onChange={handleChange}
+                error={touched.lastName && errors.lastName}
+                value={values.lastName}
+                onBlur={handleBlur}
               />
               <FormElements
                 type="emailmask"
@@ -98,6 +132,9 @@ function Contact() {
                 label="E-mail"
                 placeholder="E-mail"
                 onChange={handleChange}
+                error={touched.email && errors.email}
+                value={values.email}
+                onBlur={handleBlur}
               />
               <FormElements
                 type="phone"
@@ -105,6 +142,9 @@ function Contact() {
                 label="Telefone"
                 placeholder="Telefone"
                 onChange={handleChange}
+                error={touched.phone && errors.phone}
+                value={values.phone}
+                onBlur={handleBlur}
               />
               <FormElements
                 type="phone"
@@ -112,6 +152,9 @@ function Contact() {
                 label="Celular"
                 placeholder="Celular"
                 onChange={handleChange}
+                error={touched.mobile && errors.mobile}
+                value={values.mobile}
+                onBlur={handleBlur}
               />
             </FormGroup>
 
@@ -126,6 +169,9 @@ function Contact() {
                   { label: 'Venda', value: 'venda' }
                 ]}
                 onChange={handleChange}
+                error={touched.subject && errors.subject}
+                value={values.subject}
+                onBlur={handleBlur}
               />
             </FormGroup>
 
@@ -136,6 +182,9 @@ function Contact() {
                 name="message"
                 placeholder="Digite sua mensagem"
                 onChange={handleChange}
+                error={touched.message && errors.message}
+                value={values.message}
+                onBlur={handleBlur}
               />
             </FormGroup>
 
@@ -147,8 +196,14 @@ function Contact() {
                   <>Declaro que li e concordo com a {linkPolitics} da Axpe.</>
                 }
                 onChange={handleChange}
+                error={touched.terms && errors.terms}
+                value={values.terms}
+                checked={values.terms}
+                onBlur={handleBlur}
               />
-              <ButtonContainer type="submit">Enviar</ButtonContainer>
+              <ButtonContainer disabled={isSubmitting} type="submit">
+                Enviar
+              </ButtonContainer>
             </FormGroupButton>
           </Form>
           <BlockHighlighted type="contactWork" />
