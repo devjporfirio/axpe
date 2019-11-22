@@ -109,7 +109,7 @@ export const Description = styled.p`
   margin-bottom: 30px;
 
   ${media.greaterThan('medium')`
-    width: 255px;
+    max-width: 530px;
     margin-right: 29px;
     margin-bottom: 0;
   `}

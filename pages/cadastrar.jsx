@@ -440,11 +440,11 @@ function RegisterProperty() {
             <h2>FOTOS</h2>
             <FormGroupPhotos>
               <Description>
-                {/* Por favor, envie algumas fotos que podem ser tiradas com o seu
+                Por favor, envie algumas fotos que podem ser tiradas com o seu
                 celular. Elas nos ajudarão a planejar a sessão de fotos que
-                faremos no seu imóvel. */}
-                Para agilizar o cadastro do seu imóvel, por favor, envie algumas
-                fotos
+                faremos no seu imóvel.
+                {/* Para agilizar o cadastro do seu imóvel, por favor, envie algumas
+                fotos */}
               </Description>
 
               <FormElements
