@@ -13,6 +13,7 @@ const theme = {
     black: '#000',
     orange: '#EE6900',
     orangeDark: '#B14F02',
+    orangeLight: '#ffbc86',
     greenLight: '#39B999',
     green: '#3F5A5E',
     green2: '#2CB743',

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 export const Container = styled.div`
@@ -11,6 +11,8 @@ export const Container = styled.div`
   overflow-y: auto;
   z-index: 101;
   background: ${({ theme }) => theme.colors.white};
+  transition: all 300ms ease;
+  ${({ theme }) => theme.hide};
 
   ${media.greaterThan('1024px')`
     display: flex;
@@ -19,6 +21,17 @@ export const Container = styled.div`
     background: rgba(38, 50, 56, 0.8);
     overflow: visible;
   `}
+
+  ${props => props.active && ContainerActive}
+  ${props => props.themeColor === 'green' && ContainerGreen}
+`;
+
+const ContainerActive = css`
+  ${({ theme }) => theme.show};
+`;
+
+const ContainerGreen = css`
+  background: ${({ theme }) => theme.colors.green};
 `;
 
 export const Wrapper = styled.div`
@@ -29,6 +42,14 @@ export const Wrapper = styled.div`
     align-items: center;
     border-radius: 8px;
     background: ${({ theme }) => theme.colors.white};
+  `}
+
+  ${props => props.themeColor === 'green' && WrapperGreen}
+`;
+
+const WrapperGreen = css`
+  ${media.greaterThan('1024px')`
+    background: ${({ theme }) => theme.colors.green};
   `}
 `;
 
@@ -64,6 +85,17 @@ export const ButtonClose = styled.button`
     &:before,
     &:after {
       background: ${({ theme }) => theme.colors.greenDark};
+    }
+  `}
+
+  ${props => props.themeColor === 'green' && ButtonCloseGreen}
+`;
+
+const ButtonCloseGreen = css`
+  ${media.greaterThan('1024px')`
+    &:before,
+    &:after {
+      background: ${({ theme }) => theme.colors.white};
     }
   `}
 `;
@@ -143,7 +175,6 @@ export const Text = styled.div`
     padding: 20px 60px 20px 80px;
 
     h2 {
-      margin-top: auto;
       font-size: 40px;
       line-height: 48px;
 
@@ -154,10 +185,15 @@ export const Text = styled.div`
     }
 
     p {
-      margin-bottom: auto;
       line-height: 19px;
       font-weight: ${({ theme }) => theme.fontsWeight.medium};
     }
+  `}
+`;
+
+export const TextWrapper = styled.div`
+  ${media.greaterThan('1024px')`
+    margin: auto 0;
   `}
 `;
 
@@ -166,5 +202,25 @@ export const Column = styled.div`
 
   ${media.greaterThan('1024px')`
     width: 35%;
+  `}
+`;
+
+export const ColumnTitle = styled.h3`
+  margin-bottom: 5px;
+  font: 18px/30px 'Raleway';
+  color: ${({ theme }) => theme.colors.green};
+
+  span {
+    color: ${({ theme }) => theme.colors.green};
+  }
+
+  ${media.greaterThan('1024px')`
+    margin-bottom: 10px;
+    font-family: 'Bitter';
+    line-height: 20px;
+
+    span {
+      display: block;
+    }
   `}
 `;

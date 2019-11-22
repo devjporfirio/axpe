@@ -29,10 +29,6 @@ import {
   Rec
 } from 'pages/Contact/styles';
 
-
-// REMOVER
-import LoginModal from 'components/Modals/Login';
-
 function Contact() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
 
@@ -61,7 +57,6 @@ function Contact() {
 
   return (
     <Container>
-      <LoginModal />
       <Header>
         <BlockHighlighted type="contact" />
         <Numbers>

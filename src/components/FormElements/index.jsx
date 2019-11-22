@@ -21,9 +21,9 @@ const TYPE_FIELD = {
   cpf: CPF
 };
 
-const Field = ({ type, component: Component, label, ...props }) => {
+const Field = ({ type, component: Component, label, themeColor, error, ...props }) => {
   return (
-    <Label type={type} htmlFor={props.name}>
+    <Label type={type} htmlFor={props.name} themeColor={themeColor} error={error}>
       <Component type={type} {...props}></Component>
       {!!label && <Span>{label}</Span>}
     </Label>

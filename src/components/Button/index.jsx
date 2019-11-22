@@ -10,6 +10,7 @@ function Button(props) {
     className,
     children,
     color = 'orange',
+    disabled,
     href,
     size = 'normal',
     target,
@@ -18,7 +19,7 @@ function Button(props) {
   } = props;
 
   return type && (type === 'button' || type === 'submit') ? (
-    <ButtonContainer {...props} color={color}>
+    <ButtonContainer disabled={disabled} {...props} color={color}>
       {children}
     </ButtonContainer>
   ) : (target && target === 'blank') || (href && href.search('http')) === 0 ? (

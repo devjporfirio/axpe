@@ -52,23 +52,4 @@ export const LoginRow = styled.div`
   `}
 `;
 
-export const LoginTitle = styled.h3`
-  margin-bottom: 5px;
-  font: 18px/30px 'Raleway';
-  color: ${({ theme }) => theme.colors.green};
-
-  span {
-    color: ${({ theme }) => theme.colors.green};
-  }
-
-  ${media.greaterThan('1024px')`
-    font-family: 'Bitter';
-    line-height: 20px;
-
-    span {
-      display: block;
-    }
-  `}
-`;
-
 export const LoginForm = styled.form``;

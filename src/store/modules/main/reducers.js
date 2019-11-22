@@ -1,7 +1,11 @@
 const initialState = {
   loaded: false,
   headerHiding: false,
-  searchFormActive: false
+  searchFormActive: false,
+  modalNewsletter: false,
+  modalNewsletterSuccess: false,
+  modalLogin: false,
+  modalLoginRegisterSuccess: false
 };
 
 function main(state = initialState, action) {

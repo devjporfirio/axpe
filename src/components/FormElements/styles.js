@@ -9,6 +9,7 @@ export const Label = styled.label`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   width: 100%;
+  transition: all 300ms ease;
 
   input ~ span {
     transition: top 0.2s ease;
@@ -22,7 +23,7 @@ export const Label = styled.label`
       input::placeholder {
         opacity: 0;
       }
-    `} 
+    `}
 
   ${props =>
     props.type === 'area' &&
@@ -65,6 +66,22 @@ export const Label = styled.label`
         width: 27px;
         height: 27px;
       }
+    `}
+
+  ${props =>
+    props.themeColor === 'dark' &&
+    css`
+      background: ${({ theme }) => theme.colors.grey};
+
+      input {
+        background: transparent;
+      }
+    `}
+
+  ${props =>
+    props.error &&
+    css`
+      background: ${({ theme }) => theme.colors.orangeLight};
     `}
 `;
 
