@@ -29,14 +29,16 @@ const Field = ({
   className,
   type,
   component: Component,
+  error,
   label,
   message,
+  themeColor,
   ...props
 }) => {
   if (type === 'file') return <Component type={type} {...props}></Component>;
   return (
     <>
-      <Label className={className} type={type} htmlFor={props.name}>
+      <Label className={className} type={type} htmlFor={props.name} themeColor={themeColor} error={error}>
         <Component type={type} {...props}></Component>
         {!!label && (
           <Span

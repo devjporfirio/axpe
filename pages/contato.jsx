@@ -5,7 +5,10 @@ import GoogleMapReact from 'google-map-react';
 import { useFormik } from 'formik';
 import Api from 'services';
 
+// components
 import { FormGroup } from 'components/FormElements/styles';
+
+// styles
 import {
   ButtonContainer,
   Container,

@@ -5,6 +5,10 @@ import { ThemeProvider } from 'styled-components';
 import Loading from 'components/Loading';
 import Header from 'components/Header';
 import Search from 'components/Search';
+import NewsletterModal from 'components/Modals/Newsletter';
+import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
+import LoginModal from 'components/Modals/Login';
+import LoginSuccessModal from 'components/Modals/LoginSuccess';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -23,6 +27,10 @@ function Main({ children }) {
         <Wrapper>
           {children}
         </Wrapper>
+        <NewsletterModal />
+        <NewsletterSuccessModal />
+        <LoginModal />
+        <LoginSuccessModal />
       </>
     </ThemeProvider>
   );

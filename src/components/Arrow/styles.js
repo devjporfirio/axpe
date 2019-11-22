@@ -180,7 +180,7 @@ const positionLeftNext = css`
   `}
 `;
 
-const Arrow = styled.div`
+const Arrow = styled.button`
   cursor: pointer;
   background: url(${props => props.src}) center center no-repeat;
   width: 24px;

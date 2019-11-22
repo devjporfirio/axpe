@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NextArrow, PrevArrow } from '../Arrow';
+import { NextArrow, PrevArrow } from 'components/Arrow';
 
 import { Container } from './styles';
 
@@ -18,6 +18,8 @@ export default function Slick({
   asNavFor = null,
   centerMode = false,
   rows = 1,
+  fade = false,
+  infinite = true,
   variableWidth = false,
   propsArrow,
   arrows = true,
@@ -44,8 +46,8 @@ export default function Slick({
     centerMode,
     variableWidth,
     responsive,
-    // fade: true,
-    infinite: true,
+    fade,
+    infinite,
     speed: 500,
     dots: false,
     lazyLoad,

@@ -49,7 +49,7 @@ import {
 function Header() {
   const dispatch = useDispatch();
   const refHeader = useRef(null);
-  const { headerHiding, searchFormActive } = useSelector(state => state.main);
+  const { headerHiding, searchFormActive, modalNewsletter } = useSelector(state => state.main);
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
 
@@ -74,7 +74,7 @@ function Header() {
 
   const handleToggle = useCallback(() => {
     setNavToggle(!navToggle);
-  }, [ navToggle ])
+  }, [ navToggle ]);
 
   const toggleSearch = useCallback(() => {
     if(!searchFormActive && navToggle) {
@@ -82,7 +82,11 @@ function Header() {
     }
 
     dispatch(setMain({ searchFormActive: !searchFormActive }))
-  }, [ searchFormActive, navToggle ])
+  }, [ searchFormActive, navToggle ]);
+
+  const openModalNewsletter = useCallback(() => {
+    dispatch(setMain({ modalNewsletter: true }))
+  }, [ modalNewsletter ])
 
   function cancelToggle() {
     setNavToggle(false);
@@ -202,7 +206,7 @@ function Header() {
           </Contact>
 
           <Newsletter>
-            <NewsletterButton type="button">Receba nossas <strong>novidades</strong></NewsletterButton>
+            <NewsletterButton type="button" onClick={openModalNewsletter}>Receba nossas <strong>novidades</strong></NewsletterButton>
           </Newsletter>
 
           <Footer>
