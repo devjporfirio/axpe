@@ -32,7 +32,7 @@ import {
   ButtonSubmit
 } from 'pages/RegisterProperty/styles';
 
-function RegisterProperty() {
+function RegisterProperty({ locals, categories }) {
   const registrySchema = Yup.object().shape({
     type: Yup.string()
       .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
@@ -197,13 +197,7 @@ function RegisterProperty() {
               <FormElements
                 name="category"
                 type="select"
-                items={[
-                  { label: 'Selecione', value: '' },
-                  { label: 'Apartamento', value: 'apartamento' },
-                  { label: 'Casa', value: 'casa' },
-                  { label: 'Casa de Praia', value: 'casa-praia' },
-                  { label: 'Casa no Campo', value: 'casa-campo' }
-                ]}
+                items={categories}
                 onChange={handleChange}
                 error={touched.category && errors.category}
                 onBlur={handleBlur}
@@ -256,11 +250,7 @@ function RegisterProperty() {
                 placeholder="Bairro"
                 label="Bairro"
                 type="select"
-                items={[
-                  { label: 'Selecione', value: '' },
-                  { label: 'Centro', value: 'centro' },
-                  { label: 'Consolacao', value: 'consolacao' }
-                ]}
+                items={locals}
                 message="* Por enquanto atuamos apenas nestes bairros"
                 onChange={handleChange}
                 error={touched.neighborhood && errors.neighborhood}
@@ -515,5 +505,26 @@ function RegisterProperty() {
     </Container>
   );
 }
+
+RegisterProperty.getInitialProps = async () => {
+  const locals = await Api.Search.getLocals();
+  const categories = await Api.Search.getCategories();
+  const itemBase = { label: 'Selecione', value: '' };
+
+  const newLocals = [ itemBase ];
+  const newCategories = [ itemBase ];
+
+  Object.keys(locals).map(x =>
+    locals[x].map(y => newLocals.push({ label: y, value: y }))
+  );
+  Object.keys(categories).map(x =>
+    categories[x].map(y => newCategories.push({ label: y, value: y }))
+  );
+  
+  return {
+    locals: newLocals,
+    categories: newCategories
+  };
+};
 
 export default RegisterProperty;
