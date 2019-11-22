@@ -8,7 +8,7 @@ import Modal from 'components/Modals';
 import { setMain } from 'store/modules/main/actions';
 
 // styles
-import { Success, SuccessColumn } from './styles';
+import { Success, SuccessColumn } from 'components/Modals/styles';
 
 function NewsletterModal() {
   const dispatch = useDispatch();

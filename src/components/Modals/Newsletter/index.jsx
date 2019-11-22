@@ -49,7 +49,7 @@ function NewsletterModal() {
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalNewsletter: false }))
-  }, [ modalNewsletter ])
+  }, [ modalNewsletter ]);
 
   return (
     <Modal active={modalNewsletter} onClose={closeModal}>

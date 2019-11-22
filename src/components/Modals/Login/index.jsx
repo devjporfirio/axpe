@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components
 import Modal from 'components/Modals';
@@ -10,8 +11,15 @@ import { Texts, Text, TextWrapper, Column, ColumnTitle } from 'components/Modals
 import { LoginContainer, LoginRow, LoginForm } from './styles';
 
 function LoginModal() {
+  const dispatch = useDispatch();
+  const { modalLogin } = useSelector(state => state.main);
+
+  const closeModal = useCallback(() => {
+    dispatch(setMain({ modalLogin: false }))
+  }, [ modalLogin ]);
+
   return (
-    <Modal>
+    <Modal active={modalLogin} onClose={closeModal}>
       <Texts>
         <Slider propsArrow={{ color: 'white' }}>
           <Text>
