@@ -12,11 +12,54 @@ import {
 } from 'pages/Work/styles';
 import { useFormik } from 'formik';
 import Api from 'services';
+import * as Yup from 'yup';
 
 function Work() {
   const linkPolitics = <a href="/politica">política de privacidade</a>;
 
-  const { handleSubmit, handleChange, setFieldValue, values } = useFormik({
+  const workSchema = Yup.object().shape({
+    brokerExperience: Yup.string().required(),
+    haveBelieved: Yup.string().required(),
+    name: Yup.string()
+      .min(2)
+      .required(),
+    lastName: Yup.string()
+      .min(2)
+      .required(),
+    cpf: Yup.string().required(),
+    email: Yup.string()
+      .email()
+      .required(),
+    phone: Yup.string().required(),
+    mobile: Yup.string().required(),
+    linkedin: Yup.string(),
+    facebook: Yup.string(),
+    instagram: Yup.string(),
+    twitter: Yup.string(),
+    anotherSocialNetwork: Yup.string(),
+    lang1: Yup.string(),
+    lang2: Yup.string(),
+    lang3: Yup.string(),
+    lang4: Yup.string(),
+    previousExperiences: Yup.string().required(),
+    reasonWorkAxpe: Yup.string().required(),
+    wasIndicated: Yup.boolean(),
+    whoIndicated: Yup.string(),
+    terms: Yup.boolean()
+      .oneOf([ true ])
+      .required()
+  });
+
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    values,
+    touched,
+    errors,
+    setFieldValue
+  } = useFormik({
     initialValues: {
       brokerExperience: '',
       haveBelieved: '',
@@ -41,14 +84,13 @@ function Work() {
       whoIndicated: '',
       terms: false
     },
-    onSubmit: async values => {
-      if (!values.terms) {
-        alert('Concorde com os termos :D');
-        return;
-      }
+    validationSchema: workSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
       const resp = await Api.Contact.postWorkWithUs(values);
+      setSubmitting(false);
       if (resp.status === 'success') {
         alert(resp.status);
+        resetForm({});
       }
     }
   });
@@ -66,6 +108,9 @@ function Work() {
               label="Não"
               checked={values.brokerExperience === 'Não'}
               onChange={() => setFieldValue('brokerExperience', 'Não')}
+              error={touched.brokerExperience && errors.brokerExperience}
+              value={values.brokerExperience}
+              onBlur={handleBlur}
             />
             <FormElements
               name="brokerExperience"
@@ -75,6 +120,9 @@ function Work() {
               onChange={() =>
                 setFieldValue('brokerExperience', 'Sim, em imobiliária')
               }
+              error={touched.brokerExperience && errors.brokerExperience}
+              value={values.brokerExperience}
+              onBlur={handleBlur}
             />
             <FormElements
               name="brokerExperience"
@@ -84,6 +132,9 @@ function Work() {
               onChange={() =>
                 setFieldValue('brokerExperience', 'Sim, como autônomo')
               }
+              error={touched.brokerExperience && errors.brokerExperience}
+              value={values.brokerExperience}
+              onBlur={handleBlur}
             />
           </FormGroupBrokerExperience>
         </FormGroup>
@@ -97,6 +148,9 @@ function Work() {
               label="Não"
               checked={values.haveBelieved === false}
               onChange={() => setFieldValue('haveBelieved', false)}
+              error={touched.haveBelieved && errors.haveBelieved}
+              value={values.haveBelieved}
+              onBlur={handleBlur}
             />
             <FormElements
               name="haveBelieved"
@@ -104,6 +158,9 @@ function Work() {
               label="Sim"
               checked={values.haveBelieved}
               onChange={() => setFieldValue('haveBelieved', true)}
+              error={touched.haveBelieved && errors.haveBelieved}
+              value={values.haveBelieved}
+              onBlur={handleBlur}
             />
           </FormGroupYesNo>
         </FormGroup>
@@ -116,12 +173,18 @@ function Work() {
               label="Nome"
               placeholder="Nome"
               onChange={handleChange}
+              error={touched.name && errors.name}
+              value={values.name}
+              onBlur={handleBlur}
             />
             <FormElements
               name="lastName"
               label="Sobrenome"
               placeholder="Sobrenome"
               onChange={handleChange}
+              error={touched.lastName && errors.lastName}
+              value={values.lastName}
+              onBlur={handleBlur}
             />
             <FormElements
               type="cpf"
@@ -129,6 +192,9 @@ function Work() {
               label="CPF"
               placeholder="CPF"
               onChange={handleChange}
+              error={touched.cpf && errors.cpf}
+              value={values.cpf}
+              onBlur={handleBlur}
             />
             <FormElements
               type="emailmask"
@@ -136,6 +202,9 @@ function Work() {
               label="E-mail pessoal"
               placeholder="E-mail pessoal"
               onChange={handleChange}
+              error={touched.email && errors.email}
+              value={values.email}
+              onBlur={handleBlur}
             />
             <FormElements
               type="phone"
@@ -143,6 +212,9 @@ function Work() {
               label="Telefone"
               placeholder="Telefone"
               onChange={handleChange}
+              error={touched.phone && errors.phone}
+              value={values.phone}
+              onBlur={handleBlur}
             />
             <FormElements
               type="phone"
@@ -150,6 +222,9 @@ function Work() {
               label="Celular"
               placeholder="Celular"
               onChange={handleChange}
+              error={touched.mobile && errors.mobile}
+              value={values.mobile}
+              onBlur={handleBlur}
             />
           </FormGroupBasics>
         </FormGroup>
@@ -225,6 +300,9 @@ function Work() {
             name="previousExperiences"
             placeholder="Comente sobre suas experiências anteriores"
             onChange={handleChange}
+            error={touched.previousExperiences && errors.previousExperiences}
+            value={values.previousExperiences}
+            onBlur={handleBlur}
           />
         </FormGroup>
         <FormGroup>
@@ -234,6 +312,9 @@ function Work() {
             name="reasonWorkAxpe"
             placeholder="Comente sobre suas experiências anteriores"
             onChange={handleChange}
+            error={touched.reasonWorkAxpe && errors.reasonWorkAxpe}
+            value={values.reasonWorkAxpe}
+            onBlur={handleBlur}
           />
         </FormGroup>
         <FormGroup>
@@ -268,10 +349,15 @@ function Work() {
             type="checkboxLink"
             name="terms"
             label={<>Concordo com a {linkPolitics} da Axpe.</>}
+            onChange={handleChange}
+            error={touched.terms && errors.terms}
+            value={values.terms}
             checked={values.terms}
-            onChange={() => setFieldValue('terms', !values.terms)}
+            onBlur={handleBlur}
           />
-          <ButtonContainer type="submit">Enviar</ButtonContainer>
+          <ButtonContainer disabled={isSubmitting} type="submit">
+            Enviar
+          </ButtonContainer>
         </FormGroupButton>
       </Form>
     </Container>
