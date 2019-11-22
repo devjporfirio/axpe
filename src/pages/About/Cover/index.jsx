@@ -1,7 +1,9 @@
 import React from 'react';
-import { Header, Gradient } from './styles';
 
-export default function Cover() {
+// styles
+import { Header, Gradient } from 'pages/About/styles';
+
+function Cover() {
   return (
     <Header>
       <Gradient />
@@ -14,3 +16,5 @@ export default function Cover() {
     </Header>
   );
 }
+
+export default Cover;
