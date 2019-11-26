@@ -28,7 +28,7 @@ function Building({ property }) {
         similar.data &&
         similar.data.length > 0 &&
         similar.data.filter(x => x.reference !== property.reference);
-        
+
       setSimilarBuildings(buildings);
     }
 
