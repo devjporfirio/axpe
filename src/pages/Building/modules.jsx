@@ -22,7 +22,7 @@ export default function Modules({ modules }) {
 
     switch (type) {
       case 'porque-adoramos':
-        return <HowWeLove reasons={component.data} />;
+        return <HowWeLove reasons={component} />;
       case 'destaque-1':
       case 'destaque-2':
       case 'destaque-3':
