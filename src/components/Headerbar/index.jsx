@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import SVG from 'react-inlinesvg';
 
 // store
@@ -52,6 +52,8 @@ function Headerbar({ type, title, subtitle, building }) {
   const buttonBack = () => {
     if(type === 'search') {
       toggleSearch();
+    } else {
+      Router.back();
     }
   }
 
