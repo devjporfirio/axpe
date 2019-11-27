@@ -32,11 +32,11 @@ export default {
   async getDirections(northeast, southwest) {
     const apiKey = process.env.config.keyMap;
     const result = await fetch(
-      `${baseMaps}directions/json?origin=${northeast.lat},${northeast.lng}&destination=${southwest.lat},${southwest.lng}&key=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/${baseMaps}directions/json?origin=${northeast.lat},${northeast.lng}&destination=${southwest.lat},${southwest.lng}&key=${apiKey}`
     )
       .then(response => response.json())
       .then(data => data);
-    return result && result.results.length > 0 ? result.results[0] : [];
+    return result;
   },
   async getSimilar(property, limit) {
     const params = {

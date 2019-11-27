@@ -35,6 +35,7 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
           <link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700|Raleway:300,400,500,600,700,800,900&display=swap" rel="stylesheet"></link>
+          <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIWFYDw-sx1b15l2UpV68yPwOhgMfBXK0&libraries=geometry"></script>
         </Head>
         <body>
           <Main />
