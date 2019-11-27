@@ -8,7 +8,7 @@ import Around from 'components/Around';
 
 import { Module } from './styles';
 
-export default function Modules ({ modules }) {
+export default function Modules({ modules }) {
   const renderModules = (type, component) => {
     // porque-adoramos
     // destaque-1
@@ -22,7 +22,7 @@ export default function Modules ({ modules }) {
 
     switch (type) {
       case 'porque-adoramos':
-        return <HowWeLove reasons={component.data} />;
+        return <HowWeLove reasons={component.data ? component.data : component} />;
       case 'destaque-1':
       case 'destaque-2':
       case 'destaque-3':
@@ -44,14 +44,22 @@ export default function Modules ({ modules }) {
         return <BlockHighlighted type="planta" href={component.data.file} />;
       case 'vizinhanca':
         return <Around cep={component.data.cep} text={component.data.text} />;
+      default:
+          return null;
     }
   };
 
   return (
     <>
-      {modules.map((component, index) => (
+      {Array.isArray(modules) && modules.map((component, index) => (
         <Module key={index}>
           {renderModules(component.module.slug, component)}
+        </Module>
+      ))}
+
+      {!Array.isArray(modules) && Object.keys(modules).map((componentKey, index) => (
+        <Module key={`building-module-${index}-${componentKey}`}>
+          {renderModules(componentKey, modules[componentKey])}
         </Module>
       ))}
     </>

@@ -48,13 +48,15 @@ function sectionDestaqueTextBullets(item) {
         {item.texts.title && <hr />}
         <Infos>{item.texts.text}</Infos>
       </Block1DestaqueTextoBullet>
-      <Block2DestaqueTextoBullet>
-        <ul>
-          {item.bullets.map(bullet => (
-            <li key={bullet}>{bullet}</li>
-          ))}
-        </ul>
-      </Block2DestaqueTextoBullet>
+      {item.bullets && item.bullets.length ? (
+        <Block2DestaqueTextoBullet>
+          <ul>
+            {item.bullets.map(bullet => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+        </Block2DestaqueTextoBullet>
+      ) : null}
     </>
   );
 }
@@ -64,6 +66,7 @@ function sectionMultiInfos(item, labelTitle) {
     item && item.building && Object.keys(item.building).length > 0
       ? item.building
       : item;
+
   return (
     <>
       {labelTitle && <h4>{item[labelTitle]}</h4>}

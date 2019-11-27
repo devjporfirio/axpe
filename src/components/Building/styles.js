@@ -9,7 +9,8 @@ export const Container = styled.div`
   margin: auto;
 
   ${media.greaterThan('medium')`
-    max-width: calc(1000px - 40px);
+    width: 100%;
+    max-width: 1000px;
     height: 365px;
     margin: auto auto 20px auto;
     display: flex;
