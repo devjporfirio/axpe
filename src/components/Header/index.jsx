@@ -185,7 +185,7 @@ function Header() {
               </li>
               <li>|</li>
               <li>
-                <Link href="es" passHref>
+                <Link href="/es" passHref>
                   <NavLangsButton onClick={cancelToggle}>
                     ES
                   </NavLangsButton>
