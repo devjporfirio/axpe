@@ -16,7 +16,7 @@ export const Container = styled.div`
   `}
 `;
 
-export const Title = styled.h3`
+export const Title = styled.h2`
   padding: 30px 40px;
   max-width: 420px;
 

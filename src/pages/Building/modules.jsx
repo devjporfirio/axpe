@@ -22,7 +22,7 @@ export default function Modules({ modules }) {
 
     switch (type) {
       case 'porque-adoramos':
-        return <HowWeLove reasons={component} />;
+        return <HowWeLove reasons={component.data ? component.data : component} />;
       case 'destaque-1':
       case 'destaque-2':
       case 'destaque-3':
@@ -51,7 +51,13 @@ export default function Modules({ modules }) {
 
   return (
     <>
-      {Object.keys(modules).map((componentKey, index) => (
+      {Array.isArray(modules) && modules.map((component, index) => (
+        <Module key={index}>
+          {renderModules(component.module.slug, component)}
+        </Module>
+      ))}
+
+      {!Array.isArray(modules) && Object.keys(modules).map((componentKey, index) => (
         <Module key={`building-module-${index}-${componentKey}`}>
           {renderModules(componentKey, modules[componentKey])}
         </Module>

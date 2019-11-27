@@ -5,6 +5,7 @@ import { Container, Title, Reasons } from './styles';
 
 function HowWeLove({ reasons }) {
   const [ html, setHtml ] = useState(null);
+  const [ type, setType ] = useState(null);
 
   const filterHtml = () => {
     const response = reasons
@@ -16,10 +17,15 @@ function HowWeLove({ reasons }) {
   }
 
   useEffect(() => {
-    setHtml(filterHtml());
+    if(Array.isArray(reasons)) {
+      setType('array');
+    } else {
+      setType('html')
+      setHtml(filterHtml());
+    }
   }, []);
 
-  return html ? (
+  return type === 'array' || (type === 'html' && html) ? (
     <Container>
       <Title>
         <span>Por que </span>
@@ -59,7 +65,15 @@ function HowWeLove({ reasons }) {
           }
         ]}
       >
-        {html}
+        {type === 'html' && html}
+        {type === 'array' && (
+          reasons.map((reason, index) => (
+            <article className="building-lovely-item" key={index}>
+              <h3>{reason.title}</h3>
+              <p>{reason.text}</p>
+            </article>
+          ))
+        )}
       </Reasons>
 
       {/* <Reasons

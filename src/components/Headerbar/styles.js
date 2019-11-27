@@ -66,6 +66,7 @@ export const ContainerBuilding = css`
         letter-spacing: 1px;
         color: ${({ theme }) => theme.colors.orange};
         font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+        transform: none;
 
         svg {
           margin-right: 5px;
