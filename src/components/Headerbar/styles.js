@@ -97,6 +97,7 @@ export const Wrapper = styled.div`
   top: 70px;
   left: 0;
   width: 100%;
+  min-height: 46px;
   padding: 10px 30px 10px 60px;
   background: ${({ theme }) => theme.colors.white};
   z-index: 10;
