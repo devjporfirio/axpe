@@ -6,7 +6,7 @@ export const suffle = list => {
 export const formatCurrency = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL',
-  minimumFractionDigits: 3
+  minimumFractionDigits: 0
 });
 
 export const getParamsFromObject = (params, isBackend) => {
