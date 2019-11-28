@@ -34,7 +34,7 @@ import {
 
 function Search({ currentPage, total, totalPages, data }) {
   const router = useRouter();
-  const { query, query: { source, finality } } = router;
+  const { query, query: { source, finality, reference } } = router;
   const dispatch = useDispatch();
   const { searchFormActive } = useSelector(state => state.main);
 
@@ -120,8 +120,8 @@ function Search({ currentPage, total, totalPages, data }) {
           {total ? (
             <Headerbar
               type="search"
-              title={source && getSourceText()}
-              subtitle={finality && `Imóveis para ${getFinalityText()}`}
+              title={source && !reference && getSourceText()}
+              subtitle={finality && !reference && `Imóveis para ${getFinalityText()}`}
             />
           ) : null}
 

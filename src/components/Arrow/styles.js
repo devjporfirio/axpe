@@ -44,7 +44,7 @@ const positionOutsideNext = css`
 const positionOutsidePrev = css`
   top: 0;
   bottom: 0;
-  left: -30px;
+  left: -24px;
   margin-top: auto;
   margin-bottom: auto;
 `;
@@ -214,13 +214,9 @@ export const ArrowNext = styled(Arrow)`
   ${props =>
     props.type === 'building' &&
     css`
-      margin-top: -142.5px;
-      right: 15px;
-      ${media.greaterThan('medium')`
-        right: auto;
-        margin-top: -200px;
-        margin-left: 530px;
-      `}
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     `}
 `;
 
@@ -239,9 +235,7 @@ background: url(${props =>
   ${props =>
     props.type === 'building' &&
     css`
-      margin-top: 104.5px;
-      ${media.greaterThan('medium')`
-        margin-top: 165px;
-      `}
+      top: 50%;
+      transform: translateY(-50%);
     `}
 `;

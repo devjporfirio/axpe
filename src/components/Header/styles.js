@@ -197,7 +197,7 @@ export const Box = styled.div`
 `;
 
 export const NavMain = styled.nav`
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 
   ${media.greaterThan('medium')`
     margin-bottom: 30px;
@@ -337,7 +337,7 @@ export const NavSecondary = styled.nav`
 
   li {
     &:not(:last-child) {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
 
       ${media.greaterThan('medium')`
         margin-bottom: 8px;
@@ -359,15 +359,6 @@ export const NavSecondaryButton = styled.a`
 export const NavLangs = styled.nav`
   margin-bottom: 25px;
 
-  &:after {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 2px;
-    margin-top: 5px;
-    background: ${({ theme }) => theme.colors.green};
-  }
-
   ul {
     width: auto;
     display: flex;
@@ -379,7 +370,8 @@ export const NavLangs = styled.nav`
     color: ${({ theme }) => theme.colors.green};
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
-    &:nth-child(2) {
+    &:nth-child(2),
+    &:nth-child(4) {
       margin: 0 15px;
 
       ${media.greaterThan('medium')`
@@ -390,9 +382,31 @@ export const NavLangs = styled.nav`
 `;
 
 export const NavLangsButton = styled.a`
+  position: relative;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 120%;
+    height: 2px;
+    background: ${({ theme }) => theme.colors.green};
+    transition: all 300ms ease;
+    ${({ theme }) => theme.hide};
+  }
+
+  ${props =>
+    props.active &&
+    css`
+      &:after {
+        ${({ theme }) => theme.show};
+      }
+    `}
 `;
 
 export const Whatsapp = styled.div`

@@ -1,8 +1,12 @@
 import React from 'react';
 
+// helpers
+import { formatCurrency } from 'helpers/utils';
+
 // components
 import Button from 'components/Button';
 
+// styles
 import {
   Container,
   LinkContainer,
@@ -48,13 +52,15 @@ function sectionDestaqueTextBullets(item) {
         {item.texts.title && <hr />}
         <Infos>{item.texts.text}</Infos>
       </Block1DestaqueTextoBullet>
-      <Block2DestaqueTextoBullet>
-        <ul>
-          {item.bullets.map(bullet => (
-            <li key={bullet}>{bullet}</li>
-          ))}
-        </ul>
-      </Block2DestaqueTextoBullet>
+      {item.bullets && item.bullets.length ? (
+        <Block2DestaqueTextoBullet>
+          <ul>
+            {item.bullets.map(bullet => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+        </Block2DestaqueTextoBullet>
+      ) : null}
     </>
   );
 }
@@ -64,6 +70,7 @@ function sectionMultiInfos(item, labelTitle) {
     item && item.building && Object.keys(item.building).length > 0
       ? item.building
       : item;
+
   return (
     <>
       {labelTitle && <h4>{item[labelTitle]}</h4>}
@@ -71,14 +78,12 @@ function sectionMultiInfos(item, labelTitle) {
 
       {address && address.local && <Local>{address.local}</Local>}
       <Infos>
-        {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : ''}
+        {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}
       </Infos>
       {values && Object.keys(values).length > 0 && (values.sell || values.release) ? (
-        <Infos>Venda: {values.sell || values.release}</Infos>
-      ) : (
-        ''
-      )}
-      {values && Object.keys(values).length > 0 && values.rent && <Infos>Aluguel: {values.rent}</Infos>}
+        <Infos>Venda: {formatCurrency.format(values.sell) || formatCurrency.format(values.release)}</Infos>
+      ) : null}
+      {values && Object.keys(values).length > 0 && values.rent ? <Infos>Aluguel: {formatCurrency.format(values.rent)}</Infos> : null}
 
       <Reference>Ref {reference}</Reference>
       <LinkContainer>

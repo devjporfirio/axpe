@@ -44,14 +44,14 @@ export const Container = styled(Slider)`
   ${props =>
     props.type === 'slickLarge' && media.greaterThan('medium')`${SlickLarge}`}
 
-  ${props =>
+  /* ${props =>
     props.type === 'slickGrid' &&
     props.length === 1 &&
     media.greaterThan('medium')`
       section {
         margin-left: 70%;
       }
-  `}
+  `} */
 `;
 
 export const Slide = styled.div`

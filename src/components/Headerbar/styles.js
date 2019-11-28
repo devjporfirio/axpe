@@ -66,6 +66,7 @@ export const ContainerBuilding = css`
         letter-spacing: 1px;
         color: ${({ theme }) => theme.colors.orange};
         font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+        transform: none;
 
         svg {
           margin-right: 5px;
@@ -97,6 +98,7 @@ export const Wrapper = styled.div`
   top: 70px;
   left: 0;
   width: 100%;
+  min-height: 46px;
   padding: 10px 30px 10px 60px;
   background: ${({ theme }) => theme.colors.white};
   z-index: 10;
@@ -115,17 +117,19 @@ export const Wrapper = styled.div`
 
 export const Column = styled.div`
   position: absolute;
-  bottom: 10px;
+  top: 50%;
   right: 30px;
+  transform: translateY(-50%);
 
   ${media.greaterThan('medium')`
     position: relative;
-    bottom: auto;
+    top: auto;
     right: auto;
     margin-left: auto;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    transform: none;
   `}
 `;
 
@@ -134,11 +138,12 @@ export const ButtonBack = styled.button`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 10px;
+  top: 50%;
   left: 20px;
   width: 24px;
   height: 24px;
   font-size: 0;
+  transform: translateY(-50%);
 
   svg {
     display: block;
@@ -223,8 +228,8 @@ export const ButtonLike = styled.button`
   svg {
     display: block;
     margin-left: 5px;
-    width: 18px;
-    height: 16px;
+    width: 27px;
+    height: 25px;
 
     path {
       transition: all 300ms ease;
@@ -236,11 +241,24 @@ export const ButtonLike = styled.button`
 
     svg {
       margin-left: 0;
+
+      g {
+        stroke: ${({ theme }) => theme.colors.orange};
+      }
     }
   `}
 
   ${media.greaterThan('medium')`
     margin-left: 20px;
+
+    svg {
+      width: 18px;
+      height: 16px;
+
+      g {
+        stroke: ${({ theme }) => theme.colors.greenDark};
+      }
+    }
   `}
 
   ${media.greaterThan('1024px')`

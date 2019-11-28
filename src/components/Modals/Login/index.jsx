@@ -44,7 +44,7 @@ function LoginModal() {
           </LoginRow>
           <LoginRow>
             <ColumnTitle>É sua primeira visita?</ColumnTitle>
-            <Button href="cadastrar" as="cadastrar" fullWidth={true}>Cadastre</Button>
+            <Button href="/cadastrar" as="/cadastrar" fullWidth={true}>Cadastre</Button>
           </LoginRow>
         </LoginContainer>
       </Column>

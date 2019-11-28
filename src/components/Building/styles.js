@@ -4,12 +4,16 @@ import media from 'styled-media-query';
 import Gallery from 'components/Slider';
 
 export const Container = styled.div`
+  position: relative;
   background-color: ${({ theme }) => theme.colors.white};
   max-width: calc(100vw - 32px);
-  margin: auto;
+  margin: auto auto 20px auto;
+  overflow: hidden;
+  border-radius: 6px;
 
   ${media.greaterThan('medium')`
-    max-width: calc(1000px - 40px);
+    width: 100%;
+    /* max-width: 1000px; */
     height: 365px;
     margin: auto auto 20px auto;
     display: flex;
@@ -25,17 +29,19 @@ export const Container = styled.div`
 export const Infos = styled.div`
   display: block;
   padding: 20px;
-  margin-bottom: 20px;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
 
   ${media.greaterThan('medium')`
+    padding: 30px;
+  `}
+
+  ${media.greaterThan('1280px')`
     padding: 40px 55px;
-    width: 100%;
   `}
 `;
 
 export const Slider = styled(Gallery)`
-  position: initial;
   height: 244px;
 
   iframe,
@@ -45,11 +51,11 @@ export const Slider = styled(Gallery)`
   }
 
   ${media.greaterThan('medium')`
-    width: 565px;
+    width: 50%;
     height: 365px;
 
-    iframe,img {
-      width: 565px;
+    iframe, img {
+      width: 100%;
       height: 365px;
     }
   `}
