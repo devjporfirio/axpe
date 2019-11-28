@@ -576,7 +576,7 @@ export const FormTabSlider = styled.div`
 `;
 
 export const FormTabSliderTitle = styled.h4`
-  font: 18px 'Raleway';
+  font: 16px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
