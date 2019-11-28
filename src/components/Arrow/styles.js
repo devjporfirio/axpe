@@ -39,7 +39,7 @@ const positionOutsideNext = css`
 const positionOutsidePrev = css`
   top: 0;
   bottom: 0;
-  left: -30px;
+  left: -24px;
   margin-top: auto;
   margin-bottom: auto;
 `;
