@@ -5,6 +5,7 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
 import Api from 'services';
+import * as Yup from 'yup';
 
 import IUser from 'assets/icons/user';
 import IClose from 'assets/icons/close-white';
@@ -31,8 +32,47 @@ import {
   ButtonSubmit
 } from 'pages/RegisterProperty/styles';
 
-function RegisterProperty() {
-  const { handleSubmit, handleChange, setFieldValue, values } = useFormik({
+function RegisterProperty({ locals, categories }) {
+  const registrySchema = Yup.object().shape({
+    type: Yup.string()
+      .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
+      .required(),
+    finality: Yup.string()
+      .oneOf([ 'Vender', 'Aluguel' ])
+      .required(),
+    category: Yup.string().required(),
+    zipcode: Yup.string().required(),
+    address: Yup.string().required(),
+    number: Yup.number().required(),
+    complement: Yup.string().required(),
+    neighborhood: Yup.string().required(),
+    areaUseful: Yup.number().required(),
+    numDorms: Yup.number(),
+    numSuites: Yup.number(),
+    numParking: Yup.number().required(),
+    isVacant: Yup.boolean().required(),
+    managerKey: Yup.string().required(),
+    valueRequested: Yup.number().required(),
+    valueTax: Yup.number().required(),
+    valueCondo: Yup.number().required(),
+    positiveCharacteristics: Yup.string().required(),
+    negativeCharacteristics: Yup.string().required(),
+    images: Yup.array(),
+    terms: Yup.boolean()
+      .oneOf([ true ])
+      .required()
+  });
+
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    values,
+    touched,
+    errors,
+    setFieldValue
+  } = useFormik({
     initialValues: {
       type: '',
       finality: '',
@@ -56,14 +96,13 @@ function RegisterProperty() {
       images: [],
       terms: false
     },
-    onSubmit: async values => {
-      if (!values.terms) {
-        alert('Aceite os termos :D');
-        return;
-      }
+    validationSchema: registrySchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
       const resp = await Api.RegisterProperty.postProperty(values);
+      setSubmitting(false);
       if (resp.status === 'success') {
         alert(resp.status);
+        resetForm({});
       }
     }
   });
@@ -89,6 +128,7 @@ function RegisterProperty() {
                 size="big"
                 checked={values.type === 'Residencial'}
                 onChange={() => setFieldValue('type', 'Residencial')}
+                error={touched.type && errors.type}
               />
               <FormElements
                 name="type"
@@ -97,6 +137,7 @@ function RegisterProperty() {
                 size="big"
                 checked={values.type === 'Comercial'}
                 onChange={() => setFieldValue('type', 'Comercial')}
+                error={touched.type && errors.type}
               />
               <FormElements
                 name="type"
@@ -105,6 +146,7 @@ function RegisterProperty() {
                 size="big"
                 checked={values.type === 'Praia'}
                 onChange={() => setFieldValue('type', 'Praia')}
+                error={touched.type && errors.type}
               />
               <FormElements
                 name="type"
@@ -113,6 +155,7 @@ function RegisterProperty() {
                 size="big"
                 checked={values.type === 'Campo'}
                 onChange={() => setFieldValue('type', 'Campo')}
+                error={touched.type && errors.type}
               />
               <FormElements
                 name="type"
@@ -121,6 +164,7 @@ function RegisterProperty() {
                 size="big"
                 checked={values.type === 'Internacional'}
                 onChange={() => setFieldValue('type', 'Internacional')}
+                error={touched.type && errors.type}
               />
             </FormGroupFlex>
           </FormGroup>
@@ -135,6 +179,7 @@ function RegisterProperty() {
                   label="Vender"
                   checked={values.finality === 'Vender'}
                   onChange={() => setFieldValue('finality', 'Vender')}
+                  error={touched.finality && errors.finality}
                 />
                 <FormElements
                   name="finality"
@@ -142,6 +187,7 @@ function RegisterProperty() {
                   label="Alugar"
                   checked={values.finality === 'Aluguel'}
                   onChange={() => setFieldValue('finality', 'Aluguel')}
+                  error={touched.finality && errors.finality}
                 />
               </FormGroupTwo>
             </FormGroup>
@@ -151,14 +197,10 @@ function RegisterProperty() {
               <FormElements
                 name="category"
                 type="select"
-                items={[
-                  { label: 'Selecione', value: '' },
-                  { label: 'Apartamento', value: 'apartamento' },
-                  { label: 'Casa', value: 'casa' },
-                  { label: 'Casa de Praia', value: 'casa-praia' },
-                  { label: 'Casa no Campo', value: 'casa-campo' }
-                ]}
+                items={categories}
                 onChange={handleChange}
+                error={touched.category && errors.category}
+                onBlur={handleBlur}
               />
             </FormGroup>
           </FormRow>
@@ -172,37 +214,48 @@ function RegisterProperty() {
                 label="CEP"
                 placeholder="CEP"
                 onChange={handleChange}
+                error={touched.zipcode && errors.zipcode}
+                value={values.zipcode}
+                onBlur={handleBlur}
               />
               <FormElements
                 name="address"
                 label="Rua"
                 placeholder="Rua"
                 onChange={handleChange}
+                error={touched.address && errors.address}
+                value={values.address}
+                onBlur={handleBlur}
               />
               <FormElements
                 name="number"
                 label="Numero"
                 placeholder="Numero"
                 onChange={handleChange}
+                error={touched.number && errors.number}
+                value={values.number}
+                onBlur={handleBlur}
               />
               <FormElements
                 name="complement"
                 label="Complemento"
                 placeholder="Complemento"
                 onChange={handleChange}
+                error={touched.complement && errors.complement}
+                value={values.complement}
+                onBlur={handleBlur}
               />
               <FormElements
                 name="neighborhood"
                 placeholder="Bairro"
                 label="Bairro"
                 type="select"
-                items={[
-                  { label: 'Selecione', value: '' },
-                  { label: 'Centro', value: 'centro' },
-                  { label: 'Consolacao', value: 'consolacao' }
-                ]}
-                onChange={handleChange}
+                items={locals}
                 message="* Por enquanto atuamos apenas nestes bairros"
+                onChange={handleChange}
+                error={touched.neighborhood && errors.neighborhood}
+                value={values.neighborhood}
+                onBlur={handleBlur}
               />
             </FormGroupAddress>
           </FormGroup>
@@ -215,6 +268,9 @@ function RegisterProperty() {
                 label="Área útil (m²)"
                 placeholder="Área útil (m²)"
                 onChange={handleChange}
+                error={touched.areaUseful && errors.areaUseful}
+                value={values.areaUseful}
+                onBlur={handleBlur}
               />
               {values.type === 'Residencial' && (
                 <>
@@ -223,12 +279,18 @@ function RegisterProperty() {
                     label="Dormitórios"
                     placeholder="Dormitórios"
                     onChange={handleChange}
+                    error={touched.numDorms && errors.numDorms}
+                    value={values.numDorms}
+                    onBlur={handleBlur}
                   />
                   <FormElements
                     name="numSuites"
                     label="Sendo suítes"
                     placeholder="Sendo suítes"
                     onChange={handleChange}
+                    error={touched.numSuites && errors.numSuites}
+                    value={values.numSuites}
+                    onBlur={handleBlur}
                   />
                 </>
               )}
@@ -237,6 +299,9 @@ function RegisterProperty() {
                 label="Vagas de garagem"
                 placeholder="Vagas de garagem"
                 onChange={handleChange}
+                error={touched.numParking && errors.numParking}
+                value={values.numParking}
+                onBlur={handleBlur}
               />
             </FormGroupFlex>
           </FormGroup>
@@ -252,6 +317,7 @@ function RegisterProperty() {
                   size="big"
                   checked={values.isVacant === false}
                   onChange={() => setFieldValue('isVacant', false)}
+                  error={touched.isVacant && errors.isVacant}
                 />
                 <FormElements
                   name="isVacant"
@@ -260,6 +326,7 @@ function RegisterProperty() {
                   size="big"
                   checked={values.isVacant}
                   onChange={() => setFieldValue('isVacant', true)}
+                  error={touched.isVacant && errors.isVacant}
                 />
               </FormGroupFlex>
             </FormGroup>
@@ -271,6 +338,9 @@ function RegisterProperty() {
                 label="Nome"
                 placeholder="Nome"
                 onChange={handleChange}
+                error={touched.managerKey && errors.managerKey}
+                value={values.managerKey}
+                onBlur={handleBlur}
               />
             </FormGroup>
           </FormRow>
@@ -285,6 +355,9 @@ function RegisterProperty() {
                   placeholder="R$"
                   onChange={handleChange}
                   message="(Incluindo 6% de comissão)"
+                  error={touched.valueRequested && errors.valueRequested}
+                  value={values.valueRequested}
+                  onBlur={handleBlur}
                 />
               )}
               {values.finality === 'Aluguel' && (
@@ -293,6 +366,9 @@ function RegisterProperty() {
                   label="Qual o valor de aluguel que gostaria?"
                   placeholder="R$"
                   onChange={handleChange}
+                  error={touched.valueRequested && errors.valueRequested}
+                  value={values.valueRequested}
+                  onBlur={handleBlur}
                 />
               )}
               <FormElements
@@ -300,12 +376,18 @@ function RegisterProperty() {
                 label="Valor mensal de IPTU"
                 placeholder="R$"
                 onChange={handleChange}
+                error={touched.valueTax && errors.valueTax}
+                value={values.valueTax}
+                onBlur={handleBlur}
               />
               <FormElements
                 name="valueCondo"
                 label="Qual o valor do condomínio"
                 placeholder="R$"
                 onChange={handleChange}
+                error={touched.valueCondo && errors.valueCondo}
+                value={values.valueCondo}
+                onBlur={handleBlur}
               />
             </FormGroupValues>
           </FormGroup>
@@ -318,6 +400,12 @@ function RegisterProperty() {
                 name="positiveCharacteristics"
                 placeholder="Digite sua mensagem"
                 onChange={handleChange}
+                error={
+                  touched.positiveCharacteristics &&
+                  errors.positiveCharacteristics
+                }
+                value={values.positiveCharacteristics}
+                onBlur={handleBlur}
               />
             </FormGroup>
 
@@ -328,6 +416,12 @@ function RegisterProperty() {
                 name="negativeCharacteristics"
                 placeholder="Digite sua mensagem"
                 onChange={handleChange}
+                error={
+                  touched.negativeCharacteristics &&
+                  errors.negativeCharacteristics
+                }
+                value={values.negativeCharacteristics}
+                onBlur={handleBlur}
               />
             </FormGroup>
           </FormRow>
@@ -336,18 +430,21 @@ function RegisterProperty() {
             <h2>FOTOS</h2>
             <FormGroupPhotos>
               <Description>
-                {/* Por favor, envie algumas fotos que podem ser tiradas com o seu
+                Por favor, envie algumas fotos que podem ser tiradas com o seu
                 celular. Elas nos ajudarão a planejar a sessão de fotos que
-                faremos no seu imóvel. */}
-                Para agilizar o cadastro do seu imóvel, por favor, envie algumas
-                fotos
+                faremos no seu imóvel.
+                {/* Para agilizar o cadastro do seu imóvel, por favor, envie algumas
+                fotos */}
               </Description>
 
               <FormElements
                 type="file"
                 multiple
                 onChange={e => {
-                  setFieldValue('images', [ ...values.images, ...e.target.files ]);
+                  setFieldValue('images', [
+                    ...values.images,
+                    ...e.target.files
+                  ]);
                 }}
               ></FormElements>
             </FormGroupPhotos>
@@ -376,8 +473,11 @@ function RegisterProperty() {
               type="checkboxLink"
               name="terms"
               label="Concordo com o termo de autorização de comercialização de imóveis"
+              onChange={handleChange}
+              error={touched.terms && errors.terms}
+              value={values.terms}
               checked={values.terms}
-              onChange={() => setFieldValue('terms', !values.terms)}
+              onBlur={handleBlur}
             />
 
             <InfoLogin>
@@ -395,7 +495,9 @@ function RegisterProperty() {
               </Info>
             </InfoLogin>
 
-            <ButtonSubmit type="submit">Enviar</ButtonSubmit>
+            <ButtonSubmit disabled={isSubmitting} type="submit">
+              Enviar
+            </ButtonSubmit>
           </FormGroupFooter>
         </Form>
       </Body>
@@ -403,5 +505,26 @@ function RegisterProperty() {
     </Container>
   );
 }
+
+RegisterProperty.getInitialProps = async () => {
+  const locals = await Api.Search.getLocals();
+  const categories = await Api.Search.getCategories();
+  const itemBase = { label: 'Selecione', value: '' };
+
+  const newLocals = [ itemBase ];
+  const newCategories = [ itemBase ];
+
+  Object.keys(locals).map(x =>
+    locals[x].map(y => newLocals.push({ label: y, value: y }))
+  );
+  Object.keys(categories).map(x =>
+    categories[x].map(y => newCategories.push({ label: y, value: y }))
+  );
+  
+  return {
+    locals: newLocals,
+    categories: newCategories
+  };
+};
 
 export default RegisterProperty;

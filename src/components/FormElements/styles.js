@@ -126,7 +126,7 @@ const BaseInput = css`
   color: ${({ theme }) => theme.colors.green};
   font: 14px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
-  background-color: ${({ theme }) => theme.colors.white};
+  background: none;
   cursor: text;
   -webkit-appearance: none;
 
