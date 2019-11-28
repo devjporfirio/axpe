@@ -128,6 +128,10 @@ function Search({ dispatch }) {
     setAlertCreated(true);
   }
 
+  function resetForm() {
+    formik.resetForm();
+  }
+
   function closeAlertTooltip() {
     setAlertCreated(false);
   }
@@ -383,7 +387,7 @@ function Search({ dispatch }) {
                   <SVG src={AlertIconSVG} uniquifyIDs={true} /> Criar alerta
                 </FormButtonAlert>
               </FormAlert>
-              <FormButtonClear type="button" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference}>Limpar filtros</FormButtonClear>
+              <FormButtonClear type="button" disabled={!formik.isSubmitting && !filtersData && !formik.values.reference} onClick={resetForm}>Limpar filtros</FormButtonClear>
             </FormFooter>
 
           </FormWrapper>

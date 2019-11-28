@@ -36,7 +36,7 @@ export default {
     )
       .then(response => response.json())
       .then(data => data);
-    return result;
+    return result && result.results.length > 0 ? result.results[0] : [];
   },
   async getSimilar(property, limit) {
     const params = {
