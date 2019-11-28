@@ -205,13 +205,9 @@ export const ArrowNext = styled(Arrow)`
   ${props =>
     props.type === 'building' &&
     css`
-      margin-top: -142.5px;
-      right: 15px;
-      ${media.greaterThan('medium')`
-        right: auto;
-        margin-top: -200px;
-        margin-left: 530px;
-      `}
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     `}
 `;
 
@@ -225,9 +221,7 @@ export const ArrowPrev = styled(Arrow)`
   ${props =>
     props.type === 'building' &&
     css`
-      margin-top: 104.5px;
-      ${media.greaterThan('medium')`
-        margin-top: 165px;
-      `}
+      top: 50%;
+      transform: translateY(-50%);
     `}
 `;
