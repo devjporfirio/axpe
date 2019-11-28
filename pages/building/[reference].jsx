@@ -73,12 +73,12 @@ function Building({ property }) {
         </p>
       </Alert>
 
-      {property.type === 'pronto' && (
-        <Around cep={property.address.zipcode} text={property.address.zipcode} />
-      )}
-
       {Object.keys(property.components).length > 0 && (
         <Modules modules={property.components} />
+      )}
+
+      {property.type === 'pronto' && (
+        <Around cep={property.address.zipcode} text={property.address.zipcode} />
       )}
 
       {similarBuildings && similarBuildings.length > 0 && (
