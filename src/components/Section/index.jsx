@@ -1,8 +1,12 @@
 import React from 'react';
 
+// helpers
+import { formatCurrency } from 'helpers/utils';
+
 // components
 import Button from 'components/Button';
 
+// styles
 import {
   Container,
   LinkContainer,
@@ -77,9 +81,9 @@ function sectionMultiInfos(item, labelTitle) {
         {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}
       </Infos>
       {values && Object.keys(values).length > 0 && (values.sell || values.release) ? (
-        <Infos>Venda: {values.sell || values.release}</Infos>
+        <Infos>Venda: {formatCurrency.format(values.sell) || formatCurrency.format(values.release)}</Infos>
       ) : null}
-      {values && Object.keys(values).length > 0 && values.rent ? <Infos>Aluguel: {values.rent}</Infos> : null}
+      {values && Object.keys(values).length > 0 && values.rent ? <Infos>Aluguel: {formatCurrency.format(values.rent)}</Infos> : null}
 
       <Reference>Ref {reference}</Reference>
       <LinkContainer>
