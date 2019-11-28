@@ -74,14 +74,12 @@ function sectionMultiInfos(item, labelTitle) {
 
       {address && address.local && <Local>{address.local}</Local>}
       <Infos>
-        {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : ''}
+        {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}
       </Infos>
       {values && Object.keys(values).length > 0 && (values.sell || values.release) ? (
         <Infos>Venda: {values.sell || values.release}</Infos>
-      ) : (
-        ''
-      )}
-      {values && Object.keys(values).length > 0 && values.rent && <Infos>Aluguel: {values.rent}</Infos>}
+      ) : null}
+      {values && Object.keys(values).length > 0 && values.rent ? <Infos>Aluguel: {values.rent}</Infos> : null}
 
       <Reference>Ref {reference}</Reference>
       <LinkContainer>
