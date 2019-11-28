@@ -6,12 +6,25 @@ import Gallery from './Gallery';
 import PanelBuildings from 'components/PanelBuildings';
 
 export const PanelSimilar = styled(PanelBuildings)`
+  width: 100%;
+  margin: 0 auto;
+
+  ${media.greaterThan('1024px')`
+    width: 80%;
+    padding-left: 0;
+    padding-right: 0;
+  `}
+
   header {
-    max-width: 1000px;
+    max-width: 100%;
 
     h4 {
+      max-width: 100%;
       width: 100%;
-      max-width: 1000px;
+
+      ${media.greaterThan('1024px')`
+        text-align: left;
+      `}
     }
   }
 `;
