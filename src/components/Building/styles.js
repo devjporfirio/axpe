@@ -28,7 +28,7 @@ export const Container = styled.div`
 
 export const Infos = styled.div`
   display: block;
-  padding: 20px;
+  padding: 15px 20px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
 
@@ -48,6 +48,7 @@ export const Slider = styled(Gallery)`
   img {
     height: 244px;
     object-fit: cover;
+    object-position: left;
   }
 
   ${media.greaterThan('medium')`
@@ -72,12 +73,12 @@ export const CatLocGroup = styled.div`
 `;
 
 export const Category = styled.h4`
-  font: 24px 'Bitter';
+  font: 22px 'Bitter';
 `;
 
 export const Local = styled.h4`
   color: ${({ theme }) => theme.colors.orange} !important;
-  font: 18px 'Raleway';
+  font: 16px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   text-transform: uppercase;
 
@@ -87,11 +88,11 @@ export const Local = styled.h4`
 `;
 
 export const Reference = styled.p`
-  font: 14px 'Raleway';
+  font: 13px 'Raleway';
 `;
 
 export const Description = styled.p`
-  font: 17px 'Raleway';
+  font: 16px 'Raleway';
   margin-top: 20px;
 
   ${media.greaterThan('medium')`
@@ -112,12 +113,12 @@ export const CaracteristicsGroup = styled.div`
   flex-wrap: wrap;
 
   div {
-    margin-top: 17px;
+    margin-top: 16px;
     height: 40px;
     flex: 0 50%;
 
     p {
-      font-size: 17px;
+      font-size: 16px;
     }
   }
 
@@ -136,11 +137,11 @@ export const CaracteristicsGroup = styled.div`
 
 export const ValuesFavGroup = styled.div`
   ${CenterBetween};
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 export const Favorito = styled.img`
-  width: 17px;
+  width: 16px;
 `;
 
 export const Price = styled.p`

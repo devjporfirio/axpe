@@ -7,7 +7,7 @@ import IArrowNextBlack from 'assets/icons/arrow-next-green';
 import IArrowPrevBlack from 'assets/icons/arrow-prev-green';
 
 const backgroundColorWhite = css`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5) !important;
   width: 35px;
   height: 35px;
 `;

@@ -70,6 +70,8 @@ export default createGlobalStyle`
     width: 100%;
   }
 
+  html { scroll-behavior: smooth; } 
+
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

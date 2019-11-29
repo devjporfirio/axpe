@@ -13,6 +13,7 @@ export const Container = styled.div`
 
 export const Image = styled.img`
   object-fit: cover;
+  object-position: left;
   border: 2.5px solid ${({ theme }) => theme.colors.white};
   border-top: none;
   border-bottom: none;

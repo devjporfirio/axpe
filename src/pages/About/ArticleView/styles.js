@@ -43,6 +43,18 @@ export const BlockImage = styled.div`
       width: 448px;
     }
   `}
+
+  ${media.greaterThan('1025px')`
+    div {
+      height: 538px;
+      width: 538px;
+    }
+    img {
+      margin: -500px 0 0 101px;
+      height: 463px;
+      width: 499px;
+    }
+  `};
 `;
 
 export const GroupBody = styled.div`
@@ -60,4 +72,10 @@ export const GroupBody = styled.div`
       }
     }
   `}
+
+  ${media.greaterThan('1025px')`
+    div:nth-child(2) {
+      margin: 0 0 0 50px;
+    }
+  `};
 `;

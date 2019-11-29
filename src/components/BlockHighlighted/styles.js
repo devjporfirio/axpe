@@ -73,6 +73,12 @@ export const Container = styled.div`
         justify-content: flex-start;
       `}
     `}
+
+    ${props =>
+      [ 'notfound', 'landing' ].includes(props.type) &&
+      css`
+        background-color: ${({ theme }) => theme.colors.greenDark};
+      `}
 `;
 
 const ContactHome = css`
@@ -152,7 +158,7 @@ const ContactWork = css`
 `;
 
 const NotFound = css`
-  width: 288px;
+  width: 300px;
   span:nth-child(1) {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
@@ -161,12 +167,12 @@ const NotFound = css`
   span:nth-child(2) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
   span:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
 `;
 

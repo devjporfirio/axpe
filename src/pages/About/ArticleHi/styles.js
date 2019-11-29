@@ -21,6 +21,10 @@ export const SubtTitle = styled.h3`
     line-height: 42px;
     width: 536px; 
   `}
+
+  ${media.greaterThan('1025px')`
+    width: auto; 
+  `}
 `;
 
 export const Group = styled.div`

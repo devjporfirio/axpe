@@ -68,14 +68,14 @@ export default function Building({ item }) {
             <div>
               {!!values.sell || !!values.release ? (
                 <Price>
-                  Venda: {!!values.sell && formatCurrency.format(values.sell)}
-                  {!!values.release && formatCurrency.format(values.release)}
+                  Venda: {!!values.sell && formatCurrency.format(parseInt(values.sell))}
+                  {!!values.release && formatCurrency.format(parseInt(values.release))}
                 </Price>
               ) : (
                 ''
               )}
               {!!values.rent ? (
-                <Price>Locação: {formatCurrency.format(values.rent)}</Price>
+                <Price>Locação: {formatCurrency.format(parseInt(values.rent))}</Price>
               ) : (
                 ''
               )}

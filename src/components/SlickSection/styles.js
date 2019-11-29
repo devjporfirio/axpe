@@ -91,6 +91,7 @@ export const Image = styled.img`
   background-size: cover;
   display: block;
   object-fit: cover;
+  object-position: left;
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
@@ -156,15 +157,15 @@ export const Image = styled.img`
 
   ${props =>
     props.type === 'slickSmall' &&
-    `
+    css`
       height: 230px;
-      `}
+    `}
 
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('medium')`
       max-width: 304px;
-      border-radius: 6px;
+      border-radius: 6px 6px 0 0;
   `}
 `;
 

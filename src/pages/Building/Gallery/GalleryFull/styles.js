@@ -29,6 +29,7 @@ export const Container = styled(Modal)`
 
   img {
     object-fit: cover;
+    object-position: left;
   }
 `;
 

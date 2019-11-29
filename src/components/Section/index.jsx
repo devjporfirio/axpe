@@ -71,6 +71,10 @@ function sectionMultiInfos(item, labelTitle) {
       ? item.building
       : item;
 
+  const sell = Object.keys(values).length > 0 && parseInt(values.sell);
+  const release = Object.keys(values).length > 0 && parseInt(values.release);
+  const rent = Object.keys(values).length > 0 && parseInt(values.rent);
+
   return (
     <>
       {labelTitle && <h4>{item[labelTitle]}</h4>}
@@ -80,10 +84,13 @@ function sectionMultiInfos(item, labelTitle) {
       <Infos>
         {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}
       </Infos>
-      {values && Object.keys(values).length > 0 && (values.sell || values.release) ? (
-        <Infos>Venda: {formatCurrency.format(values.sell) || formatCurrency.format(values.release)}</Infos>
+      {sell || release ? (
+        <Infos>
+          Venda:
+          {sell ? formatCurrency.format(sell) : formatCurrency.format(release)}
+        </Infos>
       ) : null}
-      {values && Object.keys(values).length > 0 && values.rent ? <Infos>Aluguel: {formatCurrency.format(values.rent)}</Infos> : null}
+      {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
 
       <Reference>Ref {reference}</Reference>
       <LinkContainer>

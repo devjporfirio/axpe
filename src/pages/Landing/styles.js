@@ -20,6 +20,7 @@ export const Image = styled.img`
   height: 275px;
   width: 100%;
   object-fit: cover;
+  object-position: left;
 
   ${media.greaterThan('medium')`
     height: 512px;
