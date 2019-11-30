@@ -257,6 +257,7 @@ export const GroupImage = styled.div`
 
 export const Image = styled.img`
   object-fit: cover;
+  object-position: left;
   border-radius: 4px;
   height: 202px;
   width: calc(100vw - 60px);

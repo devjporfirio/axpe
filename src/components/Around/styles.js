@@ -5,7 +5,6 @@ import Section from 'components/Section';
 export const Container = styled.div`
   max-width: 1000px;
   margin: auto;
-  margin-bottom: 30px;
 
   ${media.greaterThan('medium')`
     display: flex;

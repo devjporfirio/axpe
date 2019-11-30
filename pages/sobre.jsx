@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ArticleView from 'pages/About/ArticleView';
 import ArticleBrokers from 'pages/About/ArticleBrokers';
 import ArticleVisit from 'pages/About/ArticleVisit';
@@ -15,20 +15,33 @@ import Cover from 'pages/About/Cover';
 import { Container, Tab, Li } from 'pages/About/styles';
 
 function About() {
+  const [ tabActive, setTabActive ] = useState('nosso-jeito');
   return (
     <Container>
       <Tab>
         <ul>
-          <Li active>
+          <Li
+            active={tabActive === 'nosso-jeito'}
+            onClick={() => setTabActive('nosso-jeito')}
+          >
             <a href="#nosso-jeito">Nosso jeito</a>
           </Li>
-          <Li>
+          <Li
+            active={tabActive === 'nossa-casa'}
+            onClick={() => setTabActive('nossa-casa')}
+          >
             <a href="#nossa-casa">Nossa casa</a>
           </Li>
-          <Li>
+          <Li
+            active={tabActive === 'nosso-nome'}
+            onClick={() => setTabActive('nosso-nome')}
+          >
             <a href="#nosso-nome">Nosso nome</a>
           </Li>
-          <Li>
+          <Li
+            active={tabActive === 'christie'}
+            onClick={() => setTabActive('christie')}
+          >
             <a href="#christie">Christie’s International Real Estate</a>
           </Li>
         </ul>
