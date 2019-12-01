@@ -34,6 +34,10 @@ export const FormRow = styled.div`
   `}
 `;
 
+export const FormGroupRow = styled(FormRow)`
+  flex-basis: 120% !important;
+`;
+
 export const FormGroupTwo = styled.div`
   display: flex;
   height: 35px;
