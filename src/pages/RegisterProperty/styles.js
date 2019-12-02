@@ -59,6 +59,10 @@ export const FormGroupValues = styled.div`
       position: absolute;
       margin-top: 50px;
     }
+
+    p:nth-child(4){
+      margin-left: 295px;
+    }
   `}
 `;
 

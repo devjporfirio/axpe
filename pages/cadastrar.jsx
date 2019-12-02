@@ -1,15 +1,23 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
-import BlockHighlighted from 'components/BlockHighlighted';
-import FormElements from 'components/FormElements';
-import Contact from 'components/Contact';
 import Api from 'services';
 import * as Yup from 'yup';
 
+// components
+import BlockHighlighted from 'components/BlockHighlighted';
+import FormElements from 'components/FormElements';
+import Contact from 'components/Contact';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
+
+// images
 import IUser from 'assets/icons/user';
 import IClose from 'assets/icons/close-white';
 
+// styles
 import { FormGroup } from 'components/FormElements/styles';
 import {
   Container,
@@ -34,6 +42,7 @@ import {
 } from 'pages/RegisterProperty/styles';
 
 function RegisterProperty({ locals, categories, pais }) {
+  const dispatch = useDispatch();
   const registrySchema = Yup.object().shape({
     type: Yup.string()
       .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
@@ -102,7 +111,11 @@ function RegisterProperty({ locals, categories, pais }) {
       const resp = await Api.RegisterProperty.postProperty(values);
       setSubmitting(false);
       if (resp.status === 'success') {
-        alert(resp.status);
+        dispatch(
+          setMain({
+            modalRegisterSuccess: true
+          })
+        );
         resetForm({});
       }
     }
@@ -381,6 +394,11 @@ function RegisterProperty({ locals, categories, pais }) {
                     name="valueRequested"
                     label="Qual o valor de aluguel que gostaria?"
                     placeholder="R$"
+                    message={
+                      values.type !== 'Residencial'
+                        ? 'Incluindo comissão (primeiro aluguel)'
+                        : ''
+                    }
                     onChange={handleChange}
                     error={touched.valueRequested && errors.valueRequested}
                     value={values.valueRequested}
@@ -526,6 +544,9 @@ function RegisterProperty({ locals, categories, pais }) {
 RegisterProperty.getInitialProps = async () => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
+  const paises = await Api.Search.getFilters(
+    '?source=internacional&finality=venda'
+  );
   const itemBase = { label: 'Selecione', value: '' };
 
   const newLocals = [ itemBase ];
@@ -537,6 +558,10 @@ RegisterProperty.getInitialProps = async () => {
   );
   Object.keys(categories).map(x =>
     categories[x].map(y => newCategories.push({ label: y, value: y }))
+  );
+
+  Object.keys(paises.locals).map(x =>
+    newPais.push({ label: x, value: x })
   );
 
   return {
