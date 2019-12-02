@@ -47,9 +47,8 @@ function RegisterProperty({ locals, categories, pais }) {
     type: Yup.string()
       .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
       .required(),
-    finality: Yup.string()
-      .oneOf([ 'Vender', 'Aluguel' ])
-      .required(),
+    finalityVender: Yup.string().required(),
+    finalityAluguel: Yup.string().required(),
     category: Yup.string().required(),
     zipcode: Yup.string().required(),
     address: Yup.string().required(),
@@ -85,7 +84,8 @@ function RegisterProperty({ locals, categories, pais }) {
   } = useFormik({
     initialValues: {
       type: '',
-      finality: '',
+      finalityVender: false,
+      finalityAluguel: false,
       category: '',
       zipcode: '',
       address: '',
@@ -108,6 +108,13 @@ function RegisterProperty({ locals, categories, pais }) {
     },
     validationSchema: registrySchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      values.finality = `${values.finalityAluguel ? 'Aluguel' : ''}${
+        values.finalityVender
+          ? values.finalityAluguel
+            ? ',Vender'
+            : 'Vender'
+          : ''
+      }`;
       const resp = await Api.RegisterProperty.postProperty(values);
       setSubmitting(false);
       if (resp.status === 'success') {
@@ -188,20 +195,28 @@ function RegisterProperty({ locals, categories, pais }) {
               <h2>O que você deseja?</h2>
               <FormGroupTwo>
                 <FormElements
-                  name="finality"
+                  name="finalityVender"
                   type="checkbox"
                   label="Vender"
-                  checked={values.finality === 'Vender'}
-                  onChange={() => setFieldValue('finality', 'Vender')}
-                  error={touched.finality && errors.finality}
+                  onChange={() =>
+                    setFieldValue('finalityVender', !values.finalityVender)
+                  }
+                  error={touched.finalityVender && errors.finalityVender}
+                  value={values.finalityVender}
+                  checked={values.finalityVender}
+                  onBlur={handleBlur}
                 />
                 <FormElements
-                  name="finality"
+                  name="finalityAluguel"
                   type="checkbox"
                   label="Alugar"
-                  checked={values.finality === 'Aluguel'}
-                  onChange={() => setFieldValue('finality', 'Aluguel')}
-                  error={touched.finality && errors.finality}
+                  onChange={() =>
+                    setFieldValue('finalityAluguel', !values.finalityAluguel)
+                  }
+                  error={touched.finalityAluguel && errors.finalityAluguel}
+                  value={values.finalityAluguel}
+                  checked={values.finalityAluguel}
+                  onBlur={handleBlur}
                 />
               </FormGroupTwo>
             </FormGroup>
@@ -388,22 +403,25 @@ function RegisterProperty({ locals, categories, pais }) {
                 onBlur={handleBlur}
               />
 
+              {(values.type !== 'Internacional' || values.finalityAluguel) && (
+                <FormElements
+                  name="valueRequested"
+                  label="Qual o valor de aluguel que gostaria?"
+                  placeholder="R$"
+                  message={
+                    values.type !== 'Residencial'
+                      ? 'Incluindo comissão (primeiro aluguel)'
+                      : ''
+                  }
+                  onChange={handleChange}
+                  error={touched.valueRequested && errors.valueRequested}
+                  value={values.valueRequested}
+                  onBlur={handleBlur}
+                />
+              )}
+
               {values.type !== 'Internacional' && (
                 <>
-                  <FormElements
-                    name="valueRequested"
-                    label="Qual o valor de aluguel que gostaria?"
-                    placeholder="R$"
-                    message={
-                      values.type !== 'Residencial'
-                        ? 'Incluindo comissão (primeiro aluguel)'
-                        : ''
-                    }
-                    onChange={handleChange}
-                    error={touched.valueRequested && errors.valueRequested}
-                    value={values.valueRequested}
-                    onBlur={handleBlur}
-                  />
                   <FormElements
                     name="valueTax"
                     label="Valor mensal de IPTU"
@@ -560,9 +578,7 @@ RegisterProperty.getInitialProps = async () => {
     categories[x].map(y => newCategories.push({ label: y, value: y }))
   );
 
-  Object.keys(paises.locals).map(x =>
-    newPais.push({ label: x, value: x })
-  );
+  Object.keys(paises.locals).map(x => newPais.push({ label: x, value: x }));
 
   return {
     locals: newLocals,
