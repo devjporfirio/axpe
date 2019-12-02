@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import GoogleMapReact from 'google-map-react';
@@ -8,6 +9,9 @@ import * as Yup from 'yup';
 
 // components
 import { FormGroup } from 'components/FormElements/styles';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // styles
 import {
@@ -31,6 +35,7 @@ import {
 } from 'pages/Contact/styles';
 
 function Contact() {
+  const dispatch = useDispatch();
   const linkPolitics = <a href="/politica">política de privacidade</a>;
   const contatoSchema = Yup.object().shape({
     name: Yup.string()
@@ -77,9 +82,13 @@ function Contact() {
       const resp = await Api.Contact.postContact(values);
       setSubmitting(false);
       if (resp.status === 'success') {
-        alert(resp.status);
-        resetForm({});
-      }
+        dispatch(
+          setMain({
+            modalNewsletterSuccess: true
+          })
+          );
+          resetForm({});
+        }
     }
   });
 
