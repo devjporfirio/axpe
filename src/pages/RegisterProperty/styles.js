@@ -34,6 +34,10 @@ export const FormRow = styled.div`
   `}
 `;
 
+export const FormGroupRow = styled(FormRow)`
+  flex-basis: 120% !important;
+`;
+
 export const FormGroupTwo = styled.div`
   display: flex;
   height: 35px;
@@ -54,6 +58,10 @@ export const FormGroupValues = styled.div`
     p {
       position: absolute;
       margin-top: 50px;
+    }
+
+    p:nth-child(4){
+      margin-left: 295px;
     }
   `}
 `;

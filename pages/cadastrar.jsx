@@ -1,15 +1,23 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
-import BlockHighlighted from 'components/BlockHighlighted';
-import FormElements from 'components/FormElements';
-import Contact from 'components/Contact';
 import Api from 'services';
 import * as Yup from 'yup';
 
+// components
+import BlockHighlighted from 'components/BlockHighlighted';
+import FormElements from 'components/FormElements';
+import Contact from 'components/Contact';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
+
+// images
 import IUser from 'assets/icons/user';
 import IClose from 'assets/icons/close-white';
 
+// styles
 import { FormGroup } from 'components/FormElements/styles';
 import {
   Container,
@@ -17,6 +25,7 @@ import {
   Form,
   FormGroupTwo,
   FormGroupFlex,
+  FormGroupRow,
   FormRow,
   FormGroupValues,
   FormGroupAddress,
@@ -32,14 +41,14 @@ import {
   ButtonSubmit
 } from 'pages/RegisterProperty/styles';
 
-function RegisterProperty({ locals, categories }) {
+function RegisterProperty({ locals, categories, pais }) {
+  const dispatch = useDispatch();
   const registrySchema = Yup.object().shape({
     type: Yup.string()
       .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
       .required(),
-    finality: Yup.string()
-      .oneOf([ 'Vender', 'Aluguel' ])
-      .required(),
+    finalityVender: Yup.string().required(),
+    finalityAluguel: Yup.string().required(),
     category: Yup.string().required(),
     zipcode: Yup.string().required(),
     address: Yup.string().required(),
@@ -75,7 +84,8 @@ function RegisterProperty({ locals, categories }) {
   } = useFormik({
     initialValues: {
       type: '',
-      finality: '',
+      finalityVender: false,
+      finalityAluguel: false,
       category: '',
       zipcode: '',
       address: '',
@@ -98,10 +108,21 @@ function RegisterProperty({ locals, categories }) {
     },
     validationSchema: registrySchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      values.finality = `${values.finalityAluguel ? 'Aluguel' : ''}${
+        values.finalityVender
+          ? values.finalityAluguel
+            ? ',Vender'
+            : 'Vender'
+          : ''
+      }`;
       const resp = await Api.RegisterProperty.postProperty(values);
       setSubmitting(false);
       if (resp.status === 'success') {
-        alert(resp.status);
+        dispatch(
+          setMain({
+            modalRegisterSuccess: true
+          })
+        );
         resetForm({});
       }
     }
@@ -174,35 +195,58 @@ function RegisterProperty({ locals, categories }) {
               <h2>O que você deseja?</h2>
               <FormGroupTwo>
                 <FormElements
-                  name="finality"
+                  name="finalityVender"
                   type="checkbox"
                   label="Vender"
-                  checked={values.finality === 'Vender'}
-                  onChange={() => setFieldValue('finality', 'Vender')}
-                  error={touched.finality && errors.finality}
+                  onChange={() =>
+                    setFieldValue('finalityVender', !values.finalityVender)
+                  }
+                  error={touched.finalityVender && errors.finalityVender}
+                  value={values.finalityVender}
+                  checked={values.finalityVender}
+                  onBlur={handleBlur}
                 />
                 <FormElements
-                  name="finality"
+                  name="finalityAluguel"
                   type="checkbox"
                   label="Alugar"
-                  checked={values.finality === 'Aluguel'}
-                  onChange={() => setFieldValue('finality', 'Aluguel')}
-                  error={touched.finality && errors.finality}
+                  onChange={() =>
+                    setFieldValue('finalityAluguel', !values.finalityAluguel)
+                  }
+                  error={touched.finalityAluguel && errors.finalityAluguel}
+                  value={values.finalityAluguel}
+                  checked={values.finalityAluguel}
+                  onBlur={handleBlur}
                 />
               </FormGroupTwo>
             </FormGroup>
 
-            <FormGroup>
-              <h2>Qual o tipo do imóvel?</h2>
-              <FormElements
-                name="category"
-                type="select"
-                items={categories}
-                onChange={handleChange}
-                error={touched.category && errors.category}
-                onBlur={handleBlur}
-              />
-            </FormGroup>
+            <FormGroupRow>
+              <FormGroup>
+                <h2>Qual o tipo do imóvel?</h2>
+                <FormElements
+                  name="category"
+                  type="select"
+                  items={categories}
+                  onChange={handleChange}
+                  error={touched.category && errors.category}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+              {values.type === 'Internacional' && (
+                <FormGroup>
+                  <h2>Qual o país?</h2>
+                  <FormElements
+                    name="pais"
+                    type="select"
+                    items={pais}
+                    onChange={handleChange}
+                    error={touched.pais && errors.pais}
+                    onBlur={handleBlur}
+                  />
+                </FormGroup>
+              )}
+            </FormGroupRow>
           </FormRow>
 
           <FormGroup>
@@ -348,47 +392,56 @@ function RegisterProperty({ locals, categories }) {
           <FormGroup>
             <h2>Valores do imóvel</h2>
             <FormGroupValues>
-              {values.finality === 'Vender' && (
-                <FormElements
-                  name="valueRequested"
-                  label="Qual o valor de venda que gostaria?"
-                  placeholder="R$"
-                  onChange={handleChange}
-                  message="(Incluindo 6% de comissão)"
-                  error={touched.valueRequested && errors.valueRequested}
-                  value={values.valueRequested}
-                  onBlur={handleBlur}
-                />
-              )}
-              {values.finality === 'Aluguel' && (
+              <FormElements
+                name="valueRequested"
+                label="Qual o valor de venda que gostaria?"
+                placeholder="R$"
+                onChange={handleChange}
+                message="(Incluindo 6% de comissão)"
+                error={touched.valueRequested && errors.valueRequested}
+                value={values.valueRequested}
+                onBlur={handleBlur}
+              />
+
+              {(values.type !== 'Internacional' || values.finalityAluguel) && (
                 <FormElements
                   name="valueRequested"
                   label="Qual o valor de aluguel que gostaria?"
                   placeholder="R$"
+                  message={
+                    values.type !== 'Residencial'
+                      ? 'Incluindo comissão (primeiro aluguel)'
+                      : ''
+                  }
                   onChange={handleChange}
                   error={touched.valueRequested && errors.valueRequested}
                   value={values.valueRequested}
                   onBlur={handleBlur}
                 />
               )}
-              <FormElements
-                name="valueTax"
-                label="Valor mensal de IPTU"
-                placeholder="R$"
-                onChange={handleChange}
-                error={touched.valueTax && errors.valueTax}
-                value={values.valueTax}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                name="valueCondo"
-                label="Qual o valor do condomínio"
-                placeholder="R$"
-                onChange={handleChange}
-                error={touched.valueCondo && errors.valueCondo}
-                value={values.valueCondo}
-                onBlur={handleBlur}
-              />
+
+              {values.type !== 'Internacional' && (
+                <>
+                  <FormElements
+                    name="valueTax"
+                    label="Valor mensal de IPTU"
+                    placeholder="R$"
+                    onChange={handleChange}
+                    error={touched.valueTax && errors.valueTax}
+                    value={values.valueTax}
+                    onBlur={handleBlur}
+                  />
+                  <FormElements
+                    name="valueCondo"
+                    label="Qual o valor do condomínio"
+                    placeholder="R$"
+                    onChange={handleChange}
+                    error={touched.valueCondo && errors.valueCondo}
+                    value={values.valueCondo}
+                    onBlur={handleBlur}
+                  />
+                </>
+              )}
             </FormGroupValues>
           </FormGroup>
 
@@ -509,10 +562,14 @@ function RegisterProperty({ locals, categories }) {
 RegisterProperty.getInitialProps = async () => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
+  const paises = await Api.Search.getFilters(
+    '?source=internacional&finality=venda'
+  );
   const itemBase = { label: 'Selecione', value: '' };
 
   const newLocals = [ itemBase ];
   const newCategories = [ itemBase ];
+  const newPais = [ itemBase ];
 
   Object.keys(locals).map(x =>
     locals[x].map(y => newLocals.push({ label: y, value: y }))
@@ -520,10 +577,13 @@ RegisterProperty.getInitialProps = async () => {
   Object.keys(categories).map(x =>
     categories[x].map(y => newCategories.push({ label: y, value: y }))
   );
-  
+
+  Object.keys(paises.locals).map(x => newPais.push({ label: x, value: x }));
+
   return {
     locals: newLocals,
-    categories: newCategories
+    categories: newCategories,
+    pais: newPais
   };
 };
 

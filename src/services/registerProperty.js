@@ -8,7 +8,7 @@ export default {
         headers: {
           'Content-Type': 'application/json',
           Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9mdXR1cmVicmFuZGZ0cC5jb20uYnJcL3Byb2pldG9zXC9heHBlXC9wYWluZWxcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzQ0MjYyOTcsImV4cCI6MTU3NDQyOTg5NywibmJmIjoxNTc0NDI2Mjk3LCJqdGkiOiJ1dmhvQWQzOUJtZ3Byd0x2Iiwic3ViIjo3LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.sS9V78j48_7ibqJ4lh_nTN8MOCEYi2fkiRsneNunBM0'
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9mdXR1cmVicmFuZGZ0cC5jb20uYnJcL3Byb2pldG9zXC9heHBlXC9wYWluZWxcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzUzMTQwMzYsImV4cCI6MTU3NTMxNzYzNiwibmJmIjoxNTc1MzE0MDM2LCJqdGkiOiI0bnR4ODNTajJQMW84YlEyIiwic3ViIjo3LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.yrzxRTyfeuXsXRq4UjDQvArWrmM2ovaSEm_uGp25IaY'
         }
       }
     ).then(response => response.json());

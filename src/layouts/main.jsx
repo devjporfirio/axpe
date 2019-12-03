@@ -9,6 +9,7 @@ import NewsletterModal from 'components/Modals/Newsletter';
 import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
 import LoginModal from 'components/Modals/Login';
 import LoginSuccessModal from 'components/Modals/LoginSuccess';
+import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -31,6 +32,7 @@ function Main({ children }) {
         <NewsletterSuccessModal />
         <LoginModal />
         <LoginSuccessModal />
+        <RegisterSuccessModal />
       </>
     </ThemeProvider>
   );
