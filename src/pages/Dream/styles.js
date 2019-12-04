@@ -137,6 +137,10 @@ export const List = styled.ul`
     transition: all .2s linear;
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
+
+    ${media.greaterThan('medium')`
+      margin-top: 20%;
+    `}
     
     ${media.greaterThan('large')`
       margin-top: 50%;
@@ -152,7 +156,7 @@ export const List = styled.ul`
      font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
      ${media.greaterThan('medium')`
-      width: 40%;
+      width: 45%;
     `}
 
      ${media.greaterThan('large')`
