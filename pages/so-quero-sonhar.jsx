@@ -14,37 +14,37 @@ function Dream() {
       <main>
         <List>
           <li>
-            <a href="so-quero-sonhar-detalhe">
+            <a href="/so-quero-sonhar-detalhe">
               <h2>Descolados</h2>
               <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </li>
           <li>
-            <a href="so-quero-sonhar-detalhe">
+            <a href="/so-quero-sonhar-detalhe">
               <h2>Vintage</h2>
               <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </li>
           <li>
-            <a href="so-quero-sonhar-detalhe">
+            <a href="/so-quero-sonhar-detalhe">
               <h2>Mirante</h2>
               <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </li>
           <li>
-            <a href="so-quero-sonhar-detalhe">
+            <a href="/so-quero-sonhar-detalhe">
               <h2>Arquitetura de Autor</h2>
               <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </li>
           <li>
-            <a href="so-quero-sonhar-detalhe">
+            <a href="/so-quero-sonhar-detalhe">
               <h2>Verde que te quero verde</h2>
               <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </li>
           <li>
-            <a href="so-quero-sonhar-detalhe">
+            <a href="/so-quero-sonhar-detalhe">
               <h2>Clássico contemporâneo</h2>
               <p>Soluções espertas para imóveis despojados.</p>
             </a>
