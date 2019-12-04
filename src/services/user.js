@@ -1,8 +1,17 @@
 export default {
-  async getPage(){
-    const result = await fetch('https://api.github.com/orgs/futurebrand/members')
-      .then( response => response.json())
-      .then(data => data)
-    return result
+  async postLogin() {
+    const result = await fetch(`${process.env.config.apiUrl}/auth/login`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: 'user@test.com',
+        password: '123123'
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => data);
+    return result;
   }
-}
+};
