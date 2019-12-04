@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Header, List } from 'pages/Dream/styles';
+import BlockHighlighted from 'components/BlockHighlighted';
 
 function Dream() {
   return (
@@ -50,6 +51,7 @@ function Dream() {
           </li>
         </List>
       </main>
+      <BlockHighlighted type="dream" />
     </Container>
   )
 }
