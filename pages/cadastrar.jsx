@@ -438,15 +438,17 @@ function RegisterProperty({ locals, categories, pais }) {
                     value={values.valueTax}
                     onBlur={handleBlur}
                   />
-                  <FormElements
-                    name="valueCondo"
-                    label="Qual o valor do condomínio"
-                    placeholder="R$"
-                    onChange={handleChange}
-                    error={touched.valueCondo && errors.valueCondo}
-                    value={values.valueCondo}
-                    onBlur={handleBlur}
-                  />
+                  {values.category !== 'Casa' && (
+                    <FormElements
+                      name="valueCondo"
+                      label="Qual o valor do condomínio"
+                      placeholder="R$"
+                      onChange={handleChange}
+                      error={touched.valueCondo && errors.valueCondo}
+                      value={values.valueCondo}
+                      onBlur={handleBlur}
+                    />
+                  )}
                 </>
               )}
             </FormGroupValues>
