@@ -26,8 +26,7 @@ function Gallery({
 }) {
   const [ showGalleryNav, setShowGalleryNav ] = useState(false);
   const [ showGalleryFull, setShowGalleryFull ] = useState(false);
-  const imageSelected = null;
-  // const [ imageSelected, setImageSelected ] = useState(null);
+  const [ imageSelected, setImageSelected ] = useState(null);
 
   return (
     <Container className={className}>
@@ -62,10 +61,10 @@ function Gallery({
                 return (
                   <Image
                     onClick={() => {
-                      // if (showClickImage) {
-                        // setImageSelected(index);
-                      //   setShowGalleryFull(true);
-                      // }
+                      if (showClickImage) {
+                        setImageSelected(index);
+                        setShowGalleryFull(true);
+                      }
                     }}
                     key={index}
                     src={item.src}

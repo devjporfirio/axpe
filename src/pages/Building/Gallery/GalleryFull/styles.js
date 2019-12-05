@@ -28,8 +28,8 @@ export const Container = styled(Modal)`
   background-color: ${({ theme }) => theme.colors.greenDark};
 
   img {
-    object-fit: cover;
-    object-position: left;
+    max-width: 100%;
+    max-height: 100%;
   }
 `;
 

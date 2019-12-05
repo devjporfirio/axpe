@@ -83,7 +83,7 @@ function Headerbar({ type, title, subtitle, building }) {
   };
 
   useEffect(() => {
-    if(type === 'modal') return false;
+    if(type === 'modal') return;
 
     handleScrollPosition(scrollPosition);
   }, type !== 'modal' ? scrollPosition : []);

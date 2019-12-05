@@ -37,16 +37,23 @@ const positionInsidePrev = css`
 const positionOutsideNext = css`
   top: 0;
   bottom: 0;
-  right: -24px;
+  right: 0;
   margin-top: auto;
   margin-bottom: auto;
+
+  ${media.greaterThan('medium')`
+    right: -35px;
+  `}
 `;
 const positionOutsidePrev = css`
   top: 0;
   bottom: 0;
-  left: -24px;
   margin-top: auto;
   margin-bottom: auto;
+
+  ${media.greaterThan('medium')`
+    left: -35px;
+  `}
 `;
 
 const galeriaImagensTexto = css`
