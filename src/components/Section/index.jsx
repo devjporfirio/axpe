@@ -71,9 +71,9 @@ function sectionMultiInfos(item, labelTitle) {
       ? item.building
       : item;
 
-  const sell = Object.keys(values).length > 0 && parseInt(values.sell);
-  const release = Object.keys(values).length > 0 && parseInt(values.release);
-  const rent = Object.keys(values).length > 0 && parseInt(values.rent);
+  const sell = values && Object.keys(values).length > 0 && values.sell ? parseInt(values.sell) : '';
+  const release = values && Object.keys(values).length > 0 && values.release ? parseInt(values.release): '';
+  const rent = values && Object.keys(values).length > 0 && values.rent ? parseInt(values.rent): '';
 
   return (
     <>
