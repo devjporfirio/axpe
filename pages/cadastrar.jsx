@@ -134,6 +134,13 @@ function RegisterProperty({ locals, categories, pais }) {
     setFieldValue('images', newList);
   };
 
+  const newCategories =
+    categories &&
+    Object.keys(categories).length > 0 &&
+    categories[ values.type.toUpperCase() ]
+      ? categories[ values.type.toUpperCase() ].map(x => ({ label: x, value: x }))
+      : [{ label: 'Selecione', value: '' }];
+
   return (
     <Container>
       <BlockHighlighted type="registerProperty" />
@@ -227,7 +234,7 @@ function RegisterProperty({ locals, categories, pais }) {
                 <FormElements
                   name="category"
                   type="select"
-                  items={categories}
+                  items={newCategories}
                   onChange={handleChange}
                   error={touched.category && errors.category}
                   onBlur={handleBlur}
@@ -568,22 +575,18 @@ RegisterProperty.getInitialProps = async () => {
   const itemBase = { label: 'Selecione', value: '' };
 
   const newLocals = [ itemBase ];
-  const newCategories = [ itemBase ];
   const newPais = [ itemBase ];
 
   Object.keys(locals).map(x =>
     locals[x].map(y => newLocals.push({ label: y, value: y }))
-  );
-  Object.keys(categories).map(x =>
-    categories[x].map(y => newCategories.push({ label: y, value: y }))
   );
 
   Object.keys(paises.locals).map(x => newPais.push({ label: x, value: x }));
 
   return {
     locals: newLocals,
-    categories: newCategories,
-    pais: newPais
+    pais: newPais,
+    categories
   };
 };
 
