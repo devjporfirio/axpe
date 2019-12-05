@@ -78,7 +78,10 @@ function Building({ property }) {
       )}
 
       {property.type === 'pronto' && (
-        <Around cep={property.address.zipcode} text={property.address.zipcode} />
+        <Around
+          cep={property.address.zipcode}
+          // text={property.address.zipcode}
+        />
       )}
 
       {similarBuildings && similarBuildings.length > 0 && (
