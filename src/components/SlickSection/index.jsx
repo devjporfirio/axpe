@@ -142,6 +142,8 @@ function SlickSection({
           if (type === 'slickGrid') return 'right';
           if (type === 'slick') return 'together';
           if (type === 'slickLeft') return 'left';
+          if (type === 'slickLarge') return 'large';
+          if (type === 'slickSmall') return 'small';
           return 'outside';
         })()
       }}
@@ -153,6 +155,11 @@ function SlickSection({
             {item.link && !!item.link.url && (
               <ItemLink fullWidth={true} {...item.link} href={item.link.url} />
             )}
+
+            {type === 'slickSmall' ? (
+              <ItemLink href={`/building/${item.building.slug}`} />
+            ) : null}
+
             {useGradient && <Gradient />}
             {renderBackground(type, item)}
             <Section type={type} item={item} />

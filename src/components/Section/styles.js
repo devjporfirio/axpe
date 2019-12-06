@@ -11,6 +11,7 @@ const TypeSlickLargeDesktop = css`
   width: 100%;
   max-width: 319px;
   margin-left: 0;
+  border-radius: 0 6px 6px 0;
 
   p:nth-child(1) {
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -250,6 +251,7 @@ export const Container = styled.section`
       width: 100%;
       padding: 20px 8%;
       height: 240px;
+      border-radius: 0 0 6px 6px;
   `}
 `};
 

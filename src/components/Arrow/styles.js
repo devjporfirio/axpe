@@ -219,6 +219,28 @@ export const ArrowNext = styled(Arrow)`
   ${props => props.position === 'right' && positionRightNext}
   ${props => props.position === 'left' && positionLeftNext}
   ${props =>
+    props.position === 'large' &&
+    css`
+      ${positionOutsideNext}
+      right: -30px;
+      top: -60px;
+
+      ${media.greaterThan('medium')`
+        top: 0;
+      `}
+    `}
+  ${props =>
+    props.position === 'small' &&
+    css`
+      ${positionOutsideNext}
+      right: -30px;
+      top: -60px;
+
+      ${media.greaterThan('medium')`
+        top: 0;
+      `}
+    `}
+  ${props =>
     props.type === 'building' &&
     css`
       right: 0;
@@ -239,6 +261,28 @@ background: url(${props =>
   ${props => props.type === 'together' && typeTogetherPrev}
   ${props => props.position === 'right' && positionRightPrev}
   ${props => props.position === 'left' && positionLeftPrev}
+  ${props =>
+    props.position === 'large' &&
+    css`
+      ${positionOutsidePrev}
+      left: -30px;
+      top: -60px;
+
+      ${media.greaterThan('medium')`
+        top: 0;
+      `}
+    `}
+  ${props =>
+    props.position === 'small' &&
+    css`
+      ${positionOutsidePrev}
+      left: -30px;
+      top: -60px;
+
+      ${media.greaterThan('medium')`
+        top: 0;
+      `}
+    `}
   ${props =>
     props.type === 'building' &&
     css`
