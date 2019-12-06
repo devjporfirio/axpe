@@ -43,15 +43,6 @@ export const Container = styled(Slider)`
 
   ${props =>
     props.type === 'slickLarge' && media.greaterThan('medium')`${SlickLarge}`}
-
-  /* ${props =>
-    props.type === 'slickGrid' &&
-    props.length === 1 &&
-    media.greaterThan('medium')`
-      section {
-        margin-left: 70%;
-      }
-  `} */
 `;
 
 export const Slide = styled.div`
@@ -83,7 +74,14 @@ export const Slide = styled.div`
 
   ${props =>
     props.type === 'slickSmall' &&
-    media.greaterThan('medium')`max-width: 304px;`}
+    media.greaterThan('medium')`
+      max-width: 304px;
+      a {
+        width: 100%;
+        max-width: 304px;
+        height: 414px;
+      }
+    `}
 `;
 
 export const Image = styled.img`
@@ -141,12 +139,14 @@ export const Image = styled.img`
       width: 64%;
       max-width: 635px;
       height: 258px;
+      border-radius: 6px 0 0 6px;
     `}
 
   ${props =>
     props.type === 'slickLarge' &&
     media.lessThan('medium')`
       height: 230px;
+      border-radius: 6px 6px 0 0;
   `}
 
   ${props =>
@@ -159,6 +159,7 @@ export const Image = styled.img`
     props.type === 'slickSmall' &&
     css`
       height: 230px;
+      border-radius: 6px 6px 0 0;
     `}
 
   ${props =>
