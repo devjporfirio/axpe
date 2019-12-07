@@ -223,12 +223,12 @@ function Contact() {
               key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto'
             }}
             defaultCenter={{
-              lat: -23.577706,
-              lng: -46.673809
+              lat: -23.577693,
+              lng: -46.673880
             }}
-            defaultZoom={12}
+            defaultZoom={18}
           >
-            <Pin lat={-23.577706} lng={-46.673809}>
+            <Pin lat={-23.577693} lng={-46.673880}>
               <Balloon>
                 <div></div>
                 <h4>Nosso escritório</h4>
