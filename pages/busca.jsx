@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 // store
 import { setMain } from 'store/modules/main/actions'
@@ -34,18 +34,18 @@ import {
 
 function Search({ currentPage, total, totalPages, data }) {
   const router = useRouter();
-  const { query, query: { source, finality, reference } } = router;
   const dispatch = useDispatch();
+  const { query, query: { source, finality, reference, order } } = router;
   const { searchFormActive } = useSelector(state => state.main);
 
   const orderOptions = [
-    { label: 'Mais Recentes', value: 'mais-recentes' },
-    { label: 'Maior área útil', value: 'maior-area-util' },
-    { label: 'Menor Preço', value: 'menor-preco' },
-    { label: 'Maior Preço', value: 'maior-preco' }
+    { label: 'Mais Recentes', value: 'latest' },
+    { label: 'Maior área útil', value: 'area' },
+    { label: 'Menor Preço', value: 'lowest_price' },
+    { label: 'Maior Preço', value: 'biggest_price' }
   ];
 
-  const [ orderBy, setOrderBy ] = useState(orderOptions[0].value);
+  const [ orderBy, setOrderBy ] = useState(order ? order : orderOptions[0].value);
   const [ page, setPage ] = useState(+query.page || 1);
   const [ buildings, setBuildings ] = useState(null);
   const [ dataLoaded, setDataLoaded ] = useState(false);
@@ -77,7 +77,16 @@ function Search({ currentPage, total, totalPages, data }) {
   }, [ searchFormActive ]);
 
   const handleOrderBy = (event) => {
-    setOrderBy(event.target.value);
+    const newOrder = event.target.value;
+    const params = getParamsFromObject({
+      ...query,
+      order: newOrder
+    });
+
+    if(query.order !== newOrder) {
+      setOrderBy(newOrder);
+      Router.push(`/busca${params}`);
+    }
   }
 
   const setNewData = useCallback((newData, first) => {
@@ -111,7 +120,7 @@ function Search({ currentPage, total, totalPages, data }) {
         setDataLoaded(true);
       }
     }
-  }, [ page, total ]);
+  }, [ page, total, order ]);
 
   return (
     <Container>
@@ -136,7 +145,7 @@ function Search({ currentPage, total, totalPages, data }) {
                       <span>{orderBySelected[0].label}</span>
                     ) : null}
                   </button>
-                  <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
+                  <select name="orderBy" value={orderBy} onChange={handleOrderBy} onBlur={handleOrderBy}>
                     {orderOptions.map((orderItem, orderItemIndex) => (
                       <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
                     ))}
