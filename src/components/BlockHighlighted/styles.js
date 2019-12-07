@@ -233,6 +233,7 @@ const RegisterProperty = css`
 
   strong span {
     color: ${({ theme }) => theme.colors.greenLight};
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
     font-family: 'Raleway';
   }
 
@@ -252,7 +253,6 @@ const RegisterProperty = css`
 
     strong span {
       color: ${({ theme }) => theme.colors.white};
-      font-family: 'Bitter';
     }
   `}
 `;
