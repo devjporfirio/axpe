@@ -10,7 +10,8 @@ export const PanelSimilar = styled(PanelBuildings)`
   margin: 0 auto;
 
   ${media.greaterThan('1024px')`
-    width: 80%;
+    width: 100%;
+    max-width: 954px;
     padding-left: 0;
     padding-right: 0;
   `}
