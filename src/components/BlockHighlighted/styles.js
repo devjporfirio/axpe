@@ -35,8 +35,11 @@ export const Container = styled.div`
     css`
       padding: 0;
       min-height: auto;
-      max-width: 1000px;
       margin: auto;
+
+      ${media.greaterThan('medium')`
+        justify-content: flex-start;
+      `}
     `}
 
   ${props =>
@@ -48,6 +51,10 @@ export const Container = styled.div`
         justify-content: flex-start;
         border-radius: 8px;
         width: 100%;
+
+        p {
+          max-width: 280px;
+        }
       `}
     `}
 
@@ -82,11 +89,11 @@ export const Container = styled.div`
 `;
 
 const ContactHome = css`
-  width: 305px;
+  width: 320px;
   span {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
   strong span {
     color: ${({ theme }) => theme.colors.white};
@@ -96,7 +103,7 @@ const ContactHome = css`
   span:nth-child(3) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
 `;
 
@@ -117,26 +124,33 @@ const Contact = css`
       font-size: 41px;
       line-height: 49px;
     `}
+
+    &:nth-child(1) {
+      color: ${({ theme }) => theme.colors.greenLight};
+      font-family: 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.black};
+    }
+
+    &:nth-child(2) {
+      color: ${({ theme }) => theme.colors.white};
+      font-family: 'Bitter';
+      font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    }
   }
 
-  span:nth-child(1) {
-    color: ${({ theme }) => theme.colors.greenLight};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
-  }
-  span:nth-child(2) {
-    color: ${({ theme }) => theme.colors.white};
-    font-family: 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  }
+  ${media.greaterThan('large')`
+    max-width: 780px;
+    margin: 0;
+  `}
 `;
 
 const ContactWork = css`
-  width: 301px;
+  width: 300px;
+
   span {
     font-size: 24px;
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
     color: ${({ theme }) => theme.colors.white};
     line-height: 28px;
 
@@ -148,8 +162,8 @@ const ContactWork = css`
 
   strong span {
     color: ${({ theme }) => theme.colors.orange};
-    font-family: 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
 
   div a div {
