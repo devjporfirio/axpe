@@ -65,15 +65,24 @@ function sectionDestaqueTextBullets(item) {
   );
 }
 
-function sectionMultiInfos(item, labelTitle) {
+function sectionMultiInfos(item, labelTitle, type) {
   const { category, values, infos, reference, slug, address } =
     item && item.building && Object.keys(item.building).length > 0
       ? item.building
       : item;
 
-  const sell = values && Object.keys(values).length > 0 && values.sell ? parseInt(values.sell) : '';
-  const release = values && Object.keys(values).length > 0 && values.release ? parseInt(values.release): '';
-  const rent = values && Object.keys(values).length > 0 && values.rent ? parseInt(values.rent): '';
+  const sell =
+    values && Object.keys(values).length > 0 && values.sell
+      ? parseInt(values.sell)
+      : '';
+  const release =
+    values && Object.keys(values).length > 0 && values.release
+      ? parseInt(values.release)
+      : '';
+  const rent =
+    values && Object.keys(values).length > 0 && values.rent
+      ? parseInt(values.rent)
+      : '';
 
   return (
     <>
@@ -86,13 +95,13 @@ function sectionMultiInfos(item, labelTitle) {
       </Infos>
       {sell || release ? (
         <Infos>
-          Venda:
+          Venda:{' '}
           {sell ? formatCurrency.format(sell) : formatCurrency.format(release)}
         </Infos>
       ) : null}
       {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
 
-      <Reference>Ref {reference}</Reference>
+      <Reference type={type}>Ref {reference}</Reference>
       <LinkContainer>
         <Button href="/building/[reference]" as={`/building/${slug}`}>
           Saiba mais
@@ -112,7 +121,7 @@ function renderSelection(type, item) {
       return sectionMultiInfos(item, 'titleWhite');
     case 'slickLarge':
     case 'slickSmall':
-      return sectionMultiInfos(item);
+      return sectionMultiInfos(item, '', type);
     case 'destaque-texto':
       return sectionDestaqueText(item);
     case 'destaque-texto-bullets':

@@ -13,7 +13,6 @@ export const Container = styled.div`
 
   ${media.greaterThan('medium')`
     width: 100%;
-    /* max-width: 1000px; */
     height: 365px;
     margin: auto auto 20px auto;
     display: flex;
@@ -52,7 +51,7 @@ export const Slider = styled(Gallery)`
   }
 
   ${media.greaterThan('medium')`
-    width: 50%;
+    width: 60%;
     height: 365px;
 
     iframe, img {
@@ -73,12 +72,13 @@ export const CatLocGroup = styled.div`
 `;
 
 export const Category = styled.h4`
-  font: 22px 'Bitter';
+  font: 24px/29px 'Bitter';
+  letter-spacing: 1.2px;
 `;
 
 export const Local = styled.h4`
   color: ${({ theme }) => theme.colors.orange} !important;
-  font: 16px 'Raleway';
+  font: 18px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   text-transform: uppercase;
 
@@ -88,7 +88,11 @@ export const Local = styled.h4`
 `;
 
 export const Reference = styled.p`
-  font: 13px 'Raleway';
+  font: 14px 'Raleway';
+
+  ${media.greaterThan('medium')`
+    font-size: 12px;
+  `};
 `;
 
 export const Description = styled.p`

@@ -268,7 +268,7 @@ export const Local = styled.p`
   text-transform: uppercase;
   font: 18px/25px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 `;
 
 export const Infos = styled.p`
@@ -277,6 +277,14 @@ export const Infos = styled.p`
 
 export const Reference = styled(Infos)`
   margin: 25px 0;
+
+  ${props =>
+    props.type === 'slickSmall' &&
+    media.greaterThan('medium')`
+      position: absolute;
+      bottom: 25px;
+      margin: 0;
+    `}
 `;
 
 export const LinkContainer = styled.div`

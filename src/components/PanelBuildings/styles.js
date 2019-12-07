@@ -16,15 +16,22 @@ export const Container = styled.div`
 
   &.buildingsSeen,
   &.buildingsForYou {
-    padding: 40px;
+    padding: 0 40px 40px 40px;
   }
+
+  ${media.greaterThan('medium')`
+    &.buildingsSeen,
+    &.buildingsForYou {
+      padding: 40px;
+    }
+  `}
 `;
 
 export const Title = styled.h4`
   color: ${({ theme }) => theme.colors.green};
   font: 22px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
-  margin: 20px 0;
+  margin: 30px 0;
   max-width: 450px;
   text-align: center;
   width: 100%;
