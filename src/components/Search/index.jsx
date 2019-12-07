@@ -129,6 +129,7 @@ function Search({ dispatch }) {
   }
 
   function resetForm() {
+    setFiltersData(null);
     formik.resetForm();
   }
 
