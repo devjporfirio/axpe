@@ -1,7 +1,16 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-export const Container = styled.section``;
+export const Container = styled.section`
+  .buildingsSeen + .buildingsForYou {
+    padding-top: 0;
+    margin-top: -35px;
+  }
+  .buildingsForYou + .buildingsSeen {
+    padding-top: 0;
+    margin-top: -35px;
+  }
+`;
 
 export const GroupSlider = styled.div`
   max-width: 954px;
