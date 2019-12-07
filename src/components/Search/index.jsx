@@ -17,8 +17,8 @@ import ButtonSource from 'components/Search/FormElements/ButtonSource';
 import RangeSlider from 'components/Search/FormElements/RangeSlider';
 
 // assets
-import ArrowIconSVG from 'assets/icons/arrow.svg';
-import AlertIconSVG from 'assets/icons/alert.svg';
+import ArrowIconSVG from 'assets/icons/arrow';
+import AlertIconSVG from 'assets/icons/alert';
 
 // styles
 import {
@@ -172,21 +172,30 @@ function Search({ dispatch }) {
     return `?${params.join('&')}`;
   }
 
-  function resetValuesOnChange() {
-    formik.setFieldValue('use', '');
-    formik.setFieldValue('finality', '');
-    formik.setFieldValue('ready_release', '');
-    formik.setFieldValue('furnished', '');
-    formik.setFieldValue('types', []);
-    formik.setFieldValue('local', []);
-    formik.setFieldValue('price_start', '');
-    formik.setFieldValue('price_end', '');
-    formik.setFieldValue('area_start', '');
-    formik.setFieldValue('area_end', '');
-    formik.setFieldValue('bedroom_start', '');
-    formik.setFieldValue('bedroom_end', '');
-    formik.setFieldValue('parking_start', '');
-    formik.setFieldValue('parking_end', '');
+  function resetValuesOnChange(avoidFields = []) {
+    const fields = [
+      { name: 'use', value: '' },
+      { name: 'finality', value: '' },
+      { name: 'ready_release', value: '' },
+      { name: 'furnished', value: '' },
+      { name: 'types', value: [] },
+      { name: 'local', value: [] },
+      { name: 'price_start', value: '' },
+      { name: 'price_end', value: '' },
+      { name: 'area_start', value: '' },
+      { name: 'area_end', value: '' },
+      { name: 'bedroom_start', value: '' },
+      { name: 'bedroom_end', value: '' },
+      { name: 'parking_start', value: '' },
+      { name: 'parking_end', value: '' }
+    ];
+
+    fields.forEach(field => {
+      const results = avoidFields.filter(item => item == field.name);
+      if(!results.length) {
+        formik.setFieldValue(field.name, field.value);
+      }
+    });
   }
 
   function setSource(source) {
@@ -195,12 +204,25 @@ function Search({ dispatch }) {
     resetValuesOnChange();
   }
 
-  // if finality value change, reset values: ready_release, furnished
   useEffect(() => {
-    formik.setFieldValue('ready_release', '');
-    formik.setFieldValue('furnished', '');
+    resetValuesOnChange([ 'use' ]);
     setTabActive(null);
-  }, [ formik.values.finality ])
+  }, [ formik.values.use ]);
+
+  useEffect(() => {
+    resetValuesOnChange([ 'use', 'finality' ]);
+    setTabActive(null);
+  }, [ formik.values.finality ]);
+
+  useEffect(() => {
+    resetValuesOnChange([ 'use', 'finality', 'ready_release' ]);
+    setTabActive(null);
+  }, [ formik.values.ready_release ]);
+
+  useEffect(() => {
+    resetValuesOnChange([ 'use', 'finality', 'furnished' ]);
+    setTabActive(null);
+  }, [ formik.values.furnished ]);
 
   useEffect(() => {
     const getCategories = async () => {
