@@ -46,7 +46,7 @@ export const Container = styled(BaseArticles)`
 
     img {
       left: auto;
-      margin-left: 540px;
+      margin-left: 48.5%;
     }
   `}
 `;

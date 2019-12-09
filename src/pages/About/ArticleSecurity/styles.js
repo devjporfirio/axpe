@@ -17,4 +17,19 @@ export const Container = styled(BaseArticles)`
       display: none;
     }
   `}
+
+  ${media.greaterThan('1280px')`
+    h2 {
+      padding: 40px 93px;
+    }
+
+    p {
+      padding-left: 93px;
+      padding-right: 93px;
+    }
+
+    br {
+      display: none;
+    }
+  `}
 `;
