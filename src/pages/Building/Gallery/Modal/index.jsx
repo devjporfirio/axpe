@@ -1,10 +1,7 @@
 import React from 'react';
 
-// components
-import Headerbar from 'components/Headerbar';
-
 // styles
-import { Container, ButtonClose } from './styles';
+import { Container, ButtonClose, Header } from './styles';
 
 export default function Modal({
   closeModal = () => {},
@@ -15,7 +12,7 @@ export default function Modal({
 }) {
   return (
     <Container className={className}>
-      <Headerbar type="modal" title={category} subtitle={local} />
+      <Header type="modal" title={category} subtitle={local} />
       <ButtonClose
         onClick={closeModal}
       >
