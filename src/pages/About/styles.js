@@ -4,7 +4,6 @@ import media from 'styled-media-query';
 export const Container = styled.section`
   img {
     object-fit: cover;
-    object-position: left;
   }
 `;
 

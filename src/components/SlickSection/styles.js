@@ -89,7 +89,6 @@ export const Image = styled.img`
   background-size: cover;
   display: block;
   object-fit: cover;
-  object-position: left;
   
   ${props =>
     [ 'slickGrid' ].includes(props.type) &&
