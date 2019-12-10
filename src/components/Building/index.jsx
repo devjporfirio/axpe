@@ -9,6 +9,7 @@ import {
   Container,
   Infos,
   Category,
+  CategoryRelease,
   Local,
   Reference,
   Favorito,
@@ -17,11 +18,12 @@ import {
   CatLocGroup,
   Price,
   Slider,
-  Description
+  Description,
+  ReleaseDelivery
 } from './styles';
 
 export default function Building({ item }) {
-  const { values, gallery, address, slug, infos, category } = item;
+  const { values, gallery, address, slug, infos, category, type } = item;
 
   return (
     <Container>
@@ -56,8 +58,13 @@ export default function Building({ item }) {
         <Link href="/building/[reference]" as={`/building/${slug}`}>
           <CatLocGroup>
             <div>
-              <Category>{category}</Category>
+              <Category>
+                {type === 'lancamento' ? infos.releaseStatus : category}
+              </Category>
               <Local>{address.local}</Local>
+              {type === 'lancamento' && (
+                <CategoryRelease>{category}</CategoryRelease>
+              )}
             </div>
             <Reference>Ref {item.reference}</Reference>
           </CatLocGroup>
@@ -68,14 +75,19 @@ export default function Building({ item }) {
             <div>
               {!!values.sell || !!values.release ? (
                 <Price>
-                  Venda: {!!values.sell && formatCurrency.format(parseInt(values.sell))}
-                  {!!values.release && formatCurrency.format(parseInt(values.release))}
+                  Venda:{' '}
+                  {!!values.sell &&
+                    formatCurrency.format(parseInt(values.sell))}
+                  {!!values.release &&
+                    formatCurrency.format(parseInt(values.release))}
                 </Price>
               ) : (
                 ''
               )}
               {!!values.rent ? (
-                <Price>Locação: {formatCurrency.format(parseInt(values.rent))}</Price>
+                <Price>
+                  Locação: {formatCurrency.format(parseInt(values.rent))}
+                </Price>
               ) : (
                 ''
               )}
@@ -117,6 +129,11 @@ export default function Building({ item }) {
           </div>
         </Link>
       </Infos>
+      {type === 'lancamento' && infos.releaseDelivery && (
+        <ReleaseDelivery>
+          Previsão de entrega em <span>{infos.releaseDelivery}</span>
+        </ReleaseDelivery>
+      )}
     </Container>
   );
 }
