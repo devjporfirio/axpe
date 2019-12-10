@@ -57,13 +57,13 @@ export const List = styled.ul`
 
   ${media.greaterThan('medium')`
       padding: 0 5vmin 7vmin 5vmin;
+      flex-flow: row wrap;
+      justify-content: space-between;
   `}
   
   ${media.greaterThan('large')`
     padding: 70px 130px 70px 130px;
     text-align: left;
-    flex-flow: row wrap;
-    justify-content: space-between;
   `}
 
   li {
@@ -82,8 +82,15 @@ export const List = styled.ul`
     box-sizing: border-box;
 
     ${media.greaterThan('medium')`
-      min-width: 60vw;
-      min-height: 25vh;
+      min-width: 30vw;
+      max-width: 30vw;
+      min-height: 16vw;
+    `}
+
+    ${media.greaterThan('1024px')`
+      min-width: 22.5vw;
+      max-width: 22.5vw;
+      min-height: 16vw;
     `}
 
     ${media.greaterThan('large')`
@@ -145,6 +152,10 @@ export const List = styled.ul`
     ${media.greaterThan('medium')`
       margin-top: 20%;
     `}
+
+    ${media.greaterThan('1024px')`
+      margin-top: 35%;
+    `}
     
     ${media.greaterThan('large')`
       margin-top: 45%;
@@ -162,13 +173,15 @@ export const List = styled.ul`
      position: relative;
 
      ${media.greaterThan('medium')`
-      width: 45%;
+      font-size: .85rem;
+      width: 80%;
     `}
 
      ${media.greaterThan('large')`
         opacity: 0;
         width: 60%;
         top: 1.3rem;
+        font-size: .9rem;
     `}
   }
 `;
