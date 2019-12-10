@@ -7,7 +7,7 @@ export const Container = styled.section`
 `;
 
 export const Header = styled.header`
-  padding: 10vmin 5vmin;
+  padding: 10vmin 5vmin 5vmin 5vmin;
   text-align: center;
   
   ${media.greaterThan('medium')`
@@ -70,7 +70,7 @@ export const List = styled.ul`
     overflow: hidden;
     min-width: 80vw;
     min-height: 30vh;
-    max-width: 90%;
+    max-width: 100%;
     margin-bottom: .6rem;
     margin-top: .6rem;
     background-image: url('https://images.unsplash.com/photo-1501183638710-841dd1904471?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
@@ -87,7 +87,8 @@ export const List = styled.ul`
     `}
 
     ${media.greaterThan('large')`
-      min-width: 23.5vw;
+      min-width: 20vw;
+      max-width: 20vw;
       min-height: 16vw;
 
       &:hover {
@@ -132,11 +133,11 @@ export const List = styled.ul`
 
   h2 {
     color: white;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: bold;
     margin-top: 35%;
     margin-bottom: 0.4rem;
-    transition: all .2s linear;
+    transition: all .15s linear;
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
     position: relative;
@@ -147,13 +148,13 @@ export const List = styled.ul`
     
     ${media.greaterThan('large')`
       margin-top: 45%;
-      top: 2rem;
+      top: 2.5rem;
     `}
   }
 
   p {
      color: white;
-     font-size: 1.1rem;
+     font-size: .9rem;
      width: 70%;
      transition: all .2s linear;
      font-family: 'Bitter';
