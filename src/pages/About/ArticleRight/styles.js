@@ -12,12 +12,16 @@ export const Container = styled(BaseArticles)`
 
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.white};
-    margin-bottom: 78px;
+    padding-bottom: 95px;
 
     header {
       background-color: ${({ theme }) => theme.colors.greyLight};
-      width: 664px;
+      width: 850px;
       height: 164px;
+
+      h2 {
+        padding: 40px 97px;
+      }
     }
     img {
       width: 438px;
@@ -25,20 +29,28 @@ export const Container = styled(BaseArticles)`
       padding: 0;
       position: absolute;
       margin-top: -118px;
-      left: 54%;
+      left: 61%;
     }
 
     p {
       padding: 0;
-      margin: 40px 35px;
+      margin: 40px 97px;
       width: 400px;
     }
   `}
 
-  ${media.greaterThan('1280px')`
+  ${media.between('medium', '1279px')`
+    header {
+      width: 664px;
+      h2 {
+        padding: 30px 35px;
+      }
+    }
     img {
-      left: auto;
-      margin-left: 517px;
+      left: 54%;
+    }
+    p {
+      margin: 40px 35px;
     }
   `}
 `;

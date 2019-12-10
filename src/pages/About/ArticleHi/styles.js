@@ -6,7 +6,20 @@ export const Container = styled(BaseArticles)`
   background-color: ${({ theme }) => theme.colors.greyLight};
 
   ${media.greaterThan('medium')`
-    margin: 40px auto 60px auto;
+    margin: 80px 0 60px ;
+  `}
+  ${media.greaterThan('1281px')`
+    h2, h3, div {
+      padding-left: 97px;
+    }
+
+    div {
+      padding-right: 69px;
+    }
+
+    p {
+      padding: 0;
+    }
   `}
 `;
 

@@ -7,7 +7,7 @@ export default function ArticleVisit() {
     <Container id="visitar">
       <header>
         <TitleSection>
-          Visitar imóveis comuns?
+          Visitar imóveis comuns? <br />
           <span> Ninguém merece.</span>
         </TitleSection>
       </header>

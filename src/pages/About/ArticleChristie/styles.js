@@ -21,40 +21,52 @@ export const Container = styled(BaseArticles)`
   }
 
   ${media.greaterThan('medium')`
-    margin-bottom: 215px;
+    background: none;
+    margin-bottom: 295px;
     height: 606px;
 
     header {
-      width: 458px;
+      margin-left: 53px;
+      background-color: #F5F5F0;
+      width: 600px;
       height: 227px;
       padding: 40px 35px;
 
       h2 {
+        width: 458px;
         padding: 0;
       }
     }
 
     P {
-      width: 400px;
-      height: 200px;
-      padding: 0;
-      margin-left: 517px;
-      margin-top: 98px;
+
+      background-color: #F5F5F0;
+      padding: 100px 80px 0 61px;
+      margin-left: 573px;
+      margin-top: 0;
+      width: 550px;
+      height: 340px;
     }
 
     img {
-      width: 438px;
-      height: 356px;
+      width: 478px;
+      height: 389px;
+      margin-left: 44.5%;
       position: absolute;
-      margin-left: 517px;
       margin-top: -289px;
     }
 
     img:nth-child(4) {
-      width: 478px;
-      height: 515px;
+      width: 571px;
+      height: 615px;
+      margin-top: -340px;
       margin-left: 0;
-      margin-top: -299px;
+    }
+  `}
+
+  ${media.greaterThan('1024px')`
+    header {
+      margin-left: 0;
     }
   `}
 `;
