@@ -86,7 +86,6 @@ export const ImageImagemDestaque = css`
 
 export const Image = styled.img`
   object-fit: cover;
-  object-position: left;
   height: 50vw;
   width: calc(100vw - 40px);
   border-radius: 8px 8px 0 0;
