@@ -11,19 +11,32 @@ function HowWeLove({ reasons }) {
     const response = reasons
       .replace('<div class="building-lovely-items">', '')
       .replace('<div class="building-lovely-items-wrapper">', '')
-      .replace(/<\/div>/gi, '');
+      .replace(/\n/g, '')
+      .replace(/\r/g, '')
+      .replace(/>\s+</g, '><')
+      .replace(/<\/div>/gi, '')
+      .trim();
 
     return parse(response);
-  }
+  };
 
   useEffect(() => {
-    if(Array.isArray(reasons)) {
+    if (Array.isArray(reasons)) {
       setType('array');
     } else {
-      setType('html')
+      setType('html');
       setHtml(filterHtml());
     }
   }, []);
+
+  const checkSlidesToShow = () => {
+    if (type === 'html' && html && html.length) {
+      return html.length > 5 ? 5 : html.length;
+    } else if (type === 'array' && reasons && reasons.length) {
+      return reasons.length > 5 ? 5 : reasons.length;
+    }
+    return 0;
+  };
 
   return type === 'array' || (type === 'html' && html) ? (
     <Container>
@@ -34,9 +47,8 @@ function HowWeLove({ reasons }) {
       </Title>
 
       <Reasons
-        slidesToShow={4}
+        slidesToShow={checkSlidesToShow()}
         arrows={true}
-        centerMode={true}
         propsArrow={{ color: 'white', position: 'center' }}
         responsive={[
           {
@@ -66,55 +78,14 @@ function HowWeLove({ reasons }) {
         ]}
       >
         {type === 'html' && html}
-        {type === 'array' && (
+        {type === 'array' &&
           reasons.map((reason, index) => (
             <article className="building-lovely-item" key={index}>
               <h3>{reason.title}</h3>
               <p>{reason.text}</p>
             </article>
-          ))
-        )}
-      </Reasons>
-
-      {/* <Reasons
-        slidesToShow={4}
-        arrows={true}
-        propsArrow={{ color: 'white', position: 'center' }}
-        responsive={[
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3
-            }
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 2
-            }
-          },
-          {
-            breakpoint: 660,
-            settings: {
-              slidesToShow: 2
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1
-            }
-          }
-        ]}
-      >
-        {reasons &&
-          reasons.map((reason, index) => (
-            <Section key={index}>
-              <h1>{reason.title}</h1>
-              <p>{reason.text}</p>
-            </Section>
           ))}
-      </Reasons> */}
+      </Reasons>
     </Container>
   ) : null;
 }
