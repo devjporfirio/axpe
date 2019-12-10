@@ -47,7 +47,6 @@ export const Slider = styled(Gallery)`
   img {
     height: 244px;
     object-fit: cover;
-    object-position: left;
   }
 
   ${media.greaterThan('medium')`

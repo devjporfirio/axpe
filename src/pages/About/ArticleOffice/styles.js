@@ -24,12 +24,29 @@ export const Container = styled(BaseArticles)`
     }
 
     img {
-      width: 848px;
+      width: 934px;
       height: 362px;
       position: absolute;
       padding: 0;
       margin-top: -650px;
-      margin-left: -104px;
+      left: 200px;
+    }
+  `}
+
+  ${media.between('medium', '1024px')`
+    img {
+      left: 0;
+      width: 848px;
+    }
+  `}
+
+  ${media.greaterThan('1280px')`
+    header {
+      /* margin: 0; */
+
+      h2 {
+        /* padding: 40px 60px; */
+      }
     }
   `}
 `;
@@ -39,7 +56,7 @@ export const Group = styled.div`
     background-color: ${({ theme }) => theme.colors.greyLight};
     width: 851px;
     height: 476px;
-    margin-left: 104px;
+    margin-left: auto;
   `}
 `;
 
