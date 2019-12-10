@@ -7,11 +7,10 @@ export const Container = styled.section`
 `;
 
 export const Header = styled.header`
-  padding: 10vmin 5vmin 5vmin 5vmin;
-  text-align: center;
+  padding: 40px 5vmin .6rem 5vmin;
+  text-align: left;
   
   ${media.greaterThan('medium')`
-      text-align: left;
       padding: 7vmin 5vmin 5vmin 5vmin;
   `}
 
@@ -69,7 +68,7 @@ export const List = styled.ul`
   li {
     overflow: hidden;
     min-width: 80vw;
-    min-height: 30vh;
+    min-height: 170px;
     max-width: 100%;
     margin-bottom: .6rem;
     margin-top: .6rem;
