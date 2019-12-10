@@ -11,6 +11,7 @@ export const Container = styled.div`
     max-width: 1000px;
     width: 100%;
     margin: auto;
+    border-radius: 6px;
   `}
 `;
 
