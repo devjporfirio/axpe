@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import Headerbar from 'components/Headerbar';
+
+export const Header = styled(Headerbar)`
+  ${media.greaterThan('640px')`
+    display: none;
+  `}
+`;
 
 export const Container = styled.div`
   width: 100vw;
@@ -48,12 +55,13 @@ export const ButtonClose = styled.button`
     }
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('640px')`
+    top: 0;
     display: block;
     background: none;
     font: 14px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-    margin: 75px 78px 20px auto;
+    margin: 30px 78px 20px auto;
     display: flex;
     align-items: center;
     width: auto;

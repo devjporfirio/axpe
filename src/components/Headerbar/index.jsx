@@ -33,7 +33,7 @@ import {
   PhoneContact
 } from './styles';
 
-function Headerbar({ type, title, subtitle, building }) {
+function Headerbar({ className, type, title, subtitle, building }) {
   const refEl = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -94,7 +94,7 @@ function Headerbar({ type, title, subtitle, building }) {
 
   return (
     <>
-      <Container type={type}>
+      <Container type={type} className={className}>
         <Wrapper ref={refEl}>
           <ButtonBack type="button" onClick={buttonBack}>
             <SVG src={ArrowIconSVG} /> Voltar

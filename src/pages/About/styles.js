@@ -4,7 +4,6 @@ import media from 'styled-media-query';
 export const Container = styled.section`
   img {
     object-fit: cover;
-    object-position: left;
   }
 `;
 
@@ -12,6 +11,7 @@ export const Tab = styled.nav`
   position: fixed;
   background-color: white;
   z-index: 4;
+  box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34);
 
   ul {
     white-space: nowrap;
@@ -21,10 +21,7 @@ export const Tab = styled.nav`
   }
 
   ${media.greaterThan('medium')`
-    box-shadow: 2px 0px 4px rgba(178, 178, 178, 0.335768);
     width: calc(100% - 200px);
-    padding-bottom: 23px;
-    margin-left: -1px;
 
     ul {
       max-width: 1000px;
@@ -50,7 +47,7 @@ export const Li = styled.li`
     props.active &&
     css`
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
-      border-bottom: 2px solid ${({ theme }) => theme.colors.orange};
+      border-bottom: 3px solid ${({ theme }) => theme.colors.orange};
     `};
 
   ${media.greaterThan('medium')`
@@ -184,7 +181,6 @@ export const BaseArticles = styled.article`
   }
 
   ${media.greaterThan('medium')`
-    max-width: 1050px;
-    margin: auto;
+    max-width: 1119px;
   `}
 `;
