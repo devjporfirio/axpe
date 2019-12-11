@@ -70,6 +70,12 @@ export const CatLocGroup = styled.div`
   `}
 `;
 
+export const CategoryRelease = styled.h4`
+  font: 16px/19px 'Raleway';
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  text-transform: uppercase;
+`;
+
 export const Category = styled.h4`
   font: 24px/29px 'Bitter';
   letter-spacing: 1.2px;
@@ -100,7 +106,34 @@ export const Description = styled.p`
 
   ${media.greaterThan('medium')`
     font-size: 16px;
+
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 65px;
+    line-height: 1;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   `};
+`;
+
+export const ReleaseDelivery = styled.p`
+  font: 14px 'Raleway';
+  background-color: ${({ theme }) => theme.colors.grey};
+  height: 35px;
+  position: absolute;
+  width: 40%;
+  margin-top: 330px;
+  margin-left: -60%;
+  color: ${({ theme }) => theme.colors.greenDark};
+  text-align: center;
+  line-height: 35px;
+
+  span {
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  }
 `;
 
 const CenterBetween = css`
