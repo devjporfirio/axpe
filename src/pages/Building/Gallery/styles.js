@@ -23,14 +23,6 @@ export const Image = styled.img`
   `}
 `;
 
-export const Video = styled.iframe`
-  height: 376px;
-
-  ${media.greaterThan('medium')`
-    height: 525px;
-  `}
-`;
-
 export const Button360 = styled.div`
   width: 53px;
   height: 53px;

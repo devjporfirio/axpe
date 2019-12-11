@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 import { formatCurrency } from 'helpers/utils';
 
@@ -24,6 +24,7 @@ import {
 
 export default function Building({ item }) {
   const { values, gallery, address, slug, infos, category, type } = item;
+  const [ showVideo, setShowVideo ] = useState(false);
 
   return (
     <Container>
@@ -42,14 +43,26 @@ export default function Building({ item }) {
                 );
               case 'video':
                 return (
-                  <iframe
-                    title={index}
-                    key={index}
-                    src={item.video}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                  <div key={index}>
+                    {!showVideo && (
+                      <img
+                        src={item.src}
+                        alt="Imóvel"
+                        role="presentation"
+                        onClick={() => setShowVideo(true)}
+                      />
+                    )}
+                    {showVideo && (
+                      <iframe
+                        title={index}
+                        key={index}
+                        src={`https://www.youtube.com/embed/${item.video}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    )}
+                  </div>
                 );
             }
           })}
