@@ -205,8 +205,15 @@ function Search({ dispatch }) {
   }
 
   useEffect(() => {
-    resetValuesOnChange([ 'use' ]);
+    if(!formik.values.finality && filtersData) {
+      setFiltersData(null);
+    }
+  }, [ filtersData, formik.values.finality ]);
+
+  useEffect(() => {
     setTabActive(null);
+    setFiltersData(null);
+    resetValuesOnChange([ 'use' ]);
   }, [ formik.values.use ]);
 
   useEffect(() => {
@@ -225,11 +232,6 @@ function Search({ dispatch }) {
   }, [ formik.values.furnished ]);
 
   useEffect(() => {
-    const getCategories = async () => {
-      const response = await Api.Search.getCategories();
-      setCategoriesData(response);
-    }
-
     const getFilters = async () => {
       const params = getFiltersParams();
       const response = await Api.Search.getFilters(params);
@@ -248,14 +250,19 @@ function Search({ dispatch }) {
       setFiltersData(response);
     }
 
-    if(!categoriesData) {
-      getCategories();
-    }
-
     if(formik.values.finality) {
       getFilters();
     }
   }, [ formik.values.source.value, formik.values.use, formik.values.finality, formik.values.type, formik.values.furnished ]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const response = await Api.Search.getCategories();
+      setCategoriesData(response);
+    }
+
+    getCategories();
+  }, [])
 
   return (
     <Container active={searchFormActive}>
