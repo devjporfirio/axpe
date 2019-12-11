@@ -17,16 +17,10 @@ export const Slide = styled.div`
 
   iframe {
     width: 100%;
-    height: calc(100vh - 76px);
   }
 
   ${media.greaterThan('medium')`
     height: calc(100vh - 150px);
-
-    iframe {
-      width: 100%;
-      height: 80vh;
-    }
   `}
 `;
 
@@ -40,8 +34,12 @@ export const Container = styled(Modal)`
     max-height: calc(100vh - 105px);
   }
 
+  iframe {
+    height: calc(100vh - 105px);
+  }
+
   ${media.greaterThan('640px')`
-    img {
+    img, iframe {
       margin-top: 0;
     }
   `}
@@ -49,6 +47,10 @@ export const Container = styled(Modal)`
   ${media.greaterThan('medium')`
     img {
       max-height: 80vh;
+    }
+
+    iframe {
+      height: 80vh;
     }
   `}
 `;
