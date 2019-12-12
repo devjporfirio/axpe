@@ -25,10 +25,6 @@ export const Container = styled.header`
     transition: all 50ms ease;
   `}
 
-  ${media.between('medium', '1024px')`
-    display: none !important;
-  `}
-
   ${media.greaterThan('medium')`
     width: 200px;
     height: 100%;
