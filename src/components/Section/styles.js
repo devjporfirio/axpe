@@ -26,6 +26,7 @@ const TypeSlickLeftDesktop = css`
   background-color: #fff;
   width: 310px;
   height: 100%;
+  margin: auto 106px;
 `;
 
 const TypeSlickLeftMobile = css`

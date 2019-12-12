@@ -93,7 +93,6 @@ export const Slide = styled.div`
 
 export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
-  background-size: cover;
   display: block;
   object-fit: cover;
   
@@ -131,6 +130,7 @@ export const Image = styled.img`
     css`
       width: 100%;
       max-width: 705px;
+      min-width: 570px;
       max-height: 244px;
       margin-left: 0;
 
@@ -210,6 +210,7 @@ export const Row1 = styled.div`
   img {
     width: 520px;
     height: 277px;
+    min-width: 310px;
   }
 `;
 
@@ -225,6 +226,7 @@ export const Row2 = styled.div`
 
   img:nth-child(2) {
     width: 520px;
+    min-width: 310px;
   }
 `;
 
