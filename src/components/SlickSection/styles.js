@@ -75,10 +75,17 @@ export const Slide = styled.div`
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('medium')`
-      max-width: 304px;
+      max-width: 95%;
+      width: calc(100% + 40px);
+
+      & + div {
+        margin-left: 22px;
+        margin-right: 22px;
+      }
+      
       a {
-        width: 100%;
-        max-width: 304px;
+        width: calc(100% + 40px);
+        max-width: 95%;
         height: 414px;
       }
     `}

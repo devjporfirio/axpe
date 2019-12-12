@@ -227,6 +227,7 @@ export const ArrowNext = styled(Arrow)`
 
       ${media.greaterThan('medium')`
         top: 0;
+        right: -18px;
       `}
     `}
   ${props =>
@@ -238,6 +239,7 @@ export const ArrowNext = styled(Arrow)`
 
       ${media.greaterThan('medium')`
         top: 0;
+        right: -18px;
       `}
     `}
   ${props =>
@@ -270,6 +272,7 @@ background: url(${props =>
 
       ${media.greaterThan('medium')`
         top: 0;
+        left: -40px;
       `}
     `}
   ${props =>
@@ -281,6 +284,7 @@ background: url(${props =>
 
       ${media.greaterThan('medium')`
         top: 0;
+        left: -40px;
       `}
     `}
   ${props =>

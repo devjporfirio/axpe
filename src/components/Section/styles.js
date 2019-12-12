@@ -9,7 +9,7 @@ const TypeSlickLargeDesktop = css`
   padding: 25px 4% 0 4%;
   height: 258px;
   width: 100%;
-  max-width: 319px;
+  max-width: 325px;
   margin-left: 0;
   border-radius: 0 6px 6px 0;
 
