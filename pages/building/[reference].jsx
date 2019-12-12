@@ -5,7 +5,6 @@ import Api from 'services';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import Around from 'components/Around';
 import SimilarBuilding from 'components/Building';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
@@ -75,13 +74,6 @@ function Building({ property }) {
 
       {Object.keys(property.components).length > 0 && (
         <Modules modules={property.components} />
-      )}
-
-      {property.type === 'pronto' && (
-        <Around
-          cep={property.address.zipcode}
-          // text={property.address.zipcode}
-        />
       )}
 
       {similarBuildings && similarBuildings.length > 0 && (

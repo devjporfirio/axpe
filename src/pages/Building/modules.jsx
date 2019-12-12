@@ -43,7 +43,7 @@ export default function Modules({ modules }) {
       case 'plantas':
         return <BlockHighlighted type="planta" href={component.data.file} />;
       case 'vizinhanca':
-        return <Around cep={component.data.cep} text={component.data.text} />;
+        return <Around cep={component.data.cep} text={component.data.texto || component.data.text} />;
       default:
           return null;
     }
