@@ -215,6 +215,7 @@ export const Row1 = styled.div`
 
 export const Row2 = styled.div`
   display: flex;
+  width: 100%;
   img {
     height: 403px;
   }

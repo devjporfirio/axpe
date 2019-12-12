@@ -24,7 +24,7 @@ const TypeSlickLargeDesktop = css`
 const TypeSlickLeftDesktop = css`
   position: initial;
   background-color: #fff;
-  width: 320px;
+  width: 310px;
   height: 100%;
 `;
 
@@ -50,7 +50,7 @@ const TypeSlickLeftMobile = css`
 `;
 
 const TypeSlickGridDesktop = css`
-  margin: auto auto auto 60px;
+  /* margin: auto auto auto 60px; */
   position: initial;
   background-color: #fff;
 `;
