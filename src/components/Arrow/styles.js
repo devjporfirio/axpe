@@ -163,11 +163,25 @@ const typeTogetherNext = css`
 const positionRightPrev = css`
   right: 299px;
   left: auto;
+
+  ${media.between('1025px', '1280px')`
+    right: 260px;
+  `}
+  ${media.greaterThan('1281px')`
+    right: 290px;
+  `}
 `;
 
 const positionRightNext = css`
   right: 269px;
   left: auto;
+
+  ${media.between('1025px', '1280px')`
+    right: 230px;
+  `}
+  ${media.greaterThan('1281px')`
+    right: 260px;
+  `}
 `;
 
 const positionLeftPrev = css`
@@ -177,7 +191,7 @@ const positionLeftPrev = css`
 
   ${media.greaterThan('medium')`
     top: 610px ;
-    left: 112px;
+    left: 100px;
   `}
 `;
 
@@ -188,7 +202,7 @@ const positionLeftNext = css`
 
   ${media.greaterThan('medium')`
     top: 610px;
-    left: 141px;
+    left: 130px;
   `}
 `;
 
@@ -227,6 +241,7 @@ export const ArrowNext = styled(Arrow)`
 
       ${media.greaterThan('medium')`
         top: 0;
+        right: -18px;
       `}
     `}
   ${props =>
@@ -238,6 +253,7 @@ export const ArrowNext = styled(Arrow)`
 
       ${media.greaterThan('medium')`
         top: 0;
+        right: -18px;
       `}
     `}
   ${props =>
@@ -270,6 +286,7 @@ background: url(${props =>
 
       ${media.greaterThan('medium')`
         top: 0;
+        left: -40px;
       `}
     `}
   ${props =>
@@ -281,6 +298,7 @@ background: url(${props =>
 
       ${media.greaterThan('medium')`
         top: 0;
+        left: -40px;
       `}
     `}
   ${props =>
