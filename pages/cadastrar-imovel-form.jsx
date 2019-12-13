@@ -39,9 +39,9 @@ import {
   FormGroupFooter,
   CheckLinkTerms,
   ButtonSubmit
-} from 'pages/RegisterProperty/styles';
+} from 'pages/RegisterPropertyForm/styles';
 
-function RegisterProperty({ locals, categories, pais }) {
+function RegisterPropertyForm({ locals, categories, pais }) {
   const dispatch = useDispatch();
   const registrySchema = Yup.object().shape({
     type: Yup.string()
@@ -115,7 +115,7 @@ function RegisterProperty({ locals, categories, pais }) {
             : 'Vender'
           : ''
       }`;
-      const resp = await Api.RegisterProperty.postProperty(values);
+      const resp = await Api.RegisterPropertyForm.postProperty(values);
       setSubmitting(false);
       if (resp.status === 'success') {
         dispatch(
@@ -568,7 +568,7 @@ function RegisterProperty({ locals, categories, pais }) {
   );
 }
 
-RegisterProperty.getInitialProps = async () => {
+RegisterPropertyForm.getInitialProps = async () => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
   const paises = await Api.Search.getFilters(
@@ -592,4 +592,4 @@ RegisterProperty.getInitialProps = async () => {
   };
 };
 
-export default RegisterProperty;
+export default RegisterPropertyForm;

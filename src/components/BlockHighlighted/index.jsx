@@ -46,9 +46,7 @@ const ContactWork = () => (
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
         tudo a ver com você?
       </p>
-      <Link href="/trabalhe-conosco">
-        Trabalhe Conosco
-      </Link>
+      <Link href="/trabalhe-conosco">Trabalhe Conosco</Link>
     </div>
   </>
 );
@@ -103,7 +101,8 @@ const Landing = () => (
     </HighlightedH4>
     <div>
       <p>
-        Na AxPe, você econtra aquele imóvel lindo onde cabem todos os sonhos. <br/>
+        Na AxPe, você econtra aquele imóvel lindo onde cabem todos os sonhos.{' '}
+        <br />
         Onde pode construir um refúgio, uma vida. Mas isso é só o começo.
       </p>
       <Link href="/contato" target="_blank">
@@ -118,14 +117,45 @@ const RegisterProperty = () => (
     <HighlightedH1 type="registerProperty">
       <strong>
         <span>Cadastre seu imóvel.</span>
-      </strong><br />
+      </strong>
+      <br />
       <span> Com certeza tem alguém procurando por ele</span>
       <hr />
     </HighlightedH1>
   </>
 );
 
-export default function BlockHighlightedH4({ type, href }) {
+const RegisterPropertyTransform = () => (
+  <>
+    <HighlightedH1 type="registerPropertyTransform">
+      <span>Transforme seu sonho em </span>
+      <strong>
+        <span>realidade</span>
+      </strong>
+    </HighlightedH1>
+    <div>
+      <p>
+        Conte para a gente como é o imóvel dos seus sonho e valos encontrá-lo
+        para você
+      </p>
+      <Link href="/contato">Fale Conosco</Link>
+    </div>
+  </>
+);
+
+const RegisterPropertyWhite = () => (
+  <>
+    <HighlightedH1 type="registerPropertyWhite">
+      <span>
+        Cadastre <strong>seu imóvel</strong>
+      </span>
+      <br />
+      <span> Com certeza tem alguém procurando por ele</span>
+    </HighlightedH1>
+  </>
+);
+
+export default function BlockHighlighted({ type, href }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
@@ -135,6 +165,8 @@ export default function BlockHighlightedH4({ type, href }) {
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
       {type === 'registerProperty' && <RegisterProperty />}
+      {type === 'registerPropertyWhite' && <RegisterPropertyWhite />}
+      {type === 'registerPropertyTransform' && <RegisterPropertyTransform />}
     </Container>
   );
 }

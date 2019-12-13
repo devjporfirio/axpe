@@ -2,6 +2,54 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import Button from 'components/Button';
 
+const ContainerContact = css`
+  padding: 0;
+  min-height: auto;
+  margin: auto;
+
+  ${media.greaterThan('medium')`
+    justify-content: flex-start;
+  `}
+`;
+
+const ContainerContactWork = css`
+  padding: 30px;
+
+  ${media.greaterThan('medium')`
+    justify-content: flex-start;
+    border-radius: 8px;
+    width: 100%;
+
+    p {
+      max-width: 280px;
+    }
+  `}
+`;
+
+const ContainerLanding = css`
+  p {
+    max-width: 275px;
+  }
+`;
+
+const ContainerRegisterProperty = css`
+  padding: 40px 30px;
+  min-height: auto;
+  margin: auto;
+
+  ${media.greaterThan('medium')`
+    padding: 139px 119px;
+    height: 451px;
+    margin: 0;
+    justify-content: flex-start;
+  `}
+`;
+
+const ContainerRegisterPropertyWhite = css`
+  background: none;
+  min-height: 170px;
+`;
+
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.green};
   display: flex;
@@ -30,62 +78,18 @@ export const Container = styled.div`
     align-items: center;
   `}
 
+  ${props => props.type === 'contact' && ContainerContact}
+  ${props => props.type === 'contactWork' && ContainerContactWork}
+  ${props => props.type === 'landing' && ContainerLanding}
+  ${props => props.type === 'registerProperty' && ContainerRegisterProperty}
   ${props =>
-    props.type === 'contact' &&
-    css`
-      padding: 0;
-      min-height: auto;
-      margin: auto;
-
-      ${media.greaterThan('medium')`
-        justify-content: flex-start;
-      `}
-    `}
+    props.type === 'registerPropertyWhite' && ContainerRegisterPropertyWhite}
 
   ${props =>
-    props.type === 'contactWork' &&
+    [ 'notfound', 'landing', 'registerPropertyTransform' ].includes(props.type) &&
     css`
-      padding: 30px;
-
-      ${media.greaterThan('medium')`
-        justify-content: flex-start;
-        border-radius: 8px;
-        width: 100%;
-
-        p {
-          max-width: 280px;
-        }
-      `}
+      background-color: ${({ theme }) => theme.colors.greenDark};
     `}
-
-  ${props =>
-    props.type === 'landing' &&
-    css`
-      p {
-        max-width: 275px;
-      }
-    `}
-
-  ${props =>
-    props.type === 'registerProperty' &&
-    css`
-      padding: 40px 30px;
-      min-height: auto;
-      margin: auto;
-
-      ${media.greaterThan('medium')`
-        padding: 139px 119px;
-        height: 451px;
-        margin: 0;
-        justify-content: flex-start;
-      `}
-    `}
-
-    ${props =>
-      [ 'notfound', 'landing' ].includes(props.type) &&
-      css`
-        background-color: ${({ theme }) => theme.colors.greenDark};
-      `}
 `;
 
 const ContactHome = css`
@@ -257,6 +261,59 @@ const RegisterProperty = css`
   `}
 `;
 
+const RegisterPropertyWhite = css`
+  span,
+  p {
+    color: ${({ theme }) => theme.colors.greenDark};
+    font: 22px/27px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  strong {
+    color: ${({ theme }) => theme.colors.orange};
+  }
+
+  span:nth-child(1) {
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+    margin: 0;
+
+    span {
+      font-size: 28px;
+      line-height: 30px;
+      width: 50%;
+      display: block;
+    }
+
+    span:nth-child(1) {
+      width: 100%;
+      line-height: 54px;
+      font-size: 41px;
+    }
+  `}
+`;
+
+const RegisterPropertyTransform = css`
+  span {
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  strong span {
+    color: ${({ theme }) => theme.colors.orange};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
+  }
+
+  ${media.greaterThan('medium')`
+    width: 300px;
+  `}
+`;
+
 export const Link = styled(Button)`
   background-color: ${props => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
@@ -279,6 +336,9 @@ const BaseHighlighted = css`
 export const HighlightedH1 = styled.h1`${BaseHighlighted}
   ${props => props.type === 'contact' && Contact}
   ${props => props.type === 'registerProperty' && RegisterProperty}
+  ${props => props.type === 'registerPropertyWhite' && RegisterPropertyWhite}
+  ${props =>
+    props.type === 'registerPropertyTransform' && RegisterPropertyTransform}
 `;
 
 export const HighlightedH4 = styled.h4`
