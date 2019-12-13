@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Container, SliderNav2, SliderNav1 } from './styles';
+import {
+  Container,
+  SliderNav2,
+  SliderNav1,
+  InfoPlanta,
+  Category,
+  Title,
+  Info
+} from './styles';
 
 export default function GalleryNav({
   className,
@@ -11,15 +19,37 @@ export default function GalleryNav({
   nav2Arrows = false,
   nav2Rows = 1,
   category,
-  local
+  local,
+  planta = false,
+  reference
 }) {
   const [ nav1, setNav1 ] = useState(null);
   const [ nav2, setNav2 ] = useState(null);
+  const [ plantaSelect, setPlantaSelect ] = useState(0);
   const slider1 = React.createRef();
   const slider2 = React.createRef();
 
   return (
-    <Container closeModal={onClose} category={category} local={local}>
+    <Container
+      closeModal={onClose}
+      category={category}
+      local={local}
+      planta={planta}
+    >
+      {planta && (
+        <InfoPlanta>
+          <div>
+            <Category>{category}</Category>
+            <hr />
+          </div>
+          <Info>
+            <p>{local}</p>
+            <p>{reference}</p>
+            <p>{items[plantaSelect].area}m²</p>
+          </Info>
+          <Title>{items[plantaSelect].title}</Title>
+        </InfoPlanta>
+      )}
       <div className={className}>
         <SliderNav1
           asNavFor={nav2}
@@ -29,12 +59,16 @@ export default function GalleryNav({
           }}
           arrows={false}
           slidesToShow={1}
+          beforeChange={(current, next) => {
+            setPlantaSelect(next);
+          }}
+          planta={planta}
         >
           {items &&
             items.length > 0 &&
             items.map((item, index) => (
               <div key={index}>
-                <img src={item.src} alt="Imóvel" />
+                <img src={item.src || item.image} alt="Imóvel" />
               </div>
             ))}
         </SliderNav1>
@@ -57,7 +91,7 @@ export default function GalleryNav({
             items.length > 0 &&
             items.map((item, index) => (
               <div key={index}>
-                <img src={item.src} alt="Imóvel" />
+                <img src={item.src || item.image} alt="Imóvel" />
               </div>
             ))}
         </SliderNav2>

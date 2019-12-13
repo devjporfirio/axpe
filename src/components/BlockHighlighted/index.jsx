@@ -46,9 +46,7 @@ const ContactWork = () => (
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
         tudo a ver com você?
       </p>
-      <Link href="/trabalhe-conosco">
-        Trabalhe Conosco
-      </Link>
+      <Link href="/trabalhe-conosco">Trabalhe Conosco</Link>
     </div>
   </>
 );
@@ -74,7 +72,7 @@ const NotFound = () => (
   </>
 );
 
-const Planta = ({ href }) => (
+const Planta = ({ href = '', onClick }) => (
   <>
     <HighlightedH4 type="planta">
       <span>Veja a </span>
@@ -85,7 +83,13 @@ const Planta = ({ href }) => (
     </HighlightedH4>
     <div>
       <p>E descubra se ela é a ideal para você</p>
-      <Link href={href} color="greenLight" target="_blank">
+      <Link
+        href={href}
+        type={!!onClick ? 'button' : ''}
+        onClick={onClick}
+        color="greenLight"
+        target="_blank"
+      >
         Veja as plantas
       </Link>
     </div>
@@ -103,7 +107,8 @@ const Landing = () => (
     </HighlightedH4>
     <div>
       <p>
-        Na AxPe, você econtra aquele imóvel lindo onde cabem todos os sonhos. <br/>
+        Na AxPe, você econtra aquele imóvel lindo onde cabem todos os sonhos.{' '}
+        <br />
         Onde pode construir um refúgio, uma vida. Mas isso é só o começo.
       </p>
       <Link href="/contato" target="_blank">
@@ -118,20 +123,20 @@ const RegisterProperty = () => (
     <HighlightedH1 type="registerProperty">
       <strong>
         <span>Cadastre seu imóvel.</span>
-      </strong><br />
+        </strong><br />
       <span> Com certeza tem alguém procurando por ele</span>
       <hr />
     </HighlightedH1>
   </>
 );
 
-export default function BlockHighlightedH4({ type, href }) {
+export default function BlockHighlightedH4({ type, href, onClick }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
       {type === 'contact' && <Contact />}
       {type === 'notfound' && <NotFound />}
-      {type === 'planta' && <Planta href={href} />}
+      {type === 'planta' && <Planta href={href} onClick={onClick} />}
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
       {type === 'registerProperty' && <RegisterProperty />}

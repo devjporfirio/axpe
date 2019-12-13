@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import Slider from 'components/Slider';
 import Modal from '../Modal';
 
 export const Container = styled(Modal)`
   top: 0;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${props =>
+    props.planta ? props.theme.colors.greyLight : props.theme.colors.white};
 
   span {
     color: ${({ theme }) => theme.colors.greenDark};
@@ -21,12 +22,17 @@ export const SliderNav1 = styled(Slider)`
   top: 67px;
 
   img {
-    object-position: left;
     max-height: 100vw;
     max-width: 100vw;
     margin: auto;
     width: auto;
   }
+
+  ${props =>
+    props.planta &&
+    css`
+      top: 0;
+    `}
 
   ${media.greaterThan('640px')`
     img {
@@ -50,13 +56,38 @@ export const SliderNav2 = styled(Slider)`
   width: 100%;
 
   img {
-    object-position: left;
-    max-height: 100px;
-    max-width: 100px;
+    object-fit: cover;
+    height: 100px;
+    width: 100px;
     margin: auto;
   }
 
   ${media.greaterThan('640px')`
     height: 70px;
   `}
+`;
+
+export const InfoPlanta = styled.div`
+  margin: 25px 22px;
+
+  hr {
+    width: 60px;
+    margin: 18px 0 20px 0;
+  }
+`;
+
+export const Category = styled.p`
+  font: 37px 'Bitter';
+`;
+
+export const Title = styled.p`
+  font: 18px 'Raleway';
+  margin: 20px 0;
+`;
+
+export const Info = styled.div`
+  p {
+    font: 16px/19px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
 `;
