@@ -8,7 +8,7 @@ function HowWeLove({ reasons }) {
   const [ type, setType ] = useState(null);
 
   const filterHtml = () => {
-    const response = reasons
+    const response = reasons.title
       .replace('<div class="building-lovely-items">', '')
       .replace('<div class="building-lovely-items-wrapper">', '')
       .replace(/\n/g, '')
