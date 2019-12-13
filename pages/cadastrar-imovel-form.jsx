@@ -41,7 +41,7 @@ import {
   ButtonSubmit
 } from 'pages/RegisterPropertyForm/styles';
 
-function RegisterPropertyForm({ locals, categories, pais }) {
+function RegisterPropertyForm({ locals, categories, pais, param }) {
   const dispatch = useDispatch();
   const registrySchema = Yup.object().shape({
     type: Yup.string()
@@ -83,7 +83,7 @@ function RegisterPropertyForm({ locals, categories, pais }) {
     setFieldValue
   } = useFormik({
     initialValues: {
-      type: '',
+      type: param || '',
       finalityVender: false,
       finalityAluguel: false,
       category: '',
@@ -568,7 +568,7 @@ function RegisterPropertyForm({ locals, categories, pais }) {
   );
 }
 
-RegisterPropertyForm.getInitialProps = async () => {
+RegisterPropertyForm.getInitialProps = async ({ query }) => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
   const paises = await Api.Search.getFilters(
@@ -588,7 +588,8 @@ RegisterPropertyForm.getInitialProps = async () => {
   return {
     locals: newLocals,
     pais: newPais,
-    categories
+    categories,
+    param: query.param
   };
 };
 
