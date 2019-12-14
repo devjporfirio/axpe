@@ -79,7 +79,6 @@ function Gallery({
       {showGalleryNav && (
         <GalleryNav
           items={items}
-          isModal={true}
           onClose={() => setShowGalleryNav(false)}
           category={category}
           local={local}

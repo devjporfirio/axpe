@@ -25,6 +25,7 @@ export default function Slick({
   arrows = true,
   responsive = null,
   lazyLoad = true,
+  beforeChange,
 
   reference = null,
   children,
@@ -33,6 +34,7 @@ export default function Slick({
   className
 }) {
   const settings = {
+    beforeChange,
     adaptiveHeight,
     initialSlide,
     slidesPerRow,

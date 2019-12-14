@@ -73,7 +73,7 @@ function Building({ property }) {
       </Alert>
 
       {Object.keys(property.components).length > 0 && (
-        <Modules modules={property.components} />
+        <Modules property={property} />
       )}
 
       {similarBuildings && similarBuildings.length > 0 && (
