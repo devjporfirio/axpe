@@ -171,7 +171,7 @@ export const Image = styled.img`
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('medium')`
-      max-width: 304px;
+      max-width: 100%;
       border-radius: 6px 6px 0 0;
   `}
 `;

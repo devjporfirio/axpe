@@ -157,7 +157,7 @@ function SlickSection({
             )}
 
             {type === 'slickSmall' ? (
-              <ItemLink href={`/building/${item.building.slug}`} />
+              <ItemLink href={`/building/${item.building ? item.building.slug : item.slug}`} />
             ) : null}
 
             {useGradient && <Gradient />}

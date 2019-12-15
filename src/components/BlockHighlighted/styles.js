@@ -64,6 +64,12 @@ export const Container = styled.div`
       p {
         max-width: 275px;
       }
+
+      ${media.greaterThan('medium')`
+        p {
+          max-width: 330px;
+        }
+      `}
     `}
 
   ${props =>
@@ -205,21 +211,23 @@ const Planta = css`
 `;
 
 const Landing = css`
-  width: 288px;
-  span:nth-child(1) {
+  width: 290px;
+  font-size: 40px;
+
+  span {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
-  span:nth-child(2) {
+
+  strong {
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
     color: ${({ theme }) => theme.colors.greenLight};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
-  }
-  strong span:nth-child(1) {
-    color: ${({ theme }) => theme.colors.orange};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+
+    &:last-of-type {
+      color: ${({ theme }) => theme.colors.orange};
+    }
   }
 `;
 

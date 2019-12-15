@@ -100,10 +100,7 @@ const Landing = () => (
   <>
     <HighlightedH4 type="landing">
       <span>Por que não um </span>
-      <span>imóvel </span>
-      <strong>
-        <span>novo? </span>
-      </strong>
+      <strong>imóvel</strong> <strong>novo?</strong>
     </HighlightedH4>
     <div>
       <p>
