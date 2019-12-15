@@ -9,7 +9,12 @@ export const Container = styled.section`
   min-height: calc(100vh - 70px);
 
   ${media.greaterThan('medium')`
+    padding-left: 24px;
     min-height: 100vh;
+  `}
+
+  ${media.greaterThan('large')`
+    padding-left: 0;
   `}
 `;
 
@@ -129,7 +134,7 @@ export const ButtonBack = styled.button`
     justify-content: center;
     position: fixed;
     bottom: 0;
-    left: 200px;
+    left: 0;
     width: 24px;
     height: calc(100%);
     background: ${({ theme }) => theme.colors.green};
@@ -145,6 +150,10 @@ export const ButtonBack = styled.button`
         fill: ${({ theme }) => theme.colors.white};
       }
     }
+  `}
+
+  ${media.greaterThan('large')`
+    left: 200px;
   `}
 `;
 

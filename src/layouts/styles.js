@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   padding-top: 70px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     width: calc(100% - 200px);
     margin-left: 200px;
     padding-top: 0;

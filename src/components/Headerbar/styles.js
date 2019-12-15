@@ -22,7 +22,7 @@ export const Container = styled.div`
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     h3 {
       margin-left: 30px;
     }
@@ -49,7 +49,7 @@ export const ContainerBuildingPage = css`
 `;
 
 export const ContainerBuilding = css`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     & > div {
       padding: 15px;
 
@@ -88,7 +88,7 @@ export const ContainerModal = css`
     top: 0;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     display: none;
   `}
 `;
@@ -104,7 +104,7 @@ export const Wrapper = styled.div`
   z-index: 10;
   transition: all 50ms ease;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     top: 0;
     left: 200px;
     width: calc(100% - 200px);
@@ -121,7 +121,7 @@ export const Column = styled.div`
   right: 30px;
   transform: translateY(-50%);
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     position: relative;
     top: auto;
     right: auto;
@@ -152,7 +152,7 @@ export const ButtonBack = styled.button`
     transform: rotate(180deg);
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     display: none;
   `}
 `;
@@ -176,7 +176,7 @@ export const ButtonIcon = styled.button`
       }
     }
 
-    ${media.greaterThan('1024px')`
+    ${media.greaterThan('large')`
       &:hover {
        svg path {
         fill: ${({ theme }) => theme.colors.orange};
@@ -193,7 +193,7 @@ export const ButtonIcon = styled.button`
       height: 24px;
     }
 
-    ${media.greaterThan('1024px')`
+    ${media.greaterThan('large')`
       &:hover {
         svg path {
           stroke: ${({ theme }) => theme.colors.orange};
@@ -206,7 +206,7 @@ export const ButtonIcon = styled.button`
 export const ButtonContact = styled(Button)`
   margin-left: 20px;
 
-  ${media.lessThan('767px')`
+  ${media.lessThan('1169px')`
     display: none;
   `}
 `;
@@ -214,7 +214,7 @@ export const ButtonContact = styled(Button)`
 export const Text = styled.p`
   font: 14px/28px 'Raleway';
 
-  ${media.lessThan('767px')`
+  ${media.lessThan('1169px')`
     display: none;
   `}
 `;
@@ -236,7 +236,7 @@ export const ButtonLike = styled.button`
     }
   }
 
-  ${media.lessThan('767px')`
+  ${media.lessThan('1169px')`
     font-size: 0;
 
     svg {
@@ -248,7 +248,7 @@ export const ButtonLike = styled.button`
     }
   `}
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     margin-left: 20px;
 
     svg {
@@ -259,9 +259,7 @@ export const ButtonLike = styled.button`
         stroke: ${({ theme }) => theme.colors.greenDark};
       }
     }
-  `}
 
-  ${media.greaterThan('1024px')`
     &:hover {
       color: ${({ theme }) => theme.colors.orange};
 
@@ -273,11 +271,11 @@ export const ButtonLike = styled.button`
 `;
 
 export const ButtonMoreInformation = styled(Button)`
-  ${media.lessThan('767px')`
+  ${media.lessThan('1169px')`
     display: none;
   `}
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     margin-left: 20px;
   `}
 `;
@@ -287,11 +285,11 @@ export const PhoneContact = styled.p`
   color: ${({ theme }) => theme.colors.orange};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
-  ${media.lessThan('767px')`
+  ${media.lessThan('1169px')`
     display: none;
   `}
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     margin-left: 10px;
   `}
 `;
