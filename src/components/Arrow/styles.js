@@ -164,10 +164,16 @@ const positionRightPrev = css`
   right: 299px;
   left: auto;
 
-  ${media.between('1025px', '1280px')`
+  ${media.between('1025px', '1169px')`
     right: 260px;
   `}
-  ${media.greaterThan('1281px')`
+  ${media.between('1170px', '1279px')`
+    right: 235px;
+  `}
+  ${media.greaterThan('1280px')`
+    right: 255px;
+  `}
+  ${media.greaterThan('1440px')`
     right: 290px;
   `}
 `;
@@ -176,10 +182,16 @@ const positionRightNext = css`
   right: 269px;
   left: auto;
 
-  ${media.between('1025px', '1280px')`
+  ${media.between('1025px', '1169px')`
     right: 230px;
   `}
-  ${media.greaterThan('1281px')`
+  ${media.between('1170px', '1279px')`
+    right: 205px;
+  `}
+  ${media.greaterThan('1280px')`
+    right: 225px;
+  `}
+  ${media.greaterThan('1440px')`
     right: 260px;
   `}
 `;
@@ -193,6 +205,10 @@ const positionLeftPrev = css`
     top: 610px ;
     left: 100px;
   `}
+
+  ${media.between('1170px', '1279px')`
+    left: 50px;
+  `}
 `;
 
 const positionLeftNext = css`
@@ -203,6 +219,10 @@ const positionLeftNext = css`
   ${media.greaterThan('medium')`
     top: 610px;
     left: 130px;
+  `}
+
+  ${media.between('1170px', '1279px')`
+    left: 80px;
   `}
 `;
 
@@ -233,7 +253,7 @@ export const ArrowNext = styled(Arrow)`
   ${props => props.position === 'right' && positionRightNext}
   ${props => props.position === 'left' && positionLeftNext}
   ${props =>
-    props.position === 'large' &&
+    (props.position === 'large' || props.position === 'small') &&
     css`
       ${positionOutsideNext}
       right: -30px;
@@ -241,21 +261,14 @@ export const ArrowNext = styled(Arrow)`
 
       ${media.greaterThan('medium')`
         top: 0;
-        right: -18px;
+        left: 945px;
+      `}
+      ${media.between('1025px', '1170px')`
+        right: auto;
+        left: 900px;
       `}
     `}
-  ${props =>
-    props.position === 'small' &&
-    css`
-      ${positionOutsideNext}
-      right: -30px;
-      top: -60px;
-
-      ${media.greaterThan('medium')`
-        top: 0;
-        right: -18px;
-      `}
-    `}
+    
   ${props =>
     props.type === 'building' &&
     css`
@@ -278,7 +291,7 @@ background: url(${props =>
   ${props => props.position === 'right' && positionRightPrev}
   ${props => props.position === 'left' && positionLeftPrev}
   ${props =>
-    props.position === 'large' &&
+    (props.position === 'large' || props.position === 'small') &&
     css`
       ${positionOutsidePrev}
       left: -30px;
@@ -286,19 +299,10 @@ background: url(${props =>
 
       ${media.greaterThan('medium')`
         top: 0;
-        left: -40px;
+        left: -32px;
       `}
-    `}
-  ${props =>
-    props.position === 'small' &&
-    css`
-      ${positionOutsidePrev}
-      left: -30px;
-      top: -60px;
-
-      ${media.greaterThan('medium')`
-        top: 0;
-        left: -40px;
+      ${media.greaterThan('1170px')`
+        left: -34px;
       `}
     `}
   ${props =>

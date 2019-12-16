@@ -74,20 +74,22 @@ export const Slide = styled.div`
 
   ${props =>
     props.type === 'slickSmall' &&
-    media.greaterThan('medium')`
-      max-width: 95%;
-      width: calc(100% + 40px);
-
-      & + div {
-        margin-left: 22px;
-        margin-right: 22px;
-      }
-      
-      a {
+    css`
+      ${media.greaterThan('medium')`
+        max-width: 304px;
         width: calc(100% + 40px);
-        max-width: 95%;
-        height: 414px;
-      }
+
+        & + div {
+          margin-left: 22px;
+          margin-right: 22px;
+        }
+        
+        a {
+          width: calc(100% + 40px);
+          max-width: 95%;
+          height: 414px;
+        }
+      `}
     `}
 `;
 
@@ -216,12 +218,12 @@ export const Row1 = styled.div`
 
 export const Row2 = styled.div`
   display: flex;
-  width: 100%;
   img {
     height: 403px;
   }
   img:nth-child(1) {
     width: 331px;
+    min-width: 331px;
   }
 
   img:nth-child(2) {
