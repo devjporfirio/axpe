@@ -6,7 +6,7 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 
 // styles
-import { Container, List } from 'pages/RegisterProperty/styles';
+import { Container, List, Item, Gradient } from 'pages/RegisterProperty/styles';
 
 const PROPERTY_TYPES = [
   { to: 'Residencial', label: 'Residencial em São Paulo' },
@@ -24,9 +24,10 @@ function RegisterProperty() {
       <List>
         {PROPERTY_TYPES.map(type => (
           <Link key={type.to} href={`/cadastrar-imovel-form?param=${type.to}`}>
-            <div>
+            <Item>
+              <Gradient />
               <p>{type.label}</p>
-            </div>
+            </Item>
           </Link>
         ))}
       </List>

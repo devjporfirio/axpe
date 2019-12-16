@@ -54,6 +54,15 @@ const ContainerRegisterProperty = css`
 const ContainerRegisterPropertyWhite = css`
   background: none;
   min-height: 170px;
+  width: 80%;
+  margin: auto;
+  padding: 30px 0;
+
+  ${media.greaterThan('medium')`
+    padding: 118px 0 66px 10px;
+    max-width: 955px;
+    width: 100%;
+  `}
 `;
 
 export const Container = styled.div`
@@ -215,21 +224,23 @@ const Planta = css`
 `;
 
 const Landing = css`
-  width: 288px;
-  span:nth-child(1) {
+  width: 290px;
+  font-size: 40px;
+
+  span {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
-  span:nth-child(2) {
+
+  strong {
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
     color: ${({ theme }) => theme.colors.greenLight};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
-  }
-  strong span:nth-child(1) {
-    color: ${({ theme }) => theme.colors.orange};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+
+    &:last-of-type {
+      color: ${({ theme }) => theme.colors.orange};
+    }
   }
 `;
 
@@ -271,7 +282,7 @@ const RegisterPropertyWhite = css`
   span,
   p {
     color: ${({ theme }) => theme.colors.greenDark};
-    font: 22px/27px 'Bitter';
+    font: 22px/26px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
 
@@ -281,6 +292,10 @@ const RegisterPropertyWhite = css`
 
   span:nth-child(1) {
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    font-size: 25px;
+    line-height: 30px;
+    padding-bottom: 10px;
+    display: block;
   }
 
   ${media.greaterThan('medium')`

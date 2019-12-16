@@ -152,7 +152,6 @@ const RegisterPropertyWhite = () => (
       <span>
         Cadastre <strong>seu imóvel</strong>
       </span>
-      <br />
       <span> Com certeza tem alguém procurando por ele</span>
     </HighlightedH1>
   </>
