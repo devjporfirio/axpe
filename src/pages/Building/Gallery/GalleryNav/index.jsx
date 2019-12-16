@@ -69,11 +69,22 @@ export default function GalleryNav({
           >
             {items &&
               items.length > 0 &&
-              items.map((item, index) => (
-                <div key={index}>
-                  <img src={item.src || item.image} alt="Imóvel" />
-                </div>
-              ))}
+              items.map((item, index) => {
+                switch (item.tipo) {
+                  case 'imagem':
+                    return <img src={item.src || item.image} alt="Imóvel" />;
+                  case 'video':
+                    return (
+                      <iframe
+                        title="video"
+                        src={`https://www.youtube.com/embed/${item.video}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    );
+                }
+              })}
           </SliderNav1>
 
           <SliderNav2
