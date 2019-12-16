@@ -42,6 +42,11 @@ export const SliderNav1 = styled(Slider)`
     width: auto;
   }
 
+  iframe {
+    width: 100vw;
+    height: 100vw;
+  }
+
   ${props =>
     props.planta &&
     css`
