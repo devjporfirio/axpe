@@ -58,7 +58,7 @@ function Header() {
   const handleScrollPosition = useCallback(([ curTop, oldTop ]) => {
     if(!refHeader || !headerHiding) return false;
 
-    if(window.innerWidth >= 768) {
+    if(window.innerWidth >= 1170) {
       refHeader.current.style.top = `0px`;
       return false;
     }

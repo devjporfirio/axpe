@@ -30,6 +30,12 @@ const ContainerLanding = css`
   p {
     max-width: 275px;
   }
+
+  ${media.greaterThan('medium')`
+    p {
+      max-width: 330px;
+    }
+  `}
 `;
 
 const ContainerRegisterProperty = css`

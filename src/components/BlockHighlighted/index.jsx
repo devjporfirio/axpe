@@ -72,7 +72,7 @@ const NotFound = () => (
   </>
 );
 
-const Planta = ({ href }) => (
+const Planta = ({ href = '', onClick }) => (
   <>
     <HighlightedH4 type="planta">
       <span>Veja a </span>
@@ -83,7 +83,13 @@ const Planta = ({ href }) => (
     </HighlightedH4>
     <div>
       <p>E descubra se ela é a ideal para você</p>
-      <Link href={href} color="greenLight" target="_blank">
+      <Link
+        href={href}
+        type={!!onClick ? 'button' : ''}
+        onClick={onClick}
+        color="greenLight"
+        target="_blank"
+      >
         Veja as plantas
       </Link>
     </div>
@@ -94,10 +100,7 @@ const Landing = () => (
   <>
     <HighlightedH4 type="landing">
       <span>Por que não um </span>
-      <span>imóvel </span>
-      <strong>
-        <span>novo? </span>
-      </strong>
+      <strong>imóvel</strong> <strong>novo?</strong>
     </HighlightedH4>
     <div>
       <p>
@@ -155,13 +158,13 @@ const RegisterPropertyWhite = () => (
   </>
 );
 
-export default function BlockHighlighted({ type, href }) {
+export default function BlockHighlighted({ type, href, onClick }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
       {type === 'contact' && <Contact />}
       {type === 'notfound' && <NotFound />}
-      {type === 'planta' && <Planta href={href} />}
+      {type === 'planta' && <Planta href={href} onClick={onClick} />}
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
       {type === 'registerProperty' && <RegisterProperty />}

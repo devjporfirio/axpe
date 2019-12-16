@@ -112,7 +112,7 @@ export default createGlobalStyle`
     outline:none;
     box-shadow: none;
   }
-  
+
   hr {
     border: 2px solid ${({ theme }) => theme.colors.orange};
   }
@@ -122,7 +122,9 @@ export default createGlobalStyle`
 
 export const VendorsStyle = ({ vendorsStyle }) => {
   const styles = [];
+
   vendorsStyle.forEach(vendor => styles.push(vendor));
+
   return css`
     ${styles.join('')}
   `;

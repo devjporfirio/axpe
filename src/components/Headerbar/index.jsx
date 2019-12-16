@@ -62,7 +62,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
   }, [ searchFormActive ]);
 
   const handleScrollPosition = ([ curTop, oldTop ]) => {
-    const startTopHeaderbar = window.innerWidth < 768 ? 70 : 0;
+    const startTopHeaderbar = window.innerWidth < 1170 ? 70 : 0;
 
     if(!refEl || !refEl.current) return false;
 

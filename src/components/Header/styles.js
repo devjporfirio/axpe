@@ -21,11 +21,11 @@ export const Container = styled.header`
     font-weight: ${({ theme }) => theme.fontsWeight.light};
   }
 
-  ${media.lessThan('767px')`
+  ${media.lessThan('1023px')`
     transition: all 50ms ease;
   `}
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     width: 200px;
     height: 100%;
     display: flex;
@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
   height: 100%;
   padding: 0 30px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
@@ -69,7 +69,7 @@ export const AxpeLogo = styled.h1`
   width: 60px;
   margin-right: 20px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     width: 83px;
     margin: 0 auto 20px auto;
   `}
@@ -78,7 +78,7 @@ export const AxpeLogo = styled.h1`
     background: url(${AxpeLogoSVG}) no-repeat;
     background-size: contain;
 
-    ${media.greaterThan('medium')`
+    ${media.greaterThan('large')`
       height: 40px;
       background-image: url(${AxpeFullLogoSVG});
     `}
@@ -89,7 +89,7 @@ export const ChristiesLogo = styled.h2`
   display: block;
   width: 108px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     width: 97px;
     margin: 0 auto 35px auto;
   `}
@@ -118,7 +118,7 @@ export const ButtonSearch = styled.button`
   background: url(${SearchIconSVG}) no-repeat;
   background-size: contain;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     display: none;
   `}
 `;
@@ -130,7 +130,7 @@ export const ButtonToggle = styled.button`
   height: 17px;
   margin-left: 20px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     display: none;
   `}
 
@@ -185,7 +185,7 @@ export const Box = styled.div`
 
   ${props => (props.navToggle ? `display: block;` : `display: none;`)}
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     display: block;
     height: auto;
     position: relative;
@@ -199,7 +199,7 @@ export const Box = styled.div`
 export const NavMain = styled.nav`
   margin-bottom: 35px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     margin-bottom: 30px;
   `}
 
@@ -207,7 +207,7 @@ export const NavMain = styled.nav`
     &:not(:last-child) {
       margin-bottom: 25px;
 
-      ${media.greaterThan('medium')`
+      ${media.greaterThan('large')`
         margin-bottom: 10px;
       `}
     }
@@ -242,7 +242,7 @@ export const NavMainButtonSearch = styled.button`
     }
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     &:hover {
       span {
         color: ${({ theme }) => theme.colors.orange};
@@ -296,7 +296,7 @@ export const NavMainButton = styled.a`
     `}
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     &:hover {
       span {
         color: ${({ theme }) => theme.colors.orange};
@@ -321,7 +321,7 @@ export const NavMainButtonText = styled.span`
   color: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     padding-left: 40px;
     font-size: 14px;
     line-height: 20px;
@@ -331,7 +331,7 @@ export const NavMainButtonText = styled.span`
 export const NavSecondary = styled.nav`
   margin-bottom: 30px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     margin-bottom: 15px;
   `}
 
@@ -339,7 +339,7 @@ export const NavSecondary = styled.nav`
     &:not(:last-child) {
       margin-bottom: 20px;
 
-      ${media.greaterThan('medium')`
+      ${media.greaterThan('large')`
         margin-bottom: 8px;
       `}
     }
@@ -351,7 +351,7 @@ export const NavSecondaryButton = styled.a`
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     font-size: 14px;
   `}
 `;
@@ -374,7 +374,7 @@ export const NavLangs = styled.nav`
     &:nth-child(4) {
       margin: 0 15px;
 
-      ${media.greaterThan('medium')`
+      ${media.greaterThan('large')`
         margin: 0 5px;
       `}
     }
@@ -421,7 +421,7 @@ export const WhatsappButton = styled.a`
   color: ${({ theme }) => theme.colors.green2};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     width: 100%;
     font-size: 14px;
     line-height: 16px;
@@ -434,7 +434,7 @@ export const WhatsappButton = styled.a`
     height: 30px;
     margin-right: 10px;
 
-    ${media.greaterThan('medium')`
+    ${media.greaterThan('large')`
       width: 16px;
       min-width: 16px;
       height: 17px;
@@ -451,7 +451,7 @@ export const Contact = styled.p`
   text-align: center;
   background: ${({ theme }) => theme.colors.greyLight};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     padding: 0;
     margin-bottom: 15px;
     background: transparent;
@@ -469,7 +469,7 @@ export const Contact = styled.p`
     height: 100%;
     background: ${({ theme }) => theme.colors.greyLight};
 
-    ${media.greaterThan('medium')`
+    ${media.greaterThan('large')`
       display: none;
     `}
   }
@@ -487,7 +487,7 @@ export const Contact = styled.p`
     font: 26px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
-    ${media.greaterThan('medium')`
+    ${media.greaterThan('large')`
       font-size: 16px;
     `}
   }
@@ -504,7 +504,7 @@ export const NewsletterButton = styled.button`
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     font-size: 11px;
     text-align: left;
   `}
@@ -520,7 +520,7 @@ export const Footer = styled.footer`
   align-items: center;
   justify-content: center;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     display: block;
   `}
 `;
@@ -530,7 +530,7 @@ export const Socials = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     justify-content: flex-start;
   `}
 `;
@@ -539,7 +539,7 @@ export const SocialsButton = styled.button`
   display: block;
   margin: 0 12px;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     margin: 0 8px 0 0;
 
     &:first-child {
@@ -584,7 +584,7 @@ export const Creci = styled.p`
   color: ${({ theme }) => theme.colors.greenDark};
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('large')`
     font-size: 11px;
   `}
 `;

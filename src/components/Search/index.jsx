@@ -161,6 +161,10 @@ function Search({ dispatch }) {
       params.push(`ready_release=${formik.values.ready_release}`);
     }
 
+    if(formik.values.furnished) {
+      params.push(`furnished=${formik.values.furnished.search('Com') >= 0 ? 'true' : 'false'}`);
+    }
+
     if(formik.values.types.length) {
       params.push(`types=${formik.values.types.join(',')}`);
     }
@@ -253,7 +257,7 @@ function Search({ dispatch }) {
     if(formik.values.finality) {
       getFilters();
     }
-  }, [ formik.values.source.value, formik.values.use, formik.values.finality, formik.values.type, formik.values.furnished ]);
+  }, [ formik.values.source.value, formik.values.use, formik.values.finality, formik.values.type, formik.values.ready_release, formik.values.furnished ]);
 
   useEffect(() => {
     const getCategories = async () => {

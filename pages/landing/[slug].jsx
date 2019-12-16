@@ -50,7 +50,7 @@ function Landing({ slug, page }) {
           switch (comp.type) {
             case 'imoveis-vertical':
               return (
-                <Module key={index}>
+                <Module key={`landing-component-${index}`}>
                   <TitleModule>
                     <strong>{comp.info.title}</strong> {comp.info.subtitle}
                   </TitleModule>
@@ -65,7 +65,7 @@ function Landing({ slug, page }) {
               );
             case 'imoveis-horizontal':
               return (
-                <Module key={index}>
+                <Module key={`landing-component-${index}`}>
                   <TitleModule>
                     <strong>
                       {comp.total_buildings} {comp.info.title}
@@ -78,6 +78,7 @@ function Landing({ slug, page }) {
               );
           }
         })}
+
       <Banner>
         {Object.keys(imagesBanner) && (
           <>
@@ -85,6 +86,7 @@ function Landing({ slug, page }) {
             <Image mq="mobile" src={imagesBanner.mobile} />
           </>
         )}
+
         <Link
           href={imagesBanner.link.url}
           target={imagesBanner.link.external ? '_blank' : '_self'}
@@ -92,6 +94,7 @@ function Landing({ slug, page }) {
           Saiba Mais
         </Link>
       </Banner>
+
       <BlockHighlighted type="landing" />
       <Contact />
     </Container>

@@ -11,6 +11,10 @@ export const Container = styled.div`
     width: 113px;
     margin: auto;
   }
+
+  ${media.greaterThan('medium')`
+    padding-bottom: 0;
+  `}
 `;
 
 export const Image = styled.img`
@@ -56,17 +60,30 @@ export const Title = styled.h1`
     font-size: 45px;
     line-height: 55px;
     width: 460px;
+    margin-bottom: 40px;
   `}
 `;
 
+export const GroupText = styled.article`
+  position: relative;
+  text-align: center;
+`;
+
 export const Text = styled.p`
-  font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  font: 18px/21px 'Raleway';
-  text-align: left;
   display: block;
   overflow: hidden;
   position: relative;
   padding: 30px;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  font: 18px/21px 'Raleway';
+  text-align: left;
+
+  ${props =>
+    !props.transparent &&
+    css`
+      height: 160px;
+      margin-bottom: 50px;
+    `};
 
   &:after {
     position: absolute;
@@ -92,7 +109,11 @@ export const Text = styled.p`
   ${media.greaterThan('medium')`
     background: transparent;
     max-width: 1000px;
-    margin: auto;
+    height: auto;
+    padding: 30px 0 0 0;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto 40px auto;
     text-align: center;
     line-height: 25px;
 
@@ -103,37 +124,28 @@ export const Text = styled.p`
 `;
 
 export const SeeMore = styled(Button)`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 32px;
+  margin: auto;
+  transform: translateX(-50%);
   background-color: ${({ theme }) => theme.colors.greyLight3};
   border: 1.57px solid ${({ theme }) => theme.colors.orange};
   color: ${({ theme }) => theme.colors.orange};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   font: 13.5px 'Raleway';
-  height: 32px;
-  margin: -50px auto 0 auto;
-  position: absolute;
-  left: 50%;
-  margin-left: -50px;
 
   ${media.greaterThan('medium')`
     display: none;
   `}
 `;
 
-export const GroupText = styled.article`
-  text-align: center;
-`;
-
-export const Banner = styled.div`
-  img {
-    padding: 15px;
-    height: 451px;
-  }
-
+export const Module = styled.div`
   ${media.greaterThan('medium')`
-    img {
-      margin: auto;
-      max-width: 1000px;
-    }
+    max-width: 1000px;
+    margin: auto;
+    padding-top: 30px;
   `}
 `;
 
@@ -147,10 +159,12 @@ export const TitleModule = styled.h2`
   }
 
   ${media.greaterThan('medium')`
-    font-size: 41px;
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
-    line-height: 40px;
+    padding: 0;
     max-width: 560px;
+    margin-bottom: 15px;
+    font-size: 41px;
+    line-height: 40px;
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
   `}
 `;
 
@@ -160,33 +174,51 @@ export const TextModule = styled.p`
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
 
   ${media.greaterThan('medium')`
+    padding: 0;
+    margin-bottom: 25px;
     line-height: 25px;
+  `}
+`;
+
+export const SlideSmall = styled(SlickSection)`
+  margin: 30px auto;
+  width: calc(100% - 60px);
+
+  a {
+    display: none;
+  }
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+  `}
+`;
+
+export const Banner = styled.div`
+  position: relative;
+  padding: 0 30px 30px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  ${media.greaterThan('medium')`
+    img {
+      margin: auto;
+      max-width: 1000px;
+    }
   `}
 `;
 
 export const Link = styled(Button)`
   height: 40px;
-  line-height: 40px;
   position: absolute;
-  margin-top: -145px;
-  margin-left: 40px;
+  left: 50px;
+  bottom: 50px;
+  line-height: 40px;
 
   ${media.greaterThan('medium')`
-    margin-left: 15%;
+    left: 15%;
+    bottom: 20%;
   `}
-`;
-
-export const Module = styled.div`
-  ${media.greaterThan('medium')`
-    max-width: 1000px;
-    margin: auto;
-  `}
-`;
-
-export const SlideSmall = styled(SlickSection)`
-  margin: 30px;
-
-  a {
-    display: none;
-  }
 `;
