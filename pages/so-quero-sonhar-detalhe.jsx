@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Container, Header, List } from 'pages/Dream/Detail/styles';
+import { Container, Header, List, Footer } from 'pages/Dream/Detail/styles';
+import BlockHighlighted from 'components/BlockHighlighted';
 import Api from 'services';
 import Building from 'components/Building';
+import Slider from "react-slick";
 
 // styles
 import {
@@ -38,6 +40,41 @@ function DreamDetail() {
 
   }, [ total, setNewData ]);
 
+  const sliderSettings = {
+    dots: false,
+    arrows: true,
+    infinite: true,
+    draggable: false,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
   return (
     <Container>
       <Header>
@@ -60,12 +97,43 @@ function DreamDetail() {
         </Buildings>
       </List>
 
-      <footer>
+      <Footer>
         <h2>Sonhe também com:</h2>
-        <ul>
-          <li></li>
-        </ul>
-      </footer>
+        <Slider {...sliderSettings}>
+          <div class="item">
+            <a href="/so-quero-sonhar-detalhe">
+              <h3>Descolados</h3>
+            </a>
+          </div>
+          <div class="item">
+            <a href="/so-quero-sonhar-detalhe">
+              <h3>Vintage</h3>
+            </a>
+          </div>
+          <div class="item">
+            <a href="/so-quero-sonhar-detalhe">
+              <h3>Mirante</h3>
+            </a>
+          </div>
+          <div class="item">
+            <a href="/so-quero-sonhar-detalhe">
+              <h3>Arquitetura de Autor</h3>
+            </a>
+          </div>
+          <div class="item">
+            <a href="/so-quero-sonhar-detalhe">
+              <h3>Verde que te quero verde</h3>
+            </a>
+          </div>
+          <div class="item">
+            <a href="/so-quero-sonhar-detalhe">
+              <h3>Clássico contemporâneo</h3>
+            </a>
+          </div>          
+        </Slider>
+      </Footer>
+
+      <BlockHighlighted type="dream" />
     </Container>
   )
 }
