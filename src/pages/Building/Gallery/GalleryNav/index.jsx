@@ -47,10 +47,10 @@ export default function GalleryNav({
             <Info>
               <p>{local}</p>
               <p>{reference}</p>
-              <p>{items[plantaSelect].area}m²</p>
+              <p>{items[plantaSelect] && `${items[plantaSelect].area}m²`}</p>
             </Info>
             <hr />
-            <Title>{items[plantaSelect].title}</Title>
+            <Title>{items[plantaSelect] && items[plantaSelect].title}</Title>
           </InfoPlanta>
         )}
         <div className={className}>
@@ -60,7 +60,8 @@ export default function GalleryNav({
               setNav1(slider);
               return (slider1.current = slider);
             }}
-            arrows={false}
+            arrows={planta}
+            propsArrow={planta ? { position: 'outside' } : false}
             slidesToShow={1}
             beforeChange={(current, next) => {
               setPlantaSelect(next);
@@ -69,22 +70,20 @@ export default function GalleryNav({
           >
             {items &&
               items.length > 0 &&
-              items.map((item, index) => {
-                switch (item.tipo) {
-                  case 'imagem':
-                    return <img src={item.src || item.image} alt="Imóvel" />;
-                  case 'video':
-                    return (
-                      <iframe
-                        title="video"
-                        src={`https://www.youtube.com/embed/${item.video}`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    );
-                }
-              })}
+              items.map((item, index) =>
+                item.image ? (
+                  <img key={index} src={item.src || item.image} alt="Imóvel" />
+                ) : item.video ? (
+                  <iframe
+                    key={index}
+                    title="video"
+                    src={`https://www.youtube.com/embed/${item.video}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : null
+              )}
           </SliderNav1>
 
           <SliderNav2
