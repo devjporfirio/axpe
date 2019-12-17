@@ -26,7 +26,11 @@ export default function Datasheet({ property }) {
         <BlockOne type={property.type}>
           <GroupInfo>
             <Type>
-              {type === 'lancamento' ? infos.releaseStatus : category}
+              {type === 'lancamento'
+                ? infos.releaseStatus === 'Pronto'
+                  ? 'Pronto para morar'
+                  : infos.releaseStatus
+                : category}
             </Type>
             <GroupNeigRef>
               <Neighborhood>{address.local}</Neighborhood>
@@ -89,10 +93,13 @@ export default function Datasheet({ property }) {
           <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
         </BlockThree>
       </DatasheetContent>
-      {type === 'lancamento' && (
+      {type === 'lancamento' && infos.releaseDelivery && (
         <Delivery>
           <p>
-            Previsão de entrega em <span>{infos.releaseDelivery}</span>
+            {infos.releaseStatus === 'Pronto'
+              ? 'Entregue em '
+              : 'Previsão de entrega em '}
+            <span>{infos.releaseDelivery}</span>
           </p>
         </Delivery>
       )}

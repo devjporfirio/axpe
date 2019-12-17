@@ -41,31 +41,6 @@ export default function Building({ item }) {
                 </div>
               )
             );
-            // switch (item.tipo) {
-            //   case 'video':
-            //     return (
-            //       <div key={index}>
-            //         {!showVideo && (
-            //           <img
-            //             src={item.src}
-            //             alt="Imóvel"
-            //             role="presentation"
-            //             onClick={() => setShowVideo(true)}
-            //           />
-            //         )}
-            //         {showVideo && (
-            //           <iframe
-            //             title={index}
-            //             key={index}
-            //             src={`https://www.youtube.com/embed/${item.video}`}
-            //             frameBorder="0"
-            //             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            //             allowFullScreen
-            //           />
-            //         )}
-            //       </div>
-            //     );
-            // }
           })}
       </Slider>
       <Infos>
@@ -73,7 +48,11 @@ export default function Building({ item }) {
           <CatLocGroup>
             <div>
               <Category>
-                {type === 'lancamento' ? infos.releaseStatus : category}
+                {type === 'lancamento'
+                  ? infos.releaseStatus === 'Pronto'
+                    ? 'Pronto para morar'
+                    : infos.releaseStatus
+                  : category}
               </Category>
               <Local>{address.local}</Local>
               {type === 'lancamento' && (
@@ -145,7 +124,10 @@ export default function Building({ item }) {
       </Infos>
       {type === 'lancamento' && infos.releaseDelivery && (
         <ReleaseDelivery>
-          Previsão de entrega em <span>{infos.releaseDelivery}</span>
+          {infos.releaseStatus === 'Pronto'
+            ? 'Entregue em '
+            : 'Previsão de entrega em '}
+          <span>{infos.releaseDelivery}</span>
         </ReleaseDelivery>
       )}
     </Container>
