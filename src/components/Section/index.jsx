@@ -1,4 +1,5 @@
 import React from 'react';
+import parse from 'html-react-parser';
 
 // helpers
 import { formatCurrency } from 'helpers/utils';
@@ -45,22 +46,24 @@ function sectionDestaqueText(item) {
 }
 
 function sectionDestaqueTextBullets(item) {
+  const { bullets, text, title } = item.texts;
+  const newBullets = !bullets
+    ? []
+    : parse(
+        bullets
+          .replace(/\n/g, '')
+          .replace(/\r/g, '')
+          .replace(/\t/g, '')
+      );
+
   return (
     <>
       <Block1DestaqueTextoBullet>
-        <h4>{item.texts.title}</h4>
-        {item.texts.title && <hr />}
-        <Infos>{item.texts.text}</Infos>
+        <h4>{title}</h4>
+        {title && <hr />}
+        <Infos>{text}</Infos>
       </Block1DestaqueTextoBullet>
-      {item.bullets && item.bullets.length ? (
-        <Block2DestaqueTextoBullet>
-          <ul>
-            {item.bullets.map(bullet => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
-        </Block2DestaqueTextoBullet>
-      ) : null}
+      <Block2DestaqueTextoBullet>{newBullets}</Block2DestaqueTextoBullet>
     </>
   );
 }
