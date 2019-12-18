@@ -11,7 +11,7 @@ export const Container = styled(BaseArticles)`
     height: 426px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin-top: 25px;
     background-color: ${({ theme }) => theme.colors.white};  
 
@@ -52,7 +52,7 @@ export const Container = styled(BaseArticles)`
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background-color: ${({ theme }) => theme.colors.greyLight};
     max-width: 777px;
     height: 609px;

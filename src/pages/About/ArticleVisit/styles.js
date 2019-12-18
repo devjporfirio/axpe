@@ -12,7 +12,7 @@ export const Container = styled(BaseArticles)`
     height: 365px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin-top: 70px;
     
     header {
@@ -36,7 +36,7 @@ export const Container = styled(BaseArticles)`
     }
   `}
 
-  ${media.between('medium', '1279px')`
+  ${media.between('1024px', '1279px')`
     img {
       width: 482px;
       height: 584px;
@@ -46,7 +46,7 @@ export const Container = styled(BaseArticles)`
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     width: 400px;
     margin: 40px 69px 0 auto;
 

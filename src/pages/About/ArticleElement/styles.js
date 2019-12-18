@@ -10,7 +10,7 @@ export const Container = styled(BaseArticles)`
     height: 522px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background-color: ${({ theme }) => theme.colors.white};
     margin-bottom: 40px;
 
@@ -40,7 +40,7 @@ export const Container = styled(BaseArticles)`
     }
   `}
 
-  ${media.between('medium', '1280px')`
+  ${media.between('1024px', '1280px')`
     img {
       left: auto;
       margin-left: 517px;
@@ -57,7 +57,7 @@ export const Container = styled(BaseArticles)`
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     width: 421px;
 
     p {
