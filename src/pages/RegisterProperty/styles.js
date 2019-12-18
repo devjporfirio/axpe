@@ -12,13 +12,14 @@ export const Item = styled.div`
   width: 80%;
   margin: auto;
   margin-bottom: 20px;
-  background: url('static/imovel-residencial.png') no-repeat;
+  background: ${props => `url('static/${props.background}.png')`} no-repeat;
   background-size: cover;
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin: 10px;
     flex:  1 1 15em;
     height: 230px;
+    border-radius: 6px;
 
     &:nth-child(1) {
       order: 1; 
@@ -38,7 +39,13 @@ export const Item = styled.div`
 `;
 
 export const Gradient = styled.div`
-  background: linear-gradient(180deg, rgba(238, 105, 0, 0) 0%, #ee6900 100%);
+  border-radius: 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(238, 105, 0, 0.0001) 3.13%,
+    #ee6900 97.57%
+  );
+  background-blend-mode: multiply;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -46,14 +53,14 @@ export const Gradient = styled.div`
   opacity: 0.5;
 
   ${media.greaterThan('medium')`
-    transform: scaleX(-1) scaleY(-1);
-    background: linear-gradient(180deg, #000000 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.0001) 41.21%);
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    border-radius: 6px;
+    transform: rotate(-180deg);
   `}
 
   &:hover {
-    opacity: 0.8;
-    transform: scaleX(-1) scaleY(-1);
-    border-radius: 6px;
     background: linear-gradient(
       180deg,
       #ff7000 0%,
@@ -61,6 +68,10 @@ export const Gradient = styled.div`
       #ff8e36 66.54%,
       #ffbf8e 100%
     );
+    mix-blend-mode: normal;
+    opacity: 0.7;
+    transform: rotate(-180deg);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -93,6 +104,7 @@ export const List = styled.div`
       width: 293px;
       left: unset;
       right: unset;
+      text-shadow:: unset;
     }
   `}
 `;

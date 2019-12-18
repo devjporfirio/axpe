@@ -24,7 +24,7 @@ function RegisterProperty() {
       <List>
         {PROPERTY_TYPES.map(type => (
           <Link key={type.to} href={`/cadastrar-imovel-form?param=${type.to}`}>
-            <Item>
+            <Item background={type.to}>
               <Gradient />
               <p>{type.label}</p>
             </Item>
