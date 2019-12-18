@@ -24,8 +24,12 @@ export const Header = styled.header`
     letter-spacing: 0.2vmin;
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
-    margin-bottom: 4rem;
     position: relative;
+    margin-bottom: 3rem;    
+      
+    ${media.greaterThan('large')`
+      margin-bottom: 4rem;
+    `}
   
     span {
         color: ${({ theme }) => theme.colors.greenDark};
@@ -57,15 +61,14 @@ export const Header = styled.header`
   }
 
   p {
-      font-family: 'Raleway';
+    font-family: 'Raleway';
+    font-size: .9rem;
+    margin: 0 auto;
+    
+    ${media.greaterThan('large')`
       font-size: 1.1rem;
-      text-style: sans-serif; //TODO set font family
       max-width: 60%;
-      margin: 0 auto;
-     
-      ${media.greaterThan('large')`
-        font-size: 1.1rem;
-      `}
+    `}
   }
 `;
 
@@ -89,7 +92,11 @@ export const List = styled.main`
     letter-spacing: 0.2vmin;
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;    
+      
+    ${media.greaterThan('large')`
+      margin-bottom: 4rem;
+    `}
   
     span {
       color: ${({ theme }) => theme.colors.orange};
