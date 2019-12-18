@@ -3,16 +3,12 @@ import { Container, Header, List, Footer } from 'pages/Dream/Detail/styles';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Api from 'services';
 import Building from 'components/Building';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 
 // styles
 import {
-  HeaderCombo,
-  Wrapper,
-  ButtonBack,
   Buildings,
   BuildingsNotFound,
-  BuildingsLoadMore
 } from 'pages/Search/styles'
 
 function DreamDetail() {
@@ -21,18 +17,14 @@ function DreamDetail() {
   const setNewData = useCallback((newData, first) => {
     const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
     setBuildings(newBuildings);
-    //setIsLoading(false);
+    // setIsLoading(false);
   }, [ buildings ]);
 
   useEffect(() => {
     const getData = async () => {
-
-      const params = {source: 'praia', finality: 'aluguel', limit: 5};
+      const params = { source: 'praia', finality: 'aluguel', limit: 5 };
       const response = await Api.Search.getBuildings(params);
-      console.log('res', response);
-      
-      
-
+      // console.log('res', response);
       setNewData(response.data, true);
     }
 
@@ -93,46 +85,45 @@ function DreamDetail() {
               <h6>Não encontramos o imóveis na categoria que você procura <span>:(</span></h6>
               <p>Tente fazer uma <a href="/search">busca!</a></p>
             </BuildingsNotFound>
-          )} 
+          )}
         </Buildings>
       </List>
 
       <Footer>
         <h2>Sonhe também com:</h2>
         <Slider {...sliderSettings}>
-          <div class="item">
-            <a href="/so-quero-sonhar-detalhe">
-              <h3>Descolados</h3>
-            </a>
-          </div>
-          <div class="item">
+          <div className="item">
             <a href="/so-quero-sonhar-detalhe">
               <h3>Vintage</h3>
+              <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </div>
-          <div class="item">
+          <div className="item">
             <a href="/so-quero-sonhar-detalhe">
               <h3>Mirante</h3>
+              <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </div>
-          <div class="item">
+          <div className="item">
             <a href="/so-quero-sonhar-detalhe">
               <h3>Arquitetura de Autor</h3>
+              <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </div>
-          <div class="item">
+          <div className="item">
             <a href="/so-quero-sonhar-detalhe">
               <h3>Verde que te quero verde</h3>
+              <p>Soluções espertas para imóveis despojados.</p>
             </a>
           </div>
-          <div class="item">
+          <div className="item">
             <a href="/so-quero-sonhar-detalhe">
               <h3>Clássico contemporâneo</h3>
+              <p>Soluções espertas para imóveis despojados.</p>
             </a>
-          </div>          
+          </div>
         </Slider>
       </Footer>
-
       <BlockHighlighted type="dream" />
     </Container>
   )

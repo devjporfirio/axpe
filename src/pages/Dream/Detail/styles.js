@@ -118,21 +118,20 @@ export const Footer = styled.footer`
     margin-bottom: 1rem;
   }
 
-  Slider {
-  }
-
   .slick-arrow {
-    height: 3rem;
+    height: auto;
+    top: 45%;
 
     &:before {
       color: ${({ theme }) => theme.colors.greenDark};
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
       font-size: 3rem;
+      line-height: 3rem;
     }
   }
   
   .slick-prev {
-    left: -10px;
+    left: -5px;
 
     &:before {
       content: '‹';
@@ -140,7 +139,7 @@ export const Footer = styled.footer`
   }
 
   .slick-next {
-    right: -10px;
+    right: -5px;
     
     &:before {
       content: '›';
@@ -179,19 +178,92 @@ export const Footer = styled.footer`
       min-height: 16vw;
     `}
 
+    &:hover {
+      h3 {
+          margin-top: 40%;
+          top: 1rem;
+      }
+
+      a:before {
+          opacity: 0.5;
+      }
+
+      p {
+          opacity: 1;
+      }
+    }
+
     a {
       display: flex;
+      position: relative;
+      z-index: 1;
+      min-height: 170px;
+      flex-flow: column;
+      align-items: center;
+
+      ${media.greaterThan('medium')`
+        min-height: 16vw;
+      `}
+
+      &:before {
+          content: '';
+          opacity: 0;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: ${({ theme }) => theme.colors.orange};
+          transition: all .2s linear;
+          z-index: -1;
+      }
     }
   
     h3 {
       color: white;
       font-size: 1.1rem;
       font-weight: bold;
-      margin: 70% auto auto auto;
+      margin-top: 35%;
+      margin-bottom: 0.4rem;
       transition: all .15s linear;
       font-family: 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
       position: relative;
+
+      ${media.greaterThan('medium')`
+        margin-top: 20%;
+      `}
+
+      ${media.greaterThan('1024px')`
+        margin-top: 35%;
+      `}
+      
+      ${media.greaterThan('large')`
+        margin-top: 45%;
+        top: 2.5rem;
+      `}
+    }
+
+    p {
+      color: white;
+      font-size: .9rem;
+      width: 70%;
+      transition: all .2s linear;
+      font-family: 'Bitter';
+      font-weight: ${({ theme }) => theme.fontsWeight.medium};
+      position: relative;
+ 
+      ${media.greaterThan('medium')`
+       font-size: .85rem;
+       width: 80%;
+     `}
+ 
+      ${media.greaterThan('large')`
+         opacity: 0;
+         width: 60%;
+         top: 1.3rem;
+         font-size: .9rem;
+     `}
     }
   }
 `;
