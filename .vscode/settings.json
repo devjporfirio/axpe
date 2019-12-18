@@ -12,7 +12,6 @@
   },
   "scss.validate": false,
   "css.validate": false,
-  "eslint.autoFixOnSave": true,
   "eslint.run": "onSave",
   "prettier.singleQuote": true,
   "[javascript]": {
@@ -21,6 +20,9 @@
   "emmet.includeLanguages": {
     "nunjucks": "html",
     "erb": "html"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
 
