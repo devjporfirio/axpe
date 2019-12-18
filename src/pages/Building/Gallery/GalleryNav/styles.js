@@ -19,6 +19,14 @@ export const Container = styled(Modal)`
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.greenDark};
   `}
+
+  ${props =>
+    props.planta &&
+    media.greaterThan('medium')`
+    button span {
+      margin: 20px 13%;
+    }
+  `}
 `;
 
 export const Body = styled.div`
@@ -32,6 +40,7 @@ export const Body = styled.div`
 `;
 
 export const SliderNav1 = styled(Slider)`
+  background-color: ${({ theme }) => theme.colors.white};
   height: 100vw;
   top: 67px;
 
@@ -51,15 +60,30 @@ export const SliderNav1 = styled(Slider)`
     props.planta &&
     css`
       top: 0;
+
       ${media.greaterThan('medium')`
+        width: 100%;
         max-width: 637px;
         max-height: 607px;
         position: absolute;
         top: 93px;
-        right: 100px;
+        left: 40%;
+
+        button {
+          width: 50px;
+          height: 50px;
+          background-size: 50px;
+
+        }
+        button:nth-child(1){
+          margin-left: -20px;
+        }
+        button:nth-child(3){
+          margin-right: -20px;
+        }
 
         img {
-          object-fit: cover;
+          object-fit: contain;
           width: 637px;
           height: 607px;
         }
@@ -67,6 +91,7 @@ export const SliderNav1 = styled(Slider)`
 
       ${media.between('medium', '1024px')`
         right: 40px;
+        max-width: 550px;
       `}
     `}
 
@@ -109,6 +134,10 @@ export const SliderNav2 = styled(Slider)`
       margin-top: 300px;
       margin-left: 60px;
       bottom: unset;
+
+      .slick-center {
+        border: 3px solid ${({ theme }) => theme.colors.orange};
+      }
 
       ${media.greaterThan('medium')`
         img {
