@@ -10,7 +10,7 @@ export const Container = styled(BaseArticles)`
     height: 332px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background-color: ${({ theme }) => theme.colors.white};
     padding-bottom: 95px;
 
@@ -39,7 +39,7 @@ export const Container = styled(BaseArticles)`
     }
   `}
 
-  ${media.between('medium', '1279px')`
+  ${media.between('1024px', '1279px')`
     header {
       width: 664px;
       h2 {

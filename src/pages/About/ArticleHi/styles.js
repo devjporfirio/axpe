@@ -5,7 +5,7 @@ import { BaseArticles } from 'pages/About/styles';
 export const Container = styled(BaseArticles)`
   background-color: ${({ theme }) => theme.colors.greyLight};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin: 80px 0 60px ;
   `}
   ${media.greaterThan('1281px')`
@@ -29,7 +29,7 @@ export const SubtTitle = styled.h3`
   padding: 0 35px 40px 35px;
   color: ${({ theme }) => theme.colors.greenDark};
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     font-size: 37px;
     line-height: 42px;
     width: 536px; 
@@ -41,7 +41,7 @@ export const SubtTitle = styled.h3`
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     column-count: 2;
   `}
 `;

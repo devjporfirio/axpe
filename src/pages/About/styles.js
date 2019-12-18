@@ -12,6 +12,7 @@ export const Tab = styled.nav`
   background-color: white;
   z-index: 4;
   box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34);
+  width: 100%;
 
   ul {
     white-space: nowrap;
@@ -20,7 +21,7 @@ export const Tab = styled.nav`
     overflow: scroll;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1170px')`
     width: calc(100% - 200px);
 
     ul {

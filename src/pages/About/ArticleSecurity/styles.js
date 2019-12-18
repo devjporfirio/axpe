@@ -10,7 +10,7 @@ export const Container = styled(BaseArticles)`
     height: 272px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin-bottom: 80px;
 
     img {

@@ -20,7 +20,7 @@ export const Container = styled(BaseArticles)`
     height: 404px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background: none;
     margin-bottom: 295px;
     height: 606px;
@@ -38,35 +38,49 @@ export const Container = styled(BaseArticles)`
       }
     }
 
-    P {
-
+  P {
       background-color: #F5F5F0;
-      padding: 100px 80px 0 61px;
+      padding: 100px 80px 50px 61px;
       margin-left: 573px;
       margin-top: 0;
-      width: 550px;
-      height: 340px;
+      max-width: 550px;
+      height: auto;
     }
 
     img {
       width: 478px;
       height: 389px;
-      margin-left: 44.5%;
+      margin-left: 40%;
       position: absolute;
       margin-top: -289px;
+      right: 0;
     }
 
     img:nth-child(4) {
       width: 571px;
       height: 615px;
-      margin-top: -340px;
+      margin-top: -475px;
       margin-left: 0;
+      right: unset;
     }
   `}
 
-  ${media.greaterThan('1024px')`
+  ${media.greaterThan('1171px')`
     header {
       margin-left: 0;
+    }
+
+    img {
+      margin-left: 44.5%;
+      right: unset;
+    }
+
+    img:nth-child(4) {
+      margin-top: -350px;
+    }
+
+    p {
+      max-height: 340px;
     }
   `}
 `;

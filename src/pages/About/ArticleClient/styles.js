@@ -10,7 +10,7 @@ export const Container = styled(BaseArticles)`
     height: 348px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background-color: ${({ theme }) => theme.colors.white};
     padding-top: 80px;
     padding-bottom: 142px;
@@ -25,22 +25,17 @@ export const Container = styled(BaseArticles)`
     }
   `}
 
-  ${media.between('medium', '1280px')`
+  ${media.between('1024px', '1280px')`
     img {
       width: 478px;
       height: 444px;
-    }
-  `}
-
-  ${media.between('medium', '1024px')`
-    img {
       left: 0;
     }
   `}
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background-color: ${({ theme }) => theme.colors.greyLight};
     width: 799px;
     height: 500px;
@@ -61,7 +56,7 @@ export const Group = styled.div`
     }
   `}
 
-  ${media.between('medium', '1280px')`
+  ${media.between('1024px', '1280px')`
     width: 745px;
 
     img {
