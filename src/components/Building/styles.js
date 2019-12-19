@@ -103,19 +103,19 @@ export const Reference = styled.p`
 export const Description = styled.p`
   font: 16px 'Raleway';
   margin-top: 20px;
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  height: 65px;
+  line-height: 1;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   ${media.greaterThan('medium')`
-    font-size: 16px;
-
-    display: block;
-    display: -webkit-box;
-    max-width: 100%;
-    height: 65px;
-    line-height: 1;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    height: 49px;
+    -webkit-line-clamp: 3;
   `};
 `;
 
