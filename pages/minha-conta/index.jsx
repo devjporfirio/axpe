@@ -1,12 +1,28 @@
-import React from 'react'
-import { Container } from 'pages/MyAccount/styles';
+import React from 'react';
+import Api from 'services';
 
-function MyAccount() {
+import Slides from 'pages/MyAccount/Views/Slides';
+
+// styles
+import { Container } from 'pages/MyAccount/Views/styles';
+
+function Views({ viewed }) {
   return (
     <Container>
-      <h1>Minha Conta</h1>
+      <Slides items={viewed} />
+
+      <hr />
+
+      <Slides items={viewed} />
     </Container>
-  )
+  );
 }
 
-export default MyAccount;
+Views.getInitialProps = async ({}) => {
+  const buildingViewed = await Api.MyAccount.getViewed();
+  return {
+    viewed: buildingViewed
+  };
+};
+
+export default Views;

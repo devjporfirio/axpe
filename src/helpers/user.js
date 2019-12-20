@@ -1,10 +1,17 @@
 import Cookies from 'js-cookie';
 
 class User {
-  constructor(infos, buildingsSeen) {
+  constructor(buildingsSeen) {
     this.buildingsSeen = buildingsSeen;
-    this.infos = infos;
-    this.login = false;
+    this.infos = {
+      name: 'User',
+      last_name: 'User',
+      email: 'user@test.com',
+      phone: '',
+      notification_alert: 1,
+      notification_favorite: 1
+    };
+    this.login = true;
   }
 
   getBuildingsSeen() {
@@ -34,4 +41,4 @@ class User {
   }
 }
 
-export default new User({ name: 'João', email: 'joao@oaoj.com.br' }, []);
+export default new User([]);

@@ -5,6 +5,7 @@ import Building from './building';
 import Contact from './contact';
 import Landing from './landing';
 import RegisterProperty from './registerProperty';
+import MyAccount from './myAccount';
 
 const Api = {
   User,
@@ -13,7 +14,8 @@ const Api = {
   Building,
   Contact,
   Landing,
-  RegisterProperty
+  RegisterProperty,
+  MyAccount
 };
 
 export default Api;

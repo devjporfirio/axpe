@@ -1,4 +1,4 @@
 import styled from 'styled-components';
-// import media from 'styled-media-query';
+import MyAccount from '..';
 
-export const Container = styled.section``;
+export const Container = styled(MyAccount)``;
