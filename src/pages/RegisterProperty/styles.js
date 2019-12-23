@@ -5,7 +5,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.greyLight};
 `;
 
-export const Item = styled.div`
+export const Item = styled.a`
   background-blend-mode: multiply;
   border-radius: 4px;
   height: 223px;
@@ -14,6 +14,7 @@ export const Item = styled.div`
   margin-bottom: 20px;
   background: ${props => `url('static/${props.background}.png')`} no-repeat;
   background-size: cover;
+  display: block;
 
   ${media.greaterThan('1024px')`
     margin: 10px;
