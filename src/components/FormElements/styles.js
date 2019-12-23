@@ -97,7 +97,7 @@ export const Label = styled.label`
   ${props =>
     props.error &&
     css`
-      background: ${({ theme }) => theme.colors.orangeLight};
+      background: ${({ theme }) => theme.colors.orangeLight} !important;
     `}
 `;
 

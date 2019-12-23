@@ -3,6 +3,8 @@ import media from 'styled-media-query';
 
 export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
+  padding-bottom: 20px;
+  min-height: 100vh;
 `;
 
 export const Header = styled.header`
@@ -21,7 +23,7 @@ export const Header = styled.header`
   }
 
   ${media.greaterThan('medium')`
-    padding: 90px 0 40px;
+    padding: 94px 0 47px;
     max-width: 1000px;
     margin: 0 auto;
 

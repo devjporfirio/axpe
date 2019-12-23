@@ -19,7 +19,7 @@ function Viewed({ views }) {
         Object.keys(group).map((item, index) => (
           <Fragment key={index}>
             <Slides date={item} items={group[item]} />
-            <hr />
+            {(Object.keys(group).length - 1 ) > index && <hr />}
           </Fragment>
         ))}
     </Container>
