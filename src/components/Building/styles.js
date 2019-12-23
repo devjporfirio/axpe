@@ -154,7 +154,7 @@ export const CaracteristicsGroup = styled.div`
     flex: 0 50%;
 
     p {
-      font-size: 16px;
+      font-size: 16px !important;
     }
   }
 
