@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Api from 'services';
 
-import Slides from 'pages/MyAccount/Views/Slides';
+// components
+import Slides from 'pages/MyAccount/Viewed/Slides';
 
 // styles
-import { Container } from 'pages/MyAccount/Views/styles';
+import { Container } from 'pages/MyAccount/Viewed/styles';
 
-function Views({ viewed }) {
+function Viewed({ views }) {
+  const group = views.reduce(function(h, obj) {
+    h[obj['viewed_at']] = (h[obj['viewed_at']] || []).concat(obj);
+    return h;
+  }, {});
+
   return (
     <Container>
-      <Slides items={viewed} />
-
-      <hr />
-
-      <Slides items={viewed} />
+      {Object.keys(group).length > 0 &&
+        Object.keys(group).map((item, index) => (
+          <Fragment key={index}>
+            <Slides date={item} items={group[item]} />
+            <hr />
+          </Fragment>
+        ))}
     </Container>
   );
 }
 
-Views.getInitialProps = async ({}) => {
+Viewed.getInitialProps = async ({}) => {
   const buildingViewed = await Api.MyAccount.getViewed();
   return {
-    viewed: buildingViewed
+    views: buildingViewed
   };
 };
 
-export default Views;
+export default Viewed;

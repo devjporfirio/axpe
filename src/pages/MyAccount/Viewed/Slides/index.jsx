@@ -4,11 +4,12 @@ import Link from 'next/link';
 // components
 import Section from 'components/Section';
 
+// styles
 import { Panel, Slide, Image } from './styles';
 
-export default function Slides({ items = [] }) {
+export default function Slides({ items = [], date }) {
   return (
-    <Panel title="20/12/2019">
+    <Panel title={date}>
       <Slide
         slidesToShow={items.length > 4 ? 4 : items.length}
         propsArrow={{ position: 'center' }}
@@ -39,22 +40,25 @@ export default function Slides({ items = [] }) {
           }
         ]}
       >
-        {items.map((item, index) => (
-          <Link
-            key={index}
-            href={`/building/${item.building ? item.building.slug : item.slug}`}
-          >
-            <a
+        {items.length > 0 &&
+          items.map((item, index) => (
+            <Link
+              key={index}
               href={`/building/${
                 item.building ? item.building.slug : item.slug
               }`}
             >
-              <Image mq="desktop" src={item.imageFeatured.desktop} />
-              <Image mq="mobile" src={item.imageFeatured.mobile} />
-              <Section type="slickSmall" item={item} />
-            </a>
-          </Link>
-        ))}
+              <a
+                href={`/building/${
+                  item.building ? item.building.slug : item.slug
+                }`}
+              >
+                <Image mq="desktop" src={item.imageFeatured.desktop} />
+                <Image mq="mobile" src={item.imageFeatured.mobile} />
+                <Section type="slickSmall" item={item} />
+              </a>
+            </Link>
+          ))}
       </Slide>
     </Panel>
   );
