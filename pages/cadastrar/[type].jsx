@@ -19,6 +19,7 @@ import IClose from 'assets/icons/close-white';
 
 // styles
 import { FormGroup } from 'components/FormElements/styles';
+
 import {
   Container,
   Body,
@@ -39,9 +40,9 @@ import {
   FormGroupFooter,
   CheckLinkTerms,
   ButtonSubmit
-} from 'pages/RegisterPropertyForm/styles';
+} from 'pages/RegisterForm/styles';
 
-function RegisterPropertyForm({ locals, categories, pais, param }) {
+function RegisterForm({ locals, categories, pais, type }) {
   const dispatch = useDispatch();
   const registrySchema = Yup.object().shape({
     type: Yup.string()
@@ -83,7 +84,7 @@ function RegisterPropertyForm({ locals, categories, pais, param }) {
     setFieldValue
   } = useFormik({
     initialValues: {
-      type: param || '',
+      type: type || '',
       finalityVender: false,
       finalityAluguel: false,
       category: '',
@@ -115,7 +116,7 @@ function RegisterPropertyForm({ locals, categories, pais, param }) {
             : 'Vender'
           : ''
       }`;
-      const resp = await Api.RegisterPropertyForm.postProperty(values);
+      const resp = await Api.RegisterForm.postProperty(values);
       setSubmitting(false);
       if (resp.status === 'success') {
         dispatch(
@@ -137,8 +138,8 @@ function RegisterPropertyForm({ locals, categories, pais, param }) {
   const newCategories =
     categories &&
     Object.keys(categories).length > 0 &&
-    categories[ values.type.toUpperCase() ]
-      ? categories[ values.type.toUpperCase() ].map(x => ({ label: x, value: x }))
+    categories[values.type.toUpperCase()]
+      ? categories[values.type.toUpperCase()].map(x => ({ label: x, value: x }))
       : [{ label: 'Selecione', value: '' }];
 
   return (
@@ -568,7 +569,7 @@ function RegisterPropertyForm({ locals, categories, pais, param }) {
   );
 }
 
-RegisterPropertyForm.getInitialProps = async ({ query }) => {
+RegisterForm.getInitialProps = async ({ type, query }) => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
   const paises = await Api.Search.getFilters(
@@ -589,8 +590,8 @@ RegisterPropertyForm.getInitialProps = async ({ query }) => {
     locals: newLocals,
     pais: newPais,
     categories,
-    param: query.param
+    type: query.type
   };
 };
 
-export default RegisterPropertyForm;
+export default RegisterForm;

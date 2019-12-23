@@ -133,7 +133,7 @@ function Header() {
                 </NavMainButtonSearch>
               </li>
               <li>
-                <Link href="/cadastrar-imovel" passHref>
+                <Link href="/cadastrar" passHref>
                   <NavMainButton type="register">
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
