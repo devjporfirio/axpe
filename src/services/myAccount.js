@@ -54,8 +54,9 @@ export default {
         email: values.email,
         phone: values.phone,
         notification_alert: values.notification_alert ? '1' : '0',
-        notification_favorite: values.notification_favorite ? '1' : '0'
-        // password: values.password
+        notification_favorite: values.notification_favorite ? '1' : '0',
+        password_cur: values.password,
+        password_new: values.passwordNew
       }),
       headers: {
         'Content-Type': 'application/json',
