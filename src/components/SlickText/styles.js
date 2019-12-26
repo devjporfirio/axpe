@@ -10,6 +10,7 @@ export const Container = styled(Slider)`
   iframe {
     width: 100vw;
     height: 376px;
+    object-fit: cover;
 
     ${media.greaterThan('medium')`
       max-width: 1000px;
