@@ -5,7 +5,7 @@ import media from 'styled-media-query';
 import Modals from 'components/Modals';
 
 export const Container = styled(Modals)`
-  div:nth-child(1) {
+  & div {
     margin: 0 auto;
 
     button:nth-child(1) {
@@ -30,14 +30,12 @@ export const Container = styled(Modals)`
     margin: 0 45px;
   }
 
-  label,
-  button {
-    width: 226px;
-  }
-
-  button {
-    width: 226px;
-  }
+  ${media.greaterThan('medium')`
+    label,
+    form button {
+      width: 226px;
+    }
+  `}
 `;
 
 export const Note = styled.p`

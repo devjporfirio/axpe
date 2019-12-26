@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import MaskedInput from 'react-text-mask';
+import SVG from 'react-inlinesvg';
 import Button from 'components/Button';
 
 export const Label = styled.label`
@@ -230,4 +231,13 @@ export const ButtonFile = styled(Button)`
     text-transform: initial;
     padding: 0;
   `}
+`;
+
+export const SVGEye = styled(SVG)`
+  width: 23px;
+  height: 15px;
+  position: absolute;
+  right: 8px;
+  top: 13px;
+  z-index: 9;
 `;
