@@ -2,9 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-// helper
+// helpers
 import User from 'helpers/user';
 
+// styles
 import { Container, Header, LinkLogOff, Nav, Li, Body } from './styles';
 
 export default function MyAccount({ children, className }) {

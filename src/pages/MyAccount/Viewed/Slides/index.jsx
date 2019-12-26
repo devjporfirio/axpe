@@ -1,11 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import SVG from 'react-inlinesvg';
 
 // components
 import Section from 'components/Section';
 
+// images
+import IEmoji from 'assets/icons/emoji';
+
 // styles
-import { Panel, Slide, Image } from './styles';
+import { Panel, Slide, Image, Inactive } from './styles';
 
 export default function Slides({ items = [], date }) {
   return (
@@ -53,6 +57,16 @@ export default function Slides({ items = [], date }) {
                   item.building ? item.building.slug : item.slug
                 }`}
               >
+                {item.status === 'inactive' && (
+                  <Inactive>
+                    <SVG src={IEmoji} />
+                    <p>
+                      <strong>Ops!</strong>
+                      <br />
+                      Esse imóvel não está mais disponível
+                    </p>
+                  </Inactive>
+                )}
                 <Image mq="desktop" src={item.imageFeatured.desktop} />
                 <Image mq="mobile" src={item.imageFeatured.mobile} />
                 <Section type="slickSmall" item={item} />

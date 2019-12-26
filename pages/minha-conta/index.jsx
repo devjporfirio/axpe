@@ -9,7 +9,7 @@ import { Container } from 'pages/MyAccount/Viewed/styles';
 
 function Viewed({ views }) {
   const group = views.reduce(function(h, obj) {
-    h[obj['viewed_at']] = (h[obj['viewed_at']] || []).concat(obj);
+    h[obj['viewedAt']] = (h[obj['viewedAt']] || []).concat(obj);
     return h;
   }, {});
 

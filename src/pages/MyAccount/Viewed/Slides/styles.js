@@ -65,3 +65,43 @@ export const Slide = styled(Slider)`
     }
   `}
 `;
+
+export const Inactive = styled.div`
+  position: absolute;
+  width: calc(100vw - 79px);
+  height: 228px;
+  border-radius: 6px 6px 0 0;
+  background-color: black;
+  opacity: 0.7;
+
+  svg {
+    margin-left: auto;
+    margin-right: 27px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 27px;
+    max-height: 48px;
+  }
+
+  p {
+    margin: 75px 0 0 21px;
+    width: 180px;
+  }
+
+  p,
+  strong {
+    font: 24px/25px 'Bitter';
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  strong {
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+
+  ${media.greaterThan('medium')`
+    width:208px;
+    height: 206px;
+    border-radius: 6px;
+  `}
+`;
