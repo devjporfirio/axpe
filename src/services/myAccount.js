@@ -16,6 +16,21 @@ export default {
     ).then(response => response.json());
     return response;
   },
+  async getFavorites() {
+    const resToken = await User.postLogin();
+
+    const response = await fetch(
+      `${process.env.config.apiUrl}/user/buildings/favorite`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resToken.access_token}`
+        }
+      }
+    ).then(response => response.json());
+    return response;
+  },
   async getMe() {
     const resToken = await User.postLogin();
 
