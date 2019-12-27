@@ -61,13 +61,17 @@ export const Slider = styled(Gallery)`
 `;
 
 export const CatLocGroup = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  ${media.greaterThan('medium')`
+  div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
     align-items: flex-end;
-  `}
+
+    div {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 `;
 
 export const CategoryRelease = styled.h4`
@@ -77,8 +81,8 @@ export const CategoryRelease = styled.h4`
 `;
 
 export const Category = styled.h4`
-  font: 24px/29px 'Bitter';
-  letter-spacing: 1.2px;
+  font: 22px/29px 'Bitter';
+  letter-spacing: 1px;
 `;
 
 export const Local = styled.h4`
@@ -149,12 +153,12 @@ export const CaracteristicsGroup = styled.div`
   flex-wrap: wrap;
 
   div {
-    margin-top: 16px;
+    margin-top: 15px !important;
     height: 40px;
     flex: 0 50%;
 
     p {
-      font-size: 16px;
+      font-size: 16px !important;
     }
   }
 

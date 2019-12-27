@@ -46,20 +46,22 @@ export default function Building({ item }) {
       <Infos>
         <Link href="/building/[reference]" as={`/building/${slug}`}>
           <CatLocGroup>
+            <Category>
+              {type === 'lancamento'
+                ? infos.releaseStatus === 'Pronto'
+                  ? 'Pronto para morar'
+                  : infos.releaseStatus
+                : category}
+            </Category>
             <div>
-              <Category>
-                {type === 'lancamento'
-                  ? infos.releaseStatus === 'Pronto'
-                    ? 'Pronto para morar'
-                    : infos.releaseStatus
-                  : category}
-              </Category>
-              <Local>{address.local}</Local>
-              {type === 'lancamento' && (
-                <CategoryRelease>{category}</CategoryRelease>
-              )}
+              <div>
+                <Local>{address.local}</Local>
+                {type === 'lancamento' && (
+                  <CategoryRelease>{category}</CategoryRelease>
+                )}
+              </div>
+              <Reference>Ref {item.reference}</Reference>
             </div>
-            <Reference>Ref {item.reference}</Reference>
           </CatLocGroup>
         </Link>
 
@@ -68,7 +70,7 @@ export default function Building({ item }) {
             <div>
               {!!values.sell || !!values.release ? (
                 <Price>
-                  Venda:{' '}
+                  A partir de{' '}
                   {!!values.sell &&
                     formatCurrency.format(parseInt(values.sell))}
                   {!!values.release &&
