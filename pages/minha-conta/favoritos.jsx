@@ -4,17 +4,56 @@ import Api from 'services';
 // components
 import Building from 'components/Building';
 
+// images
+import IShare from 'assets/icons/share';
+import IMail from 'assets/icons/mail';
+import IWhats from 'assets/icons/whatsapp-orange';
+
 // styles
-import { Container } from 'pages/MyAccount/Favorites/styles';
+import {
+  Container,
+  Body,
+  Empty,
+  Amount,
+  ShareIcon,
+  GroupIcon,
+  MailIcon,
+  WhatsIcon
+} from 'pages/MyAccount/Favorites/styles';
 
 function Favorites({ buildings }) {
-  return (
+  return !buildings || buildings.length <= 0 ? (
     <Container>
-      {buildings &&
-        buildings.length > 0 &&
-        buildings.map(building => (
-          <Building item={building} key={building.reference} />
-        ))}
+      <Body>
+        <Empty>
+          <h4>Você ainda não tem nenhum imóvel favorito</h4>
+          <p>
+            Para favoritar um imóvel, faça uma busca e clique nos ícones de
+            coração em cada imóvel.
+          </p>
+        </Empty>
+      </Body>
+    </Container>
+  ) : (
+    <Container>
+      <Body>
+        <Amount>
+          <h4>
+            Existem <strong>{buildings.length} imóveis</strong> favoritos por
+            você
+          </h4>
+          <ShareIcon src={IShare} />
+          <GroupIcon>
+            <MailIcon src={IMail} />
+            <WhatsIcon src={IWhats} />
+          </GroupIcon>
+        </Amount>
+        {buildings &&
+          buildings.length > 0 &&
+          buildings.map(building => (
+            <Building item={building} key={building.reference} />
+          ))}
+      </Body>
     </Container>
   );
 }
