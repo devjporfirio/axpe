@@ -72,6 +72,8 @@ export const Amount = styled.div`
 export const ShareIcon = styled(SVG)`
   width: 19.2px;
   height: 24px;
+  position: absolute;
+  right: 29px;
 
   ${media.greaterThan('medium')`
     display: none;
