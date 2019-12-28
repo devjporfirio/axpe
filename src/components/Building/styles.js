@@ -154,7 +154,7 @@ export const ReleaseDelivery = styled.p`
   height: 35px;
   position: absolute;
   width: 40%;
-  margin-top: 330px;
+  margin-top: ${props => (props.useBtSchedule ? '350px' : '330px')};
   margin-left: -60%;
   color: ${({ theme }) => theme.colors.greenDark};
   text-align: center;
@@ -242,10 +242,15 @@ export const RemoveButton = styled(Button)`
 `;
 
 export const ScheduleButton = styled(Button)`
-  margin-top: 25px;
+  width: 100%;
+  margin-top: 7px;
   line-height: 35px;
   height: 35px;
   padding: 0 10px;
+
+  ${media.greaterThan('medium')`
+    width: auto;
+  `}
 `;
 
 export const UndoButton = styled(Button)`

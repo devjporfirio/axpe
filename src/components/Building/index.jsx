@@ -87,14 +87,14 @@ export default function Building({
             )}
             <Link href="/building/[reference]" as={`/building/${slug}`}>
               <CatLocGroup>
+                <Category>
+                  {type === 'lancamento'
+                    ? infos.releaseStatus === 'Pronto'
+                      ? 'Pronto para morar'
+                      : infos.releaseStatus
+                    : category}
+                </Category>
                 <div>
-                  <Category>
-                    {type === 'lancamento'
-                      ? infos.releaseStatus === 'Pronto'
-                        ? 'Pronto para morar'
-                        : infos.releaseStatus
-                      : category}
-                  </Category>
                   <div>
                     <Local>{address.local}</Local>
                     {type === 'lancamento' && (
@@ -174,7 +174,7 @@ export default function Building({
             </Link>
           </Infos>
           {type === 'lancamento' && infos.releaseDelivery && (
-            <ReleaseDelivery>
+            <ReleaseDelivery useBtSchedule={useBtSchedule}>
               {infos.releaseStatus === 'Pronto'
                 ? 'Entregue em '
                 : 'Previsão de entrega em '}
