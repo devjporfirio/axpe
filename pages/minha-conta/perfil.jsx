@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SVG from 'react-inlinesvg';
+// import SVG from 'react-inlinesvg';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from 'services';
@@ -9,8 +9,8 @@ import FormElements from 'components/FormElements';
 import UpdatePass from 'pages/MyAccount/Profile/UpdatePass';
 
 // icons
-import Facebook from 'assets/icons/facebook-rounded';
-import Google from 'assets/icons/google-rounded';
+// import Facebook from 'assets/icons/facebook-rounded';
+// import Google from 'assets/icons/google-rounded';
 
 // styles
 import { FormGroup } from 'components/FormElements/styles';
@@ -21,7 +21,7 @@ import {
   ButtonPass,
   ButtonSave,
   FormElementsCheck,
-  FormSocial,
+  // FormSocial,
   FormGroupElements,
   FormGroupAlerts
 } from 'pages/MyAccount/Profile/styles';
@@ -156,11 +156,11 @@ function Profile({ me }) {
                 value={values.notification_favorite}
                 onBlur={handleBlur}
               />
-              <FormSocial>
+              {/* <FormSocial>
                 <p>Cadastre suas redes sociais:</p>
                 <SVG src={Facebook} uniquifyIDs={true} />
                 <SVG src={Google} uniquifyIDs={true} />
-              </FormSocial>
+              </FormSocial> */}
             </FormGroupAlerts>
           </FormGroup>
 

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
+import Api from 'services';
+
+// helpers
 import { formatCurrency } from 'helpers/utils';
 
+// images
 import IHeartBlack from 'assets/icons/heart-black.svg';
-import Link from 'next/link';
 
 import {
   Container,
@@ -19,116 +23,174 @@ import {
   Price,
   Slider,
   Description,
-  ReleaseDelivery
+  ReleaseDelivery,
+  RemoveButton,
+  ScheduleButton,
+  UndoButton,
+  MessageSuccess
 } from './styles';
 
-export default function Building({ item }) {
+export default function Building({
+  item,
+  className,
+  useBtRemove,
+  useBtSchedule
+}) {
   const { values, gallery, address, slug, infos, category, type } = item;
-  // const [ showVideo, setShowVideo ] = useState(false);
+  const [ hasDeleted, sethasDeleted ] = useState(false);
+
+  const handleBtRemove = async (slug, status) => {
+    const response = await Api.MyAccount.postFavorito(slug, status);
+    if (response.status === 'success') {
+      sethasDeleted(!status);
+    }
+  };
 
   return (
-    <Container>
-      <Slider propsArrow={{ type: 'building', backgroundColor: 'white' }}>
-        {gallery &&
-          gallery.length > 0 &&
-          gallery.map((item, index) => {
-            return (
-              item.tipo === 'imagem' && (
-                <div key={index}>
-                  <Link href="/building/[reference]" as={`/building/${slug}`}>
-                    <img src={item.src} alt="Imóvel" />
-                  </Link>
+    <Container
+      className={className}
+      useBtSchedule={useBtSchedule}
+      hasDeleted={hasDeleted}
+    >
+      {!hasDeleted ? (
+        <>
+          <Slider
+            useBtSchedule={useBtSchedule}
+            propsArrow={{ type: 'building', backgroundColor: 'white' }}
+          >
+            {gallery &&
+              gallery.length > 0 &&
+              gallery.map((item, index) => {
+                return (
+                  item.tipo === 'imagem' && (
+                    <div key={index}>
+                      <Link
+                        href="/building/[reference]"
+                        as={`/building/${slug}`}
+                      >
+                        <img src={item.src} alt="Imóvel" />
+                      </Link>
+                    </div>
+                  )
+                );
+              })}
+          </Slider>
+          <Infos>
+            {useBtRemove && (
+              <RemoveButton
+                color="greenDark"
+                type="button"
+                onClick={() => handleBtRemove(slug, false)}
+              >
+                Remover
+              </RemoveButton>
+            )}
+            <Link href="/building/[reference]" as={`/building/${slug}`}>
+              <CatLocGroup>
+                <div>
+                  <Category>
+                    {type === 'lancamento'
+                      ? infos.releaseStatus === 'Pronto'
+                        ? 'Pronto para morar'
+                        : infos.releaseStatus
+                      : category}
+                  </Category>
+                  <Local>{address.local}</Local>
+                  {type === 'lancamento' && (
+                    <CategoryRelease>{category}</CategoryRelease>
+                  )}
                 </div>
-              )
-            );
-          })}
-      </Slider>
-      <Infos>
-        <Link href="/building/[reference]" as={`/building/${slug}`}>
-          <CatLocGroup>
-            <div>
-              <Category>
-                {type === 'lancamento'
-                  ? infos.releaseStatus === 'Pronto'
-                    ? 'Pronto para morar'
-                    : infos.releaseStatus
-                  : category}
-              </Category>
-              <Local>{address.local}</Local>
-              {type === 'lancamento' && (
-                <CategoryRelease>{category}</CategoryRelease>
-              )}
-            </div>
-            <Reference>Ref {item.reference}</Reference>
-          </CatLocGroup>
-        </Link>
+                <Reference>Ref {item.reference}</Reference>
+              </CatLocGroup>
+            </Link>
 
-        <ValuesFavGroup>
-          <Link href="/building/[reference]" as={`/building/${slug}`}>
-            <div>
-              {!!values.sell || !!values.release ? (
-                <Price>
-                  Venda:{' '}
-                  {!!values.sell &&
-                    formatCurrency.format(parseInt(values.sell))}
-                  {!!values.release &&
-                    formatCurrency.format(parseInt(values.release))}
-                </Price>
-              ) : (
-                ''
-              )}
-              {!!values.rent ? (
-                <Price>
-                  Locação: {formatCurrency.format(parseInt(values.rent))}
-                </Price>
-              ) : (
-                ''
-              )}
-            </div>
-          </Link>
-          <Favorito
-            src={IHeartBlack}
-            alt="Favorito"
-            onClick={() => alert('Favoritado')}
-          />
-        </ValuesFavGroup>
-        <Link href="/building/[reference]" as={`/building/${slug}`}>
-          <div>
-            <CaracteristicsGroup>
-              <Caracteristics.Bedrooms
-                bedrooms={infos.bedrooms}
-                suites={infos.suites}
+            <ValuesFavGroup>
+              <Link href="/building/[reference]" as={`/building/${slug}`}>
+                <div>
+                  {!!values.sell || !!values.release ? (
+                    <Price>
+                      Venda:{' '}
+                      {!!values.sell &&
+                        formatCurrency.format(parseInt(values.sell))}
+                      {!!values.release &&
+                        formatCurrency.format(parseInt(values.release))}
+                    </Price>
+                  ) : (
+                    ''
+                  )}
+                  {!!values.rent ? (
+                    <Price>
+                      Locação: {formatCurrency.format(parseInt(values.rent))}
+                    </Price>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </Link>
+              <Favorito
+                src={IHeartBlack}
+                alt="Favorito"
+                onClick={() => alert('Favoritado')}
               />
-              <Caracteristics.BedroomsBetween
-                start={infos.bedroomsStart}
-                end={infos.bedroomsEnd}
-              />
-              <Caracteristics.Parking parking={infos.parking} />
-              <Caracteristics.ParkingBetween
-                start={infos.parkingStart}
-                end={infos.parkingEnd}
-              />
-              <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
-              <Caracteristics.AreaGround areaGround={infos.areaGround} />
-              <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
-              <Caracteristics.AreaUseFulBetween
-                start={infos.areaUsefulStart}
-                end={infos.areaUsefulEnd}
-              />
-              <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
-            </CaracteristicsGroup>
+            </ValuesFavGroup>
+            <Link href="/building/[reference]" as={`/building/${slug}`}>
+              <div>
+                <CaracteristicsGroup>
+                  <Caracteristics.Bedrooms
+                    bedrooms={infos.bedrooms}
+                    suites={infos.suites}
+                  />
+                  <Caracteristics.BedroomsBetween
+                    start={infos.bedroomsStart}
+                    end={infos.bedroomsEnd}
+                  />
+                  <Caracteristics.Parking parking={infos.parking} />
+                  <Caracteristics.ParkingBetween
+                    start={infos.parkingStart}
+                    end={infos.parkingEnd}
+                  />
+                  <Caracteristics.AreaBuilding
+                    areaBuilding={infos.areaBuilding}
+                  />
+                  <Caracteristics.AreaGround areaGround={infos.areaGround} />
+                  <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
+                  <Caracteristics.AreaUseFulBetween
+                    start={infos.areaUsefulStart}
+                    end={infos.areaUsefulEnd}
+                  />
+                  <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+                </CaracteristicsGroup>
 
-            <Description>{infos.internalDescription}</Description>
-          </div>
-        </Link>
-      </Infos>
-      {type === 'lancamento' && infos.releaseDelivery && (
-        <ReleaseDelivery>
-          {infos.releaseStatus === 'Pronto'
-            ? 'Entregue em '
-            : 'Previsão de entrega em '}
-          <span>{infos.releaseDelivery}</span>
-        </ReleaseDelivery>
+                <Description>{infos.internalDescription}</Description>
+
+                {useBtSchedule && (
+                  <ScheduleButton type="button">
+                    Agende uma visita
+                  </ScheduleButton>
+                )}
+              </div>
+            </Link>
+          </Infos>
+          {type === 'lancamento' && infos.releaseDelivery && (
+            <ReleaseDelivery>
+              {infos.releaseStatus === 'Pronto'
+                ? 'Entregue em '
+                : 'Previsão de entrega em '}
+              <span>{infos.releaseDelivery}</span>
+            </ReleaseDelivery>
+          )}
+        </>
+      ) : (
+        <>
+          <MessageSuccess>Imóvel favorito removido com sucesso</MessageSuccess>
+          <UndoButton
+            color="greenDark"
+            type="button"
+            onClick={() => handleBtRemove(slug, true)}
+          >
+            Desfazer
+          </UndoButton>
+        </>
       )}
     </Container>
   );

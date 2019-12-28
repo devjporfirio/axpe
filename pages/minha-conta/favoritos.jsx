@@ -1,9 +1,6 @@
 import React from 'react';
 import Api from 'services';
 
-// components
-import Building from 'components/Building';
-
 // images
 import IShare from 'assets/icons/share';
 import IMail from 'assets/icons/mail';
@@ -18,7 +15,8 @@ import {
   ShareIcon,
   GroupIcon,
   MailIcon,
-  WhatsIcon
+  WhatsIcon,
+  BuildingItem
 } from 'pages/MyAccount/Favorites/styles';
 
 function Favorites({ buildings }) {
@@ -51,7 +49,12 @@ function Favorites({ buildings }) {
         {buildings &&
           buildings.length > 0 &&
           buildings.map(building => (
-            <Building item={building} key={building.reference} />
+            <BuildingItem
+              useBtRemove
+              useBtSchedule
+              item={building}
+              key={building.reference}
+            />
           ))}
       </Body>
     </Container>

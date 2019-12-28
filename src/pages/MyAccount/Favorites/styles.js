@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import SVG from 'react-inlinesvg';
+
+// components
 import MyAccount from '..';
+import Building from 'components/Building';
 
 export const Container = styled(MyAccount)``;
 
@@ -105,4 +108,8 @@ export const MailIcon = styled(SVG)`
     width: 26px;
     height: 16.71px;
   `}
+`;
+
+export const BuildingItem = styled(Building)`
+  border: 2px solid ${({ theme }) => theme.colors.grey};
 `;

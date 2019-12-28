@@ -31,6 +31,28 @@ export default {
     ).then(response => response.json());
     return response;
   },
+  async postFavorito(reference, status) {
+    const resToken = await User.postLogin();
+
+    const result = await fetch(
+      `${process.env.config.apiUrl}/user/favorite/building/${
+        status ? 'yes' : 'no'
+      }`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          building: reference
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resToken.access_token}`
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(data => data);
+    return result;
+  },
   async getMe() {
     const resToken = await User.postLogin();
 
