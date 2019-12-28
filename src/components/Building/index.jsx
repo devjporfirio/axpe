@@ -95,12 +95,14 @@ export default function Building({
                         : infos.releaseStatus
                       : category}
                   </Category>
-                  <Local>{address.local}</Local>
-                  {type === 'lancamento' && (
-                    <CategoryRelease>{category}</CategoryRelease>
-                  )}
+                  <div>
+                    <Local>{address.local}</Local>
+                    {type === 'lancamento' && (
+                      <CategoryRelease>{category}</CategoryRelease>
+                    )}
+                  </div>
+                  <Reference>Ref {item.reference}</Reference>
                 </div>
-                <Reference>Ref {item.reference}</Reference>
               </CatLocGroup>
             </Link>
 
@@ -109,7 +111,7 @@ export default function Building({
                 <div>
                   {!!values.sell || !!values.release ? (
                     <Price>
-                      Venda:{' '}
+                      A partir de:{' '}
                       {!!values.sell &&
                         formatCurrency.format(parseInt(values.sell))}
                       {!!values.release &&
