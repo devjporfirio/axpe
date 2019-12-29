@@ -125,6 +125,7 @@ function Home({ hero, components }) {
                     key={c.type}
                     className={c.type}
                     title="Imóveis que você viu"
+                    isHome={true}
                   >
                     <GroupSlider>
                       {renderComponents('buildingsSeen', {
@@ -143,6 +144,7 @@ function Home({ hero, components }) {
                     className={c.type}
                     title="Indicados para você"
                     subTitle="Selecionamos alguns imóveis que acabaram de chegar"
+                    isHome={true}
                   >
                     <GroupSlider>
                       {renderComponents('buildingsForYou', {

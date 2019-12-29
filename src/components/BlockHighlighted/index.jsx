@@ -65,7 +65,7 @@ const NotFound = () => (
         Que tal um imóvel na planta? Conheça nossas opções de imóveis em
         lançamento
       </p>
-      <Link fullWidth={true} type="button" onClick={() => {}}>
+      <Link href="/contato" fullWidth={true}>
         Entre em contato
       </Link>
     </div>

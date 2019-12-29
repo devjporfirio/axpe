@@ -1,15 +1,27 @@
 import React from 'react';
 
-import { Container, Title, SubTitle } from './styles';
+// components
+import SlickSection from 'components/SlickSection';
 
-export default function PanelBuildings({ className, children, title, subTitle }) {
+// styles
+import { Container, Header, Title, SubTitle } from './styles';
+
+export default function PanelBuildings({ className, children, items = [], title, subTitle, isHome }) {
   return (
-    <Container className={className} hasSubtitle={!!subTitle}>
-      <header>
-        <Title>{title}</Title>
+    <Container className={className} hasSubtitle={!!subTitle} isHome={isHome}>
+
+      <Header>
+        <Title dangerouslySetInnerHTML={{ __html: title }} />
         {subTitle && <SubTitle>{subTitle}</SubTitle>}
-      </header>
-      {children}
+      </Header>
+
+      {items.length ? (
+        <SlickSection
+          type="slickSmall"
+          items={items}
+        />
+      ) : children}
+
     </Container>
   );
 }
