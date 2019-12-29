@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 import Api from 'services';
 
 // components
@@ -11,6 +12,7 @@ import Modules from 'pages/Building/modules';
 
 // helpers
 import User from 'helpers/user';
+import SeoData from 'helpers/seo';
 
 // styles
 import { Container, Images, Alert, PanelSimilar } from 'pages/Building/styles';
@@ -36,57 +38,63 @@ function Building({ property }) {
   }, []);
 
   return property && Object.keys(property).length ? (
-    <Container>
-      <Headerbar
-        type="building"
-        title={property.category}
-        subtitle={property.address.local}
-        building={{
-          reference: property.reference,
-          source: property.source,
-          likes: 135
-        }}
-      />
-
-      {property.gallery && (
-        <Images
-          category={property.category}
-          local={property.address.local}
-          items={property.gallery}
-          tour360={property.tour360}
+    <>
+      <Head>
+        <title>{SeoData.title}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        <Headerbar
+          type="building"
+          title={property.category}
+          subtitle={property.address.local}
+          building={{
+            reference: property.reference,
+            source: property.source,
+            likes: 135
+          }}
         />
-      )}
 
-      <DataSheet property={property} />
+        {property.gallery && (
+          <Images
+            category={property.category}
+            local={property.address.local}
+            items={property.gallery}
+            tour360={property.tour360}
+          />
+        )}
 
-      <Alert>
-        <p>
-          Todas as informações aqui contidas, incluindo preço, metragem quadrada
-          e valores são aproximadas e não garantidas, devendo ser confirmadas
-          pessoalmente pelos interessados.
-        </p>
+        <DataSheet property={property} />
 
-        <p>
-          No caso de imóveis em lançamento, as imagens são meramente
-          ilustrativas e os valores estão sujeitos a alteração de tabela.
-        </p>
-      </Alert>
+        <Alert>
+          <p>
+            Todas as informações aqui contidas, incluindo preço, metragem quadrada
+            e valores são aproximadas e não garantidas, devendo ser confirmadas
+            pessoalmente pelos interessados.
+          </p>
 
-      {Object.keys(property.components).length > 0 && (
-        <Modules property={property} />
-      )}
+          <p>
+            No caso de imóveis em lançamento, as imagens são meramente
+            ilustrativas e os valores estão sujeitos a alteração de tabela.
+          </p>
+        </Alert>
 
-      {similarBuildings && similarBuildings.length > 0 && (
-        <PanelSimilar title="Pessoas que viram este imóvel também viram:">
-          {similarBuildings.map(building => (
-            <SimilarBuilding item={building} key={building.reference} />
-          ))}
-        </PanelSimilar>
-      )}
+        {Object.keys(property.components).length > 0 && (
+          <Modules property={property} />
+        )}
 
-      <BlockHighlighted type="notfound" />
-      <Contact />
-    </Container>
+        {similarBuildings && similarBuildings.length > 0 && (
+          <PanelSimilar title="Pessoas que viram este imóvel também viram:">
+            {similarBuildings.map(building => (
+              <SimilarBuilding item={building} key={building.reference} />
+            ))}
+          </PanelSimilar>
+        )}
+
+        <BlockHighlighted type="notfound" />
+        <Contact />
+      </Container>
+    </>
   ) : null;
 }
 
