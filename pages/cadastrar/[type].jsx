@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
@@ -9,6 +10,9 @@ import * as Yup from 'yup';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
+
+// helpers
+import SeoData from 'helpers/seo';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -143,429 +147,435 @@ function RegisterForm({ locals, categories, pais, type }) {
       : [{ label: 'Selecione', value: '' }];
 
   return (
-    <Container>
-      <BlockHighlighted type="registerProperty" />
-      <Body>
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>
-            <FormGroupFlex>
-              <FormElements
-                name="type"
-                type="checkbox"
-                label="Residencial"
-                size="big"
-                checked={values.type === 'Residencial'}
-                onChange={() => setFieldValue('type', 'Residencial')}
-                error={touched.type && errors.type}
-              />
-              <FormElements
-                name="type"
-                type="checkbox"
-                label="Comercial"
-                size="big"
-                checked={values.type === 'Comercial'}
-                onChange={() => setFieldValue('type', 'Comercial')}
-                error={touched.type && errors.type}
-              />
-              <FormElements
-                name="type"
-                type="checkbox"
-                label="Praia"
-                size="big"
-                checked={values.type === 'Praia'}
-                onChange={() => setFieldValue('type', 'Praia')}
-                error={touched.type && errors.type}
-              />
-              <FormElements
-                name="type"
-                type="checkbox"
-                label="Campo"
-                size="big"
-                checked={values.type === 'Campo'}
-                onChange={() => setFieldValue('type', 'Campo')}
-                error={touched.type && errors.type}
-              />
-              <FormElements
-                name="type"
-                type="checkbox"
-                label="Internacional"
-                size="big"
-                checked={values.type === 'Internacional'}
-                onChange={() => setFieldValue('type', 'Internacional')}
-                error={touched.type && errors.type}
-              />
-            </FormGroupFlex>
-          </FormGroup>
-
-          <FormRow>
+    <>
+      <Head>
+        <title>{`Cadastre seu imóvel - ${type} - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        <BlockHighlighted type="registerProperty" />
+        <Body>
+          <Form onSubmit={handleSubmit}>
             <FormGroup>
-              <h2>O que você deseja?</h2>
-              <FormGroupTwo>
-                <FormElements
-                  name="finalityVender"
-                  type="checkbox"
-                  label="Vender"
-                  onChange={() =>
-                    setFieldValue('finalityVender', !values.finalityVender)
-                  }
-                  error={touched.finalityVender && errors.finalityVender}
-                  value={values.finalityVender}
-                  checked={values.finalityVender}
-                  onBlur={handleBlur}
-                />
-                <FormElements
-                  name="finalityAluguel"
-                  type="checkbox"
-                  label="Alugar"
-                  onChange={() =>
-                    setFieldValue('finalityAluguel', !values.finalityAluguel)
-                  }
-                  error={touched.finalityAluguel && errors.finalityAluguel}
-                  value={values.finalityAluguel}
-                  checked={values.finalityAluguel}
-                  onBlur={handleBlur}
-                />
-              </FormGroupTwo>
-            </FormGroup>
-
-            <FormGroupRow>
-              <FormGroup>
-                <h2>Qual o tipo do imóvel?</h2>
-                <FormElements
-                  name="category"
-                  type="select"
-                  items={newCategories}
-                  onChange={handleChange}
-                  error={touched.category && errors.category}
-                  onBlur={handleBlur}
-                />
-              </FormGroup>
-              {values.type === 'Internacional' && (
-                <FormGroup>
-                  <h2>Qual o país?</h2>
-                  <FormElements
-                    name="pais"
-                    type="select"
-                    items={pais}
-                    onChange={handleChange}
-                    error={touched.pais && errors.pais}
-                    onBlur={handleBlur}
-                  />
-                </FormGroup>
-              )}
-            </FormGroupRow>
-          </FormRow>
-
-          <FormGroup>
-            <h2>Qual o endereço?</h2>
-            <FormGroupAddress>
-              <FormElements
-                type="cep"
-                name="zipcode"
-                label="CEP"
-                placeholder="CEP"
-                onChange={handleChange}
-                error={touched.zipcode && errors.zipcode}
-                value={values.zipcode}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                name="address"
-                label="Rua"
-                placeholder="Rua"
-                onChange={handleChange}
-                error={touched.address && errors.address}
-                value={values.address}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                name="number"
-                label="Numero"
-                placeholder="Numero"
-                onChange={handleChange}
-                error={touched.number && errors.number}
-                value={values.number}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                name="complement"
-                label="Complemento"
-                placeholder="Complemento"
-                onChange={handleChange}
-                error={touched.complement && errors.complement}
-                value={values.complement}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                name="neighborhood"
-                placeholder="Bairro"
-                label="Bairro"
-                type="select"
-                items={locals}
-                message="* Por enquanto atuamos apenas nestes bairros"
-                onChange={handleChange}
-                error={touched.neighborhood && errors.neighborhood}
-                value={values.neighborhood}
-                onBlur={handleBlur}
-              />
-            </FormGroupAddress>
-          </FormGroup>
-
-          <FormGroup>
-            <h2>Características do imóvel</h2>
-            <FormGroupFlex>
-              <FormElements
-                name="areaUseful"
-                label="Área útil (m²)"
-                placeholder="Área útil (m²)"
-                onChange={handleChange}
-                error={touched.areaUseful && errors.areaUseful}
-                value={values.areaUseful}
-                onBlur={handleBlur}
-              />
-              {values.type === 'Residencial' && (
-                <>
-                  <FormElements
-                    name="numDorms"
-                    label="Dormitórios"
-                    placeholder="Dormitórios"
-                    onChange={handleChange}
-                    error={touched.numDorms && errors.numDorms}
-                    value={values.numDorms}
-                    onBlur={handleBlur}
-                  />
-                  <FormElements
-                    name="numSuites"
-                    label="Sendo suítes"
-                    placeholder="Sendo suítes"
-                    onChange={handleChange}
-                    error={touched.numSuites && errors.numSuites}
-                    value={values.numSuites}
-                    onBlur={handleBlur}
-                  />
-                </>
-              )}
-              <FormElements
-                name="numParking"
-                label="Vagas de garagem"
-                placeholder="Vagas de garagem"
-                onChange={handleChange}
-                error={touched.numParking && errors.numParking}
-                value={values.numParking}
-                onBlur={handleBlur}
-              />
-            </FormGroupFlex>
-          </FormGroup>
-
-          <FormRow>
-            <FormGroup>
-              <h2>O imóvel está vago?</h2>
+              <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>
               <FormGroupFlex>
                 <FormElements
-                  name="isVacant"
+                  name="type"
                   type="checkbox"
-                  label="Não"
+                  label="Residencial"
                   size="big"
-                  checked={values.isVacant === false}
-                  onChange={() => setFieldValue('isVacant', false)}
-                  error={touched.isVacant && errors.isVacant}
+                  checked={values.type === 'Residencial'}
+                  onChange={() => setFieldValue('type', 'Residencial')}
+                  error={touched.type && errors.type}
                 />
                 <FormElements
-                  name="isVacant"
+                  name="type"
                   type="checkbox"
-                  label="Sim"
+                  label="Comercial"
                   size="big"
-                  checked={values.isVacant}
-                  onChange={() => setFieldValue('isVacant', true)}
-                  error={touched.isVacant && errors.isVacant}
+                  checked={values.type === 'Comercial'}
+                  onChange={() => setFieldValue('type', 'Comercial')}
+                  error={touched.type && errors.type}
+                />
+                <FormElements
+                  name="type"
+                  type="checkbox"
+                  label="Praia"
+                  size="big"
+                  checked={values.type === 'Praia'}
+                  onChange={() => setFieldValue('type', 'Praia')}
+                  error={touched.type && errors.type}
+                />
+                <FormElements
+                  name="type"
+                  type="checkbox"
+                  label="Campo"
+                  size="big"
+                  checked={values.type === 'Campo'}
+                  onChange={() => setFieldValue('type', 'Campo')}
+                  error={touched.type && errors.type}
+                />
+                <FormElements
+                  name="type"
+                  type="checkbox"
+                  label="Internacional"
+                  size="big"
+                  checked={values.type === 'Internacional'}
+                  onChange={() => setFieldValue('type', 'Internacional')}
+                  error={touched.type && errors.type}
                 />
               </FormGroupFlex>
             </FormGroup>
 
+            <FormRow>
+              <FormGroup>
+                <h2>O que você deseja?</h2>
+                <FormGroupTwo>
+                  <FormElements
+                    name="finalityVender"
+                    type="checkbox"
+                    label="Vender"
+                    onChange={() =>
+                      setFieldValue('finalityVender', !values.finalityVender)
+                    }
+                    error={touched.finalityVender && errors.finalityVender}
+                    value={values.finalityVender}
+                    checked={values.finalityVender}
+                    onBlur={handleBlur}
+                  />
+                  <FormElements
+                    name="finalityAluguel"
+                    type="checkbox"
+                    label="Alugar"
+                    onChange={() =>
+                      setFieldValue('finalityAluguel', !values.finalityAluguel)
+                    }
+                    error={touched.finalityAluguel && errors.finalityAluguel}
+                    value={values.finalityAluguel}
+                    checked={values.finalityAluguel}
+                    onBlur={handleBlur}
+                  />
+                </FormGroupTwo>
+              </FormGroup>
+
+              <FormGroupRow>
+                <FormGroup>
+                  <h2>Qual o tipo do imóvel?</h2>
+                  <FormElements
+                    name="category"
+                    type="select"
+                    items={newCategories}
+                    onChange={handleChange}
+                    error={touched.category && errors.category}
+                    onBlur={handleBlur}
+                  />
+                </FormGroup>
+                {values.type === 'Internacional' && (
+                  <FormGroup>
+                    <h2>Qual o país?</h2>
+                    <FormElements
+                      name="pais"
+                      type="select"
+                      items={pais}
+                      onChange={handleChange}
+                      error={touched.pais && errors.pais}
+                      onBlur={handleBlur}
+                    />
+                  </FormGroup>
+                )}
+              </FormGroupRow>
+            </FormRow>
+
             <FormGroup>
-              <h2>Com quem ficam as chaves?</h2>
-              <FormElements
-                name="managerKey"
-                label="Nome"
-                placeholder="Nome"
-                onChange={handleChange}
-                error={touched.managerKey && errors.managerKey}
-                value={values.managerKey}
-                onBlur={handleBlur}
-              />
+              <h2>Qual o endereço?</h2>
+              <FormGroupAddress>
+                <FormElements
+                  type="cep"
+                  name="zipcode"
+                  label="CEP"
+                  placeholder="CEP"
+                  onChange={handleChange}
+                  error={touched.zipcode && errors.zipcode}
+                  value={values.zipcode}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  name="address"
+                  label="Rua"
+                  placeholder="Rua"
+                  onChange={handleChange}
+                  error={touched.address && errors.address}
+                  value={values.address}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  name="number"
+                  label="Numero"
+                  placeholder="Numero"
+                  onChange={handleChange}
+                  error={touched.number && errors.number}
+                  value={values.number}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  name="complement"
+                  label="Complemento"
+                  placeholder="Complemento"
+                  onChange={handleChange}
+                  error={touched.complement && errors.complement}
+                  value={values.complement}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  name="neighborhood"
+                  placeholder="Bairro"
+                  label="Bairro"
+                  type="select"
+                  items={locals}
+                  message="* Por enquanto atuamos apenas nestes bairros"
+                  onChange={handleChange}
+                  error={touched.neighborhood && errors.neighborhood}
+                  value={values.neighborhood}
+                  onBlur={handleBlur}
+                />
+              </FormGroupAddress>
             </FormGroup>
-          </FormRow>
 
-          <FormGroup>
-            <h2>Valores do imóvel</h2>
-            <FormGroupValues>
-              <FormElements
-                name="valueRequested"
-                label="Qual o valor de venda que gostaria?"
-                placeholder="R$"
-                onChange={handleChange}
-                message="(Incluindo 6% de comissão)"
-                error={touched.valueRequested && errors.valueRequested}
-                value={values.valueRequested}
-                onBlur={handleBlur}
-              />
+            <FormGroup>
+              <h2>Características do imóvel</h2>
+              <FormGroupFlex>
+                <FormElements
+                  name="areaUseful"
+                  label="Área útil (m²)"
+                  placeholder="Área útil (m²)"
+                  onChange={handleChange}
+                  error={touched.areaUseful && errors.areaUseful}
+                  value={values.areaUseful}
+                  onBlur={handleBlur}
+                />
+                {values.type === 'Residencial' && (
+                  <>
+                    <FormElements
+                      name="numDorms"
+                      label="Dormitórios"
+                      placeholder="Dormitórios"
+                      onChange={handleChange}
+                      error={touched.numDorms && errors.numDorms}
+                      value={values.numDorms}
+                      onBlur={handleBlur}
+                    />
+                    <FormElements
+                      name="numSuites"
+                      label="Sendo suítes"
+                      placeholder="Sendo suítes"
+                      onChange={handleChange}
+                      error={touched.numSuites && errors.numSuites}
+                      value={values.numSuites}
+                      onBlur={handleBlur}
+                    />
+                  </>
+                )}
+                <FormElements
+                  name="numParking"
+                  label="Vagas de garagem"
+                  placeholder="Vagas de garagem"
+                  onChange={handleChange}
+                  error={touched.numParking && errors.numParking}
+                  value={values.numParking}
+                  onBlur={handleBlur}
+                />
+              </FormGroupFlex>
+            </FormGroup>
 
-              {(values.type !== 'Internacional' || values.finalityAluguel) && (
+            <FormRow>
+              <FormGroup>
+                <h2>O imóvel está vago?</h2>
+                <FormGroupFlex>
+                  <FormElements
+                    name="isVacant"
+                    type="checkbox"
+                    label="Não"
+                    size="big"
+                    checked={values.isVacant === false}
+                    onChange={() => setFieldValue('isVacant', false)}
+                    error={touched.isVacant && errors.isVacant}
+                  />
+                  <FormElements
+                    name="isVacant"
+                    type="checkbox"
+                    label="Sim"
+                    size="big"
+                    checked={values.isVacant}
+                    onChange={() => setFieldValue('isVacant', true)}
+                    error={touched.isVacant && errors.isVacant}
+                  />
+                </FormGroupFlex>
+              </FormGroup>
+
+              <FormGroup>
+                <h2>Com quem ficam as chaves?</h2>
+                <FormElements
+                  name="managerKey"
+                  label="Nome"
+                  placeholder="Nome"
+                  onChange={handleChange}
+                  error={touched.managerKey && errors.managerKey}
+                  value={values.managerKey}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+            </FormRow>
+
+            <FormGroup>
+              <h2>Valores do imóvel</h2>
+              <FormGroupValues>
                 <FormElements
                   name="valueRequested"
-                  label="Qual o valor de aluguel que gostaria?"
+                  label="Qual o valor de venda que gostaria?"
                   placeholder="R$"
-                  message={
-                    values.type !== 'Residencial'
-                      ? 'Incluindo comissão (primeiro aluguel)'
-                      : ''
-                  }
                   onChange={handleChange}
+                  message="(Incluindo 6% de comissão)"
                   error={touched.valueRequested && errors.valueRequested}
                   value={values.valueRequested}
                   onBlur={handleBlur}
                 />
-              )}
 
-              {values.type !== 'Internacional' && (
-                <>
+                {(values.type !== 'Internacional' || values.finalityAluguel) && (
                   <FormElements
-                    name="valueTax"
-                    label="Valor mensal de IPTU"
+                    name="valueRequested"
+                    label="Qual o valor de aluguel que gostaria?"
                     placeholder="R$"
+                    message={
+                      values.type !== 'Residencial'
+                        ? 'Incluindo comissão (primeiro aluguel)'
+                        : ''
+                    }
                     onChange={handleChange}
-                    error={touched.valueTax && errors.valueTax}
-                    value={values.valueTax}
+                    error={touched.valueRequested && errors.valueRequested}
+                    value={values.valueRequested}
                     onBlur={handleBlur}
                   />
-                  {values.category !== 'Casa' && (
+                )}
+
+                {values.type !== 'Internacional' && (
+                  <>
                     <FormElements
-                      name="valueCondo"
-                      label="Qual o valor do condomínio"
+                      name="valueTax"
+                      label="Valor mensal de IPTU"
                       placeholder="R$"
                       onChange={handleChange}
-                      error={touched.valueCondo && errors.valueCondo}
-                      value={values.valueCondo}
+                      error={touched.valueTax && errors.valueTax}
+                      value={values.valueTax}
                       onBlur={handleBlur}
                     />
-                  )}
-                </>
-              )}
-            </FormGroupValues>
-          </FormGroup>
-
-          <FormRow>
-            <FormGroup>
-              <h2>O que o seu imóvel tem de melhor?</h2>
-              <FormElements
-                type="area"
-                name="positiveCharacteristics"
-                placeholder="Digite sua mensagem"
-                onChange={handleChange}
-                error={
-                  touched.positiveCharacteristics &&
-                  errors.positiveCharacteristics
-                }
-                value={values.positiveCharacteristics}
-                onBlur={handleBlur}
-              />
+                    {values.category !== 'Casa' && (
+                      <FormElements
+                        name="valueCondo"
+                        label="Qual o valor do condomínio"
+                        placeholder="R$"
+                        onChange={handleChange}
+                        error={touched.valueCondo && errors.valueCondo}
+                        value={values.valueCondo}
+                        onBlur={handleBlur}
+                      />
+                    )}
+                  </>
+                )}
+              </FormGroupValues>
             </FormGroup>
 
+            <FormRow>
+              <FormGroup>
+                <h2>O que o seu imóvel tem de melhor?</h2>
+                <FormElements
+                  type="area"
+                  name="positiveCharacteristics"
+                  placeholder="Digite sua mensagem"
+                  onChange={handleChange}
+                  error={
+                    touched.positiveCharacteristics &&
+                    errors.positiveCharacteristics
+                  }
+                  value={values.positiveCharacteristics}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <h2>Há algum ponto problemático no imóvel?</h2>
+                <FormElements
+                  type="area"
+                  name="negativeCharacteristics"
+                  placeholder="Digite sua mensagem"
+                  onChange={handleChange}
+                  error={
+                    touched.negativeCharacteristics &&
+                    errors.negativeCharacteristics
+                  }
+                  value={values.negativeCharacteristics}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+            </FormRow>
+
             <FormGroup>
-              <h2>Há algum ponto problemático no imóvel?</h2>
-              <FormElements
-                type="area"
-                name="negativeCharacteristics"
-                placeholder="Digite sua mensagem"
+              <h2>FOTOS</h2>
+              <FormGroupPhotos>
+                <Description>
+                  Por favor, envie algumas fotos que podem ser tiradas com o seu
+                  celular. Elas nos ajudarão a planejar a sessão de fotos que
+                  faremos no seu imóvel.
+                  {/* Para agilizar o cadastro do seu imóvel, por favor, envie algumas
+                  fotos */}
+                </Description>
+
+                <FormElements
+                  type="file"
+                  multiple
+                  onChange={e => {
+                    setFieldValue('images', [
+                      ...values.images,
+                      ...e.target.files
+                    ]);
+                  }}
+                ></FormElements>
+              </FormGroupPhotos>
+              <GroupImages>
+                {values.images.length > 0 &&
+                  values.images.map((imgSrc, index) => {
+                    return (
+                      <GroupImage key={index}>
+                        <SVG
+                          src={IClose}
+                          uniquifyIDs={true}
+                          onClick={() => handleRemoveImage(index)}
+                        />
+                        <Image
+                          alt={imgSrc.name}
+                          src={URL.createObjectURL(imgSrc)}
+                        />
+                      </GroupImage>
+                    );
+                  })}
+              </GroupImages>
+            </FormGroup>
+
+            <FormGroupFooter>
+              <CheckLinkTerms
+                type="checkboxLink"
+                name="terms"
+                label="Concordo com o termo de autorização de comercialização de imóveis"
                 onChange={handleChange}
-                error={
-                  touched.negativeCharacteristics &&
-                  errors.negativeCharacteristics
-                }
-                value={values.negativeCharacteristics}
+                error={touched.terms && errors.terms}
+                value={values.terms}
+                checked={values.terms}
                 onBlur={handleBlur}
               />
-            </FormGroup>
-          </FormRow>
 
-          <FormGroup>
-            <h2>FOTOS</h2>
-            <FormGroupPhotos>
-              <Description>
-                Por favor, envie algumas fotos que podem ser tiradas com o seu
-                celular. Elas nos ajudarão a planejar a sessão de fotos que
-                faremos no seu imóvel.
-                {/* Para agilizar o cadastro do seu imóvel, por favor, envie algumas
-                fotos */}
-              </Description>
+              <InfoLogin>
+                <SVG src={IUser} uniquifyIDs={true} />
+                <Info>
+                  <p>
+                    Você está logado como
+                    <strong> Rodrigo Alarcon</strong>
+                  </p>
+                  <p>Tel.: (11) 3082 5693</p>
+                  <p>E-mail: ralarcon@futuebrand.com</p>
+                  <p>
+                    Se não for você <a href="/">clique aqui</a>
+                  </p>
+                </Info>
+              </InfoLogin>
 
-              <FormElements
-                type="file"
-                multiple
-                onChange={e => {
-                  setFieldValue('images', [
-                    ...values.images,
-                    ...e.target.files
-                  ]);
-                }}
-              ></FormElements>
-            </FormGroupPhotos>
-            <GroupImages>
-              {values.images.length > 0 &&
-                values.images.map((imgSrc, index) => {
-                  return (
-                    <GroupImage key={index}>
-                      <SVG
-                        src={IClose}
-                        uniquifyIDs={true}
-                        onClick={() => handleRemoveImage(index)}
-                      />
-                      <Image
-                        alt={imgSrc.name}
-                        src={URL.createObjectURL(imgSrc)}
-                      />
-                    </GroupImage>
-                  );
-                })}
-            </GroupImages>
-          </FormGroup>
-
-          <FormGroupFooter>
-            <CheckLinkTerms
-              type="checkboxLink"
-              name="terms"
-              label="Concordo com o termo de autorização de comercialização de imóveis"
-              onChange={handleChange}
-              error={touched.terms && errors.terms}
-              value={values.terms}
-              checked={values.terms}
-              onBlur={handleBlur}
-            />
-
-            <InfoLogin>
-              <SVG src={IUser} uniquifyIDs={true} />
-              <Info>
-                <p>
-                  Você está logado como
-                  <strong> Rodrigo Alarcon</strong>
-                </p>
-                <p>Tel.: (11) 3082 5693</p>
-                <p>E-mail: ralarcon@futuebrand.com</p>
-                <p>
-                  Se não for você <a href="/">clique aqui</a>
-                </p>
-              </Info>
-            </InfoLogin>
-
-            <ButtonSubmit disabled={isSubmitting} type="submit">
-              Enviar
-            </ButtonSubmit>
-          </FormGroupFooter>
-        </Form>
-      </Body>
-      <Contact />
-    </Container>
+              <ButtonSubmit disabled={isSubmitting} type="submit">
+                Enviar
+              </ButtonSubmit>
+            </FormGroupFooter>
+          </Form>
+        </Body>
+        <Contact />
+      </Container>
+    </>
   );
 }
 

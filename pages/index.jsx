@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import Head from 'next/head';
 import Api from 'services';
 
 // components
@@ -9,6 +10,7 @@ import Contact from 'components/Contact';
 
 // helpers
 import { suffle } from 'helpers/utils';
+import SeoData from 'helpers/seo';
 import User from 'helpers/user';
 
 // styles
@@ -105,54 +107,62 @@ function Home({ hero, components }) {
   }
 
   return (
-    <Container>
-      <SlickSection useGradient={true} color="white" items={hero} />
-      {components &&
-        components.length > 0 &&
-        components.map(c => {
-          if (c.type === 'buildingsSeen') {
+    <>
+      <Head>
+        <title>{SeoData.title}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        <SlickSection useGradient={true} color="white" items={hero} />
+        {components &&
+          components.length > 0 &&
+          components.map(c => {
+            if (c.type === 'buildingsSeen') {
+              return (
+                buildingsSeen &&
+                buildingsSeen.length > 0 && (
+                  <PanelBuildings
+                    key={c.type}
+                    className={c.type}
+                    title="Imóveis que você viu"
+                    isHome={true}
+                  >
+                    <GroupSlider>
+                      {renderComponents('buildingsSeen', {
+                        items: buildingsSeen
+                      })}
+                    </GroupSlider>
+                  </PanelBuildings>
+                )
+              );
+            } else if (c.type === 'buildingsForYou') {
+              return (
+                buildingsForYou &&
+                buildingsForYou.length > 0 && (
+                  <PanelBuildings
+                    key={c.type}
+                    className={c.type}
+                    title="Indicados para você"
+                    subTitle="Selecionamos alguns imóveis que acabaram de chegar"
+                    isHome={true}
+                  >
+                    <GroupSlider>
+                      {renderComponents('buildingsForYou', {
+                        items: buildingsForYou
+                      })}
+                    </GroupSlider>
+                  </PanelBuildings>
+                )
+              );
+            }
             return (
-              buildingsSeen &&
-              buildingsSeen.length > 0 && (
-                <PanelBuildings
-                  key={c.type}
-                  className={c.type}
-                  title="Imóveis que você viu"
-                >
-                  <GroupSlider>
-                    {renderComponents('buildingsSeen', {
-                      items: buildingsSeen
-                    })}
-                  </GroupSlider>
-                </PanelBuildings>
-              )
+              <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>
             );
-          } else if (c.type === 'buildingsForYou') {
-            return (
-              buildingsForYou &&
-              buildingsForYou.length > 0 && (
-                <PanelBuildings
-                  key={c.type}
-                  className={c.type}
-                  title="Indicados para você"
-                  subTitle="Selecionamos alguns imóveis que acabaram de chegar"
-                >
-                  <GroupSlider>
-                    {renderComponents('buildingsForYou', {
-                      items: buildingsForYou
-                    })}
-                  </GroupSlider>
-                </PanelBuildings>
-              )
-            );
-          }
-          return (
-            <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>
-          );
-        })}
+          })}
 
-      <Contact />
-    </Container>
+        <Contact />
+      </Container>
+    </>
   );
 }
 

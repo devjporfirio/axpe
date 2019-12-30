@@ -1,5 +1,9 @@
 import React from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
+
+// helpers
+import SeoData from 'helpers/seo';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -18,23 +22,29 @@ const PROPERTY_TYPES = [
 
 function RegisterProperty() {
   return (
-    <Container>
-      <BlockHighlighted type="registerPropertyWhite" />
+    <>
+      <Head>
+        <title>{`Cadastre seu imóvel - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        <BlockHighlighted type="registerPropertyWhite" />
 
-      <List>
-        {PROPERTY_TYPES.map(type => (
-          <Link key={type.to} href={`/cadastrar/${type.to}`}>
-            <Item background={type.to.toLowerCase()}>
-              <Gradient />
-              <p>{type.label}</p>
-            </Item>
-          </Link>
-        ))}
-      </List>
+        <List>
+          {PROPERTY_TYPES.map(type => (
+            <Link key={type.to} href={`/cadastrar/${type.to}`}>
+              <Item background={type.to.toLowerCase()}>
+                <Gradient />
+                <p>{type.label}</p>
+              </Item>
+            </Link>
+          ))}
+        </List>
 
-      <BlockHighlighted type="registerPropertyTransform" />
-      <Contact />
-    </Container>
+        <BlockHighlighted type="registerPropertyTransform" />
+        <Contact />
+      </Container>
+    </>
   );
 }
 
