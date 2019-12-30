@@ -11,6 +11,7 @@ export const ItemLink = styled(Button)`
 
   ${media.greaterThan('medium')`
     height: 700px;
+    width: 304px !important;
   `}
 `;
 

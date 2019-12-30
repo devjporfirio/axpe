@@ -127,7 +127,7 @@ function SlickSection({
       className={className}
       type={type}
       length={lengthItems}
-      propsArrow={{ type }}
+      // propsArrow={{ type }}
       slidesToShow={slidesToShow}
       slidesPerRow={slidesPerRow}
       rows={rows}

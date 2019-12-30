@@ -79,4 +79,8 @@ export const ButtonClose = styled.button`
       }
     }
   `}
+
+  ${media.greaterThan('1281px')`
+    right: 8%;
+  `}
 `;

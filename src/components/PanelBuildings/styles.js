@@ -16,6 +16,10 @@ export const Container = styled.div`
     &.buildingsForYou {
       padding: 40px;
     }
+
+    &.suggestion .slick-slider button:nth-child(3) {
+      left: 975px;
+    }
   `}
 
   ${props => props.isHome && ContainerIsHome}
