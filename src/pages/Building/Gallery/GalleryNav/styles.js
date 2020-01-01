@@ -19,14 +19,6 @@ export const Container = styled(Modal)`
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.greenDark};
   `}
-
-  ${props =>
-    props.planta &&
-    media.greaterThan('medium')`
-    button span {
-      margin: 20px 13%;
-    }
-  `}
 `;
 
 export const Body = styled.div`

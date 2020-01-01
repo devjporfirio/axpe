@@ -36,7 +36,9 @@ export default function Building({ item }) {
               item.tipo === 'imagem' && (
                 <div key={index}>
                   <Link href="/building/[reference]" as={`/building/${slug}`}>
-                    <img src={item.src} alt="Imóvel" />
+                    <a href={`/building/${slug}`}>
+                      <img src={item.src} alt="Imóvel" />
+                    </a>
                   </Link>
                 </div>
               )
@@ -45,29 +47,31 @@ export default function Building({ item }) {
       </Slider>
       <Infos>
         <Link href="/building/[reference]" as={`/building/${slug}`}>
-          <CatLocGroup>
-            <Category>
-              {type === 'lancamento'
-                ? infos.releaseStatus === 'Pronto'
-                  ? 'Pronto para morar'
-                  : infos.releaseStatus
-                : category}
-            </Category>
-            <div>
+          <a href={`/building/${slug}`}>
+            <CatLocGroup>
+              <Category>
+                {type === 'lancamento'
+                  ? infos.releaseStatus === 'Pronto'
+                    ? 'Pronto para morar'
+                    : infos.releaseStatus
+                  : category}
+              </Category>
               <div>
-                <Local>{address.local}</Local>
-                {type === 'lancamento' && (
-                  <CategoryRelease>{category}</CategoryRelease>
-                )}
+                <div>
+                  <Local>{address.local}</Local>
+                  {type === 'lancamento' && (
+                    <CategoryRelease>{category}</CategoryRelease>
+                  )}
+                </div>
+                <Reference>Ref {item.reference}</Reference>
               </div>
-              <Reference>Ref {item.reference}</Reference>
-            </div>
-          </CatLocGroup>
+            </CatLocGroup>
+          </a>
         </Link>
 
         <ValuesFavGroup>
           <Link href="/building/[reference]" as={`/building/${slug}`}>
-            <div>
+            <a href={`/building/${slug}`}>
               {!!values.sell || !!values.release ? (
                 <Price>
                   A partir de{' '}
@@ -86,7 +90,7 @@ export default function Building({ item }) {
               ) : (
                 ''
               )}
-            </div>
+            </a>
           </Link>
           <Favorito
             src={IHeartBlack}
@@ -95,7 +99,7 @@ export default function Building({ item }) {
           />
         </ValuesFavGroup>
         <Link href="/building/[reference]" as={`/building/${slug}`}>
-          <div>
+          <a href={`/building/${slug}`}>
             <CaracteristicsGroup>
               <Caracteristics.Bedrooms
                 bedrooms={infos.bedrooms}
@@ -121,7 +125,7 @@ export default function Building({ item }) {
             </CaracteristicsGroup>
 
             <Description>{infos.internalDescription}</Description>
-          </div>
+          </a>
         </Link>
       </Infos>
       {type === 'lancamento' && infos.releaseDelivery && (

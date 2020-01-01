@@ -236,6 +236,7 @@ function Search({ currentPage, total, totalPages, data }) {
               {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
                 <PanelBuildings
                   key={`suggestion-${index}`}
+                  className="suggestion"
                   title={suggestion.title}
                   items={suggestion.items}
                 />
