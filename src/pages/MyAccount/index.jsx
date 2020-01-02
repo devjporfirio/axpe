@@ -31,16 +31,24 @@ export default function MyAccount({ children, className }) {
       <Nav>
         <ul>
           <Li active={page === '/minha-conta'}>
-            <a href="/minha-conta">Visualizados recentemente</a>
+            <Link href="/minha-conta" passHref>
+              Visualizados recentemente
+            </Link>
           </Li>
           <Li active={page === 'perfil'}>
-            <a href="/minha-conta/perfil">Editar Perfil</a>
+            <Link href="/minha-conta/perfil" passHref>
+              Editar Perfil
+            </Link>
           </Li>
           <Li active={page === 'alertas'}>
-            <a href="/minha-conta/alertas">Meus aletas</a>
+            <Link href="/minha-conta/alertas" passHref>
+              Meus aletas
+            </Link>
           </Li>
           <Li active={page === 'favoritos'}>
-            <a href="/minha-conta/favoritos">Meus favoritos</a>
+            <Link href="/minha-conta/favoritos" passHref>
+              Meus favoritos
+            </Link>
           </Li>
         </ul>
       </Nav>

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import SVG from 'react-inlinesvg';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from 'services';
+import { useSelector, useDispatch } from 'react-redux';
 
 // components
 import FormElements from 'components/FormElements';
 import UpdatePass from 'pages/MyAccount/Profile/UpdatePass';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // icons
 // import Facebook from 'assets/icons/facebook-rounded';
@@ -26,8 +30,29 @@ import {
   FormGroupAlerts
 } from 'pages/MyAccount/Profile/styles';
 
-function Profile({ me }) {
+function Profile({}) {
   const [ changePass, setChangePass ] = useState(false);
+  const [ me, setme ] = useState({});
+  const dispatch = useDispatch();
+  const access = useSelector(state => state.user);
+
+  useEffect(() => {
+    async function loadMe() {
+      if (access && access.logged) {
+        const me = await Api.MyAccount.getMe(access.access_token);
+        setme(me.data);
+      } else {
+        dispatch(
+          setMain({
+            modalLogin: true
+          })
+        );
+      }
+    }
+
+    loadMe();
+  }, [ access ]);
+
   const profileSchema = Yup.object().shape({
     name: Yup.string().required(),
     lastName: Yup.string().required(),
@@ -36,7 +61,6 @@ function Profile({ me }) {
     notification_alert: Yup.bool().required(),
     notification_favorite: Yup.bool().required()
   });
-
   const {
     handleSubmit,
     handleChange,
@@ -47,12 +71,12 @@ function Profile({ me }) {
     errors
   } = useFormik({
     initialValues: {
-      name: (me && me.name) || '',
-      lastName: (me && me.last_name) || '',
-      email: (me && me.email) || '',
-      phone: (me && me.phone) || '',
-      notification_alert: (me && me.notification_alert) || '',
-      notification_favorite: (me && me.notification_favorite) || ''
+      name: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      notification_alert: '',
+      notification_favorite: ''
     },
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -69,6 +93,7 @@ function Profile({ me }) {
       }
     }
   });
+
   return (
     <Container>
       <Body>
@@ -82,7 +107,7 @@ function Profile({ me }) {
                 placeholder="Nome"
                 onChange={handleChange}
                 error={touched.name && errors.name}
-                value={values.name}
+                value={me.name || ''}
                 onBlur={handleBlur}
               />
               <FormElements
@@ -91,7 +116,7 @@ function Profile({ me }) {
                 placeholder="Sobrenome"
                 onChange={handleChange}
                 error={touched.lastName && errors.lastName}
-                value={values.lastName}
+                value={me.last_name || ''}
                 onBlur={handleBlur}
               />
             </FormGroupElements>
@@ -103,7 +128,7 @@ function Profile({ me }) {
                 placeholder="E-mail"
                 onChange={handleChange}
                 error={touched.email && errors.email}
-                value={values.email}
+                value={me.email}
                 onBlur={handleBlur}
               />
               <FormElements
@@ -113,7 +138,7 @@ function Profile({ me }) {
                 placeholder="Telefone"
                 onChange={handleChange}
                 error={touched.phone && errors.phone}
-                value={values.phone}
+                value={me.phone}
                 onBlur={handleBlur}
               />
             </FormGroupElements>
@@ -137,7 +162,7 @@ function Profile({ me }) {
                 }
                 onChange={handleChange}
                 error={touched.notification_alert && errors.notification_alert}
-                value={values.notification_alert}
+                value={me.notification_alert}
                 onBlur={handleBlur}
               />
               <FormElementsCheck
@@ -153,7 +178,7 @@ function Profile({ me }) {
                 error={
                   touched.notification_favorite && errors.notification_favorite
                 }
-                value={values.notification_favorite}
+                value={me.notification_favorite}
                 onBlur={handleBlur}
               />
               {/* <FormSocial>
@@ -179,10 +204,10 @@ function Profile({ me }) {
 }
 
 Profile.getInitialProps = async ({}) => {
-  const me = await Api.MyAccount.getMe();
-  return {
-    me: me.data
-  };
+  // const me = await Api.MyAccount.getMe();
+  // return {
+  //   me: me.data
+  // };
 };
 
 export default Profile;

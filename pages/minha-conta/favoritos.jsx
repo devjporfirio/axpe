@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Api from 'services';
+import { useSelector, useDispatch } from 'react-redux';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // images
 import IShare from 'assets/icons/share';
@@ -19,7 +23,28 @@ import {
   BuildingItem
 } from 'pages/MyAccount/Favorites/styles';
 
-function Favorites({ buildings }) {
+function Favorites({}) {
+  const dispatch = useDispatch();
+  const access = useSelector(state => state.user);
+  const [ buildings, setbuildings ] = useState([]);
+
+  useEffect(() => {
+    async function loadBuildings() {
+      if (access && access.logged) {
+        const buildings = await Api.MyAccount.getFavorites(access.access_token);
+        setbuildings(buildings);
+      } else {
+        dispatch(
+          setMain({
+            modalLogin: true
+          })
+        );
+      }
+    }
+
+    loadBuildings();
+  }, [ access ]);
+
   return !buildings || buildings.length <= 0 ? (
     <Container>
       <Body>
@@ -62,10 +87,10 @@ function Favorites({ buildings }) {
 }
 
 Favorites.getInitialProps = async ({}) => {
-  const buildings = await Api.MyAccount.getFavorites();
-  return {
-    buildings
-  };
+  // const buildings = await Api.MyAccount.getFavorites();
+  // return {
+  //   buildings
+  // };
 };
 
 export default Favorites;
