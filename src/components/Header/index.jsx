@@ -188,14 +188,13 @@ function Header() {
                 </Link>
               </li>
               <li>
-                {logged && (
+                {logged ? (
                   <Link href="/minha-conta" passHref>
                     <NavSecondaryButton onClick={cancelToggle}>
                       Meu perfil
                     </NavSecondaryButton>
                   </Link>
-                )}
-                {!logged && (
+                ) : (
                   <NavSecondaryButton onClick={openModalLogin}>
                     Meu perfil
                   </NavSecondaryButton>

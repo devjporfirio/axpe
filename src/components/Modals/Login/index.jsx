@@ -55,6 +55,7 @@ function LoginModal() {
       const resp = await Api.User.postLogin(values);
       setSubmitting(false);
       if (resp.access_token) {
+        const favorites = await Api.MyAccount.getFavorites(resp.access_token);
         dispatch(
           setMain({
             modalLogin: false,
@@ -64,7 +65,8 @@ function LoginModal() {
         dispatch(
           setUser({
             logged: true,
-            access_token: resp.access_token
+            access_token: resp.access_token,
+            favorites
           })
         );
         resetForm({});

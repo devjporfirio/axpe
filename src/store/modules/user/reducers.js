@@ -1,6 +1,7 @@
 const initialState = {
   logged: false,
-  access_token: ''
+  access_token: '',
+  favorites: []
 };
 
 function user(state = initialState, action) {

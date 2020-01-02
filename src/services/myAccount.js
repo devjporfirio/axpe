@@ -24,12 +24,10 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    ).then(response => response.json());
+    ).then(response => response.json())
     return response;
   },
-  async postFavorito(reference, status) {
-    const resToken = await User.postLogin();
-
+  async postFavorito(token, reference, status) {
     const result = await fetch(
       `${process.env.config.apiUrl}/user/favorite/building/${
         status ? 'yes' : 'no'
@@ -41,7 +39,7 @@ export default {
         }),
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${resToken.access_token}`
+          Authorization: `Bearer ${token}`
         }
       }
     )

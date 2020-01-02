@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 import Api from 'services';
 
 // helpers
 import { formatCurrency } from 'helpers/utils';
+import checkFavorite from 'helpers/check-favorite';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
+import { setUser } from 'store/modules/user/actions';
 
 // images
 import IHeartBlack from 'assets/icons/heart-black.svg';
+import IHeartChecked from 'assets/icons/heart-orange-checked.svg';
 
 import {
   Container,
@@ -38,11 +45,43 @@ export default function Building({
 }) {
   const { values, gallery, address, slug, infos, category, type } = item;
   const [ hasDeleted, sethasDeleted ] = useState(false);
+  const dispatch = useDispatch();
+  const access = useSelector(state => state.user);
+
+  const isFavoriteBuilding = checkFavorite(slug);
 
   const handleBtRemove = async (slug, status) => {
-    const response = await Api.MyAccount.postFavorito(slug, status);
+    const response = await Api.MyAccount.postFavorito(
+      access.access_token,
+      slug,
+      status
+    );
     if (response.status === 'success') {
       sethasDeleted(!status);
+    }
+  };
+
+  const handleBtFavorite = async () => {
+    if (access.logged) {
+      const response = await Api.MyAccount.postFavorito(
+        access.access_token,
+        slug,
+        !isFavoriteBuilding
+      );
+      if (response && response.status === 'success') {
+        const favorites = await Api.MyAccount.getFavorites(access.access_token);
+        dispatch(
+          setUser({
+            favorites
+          })
+        );
+      }
+    } else {
+      dispatch(
+        setMain({
+          modalLogin: true
+        })
+      );
     }
   };
 
@@ -130,9 +169,9 @@ export default function Building({
                 </div>
               </Link>
               <Favorito
-                src={IHeartBlack}
+                src={isFavoriteBuilding ? IHeartChecked : IHeartBlack}
                 alt="Favorito"
-                onClick={() => alert('Favoritado')}
+                onClick={handleBtFavorite}
               />
             </ValuesFavGroup>
             <Link href="/building/[reference]" as={`/building/${slug}`}>
