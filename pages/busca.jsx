@@ -142,6 +142,23 @@ function Search({ currentPage, total, totalPages, data }) {
       });
     }
 
+    if(query.source &&
+      query.finality &&
+      query.use &&
+      query.ready_release &&
+      query.source === 'sao-paulo' &&
+      query.finality === 'venda' &&
+      query.use === 'RESIDENCIAL') {
+        const query2 = query.ready_release === 'pronto' ? {
+          ...query,
+          ready_release: 'lancamento'
+        } : {
+          ...query,
+          ready_release: 'pronto'
+        };
+        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, mas em bairros próximos`, query2);
+      }
+
     setSuggestions(results);
   }, [ total ]);
 
