@@ -3,15 +3,6 @@ import Cookies from 'js-cookie';
 class User {
   constructor(buildingsSeen) {
     this.buildingsSeen = buildingsSeen;
-    this.infos = {
-      name: 'User',
-      last_name: 'User',
-      email: 'user@test.com',
-      phone: '',
-      notification_alert: 1,
-      notification_favorite: 1
-    };
-    this.login = true;
   }
 
   getBuildingsSeen() {
@@ -30,14 +21,6 @@ class User {
         expires: 15
       });
     }
-  }
-
-  getInfos() {
-    return this.infos;
-  }
-
-  setInfos(infos) {
-    this.infos = infos;
   }
 }
 

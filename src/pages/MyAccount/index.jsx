@@ -1,29 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import Api from 'services';
 
-// helpers
-import User from 'helpers/user';
+// actions
+import { setMain } from 'store/modules/main/actions';
+import { setUser } from 'store/modules/user/actions';
 
 // styles
 import { Container, Header, LinkLogOff, Nav, Li, Body } from './styles';
 
 export default function MyAccount({ children, className }) {
-  const userInfos = User.getInfos();
   const router = useRouter();
   const page = router.pathname.replace('/minha-conta/', '');
+  const dispatch = useDispatch();
+  const access = useSelector(state => state.user);
+  const [ userInfo, setuserInfo ] = useState({});
 
   const LogOFF = () => {
-    User.setInfos({});
+    dispatch(
+      setUser({
+        logged: false,
+        access_token: '',
+        favorites: []
+      })
+    );
   };
+
+  useEffect(() => {
+    async function loadUser() {
+      if (access && access.logged) {
+        const user = await Api.MyAccount.getMe(access.access_token);
+        setuserInfo(user.data);
+      } else {
+        dispatch(
+          setMain({
+            modalLogin: true
+          })
+        );
+      }
+    }
+
+    loadUser();
+  }, [ access ]);
 
   return (
     <Container className={className}>
       <Header>
         <h1>
-          Olá, <strong>{userInfos.name}</strong>
+          Olá, <strong>{userInfo.name}</strong>
         </h1>
-        <Link href="/">
+        <Link href="/" passHref>
           <LinkLogOff onClick={LogOFF}>Log off</LinkLogOff>
         </Link>
       </Header>
