@@ -14,6 +14,9 @@ import FormElements from 'components/FormElements';
 import { setMain } from 'store/modules/main/actions';
 import { setUser } from 'store/modules/user/actions';
 
+// helpers
+import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
+
 // styles
 import {
   Texts,
@@ -56,6 +59,7 @@ function LoginModal() {
       setSubmitting(false);
       if (resp.access_token) {
         const favorites = await Api.MyAccount.getFavorites(resp.access_token);
+
         dispatch(
           setMain({
             modalLogin: false,
@@ -69,7 +73,11 @@ function LoginModal() {
             favorites
           })
         );
+
         resetForm({});
+
+        const buildingsSeen = JSON.parse(CookieBuildingSeen.getBuildingsSeen());
+        buildingsSeen.map(b => Api.User.postBuildingSeen(resp.access_token, b));
       }
     }
   });
