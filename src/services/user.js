@@ -1,10 +1,12 @@
 export default {
-  async postLogin() {
+  async postLogin({ email = '', password = '' }) {
     const result = await fetch(`${process.env.config.apiUrl}/auth/login`, {
       method: 'POST',
       body: JSON.stringify({
-        email: 'user@test.com',
-        password: '123123'
+        // email: 'user@test.com',
+        // password: '123123'
+        email,
+        password
       }),
       headers: {
         'Content-Type': 'application/json'

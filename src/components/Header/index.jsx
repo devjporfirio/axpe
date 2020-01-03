@@ -52,9 +52,12 @@ function Header() {
   const dispatch = useDispatch();
   const refHeader = useRef(null);
   const router = useRouter();
-  const { headerHiding, searchFormActive, modalNewsletter, modalLogin } = useSelector(
-    state => state.main
-  );
+  const {
+    headerHiding,
+    searchFormActive,
+    modalNewsletter,
+    modalLogin
+  } = useSelector(state => state.main);
   const { logged } = useSelector(state => state.user);
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
@@ -153,12 +156,19 @@ function Header() {
                 </NavMainButtonSearch>
               </li>
               <li>
-                <Link href="/cadastrar" passHref>
-                  <NavMainButton type="register">
+                {logged ? (
+                  <Link href="/cadastrar" passHref>
+                    <NavMainButton type="register">
+                      <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                      <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                    </NavMainButton>
+                  </Link>
+                ) : (
+                  <NavMainButton type="register" onClick={openModalLogin}>
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                   </NavMainButton>
-                </Link>
+                )}
               </li>
               <li>
                 <Link href="/so-quero-sonhar" passHref>
