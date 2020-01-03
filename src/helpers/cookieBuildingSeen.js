@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-class User {
+class CookieBuildingSeen {
   constructor(buildingsSeen) {
     this.buildingsSeen = buildingsSeen;
   }
@@ -24,4 +24,4 @@ class User {
   }
 }
 
-export default new User([]);
+export default new CookieBuildingSeen([]);

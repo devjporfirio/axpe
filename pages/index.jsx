@@ -11,7 +11,7 @@ import Contact from 'components/Contact';
 // helpers
 import { suffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
-import User from 'helpers/user';
+import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
 // styles
 import { Container, Banner, GroupSlider } from 'pages/Home/styles';
@@ -29,7 +29,7 @@ function Home({ hero, components }) {
 
   useEffect(() => {
     async function loadBuildinsSeen() {
-      let buildingsSeenCookie = User.getBuildingsSeen();
+      let buildingsSeenCookie = CookieBuildingSeen.getBuildingsSeen();
 
       if (!!buildingsSeenCookie) {
         buildingsSeenCookie = !!buildingsSeenCookie
