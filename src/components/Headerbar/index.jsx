@@ -91,7 +91,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
 
   const handleBtLike = async status => {
     if (access.logged) {
-      const response = await Api.MyAccount.postFavorito(
+      const response = await Api.MyAccount.postFavorite(
         access.access_token,
         building.reference,
         !isFavorite

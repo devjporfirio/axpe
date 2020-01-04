@@ -15,7 +15,20 @@ export default {
   },
   async getViewed(token) {
     const response = await fetch(
-      `${process.env.config.apiUrl}/user/buildings/viewed?limit=15`,
+      `${process.env.config.apiUrl}/user/buildings/viewed?limit=10`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    ).then(response => response.json());
+    return response;
+  },
+  async getForYou(token) {
+    const response = await fetch(
+      `${process.env.config.apiUrl}/user/buildings/foryou`,
       {
         method: 'GET',
         headers: {
@@ -39,7 +52,7 @@ export default {
     ).then(response => response.json())
     return response;
   },
-  async postFavorito(token, reference, status) {
+  async postFavorite(token, reference, status) {
     const result = await fetch(
       `${process.env.config.apiUrl}/user/favorite/building/${
         status ? 'yes' : 'no'

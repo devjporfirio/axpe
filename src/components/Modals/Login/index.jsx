@@ -25,11 +25,19 @@ import {
   Column,
   ColumnTitle
 } from 'components/Modals/styles';
-import { LoginContainer, LoginRow, LoginForm, LoginFeedback } from './styles';
+import {
+  LoginContainer,
+  LoginRow,
+  LoginForm,
+  LoginFeedback,
+  RegisterContainer
+} from './styles';
 
 function LoginModal() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
   const { modalLogin } = useSelector(state => state.main);
+  const [ showRegister, setShowRegister ] = useState(true);
   const [ loginError, setLoginError ] = useState(null);
 
   const closeModal = useCallback(() => {
@@ -56,7 +64,7 @@ function LoginModal() {
     },
     validationSchema: loginSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const response = await Api.User.doLogin(values);
+      const response = await Api.User.postLogin(values);
 
       setSubmitting(false);
 
@@ -80,8 +88,8 @@ function LoginModal() {
 
         resetForm({});
 
-        const buildingsSeen = JSON.parse(CookieBuildingSeen.getBuildingsSeen());
-        buildingsSeen.map(b => Api.User.postBuildingSeen(response.access_token, b));
+        CookieBuildingSeen.saveAll(user);
+
       } else if(response.error) {
         let errorMessage = null;
         switch(response.error) {
@@ -132,47 +140,55 @@ function LoginModal() {
         </Slider>
       </Texts>
       <Column>
-        <LoginContainer>
-          <LoginRow>
-            <ColumnTitle>
-              Já tem um cadastro? <span>Faça seu login.</span>
-            </ColumnTitle>
-            <LoginForm onSubmit={handleSubmit}>
-              <FormElements
-                type="emailmask"
-                name="email"
-                label="E-mail:"
-                placeholder="E-mail"
-                onChange={handleChange}
-                error={touched.email && errors.email}
-                value={values.email}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                type="password"
-                name="password"
-                label="Senha:"
-                placeholder="Senha:"
-                onChange={handleChange}
-                error={touched.password && errors.password}
-                value={values.password}
-                onBlur={handleBlur}
-                useEye
-              />
-
-              <Button disabled={isSubmitting} type="submit" fullWidth>
-                Entrar
+        {!showRegister && (
+          <LoginContainer>
+            <LoginRow>
+              <ColumnTitle>
+                Já tem um cadastro? <span>Faça seu login.</span>
+              </ColumnTitle>
+              <LoginForm onSubmit={handleSubmit}>
+                <FormElements
+                  type="emailmask"
+                  name="email"
+                  label="E-mail:"
+                  placeholder="E-mail"
+                  onChange={handleChange}
+                  error={touched.email && errors.email}
+                  value={values.email}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  type="password"
+                  name="password"
+                  label="Senha:"
+                  placeholder="Senha:"
+                  onChange={handleChange}
+                  error={touched.password && errors.password}
+                  value={values.password}
+                  onBlur={handleBlur}
+                  useEye
+                />
+                <Button disabled={isSubmitting} type="submit" fullWidth>
+                  Entrar
+                </Button>
+                {loginError && <LoginFeedback>{loginError}</LoginFeedback>}
+              </LoginForm>
+            </LoginRow>
+            <LoginRow>
+              <ColumnTitle>É sua primeira visita?</ColumnTitle>
+              <Button type="button" fullWidth={true} onClick={() => setShowRegister(true)}>
+                Cadastre
               </Button>
-              {loginError && <LoginFeedback>{loginError}</LoginFeedback>}
-            </LoginForm>
-          </LoginRow>
-          <LoginRow>
-            <ColumnTitle>É sua primeira visita?</ColumnTitle>
-            <Button href="/cadastrar" as="/cadastrar" fullWidth={true}>
-              Cadastre
-            </Button>
-          </LoginRow>
-        </LoginContainer>
+            </LoginRow>
+          </LoginContainer>
+        )}
+        {showRegister && (
+          <RegisterContainer>
+            <ColumnTitle>
+              Crie sua conta
+            </ColumnTitle>
+          </RegisterContainer>
+        )}
       </Column>
     </Modal>
   );

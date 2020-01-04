@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // image
-import IEye from 'assets/icons/eye';
+import EyeSVG from 'assets/icons/eye';
 
 // styles
 import { Input, ButtonEye, SVGEye } from '../styles';
@@ -11,8 +11,8 @@ export default function Password({ useEye, type, ...props }) {
   return (
     <>
       {useEye && (
-        <ButtonEye type="button" onClick={() => setShowPass(!showPass)}>
-          <SVGEye active={showPass} src={IEye} />
+        <ButtonEye type="button" active={showPass} onClick={() => setShowPass(!showPass)}>
+          <SVGEye src={EyeSVG} />
         </ButtonEye>
       )}
       <Input type={showPass ? 'text' : 'password'} {...props} />

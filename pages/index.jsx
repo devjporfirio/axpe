@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Api from 'services';
 
@@ -24,17 +25,38 @@ const COMPONENT_SLICK = {
 };
 
 function Home({ hero, components }) {
+  const user = useSelector(state => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
 
   useEffect(() => {
     async function loadBuildinsSeen() {
-      let buildingsSeenCookie = CookieBuildingSeen.getBuildingsSeen();
 
-      if (!!buildingsSeenCookie) {
-        buildingsSeenCookie = !!buildingsSeenCookie
-          ? JSON.parse(buildingsSeenCookie)
-          : [];
+      if(user.logged) {
+        // const buildingsSeen = await Api.MyAccount.getViewed();
+        // const listForYou = await Api.MyAccount.getForYou();
+
+        // console.log(`buildingsSeen`, buildingsSeen);
+        // console.log(`listForYou`, listForYou);
+
+        // if(!buildingsSeen.length) return false;
+
+        // const listBuildingsSeen = await Promise.all(
+        //   buildingsSeenCookie.map(async b => {
+        //     const building = await Api.Building.getPage(b);
+        //     return building;
+        //   })
+        // );
+
+        // setBuildingsSeen(listBuildingsSeen);
+
+        // if(listForYou.length) {
+        //   setBuildingsForYou(listForYou);
+        // }
+      } else if(!user.logged) {
+        const buildingsSeenCookie = CookieBuildingSeen.get();
+
+        if(!buildingsSeenCookie.length) return false;
 
         const listBuildingsSeen = await Promise.all(
           buildingsSeenCookie.map(async b => {
@@ -43,24 +65,27 @@ function Home({ hero, components }) {
           })
         );
 
-        if (listBuildingsSeen.length > 0) {
-          let listForYou = await Api.Building.getSimilar(
-            listBuildingsSeen[0].building,
-            10
-          );
+        let listForYou = await Api.Building.getSimilar(
+          listBuildingsSeen[0].building,
+          10
+        );
 
-          listForYou =
-            listForYou &&
-            listForYou.data &&
-            listForYou.data.length > 0 &&
-            listForYou.data.map(l => ({
-              building: { ...l }
-            }));
+        listForYou =
+          listForYou &&
+          listForYou.data &&
+          listForYou.data.length > 0 &&
+          listForYou.data.map(l => ({
+            building: { ...l }
+          }));
+
+        setBuildingsSeen(listBuildingsSeen);
+
+        if(listForYou.length) {
           setBuildingsForYou(listForYou);
-          setBuildingsSeen(listBuildingsSeen);
         }
       }
     }
+
     loadBuildinsSeen();
   }, []);
 

@@ -238,7 +238,13 @@ export const ButtonFile = styled(Button)`
   `}
 `;
 
-export const ButtonEye = styled.button``;
+export const ButtonEye = styled.button`
+  ${props => props.active && css`
+    svg path {
+      fill: ${({ theme }) => theme.colors.orange};
+    }
+  `}
+`;
 
 export const SVGEye = styled(SVG)`
   width: 23px;
@@ -251,10 +257,4 @@ export const SVGEye = styled(SVG)`
   path {
     transition: all 300ms ease;
   }
-
-  ${props => props.active && css`
-    path {
-      fill: ${({ theme }) => theme.colors.orange};
-    }
-  `}
 `;

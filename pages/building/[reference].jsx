@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Api from 'services';
 
@@ -18,10 +19,11 @@ import SeoData from 'helpers/seo';
 import { Container, Images, Alert, PanelSimilar } from 'pages/Building/styles';
 
 function Building({ property }) {
+  const user = useSelector(state => state.user);
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
 
   useEffect(() => {
-    CookieBuildingSeen.setBuildingSeen(property);
+    CookieBuildingSeen.set(property.reference, user);
 
     async function loadSimilarBuildings() {
       const similar = await Api.Building.getSimilar(property, 3);

@@ -51,7 +51,7 @@ export default function Building({
   const isFavoriteBuilding = checkFavorite(slug);
 
   const handleBtRemove = async (slug, status) => {
-    const response = await Api.MyAccount.postFavorito(
+    const response = await Api.MyAccount.postFavorite(
       access.access_token,
       slug,
       status
@@ -63,7 +63,7 @@ export default function Building({
 
   const handleBtFavorite = async () => {
     if (access.logged) {
-      const response = await Api.MyAccount.postFavorito(
+      const response = await Api.MyAccount.postFavorite(
         access.access_token,
         slug,
         !isFavoriteBuilding

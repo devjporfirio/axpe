@@ -1,5 +1,5 @@
 export default {
-  async doLogin({ email, password }) {
+  async postLogin({ email, password }) {
     const result = await fetch(`${process.env.config.apiUrl}/auth/login`, {
       method: 'POST',
       body: JSON.stringify({
@@ -11,16 +11,15 @@ export default {
       }
     })
       .then(response => response.json())
-      .then(data => data);
     return result;
   },
-  async postBuildingSeen(token, building) {
+  async postBuildingSeen(token, reference) {
     const result = await fetch(
       `${process.env.config.apiUrl}/user/view/building`,
       {
         method: 'POST',
         body: JSON.stringify({
-          building
+          building: reference
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +28,6 @@ export default {
       }
     )
       .then(response => response.json())
-      .then(data => data);
     return result;
   }
 };
