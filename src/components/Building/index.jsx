@@ -6,7 +6,7 @@ import Api from 'services';
 
 // helpers
 import { formatCurrency } from 'helpers/utils';
-import checkFavorite from 'helpers/check-favorite';
+import checkFavorite from 'helpers/checkFavorite';
 
 // actions
 import { setMain } from 'store/modules/main/actions';

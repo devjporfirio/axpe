@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -25,11 +25,12 @@ import {
   Column,
   ColumnTitle
 } from 'components/Modals/styles';
-import { LoginContainer, LoginRow, LoginForm } from './styles';
+import { LoginContainer, LoginRow, LoginForm, LoginFeedback } from './styles';
 
 function LoginModal() {
   const dispatch = useDispatch();
   const { modalLogin } = useSelector(state => state.main);
+  const [ loginError, setLoginError ] = useState(null);
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalLogin: false }));
@@ -50,15 +51,17 @@ function LoginModal() {
     errors
   } = useFormik({
     initialValues: {
-      email: 'user@test.com',
-      password: '123123'
+      email: '',
+      password: ''
     },
     validationSchema: loginSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.User.postLogin(values);
+      const response = await Api.User.doLogin(values);
+
       setSubmitting(false);
-      if (resp.access_token) {
-        const favorites = await Api.MyAccount.getFavorites(resp.access_token);
+
+      if (response.access_token) {
+        const favorites = await Api.MyAccount.getFavorites(response.access_token);
 
         dispatch(
           setMain({
@@ -66,10 +69,11 @@ function LoginModal() {
             modalLoginRegisterSuccess: true
           })
         );
+
         dispatch(
           setUser({
             logged: true,
-            access_token: resp.access_token,
+            access_token: response.access_token,
             favorites
           })
         );
@@ -77,7 +81,21 @@ function LoginModal() {
         resetForm({});
 
         const buildingsSeen = JSON.parse(CookieBuildingSeen.getBuildingsSeen());
-        buildingsSeen.map(b => Api.User.postBuildingSeen(resp.access_token, b));
+        buildingsSeen.map(b => Api.User.postBuildingSeen(response.access_token, b));
+      } else if(response.error) {
+        let errorMessage = null;
+        switch(response.error) {
+          case 'user.not.found':
+            errorMessage = 'Usuário não encontrado.';
+            break;
+          default:
+            errorMessage = response.error;
+            break;
+        }
+        setLoginError(errorMessage);
+        setTimeout(() => {
+          setLoginError(null);
+        }, 3000);
       }
     }
   });
@@ -145,6 +163,7 @@ function LoginModal() {
               <Button disabled={isSubmitting} type="submit" fullWidth>
                 Entrar
               </Button>
+              {loginError && <LoginFeedback>{loginError}</LoginFeedback>}
             </LoginForm>
           </LoginRow>
           <LoginRow>

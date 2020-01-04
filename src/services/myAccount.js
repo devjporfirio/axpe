@@ -1,6 +1,18 @@
 import User from './user';
 
 export default {
+  async getMe(token) {
+    const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => data);
+    return result;
+  },
   async getViewed(token) {
     const response = await fetch(
       `${process.env.config.apiUrl}/user/buildings/viewed?limit=15`,
@@ -47,21 +59,8 @@ export default {
       .then(data => data);
     return result;
   },
-  async getMe(token) {
-    const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => data);
-    return result;
-  },
   async putMe(values) {
     const resToken = await User.postLogin();
-
     const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
       method: 'PUT',
       body: JSON.stringify({

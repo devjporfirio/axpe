@@ -54,10 +54,16 @@ export const LoginRow = styled.div`
 
 export const LoginForm = styled.form`
   margin-top: 17px;
-  
+
   label {
     height: 40px;
     background-color: ${({ theme }) => theme.colors.grey};
     margin-bottom: 14px;
   }
 `;
+
+export const LoginFeedback = styled.p`
+  margin-top: 10px;
+  font: 14px 'Raleway';
+  color: ${({ theme }) => theme.colors.orange};
+`

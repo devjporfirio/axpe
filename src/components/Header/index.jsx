@@ -8,7 +8,7 @@ import SVG from 'react-inlinesvg';
 import { setMain } from 'store/modules/main/actions';
 
 // helpers
-import useScrollPosition from 'helpers/scroll-position';
+import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
 import SearchIconSVG from 'assets/icons/search';

@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import MaskedInput from 'react-text-mask';
 import SVG from 'react-inlinesvg';
+
+// components
 import Button from 'components/Button';
 
 export const Label = styled.label`
@@ -14,9 +16,10 @@ export const Label = styled.label`
   transition: all 300ms ease;
 
   input ~ span {
-    transition: top 0.2s ease;
     position: absolute;
-    top: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: top 0.2s ease;
   }
 
   ${props =>
@@ -34,9 +37,9 @@ export const Label = styled.label`
       select {
         padding-top: 10px;
       }
+
       span {
-        position: absolute;
-        top: 4px;
+        top: 10%;
         font-size: 10px;
       }
     `}
@@ -119,10 +122,11 @@ export const Message = styled.p`
 
 const BaseInput = css`
   position: absolute;
-  top: 20px;
-  height: 25px;
+  top: 0;
+  min-height: 25px;
+  height: 100%;
   width: 100%;
-  padding-left: 12px;
+  padding: 10px 12px 0;
   border: none;
   color: ${({ theme }) => theme.colors.green};
   font: 14px 'Raleway';
@@ -133,7 +137,7 @@ const BaseInput = css`
 
   &:not(:placeholder-shown) + span,
   &:focus ~ span {
-    top: 6px;
+    top: 25%;
     font-size: 10px;
   }
 
@@ -145,6 +149,7 @@ const BaseInput = css`
 
   &:focus {
     outline: 0;
+
     &::placeholder {
       opacity: 1;
     }
@@ -233,6 +238,8 @@ export const ButtonFile = styled(Button)`
   `}
 `;
 
+export const ButtonEye = styled.button``;
+
 export const SVGEye = styled(SVG)`
   width: 23px;
   height: 15px;
@@ -240,4 +247,14 @@ export const SVGEye = styled(SVG)`
   right: 8px;
   top: 13px;
   z-index: 9;
+
+  path {
+    transition: all 300ms ease;
+  }
+
+  ${props => props.active && css`
+    path {
+      fill: ${({ theme }) => theme.colors.orange};
+    }
+  `}
 `;

@@ -13,8 +13,8 @@ import { setUser } from 'store/modules/user/actions';
 import Share from 'components/Share';
 
 // helpers
-import useScrollPosition from 'helpers/scroll-position';
-import checkFavorite from 'helpers/check-favorite';
+import useScrollPosition from 'helpers/scrollPosition';
+import checkFavorite from 'helpers/checkFavorite';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
