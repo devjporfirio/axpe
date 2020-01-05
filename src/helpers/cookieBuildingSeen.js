@@ -7,7 +7,7 @@ export default {
 
   get() {
     const buildings = Cookies.get('buildingsSeen');
-    return buildings === null ? [] : JSON.parse(buildings);
+    return buildings ? JSON.parse(buildings) : [];
   },
 
   remove() {
