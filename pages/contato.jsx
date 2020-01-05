@@ -38,29 +38,30 @@ import {
   Rec
 } from 'pages/Contact/styles';
 
+const contactSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2)
+    .required(),
+  lastName: Yup.string()
+    .min(2)
+    .required(),
+  email: Yup.string()
+    .email()
+    .required(),
+  phone: Yup.string().required(),
+  mobile: Yup.string().required(),
+  subject: Yup.string().required(),
+  message: Yup.string()
+    .min(2)
+    .required(),
+  terms: Yup.boolean()
+    .oneOf([ true ])
+    .required()
+});
+
 function Contact() {
   const dispatch = useDispatch();
   const linkPolitics = <a href="/politica">política de privacidade</a>;
-  const contatoSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2)
-      .required(),
-    lastName: Yup.string()
-      .min(2)
-      .required(),
-    email: Yup.string()
-      .email()
-      .required(),
-    phone: Yup.string().required(),
-    mobile: Yup.string().required(),
-    subject: Yup.string().required(),
-    message: Yup.string()
-      .min(2)
-      .required(),
-    terms: Yup.boolean()
-      .oneOf([ true ])
-      .required()
-  });
 
   const {
     handleSubmit,
@@ -81,18 +82,20 @@ function Contact() {
       message: '',
       terms: false
     },
-    validationSchema: contatoSchema,
+    validationSchema: contactSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const resp = await Api.Contact.postContact(values);
+
       setSubmitting(false);
+
       if (resp.status === 'success') {
         dispatch(
           setMain({
             modalNewsletterSuccess: true
           })
-          );
-          resetForm({});
-        }
+        );
+        resetForm({});
+      }
     }
   });
 

@@ -1,12 +1,18 @@
 import React from 'react';
+import SVG from 'react-inlinesvg';
+
+// assets
+import ArrowSVG from 'assets/icons/arrow';
 
 // styles
-import { Container, Wrapper, ButtonClose } from './styles';
+import { Container, Wrapper, ButtonBack, ButtonClose } from './styles';
 
 function Modal({
   active,
   children,
   onClose,
+  showButtonBack,
+  onClickButtonBack,
   themeColor = 'default',
   className
 }) {
@@ -21,6 +27,11 @@ function Modal({
         onClick={event => event.stopPropagation()}
         themeColor={themeColor}
       >
+        {showButtonBack && (
+          <ButtonBack type="button" onClick={onClickButtonBack}>
+            <SVG src={ArrowSVG} uniquifyIDs={true} /> Fechar
+          </ButtonBack>
+        )}
         <ButtonClose type="button" onClick={onClose} themeColor={themeColor}>
           Fechar
         </ButtonClose>

@@ -39,7 +39,8 @@ class MyApp extends App {
     Router.events.on('routeChangeStart', () => {
       this.props.store.dispatch(setMain({
         searchFormActive: false,
-        headerHiding: false
+        headerHiding: false,
+        modalLoginRegisterSuccess: false
       }));
       this.props.store.dispatch(setLoading({ active: true }));
     });

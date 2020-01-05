@@ -60,7 +60,7 @@ export const Label = styled.label`
 
       span {
         position: initial;
-        top: 5px !important;
+        /* top: 5px !important; */
 
         a {
           text-decoration: underline;
@@ -77,7 +77,6 @@ export const Label = styled.label`
         padding-left: 11px;
         max-width: 230px;
         line-height: 14px;
-        top: 0 !important;
 
         ${media.greaterThan('medium')`width: calc(100% - 47px);`}
       }
@@ -126,7 +125,7 @@ const BaseInput = css`
   min-height: 25px;
   height: 100%;
   width: 100%;
-  padding: 10px 12px 0;
+  padding: 0 12px;
   border: none;
   color: ${({ theme }) => theme.colors.green};
   font: 14px 'Raleway';
@@ -134,6 +133,10 @@ const BaseInput = css`
   background: none;
   cursor: text;
   -webkit-appearance: none;
+
+  &:not(select) {
+    padding: 10px 12px 0;
+  }
 
   &:not(:placeholder-shown) + span,
   &:focus ~ span {

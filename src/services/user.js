@@ -29,5 +29,16 @@ export default {
     )
       .then(response => response.json())
     return result;
-  }
+  },
+  async postRegister(data) {
+    const result = await fetch(`${process.env.config.apiUrl}/auth/sign-in`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+    return result;
+  },
 };

@@ -11,7 +11,7 @@ import { setMain } from 'store/modules/main/actions';
 // styles
 import { Success, SuccessColumn } from 'components/Modals/styles';
 
-function LoginModal() {
+function LoginRegisterSuccessModal() {
   const dispatch = useDispatch();
   const { modalLoginRegisterSuccess } = useSelector(state => state.main);
 
@@ -34,4 +34,4 @@ function LoginModal() {
   )
 }
 
-export default LoginModal
+export default LoginRegisterSuccessModal;

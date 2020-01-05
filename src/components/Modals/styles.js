@@ -53,6 +53,40 @@ const WrapperGreen = css`
   `}
 `;
 
+export const ButtonBack = styled.button`
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font: 14px 'Raleway';
+  letter-spacing: 1px;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  z-index: 2;
+
+  svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    transform: rotate(180deg);
+
+    rect {
+      fill: ${({ theme }) => theme.colors.white};
+    }
+  }
+
+  ${media.greaterThan('1024px')`
+    color: ${({ theme }) => theme.colors.greenDark};
+
+    svg rect {
+      fill: ${({ theme }) => theme.colors.greenDark};
+    }
+  `}
+`;
+
 export const ButtonClose = styled.button`
   position: absolute;
   top: 20px;
