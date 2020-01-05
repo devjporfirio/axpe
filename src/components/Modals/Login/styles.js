@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 export const LoginContainer = styled.div`
@@ -9,8 +9,13 @@ export const LoginContainer = styled.div`
     align-items: flex-start;
   `}
 
-  ${media.greaterThan('768px')`
+  ${media.greaterThan('1024px')`
     display: block;
+
+    ${props => props.type === 'register' && css`
+      padding-top: 40px;
+      padding-bottom: 0;
+    `}
   `}
 `;
 

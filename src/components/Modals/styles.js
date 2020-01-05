@@ -79,6 +79,8 @@ export const ButtonBack = styled.button`
   }
 
   ${media.greaterThan('1024px')`
+    left: auto;
+    right: 200px;
     color: ${({ theme }) => theme.colors.greenDark};
 
     svg rect {

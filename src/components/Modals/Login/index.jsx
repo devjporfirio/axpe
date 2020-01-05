@@ -113,7 +113,7 @@ function LoginModal() {
           </LoginContainer>
         )}
         {showRegister && (
-          <LoginContainer>
+          <LoginContainer type="register">
             <ColumnTitle>
               Crie sua conta
             </ColumnTitle>
