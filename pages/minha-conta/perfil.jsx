@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-// import SVG from 'react-inlinesvg';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+// import SVG from 'react-inlinesvg';
 import * as Yup from 'yup';
 import Api from 'services';
-import { useSelector, useDispatch } from 'react-redux';
+
+// actions
+import { setUser } from 'store/modules/user/actions';
 
 // components
 import FormElements from 'components/FormElements';
 import UpdatePass from 'pages/MyAccount/Profile/UpdatePass';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
 
 // icons
 // import Facebook from 'assets/icons/facebook-rounded';
@@ -32,32 +32,17 @@ import {
 
 const profileSchema = Yup.object().shape({
   name: Yup.string().required(),
-  lastName: Yup.string().required(),
+  last_name: Yup.string().required(),
   email: Yup.string().required(),
   phone: Yup.string().required(),
   notification_alert: Yup.bool().required(),
   notification_favorite: Yup.bool().required()
 });
 
-function Profile({}) {
+function Profile() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ changePass, setChangePass ] = useState(false);
-  const [ me, setMe ] = useState({});
-
-  useEffect(() => {
-    async function loadMe() {
-      if (user && user.logged) {
-        dispatch(setMain({ modalLogin: false }));
-        const me = await Api.MyAccount.getMe(user.access_token);
-        setMe(me.data);
-      } else {
-        dispatch(setMain({ modalLogin: true }));
-      }
-    }
-
-    loadMe();
-  }, [ user ]);
 
   const {
     handleSubmit,
@@ -66,33 +51,42 @@ function Profile({}) {
     isSubmitting,
     values,
     touched,
-    errors
+    errors,
+    setFieldValue
   } = useFormik({
     initialValues: {
-      name: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      notification_alert: '',
-      notification_favorite: ''
+      name: user.me.name,
+      last_name: user.me.last_name,
+      email: user.me.email,
+      phone: user.me.phone,
+      notification_alert: user.me.notification_alert,
+      notification_favorite: user.me.notification_favorite
     },
     validationSchema: profileSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.MyAccount.putMe(values);
+    onSubmit: async (values, { setSubmitting }) => {
+      const resp = await Api.MyAccount.putMe(user.access_token, values);
+
       setSubmitting(false);
+
       if (resp.status === 'success') {
         alert('Sucesso');
-        // dispatch(
-        //   setMain({
-        //     modalRegisterSuccess: true
-        //   })
-        // );
-        resetForm({});
+        dispatch(setUser({ logged: true, me: values }));
       }
     }
   });
 
-  if(!user.logged) return null;
+  useEffect(() => {
+    if(user.logged) {
+      setFieldValue('name', user.me.name);
+      setFieldValue('last_name', user.me.last_name);
+      setFieldValue('email', user.me.email);
+      setFieldValue('phone', user.me.phone);
+      setFieldValue('notification_alert', user.me.notification_alert);
+      setFieldValue('notification_favorite', user.me.notification_favorite);
+    }
+  }, [ user.logged ])
+
+  if(!user.logged || !user.me) return <Container/>;
 
   return (
     <Container>
@@ -107,16 +101,16 @@ function Profile({}) {
                 placeholder="Nome"
                 onChange={handleChange}
                 error={touched.name && errors.name}
-                value={me.name || ''}
+                value={values.name}
                 onBlur={handleBlur}
               />
               <FormElements
-                name="lastName"
+                name="last_name"
                 label="Sobrenome"
                 placeholder="Sobrenome"
                 onChange={handleChange}
-                error={touched.lastName && errors.lastName}
-                value={me.last_name || ''}
+                error={touched.last_name && errors.last_name}
+                value={values.last_name}
                 onBlur={handleBlur}
               />
             </FormGroupElements>
@@ -128,7 +122,7 @@ function Profile({}) {
                 placeholder="E-mail"
                 onChange={handleChange}
                 error={touched.email && errors.email}
-                value={me.email}
+                value={values.email}
                 onBlur={handleBlur}
               />
               <FormElements
@@ -138,7 +132,7 @@ function Profile({}) {
                 placeholder="Telefone"
                 onChange={handleChange}
                 error={touched.phone && errors.phone}
-                value={me.phone}
+                value={values.phone}
                 onBlur={handleBlur}
               />
             </FormGroupElements>
@@ -162,7 +156,7 @@ function Profile({}) {
                 }
                 onChange={handleChange}
                 error={touched.notification_alert && errors.notification_alert}
-                value={me.notification_alert}
+                value={values.notification_alert}
                 onBlur={handleBlur}
               />
               <FormElementsCheck
@@ -178,7 +172,7 @@ function Profile({}) {
                 error={
                   touched.notification_favorite && errors.notification_favorite
                 }
-                value={me.notification_favorite}
+                value={values.notification_favorite}
                 onBlur={handleBlur}
               />
               {/* <FormSocial>

@@ -1,5 +1,3 @@
-import User from './user';
-
 export default {
   async getMe(token) {
     const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
@@ -10,7 +8,6 @@ export default {
       }
     })
       .then(response => response.json())
-      .then(data => data);
     return result;
   },
   async getViewed(token) {
@@ -82,16 +79,14 @@ export default {
       }
     )
       .then(response => response.json())
-      .then(data => data);
     return result;
   },
-  async putMe(values) {
-    const resToken = await User.postLogin();
+  async putMe(token, values) {
     const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
       method: 'PUT',
       body: JSON.stringify({
         name: values.name,
-        last_name: values.lastName,
+        last_name: values.last_name,
         email: values.email,
         phone: values.phone,
         notification_alert: values.notification_alert ? '1' : '0',
@@ -101,11 +96,10 @@ export default {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${resToken.access_token}`
+        Authorization: `Bearer ${token}`
       }
     })
       .then(response => response.json())
-      .then(data => data);
     return result;
   }
 };

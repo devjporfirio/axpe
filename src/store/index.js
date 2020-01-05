@@ -3,15 +3,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
 import loggerMiddleware from 'store/middlewares/logger';
-import loginMiddleware from 'store/middlewares/login';
+import userMiddleware from 'store/middlewares/user';
 import rootReducers from './modules/rootReducers';
 
 
 const configureStore = (initialState = {}) => {
   const middlewares = process.env.NODE_ENV === 'production' ? [
-    loginMiddleware,
+    userMiddleware,
     thunkMiddleware
-  ] : [ loggerMiddleware, loginMiddleware, thunkMiddleware ];
+  ] : [ loggerMiddleware, userMiddleware, thunkMiddleware ];
 
   const middlewareEnhancer = applyMiddleware(...middlewares);
 

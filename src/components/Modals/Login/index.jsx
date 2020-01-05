@@ -45,13 +45,17 @@ function LoginModal() {
 
   const doAfterLogin = useCallback(async response => {
     const favorites = await Api.MyAccount.getFavorites(response.access_token);
+    const me = await Api.MyAccount.getMe(response.access_token);
+
     dispatch(
       setUser({
         logged: true,
         access_token: response.access_token,
-        favorites
+        favorites,
+        me: { ...me.data }
       })
     );
+
     CookieBuildingSeen.saveAll(response);
   }, []);
 

@@ -11,15 +11,15 @@ import { FormGroup } from 'components/FormElements/styles';
 import { Form, ButtonSave } from '../styles';
 import { Container, Note } from './styles';
 
-export default function UpdatePass({ active, onClose, user }) {
-  const profileSchema = Yup.object().shape({
-    password: Yup.string().required(),
-    passwordNew: Yup.string().required(),
-    passwordConfirmation: Yup.string()
-      .oneOf([ Yup.ref('passwordNew') ])
-      .required()
-  });
+const profileSchema = Yup.object().shape({
+  password: Yup.string().required(),
+  passwordNew: Yup.string().required(),
+  passwordConfirmation: Yup.string()
+    .oneOf([ Yup.ref('passwordNew') ])
+    .required()
+});
 
+function UpdatePass({ active, onClose, user }) {
   const {
     handleSubmit,
     handleChange,
@@ -102,3 +102,5 @@ export default function UpdatePass({ active, onClose, user }) {
     </Container>
   );
 }
+
+export default UpdatePass;

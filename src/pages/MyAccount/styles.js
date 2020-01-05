@@ -62,7 +62,7 @@ export const Nav = styled.nav`
     position: initial;
     margin: auto;
     max-width: 1000px;
-    
+
     ul {
       display: flex;
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import Api from 'services';
@@ -8,9 +7,6 @@ import * as Yup from 'yup';
 // components
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
 
 // styles
 import {
@@ -24,7 +20,6 @@ const loginSchema = Yup.object().shape({
 });
 
 function LoginForm({ doAfterLogin }) {
-  const dispatch = useDispatch();
   const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
@@ -48,11 +43,7 @@ function LoginForm({ doAfterLogin }) {
 
       if (response.access_token) {
         doAfterLogin(response);
-
-        dispatch(setMain({ modalLogin: false }));
-
         Router.push(`/minha-conta`);
-
       } else if(response.error) {
         let errorMessage = null;
         switch(response.error) {

@@ -48,56 +48,53 @@ import {
   ButtonSubmit
 } from 'pages/RegisterForm/styles';
 
+const registrySchema = Yup.object().shape({
+  type: Yup.string()
+    .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
+    .required(),
+  finalityVender: Yup.string().required(),
+  finalityAluguel: Yup.string().required(),
+  category: Yup.string().required(),
+  zipcode: Yup.string().required(),
+  address: Yup.string().required(),
+  number: Yup.number().required(),
+  complement: Yup.string().required(),
+  neighborhood: Yup.string().required(),
+  areaUseful: Yup.number().required(),
+  numDorms: Yup.number(),
+  numSuites: Yup.number(),
+  numParking: Yup.number().required(),
+  isVacant: Yup.boolean().required(),
+  managerKey: Yup.string().required(),
+  valueRequested: Yup.number().required(),
+  valueTax: Yup.number().required(),
+  valueCondo: Yup.number().required(),
+  positiveCharacteristics: Yup.string().required(),
+  negativeCharacteristics: Yup.string().required(),
+  images: Yup.array(),
+  terms: Yup.boolean()
+    .oneOf([ true ])
+    .required()
+});
+
 function RegisterForm({ locals, categories, pais, type }) {
   const dispatch = useDispatch();
-  const access = useSelector(state => state.user);
-  const [ me, setme ] = useState({});
+  const user = useSelector(state => state.user);
+  const [ me, setMe ] = useState({});
 
   useEffect(() => {
     async function loadMe() {
-      if (access && access.logged) {
-        const me = await Api.MyAccount.getMe(access.access_token);
-        setme(me.data);
+      if (user && user.logged) {
+        dispatch(setMain({ modalLogin: false }));
+        const me = await Api.MyAccount.getMe(user.access_token);
+        setMe(me.data);
       } else {
-        dispatch(
-          setMain({
-            modalLogin: true
-          })
-        );
+        dispatch(setMain({ modalLogin: true }));
       }
     }
 
     loadMe();
-  }, [ access ]);
-
-  const registrySchema = Yup.object().shape({
-    type: Yup.string()
-      .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
-      .required(),
-    finalityVender: Yup.string().required(),
-    finalityAluguel: Yup.string().required(),
-    category: Yup.string().required(),
-    zipcode: Yup.string().required(),
-    address: Yup.string().required(),
-    number: Yup.number().required(),
-    complement: Yup.string().required(),
-    neighborhood: Yup.string().required(),
-    areaUseful: Yup.number().required(),
-    numDorms: Yup.number(),
-    numSuites: Yup.number(),
-    numParking: Yup.number().required(),
-    isVacant: Yup.boolean().required(),
-    managerKey: Yup.string().required(),
-    valueRequested: Yup.number().required(),
-    valueTax: Yup.number().required(),
-    valueCondo: Yup.number().required(),
-    positiveCharacteristics: Yup.string().required(),
-    negativeCharacteristics: Yup.string().required(),
-    images: Yup.array(),
-    terms: Yup.boolean()
-      .oneOf([ true ])
-      .required()
-  });
+  }, [ user ]);
 
   const {
     handleSubmit,

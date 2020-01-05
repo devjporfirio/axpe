@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Api from 'services';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
 
 // images
 import IShare from 'assets/icons/share';
@@ -24,25 +21,21 @@ import {
 } from 'pages/MyAccount/Favorites/styles';
 
 function Favorites() {
-  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ buildings, setBuildings ] = useState([]);
 
   useEffect(() => {
     async function loadBuildings() {
       if (user && user.logged) {
-        dispatch(setMain({ modalLogin: false }));
         const buildings = await Api.MyAccount.getFavorites(user.access_token);
         setBuildings(buildings);
-      } else {
-        dispatch(setMain({ modalLogin: true }));
       }
     }
 
     loadBuildings();
   }, [ user ]);
 
-  if(!user.logged) return null;
+  if(!user.logged) return <Container/>;
 
   return !buildings || buildings.length <= 0 ? (
       <Container>

@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Api from 'services';
-import { useSelector, useDispatch } from 'react-redux';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
+import { useSelector } from 'react-redux';
 
 // components
 import Slides from 'pages/MyAccount/Viewed/Slides';
@@ -11,19 +8,15 @@ import Slides from 'pages/MyAccount/Viewed/Slides';
 // styles
 import { Container } from 'pages/MyAccount/Viewed/styles';
 
-function Viewed({}) {
-  const [ views, setviews ] = useState([]);
-  const dispatch = useDispatch();
+function Viewed() {
   const user = useSelector(state => state.user);
+  const [ views, setViews ] = useState([]);
 
   useEffect(() => {
     async function loadBuildings() {
       if (user && user.access_token) {
-        dispatch(setMain({ modalLogin: false }));
         const buildingViewed = await Api.MyAccount.getViewed(user.access_token);
-        setviews(buildingViewed);
-      } else {
-        dispatch(setMain({ modalLogin: true }));
+        setViews(buildingViewed);
       }
     }
 
@@ -38,7 +31,7 @@ function Viewed({}) {
       return h;
     }, {});
 
-  if(!user.logged) return null;
+  if(!user.logged) return <Container/>;
 
   return (
     <Container>
