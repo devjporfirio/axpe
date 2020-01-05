@@ -14,7 +14,7 @@ const ContactHome = () => (
       <p>
         Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
       </p>
-      <Link fullWidth={true} type="button" onClick={() => {}}>
+      <Link href="/so-quero-sonhar" passHref fullWidth={true}>
         Entre em contato
       </Link>
     </div>
@@ -65,7 +65,7 @@ const NotFound = () => (
         Que tal um imóvel na planta? Conheça nossas opções de imóveis em
         lançamento
       </p>
-      <Link href="/contato" fullWidth={true}>
+      <Link href="/so-quero-sonhar" passHref fullWidth={true}>
         Entre em contato
       </Link>
     </div>
