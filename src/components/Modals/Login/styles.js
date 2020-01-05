@@ -52,4 +52,29 @@ export const LoginRow = styled.div`
   `}
 `;
 
-export const LoginForm = styled.form``;
+export const LoginFeedback = styled.p`
+  margin-top: 10px;
+  font: 14px 'Raleway';
+  color: ${({ theme }) => theme.colors.orange};
+`;
+
+export const LoginFormContainer = styled.form`
+  margin-top: 17px;
+
+  label {
+    height: 40px;
+    background-color: ${({ theme }) => theme.colors.grey};
+    margin-bottom: 14px;
+  }
+`;
+
+export const RegisterFormContainer = styled.form`
+  label {
+    height: 40px;
+    margin-bottom: 14px;
+
+    &:not([for="terms"]) {
+      background-color: ${({ theme }) => theme.colors.grey};
+    }
+  }
+`;

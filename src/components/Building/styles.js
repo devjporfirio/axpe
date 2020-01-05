@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+// components
 import Gallery from 'components/Slider';
+import Button from 'components/Button';
 
 export const Container = styled.div`
   position: relative;
@@ -11,13 +13,36 @@ export const Container = styled.div`
   overflow: hidden;
   border-radius: 6px;
 
+  ${props =>
+    props.hasDeleted &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 30px;
+    `}
+
   ${media.greaterThan('medium')`
     width: 100%;
-    height: 365px;
+    height: ${props =>
+      props.useBtSchedule ? (props.hasDeleted ? '45PX' : '386px') : '365px'};
     margin: auto auto 20px auto;
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
+
+    ${props =>
+      props.hasDeleted
+        ? css`
+            justify-content: flex-start;
+            flex-direction: row;
+            align-items: center;
+          `
+        : css`
+            justify-content: space-between;
+            flex-direction: row-reverse;
+          `}
   `}
 
   p, h4 {
@@ -51,11 +76,11 @@ export const Slider = styled(Gallery)`
 
   ${media.greaterThan('medium')`
     width: 60%;
-    height: 365px;
+    height: ${props => (props.useBtSchedule ? '386px' : '365px')};
 
     iframe, img {
       width: 100%;
-      height: 365px;
+      height: ${props => (props.useBtSchedule ? '386px' : '365px')};
     }
   `}
 `;
@@ -129,7 +154,7 @@ export const ReleaseDelivery = styled.p`
   height: 35px;
   position: absolute;
   width: 40%;
-  margin-top: 330px;
+  margin-top: ${props => (props.useBtSchedule ? '350px' : '330px')};
   margin-left: -60%;
   color: ${({ theme }) => theme.colors.greenDark};
   text-align: center;
@@ -194,4 +219,59 @@ export const Price = styled.p`
     line-height: 16px;
     font-size: 16px;
   `};
+`;
+
+export const RemoveButton = styled(Button)`
+  height: 27px;
+  font-size: 11px;
+  line-height: 27px;
+  padding: 0 18px;
+  position: absolute;
+  border-radius: 0 0 0 6px;
+  right: 0;
+  margin-top: -259px;
+
+  ${media.greaterThan('medium')`
+    margin-top: -30px;
+    right: 60%;
+  `}
+
+  ${media.greaterThan('1280px')`
+    margin-top: -40px;
+  `}
+`;
+
+export const ScheduleButton = styled(Button)`
+  width: 100%;
+  margin-top: 7px;
+  line-height: 35px;
+  height: 35px;
+  padding: 0 10px;
+
+  ${media.greaterThan('medium')`
+    width: auto;
+  `}
+`;
+
+export const UndoButton = styled(Button)`
+  width: 100%;
+  line-height: 35px;
+  height: 35px;
+
+  ${media.greaterThan('medium')`
+    padding: 0 40px;
+    width: auto;
+  `}
+`;
+
+export const MessageSuccess = styled.p`
+  font: 18px 'Raleway';
+  margin-bottom: 20px;
+
+  ${media.greaterThan('medium')`
+    font-size: 16px;
+    margin-left: 67.5px;
+    margin-right: 31.5px;
+    margin-bottom: 0;
+  `}
 `;

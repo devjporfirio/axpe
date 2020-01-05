@@ -160,7 +160,7 @@ export const Info = styled.div`
   padding: 49px 15px 0 15px;
 
   p,
-  a {
+  button {
     font: 14px/18px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
@@ -169,7 +169,7 @@ export const Info = styled.div`
     }
   }
 
-  a {
+  button {
     padding: 0;
     margin-left: calc(100% - 88px);
     text-decoration: underline;
@@ -181,7 +181,7 @@ export const Info = styled.div`
     height: auto;
     padding: 0;
 
-    a {
+    button {
       color: ${({ theme }) => theme.colors.orange};
       margin: 0;
       display: inline;

@@ -11,7 +11,7 @@ function Button(props) {
     children,
     color = 'orange',
     disabled,
-    href,
+    href = '',
     size = 'normal',
     target,
     type,

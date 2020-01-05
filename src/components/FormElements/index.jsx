@@ -8,6 +8,7 @@ import Text from './Text';
 import CPF from './CPF';
 import CEP from './CEP';
 import File from './File';
+import Password from './Password';
 
 import { Label, Span, Message } from './styles';
 
@@ -22,7 +23,8 @@ const TYPE_FIELD = {
   text: Text,
   cpf: CPF,
   cep: CEP,
-  file: File
+  file: File,
+  password: Password
 };
 
 const Field = ({

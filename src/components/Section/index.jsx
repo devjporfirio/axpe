@@ -68,7 +68,7 @@ function sectionDestaqueTextBullets(item) {
   );
 }
 
-function sectionMultiInfos(item, labelTitle, type) {
+function sectionMultiInfos(item, labelTitle, type, useButtom) {
   const { category, values, infos, reference, slug, address } =
     item && item.building && Object.keys(item.building).length > 0
       ? item.building
@@ -105,16 +105,18 @@ function sectionMultiInfos(item, labelTitle, type) {
       {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
 
       <Reference type={type}>Ref {reference}</Reference>
-      <LinkContainer>
-        <Button href="/building/[reference]" as={`/building/${slug}`}>
-          Saiba mais
-        </Button>
-      </LinkContainer>
+      {useButtom && (
+        <LinkContainer>
+          <Button href="/building/[reference]" as={`/building/${slug}`}>
+            Saiba mais
+          </Button>
+        </LinkContainer>
+      )}
     </>
   );
 }
 
-function renderSelection(type, item) {
+function renderSelection(type, item, useButtom) {
   switch (type) {
     case 'slick':
       return sectionInfo(item);
@@ -124,7 +126,7 @@ function renderSelection(type, item) {
       return sectionMultiInfos(item, 'titleWhite');
     case 'slickLarge':
     case 'slickSmall':
-      return sectionMultiInfos(item, '', type);
+      return sectionMultiInfos(item, '', type, useButtom);
     case 'destaque-texto':
       return sectionDestaqueText(item);
     case 'destaque-texto-bullets':
@@ -138,7 +140,8 @@ export default function Slick({
   type,
   item,
   className,
-  showHorizontalRule = true
+  showHorizontalRule = true,
+  useButtom = true
 }) {
   return (
     <Container
@@ -146,7 +149,7 @@ export default function Slick({
       type={type}
       showHorizontalRule={showHorizontalRule}
     >
-      {renderSelection(type, item)}
+      {renderSelection(type, item, useButtom)}
     </Container>
   );
 }

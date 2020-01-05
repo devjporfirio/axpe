@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import * as Yup from 'yup';
+import Link from 'next/link';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -16,6 +17,7 @@ import SeoData from 'helpers/seo';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
+import { setUser } from 'store/modules/user/actions';
 
 // images
 import IUser from 'assets/icons/user';
@@ -46,36 +48,53 @@ import {
   ButtonSubmit
 } from 'pages/RegisterForm/styles';
 
+const registrySchema = Yup.object().shape({
+  type: Yup.string()
+    .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
+    .required(),
+  finalityVender: Yup.string().required(),
+  finalityAluguel: Yup.string().required(),
+  category: Yup.string().required(),
+  zipcode: Yup.string().required(),
+  address: Yup.string().required(),
+  number: Yup.number().required(),
+  complement: Yup.string().required(),
+  neighborhood: Yup.string().required(),
+  areaUseful: Yup.number().required(),
+  numDorms: Yup.number(),
+  numSuites: Yup.number(),
+  numParking: Yup.number().required(),
+  isVacant: Yup.boolean().required(),
+  managerKey: Yup.string().required(),
+  valueRequested: Yup.number().required(),
+  valueTax: Yup.number().required(),
+  valueCondo: Yup.number().required(),
+  positiveCharacteristics: Yup.string().required(),
+  negativeCharacteristics: Yup.string().required(),
+  images: Yup.array(),
+  terms: Yup.boolean()
+    .oneOf([ true ])
+    .required()
+});
+
 function RegisterForm({ locals, categories, pais, type }) {
   const dispatch = useDispatch();
-  const registrySchema = Yup.object().shape({
-    type: Yup.string()
-      .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
-      .required(),
-    finalityVender: Yup.string().required(),
-    finalityAluguel: Yup.string().required(),
-    category: Yup.string().required(),
-    zipcode: Yup.string().required(),
-    address: Yup.string().required(),
-    number: Yup.number().required(),
-    complement: Yup.string().required(),
-    neighborhood: Yup.string().required(),
-    areaUseful: Yup.number().required(),
-    numDorms: Yup.number(),
-    numSuites: Yup.number(),
-    numParking: Yup.number().required(),
-    isVacant: Yup.boolean().required(),
-    managerKey: Yup.string().required(),
-    valueRequested: Yup.number().required(),
-    valueTax: Yup.number().required(),
-    valueCondo: Yup.number().required(),
-    positiveCharacteristics: Yup.string().required(),
-    negativeCharacteristics: Yup.string().required(),
-    images: Yup.array(),
-    terms: Yup.boolean()
-      .oneOf([ true ])
-      .required()
-  });
+  const user = useSelector(state => state.user);
+  const [ me, setMe ] = useState({});
+
+  useEffect(() => {
+    async function loadMe() {
+      if (user && user.logged) {
+        dispatch(setMain({ modalLogin: false }));
+        const me = await Api.MyAccount.getMe(user.access_token);
+        setMe(me.data);
+      } else {
+        dispatch(setMain({ modalLogin: true }));
+      }
+    }
+
+    loadMe();
+  }, [ user ]);
 
   const {
     handleSubmit,
@@ -120,7 +139,10 @@ function RegisterForm({ locals, categories, pais, type }) {
             : 'Vender'
           : ''
       }`;
-      const resp = await Api.RegisterForm.postProperty(values);
+      const resp = await Api.RegisterProperty.postProperty(
+        access.access_token,
+        values
+      );
       setSubmitting(false);
       if (resp.status === 'success') {
         dispatch(
@@ -137,6 +159,16 @@ function RegisterForm({ locals, categories, pais, type }) {
     const newList = [ ...values.images ];
     newList.splice(position, 1);
     setFieldValue('images', newList);
+  };
+
+  const handleLogOff = () => {
+    dispatch(
+      setUser({
+        logged: false,
+        access_token: '',
+        favorites: []
+      })
+    );
   };
 
   const newCategories =
@@ -420,7 +452,8 @@ function RegisterForm({ locals, categories, pais, type }) {
                   onBlur={handleBlur}
                 />
 
-                {(values.type !== 'Internacional' || values.finalityAluguel) && (
+                {(values.type !== 'Internacional' ||
+                  values.finalityAluguel) && (
                   <FormElements
                     name="valueRequested"
                     label="Qual o valor de aluguel que gostaria?"
@@ -545,7 +578,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                 type="checkboxLink"
                 name="terms"
                 label="Concordo com o termo de autorização de comercialização de imóveis"
-                onChange={handleChange}
+                onChange={() => setFieldValue('terms', !values.terms)}
                 error={touched.terms && errors.terms}
                 value={values.terms}
                 checked={values.terms}
@@ -557,12 +590,15 @@ function RegisterForm({ locals, categories, pais, type }) {
                 <Info>
                   <p>
                     Você está logado como
-                    <strong> Rodrigo Alarcon</strong>
+                    <strong> {me.name}</strong>
                   </p>
-                  <p>Tel.: (11) 3082 5693</p>
-                  <p>E-mail: ralarcon@futuebrand.com</p>
+                  <p>Tel.: {me.phone}</p>
+                  <p>E-mail: {me.email}</p>
                   <p>
-                    Se não for você <a href="/">clique aqui</a>
+                    Se não for você{' '}
+                    <Link href="/"  passHref>
+                      <button onClick={handleLogOff}>clique aqui</button>
+                    </Link>
                   </p>
                 </Info>
               </InfoLogin>

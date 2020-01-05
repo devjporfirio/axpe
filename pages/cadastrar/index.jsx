@@ -32,7 +32,7 @@ function RegisterProperty() {
 
         <List>
           {PROPERTY_TYPES.map(type => (
-            <Link key={type.to} href={`/cadastrar/${type.to}`}>
+            <Link key={type.to} href={`/cadastrar/[type]`} as={`/cadastrar/${type.to}`} passHref>
               <Item background={type.to.toLowerCase()}>
                 <Gradient />
                 <p>{type.label}</p>
