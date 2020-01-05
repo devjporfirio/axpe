@@ -52,6 +52,19 @@ export default {
     ).then(response => response.json())
     return response;
   },
+  async getAlerts(token) {
+    const response = await fetch(
+      `${process.env.config.apiUrl}/user/alerts`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    ).then(response => response.json())
+    return response;
+  },
   async postFavorite(token, reference, status) {
     const result = await fetch(
       `${process.env.config.apiUrl}/user/favorite/building/${

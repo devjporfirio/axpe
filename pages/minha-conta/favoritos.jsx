@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Api from 'services';
 import { useSelector, useDispatch } from 'react-redux';
+import Api from 'services';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -23,41 +23,40 @@ import {
   BuildingItem
 } from 'pages/MyAccount/Favorites/styles';
 
-function Favorites({}) {
+function Favorites() {
   const dispatch = useDispatch();
-  const access = useSelector(state => state.user);
-  const [ buildings, setbuildings ] = useState([]);
+  const user = useSelector(state => state.user);
+  const [ buildings, setBuildings ] = useState([]);
 
   useEffect(() => {
     async function loadBuildings() {
-      if (access && access.logged) {
-        const buildings = await Api.MyAccount.getFavorites(access.access_token);
-        setbuildings(buildings);
+      if (user && user.logged) {
+        dispatch(setMain({ modalLogin: false }));
+        const buildings = await Api.MyAccount.getFavorites(user.access_token);
+        setBuildings(buildings);
       } else {
-        dispatch(
-          setMain({
-            modalLogin: true
-          })
-        );
+        dispatch(setMain({ modalLogin: true }));
       }
     }
 
     loadBuildings();
-  }, [ access ]);
+  }, [ user ]);
+
+  if(!user.logged) return null;
 
   return !buildings || buildings.length <= 0 ? (
-    <Container>
-      <Body>
-        <Empty>
-          <h4>Você ainda não tem nenhum imóvel favorito</h4>
-          <p>
-            Para favoritar um imóvel, faça uma busca e clique nos ícones de
-            coração em cada imóvel.
-          </p>
-        </Empty>
-      </Body>
-    </Container>
-  ) : (
+      <Container>
+        <Body>
+          <Empty>
+            <h4>Você ainda não tem nenhum imóvel favorito</h4>
+            <p>
+              Para favoritar um imóvel, faça uma busca e clique nos ícones de
+              coração em cada imóvel.
+            </p>
+          </Empty>
+        </Body>
+      </Container>
+    ) : (
     <Container>
       <Body>
         <Amount>
@@ -85,12 +84,5 @@ function Favorites({}) {
     </Container>
   );
 }
-
-Favorites.getInitialProps = async ({}) => {
-  // const buildings = await Api.MyAccount.getFavorites();
-  // return {
-  //   buildings
-  // };
-};
 
 export default Favorites;

@@ -14,26 +14,21 @@ import { Container } from 'pages/MyAccount/Viewed/styles';
 function Viewed({}) {
   const [ views, setviews ] = useState([]);
   const dispatch = useDispatch();
-  const access = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     async function loadBuildings() {
-      if (access && access.access_token) {
-        const buildingViewed = await Api.MyAccount.getViewed(
-          access.access_token
-        );
+      if (user && user.access_token) {
+        dispatch(setMain({ modalLogin: false }));
+        const buildingViewed = await Api.MyAccount.getViewed(user.access_token);
         setviews(buildingViewed);
       } else {
-        dispatch(
-          setMain({
-            modalLogin: true
-          })
-        );
+        dispatch(setMain({ modalLogin: true }));
       }
     }
 
     loadBuildings();
-  }, [ access ]);
+  }, [ user ]);
 
   const group =
     views &&
@@ -42,6 +37,8 @@ function Viewed({}) {
       h[obj['viewedAt']] = (h[obj['viewedAt']] || []).concat(obj);
       return h;
     }, {});
+
+  if(!user.logged) return null;
 
   return (
     <Container>
@@ -55,12 +52,5 @@ function Viewed({}) {
     </Container>
   );
 }
-
-Viewed.getInitialProps = async ({}) => {
-  // const buildingViewed = await Api.MyAccount.getViewed();
-  // return {
-  //   views: buildingViewed
-  // };
-};
 
 export default Viewed;

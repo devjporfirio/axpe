@@ -30,37 +30,35 @@ import {
   FormGroupAlerts
 } from 'pages/MyAccount/Profile/styles';
 
+const profileSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  lastName: Yup.string().required(),
+  email: Yup.string().required(),
+  phone: Yup.string().required(),
+  notification_alert: Yup.bool().required(),
+  notification_favorite: Yup.bool().required()
+});
+
 function Profile({}) {
-  const [ changePass, setChangePass ] = useState(false);
-  const [ me, setme ] = useState({});
   const dispatch = useDispatch();
-  const access = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
+  const [ changePass, setChangePass ] = useState(false);
+  const [ me, setMe ] = useState({});
 
   useEffect(() => {
     async function loadMe() {
-      if (access && access.logged) {
-        const me = await Api.MyAccount.getMe(access.access_token);
-        setme(me.data);
+      if (user && user.logged) {
+        dispatch(setMain({ modalLogin: false }));
+        const me = await Api.MyAccount.getMe(user.access_token);
+        setMe(me.data);
       } else {
-        dispatch(
-          setMain({
-            modalLogin: true
-          })
-        );
+        dispatch(setMain({ modalLogin: true }));
       }
     }
 
     loadMe();
-  }, [ access ]);
+  }, [ user ]);
 
-  const profileSchema = Yup.object().shape({
-    name: Yup.string().required(),
-    lastName: Yup.string().required(),
-    email: Yup.string().required(),
-    phone: Yup.string().required(),
-    notification_alert: Yup.bool().required(),
-    notification_favorite: Yup.bool().required()
-  });
   const {
     handleSubmit,
     handleChange,
@@ -93,6 +91,8 @@ function Profile({}) {
       }
     }
   });
+
+  if(!user.logged) return null;
 
   return (
     <Container>
@@ -202,12 +202,5 @@ function Profile({}) {
     </Container>
   );
 }
-
-Profile.getInitialProps = async ({}) => {
-  // const me = await Api.MyAccount.getMe();
-  // return {
-  //   me: me.data
-  // };
-};
 
 export default Profile;
