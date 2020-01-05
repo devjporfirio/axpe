@@ -47,10 +47,15 @@ function LoginModal() {
     const favorites = await Api.MyAccount.getFavorites(response.access_token);
     const me = await Api.MyAccount.getMe(response.access_token);
 
+    const tokenTime = new Date().getTime();
+    const tokenMaxTime = tokenTime + (3600 * 1000);
+
     dispatch(
       setUser({
         logged: true,
         access_token: response.access_token,
+        tokenTime,
+        tokenMaxTime,
         favorites,
         me: { ...me.data }
       })

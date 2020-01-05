@@ -1,5 +1,8 @@
+import shouldRenewToken from './shouldRenewToken';
+
 export default {
   async getMe(token) {
+    shouldRenewToken();
     const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
       method: 'GET',
       headers: {
@@ -7,10 +10,11 @@ export default {
         Authorization: `Bearer ${token}`
       }
     })
-      .then(response => response.json())
+    .then(response => response.json())
     return result;
   },
   async getViewed(token) {
+    shouldRenewToken();
     const response = await fetch(
       `${process.env.config.apiUrl}/user/buildings/viewed?limit=10`,
       {
@@ -20,10 +24,12 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    ).then(response => response.json());
+    )
+    .then(response => response.json())
     return response;
   },
   async getForYou(token) {
+    shouldRenewToken();
     const response = await fetch(
       `${process.env.config.apiUrl}/user/buildings/foryou`,
       {
@@ -37,6 +43,7 @@ export default {
     return response;
   },
   async getFavorites(token) {
+    shouldRenewToken();
     const response = await fetch(
       `${process.env.config.apiUrl}/user/buildings/favorite`,
       {
@@ -50,6 +57,7 @@ export default {
     return response;
   },
   async getAlerts(token) {
+    shouldRenewToken();
     const response = await fetch(
       `${process.env.config.apiUrl}/user/alerts`,
       {
@@ -63,6 +71,7 @@ export default {
     return response;
   },
   async postFavorite(token, reference, status) {
+    shouldRenewToken();
     const result = await fetch(
       `${process.env.config.apiUrl}/user/favorite/building/${
         status ? 'yes' : 'no'
@@ -82,6 +91,7 @@ export default {
     return result;
   },
   async putMe(token, values) {
+    shouldRenewToken();
     const result = await fetch(`${process.env.config.apiUrl}/auth/me`, {
       method: 'PUT',
       body: JSON.stringify({
