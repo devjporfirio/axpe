@@ -80,8 +80,10 @@ export const Li = styled.li`
   height: 44px;
 
   a {
-    padding: 8px;
     color: ${({ theme }) => theme.colors.green};
+    width: 100%;
+    height: 44px;
+    display: block;
   }
 
   ${props =>
