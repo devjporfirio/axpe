@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import Api from 'services';
@@ -7,6 +8,9 @@ import * as Yup from 'yup';
 // components
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // styles
 import {
@@ -20,6 +24,8 @@ const loginSchema = Yup.object().shape({
 });
 
 function LoginForm({ doAfterLogin }) {
+  const dispatch = useDispatch();
+  const { modalLogin } = useSelector(state => state.main);
   const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
@@ -43,7 +49,8 @@ function LoginForm({ doAfterLogin }) {
 
       if (response.access_token) {
         doAfterLogin(response);
-        Router.push(`/minha-conta`);
+        Router.push(typeof modalLogin === 'string' ? modalLogin : `/minha-conta`);
+        dispatch(setMain({ modalLogin: false }));
       } else if(response.error) {
         let errorMessage = null;
         switch(response.error) {

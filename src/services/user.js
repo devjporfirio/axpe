@@ -1,3 +1,5 @@
+import shouldRenewToken from './shouldRenewToken';
+
 export default {
   async postLogin({ email, password }) {
     const result = await fetch(`${process.env.config.apiUrl}/auth/login`, {
@@ -14,6 +16,7 @@ export default {
     return result;
   },
   async postBuildingSeen(token, reference) {
+    shouldRenewToken();
     const result = await fetch(
       `${process.env.config.apiUrl}/user/view/building`,
       {
