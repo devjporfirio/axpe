@@ -100,8 +100,8 @@ function Header() {
     dispatch(setMain({ modalNewsletter: true }));
   }, [ modalNewsletter ]);
 
-  const openModalLogin = useCallback(() => {
-    dispatch(setMain({ modalLogin: true }));
+  const openModalLogin = useCallback((redirectTo) => {
+    dispatch(setMain({ modalLogin: redirectTo }));
   }, [ modalLogin ]);
 
   function cancelToggle() {
@@ -164,7 +164,7 @@ function Header() {
                     </NavMainButton>
                   </Link>
                 ) : (
-                  <NavMainButton type="register" onClick={openModalLogin}>
+                  <NavMainButton type="register" onClick={()=> openModalLogin('/cadastrar')}>
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                   </NavMainButton>
@@ -205,17 +205,23 @@ function Header() {
                     </NavSecondaryButton>
                   </Link>
                 ) : (
-                  <NavSecondaryButton onClick={openModalLogin}>
+                  <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta')}>
                     Meu perfil
                   </NavSecondaryButton>
                 )}
               </li>
               <li>
-                <Link href="/minha-conta/favoritos" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>
+              {logged ? (
+                  <Link href="/minha-conta/favoritos" passHref>
+                    <NavSecondaryButton onClick={cancelToggle}>
+                      Meus favoritos
+                    </NavSecondaryButton>
+                  </Link>
+                ) : (
+                  <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta/favoritos')}>
                     Meus favoritos
                   </NavSecondaryButton>
-                </Link>
+                )}
               </li>
             </ul>
           </NavSecondary>

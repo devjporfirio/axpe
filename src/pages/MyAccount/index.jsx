@@ -16,11 +16,11 @@ export default function MyAccount({ children, className }) {
   const page = router.pathname.replace('/minha-conta/', '');
 
   useEffect(() => {
-    async function loadUser() {
+    function loadUser() {
       if (user && user.logged) {
         dispatch(setMain({ modalLogin: false }));
       } else {
-        dispatch(setMain({ modalLogin: true }));
+        dispatch(setMain({ modalLogin: router.pathname }));
       }
     }
 
