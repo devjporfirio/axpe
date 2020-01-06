@@ -159,7 +159,8 @@ const TypeDestaqueTextoBullets = css`
   li {
     list-style: disc;
     color: ${({ theme }) => theme.colors.white};
-    font: 16px/40px 'Raleway';
+    font: 16px 'Raleway';
+    padding-bottom: 20px;
   }
 `;
 
