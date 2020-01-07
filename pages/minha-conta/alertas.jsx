@@ -27,7 +27,6 @@ function Alerts() {
 
   return (
     <Container>
-      <h1>Alertas</h1>
       {alerts.length > 0 ? (
         JSON.stringify(alerts)
       ) : (
