@@ -28,7 +28,7 @@ const SizeBig = css`
     height: 45px;
 
     & + span {
-      margin-top: 10px;
+      margin-top: 0;
     }
   `}
 `;
