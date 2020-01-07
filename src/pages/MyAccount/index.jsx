@@ -35,7 +35,7 @@ export default function MyAccount({ children, className }) {
         <h1>
           Olá, <strong>{user.me.name}</strong>
         </h1>
-        <Link href="/" passHref>
+        <Link href="/logout" passHref>
           <LinkLogOff>Log off</LinkLogOff>
         </Link>
       </Header>
