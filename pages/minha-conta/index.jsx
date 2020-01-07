@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 // components
 import Slides from 'pages/MyAccount/Viewed/Slides';
+import Empty from 'pages/MyAccount/Empty';
 
 // styles
 import { Container } from 'pages/MyAccount/Viewed/styles';
@@ -31,17 +32,23 @@ function Viewed() {
       return h;
     }, {});
 
-  if(!user.logged) return <Container/>;
+  if (!user.logged) return <Container />;
 
   return (
     <Container>
-      {Object.keys(group).length > 0 &&
+      {Object.keys(group).length > 0 ? (
         Object.keys(group).map((item, index) => (
           <Fragment key={index}>
             <Slides date={item} items={group[item]} />
             {Object.keys(group).length - 1 > index && <hr />}
           </Fragment>
-        ))}
+        ))
+      ) : (
+        <Empty
+          title="Você ainda não visualizou nenhum imóvel"
+          subtitle="Navegue pelo site, visualize imóveis, e eles ficarão disponíveis para visualizações futuras aqui."
+        />
+      )}
     </Container>
   );
 }

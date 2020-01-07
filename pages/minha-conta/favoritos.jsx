@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Api from 'services';
 
+import Empty from 'pages/MyAccount/Empty';
+
 // images
 import IShare from 'assets/icons/share';
 import IMail from 'assets/icons/mail';
@@ -11,7 +13,6 @@ import IWhats from 'assets/icons/whatsapp-orange';
 import {
   Container,
   Body,
-  Empty,
   Amount,
   ShareIcon,
   GroupIcon,
@@ -35,21 +36,19 @@ function Favorites() {
     loadBuildings();
   }, [ user ]);
 
-  if(!user.logged) return <Container/>;
+  if (!user.logged) return <Container />;
 
   return !buildings || buildings.length <= 0 ? (
-      <Container>
-        <Body>
-          <Empty>
-            <h4>Você ainda não tem nenhum imóvel favorito</h4>
-            <p>
-              Para favoritar um imóvel, faça uma busca e clique nos ícones de
-              coração em cada imóvel.
-            </p>
-          </Empty>
-        </Body>
-      </Container>
-    ) : (
+    <Container>
+      <Body>
+        <Empty
+          title="Você ainda não tem nenhum imóvel favorito"
+          subtitle="Para favoritar um imóvel, faça uma busca e clique nos ícones de
+              coração em cada imóvel."
+        />
+      </Body>
+    </Container>
+  ) : (
     <Container>
       <Body>
         <Amount>
