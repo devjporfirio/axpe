@@ -156,7 +156,7 @@ function RegisterForm({ locals, categories, pais, type }) {
           : ''
       }`;
       const resp = await Api.RegisterProperty.postProperty(
-        access.access_token,
+        user.access_token,
         values
       );
       setSubmitting(false);
@@ -191,7 +191,12 @@ function RegisterForm({ locals, categories, pais, type }) {
     categories &&
     Object.keys(categories).length > 0 &&
     categories[values.type.toUpperCase()]
-      ? categories[values.type.toUpperCase()].map(x => ({ label: x, value: x }))
+      ? [{ label: 'Selecione', value: '' }].concat(
+          categories[values.type.toUpperCase()].map(x => ({
+            label: x,
+            value: x
+          }))
+        )
       : [{ label: 'Selecione', value: '' }];
 
   return (
