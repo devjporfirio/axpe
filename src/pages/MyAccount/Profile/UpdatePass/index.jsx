@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from 'services';
@@ -20,6 +21,8 @@ const profileSchema = Yup.object().shape({
 });
 
 function UpdatePass({ active, onClose, user }) {
+  const userRedux = useSelector(state => state.user);
+
   const {
     handleSubmit,
     handleChange,
@@ -36,7 +39,7 @@ function UpdatePass({ active, onClose, user }) {
     },
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.MyAccount.putMe({ ...user, ...values });
+      const resp = await Api.MyAccount.putMe(userRedux.access_token, { ...user, ...values });
       setSubmitting(false);
       if (resp.status === 'success') {
         alert('Sucesso');
@@ -87,6 +90,7 @@ function UpdatePass({ active, onClose, user }) {
             error={touched.passwordConfirmation && errors.passwordConfirmation}
             value={values.passwordConfirmation}
             onBlur={handleBlur}
+            useEye
           />
         </FormGroup>
 

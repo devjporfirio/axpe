@@ -9,8 +9,7 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       }
-    })
-    .then(response => response.json())
+    }).then(response => response.json());
     return result;
   },
   async getViewed(token) {
@@ -24,8 +23,7 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    )
-    .then(response => response.json())
+    ).then(response => response.json());
     return response;
   },
   async getForYou(token) {
@@ -53,21 +51,18 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    ).then(response => response.json())
+    ).then(response => response.json());
     return response;
   },
   async getAlerts(token) {
     shouldRenewToken();
-    const response = await fetch(
-      `${process.env.config.apiUrl}/user/alerts`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
+    const response = await fetch(`${process.env.config.apiUrl}/user/alerts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
-    ).then(response => response.json())
+    }).then(response => response.json());
     return response;
   },
   async postFavorite(token, reference, status) {
@@ -86,8 +81,7 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    )
-      .then(response => response.json())
+    ).then(response => response.json());
     return result;
   },
   async putMe(token, values) {
@@ -102,14 +96,13 @@ export default {
         notification_alert: values.notification_alert ? '1' : '0',
         notification_favorite: values.notification_favorite ? '1' : '0',
         password_cur: values.password,
-        password_new: values.passwordNew
+        password: values.passwordNew
       }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       }
-    })
-      .then(response => response.json())
+    }).then(response => response.json());
     return result;
   }
 };
