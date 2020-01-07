@@ -43,6 +43,10 @@ const SizeSmall = css`
     background-size: contain;
     background-position: 2px;
   }
+
+  & ~ span {
+    top: 35% !important;
+  }
 `;
 
 export const InputCheckbox = styled.input`
