@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import Api from 'services';
 
 export default {
   cookieParams: {

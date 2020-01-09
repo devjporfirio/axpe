@@ -78,10 +78,13 @@ export const Li = styled.li`
   font: 14px/44px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   height: 44px;
+  padding: 0 5px;
 
   a {
-    padding: 8px;
     color: ${({ theme }) => theme.colors.green};
+    width: 100%;
+    height: 44px;
+    display: block;
   }
 
   ${props =>
@@ -106,6 +109,19 @@ export const Li = styled.li`
       css`
         background-color: ${({ theme }) => theme.colors.white};
       `}
+
+      &:nth-of-type(1) {
+        order: 4;
+      }
+      &:nth-of-type(2) {
+        order: 3;
+      }
+      &:nth-of-type(3) {
+        order: 2;
+      }
+      &:nth-of-type(4) {
+        order: 1;
+      }
   `}
 `;
 

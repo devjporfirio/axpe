@@ -66,9 +66,10 @@ const registrySchema = Yup.object().shape({
   numParking: Yup.number().required(),
   isVacant: Yup.boolean().required(),
   managerKey: Yup.string().required(),
-  valueRequested: Yup.number().required(),
-  valueTax: Yup.number().required(),
-  valueCondo: Yup.number().required(),
+  valueRent: Yup.string().required(),
+  valueSell: Yup.string().required(),
+  valueTax: Yup.string().required(),
+  valueCondo: Yup.string().required(),
   positiveCharacteristics: Yup.string().required(),
   negativeCharacteristics: Yup.string().required(),
   images: Yup.array(),
@@ -81,6 +82,10 @@ function RegisterForm({ locals, categories, pais, type }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ me, setMe ] = useState({});
+  const [ keyLocals, setKeyLocals ] = useState('São Paulo');
+  const [ localsByKey, setLocalsByKey ] = useState([
+    { label: 'Selecione', value: '' }
+  ]);
 
   useEffect(() => {
     async function loadMe() {
@@ -96,6 +101,16 @@ function RegisterForm({ locals, categories, pais, type }) {
     loadMe();
   }, [ user ]);
 
+  useEffect(() => {
+    let newLocals = [{ label: 'Selecione', value: '' }];
+    const key = keyLocals || 'São Paulo';
+    newLocals = [{ label: 'Selecione', value: '' }].concat(
+      locals[key].map(y => ({ label: y, value: y }))
+    );
+
+    setLocalsByKey(newLocals);
+  }, [ keyLocals ]);
+
   const {
     handleSubmit,
     handleChange,
@@ -108,8 +123,8 @@ function RegisterForm({ locals, categories, pais, type }) {
   } = useFormik({
     initialValues: {
       type: type || '',
-      finalityVender: false,
-      finalityAluguel: false,
+      finalityVender: true,
+      finalityAluguel: true,
       category: '',
       zipcode: '',
       address: '',
@@ -122,7 +137,8 @@ function RegisterForm({ locals, categories, pais, type }) {
       numParking: '',
       isVacant: '',
       managerKey: '',
-      valueRequested: '',
+      valueRent: '',
+      valueSell: '',
       valueTax: '',
       valueCondo: '',
       positiveCharacteristics: '',
@@ -140,7 +156,7 @@ function RegisterForm({ locals, categories, pais, type }) {
           : ''
       }`;
       const resp = await Api.RegisterProperty.postProperty(
-        access.access_token,
+        user.access_token,
         values
       );
       setSubmitting(false);
@@ -175,7 +191,12 @@ function RegisterForm({ locals, categories, pais, type }) {
     categories &&
     Object.keys(categories).length > 0 &&
     categories[values.type.toUpperCase()]
-      ? categories[values.type.toUpperCase()].map(x => ({ label: x, value: x }))
+      ? [{ label: 'Selecione', value: '' }].concat(
+          categories[values.type.toUpperCase()].map(x => ({
+            label: x,
+            value: x
+          }))
+        )
       : [{ label: 'Selecione', value: '' }];
 
   return (
@@ -289,7 +310,10 @@ function RegisterForm({ locals, categories, pais, type }) {
                       name="pais"
                       type="select"
                       items={pais}
-                      onChange={handleChange}
+                      onChange={e => {
+                        handleChange(e);
+                        setKeyLocals(e.currentTarget.value);
+                      }}
                       error={touched.pais && errors.pais}
                       onBlur={handleBlur}
                     />
@@ -343,7 +367,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                   placeholder="Bairro"
                   label="Bairro"
                   type="select"
-                  items={locals}
+                  items={localsByKey}
                   message="* Por enquanto atuamos apenas nestes bairros"
                   onChange={handleChange}
                   error={touched.neighborhood && errors.neighborhood}
@@ -441,21 +465,24 @@ function RegisterForm({ locals, categories, pais, type }) {
             <FormGroup>
               <h2>Valores do imóvel</h2>
               <FormGroupValues>
-                <FormElements
-                  name="valueRequested"
-                  label="Qual o valor de venda que gostaria?"
-                  placeholder="R$"
-                  onChange={handleChange}
-                  message="(Incluindo 6% de comissão)"
-                  error={touched.valueRequested && errors.valueRequested}
-                  value={values.valueRequested}
-                  onBlur={handleBlur}
-                />
-
-                {(values.type !== 'Internacional' ||
-                  values.finalityAluguel) && (
+                {values.finalityVender && (
                   <FormElements
-                    name="valueRequested"
+                    type="currency"
+                    name="valueSell"
+                    label="Qual o valor de venda que gostaria?"
+                    placeholder="R$"
+                    onChange={handleChange}
+                    message="(Incluindo 6% de comissão)"
+                    error={touched.valueSell && errors.valueSell}
+                    value={values.valueSell}
+                    onBlur={handleBlur}
+                  />
+                )}
+
+                {values.finalityAluguel && (
+                  <FormElements
+                    type="currency"
+                    name="valueRent"
                     label="Qual o valor de aluguel que gostaria?"
                     placeholder="R$"
                     message={
@@ -464,8 +491,8 @@ function RegisterForm({ locals, categories, pais, type }) {
                         : ''
                     }
                     onChange={handleChange}
-                    error={touched.valueRequested && errors.valueRequested}
-                    value={values.valueRequested}
+                    error={touched.valueRent && errors.valueRent}
+                    value={values.valueRent}
                     onBlur={handleBlur}
                   />
                 )}
@@ -473,6 +500,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                 {values.type !== 'Internacional' && (
                   <>
                     <FormElements
+                      type="currency"
                       name="valueTax"
                       label="Valor mensal de IPTU"
                       placeholder="R$"
@@ -483,6 +511,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                     />
                     {values.category !== 'Casa' && (
                       <FormElements
+                        type="currency"
                         name="valueCondo"
                         label="Qual o valor do condomínio"
                         placeholder="R$"
@@ -596,7 +625,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                   <p>E-mail: {me.email}</p>
                   <p>
                     Se não for você{' '}
-                    <Link href="/"  passHref>
+                    <Link href="/" passHref>
                       <button onClick={handleLogOff}>clique aqui</button>
                     </Link>
                   </p>
@@ -618,22 +647,14 @@ function RegisterForm({ locals, categories, pais, type }) {
 RegisterForm.getInitialProps = async ({ type, query }) => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
-  const paises = await Api.Search.getFilters(
-    '?source=internacional&finality=venda'
-  );
+  const paises = await Api.Search.getFilters('?source=internacional');
   const itemBase = { label: 'Selecione', value: '' };
 
-  const newLocals = [ itemBase ];
   const newPais = [ itemBase ];
-
-  Object.keys(locals).map(x =>
-    locals[x].map(y => newLocals.push({ label: y, value: y }))
-  );
-
   Object.keys(paises.locals).map(x => newPais.push({ label: x, value: x }));
 
   return {
-    locals: newLocals,
+    locals: locals,
     pais: newPais,
     categories,
     type: query.type

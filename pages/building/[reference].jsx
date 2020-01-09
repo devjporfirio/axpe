@@ -53,7 +53,7 @@ function Building({ property }) {
           building={{
             reference: property.reference,
             source: property.source,
-            likes: 135
+            likes: property.totalFavorites
           }}
         />
 

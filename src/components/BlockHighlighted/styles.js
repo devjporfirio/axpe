@@ -59,7 +59,7 @@ const ContainerRegisterPropertyWhite = css`
   padding: 30px 0;
 
   ${media.greaterThan('1024px')`
-    padding: 118px 0 66px 10px;
+    padding: 60px 0 66px 10px;
     max-width: 955px;
     width: 100%;
   `}

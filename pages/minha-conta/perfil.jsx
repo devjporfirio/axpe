@@ -76,7 +76,7 @@ function Profile() {
   });
 
   useEffect(() => {
-    if(user.logged) {
+    if (user.logged) {
       setFieldValue('name', user.me.name);
       setFieldValue('last_name', user.me.last_name);
       setFieldValue('email', user.me.email);
@@ -84,9 +84,9 @@ function Profile() {
       setFieldValue('notification_alert', user.me.notification_alert);
       setFieldValue('notification_favorite', user.me.notification_favorite);
     }
-  }, [ user.logged ])
+  }, [ user.logged ]);
 
-  if(!user.logged || !user.me) return <Container/>;
+  if (!user.logged || !user.me) return <Container />;
 
   return (
     <Container>
@@ -154,7 +154,13 @@ function Profile() {
                     Novos imóveis adicionados
                   </>
                 }
-                onChange={handleChange}
+                checked={values.notification_alert === 1}
+                onChange={() =>
+                  setFieldValue(
+                    'notification_alert',
+                    values.notification_alert === 1 ? 0 : 1
+                  )
+                }
                 error={touched.notification_alert && errors.notification_alert}
                 value={values.notification_alert}
                 onBlur={handleBlur}
@@ -168,7 +174,13 @@ function Profile() {
                     Informações atualizadas
                   </>
                 }
-                onChange={handleChange}
+                checked={values.notification_favorite === 1}
+                onChange={() =>
+                  setFieldValue(
+                    'notification_favorite',
+                    values.notification_favorite === 1 ? 0 : 1
+                  )
+                }
                 error={
                   touched.notification_favorite && errors.notification_favorite
                 }

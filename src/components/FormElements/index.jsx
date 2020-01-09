@@ -9,6 +9,7 @@ import CPF from './CPF';
 import CEP from './CEP';
 import File from './File';
 import Password from './Password';
+import Currency from './Currency';
 
 import { Label, Span, Message } from './styles';
 
@@ -24,7 +25,8 @@ const TYPE_FIELD = {
   cpf: CPF,
   cep: CEP,
   file: File,
-  password: Password
+  password: Password,
+  currency: Currency
 };
 
 const Field = ({
@@ -40,15 +42,21 @@ const Field = ({
   if (type === 'file') return <Component type={type} {...props}></Component>;
   return (
     <>
-      <Label className={className} type={type} htmlFor={props.name} themeColor={themeColor} error={error}>
+      <Label
+        className={className}
+        type={type}
+        htmlFor={props.name}
+        themeColor={themeColor}
+        error={error}
+      >
         <Component type={type} {...props}></Component>
         {!!label && (
           <Span
             onClick={
               [ 'checkbox', 'checkboxLink', 'radio' ].includes(type)
                 ? props.onChange
-                : () => {
-                    document.getElementsByName(props.name)[0].focus();
+                : function(e) {
+                    e.currentTarget.parentElement.children[props.name].focus();
                   }
             }
           >

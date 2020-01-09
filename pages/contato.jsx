@@ -235,8 +235,8 @@ function Contact() {
                 key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto'
               }}
               defaultCenter={{
-                lat: -23.577693,
-                lng: -46.673880
+                lat: -23.578524,
+                lng: -46.674180
               }}
               defaultZoom={18}
             >

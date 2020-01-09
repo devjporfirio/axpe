@@ -80,7 +80,7 @@ function Home({ hero, components }) {
 
         setBuildingsSeen(listBuildingsSeen);
 
-        if(listForYou.length) {
+        if(listForYou && listForYou.length) {
           setBuildingsForYou(listForYou);
         }
       }

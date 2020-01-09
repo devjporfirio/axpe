@@ -28,7 +28,7 @@ const SizeBig = css`
     height: 45px;
 
     & + span {
-      margin-top: 10px;
+      margin-top: 0;
     }
   `}
 `;
@@ -42,6 +42,10 @@ const SizeSmall = css`
     background: url(${CheckedIconSVG}) no-repeat;
     background-size: contain;
     background-position: 2px;
+  }
+
+  & ~ span {
+    top: 35% !important;
   }
 `;
 
