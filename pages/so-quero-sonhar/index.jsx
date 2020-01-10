@@ -6,7 +6,7 @@ import Link from 'next/link';
 import DataJSON from 'pages/Dream/data.json';
 
 // helpers
-// import SeoData from 'helpers/seo';
+import SeoData from 'helpers/seo';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -24,8 +24,8 @@ function Dream() {
   return (
     <>
       <Head>
-        {/* <title>{`So quero sonhar - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} /> */}
+        <title>{`So quero sonhar - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
       </Head>
       {data ? (
         <Container>

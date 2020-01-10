@@ -9,7 +9,7 @@ import Api from 'services';
 import DataJSON from 'pages/Dream/data.json';
 
 // helpers
-// import SeoData from 'helpers/seo';
+import SeoData from 'helpers/seo';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -77,53 +77,51 @@ function DreamDetail({ buildings }) {
     getData();
   }, [ ]);
 
-  return (
+  return data ? (
     <>
       <Head>
-        {/* <title>{`${data.title} | So quero sonhar - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} /> */}
+        <title>{`${data.title} | So quero sonhar - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
       </Head>
-      {data ? (
-        <Container>
-          <Header>
-            <h1>Só quero Sonhar <span>{data.title}</span></h1>
-            {data.subtitle && <p>{data.subtitle}</p>}
-          </Header>
+      <Container>
+        <Header>
+          <h1>Só quero Sonhar <span>{data.title}</span></h1>
+          {data.subtitle && <p>{data.subtitle}</p>}
+        </Header>
 
-          <List>
-            <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
-            <Buildings>
-              {buildings && buildings.length > 0 ? buildings.map((building, buildingIndex) => (
-                  <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
-                )) : (
-                <BuildingsNotFound>
-                  <h6>Não encontramos o imóveis na categoria que você procura <span>:(</span></h6>
-                  <p>Tente fazer uma <a href="/search">busca!</a></p>
-                </BuildingsNotFound>
-              )}
-            </Buildings>
-          </List>
+        <List>
+          <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
+          <Buildings>
+            {buildings && buildings.length > 0 ? buildings.map((building, buildingIndex) => (
+                <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+              )) : (
+              <BuildingsNotFound>
+                <h6>Não encontramos o imóveis na categoria que você procura <span>:(</span></h6>
+                <p>Tente fazer uma <a href="/search">busca!</a></p>
+              </BuildingsNotFound>
+            )}
+          </Buildings>
+        </List>
 
-          <Footer>
-            <h2>Sonhe também com:</h2>
-            <Slider {...sliderSettings}>
-              {allData.map((item, itemIndex) => (
-                <div className="item" key={`dream-slider-item-${itemIndex}`}>
-                  <Link href={`/so-quero-sonhar/${item.slug}`}>
-                    <FooterListItemLink>
-                      <h3>{item.title}</h3>
-                      <p>{item.subtitle}</p>
-                    </FooterListItemLink>
-                  </Link>
-                </div>
-              ))}
-            </Slider>
-          </Footer>
-          <BlockHighlighted type="dream" />
-        </Container>
-      ) : null}
+        <Footer>
+          <h2>Sonhe também com:</h2>
+          <Slider {...sliderSettings}>
+            {allData.map((item, itemIndex) => (
+              <div className="item" key={`dream-slider-item-${itemIndex}`}>
+                <Link href={`/so-quero-sonhar/${item.slug}`}>
+                  <FooterListItemLink>
+                    <h3>{item.title}</h3>
+                    <p>{item.subtitle}</p>
+                  </FooterListItemLink>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        </Footer>
+        <BlockHighlighted type="dream" />
+      </Container>
     </>
-  );
+  ) : null;
 }
 
 DreamDetail.getInitialProps = async ({ query }) => {
