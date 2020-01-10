@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const Container = styled.section`
-    background-color: ${({ theme }) => theme.colors.greyLight};
-    min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.greyLight};
+  min-height: 100vh;
 `;
 
 export const Header = styled.header`
-  padding: 40px 5vmin .6rem 5vmin;
+  padding: 40px 5vmin 0.6rem 5vmin;
   text-align: left;
-  
+
   ${media.greaterThan('medium')`
       padding: 7vmin 5vmin 5vmin 5vmin;
   `}
@@ -32,17 +32,17 @@ export const Header = styled.header`
     ${media.greaterThan('large')`
       font-size: 7.7vmin;
     `}
-  
+
     span {
-        color: ${({ theme }) => theme.colors.orange};
+      color: ${({ theme }) => theme.colors.orange};
     }
   }
 
   p {
-      font-family: 'Raleway';
-      font-size: .9rem;
-     
-      ${media.greaterThan('large')`
+    font-family: 'Raleway';
+    font-size: 0.9rem;
+
+    ${media.greaterThan('large')`
         font-size: 1.1rem;
       `}
   }
@@ -59,7 +59,7 @@ export const List = styled.ul`
       flex-flow: row wrap;
       justify-content: space-between;
   `}
-  
+
   ${media.greaterThan('large')`
     padding: 70px 130px 70px 130px;
     text-align: left;
@@ -124,16 +124,16 @@ export const List = styled.ul`
     position: relative;
 
     &:before {
-        content: '';
-        opacity: 0;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: ${({ theme }) => theme.colors.orange};
-        transition: all .2s linear;
-        z-index: -1;
+      content: '';
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: ${({ theme }) => theme.colors.orange};
+      transition: all .2s linear;
+      z-index: -1;
     }
   }
 
@@ -155,7 +155,7 @@ export const List = styled.ul`
     ${media.greaterThan('1024px')`
       margin-top: 35%;
     `}
-    
+
     ${media.greaterThan('large')`
       margin-top: 45%;
       top: 2.5rem;
@@ -165,7 +165,7 @@ export const List = styled.ul`
   p {
      color: white;
      font-size: .9rem;
-     width: 70%;
+     width: 90%;
      transition: all .2s linear;
      font-family: 'Bitter';
      font-weight: ${({ theme }) => theme.fontsWeight.medium};
@@ -173,14 +173,14 @@ export const List = styled.ul`
 
      ${media.greaterThan('medium')`
       font-size: .85rem;
-      width: 80%;
     `}
 
      ${media.greaterThan('large')`
         opacity: 0;
-        width: 60%;
         top: 1.3rem;
         font-size: .9rem;
     `}
   }
 `;
+
+export const MainListLink = styled.a``;

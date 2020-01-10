@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const Container = styled.section`
-    background-color: ${({ theme }) => theme.colors.greyLight};
-    min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.greyLight};
+  min-height: 100vh;
 `;
 
 export const Header = styled.header`
   padding: 10vmin 5vmin;
   text-align: center;
-  
+
   ${media.greaterThan('medium')`
     padding: 7vmin 5vmin 0 5vmin;
   `}
@@ -25,25 +25,25 @@ export const Header = styled.header`
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
     position: relative;
-    margin-bottom: 3rem;    
-      
+    margin-bottom: 3rem;
+
     ${media.greaterThan('large')`
       margin-bottom: 4rem;
     `}
-  
-    span {
-        color: ${({ theme }) => theme.colors.greenDark};
-        font-weight: ${({ theme }) => theme.fontsWeight.medium};
-        margin-top: 1rem;
-        display: block;
-        font-size: 7.7vmin;
-        font-family: 'Bitter';
 
-        ${media.greaterThan('medium')`
+    span {
+      color: ${({ theme }) => theme.colors.greenDark};
+      font-weight: ${({ theme }) => theme.fontsWeight.medium};
+      margin-top: 1rem;
+      display: block;
+      font-size: 7.7vmin;
+      font-family: 'Bitter';
+
+      ${media.greaterThan('medium')`
           font-size: 6vmin;
         `}
 
-        ${media.greaterThan('large')`
+      ${media.greaterThan('large')`
           font-size: 7.7vmin;
         `}
     }
@@ -62,9 +62,9 @@ export const Header = styled.header`
 
   p {
     font-family: 'Raleway';
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin: 0 auto;
-    
+
     ${media.greaterThan('large')`
       font-size: 1.1rem;
       max-width: 60%;
@@ -78,7 +78,7 @@ export const List = styled.main`
   ${media.greaterThan('medium')`
       padding: 0 5vmin 7vmin 5vmin;
   `}
-  
+
   ${media.greaterThan('large')`
     padding: 70px 130px 70px 130px;
     text-align: left;
@@ -92,12 +92,12 @@ export const List = styled.main`
     letter-spacing: 0.2vmin;
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
-    margin-bottom: 1rem;    
-      
+    margin-bottom: 1rem;
+
     ${media.greaterThan('large')`
       margin-bottom: 4rem;
     `}
-  
+
     span {
       color: ${({ theme }) => theme.colors.orange};
     }
@@ -187,16 +187,16 @@ export const Footer = styled.footer`
 
     &:hover {
       h3 {
-          margin-top: 40%;
-          top: 1rem;
+        margin-top: 40%;
+        top: 1rem;
       }
 
       a:before {
-          opacity: 0.5;
+        opacity: 0.5;
       }
 
       p {
-          opacity: 1;
+        opacity: 1;
       }
     }
 
@@ -213,16 +213,16 @@ export const Footer = styled.footer`
       `}
 
       &:before {
-          content: '';
-          opacity: 0;
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background-color: ${({ theme }) => theme.colors.orange};
-          transition: all .2s linear;
-          z-index: -1;
+        content: '';
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: ${({ theme }) => theme.colors.orange};
+        transition: all .2s linear;
+        z-index: -1;
       }
     }
   
@@ -254,7 +254,7 @@ export const Footer = styled.footer`
     p {
       color: white;
       font-size: .9rem;
-      width: 70%;
+      width: 90%;
       transition: all .2s linear;
       font-family: 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.medium};
@@ -262,15 +262,15 @@ export const Footer = styled.footer`
  
       ${media.greaterThan('medium')`
        font-size: .85rem;
-       width: 80%;
      `}
  
       ${media.greaterThan('large')`
          opacity: 0;
-         width: 60%;
          top: 1.3rem;
          font-size: .9rem;
      `}
     }
   }
 `;
+
+export const FooterListItemLink = styled.a``;
