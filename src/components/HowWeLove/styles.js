@@ -5,14 +5,13 @@ import Slider from 'components/Slider';
 export const Container = styled.div`
   width: 100vw;
   padding-bottom: 20px;
-  /* height: 552px; */
   background-color: #91a8ab;
 
   ${media.greaterThan('medium')`
     max-width: 1000px;
     width: 100%;
     margin: auto;
-    /* height: 564px; */
+    border-radius: 6px;
   `}
 `;
 
@@ -27,8 +26,9 @@ export const Title = styled.h2`
   }
 
   span:nth-child(2) {
-    color: ${({ theme }) => theme.colors.greenDark};
+    color: ${({ theme }) => theme.colors.green};
     font: 40px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
 
   ${media.greaterThan('medium')`
@@ -55,9 +55,9 @@ export const Reasons = styled(Slider)`
     margin: auto;
     display: flex !important;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     width: 100%;
+    height: 270px;
     padding: 30px 60px;
 
     &:before {
@@ -82,7 +82,7 @@ export const Reasons = styled(Slider)`
     }
 
     h3 {
-      margin-bottom: 25px;
+      margin-bottom: 23px;
       color: ${({ theme }) => theme.colors.orange};
       font: 18px/20px 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -95,7 +95,7 @@ export const Reasons = styled(Slider)`
 
     ${media.greaterThan('medium')`
       width: 160px;
-      padding: 30px 25px;
+      padding: 14px 25px;
 
       &:before {
         width: calc(100% - 20px);
@@ -109,6 +109,7 @@ export const Reasons = styled(Slider)`
 
   ${media.greaterThan('medium')`
     width: 90%;
+    height: 272px;
 
     & > button {
       &:first-of-type {

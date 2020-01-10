@@ -8,6 +8,12 @@ export const Container = styled.section`
 `;
 
 export const Tab = styled.nav`
+  position: fixed;
+  background-color: white;
+  z-index: 4;
+  box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34);
+  width: 100%;
+
   ul {
     white-space: nowrap;
     padding-left: 30px;
@@ -15,9 +21,8 @@ export const Tab = styled.nav`
     overflow: scroll;
   }
 
-  ${media.greaterThan('medium')`
-    box-shadow: 2px 0px 4px rgba(178, 178, 178, 0.335768);
-    margin-bottom: 23px;
+  ${media.greaterThan('1170px')`
+    width: calc(100% - 200px);
 
     ul {
       max-width: 1000px;
@@ -25,11 +30,6 @@ export const Tab = styled.nav`
       align-items: center;
       justify-content: space-between;
       padding-left: 0;
-    }
-  `}
-  ${media.between('medium', '1024px')`
-    ul {
-      padding-left: 140px;
     }
   `}
 `;
@@ -48,7 +48,7 @@ export const Li = styled.li`
     props.active &&
     css`
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
-      border-bottom: 2px solid ${({ theme }) => theme.colors.orange};
+      border-bottom: 3px solid ${({ theme }) => theme.colors.orange};
     `};
 
   ${media.greaterThan('medium')`
@@ -148,6 +148,7 @@ export const TitleSection = styled.h2`
   span {
     font: 24px/28px 'Raleway';
     color: ${({ theme }) => theme.colors.orange};
+    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
 
   ${media.greaterThan('medium')`
@@ -181,7 +182,6 @@ export const BaseArticles = styled.article`
   }
 
   ${media.greaterThan('medium')`
-    max-width: 956px;
-    margin: auto;
+    max-width: 1119px;
   `}
 `;

@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import Link from 'next/link'
+import Link from 'next/link';
 import SVG from 'react-inlinesvg';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
 
 // helpers
-import useScrollPosition from 'helpers/scroll-position';
+import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
 import SearchIconSVG from 'assets/icons/search';
@@ -38,7 +38,8 @@ import {
   NavLangs,
   NavLangsButton,
   Whatsapp,
-  WhatsappButton, Contact,
+  WhatsappButton,
+  Contact,
   Newsletter,
   NewsletterButton,
   Footer,
@@ -51,44 +52,57 @@ function Header() {
   const dispatch = useDispatch();
   const refHeader = useRef(null);
   const router = useRouter();
-  const { headerHiding, searchFormActive, modalNewsletter } = useSelector(state => state.main);
+  const {
+    headerHiding,
+    searchFormActive,
+    modalNewsletter,
+    modalLogin
+  } = useSelector(state => state.main);
+  const { logged } = useSelector(state => state.user);
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
 
-  const handleScrollPosition = useCallback(([ curTop, oldTop ]) => {
-    if(!refHeader || !headerHiding) return false;
+  const handleScrollPosition = useCallback(
+    ([ curTop, oldTop ]) => {
+      if (!refHeader || !headerHiding) return false;
 
-    if(window.innerWidth >= 768) {
-      refHeader.current.style.top = `0px`;
-      return false;
-    }
+      if (window.innerWidth >= 1170) {
+        refHeader.current.style.top = `0px`;
+        return false;
+      }
 
-    let top = curTop > oldTop ? -curTop : 0;
+      let top = curTop > oldTop ? -curTop : 0;
 
-    if(top <= -70) {
-      top = -70;
-    } else if(top > 0) {
-      top = 0;
-    }
+      if (top <= -70) {
+        top = -70;
+      } else if (top > 0) {
+        top = 0;
+      }
 
-    refHeader.current.style.top = `${top}px`;
-  }, [ headerHiding ]);
+      refHeader.current.style.top = `${top}px`;
+    },
+    [ headerHiding ]
+  );
 
   const handleToggle = useCallback(() => {
     setNavToggle(!navToggle);
   }, [ navToggle ]);
 
   const toggleSearch = useCallback(() => {
-    if(!searchFormActive && navToggle) {
+    if (!searchFormActive && navToggle) {
       handleToggle();
     }
 
-    dispatch(setMain({ searchFormActive: !searchFormActive }))
+    dispatch(setMain({ searchFormActive: !searchFormActive }));
   }, [ searchFormActive, navToggle ]);
 
   const openModalNewsletter = useCallback(() => {
-    dispatch(setMain({ modalNewsletter: true }))
-  }, [ modalNewsletter ])
+    dispatch(setMain({ modalNewsletter: true }));
+  }, [ modalNewsletter ]);
+
+  const openModalLogin = useCallback((redirectTo) => {
+    dispatch(setMain({ modalLogin: redirectTo }));
+  }, [ modalLogin ]);
 
   function cancelToggle() {
     setNavToggle(false);
@@ -101,12 +115,9 @@ function Header() {
   return (
     <Container ref={refHeader}>
       <Wrapper>
-
         <AxpeLogo type="axpe">
           <Link href="/" passHref>
-            <LogoLink onClick={cancelToggle}>
-              Axpe. Imóveis Especiais
-            </LogoLink>
+            <LogoLink onClick={cancelToggle}>Axpe. Imóveis Especiais</LogoLink>
           </Link>
         </AxpeLogo>
 
@@ -118,27 +129,46 @@ function Header() {
           </Link>
         </ChristiesLogo>
 
-        <ButtonSearch type="button" onClick={toggleSearch}>Buscar</ButtonSearch>
-        <ButtonToggle type="button" onClick={handleToggle} navToggle={navToggle}>
-          <i></i><i></i><i></i>
+        <ButtonSearch type="button" onClick={toggleSearch}>
+          Buscar
+        </ButtonSearch>
+        <ButtonToggle
+          type="button"
+          onClick={handleToggle}
+          navToggle={navToggle}
+        >
+          <i></i>
+          <i></i>
+          <i></i>
         </ButtonToggle>
 
         <Box navToggle={navToggle}>
           <NavMain>
             <ul>
               <li>
-                <NavMainButtonSearch type="button" active={searchFormActive} onClick={toggleSearch}>
+                <NavMainButtonSearch
+                  type="button"
+                  active={searchFormActive}
+                  onClick={toggleSearch}
+                >
                   <SVG src={SearchIconSVG} uniquifyIDs={true} />
                   <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                 </NavMainButtonSearch>
               </li>
               <li>
-                <Link href="/cadastrar" passHref>
-                  <NavMainButton type="register">
+                {logged ? (
+                  <Link href="/cadastrar" passHref>
+                    <NavMainButton type="register">
+                      <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                      <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                    </NavMainButton>
+                  </Link>
+                ) : (
+                  <NavMainButton type="register" onClick={()=> openModalLogin('/cadastrar')}>
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                   </NavMainButton>
-                </Link>
+                )}
               </li>
               <li>
                 <Link href="/so-quero-sonhar" passHref>
@@ -155,23 +185,43 @@ function Header() {
             <ul>
               <li>
                 <Link href="/sobre" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>Sobre a Axpe</NavSecondaryButton>
+                  <NavSecondaryButton onClick={cancelToggle}>
+                    Sobre a Axpe
+                  </NavSecondaryButton>
                 </Link>
               </li>
               <li>
                 <Link href="/contato" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>Fale com a gente</NavSecondaryButton>
+                  <NavSecondaryButton onClick={cancelToggle}>
+                    Fale com a gente
+                  </NavSecondaryButton>
                 </Link>
               </li>
               <li>
-                <Link href="/minha-conta" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>Meu perfil</NavSecondaryButton>
-                </Link>
+                {logged ? (
+                  <Link href="/minha-conta" passHref>
+                    <NavSecondaryButton onClick={cancelToggle}>
+                      Meu perfil
+                    </NavSecondaryButton>
+                  </Link>
+                ) : (
+                  <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta')}>
+                    Meu perfil
+                  </NavSecondaryButton>
+                )}
               </li>
               <li>
-                <Link href="/minha-conta/favoritos" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>Meus favoritos</NavSecondaryButton>
-                </Link>
+              {logged ? (
+                  <Link href="/minha-conta/favoritos" passHref>
+                    <NavSecondaryButton onClick={cancelToggle}>
+                      Meus favoritos
+                    </NavSecondaryButton>
+                  </Link>
+                ) : (
+                  <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta/favoritos')}>
+                    Meus favoritos
+                  </NavSecondaryButton>
+                )}
               </li>
             </ul>
           </NavSecondary>
@@ -180,7 +230,12 @@ function Header() {
             <ul>
               <li>
                 <Link href="/" passHref>
-                  <NavLangsButton onClick={cancelToggle} active={router.pathname !== '/en' && router.pathname !== '/es'}>
+                  <NavLangsButton
+                    onClick={cancelToggle}
+                    active={
+                      router.pathname !== '/en' && router.pathname !== '/es'
+                    }
+                  >
                     PT
                   </NavLangsButton>
                 </Link>
@@ -188,7 +243,10 @@ function Header() {
               <li>|</li>
               <li>
                 <Link href="/en" passHref>
-                  <NavLangsButton onClick={cancelToggle} active={router.pathname === '/en'}>
+                  <NavLangsButton
+                    onClick={cancelToggle}
+                    active={router.pathname === '/en'}
+                  >
                     EN
                   </NavLangsButton>
                 </Link>
@@ -196,7 +254,10 @@ function Header() {
               <li>|</li>
               <li>
                 <Link href="/es" passHref>
-                  <NavLangsButton onClick={cancelToggle} active={router.pathname === '/es'}>
+                  <NavLangsButton
+                    onClick={cancelToggle}
+                    active={router.pathname === '/es'}
+                  >
                     ES
                   </NavLangsButton>
                 </Link>
@@ -205,7 +266,10 @@ function Header() {
           </NavLangs>
 
           <Whatsapp>
-            <WhatsappButton href="https://api.whatsapp.com/send?phone=551130743600" target="_blank">
+            <WhatsappButton
+              href="https://api.whatsapp.com/send?phone=551130743600"
+              target="_blank"
+            >
               <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
               Fale conosco pelo Whatsapp
             </WhatsappButton>
@@ -216,14 +280,34 @@ function Header() {
           </Contact>
 
           <Newsletter>
-            <NewsletterButton type="button" onClick={openModalNewsletter}>Receba nossas <strong>novidades</strong></NewsletterButton>
+            <NewsletterButton type="button" onClick={openModalNewsletter}>
+              Receba nossas <strong>novidades</strong>
+            </NewsletterButton>
           </Newsletter>
 
           <Footer>
             <Socials>
-              <SocialsButton type="facebook" href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997" target="_blank"><SVG src={FacebookIconSVG} uniquifyIDs={true} /></SocialsButton>
-              <SocialsButton type="instagram" href="http://instagram.com/axpe_imoveis" target="_blank"><SVG src={InstagramIconSVG} uniquifyIDs={true} /></SocialsButton>
-              <SocialsButton type="linkedin" href="https://br.linkedin.com/company/axpe-im-veis" target="_blank"><SVG src={LinkedinIconSVG} uniquifyIDs={true} /></SocialsButton>
+              <SocialsButton
+                type="facebook"
+                href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997"
+                target="_blank"
+              >
+                <SVG src={FacebookIconSVG} uniquifyIDs={true} />
+              </SocialsButton>
+              <SocialsButton
+                type="instagram"
+                href="http://instagram.com/axpe_imoveis"
+                target="_blank"
+              >
+                <SVG src={InstagramIconSVG} uniquifyIDs={true} />
+              </SocialsButton>
+              <SocialsButton
+                type="linkedin"
+                href="https://br.linkedin.com/company/axpe-im-veis"
+                target="_blank"
+              >
+                <SVG src={LinkedinIconSVG} uniquifyIDs={true} />
+              </SocialsButton>
             </Socials>
             <Creci>CRECI 19111J</Creci>
           </Footer>

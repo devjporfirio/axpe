@@ -5,10 +5,12 @@ import Section from 'components/Section';
 export const Container = styled.div`
   max-width: 1000px;
   margin: auto;
-  margin-bottom: 30px;
 
   ${media.greaterThan('medium')`
     display: flex;
+    section {
+      border-radius: 0 6px 6px 0;
+    }
   `}
 `;
 
@@ -16,6 +18,8 @@ export const Mapa = styled.div`
   width: 100vw;
   height: 182px;
   background-color: #143643;
+  border-radius: 6px;
+  overflow: hidden;
 
   iframe {
     width: 100%;

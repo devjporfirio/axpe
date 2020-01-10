@@ -1,4 +1,5 @@
 import React from 'react';
+import parse from 'html-react-parser';
 
 // helpers
 import { formatCurrency } from 'helpers/utils';
@@ -45,31 +46,46 @@ function sectionDestaqueText(item) {
 }
 
 function sectionDestaqueTextBullets(item) {
+  const { bullets, text, title } = item.texts;
+  const newBullets = !bullets
+    ? []
+    : parse(
+        bullets
+          .replace(/\n/g, '')
+          .replace(/\r/g, '')
+          .replace(/\t/g, '')
+      );
+
   return (
     <>
       <Block1DestaqueTextoBullet>
-        <h4>{item.texts.title}</h4>
-        {item.texts.title && <hr />}
-        <Infos>{item.texts.text}</Infos>
+        <h4>{title}</h4>
+        {title && <hr />}
+        <Infos>{text}</Infos>
       </Block1DestaqueTextoBullet>
-      {item.bullets && item.bullets.length ? (
-        <Block2DestaqueTextoBullet>
-          <ul>
-            {item.bullets.map(bullet => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
-        </Block2DestaqueTextoBullet>
-      ) : null}
+      <Block2DestaqueTextoBullet>{newBullets}</Block2DestaqueTextoBullet>
     </>
   );
 }
 
-function sectionMultiInfos(item, labelTitle) {
+function sectionMultiInfos(item, labelTitle, type, useButtom) {
   const { category, values, infos, reference, slug, address } =
     item && item.building && Object.keys(item.building).length > 0
       ? item.building
       : item;
+
+  const sell =
+    values && Object.keys(values).length > 0 && values.sell
+      ? parseInt(values.sell)
+      : '';
+  const release =
+    values && Object.keys(values).length > 0 && values.release
+      ? parseInt(values.release)
+      : '';
+  const rent =
+    values && Object.keys(values).length > 0 && values.rent
+      ? parseInt(values.rent)
+      : '';
 
   return (
     <>
@@ -80,22 +96,27 @@ function sectionMultiInfos(item, labelTitle) {
       <Infos>
         {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}
       </Infos>
-      {values && Object.keys(values).length > 0 && (values.sell || values.release) ? (
-        <Infos>Venda: {formatCurrency.format(values.sell) || formatCurrency.format(values.release)}</Infos>
+      {sell || release ? (
+        <Infos>
+          Venda:{' '}
+          {sell ? formatCurrency.format(sell) : formatCurrency.format(release)}
+        </Infos>
       ) : null}
-      {values && Object.keys(values).length > 0 && values.rent ? <Infos>Aluguel: {formatCurrency.format(values.rent)}</Infos> : null}
+      {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
 
-      <Reference>Ref {reference}</Reference>
-      <LinkContainer>
-        <Button href="/building/[reference]" as={`/building/${slug}`}>
-          Saiba mais
-        </Button>
-      </LinkContainer>
+      <Reference type={type}>Ref {reference}</Reference>
+      {useButtom && (
+        <LinkContainer>
+          <Button href="/building/[reference]" as={`/building/${slug}`}>
+            Saiba mais
+          </Button>
+        </LinkContainer>
+      )}
     </>
   );
 }
 
-function renderSelection(type, item) {
+function renderSelection(type, item, useButtom) {
   switch (type) {
     case 'slick':
       return sectionInfo(item);
@@ -105,7 +126,7 @@ function renderSelection(type, item) {
       return sectionMultiInfos(item, 'titleWhite');
     case 'slickLarge':
     case 'slickSmall':
-      return sectionMultiInfos(item);
+      return sectionMultiInfos(item, '', type, useButtom);
     case 'destaque-texto':
       return sectionDestaqueText(item);
     case 'destaque-texto-bullets':
@@ -119,7 +140,8 @@ export default function Slick({
   type,
   item,
   className,
-  showHorizontalRule = true
+  showHorizontalRule = true,
+  useButtom = true
 }) {
   return (
     <Container
@@ -127,7 +149,7 @@ export default function Slick({
       type={type}
       showHorizontalRule={showHorizontalRule}
     >
-      {renderSelection(type, item)}
+      {renderSelection(type, item, useButtom)}
     </Container>
   );
 }

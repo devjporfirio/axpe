@@ -10,6 +10,8 @@ import { Container, Mapa, Pin, Text } from './styles';
 
 export default function Around({ cep, text }) {
   const [ overvirePoly, setOverviewPoly ] = useState('');
+  const [ lat, setLat ] = useState('');
+  const [ lng, setLng ] = useState('');
 
   useEffect(() => {
     async function loadOverviewPolyline() {
@@ -19,6 +21,8 @@ export default function Around({ cep, text }) {
           geocode.geometry.viewport.northeast,
           geocode.geometry.viewport.southwest
         );
+        setLat(geocode.geometry.location.lat)
+        setLng(geocode.geometry.location.lng)
         setOverviewPoly(directions.routes[0].overview_polyline.points);
       }
     }
@@ -34,11 +38,11 @@ export default function Around({ cep, text }) {
               key: process.env.config.keyMap
             }}
             defaultCenter={{
-              lat: -23.533773,
-              lng: -46.62529
+              lat,
+              lng
             }}
             options={mapOptions}
-            defaultZoom={11}
+            defaultZoom={16}
             onGoogleApiLoaded={google => {
               function animateLine(line) {
                 window.setInterval(function() {

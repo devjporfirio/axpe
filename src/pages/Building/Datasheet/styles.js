@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 export const DatasheetContent = styled.div`
@@ -23,6 +23,7 @@ export const Block = styled.div`
   border-bottom: 2px solid ${({ theme }) => theme.colors.greenBorder};
 
   ${media.greaterThan('medium')`
+    padding: 42px 36px;
     width: 100%;
     border-bottom: none;
     border-right: 2px solid ${({ theme }) => theme.colors.greenBorder};
@@ -30,6 +31,10 @@ export const Block = styled.div`
 `;
 
 export const BlockOne = styled(Block)`
+  hr {
+    display: none;
+  }
+
   ${media.greaterThan('medium')`
     flex-direction: column;
     max-width: 349px;
@@ -37,6 +42,13 @@ export const BlockOne = styled(Block)`
       props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
     align-items: flex-start;
     flex-shrink: 0;
+
+    hr {
+      display: block;
+      width: 79px;
+      margin: 0;
+      border-color: ${({ theme }) => theme.colors.greenBorder};
+    }
   `}
 `;
 
@@ -59,6 +71,18 @@ export const BlockThree = styled(Block)`
 
   ${media.greaterThan('medium')`
     border: none;
+
+    ${props =>
+      props.type === 'pronto' &&
+      css`
+        padding: 20px;
+      `}
+  `}
+`;
+
+export const GroupInfo = styled.div`
+  ${media.greaterThan('medium')`
+    width: 100%;
   `}
 `;
 
@@ -66,12 +90,42 @@ export const Type = styled.p`
   font: 18px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   margin-bottom: 21px;
+
+  ${media.greaterThan('medium')`
+    font-size: 28px;
+    margin-bottom: 0;
+  `}
+`;
+
+export const GroupNeigRef = styled.div`
+  ${media.greaterThan('medium')`
+    display: flex;
+    align-items: center;
+    margin-top: -2px;
+  `}
 `;
 
 export const Neighborhood = styled.p`
   font: 15px 'Raleway';
   text-transform: uppercase;
   margin-bottom: 5px;
+
+  ${media.greaterThan('medium')`
+    font-size: 16px;
+    line-height: 33px;
+    letter-spacing: 0.46px;
+  `}
+`;
+
+export const CategoryRelease = styled.p`
+  font: 16px/25px 'Raleway';
+  letter-spacing: 0.69px;
+  display: none;
+
+  ${media.greaterThan('medium')`
+    display: block;
+    margin-top: -12px;
+  `}
 `;
 
 export const Ref = styled.p`
@@ -79,12 +133,15 @@ export const Ref = styled.p`
 
   ${media.greaterThan('medium')`
     font-size: 12px;
+    line-height: 33px;
+    letter-spacing: 0.34px;
+    margin-left: 18px;
   `}
 `;
 
 export const GroupTags = styled.div`
   width: 144px;
-  margin-top: 30px;
+  margin-top: 27px;
 
   div + div {
     margin-top: 10px;
@@ -122,6 +179,12 @@ export const PriceRelease = styled.div`
     font: 22px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   }
+
+  ${media.greaterThan('medium')`
+    p {
+      font-size: 26px;
+    }
+  `}
 `;
 
 export const InfoValue = styled.div`

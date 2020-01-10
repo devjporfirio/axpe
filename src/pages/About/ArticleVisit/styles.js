@@ -12,35 +12,43 @@ export const Container = styled(BaseArticles)`
     height: 365px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin-top: 70px;
     
     header {
       background-color: ${({ theme }) => theme.colors.greyLight};
       width: 718px;
-      height: 194px;
-      margin-left: 242px;
+      height: 164px;
+      margin-left: auto;
 
       h2 {
-        width: 398px;
-        margin-left: 299px;
-        padding: 30px 0;
+        width: 441px;
+        padding: 40px 0;
+        margin: 0 28px 0 auto ;
       }
     }
     img {
-      width: 482px;
+      width: 600px;
       height: 584px;
       position: absolute;
-      margin-top: -153px;
+      margin-top: -124px;
       padding: 0;
+    }
+  `}
+
+  ${media.between('1024px', '1279px')`
+    img {
+      width: 482px;
+      height: 584px;
+      margin-top: -153px;
     }
   `}
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     width: 400px;
-    margin: 40px 0 0 545px;
+    margin: 40px 69px 0 auto;
 
     p {
       padding: 0;

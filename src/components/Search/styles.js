@@ -21,9 +21,14 @@ export const Container = styled.section`
   ${props => props.active && ContainerActive}
 
   ${media.greaterThan('medium')`
+    left: 0;
+    background: rgba(38, 50, 56, 0.8);
+    z-index: 99;
+  `};
+
+  ${media.greaterThan('large')`
     left: 200px;
     width: calc(100% - 200px);
-    background: rgba(38, 50, 56, 0.8);
     z-index: 99;
   `};
 `;
@@ -61,7 +66,7 @@ export const FormWrapper = styled.div`
     top: 0;
     width: 360px;
     height: 100vh;
-    padding: 80px 30px 0 30px;
+    padding: 100px 30px 0 30px;
     background: ${({ theme }) => theme.colors.green};
     transform: translateX(-100%);
     overflow: hidden;
@@ -76,6 +81,10 @@ export const FormWrapper = styled.div`
       transform: translateX(0%);
       transition-duration: 300ms;
     `}
+  `};
+
+  ${media.greaterThan('large')`
+    padding-top: 80px;
   `};
 `;
 
@@ -379,12 +388,16 @@ export const FormTab = styled.div`
 
   ${media.greaterThan('medium')`
     left: 0;
-    padding: 80px 30px 30px;
+    padding: 150px 30px 30px;
     width: 250px;
     z-index: 3;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
     cursor: default;
     ${({ theme }) => theme.hide}
+  `}
+
+  ${media.greaterThan('large')`
+    padding-top: 80px;
   `}
 
   ${props => props.active && FormTabActive}
@@ -441,10 +454,6 @@ export const FormTabClose = styled.button`
   height: 30px;
   font-size: 0;
 
-  ${media.greaterThan('medium')`
-    display: block;
-  `};
-
   &:before,
   &:after {
     content: '';
@@ -464,6 +473,15 @@ export const FormTabClose = styled.button`
   &:after {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
+
+  ${media.greaterThan('medium')`
+    display: block;
+    top: 90px;
+  `};
+
+  ${media.greaterThan('large')`
+    top: 30px;
+  `};
 `;
 
 export const FormTabTitle = styled.h3`

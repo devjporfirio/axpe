@@ -10,7 +10,7 @@ export const Container = styled(BaseArticles)`
     height: 522px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     background-color: ${({ theme }) => theme.colors.white};
     margin-bottom: 40px;
 
@@ -21,6 +21,7 @@ export const Container = styled(BaseArticles)`
 
       h2 {
         width: 466px;
+        padding: 40px 0 0 97px;
       }
     }
     img {
@@ -29,26 +30,34 @@ export const Container = styled(BaseArticles)`
       padding: 0;
       position: absolute;
       margin-top: -240px;
-      left: 54%;
+      left: 61%;
     }
 
     p {
       padding: 0;
-      margin: 40px 35px;
+      margin: 40px 97px;
       width: 400px;
     }
   `}
 
-  ${media.greaterThan('1280px')`
+  ${media.between('1024px', '1280px')`
     img {
       left: auto;
       margin-left: 517px;
+    }
+
+    h2 {
+      padding: 30px 35px !important;
+    }
+
+    p {
+      margin: 40px 35px;
     }
   `}
 `;
 
 export const Group = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     width: 421px;
 
     p {

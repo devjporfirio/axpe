@@ -11,6 +11,7 @@ export const ItemLink = styled(Button)`
 
   ${media.greaterThan('medium')`
     height: 700px;
+    width: 304px !important;
   `}
 `;
 
@@ -43,15 +44,6 @@ export const Container = styled(Slider)`
 
   ${props =>
     props.type === 'slickLarge' && media.greaterThan('medium')`${SlickLarge}`}
-
-  /* ${props =>
-    props.type === 'slickGrid' &&
-    props.length === 1 &&
-    media.greaterThan('medium')`
-      section {
-        margin-left: 70%;
-      }
-  `} */
 `;
 
 export const Slide = styled.div`
@@ -83,12 +75,27 @@ export const Slide = styled.div`
 
   ${props =>
     props.type === 'slickSmall' &&
-    media.greaterThan('medium')`max-width: 304px;`}
+    css`
+      ${media.greaterThan('medium')`
+        max-width: 304px;
+        width: calc(100% + 40px);
+
+        & + div {
+          margin-left: 22px;
+          margin-right: 22px;
+        }
+        
+        a {
+          width: calc(100% + 40px);
+          max-width: 95%;
+          height: 414px;
+        }
+      `}
+    `}
 `;
 
 export const Image = styled.img`
   height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
-  background-size: cover;
   display: block;
   object-fit: cover;
   
@@ -126,6 +133,7 @@ export const Image = styled.img`
     css`
       width: 100%;
       max-width: 705px;
+      min-width: 570px;
       max-height: 244px;
       margin-left: 0;
 
@@ -140,12 +148,14 @@ export const Image = styled.img`
       width: 64%;
       max-width: 635px;
       height: 258px;
+      border-radius: 6px 0 0 6px;
     `}
 
   ${props =>
     props.type === 'slickLarge' &&
     media.lessThan('medium')`
       height: 230px;
+      border-radius: 6px 6px 0 0;
   `}
 
   ${props =>
@@ -156,15 +166,16 @@ export const Image = styled.img`
 
   ${props =>
     props.type === 'slickSmall' &&
-    `
+    css`
       height: 230px;
-      `}
+      border-radius: 6px 6px 0 0;
+    `}
 
   ${props =>
     props.type === 'slickSmall' &&
     media.greaterThan('medium')`
-      max-width: 304px;
-      border-radius: 6px;
+      max-width: 100%;
+      border-radius: 6px 6px 0 0;
   `}
 `;
 
@@ -202,6 +213,7 @@ export const Row1 = styled.div`
   img {
     width: 520px;
     height: 277px;
+    min-width: 310px;
   }
 `;
 
@@ -212,10 +224,12 @@ export const Row2 = styled.div`
   }
   img:nth-child(1) {
     width: 331px;
+    min-width: 331px;
   }
 
   img:nth-child(2) {
     width: 520px;
+    min-width: 310px;
   }
 `;
 

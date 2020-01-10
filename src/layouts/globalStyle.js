@@ -70,6 +70,8 @@ export default createGlobalStyle`
     width: 100%;
   }
 
+  html { scroll-behavior: smooth; } 
+
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -110,7 +112,7 @@ export default createGlobalStyle`
     outline:none;
     box-shadow: none;
   }
-  
+
   hr {
     border: 2px solid ${({ theme }) => theme.colors.orange};
   }
@@ -120,7 +122,9 @@ export default createGlobalStyle`
 
 export const VendorsStyle = ({ vendorsStyle }) => {
   const styles = [];
+
   vendorsStyle.forEach(vendor => styles.push(vendor));
+
   return css`
     ${styles.join('')}
   `;

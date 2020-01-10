@@ -9,8 +9,9 @@ const TypeSlickLargeDesktop = css`
   padding: 25px 4% 0 4%;
   height: 258px;
   width: 100%;
-  max-width: 319px;
+  max-width: 325px;
   margin-left: 0;
+  border-radius: 0 6px 6px 0;
 
   p:nth-child(1) {
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -23,8 +24,9 @@ const TypeSlickLargeDesktop = css`
 const TypeSlickLeftDesktop = css`
   position: initial;
   background-color: #fff;
-  width: 320px;
+  width: 310px;
   height: 100%;
+  margin: auto 106px;
 `;
 
 const TypeSlickLeftMobile = css`
@@ -49,7 +51,7 @@ const TypeSlickLeftMobile = css`
 `;
 
 const TypeSlickGridDesktop = css`
-  margin: auto auto auto 60px;
+  /* margin: auto auto auto 60px; */
   position: initial;
   background-color: #fff;
 `;
@@ -89,7 +91,8 @@ const TypeSlickSmall = css`
     width: 100%;
     margin-left: 0 !important;
     padding: 20px;
-    height: 240px;
+    height: 184px;
+    border-radius: 0 0 6px 6px;
     
     p {
       font-size: 16px;
@@ -156,7 +159,8 @@ const TypeDestaqueTextoBullets = css`
   li {
     list-style: disc;
     color: ${({ theme }) => theme.colors.white};
-    font: 16px/40px 'Raleway';
+    font: 16px 'Raleway';
+    padding-bottom: 20px;
   }
 `;
 
@@ -249,6 +253,7 @@ export const Container = styled.section`
       width: 100%;
       padding: 20px 8%;
       height: 240px;
+      border-radius: 0 0 6px 6px;
   `}
 `};
 
@@ -265,7 +270,7 @@ export const Local = styled.p`
   text-transform: uppercase;
   font: 18px/25px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 `;
 
 export const Infos = styled.p`
@@ -274,6 +279,14 @@ export const Infos = styled.p`
 
 export const Reference = styled(Infos)`
   margin: 25px 0;
+
+  ${props =>
+    props.type === 'slickSmall' &&
+    media.greaterThan('medium')`
+      position: absolute;
+      bottom: 25px;
+      margin: 0;
+    `}
 `;
 
 export const LinkContainer = styled.div`

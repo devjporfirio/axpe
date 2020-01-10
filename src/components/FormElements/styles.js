@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import MaskedInput from 'react-text-mask';
+import SVG from 'react-inlinesvg';
+
+// components
 import Button from 'components/Button';
 
 export const Label = styled.label`
@@ -13,9 +16,10 @@ export const Label = styled.label`
   transition: all 300ms ease;
 
   input ~ span {
-    transition: top 0.2s ease;
     position: absolute;
-    top: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: top 0.2s ease;
   }
 
   ${props =>
@@ -33,9 +37,9 @@ export const Label = styled.label`
       select {
         padding-top: 10px;
       }
+
       span {
-        position: absolute;
-        top: 4px;
+        top: 10%;
         font-size: 10px;
       }
     `}
@@ -56,7 +60,7 @@ export const Label = styled.label`
 
       span {
         position: initial;
-        top: 5px !important;
+        /* top: 5px !important; */
 
         a {
           text-decoration: underline;
@@ -73,7 +77,6 @@ export const Label = styled.label`
         padding-left: 11px;
         max-width: 230px;
         line-height: 14px;
-        top: 0 !important;
 
         ${media.greaterThan('medium')`width: calc(100% - 47px);`}
       }
@@ -97,7 +100,7 @@ export const Label = styled.label`
   ${props =>
     props.error &&
     css`
-      background: ${({ theme }) => theme.colors.orangeLight};
+      background: ${({ theme }) => theme.colors.orangeLight} !important;
     `}
 `;
 
@@ -118,10 +121,11 @@ export const Message = styled.p`
 
 const BaseInput = css`
   position: absolute;
-  top: 20px;
-  height: 25px;
+  top: 0;
+  min-height: 25px;
+  height: 100%;
   width: 100%;
-  padding-left: 12px;
+  padding: 0 12px;
   border: none;
   color: ${({ theme }) => theme.colors.green};
   font: 14px 'Raleway';
@@ -130,9 +134,13 @@ const BaseInput = css`
   cursor: text;
   -webkit-appearance: none;
 
+  &:not(select) {
+    padding: 10px 12px 0;
+  }
+
   &:not(:placeholder-shown) + span,
   &:focus ~ span {
-    top: 6px;
+    top: 25%;
     font-size: 10px;
   }
 
@@ -144,6 +152,7 @@ const BaseInput = css`
 
   &:focus {
     outline: 0;
+
     &::placeholder {
       opacity: 1;
     }
@@ -230,4 +239,25 @@ export const ButtonFile = styled(Button)`
     text-transform: initial;
     padding: 0;
   `}
+`;
+
+export const ButtonEye = styled.button`
+  ${props => props.active && css`
+    svg path {
+      fill: ${({ theme }) => theme.colors.orange};
+    }
+  `}
+`;
+
+export const SVGEye = styled(SVG)`
+  width: 23px;
+  height: 15px;
+  position: absolute;
+  right: 8px;
+  top: 13px;
+  z-index: 9;
+
+  path {
+    transition: all 300ms ease;
+  }
 `;

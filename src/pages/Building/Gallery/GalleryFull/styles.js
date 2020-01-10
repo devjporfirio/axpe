@@ -4,7 +4,11 @@ import Modal from '../Modal';
 import Slider from 'components/Slider';
 
 export const Slide = styled.div`
-  max-height: calc(100vh - 76px);
+  height: calc(100vh - 70px);
+  width: 100vw !important;
+  display: table-cell !important;
+  vertical-align: middle;
+
   img {
     margin: auto;
     width: auto;
@@ -13,13 +17,11 @@ export const Slide = styled.div`
 
   iframe {
     width: 100%;
-    height: calc(100vh - 76px);
-
-    ${media.greaterThan('medium')`
-      width: 100%;
-      height: 80vh;
-    `}
   }
+
+  ${media.greaterThan('medium')`
+    height: calc(100vh - 150px);
+  `}
 `;
 
 export const Container = styled(Modal)`
@@ -28,20 +30,45 @@ export const Container = styled(Modal)`
   background-color: ${({ theme }) => theme.colors.greenDark};
 
   img {
-    object-fit: cover;
+    max-width: 100%;
+    max-height: calc(100vh - 105px);
   }
+
+  iframe {
+    height: calc(100vh - 105px);
+  }
+
+  ${media.greaterThan('640px')`
+    img, iframe {
+      margin-top: 0;
+    }
+  `}
+
+  ${media.greaterThan('medium')`
+    img {
+      max-height: 80vh;
+    }
+
+    iframe {
+      height: 80vh;
+    }
+  `}
 `;
 
 export const Images = styled(Slider)`
-  margin-top: 66px;
-  height: calc(100vh - 76px);
+  height: calc(100vh - 66px);
+
+  ${media.greaterThan('640px')`
+    margin-top: 10%;
+    height: calc(100vh - 40px);
+  `}
 
   ${media.greaterThan('medium')`
-    margin: 127px auto 0 auto;
+    margin: 95px auto 0 auto;
     width: 80% !important;
     height: 80vh;
     display: block !important;
-  `}
+  `};
 
   .slick-slide {
     max-width: 100%;

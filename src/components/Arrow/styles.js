@@ -7,7 +7,7 @@ import IArrowNextBlack from 'assets/icons/arrow-next-green';
 import IArrowPrevBlack from 'assets/icons/arrow-prev-green';
 
 const backgroundColorWhite = css`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5) !important;
   width: 35px;
   height: 35px;
 `;
@@ -37,16 +37,23 @@ const positionInsidePrev = css`
 const positionOutsideNext = css`
   top: 0;
   bottom: 0;
-  right: -24px;
+  right: 0;
   margin-top: auto;
   margin-bottom: auto;
+
+  ${media.greaterThan('medium')`
+    right: -35px;
+  `}
 `;
 const positionOutsidePrev = css`
   top: 0;
   bottom: 0;
-  left: -24px;
   margin-top: auto;
   margin-bottom: auto;
+
+  ${media.greaterThan('medium')`
+    left: -35px;
+  `}
 `;
 
 const galeriaImagensTexto = css`
@@ -156,11 +163,37 @@ const typeTogetherNext = css`
 const positionRightPrev = css`
   right: 299px;
   left: auto;
+
+  ${media.between('1025px', '1169px')`
+    right: 260px;
+  `}
+  ${media.between('1170px', '1279px')`
+    right: 235px;
+  `}
+  ${media.greaterThan('1280px')`
+    right: 255px;
+  `}
+  ${media.greaterThan('1440px')`
+    right: 290px;
+  `}
 `;
 
 const positionRightNext = css`
   right: 269px;
   left: auto;
+
+  ${media.between('1025px', '1169px')`
+    right: 230px;
+  `}
+  ${media.between('1170px', '1279px')`
+    right: 205px;
+  `}
+  ${media.greaterThan('1280px')`
+    right: 225px;
+  `}
+  ${media.greaterThan('1440px')`
+    right: 260px;
+  `}
 `;
 
 const positionLeftPrev = css`
@@ -170,7 +203,11 @@ const positionLeftPrev = css`
 
   ${media.greaterThan('medium')`
     top: 610px ;
-    left: 112px;
+    left: 100px;
+  `}
+
+  ${media.between('1170px', '1279px')`
+    left: 50px;
   `}
 `;
 
@@ -181,7 +218,11 @@ const positionLeftNext = css`
 
   ${media.greaterThan('medium')`
     top: 610px;
-    left: 141px;
+    left: 130px;
+  `}
+
+  ${media.between('1170px', '1279px')`
+    left: 80px;
   `}
 `;
 
@@ -212,6 +253,23 @@ export const ArrowNext = styled(Arrow)`
   ${props => props.position === 'right' && positionRightNext}
   ${props => props.position === 'left' && positionLeftNext}
   ${props =>
+    (props.position === 'large' || props.position === 'small') &&
+    css`
+      ${positionOutsideNext}
+      right: -30px;
+      top: -60px;
+
+      ${media.greaterThan('medium')`
+        top: 0;
+        left: 945px;
+      `}
+      ${media.between('1025px', '1170px')`
+        right: auto;
+        left: 900px;
+      `}
+    `}
+    
+  ${props =>
     props.type === 'building' &&
     css`
       right: 0;
@@ -232,6 +290,21 @@ background: url(${props =>
   ${props => props.type === 'together' && typeTogetherPrev}
   ${props => props.position === 'right' && positionRightPrev}
   ${props => props.position === 'left' && positionLeftPrev}
+  ${props =>
+    (props.position === 'large' || props.position === 'small') &&
+    css`
+      ${positionOutsidePrev}
+      left: -30px;
+      top: -60px;
+
+      ${media.greaterThan('medium')`
+        top: 0;
+        left: -32px;
+      `}
+      ${media.greaterThan('1170px')`
+        left: -34px;
+      `}
+    `}
   ${props =>
     props.type === 'building' &&
     css`

@@ -11,6 +11,7 @@ import configureStore from 'store';
 // actions
 import { setLoading } from 'store/modules/loading/actions';
 import { setMain } from 'store/modules/main/actions';
+import { setUserByCookie } from 'store/modules/user/actions';
 
 import 'isomorphic-unfetch';
 import 'promise-polyfill/lib/polyfill';
@@ -36,19 +37,23 @@ class MyApp extends App {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props.store;
+
     Router.events.on('routeChangeStart', () => {
-      this.props.store.dispatch(setMain({
+      dispatch(setMain({
         searchFormActive: false,
-        headerHiding: false
+        headerHiding: false,
+        modalLoginRegisterSuccess: false
       }));
-      this.props.store.dispatch(setLoading({ active: true }));
+      dispatch(setLoading({ active: true }));
     });
 
     Router.events.on('routeChangeComplete', () => {
-      this.props.store.dispatch(setLoading({ active: false }));
+      dispatch(setLoading({ active: false }));
     });
 
-    this.props.store.dispatch(setLoading({ active: false }));
+    dispatch(setLoading({ active: false }));
+    dispatch(setUserByCookie());
   }
 
   render() {

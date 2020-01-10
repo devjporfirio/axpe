@@ -3,7 +3,7 @@ import media from 'styled-media-query';
 import { BaseArticles, TitleSection } from 'pages/About/styles';
 
 export const Title = styled(TitleSection)`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     text-align: center;
     width: 564px;
     height: 150px;
@@ -31,7 +31,7 @@ export const BlockImage = styled.div`
     margin: -421px 0 0 30px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     padding-bottom: 40px;
     div {
       height: 538px;
@@ -43,10 +43,22 @@ export const BlockImage = styled.div`
       width: 448px;
     }
   `}
+
+  ${media.greaterThan('1170px')`
+    div {
+      height: 538px;
+      width: 538px;
+    }
+    img {
+      margin: -500px 0 0 101px;
+      height: 463px;
+      width: 499px;
+    }
+  `};
 `;
 
 export const GroupBody = styled.div`
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     display: flex;
     align-items: center;
 
@@ -60,4 +72,10 @@ export const GroupBody = styled.div`
       }
     }
   `}
+
+  ${media.greaterThan('1170px')`
+    div:nth-child(2) {
+      margin: 0 0 0 50px;
+    }
+  `};
 `;

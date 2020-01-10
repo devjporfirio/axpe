@@ -6,6 +6,9 @@ import {
   DatasheetContent,
   BlockOne,
   Type,
+  GroupInfo,
+  GroupNeigRef,
+  CategoryRelease,
   Neighborhood,
   Ref,
   GroupTags,
@@ -16,73 +19,87 @@ import {
 } from './styles';
 
 export default function Datasheet({ property }) {
+  const { type, infos, category, address, reference, label, values } = property;
   return (
     <>
       <DatasheetContent>
         <BlockOne type={property.type}>
-          <div>
-            <Type>{property.infos.use}</Type>
-            <Neighborhood>{property.address.local}</Neighborhood>
-            <Ref>Ref {property.reference}</Ref>
-          </div>
+          <GroupInfo>
+            <Type>
+              {type === 'lancamento'
+                ? infos.releaseStatus === 'Pronto'
+                  ? 'Pronto para morar'
+                  : infos.releaseStatus
+                : category}
+            </Type>
+            <GroupNeigRef>
+              <Neighborhood>{address.local}</Neighborhood>
+              <Ref>Ref {reference}</Ref>
+            </GroupNeigRef>
+            {type === 'lancamento' && (
+              <CategoryRelease>{category}</CategoryRelease>
+            )}
+            {label && Object.values(label).find(x => x === true) && <hr />}
+          </GroupInfo>
           <GroupTags>
-            {property.label && property.label.is_new && (
+            {label && label.is_new && (
               <Tag label={'Novidade'} icon="star" color="blueLight" />
             )}
-            {property.label && property.label.is_exclusive && (
+            {label && label.is_exclusive && (
               <Tag label={'Só na Axpe'} icon="check" color="greenLight2" />
             )}
-            {property.label && property.label.is_furnished && (
+            {label && label.is_furnished && (
               <Tag label={'Mobiliado'} icon="sofa" color="yellowLight" />
             )}
           </GroupTags>
         </BlockOne>
-        {!!property.infos.internalDescription && (
+        {!!infos.internalDescription && (
           <BlockTwo>
-            <Content>{property.infos.internalDescription}</Content>
+            <Content>{infos.internalDescription}</Content>
           </BlockTwo>
         )}
-        <BlockThree>
-          <Caracteristics.Release release={property.values.release} />
+        <BlockThree type={property.type}>
+          <Caracteristics.Release release={values.release} />
           <Caracteristics.Rent
-            rent={property.values.rent}
-            iptu={property.values.iptu}
-            condo={property.values.condo}
+            rent={values.rent}
+            iptu={values.iptu}
+            condo={values.condo}
           />
           <Caracteristics.Sell
-            sell={property.values.sell}
-            iptu={property.values.iptu}
-            condo={property.values.condo}
+            sell={values.sell}
+            iptu={values.iptu}
+            condo={values.condo}
           />
           <Caracteristics.Bedrooms
-            bedrooms={property.infos.bedrooms}
-            suites={property.infos.suites}
+            bedrooms={infos.bedrooms}
+            suites={infos.suites}
           />
           <Caracteristics.BedroomsBetween
-            start={property.infos.bedroomsStart}
-            end={property.infos.bedroomsEnd}
+            start={infos.bedroomsStart}
+            end={infos.bedroomsEnd}
           />
-          <Caracteristics.Parking parking={property.infos.parking} />
+          <Caracteristics.Parking parking={infos.parking} />
           <Caracteristics.ParkingBetween
-            start={property.infos.parkingStart}
-            end={property.infos.parkingEnd}
+            start={infos.parkingStart}
+            end={infos.parkingEnd}
           />
-          <Caracteristics.AreaBuilding
-            areaBuilding={property.infos.areaBuilding}
-          />
-          <Caracteristics.AreaGround areaGround={property.infos.areaGround} />
-          <Caracteristics.AreaUseFul areaUseful={property.infos.areaUseful} />
+          <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
+          <Caracteristics.AreaGround areaGround={infos.areaGround} />
+          <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
           <Caracteristics.AreaUseFulBetween
-            start={property.infos.areaUsefulStart}
-            end={property.infos.areaUsefulEnd}
+            start={infos.areaUsefulStart}
+            end={infos.areaUsefulEnd}
           />
-          <Caracteristics.AreaTotal areaTotal={property.infos.areaTotal} />
+          <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
         </BlockThree>
       </DatasheetContent>
-      {property.type !== 'pronto' && (
+      {type === 'lancamento' && infos.releaseDelivery && (
         <Delivery>
           <p>
-            Previsão de entrega em <span>{property.infos.releaseDelivery}</span>
+            {infos.releaseStatus === 'Pronto'
+              ? 'Entregue em '
+              : 'Previsão de entrega em '}
+            <span>{infos.releaseDelivery}</span>
           </p>
         </Delivery>
       )}

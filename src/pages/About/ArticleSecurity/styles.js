@@ -10,10 +10,25 @@ export const Container = styled(BaseArticles)`
     height: 272px;
   }
 
-  ${media.greaterThan('medium')`
+  ${media.greaterThan('1024px')`
     margin-bottom: 80px;
 
     img {
+      display: none;
+    }
+  `}
+
+  ${media.greaterThan('1280px')`
+    h2 {
+      padding: 40px 93px;
+    }
+
+    p {
+      padding-left: 93px;
+      padding-right: 93px;
+    }
+
+    br {
       display: none;
     }
   `}

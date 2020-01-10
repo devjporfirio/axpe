@@ -8,7 +8,8 @@ import Search from 'components/Search';
 import NewsletterModal from 'components/Modals/Newsletter';
 import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
 import LoginModal from 'components/Modals/Login';
-import LoginSuccessModal from 'components/Modals/LoginSuccess';
+import LoginRegisterSuccessModal from 'components/Modals/LoginRegisterSuccess';
+import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -30,7 +31,8 @@ function Main({ children }) {
         <NewsletterModal />
         <NewsletterSuccessModal />
         <LoginModal />
-        <LoginSuccessModal />
+        <LoginRegisterSuccessModal />
+        <RegisterSuccessModal />
       </>
     </ThemeProvider>
   );

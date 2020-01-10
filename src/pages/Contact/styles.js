@@ -19,6 +19,11 @@ export const BlockForm = styled.div`
     width: 50%;
     padding: 30px;
   `}
+
+  ${media.greaterThan('large')`
+    padding-left: 5vw;
+    padding-right: 5vw;
+  `}
 `;
 
 export const Message = styled.p`
@@ -31,11 +36,20 @@ export const Message = styled.p`
 export const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.green};
   padding: 30px;
+
+  ${media.greaterThan('large')`
+    padding-left: 5vw;
+    padding-right: 5vw;
+  `}
 `;
 
 const Phones = css`
   color: ${({ theme }) => theme.colors.white};
   margin-top: 10px;
+
+  ${media.greaterThan('medium')`
+    margin-top: 2px;
+  `}
 `;
 
 export const Tel = styled(Phone)`
@@ -50,18 +64,28 @@ export const Whats = styled(Phone)`
 export const PhoneNumber = styled.div`
   font: 16px/19px 'Raleway';
 
+  &:last-child {
+    margin-left: 10px;
+  }
+
   p {
     color: ${({ theme }) => theme.colors.white};
   }
+
+  ${media.greaterThan('large')`
+    &:last-child {
+      margin-left: 20px;
+    }
+  `}
 `;
 
 export const Numbers = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   ${media.greaterThan('medium')`
     justify-content: flex-start;
-    max-width: 1000px;
+    /* max-width: 1000px; */
     margin: auto;
   `}
 `;

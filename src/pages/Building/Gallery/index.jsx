@@ -11,7 +11,7 @@ import I360 from 'assets/icons/360';
 import IGrid from 'assets/icons/grid';
 
 // styles
-import { Container, Image, Video, Button360, SizeGallery } from './styles';
+import { Container, Image, Button360, SizeGallery } from './styles';
 
 function Gallery({
   items,
@@ -26,8 +26,7 @@ function Gallery({
 }) {
   const [ showGalleryNav, setShowGalleryNav ] = useState(false);
   const [ showGalleryFull, setShowGalleryFull ] = useState(false);
-  const imageSelected = null;
-  // const [ imageSelected, setImageSelected ] = useState(null);
+  const [ imageSelected, setImageSelected ] = useState(null);
 
   return (
     <Container className={className}>
@@ -49,40 +48,26 @@ function Gallery({
             breakpoint: 769,
             settings: {
               centerMode: false,
-              variableWidth: false
+              variableWidth: false,
+              initialSlide: -1,
             }
           }
         ]}
       >
         {items &&
           items.length > 0 &&
-          items.map((item, index) => {
-            switch (item.tipo) {
-              case 'imagem':
-                return (
-                  <Image
-                    onClick={() => {
-                      // if (showClickImage) {
-                        // setImageSelected(index);
-                      //   setShowGalleryFull(true);
-                      // }
-                    }}
-                    key={index}
-                    src={item.src}
-                  />
-                );
-              case 'video':
-                return (
-                  <Video
-                    key={index}
-                    src={item.video}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                );
-            }
-          })}
+          items.map((item, index) => (
+            <Image
+              onClick={() => {
+                if (showClickImage) {
+                  setImageSelected(index);
+                  setShowGalleryFull(true);
+                }
+              }}
+              key={index}
+              src={item.src}
+            />
+          ))}
       </Slider>
 
       {showSizeGallery && (
@@ -95,7 +80,6 @@ function Gallery({
       {showGalleryNav && (
         <GalleryNav
           items={items}
-          isModal={true}
           onClose={() => setShowGalleryNav(false)}
           category={category}
           local={local}

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Head from 'next/head';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 // store
 import { setMain } from 'store/modules/main/actions'
@@ -13,9 +14,11 @@ import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Building from 'components/Building';
 import Contact from 'components/Contact';
+import PanelBuildings from 'components/PanelBuildings';
 
 // helpers
 import { getParamsFromObject } from 'helpers/utils'
+import SeoData from 'helpers/seo';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
@@ -34,22 +37,23 @@ import {
 
 function Search({ currentPage, total, totalPages, data }) {
   const router = useRouter();
-  const { query, query: { source, finality, reference } } = router;
   const dispatch = useDispatch();
+  const { query, query: { source, finality, reference, order } } = router;
   const { searchFormActive } = useSelector(state => state.main);
 
   const orderOptions = [
-    { label: 'Mais Recentes', value: 'mais-recentes' },
-    { label: 'Maior área útil', value: 'maior-area-util' },
-    { label: 'Menor Preço', value: 'menor-preco' },
-    { label: 'Maior Preço', value: 'maior-preco' }
+    { label: 'Mais Recentes', value: 'latest' },
+    { label: 'Maior área útil', value: 'area' },
+    { label: 'Menor Preço', value: 'lowest_price' },
+    { label: 'Maior Preço', value: 'biggest_price' }
   ];
 
-  const [ orderBy, setOrderBy ] = useState(orderOptions[0].value);
+  const [ orderBy, setOrderBy ] = useState(order ? order : orderOptions[0].value);
   const [ page, setPage ] = useState(+query.page || 1);
   const [ buildings, setBuildings ] = useState(null);
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
+  const [ suggestions, setSuggestions ] = useState(null);
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
   const getSourceText = useCallback(() => {
@@ -77,7 +81,16 @@ function Search({ currentPage, total, totalPages, data }) {
   }, [ searchFormActive ]);
 
   const handleOrderBy = (event) => {
-    setOrderBy(event.target.value);
+    const newOrder = event.target.value;
+    const params = getParamsFromObject({
+      ...query,
+      order: newOrder
+    });
+
+    if(query.order !== newOrder) {
+      setOrderBy(newOrder);
+      Router.push(`/busca${params}`);
+    }
   }
 
   const setNewData = useCallback((newData, first) => {
@@ -88,7 +101,76 @@ function Search({ currentPage, total, totalPages, data }) {
 
   const loadMore = useCallback(() => {
     setPage(page + 1);
-  }, [ page ])
+  }, [ page ]);
+
+  const getBuildingsSuggestions = useCallback(async () => {
+    const results = [];
+
+    const getBuildingsSuggestion = async (title, newQuery) => {
+      const params = getParamsFromObject(newQuery);
+      const response = await Api.Search.getBuildings(params);
+
+      results.push({
+        title: title.replace('{{showTotal}}', getTotalFormated(response.total)),
+        items: response.data
+      })
+    }
+
+    const getTotalFormated = total => {
+      total = total > 10 ? 10 : total;
+
+      const text = total > 1 ? `imóveis` : `imóvel`;
+      let result = `${total} ${text}`;
+
+      if(total < 10) {
+        result = `0${total} ${text}`;
+      }
+
+      return result;
+    }
+
+    if(query.price_start && query.price_end) {
+      const priceEnd = +query.price_end;
+      const percent = priceEnd * 20 / 100;
+      const newPriceStart = priceEnd + 1;
+      const newPriceEnd = priceEnd + percent;
+
+      await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> em uma faixa de valor um pouco maior`, {
+        ...query,
+        price_start: newPriceStart,
+        price_end: newPriceEnd
+      });
+    }
+
+    if(query.source &&
+      query.finality &&
+      query.use &&
+      query.ready_release &&
+      query.source === 'sao-paulo' &&
+      query.finality === 'venda' &&
+      query.use === 'RESIDENCIAL') {
+        const query2 = query.ready_release === 'pronto' ? {
+          ...query,
+          ready_release: 'lancamento'
+        } : {
+          ...query,
+          ready_release: 'pronto'
+        };
+        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, mas em bairros próximos`, query2);
+      }
+
+    setSuggestions(results);
+  }, [ total ]);
+
+  useEffect(() => {
+    setNewData(data, true);
+    setPage(1);
+    getBuildingsSuggestions();
+
+    if(!dataLoaded) {
+      setDataLoaded(true);
+    }
+  }, [ total, order ]);
 
   useEffect(() => {
     const getDataByPage = async () => {
@@ -101,81 +183,90 @@ function Search({ currentPage, total, totalPages, data }) {
       setNewData(response.data);
     }
 
-    if(currentPage !== page) {
+    if(page > 1) {
       setIsLoading(true);
       getDataByPage();
-    } else {
-      setNewData(data, true);
-
-      if(!dataLoaded) {
-        setDataLoaded(true);
-      }
     }
-  }, [ page, total ]);
+  }, [ page ])
 
   return (
-    <Container>
-      {dataLoaded ?
-        <>
-          {total ? (
-            <Headerbar
-              type="search"
-              title={source && !reference && getSourceText()}
-              subtitle={finality && !reference && `Imóveis para ${getFinalityText()}`}
-            />
-          ) : null}
-
-          <Wrapper>
+    <>
+      <Head>
+        <title>{`Busca - ${SeoData.title}`}</title>
+      </Head>
+      <Container>
+        {dataLoaded ?
+          <>
             {total ? (
-              <Header>
-                <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
-                <HeaderCombo>
-                  <button type="button">
-                    <strong>Ordenar por:</strong>
-                    {orderBySelected.length ? (
-                      <span>{orderBySelected[0].label}</span>
-                    ) : null}
-                  </button>
-                  <select name="orderBy" onChange={handleOrderBy} onBlur={handleOrderBy}>
-                    {orderOptions.map((orderItem, orderItemIndex) => (
-                      <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
-                    ))}
-                  </select>
-                </HeaderCombo>
-              </Header>
+              <Headerbar
+                type="search"
+                title={source && !reference && getSourceText()}
+                subtitle={finality && !reference && `Imóveis para ${getFinalityText()}`}
+              />
             ) : null}
 
-            {total ? (
-              <ButtonBack type="button" onClick={toggleSearch}>
-                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-              </ButtonBack>
-            ) : null}
-
-            <Buildings>
-              {total ? buildings.map((building, buildingIndex) => (
-                  <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
-                )) : (
-                <BuildingsNotFound>
-                  <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
-                  <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
-                </BuildingsNotFound>
-              )}
-
-              {total && page < totalPages ? (
-                <BuildingsLoadMore>
-                  <Button type="button" onClick={loadMore} disabled={isLoading}>
-                    {isLoading ? 'Carregando...' : 'Carregar mais'}
-                  </Button>
-                </BuildingsLoadMore>
+            <Wrapper>
+              {total ? (
+                <Header>
+                  <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
+                  <HeaderCombo>
+                    <button type="button">
+                      <strong>Ordenar por:</strong>
+                      {orderBySelected.length ? (
+                        <span>{orderBySelected[0].label}</span>
+                      ) : null}
+                    </button>
+                    <select name="orderBy" value={orderBy} onChange={handleOrderBy} onBlur={handleOrderBy}>
+                      {orderOptions.map((orderItem, orderItemIndex) => (
+                        <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
+                      ))}
+                    </select>
+                  </HeaderCombo>
+                </Header>
               ) : null}
-            </Buildings>
-          </Wrapper>
 
-          <BlockHighlighted type="notfound" />
-          <Contact />
-        </>
-      : null}
-    </Container>
+              {total ? (
+                <ButtonBack type="button" onClick={toggleSearch}>
+                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+                </ButtonBack>
+              ) : null}
+
+              <Buildings>
+                {total ? buildings.map((building, buildingIndex) => (
+                    <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                  )) : (
+                  <BuildingsNotFound>
+                    <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
+                    <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
+                  </BuildingsNotFound>
+                )}
+
+                {total && page < totalPages ? (
+                  <BuildingsLoadMore>
+                    <Button type="button" onClick={loadMore} disabled={isLoading}>
+                      {isLoading ? 'Carregando...' : 'Carregar mais'}
+                    </Button>
+                  </BuildingsLoadMore>
+                ) : null}
+              </Buildings>
+
+              {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
+                <PanelBuildings
+                  key={`suggestion-${index}`}
+                  className="suggestion"
+                  title={suggestion.title}
+                  items={suggestion.items}
+                />
+              ))}
+            </Wrapper>
+
+
+            <BlockHighlighted type="notfound" />
+            <Contact />
+          </>
+        : null}
+      </Container>
+    </>
   )
 }
 

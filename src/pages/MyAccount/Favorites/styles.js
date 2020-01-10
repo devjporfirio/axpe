@@ -1,4 +1,80 @@
 import styled from 'styled-components';
-// import media from 'styled-media-query';
+import media from 'styled-media-query';
+import SVG from 'react-inlinesvg';
 
-export const Container = styled.section``;
+// components
+import MyAccount from '..';
+import Building from 'components/Building';
+
+export const Container = styled(MyAccount)``;
+
+export const Body = styled.div``;
+
+export const Amount = styled.div`
+  padding: 0 29px 30px 29px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h4 {
+    font: ${({ theme }) => theme.fontsWeight.bold} 18px/25px 'Bitter';
+    width: 230px;
+
+    strong {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  }
+
+  ${media.greaterThan('medium')`
+    align-items: flex-end;
+
+    h4 {
+      font-size: 31px;
+      line-height: 42px;
+      width: auto;
+      margin-top: 62px;
+    }
+  `}
+`;
+
+export const ShareIcon = styled(SVG)`
+  width: 19.2px;
+  height: 24px;
+  position: absolute;
+  right: 29px;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
+`;
+
+export const GroupIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60px;
+`;
+
+export const WhatsIcon = styled(SVG)`
+  display: none;
+
+  ${media.greaterThan('medium')`
+    display: block;
+    width: 23px;
+    height: 23px;
+  `}
+`;
+
+export const MailIcon = styled(SVG)`
+  display: none;
+
+  ${media.greaterThan('medium')`
+    display: block;
+    width: 26px;
+    height: 16.71px;
+  `}
+`;
+
+export const BuildingItem = styled(Building)`
+  border: 2px solid ${({ theme }) => theme.colors.grey};
+`;

@@ -5,7 +5,8 @@ const initialState = {
   modalNewsletter: false,
   modalNewsletterSuccess: false,
   modalLogin: false,
-  modalLoginRegisterSuccess: false
+  modalLoginRegisterSuccess: false,
+  modalRegisterSuccess: false
 };
 
 function main(state = initialState, action) {

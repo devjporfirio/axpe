@@ -20,41 +20,67 @@ export const Container = styled(BaseArticles)`
     height: 404px;
   }
 
-  ${media.greaterThan('medium')`
-    margin-bottom: 215px;
+  ${media.greaterThan('1024px')`
+    background: none;
+    margin-bottom: 295px;
     height: 606px;
 
     header {
-      width: 458px;
+      margin-left: 53px;
+      background-color: #F5F5F0;
+      width: 600px;
       height: 227px;
       padding: 40px 35px;
 
       h2 {
+        width: 458px;
         padding: 0;
       }
     }
 
-    P {
-      width: 400px;
-      height: 200px;
-      padding: 0;
-      margin-left: 517px;
-      margin-top: 98px;
+  P {
+      background-color: #F5F5F0;
+      padding: 100px 80px 50px 61px;
+      margin-left: 573px;
+      margin-top: 0;
+      max-width: 550px;
+      height: auto;
     }
 
     img {
-      width: 438px;
-      height: 356px;
+      width: 478px;
+      height: 389px;
+      margin-left: 40%;
       position: absolute;
-      margin-left: 517px;
       margin-top: -289px;
+      right: 0;
     }
 
     img:nth-child(4) {
-      width: 478px;
-      height: 515px;
+      width: 571px;
+      height: 615px;
+      margin-top: -475px;
       margin-left: 0;
-      margin-top: -299px;
+      right: unset;
+    }
+  `}
+
+  ${media.greaterThan('1171px')`
+    header {
+      margin-left: 0;
+    }
+
+    img {
+      margin-left: 44.5%;
+      right: unset;
+    }
+
+    img:nth-child(4) {
+      margin-top: -350px;
+    }
+
+    p {
+      max-height: 340px;
     }
   `}
 `;

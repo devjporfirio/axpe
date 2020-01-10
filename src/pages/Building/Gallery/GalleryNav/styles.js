@@ -1,23 +1,97 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import media from 'styled-media-query';
 import Slider from 'components/Slider';
 import Modal from '../Modal';
 
 export const Container = styled(Modal)`
   top: 0;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${props =>
+    props.planta ? props.theme.colors.greyLight : props.theme.colors.white};
+
+  span {
+    color: ${({ theme }) => theme.colors.greenDark};
+  }
+  i::after,
+  i::before {
+    background: ${({ theme }) => theme.colors.greenDark};
+  }
+
+  ${media.greaterThan('medium')`
+    background-color: ${({ theme }) => theme.colors.greenDark};
+  `}
+`;
+
+export const Body = styled.div`
+  ${media.greaterThan('medium')`
+    background-color: ${({ theme }) => theme.colors.greyLight};
+    max-width: 1127px;
+    max-height: 738px;
+    margin: auto;
+    height: 100%;
+  `}
 `;
 
 export const SliderNav1 = styled(Slider)`
+  background-color: ${({ theme }) => theme.colors.white};
   height: 100vw;
   top: 67px;
 
   img {
-    object-fit: cover;
     max-height: 100vw;
     max-width: 100vw;
     margin: auto;
     width: auto;
   }
+
+  iframe {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  ${props =>
+    props.planta &&
+    css`
+      top: 0;
+
+      ${media.greaterThan('medium')`
+        width: 100%;
+        max-width: 637px;
+        max-height: 607px;
+        position: absolute;
+        top: 93px;
+        left: 40%;
+
+        button {
+          width: 50px;
+          height: 50px;
+          background-size: 50px;
+
+        }
+        button:nth-child(1){
+          margin-left: -20px;
+        }
+        button:nth-child(3){
+          margin-right: -20px;
+        }
+
+        img {
+          object-fit: contain;
+          width: 637px;
+          height: 607px;
+        }
+      `}
+
+      ${media.between('medium', '1024px')`
+        right: 40px;
+        max-width: 550px;
+      `}
+    `}
+
+  ${media.greaterThan('640px')`
+    img {
+      max-height: calc(100vh - 170px);
+    }
+  `}
 `;
 
 export const SliderNav2 = styled(Slider)`
@@ -36,8 +110,86 @@ export const SliderNav2 = styled(Slider)`
 
   img {
     object-fit: cover;
-    max-height: 100px;
-    max-width: 100px;
+    height: 100px;
+    width: 100px;
     margin: auto;
+  }
+
+  ${media.greaterThan('640px')`
+    height: 70px;
+  `}
+
+  ${props =>
+    props.planta &&
+    css`
+      max-width: 298px;
+      margin-top: 300px;
+      margin-left: 60px;
+      bottom: unset;
+
+      .slick-center {
+        border: 3px solid ${({ theme }) => theme.colors.orange};
+      }
+
+      ${media.greaterThan('medium')`
+        img {
+          width: 82px;
+          height: 82px;
+          margin: 6px;
+        }
+      `}
+
+      ${media.between('medium', '1024px')`
+        margin-left: 30px;
+      `}
+    `}
+`;
+
+export const InfoPlanta = styled.div`
+  margin: 25px 22px;
+
+  hr {
+    width: 60px;
+    margin: 18px 0 20px 0;
+  }
+
+  hr:nth-child(3) {
+    display: none;
+  }
+
+  ${media.greaterThan('medium')`
+    padding: 93px 0 0 60px;
+
+    hr:nth-child(3) {
+      display: block;
+    }
+
+    div hr {
+      display: none;
+    }
+  `}
+
+  ${media.between('medium', '1024px')`
+    padding: 93px 0 0 30px;
+  `}
+`;
+
+export const Category = styled.p`
+  font: 37px 'Bitter';
+
+  ${media.greaterThan('medium')`
+    padding-bottom: 38px;
+  `}
+`;
+
+export const Title = styled.p`
+  font: 18px 'Raleway';
+  margin: 20px 0;
+`;
+
+export const Info = styled.div`
+  p {
+    font: 16px/19px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 `;
