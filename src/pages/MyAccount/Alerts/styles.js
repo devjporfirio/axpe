@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import MyAccount from '..';
 import Button from 'components/Button';
@@ -6,33 +6,33 @@ import Button from 'components/Button';
 export const Container = styled(MyAccount)``;
 
 export const Body = styled.div`
-  padding: 0 20px;
+  padding: 0 20px 20px 20px;
 
   ${media.greaterThan('medium')`
-    padding: 0 60px;
+    padding: 0 60px 20px 60px;
   `}
 `;
 
 export const Subtitle = styled.p`
   font: 18px/19px 'Raleway';
   margin-top: 10px;
+
+  ${media.greaterThan('medium')`
+    margin-bottom: 37px;
+  `}
 `;
 
 export const Item = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
   margin-top: 30px;
+  border-radius: 8px;
 
   ${media.greaterThan('medium')`
     display:flex;
     align-items: center;
-
-    div:nth-child(2){
-      order: 3;
-      margin-left: auto;
-    }
-    div:nth-child(3){
-      order: 2;
-      margin-left: 28px;
-    }
+    padding: 0 8px 20px 8px;
+    border-bottom: 1px solid  ${({ theme }) => theme.colors.greyDark};
+    border-radius: 0;
   `}
 `;
 
@@ -42,14 +42,7 @@ export const Gradient = styled.div`
   opacity: 0.8;
   border-radius: 6px;
   transform: rotate(-180deg);
-`;
-
-export const ItemImage = styled.div`
-  background: ${props => `url('/static/${props.background}.png')`} no-repeat;
-  width: 100%;
-  height: 180px;
-  border-radius: 6px;
-  object-position: cover;
+  position: absolute;
 
   ${media.greaterThan('medium')`
     width: 122px;
@@ -57,7 +50,31 @@ export const ItemImage = styled.div`
   `}
 `;
 
-export const ItemInfo = styled.div``;
+export const ItemImage = styled.div`
+  background: ${props => `url('/static/${props.background}.png')`} no-repeat;
+  width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  background-size: 100%;
+  background-position: center;
+
+  ${media.greaterThan('medium')`
+    background-size: auto 100%;
+    width: 122px;
+    height: 122px;
+  `}
+`;
+
+export const ItemInfo = styled.div`
+  padding: 0 20px 30px 20px;
+
+  ${media.greaterThan('medium')`
+    order: 2;
+    margin-left: 28px;
+    height: 121px;
+    padding: 0;
+  `}
+`;
 
 export const SourceUse = styled.p`
   text-transform: uppercase;
@@ -77,10 +94,31 @@ export const SourceUse = styled.p`
 
 export const InfoBase = styled.p`
   font: 18px/20px 'Raleway';
+  ${props =>
+    props.mq === 'mobile' &&
+    css`
+      display: block;
+    `}
+  ${props =>
+    props.mq === 'desktop' &&
+    css`
+      display: none;
+    `}
 
   ${media.greaterThan('medium')`
     font-size: 15px;
     line-height: 20px;
+
+    ${props =>
+      props.mq === 'desktop' &&
+      css`
+        display: block;
+      `}
+    ${props =>
+      props.mq === 'mobile' &&
+      css`
+        display: none;
+      `}
   `}
 `;
 
@@ -89,6 +127,13 @@ export const AmountRemoveGroup = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 12px;
+  padding: 0 20px;
+
+  ${media.greaterThan('medium')`
+    order: 3;
+    margin-left: auto;
+    padding: 0;
+  `}
 `;
 
 export const Amount = styled.p`

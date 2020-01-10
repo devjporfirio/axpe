@@ -17,6 +17,7 @@ import {
   Body,
   Subtitle,
   Item,
+  Gradient,
   ItemImage,
   ItemInfo,
   SourceUse,
@@ -58,6 +59,7 @@ function Alerts() {
           {alerts &&
             alerts.map((alert, index) => (
               <Item key={index}>
+                <Gradient />
                 <ItemImage background={alert.use} />
                 <AmountRemoveGroup>
                   <Amount>
@@ -73,32 +75,72 @@ function Alerts() {
                     <span>{alert.source}</span>
                     <span> - {alert.use}</span>
                   </SourceUse>
-                  <InfoBase>
-                    {alert.finality === 'venda' ? 'Comprar' : 'Alugar'}
-                  </InfoBase>
+
+                  {alert.finality && (
+                    <InfoBase mq="mobile">
+                      {alert.finality === 'venda' ? 'Comprar' : 'Alugar'}
+                    </InfoBase>
+                  )}
                   {alert.values.length > 0 && (
-                    <InfoBase>
+                    <InfoBase mq="mobile">
                       {formatCurrency.format(parseInt(alert.values[0]))} à{' '}
                       {formatCurrency.format(parseInt(alert.values[1]))}
                     </InfoBase>
                   )}
+
+                  <InfoBase mq="desktop">
+                    {alert.finality === 'venda' &&
+                      `Comprar ${
+                        alert.values && alert.values.length > 0 ? '- ' : ''
+                      }`}
+                    {alert.finality !== 'venda' &&
+                      `Alugar ${
+                        alert.values && alert.values.length > 0 ? '- ' : ''
+                      }`}
+                    {alert.values.length > 0 &&
+                      `${formatCurrency.format(
+                        parseInt(alert.values[0])
+                      )} à ${formatCurrency.format(parseInt(alert.values[1]))}`}
+                  </InfoBase>
+
                   {alert.areas.length > 0 && (
-                    <InfoBase>
+                    <InfoBase mq="mobile">
                       {alert.areas[0]} à {alert.areas[1]} m²
                     </InfoBase>
                   )}
                   {alert.bedrooms.length > 0 && (
-                    <InfoBase>
+                    <InfoBase mq="mobile">
                       {alert.bedrooms[0]} à {alert.bedrooms[1]} Dormitórios
                     </InfoBase>
                   )}
+
+                  <InfoBase mq="desktop">
+                    {alert.areas.length > 0 &&
+                      `${alert.areas[0]} à ${alert.areas[1]} m²`}
+
+                    {((alert.areas.length > 0 && alert.bedrooms.length > 0) ||
+                      (alert.areas.length > 0 && alert.parking.length > 0)) &&
+                      ' / '}
+
+                    {alert.bedrooms.length > 0 &&
+                      `${alert.bedrooms[0]} à ${alert.bedrooms[1]} Dormitórios`}
+
+                    {alert.bedrooms.length > 0 &&
+                      alert.parking.length > 0 &&
+                      ' / '}
+
+                    {(!alert.bedrooms.length > 0 || !alert.areas.length > 0) &&
+                      alert.parking.length > 0 &&
+                      `${alert.parking[0]} à ${alert.parking[1]} Vagas`}
+                  </InfoBase>
+
                   {alert.parking.length > 0 && (
                     <InfoBase>
                       {alert.parking[0]} à {alert.parking[1]} Vagas
                     </InfoBase>
                   )}
                   {alert.locals.length > 0 && (
-                    <InfoBase>{alert.locals.join(',')}</InfoBase>
+                    <InfoBase>{alert.locals.join(', ')}</InfoBase>
                   )}
                 </ItemInfo>
               </Item>
