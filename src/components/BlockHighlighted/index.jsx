@@ -115,6 +115,26 @@ const Landing = () => (
   </>
 );
 
+const Dream = () => (
+  <>
+    <HighlightedH4 type="dream">
+      <span>Transforme</span>
+      <span>seu sonho em</span>
+      <strong>realidade</strong>
+    </HighlightedH4>
+    <HighlightedH4 type="dream">
+      <p>
+        Conte pra gente como é <br/>
+        o imóvel dos seus sonhos <br/>
+        e vamos encontrá-lo para você
+      </p>
+      <Link href="/contato" target="_blank">
+        Fale conosco
+      </Link>
+    </HighlightedH4>
+  </>
+);
+
 const RegisterProperty = () => (
   <>
     <HighlightedH1 type="registerProperty">
@@ -166,6 +186,7 @@ export default function BlockHighlighted({ type, href, onClick }) {
       {type === 'planta' && <Planta href={href} onClick={onClick} />}
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
+      {type === 'dream' && <Dream />}
       {type === 'registerProperty' && <RegisterProperty />}
       {type === 'registerPropertyWhite' && <RegisterPropertyWhite />}
       {type === 'registerPropertyTransform' && <RegisterPropertyTransform />}
