@@ -16,24 +16,8 @@ export const Amount = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  h4 {
-    font: ${({ theme }) => theme.fontsWeight.bold} 18px/25px 'Bitter';
-    width: 230px;
-
-    strong {
-      color: ${({ theme }) => theme.colors.orange};
-    }
-  }
-
   ${media.greaterThan('medium')`
     align-items: flex-end;
-
-    h4 {
-      font-size: 31px;
-      line-height: 42px;
-      width: auto;
-      margin-top: 62px;
-    }
   `}
 `;
 

@@ -7,6 +7,22 @@ export const Container = styled.section`
   min-height: 100vh;
 `;
 
+export const Title = styled.h4`
+  font: ${({ theme }) => theme.fontsWeight.bold} 18px/25px 'Bitter';
+  width: 230px;
+
+  strong {
+    color: ${({ theme }) => theme.colors.orange};
+  }
+
+  ${media.greaterThan('medium')`
+    font-size: 31px;
+    line-height: 42px;
+    width: auto;
+    padding-top: 62px;
+  `}
+`;
+
 export const Header = styled.header`
   padding: 30px 29px;
   display: flex;

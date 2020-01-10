@@ -20,6 +20,7 @@ import {
   WhatsIcon,
   BuildingItem
 } from 'pages/MyAccount/Favorites/styles';
+import { Title } from 'pages/MyAccount/styles';
 
 function Favorites() {
   const user = useSelector(state => state.user);
@@ -52,10 +53,10 @@ function Favorites() {
     <Container>
       <Body>
         <Amount>
-          <h4>
+          <Title>
             Existem <strong>{buildings.length} imóveis</strong> favoritos por
             você
-          </h4>
+          </Title>
           <ShareIcon src={IShare} />
           <GroupIcon>
             <MailIcon src={IMail} />
