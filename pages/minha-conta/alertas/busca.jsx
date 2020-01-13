@@ -8,6 +8,7 @@ import { getParamsFromObject, formatCurrency } from 'helpers/utils';
 
 // components
 import Building from 'components/Building';
+import Headerbar from 'components/Headerbar';
 
 // styles
 import {
@@ -25,6 +26,10 @@ function AlertsSeach({ building, params }) {
   if (!user.logged) return <Container />;
   return (
     <Container>
+      <Headerbar
+        type="search"
+        title="Meus Alertas"
+      />
       <Body>
         <Title>
           <span>{params.source}</span>
