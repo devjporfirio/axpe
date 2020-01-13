@@ -65,6 +65,17 @@ export default {
     }).then(response => response.json());
     return response;
   },
+  async deleteAlert(token, id) {
+    shouldRenewToken();
+    const result = await fetch(`${process.env.config.apiUrl}/user/alerts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => response.json());
+    return result;
+  },
   async postFavorite(token, reference, status) {
     shouldRenewToken();
     const result = await fetch(

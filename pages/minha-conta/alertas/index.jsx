@@ -45,6 +45,19 @@ function Alerts() {
     loadAlerts();
   }, [ user ]);
 
+  const handleRemoveAlert = async id => {
+    if (user.logged) {
+      const responseRemove = await Api.MyAccount.deleteAlert(
+        user.access_token,
+        id
+      );
+      if (responseRemove.status === 'success') {
+        const alertsList = await Api.MyAccount.getAlerts(user.access_token);
+        setAlerts(alertsList.alerts);
+      }
+    }
+  };
+
   if (!user.logged) return <Container />;
 
   return (
@@ -65,7 +78,10 @@ function Alerts() {
                   <Amount>
                     <strong>{alert.total_buildings}</strong> imóveis
                   </Amount>
-                  <ButtonRemove>
+                  <ButtonRemove
+                    type="button"
+                    onClick={() => handleRemoveAlert(alert.id)}
+                  >
                     <SVG src={ITrash} />
                     excluir
                   </ButtonRemove>
