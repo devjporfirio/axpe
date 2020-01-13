@@ -54,28 +54,6 @@ export default {
     ).then(response => response.json());
     return response;
   },
-  async getAlerts(token) {
-    shouldRenewToken();
-    const response = await fetch(`${process.env.config.apiUrl}/user/alerts`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    }).then(response => response.json());
-    return response;
-  },
-  async deleteAlert(token, id) {
-    shouldRenewToken();
-    const result = await fetch(`${process.env.config.apiUrl}/user/alerts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    }).then(response => response.json());
-    return result;
-  },
   async postFavorite(token, reference, status) {
     shouldRenewToken();
     const result = await fetch(
@@ -87,6 +65,54 @@ export default {
         body: JSON.stringify({
           building: reference
         }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    ).then(response => response.json());
+    return result;
+  },
+  async getAlerts(token) {
+    shouldRenewToken();
+    const response = await fetch(`${process.env.config.apiUrl}/user/alerts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => response.json());
+    return response;
+  },
+  async postAlert(token, params) {
+    shouldRenewToken();
+    const result = await fetch(`${process.env.config.apiUrl}/user/alerts`, {
+      method: 'POST',
+      body: JSON.stringify({
+        source: params.source.value,
+        use: params.use,
+        finality: params.finality,
+        type: params.ready_release,
+        category: params.types,
+        local: params.local,
+        value: [ params.price_start, params.price_end ],
+        area: [ params.area_start, params.area_end ],
+        bedroom: [ params.bedroom_start, params.bedroom_end ],
+        parking: [ params.parking_start, params.parking_end ]
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => response.json());
+    return result;
+  },
+  async deleteAlert(token, id) {
+    shouldRenewToken();
+    const result = await fetch(
+      `${process.env.config.apiUrl}/user/alerts/${id}`,
+      {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
