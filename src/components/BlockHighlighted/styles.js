@@ -223,6 +223,30 @@ const Planta = css`
   }
 `;
 
+const Dream = css`
+  font-size: 40px;
+  line-height: 47px;
+  ${media.greaterThan('medium')`margin-right: 125px;`}
+
+  span {
+    display: block;
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  }
+
+  strong {
+    display: block;
+    color: ${({ theme }) => theme.colors.orange};
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
+
+  p {
+    font-size: .95rem;
+  }
+`;
+
 const Landing = css`
   width: 290px;
   font-size: 40px;
@@ -369,4 +393,5 @@ export const HighlightedH4 = styled.h4`
   ${props => props.type === 'notfound' && NotFound}
   ${props => props.type === 'planta' && Planta}
   ${props => props.type === 'landing' && Landing}
+  ${props => props.type === 'dream' && Dream}
 `;
