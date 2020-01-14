@@ -113,12 +113,15 @@ function Headerbar({ className, type, title, subtitle, building }) {
     }
   };
 
-  const handleMoreInfo = () => {
+  const handleMoreInfo = type => {
     if (access.logged) {
       dispatch(
         setMain({
           modalContact: true,
-          modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${building.reference} - ${building.local}, com ${building.area} m², ${building.bedrooms} quartos e ${building.parking} vagas.`
+          modalContactMessage:
+            type === 'building'
+              ? `Olá, gostaria de saber mais sobre o imóvel ${building.reference} - ${building.local}, com ${building.area} m², ${building.bedrooms} quartos e ${building.parking} vagas.`
+              : ''
         })
       );
     } else {
@@ -159,7 +162,11 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <ButtonIcon type="button" onClick={toggleShare}>
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />
               </ButtonIcon>
-              <ButtonContact type="button" size="small">
+              <ButtonContact
+                type="button"
+                size="small"
+                onClick={() => handleMoreInfo('search')}
+              >
                 Fale conosco
               </ButtonContact>
             </Column>
@@ -182,7 +189,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <ButtonMoreInformation
                 type="button"
                 size="small"
-                onClick={handleMoreInfo}
+                onClick={() => handleMoreInfo('building')}
               >
                 Mais informações
               </ButtonMoreInformation>
