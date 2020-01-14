@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -45,7 +45,14 @@ export default function Contact() {
       .required()
   });
 
+  useEffect(() => {
+    if (user.logged) {
+      setFieldValue('message', modalContactMessage);
+    }
+  }, [ modalContact ]);
+
   const {
+    setFieldValue,
     handleSubmit,
     handleChange,
     handleBlur,
@@ -55,7 +62,7 @@ export default function Contact() {
     errors
   } = useFormik({
     initialValues: {
-      message: modalContactMessage || ''
+      message: ''
     },
     validationSchema: contactSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -72,7 +79,8 @@ export default function Contact() {
         dispatch(
           setMain({
             modalNewsletterSuccess: true,
-            modalContact: false
+            modalContact: false,
+            modalContactMessage: ''
           })
         );
         resetForm({});

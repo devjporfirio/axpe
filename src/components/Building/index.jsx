@@ -43,7 +43,16 @@ export default function Building({
   useBtRemove,
   useBtSchedule
 }) {
-  const { values, gallery, address, slug, infos, category, type } = item;
+  const {
+    values,
+    gallery,
+    address,
+    slug,
+    infos,
+    category,
+    type,
+    reference
+  } = item;
   const [ hasDeleted, sethasDeleted ] = useState(false);
   const dispatch = useDispatch();
   const access = useSelector(state => state.user);
@@ -83,6 +92,19 @@ export default function Building({
         })
       );
     }
+  };
+
+  const handleBtSchedule = () => {
+    dispatch(
+      setMain({
+        modalContact: true,
+        modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${reference} - ${
+          address.local ? `${address.local}, ` : ''
+        } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
+          infos.bedrooms ? `${infos.bedrooms} quartos` : ''
+        } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`
+      })
+    );
   };
 
   return (
@@ -203,14 +225,13 @@ export default function Building({
                 </CaracteristicsGroup>
 
                 <Description>{infos.internalDescription}</Description>
-
-                {useBtSchedule && (
-                  <ScheduleButton type="button">
-                    Agende uma visita
-                  </ScheduleButton>
-                )}
               </div>
             </Link>
+            {useBtSchedule && (
+              <ScheduleButton type="button" onClick={handleBtSchedule}>
+                Agende uma visita
+              </ScheduleButton>
+            )}
           </Infos>
           {type === 'lancamento' && infos.releaseDelivery && (
             <ReleaseDelivery useBtSchedule={useBtSchedule}>
