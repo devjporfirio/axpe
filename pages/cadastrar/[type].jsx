@@ -160,7 +160,7 @@ function RegisterForm({ locals, categories, pais, type }) {
         values
       );
       setSubmitting(false);
-      if (resp.status === 'success') {
+      if (resp.status) {
         dispatch(
           setMain({
             modalRegisterSuccess: true

@@ -56,7 +56,7 @@ export default function Building({
       slug,
       status
     );
-    if (response.status === 'success') {
+    if (response.status) {
       sethasDeleted(!status);
     }
   };
@@ -68,7 +68,7 @@ export default function Building({
         slug,
         !isFavoriteBuilding
       );
-      if (response && response.status === 'success') {
+      if (response && response.status) {
         const favorites = await Api.MyAccount.getFavorites(access.access_token);
         dispatch(
           setUser({

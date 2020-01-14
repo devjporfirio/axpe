@@ -96,7 +96,7 @@ function Work() {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const resp = await Api.Contact.postWorkWithUs(values);
       setSubmitting(false);
-      if (resp.status === 'success') {
+      if (resp.status) {
         alert(resp.status);
         resetForm({});
       }

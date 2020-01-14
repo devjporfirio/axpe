@@ -88,7 +88,7 @@ function Contact() {
 
       setSubmitting(false);
 
-      if (resp.status === 'success') {
+      if (resp.status) {
         dispatch(
           setMain({
             modalNewsletterSuccess: true
