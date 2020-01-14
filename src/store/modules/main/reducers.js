@@ -6,7 +6,9 @@ const initialState = {
   modalNewsletterSuccess: false,
   modalLogin: false,
   modalLoginRegisterSuccess: false,
-  modalRegisterSuccess: false
+  modalRegisterSuccess: false,
+  modalContact: false,
+  modalContactMessage: ''
 };
 
 function main(state = initialState, action) {

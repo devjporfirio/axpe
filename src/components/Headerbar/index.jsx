@@ -96,7 +96,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
         building.reference,
         !isFavorite
       );
-      if (response && response.status === 'success') {
+      if (response && response.status) {
         const favorites = await Api.MyAccount.getFavorites(access.access_token);
         dispatch(
           setUser({
@@ -110,6 +110,19 @@ function Headerbar({ className, type, title, subtitle, building }) {
           modalLogin: true
         })
       );
+    }
+  };
+
+  const handleMoreInfo = () => {
+    if (access.logged) {
+      dispatch(
+        setMain({
+          modalContact: true,
+          modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${building.reference} - ${building.local}, com ${building.area} m², ${building.bedrooms} quartos e ${building.parking} vagas.`
+        })
+      );
+    } else {
+      dispatch(setMain({ modalLogin: true }));
     }
   };
 
@@ -166,7 +179,11 @@ function Headerbar({ className, type, title, subtitle, building }) {
                   uniquifyIDs={true}
                 />
               </ButtonLike>
-              <ButtonMoreInformation type="button" size="small">
+              <ButtonMoreInformation
+                type="button"
+                size="small"
+                onClick={handleMoreInfo}
+              >
                 Mais informações
               </ButtonMoreInformation>
               <PhoneContact>11 3074-3600</PhoneContact>
