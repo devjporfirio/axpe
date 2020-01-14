@@ -5,22 +5,20 @@ import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import * as Yup from 'yup';
-import Link from 'next/link';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
+import InfoUser from 'components/InfoUser';
 
 // helpers
 import SeoData from 'helpers/seo';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
-import { setUser } from 'store/modules/user/actions';
 
 // images
-import IUser from 'assets/icons/user';
 import IClose from 'assets/icons/close-white';
 
 // styles
@@ -38,8 +36,6 @@ import {
   FormGroupAddress,
   FormGroupPhotos,
   Description,
-  InfoLogin,
-  Info,
   GroupImages,
   GroupImage,
   Image,
@@ -81,7 +77,6 @@ const registrySchema = Yup.object().shape({
 function RegisterForm({ locals, categories, pais, type }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const [ me, setMe ] = useState({});
   const [ keyLocals, setKeyLocals ] = useState('São Paulo');
   const [ localsByKey, setLocalsByKey ] = useState([
     { label: 'Selecione', value: '' }
@@ -91,8 +86,6 @@ function RegisterForm({ locals, categories, pais, type }) {
     async function loadMe() {
       if (user && user.logged) {
         dispatch(setMain({ modalLogin: false }));
-        const me = await Api.MyAccount.getMe(user.access_token);
-        setMe(me.data);
       } else {
         dispatch(setMain({ modalLogin: true }));
       }
@@ -175,16 +168,6 @@ function RegisterForm({ locals, categories, pais, type }) {
     const newList = [ ...values.images ];
     newList.splice(position, 1);
     setFieldValue('images', newList);
-  };
-
-  const handleLogOff = () => {
-    dispatch(
-      setUser({
-        logged: false,
-        access_token: '',
-        favorites: []
-      })
-    );
   };
 
   const newCategories =
@@ -614,23 +597,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                 onBlur={handleBlur}
               />
 
-              <InfoLogin>
-                <SVG src={IUser} uniquifyIDs={true} />
-                <Info>
-                  <p>
-                    Você está logado como
-                    <strong> {me.name}</strong>
-                  </p>
-                  <p>Tel.: {me.phone}</p>
-                  <p>E-mail: {me.email}</p>
-                  <p>
-                    Se não for você{' '}
-                    <Link href="/" passHref>
-                      <button onClick={handleLogOff}>clique aqui</button>
-                    </Link>
-                  </p>
-                </Info>
-              </InfoLogin>
+              <InfoUser />
 
               <ButtonSubmit disabled={isSubmitting} type="submit">
                 Enviar
