@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
-import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 import Api from 'services';
+
+// components
+import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
+import Inactive from 'components/Inactive';
 
 // helpers
 import { formatCurrency } from 'helpers/utils';
@@ -41,9 +44,19 @@ export default function Building({
   item,
   className,
   useBtRemove,
-  useBtSchedule
+  useBtSchedule,
+  useInactive
 }) {
-  const { values, gallery, address, slug, infos, category, type } = item;
+  const {
+    values,
+    gallery,
+    address,
+    slug,
+    infos,
+    category,
+    type,
+    status
+  } = item;
   const [ hasDeleted, sethasDeleted ] = useState(false);
   const dispatch = useDispatch();
   const access = useSelector(state => state.user);
@@ -91,6 +104,7 @@ export default function Building({
       useBtSchedule={useBtSchedule}
       hasDeleted={hasDeleted}
     >
+      {useInactive && status === 'inactive' && <Inactive />}
       {!hasDeleted ? (
         <>
           <Slider

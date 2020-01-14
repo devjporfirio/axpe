@@ -26,10 +26,7 @@ function AlertsSeach({ building, params }) {
   if (!user.logged) return <Container />;
   return (
     <Container>
-      <Headerbar
-        type="search"
-        title="Meus Alertas"
-      />
+      <Headerbar type="search" title="Meus Alertas" />
       <Body>
         <Title>
           <span>{params.source}</span>
@@ -56,6 +53,7 @@ function AlertsSeach({ building, params }) {
             <Building
               item={building}
               key={`building-searchitem-${building.reference}-${buildingIndex}`}
+              useInactive
             />
           ))}
         </Buildings>
