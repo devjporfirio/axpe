@@ -12,7 +12,7 @@ import IUser from 'assets/icons/user';
 // styles
 import { Info, InfoLogin } from './styles';
 
-export default function InfoUser() {
+export default function InfoUser({ className }) {
   const user = useSelector(state => state.user);
   const handleLogOff = () => {
     dispatch(
@@ -25,7 +25,7 @@ export default function InfoUser() {
   };
 
   return (
-    <InfoLogin>
+    <InfoLogin className={className}>
       <SVG src={IUser} uniquifyIDs={true} />
       <Info>
         <p>
