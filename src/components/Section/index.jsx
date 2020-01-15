@@ -94,11 +94,18 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
 
       {address && address.local && <Local>{address.local}</Local>}
       <Infos>
-        {category}, {infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}
+        {category},
+        {item.type === 'lancamento' || item.building.type === 'lancamento'
+          ? infos && infos.areaUsefulStart && infos.areaUsefulEnd !== 99999999
+            ? `${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
+            : null
+          : `${infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}`}
       </Infos>
       {sell || release ? (
         <Infos>
-          Venda:{' '}
+          {item.type === 'lancamento' || item.building.type === 'lancamento'
+            ? 'Apartir de: '
+            : 'Venda: '}
           {sell ? formatCurrency.format(sell) : formatCurrency.format(release)}
         </Infos>
       ) : null}

@@ -17,7 +17,7 @@ export const ItemLink = styled(Button)`
 
 const SlickLarge = media.greaterThan('medium')`
   .slick-track {
-    height: 560px;
+    max-height: 560px;
   }
   .slick-slide {
     display: flex;
@@ -27,7 +27,7 @@ const SlickLarge = media.greaterThan('medium')`
   }
 
   .slick-list {
-    height: 560px;
+    max-height: 560px;
   }
 
   .slick-slide.slick-active div {
