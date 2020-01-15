@@ -38,8 +38,8 @@ function LoginForm({ doAfterLogin }) {
     errors
   } = useFormik({
     initialValues: {
-      email: 'user@test.com',
-      password: '123123'
+      email: '',
+      password: ''
     },
     validationSchema: loginSchema,
     onSubmit: async (values, { setSubmitting }) => {
