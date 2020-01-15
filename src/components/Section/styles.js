@@ -77,7 +77,8 @@ const TypeSlick = css`
   }
 
   ${media.greaterThan('medium')`
-    margin-left: 120px !important;
+    margin: 120px !important;
+
     h4 {
       font-size: 41px;
       line-height: 40px;
