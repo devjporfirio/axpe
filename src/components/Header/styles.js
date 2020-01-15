@@ -332,7 +332,7 @@ export const NavSecondary = styled.nav`
   margin-bottom: 30px;
 
   ${media.greaterThan('large')`
-    margin-bottom: 15px;
+    margin-bottom: 24px;
   `}
 
   li {
@@ -379,6 +379,11 @@ export const NavLangs = styled.nav`
       `}
     }
   }
+
+  ${media.greaterThan('large')`
+    margin-bottom: 30px;
+    height: 23px;
+  `}
 `;
 
 export const NavLangsButton = styled.a`
@@ -411,6 +416,10 @@ export const NavLangsButton = styled.a`
 
 export const Whatsapp = styled.div`
   margin-bottom: 30px;
+
+  ${media.greaterThan('large')`
+    margin-bottom: 19px;
+  `}
 `;
 
 export const WhatsappButton = styled.a`
@@ -495,6 +504,10 @@ export const Contact = styled.p`
 
 export const Newsletter = styled.div`
   margin-bottom: 20px;
+
+  ${media.greaterThan('large')`
+    margin-bottom: 12px;
+  `}
 `;
 
 export const NewsletterButton = styled.button`
