@@ -191,6 +191,7 @@ export const SlideSmall = styled(SlickSection)`
 
   ${media.greaterThan('medium')`
     max-width: 954px;
+    width: 100%;
   `}
 `;
 
