@@ -31,32 +31,26 @@ function Home({ hero, components }) {
 
   useEffect(() => {
     async function loadBuildinsSeen() {
-
-      if(user.logged) {
+      if (user.logged) {
         // const buildingsSeen = await Api.MyAccount.getViewed();
         // const listForYou = await Api.MyAccount.getForYou();
-
         // console.log(`buildingsSeen`, buildingsSeen);
         // console.log(`listForYou`, listForYou);
-
         // if(!buildingsSeen.length) return false;
-
         // const listBuildingsSeen = await Promise.all(
         //   buildingsSeenCookie.map(async b => {
         //     const building = await Api.Building.getPage(b);
         //     return building;
         //   })
         // );
-
         // setBuildingsSeen(listBuildingsSeen);
-
         // if(listForYou.length) {
         //   setBuildingsForYou(listForYou);
         // }
-      } else if(!user.logged) {
+      } else if (!user.logged) {
         const buildingsSeenCookie = CookieBuildingSeen.get();
 
-        if(!buildingsSeenCookie.length) return false;
+        if (!buildingsSeenCookie.length) return false;
 
         const listBuildingsSeen = await Promise.all(
           buildingsSeenCookie.map(async b => {
@@ -80,7 +74,7 @@ function Home({ hero, components }) {
 
         setBuildingsSeen(listBuildingsSeen);
 
-        if(listForYou && listForYou.length) {
+        if (listForYou && listForYou.length) {
           setBuildingsForYou(listForYou);
         }
       }
@@ -123,6 +117,7 @@ function Home({ hero, components }) {
             <SlickSection
               type={COMPONENT_SLICK[type]}
               items={component.items}
+              useButtom
             />
           )
         );

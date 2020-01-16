@@ -13,6 +13,7 @@ import {
   LinkContainer,
   Local,
   Infos,
+  GroupInfo,
   Reference,
   Block1DestaqueTexto,
   Block2DestaqueTexto,
@@ -89,30 +90,36 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
 
   return (
     <>
-      {labelTitle && <h4>{item[labelTitle]}</h4>}
-      {labelTitle && item[labelTitle] && <hr />}
+      <GroupInfo>
+        {labelTitle && <h4>{item[labelTitle]}</h4>}
+        {labelTitle && item[labelTitle] && <hr />}
 
-      {address && address.local && <Local>{address.local}</Local>}
-      <Infos>
-        {category},
-        {item.type && item.type === 'lancamento' || item.building && item.building.type === 'lancamento'
-          ? infos && infos.areaUsefulStart && infos.areaUsefulEnd !== 99999999
-            ? `${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
-            : null
-          : `${infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}`}
-      </Infos>
-      {sell || release ? (
+        {address && address.local && <Local>{address.local}</Local>}
         <Infos>
-          {item.type && item.type === 'lancamento' || item.building && item.building.type === 'lancamento'
-            ? 'Apartir de: '
-            : 'Venda: '}
-          {sell ? formatCurrency.format(sell) : formatCurrency.format(release)}
+          {category},
+          {(item.type && item.type === 'lancamento') ||
+          (item.building && item.building.type === 'lancamento')
+            ? infos && infos.areaUsefulStart && infos.areaUsefulEnd !== 99999999
+              ? `${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
+              : null
+            : `${infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}`}
         </Infos>
-      ) : null}
-      {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
+        {sell || release ? (
+          <Infos>
+            {(item.type && item.type === 'lancamento') ||
+            (item.building && item.building.type === 'lancamento')
+              ? 'Apartir de: '
+              : 'Venda: '}
+            {sell
+              ? formatCurrency.format(sell)
+              : formatCurrency.format(release)}
+          </Infos>
+        ) : null}
+        {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
 
-      <Reference type={type}>Ref {reference}</Reference>
-      {useButtom && (
+        <Reference type={type}>Ref {reference}</Reference>
+      </GroupInfo>
+      {(useButtom || type === 'slickGrid' || type === 'slickLeft') && (
         <LinkContainer>
           <Button href="/building/[reference]" as={`/building/${slug}`}>
             Saiba mais
@@ -128,9 +135,9 @@ function renderSelection(type, item, useButtom) {
     case 'slick':
       return sectionInfo(item);
     case 'slickLeft':
-      return sectionMultiInfos(item, 'title');
+      return sectionMultiInfos(item, 'title', type);
     case 'slickGrid':
-      return sectionMultiInfos(item, 'titleWhite');
+      return sectionMultiInfos(item, 'titleWhite', type);
     case 'slickLarge':
     case 'slickSmall':
       return sectionMultiInfos(item, '', type, useButtom);

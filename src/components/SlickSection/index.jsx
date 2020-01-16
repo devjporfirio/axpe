@@ -132,6 +132,7 @@ function SlickSection({
       slidesPerRow={slidesPerRow}
       rows={rows}
       responsive={responsive[type]}
+      autoplay={true}
       propsArrow={{
         typeSection: type,
         color: color,

@@ -27,6 +27,10 @@ const TypeSlickLeftDesktop = css`
   width: 310px;
   height: 100%;
   margin: auto 106px;
+
+  ${media.greaterThan('1440px')`
+    margin: auto;
+  `}
 `;
 
 const TypeSlickLeftMobile = css`
@@ -213,6 +217,12 @@ export const Block2DestaqueTextoBullet = styled(Block2DestaqueTexto)`
   `}
 `;
 
+export const GroupInfo = styled.div`
+  ${media.greaterThan('medium')`
+    min-height: 156px;
+  `}
+`;
+
 export const Container = styled.section`
   z-index: 4;
   top: 80px;
@@ -255,11 +265,15 @@ export const Container = styled.section`
       padding: 20px 8%;
       height: 240px;
       border-radius: 0 0 6px 6px;
-  `}
-`};
+    `}
+  `};
 
   ${media.greaterThan('medium')`
     margin: auto;
+
+    hr {
+      margin: 20px 0;
+    }
 
     ${props => props.type === 'slickLeft' && TypeSlickLeftDesktop}
     ${props => props.type === 'slickGrid' && TypeSlickGridDesktop}
