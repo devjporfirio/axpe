@@ -95,7 +95,7 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
       {address && address.local && <Local>{address.local}</Local>}
       <Infos>
         {category},
-        {item.type === 'lancamento' || item.building.type === 'lancamento'
+        {item.type && item.type === 'lancamento' || item.building && item.building.type === 'lancamento'
           ? infos && infos.areaUsefulStart && infos.areaUsefulEnd !== 99999999
             ? `${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
             : null
@@ -103,7 +103,7 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
       </Infos>
       {sell || release ? (
         <Infos>
-          {item.type === 'lancamento' || item.building.type === 'lancamento'
+          {item.type && item.type === 'lancamento' || item.building && item.building.type === 'lancamento'
             ? 'Apartir de: '
             : 'Venda: '}
           {sell ? formatCurrency.format(sell) : formatCurrency.format(release)}

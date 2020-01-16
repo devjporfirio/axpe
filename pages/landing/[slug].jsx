@@ -91,23 +91,23 @@ function Landing({ slug, page }) {
             }
           })}
 
-        <Banner>
-          {Object.keys(imagesBanner) && (
-            <>
+        {Object.keys(imagesBanner).length > 0 &&
+          imagesBanner.desktop &&
+          imagesBanner.mobile(
+            <Banner>
               <Image mq="desktop" src={imagesBanner.desktop} />
               <Image mq="mobile" src={imagesBanner.mobile} />
-            </>
+
+              <Link
+                href={imagesBanner.link.url}
+                target={imagesBanner.link.external ? '_blank' : '_self'}
+              >
+                Saiba Mais
+              </Link>
+            </Banner>
           )}
 
-          <Link
-            href={imagesBanner.link.url}
-            target={imagesBanner.link.external ? '_blank' : '_self'}
-          >
-            Saiba Mais
-          </Link>
-        </Banner>
-
-        <BlockHighlighted type="landing" />
+        <BlockHighlighted type="notfound" />
         <Contact />
       </Container>
     </>
