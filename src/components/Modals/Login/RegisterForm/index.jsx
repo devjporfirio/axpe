@@ -67,7 +67,7 @@ function RegisterForm({ doAfterLogin }) {
         phone: values.phone
       });
 
-      if (response.status === 'success') {
+      if (response.status) {
         const loginResponse = await Api.User.postLogin({
           email: values.email,
           password: values.password

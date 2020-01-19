@@ -41,7 +41,7 @@ function UpdatePass({ active, onClose, user }) {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const resp = await Api.MyAccount.putMe(userRedux.access_token, { ...user, ...values });
       setSubmitting(false);
-      if (resp.status === 'success') {
+      if (resp.status) {
         alert('Sucesso');
         // dispatch(
         //   setMain({

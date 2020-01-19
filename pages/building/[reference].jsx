@@ -53,7 +53,11 @@ function Building({ property }) {
           building={{
             reference: property.reference,
             source: property.source,
-            likes: property.totalFavorites
+            likes: property.totalFavorites,
+            local: property.address.local,
+            area: property.infos.areaBuilding,
+            bedrooms: property.infos.bedrooms,
+            parking: property.infos.parking
           }}
         />
 
@@ -70,9 +74,9 @@ function Building({ property }) {
 
         <Alert>
           <p>
-            Todas as informações aqui contidas, incluindo preço, metragem quadrada
-            e valores são aproximadas e não garantidas, devendo ser confirmadas
-            pessoalmente pelos interessados.
+            Todas as informações aqui contidas, incluindo preço, metragem
+            quadrada e valores são aproximadas e não garantidas, devendo ser
+            confirmadas pessoalmente pelos interessados.
           </p>
 
           <p>

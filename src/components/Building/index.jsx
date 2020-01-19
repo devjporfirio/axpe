@@ -55,6 +55,7 @@ export default function Building({
     infos,
     category,
     type,
+    reference,
     status
   } = item;
   const [ hasDeleted, sethasDeleted ] = useState(false);
@@ -69,7 +70,7 @@ export default function Building({
       slug,
       status
     );
-    if (response.status === 'success') {
+    if (response.status) {
       sethasDeleted(!status);
     }
   };
@@ -81,7 +82,7 @@ export default function Building({
         slug,
         !isFavoriteBuilding
       );
-      if (response && response.status === 'success') {
+      if (response && response.status) {
         const favorites = await Api.MyAccount.getFavorites(access.access_token);
         dispatch(
           setUser({
@@ -96,6 +97,19 @@ export default function Building({
         })
       );
     }
+  };
+
+  const handleBtSchedule = () => {
+    dispatch(
+      setMain({
+        modalContact: true,
+        modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${reference} - ${
+          address.local ? `${address.local}, ` : ''
+        } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
+          infos.bedrooms ? `${infos.bedrooms} quartos` : ''
+        } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`
+      })
+    );
   };
 
   return (
@@ -217,14 +231,13 @@ export default function Building({
                 </CaracteristicsGroup>
 
                 <Description>{infos.internalDescription}</Description>
-
-                {useBtSchedule && (
-                  <ScheduleButton type="button">
-                    Agende uma visita
-                  </ScheduleButton>
-                )}
               </div>
             </Link>
+            {useBtSchedule && (
+              <ScheduleButton type="button" onClick={handleBtSchedule}>
+                Agende uma visita
+              </ScheduleButton>
+            )}
           </Infos>
           {type === 'lancamento' && infos.releaseDelivery && (
             <ReleaseDelivery useBtSchedule={useBtSchedule}>

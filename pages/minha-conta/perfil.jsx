@@ -68,7 +68,7 @@ function Profile() {
 
       setSubmitting(false);
 
-      if (resp.status === 'success') {
+      if (resp.status) {
         alert('Sucesso');
         dispatch(setUser({ logged: true, me: values }));
       }
