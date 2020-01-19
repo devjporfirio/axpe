@@ -23,7 +23,10 @@ export default function Around({ cep, text }) {
         );
         setLat(geocode.geometry.location.lat)
         setLng(geocode.geometry.location.lng)
-        setOverviewPoly(directions.routes[0].overview_polyline.points);
+
+        if(directions && directions.routes && directions.routes.lenght > 0) {
+          setOverviewPoly(directions.routes[0].overview_polyline.points);
+        }
       }
     }
     loadOverviewPolyline();
