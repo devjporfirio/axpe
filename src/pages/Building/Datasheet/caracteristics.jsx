@@ -38,14 +38,15 @@ export const Bedrooms = ({ bedrooms, suites }) =>
   );
 
 export const BedroomsBetween = ({ start, end }) =>
-  !!start &&
-  !!end && (
+  !!start && !!end && end !== 9999 ? (
     <InfoValue>
       <p>
         {start} a {end}
       </p>
       <p>Quartos</p>
     </InfoValue>
+  ) : (
+    <Bedrooms bedrooms={start} />
   );
 
 export const Parking = ({ parking }) =>
@@ -57,14 +58,15 @@ export const Parking = ({ parking }) =>
   );
 
 export const ParkingBetween = ({ start, end }) =>
-  !!start &&
-  !!end && (
+  !!start && !!end && end !== 9999 ? (
     <InfoValue>
       <p>
         {start} a {end}
       </p>
       <p>Vagas</p>
     </InfoValue>
+  ) : (
+    <Parking parking={start} />
   );
 
 export const AreaBuilding = ({ areaBuilding }) =>
@@ -100,12 +102,13 @@ export const AreaUseFul = ({ areaUseful }) =>
   );
 
 export const AreaUseFulBetween = ({ start, end }) =>
-  !!start &&
-  !!end && (
+  !!start && !!end && end !== 99999999 ? (
     <InfoValue>
       <p>
         {start} a {end} m²
       </p>
       <p>Área útil</p>
     </InfoValue>
+  ) : (
+    <AreaUseFul areaUseful={start} />
   );

@@ -177,6 +177,7 @@ export const TextModule = styled.p`
     padding: 0;
     margin-bottom: 25px;
     line-height: 25px;
+    max-width: 650px;
   `}
 `;
 
@@ -189,6 +190,7 @@ export const SlideSmall = styled(SlickSection)`
   }
 
   ${media.greaterThan('medium')`
+    max-width: 954px;
     width: 100%;
   `}
 `;

@@ -26,7 +26,7 @@ export default function Slick({
   responsive = null,
   lazyLoad = true,
   beforeChange,
-
+  autoplay = false,
   reference = null,
   children,
   type,
@@ -34,6 +34,8 @@ export default function Slick({
   className
 }) {
   const settings = {
+    autoplay,
+    autoplaySpeed: 3000,
     beforeChange,
     adaptiveHeight,
     initialSlide,

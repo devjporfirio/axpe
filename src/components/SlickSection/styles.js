@@ -17,7 +17,7 @@ export const ItemLink = styled(Button)`
 
 const SlickLarge = media.greaterThan('medium')`
   .slick-track {
-    height: 560px;
+    max-height: 560px;
   }
   .slick-slide {
     display: flex;
@@ -27,7 +27,7 @@ const SlickLarge = media.greaterThan('medium')`
   }
 
   .slick-list {
-    height: 560px;
+    max-height: 560px;
   }
 
   .slick-slide.slick-active div {
@@ -39,7 +39,7 @@ export const Container = styled(Slider)`
   ${props =>
     props.type !== 'slick' &&
     media.greaterThan('medium')`
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   `}
 
   ${props =>
@@ -136,6 +136,7 @@ export const Image = styled.img`
       min-width: 570px;
       max-height: 244px;
       margin-left: 0;
+      margin-right: 2px;
 
       ${media.greaterThan('medium')`
         max-height: 680px;
@@ -244,6 +245,10 @@ export const ImagesGrid = styled.div`
     img {
       border: 3.5px solid ${({ theme }) => theme.colors.white};
     }
+  `}
+
+  ${media.greaterThan('1280px')`
+    width: auto;
   `}
 `;
 
