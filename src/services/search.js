@@ -27,7 +27,7 @@ export default {
   },
   async getBuildings(params) {
     const response = await fetch(
-      `${process.env.config.apiUrl}/buildings/find?source=sao-paulo&finality=venda&limit=4`
+      `${process.env.config.apiUrl}/buildings/find${params}`
     ).then(response => response.json());
     return response;
   }
