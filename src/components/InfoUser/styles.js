@@ -58,6 +58,7 @@ export const Info = styled.div`
   ${media.greaterThan('medium')`
     height: auto;
     padding: 0;
+    max-width: 300px;
 
     button {
       color: ${({ theme }) => theme.colors.orange};
