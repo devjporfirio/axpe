@@ -127,7 +127,6 @@ function SlickSection({
       className={className}
       type={type}
       length={lengthItems}
-      // propsArrow={{ type }}
       slidesToShow={slidesToShow}
       slidesPerRow={slidesPerRow}
       rows={rows}
@@ -153,13 +152,20 @@ function SlickSection({
         lengthItems > 0 &&
         items.map((item, index) => (
           <Slide key={item.id || index} type={type}>
-            {item.link && !!item.link.url && (
-              <ItemLink fullWidth={true} {...item.link} href={item.link.url} />
+            {item.link && !!item.link.url ? (
+              <ItemLink
+                type={type}
+                {...item.link}
+                href={item.link.url}
+              />
+            ) : (
+              <ItemLink
+                type={type}
+                href={`/building/${
+                  item.building ? item.building.slug : item.slug
+                }`}
+              />
             )}
-
-            {type === 'slickSmall' ? (
-              <ItemLink href={`/building/${item.building ? item.building.slug : item.slug}`} />
-            ) : null}
 
             {useGradient && <Gradient />}
             {renderBackground(type, item)}
