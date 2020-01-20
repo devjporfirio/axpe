@@ -17,6 +17,7 @@ import UpdatePass from 'pages/MyAccount/Profile/UpdatePass';
 // import Google from 'assets/icons/google-rounded';
 
 // styles
+import { LoginFeedback } from 'components/Modals/Login/styles';
 import { FormGroup } from 'components/FormElements/styles';
 import {
   Container,
@@ -43,6 +44,7 @@ function Profile() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ changePass, setChangePass ] = useState(false);
+  const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
     handleSubmit,
@@ -69,8 +71,16 @@ function Profile() {
       setSubmitting(false);
 
       if (resp.status) {
-        alert('Sucesso');
         dispatch(setUser({ logged: true, me: values }));
+        setErrorMessage('Alteração realizada com sucesso.');
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 300);
+      } else {
+        setErrorMessage(resp.msg);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 3000);
       }
     }
   });
@@ -194,7 +204,9 @@ function Profile() {
               </FormSocial> */}
             </FormGroupAlerts>
           </FormGroup>
-
+          
+          {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+          
           <ButtonSave disabled={isSubmitting} type="submit">
             Salvar
           </ButtonSave>
