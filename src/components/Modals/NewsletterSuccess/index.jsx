@@ -22,10 +22,10 @@ function NewsletterModal() {
     <Modal active={modalNewsletterSuccess} onClose={closeModal} themeColor="green">
       <Success>
         <SuccessColumn>
-          <h2>Pronto!</h2>
+          <h2>Quase pronto!</h2>
         </SuccessColumn>
         <SuccessColumn>
-          <p>Sua mensagem foi enviada com sucesso. Responderemos rapidamente.</p>
+          <p>Só mais um passo: precisamos apenas confirmar seu cadastro. Por favor, clique no link que acabamos de enviar para você por email.</p>
         </SuccessColumn>
       </Success>
     </Modal>
