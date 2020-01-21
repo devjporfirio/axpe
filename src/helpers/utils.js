@@ -23,3 +23,7 @@ export const getParamsFromObject = (params, isBackend) => {
   );
   return encodeURI(paramsJoin);
 };
+
+export const checkPluralSingular = (word, size) => {
+  return size === 0 || size > 1 ? `${word}s` : word;
+};
