@@ -205,7 +205,7 @@ export const Text = styled.div`
   }
 
   ${media.greaterThan('1024px')`
-    min-height: 500px;
+    min-height: 535px;
     display: flex !important;
     align-items: center;
     flex-wrap: wrap;

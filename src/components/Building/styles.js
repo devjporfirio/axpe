@@ -58,6 +58,7 @@ export const Infos = styled.div`
 
   ${media.greaterThan('medium')`
     padding: 30px;
+    margin: auto;
   `}
 
   ${media.greaterThan('1280px')`
@@ -195,7 +196,7 @@ export const CaracteristicsGroup = styled.div`
     }
     p{ 
       font-size: 14px !important;
-      line-height: 14px !important;
+      line-height: 18px !important;
     }
   `};
 `;
@@ -203,10 +204,18 @@ export const CaracteristicsGroup = styled.div`
 export const ValuesFavGroup = styled.div`
   ${CenterBetween};
   margin-top: 15px;
+  p {
+    letter-spacing: 0.46px;
+    line-height: 18px !important;
+  }
+
+  ${media.greaterThan('medium')`
+    margin-top: 30px;
+  `}
 `;
 
 export const Favorito = styled.img`
-  width: 16px;
+  width: 20px;
 `;
 
 export const Price = styled.p`

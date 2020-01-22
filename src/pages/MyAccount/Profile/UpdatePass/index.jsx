@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from 'services';
@@ -7,7 +7,11 @@ import Api from 'services';
 // components
 import FormElements from 'components/FormElements';
 
+// actions
+import { setUser } from 'store/modules/user/actions';
+
 // styles
+import { LoginFeedback } from 'components/Modals/Login/styles';
 import { FormGroup } from 'components/FormElements/styles';
 import { Form, ButtonSave } from '../styles';
 import { Container, Note } from './styles';
@@ -21,7 +25,9 @@ const profileSchema = Yup.object().shape({
 });
 
 function UpdatePass({ active, onClose, user }) {
+  const dispatch = useDispatch();
   const userRedux = useSelector(state => state.user);
+  const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
     handleSubmit,
@@ -39,17 +45,21 @@ function UpdatePass({ active, onClose, user }) {
     },
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.MyAccount.putMe(userRedux.access_token, { ...user, ...values });
+      const resp = await Api.MyAccount.putMe(userRedux.access_token, {
+        ...user,
+        ...values
+      });
       setSubmitting(false);
+
       if (resp.status) {
-        alert('Sucesso');
-        // dispatch(
-        //   setMain({
-        //     modalRegisterSuccess: true
-        //   })
-        // );
+        dispatch(setUser({ logged: true, me: values }));
         onClose();
         resetForm({});
+      } else {
+        setErrorMessage(resp.msg);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 3000);
       }
     }
   });
@@ -98,6 +108,8 @@ function UpdatePass({ active, onClose, user }) {
           *Sua senha deve conter pelo menos 6 caracteres, um número e um
           caracter especial.
         </Note>
+
+        {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
 
         <ButtonSave disabled={isSubmitting} type="submit">
           Salvar

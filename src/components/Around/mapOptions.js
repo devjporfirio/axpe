@@ -4,11 +4,11 @@ export default {
       elementType: 'geometry',
       stylers: [
         {
-          color: '#242f3e'
+          color: '#133644'
         }
       ]
     },
-    { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+    { elementType: 'labels.text.stroke', stylers: [{ color: '#133644' }] },
     { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
     {
       elementType: 'labels.text.fill',
@@ -22,7 +22,7 @@ export default {
       elementType: 'labels.text.stroke',
       stylers: [
         {
-          color: '#242f3e'
+          color: '#133644'
         }
       ]
     },
@@ -84,7 +84,7 @@ export default {
       elementType: 'geometry',
       stylers: [
         {
-          color: '#38414e'
+          color: '#244350'
         }
       ]
     },

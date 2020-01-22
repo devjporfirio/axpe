@@ -8,10 +8,36 @@ export const ItemLink = styled(Button)`
   background-color: transparent !important;
   z-index: 9;
   height: 507px;
+  padding: 0;
+
+  ${props =>
+    [ 'slick' ].includes(props.type) &&
+    css`
+      width: 100vw !important;
+    `};
 
   ${media.greaterThan('medium')`
     height: 700px;
-    width: 304px !important;
+
+    ${props =>
+      props.type === 'slickSmall' &&
+      css`
+        width: 304px !important;
+      `};
+
+    ${props =>
+      [ 'slickGrid', 'slick', 'slickLeft' ].includes(props.type) &&
+      css`
+        width: calc(100vw - 200px) !important;
+      `};
+
+    ${props =>
+      props.type === 'slickLarge' &&
+      css`
+        max-width: 954px;
+        width: 100%;
+        height: 258px;
+      `};
   `}
 `;
 

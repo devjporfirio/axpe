@@ -120,7 +120,21 @@ function Headerbar({ className, type, title, subtitle, building }) {
           modalContact: true,
           modalContactMessage:
             type === 'building'
-              ? `Olá, gostaria de saber mais sobre o imóvel ${building.reference} - ${building.local}, com ${building.area} m², ${building.bedrooms} quartos e ${building.parking} vagas.`
+              ? `Olá, gostaria de saber mais sobre o imóvel ${
+                  building.reference
+                } - ${building.local}, com ${
+                  building.area
+                    ? building.bedrooms || building.parking
+                      ? `, ${building.area} m²`
+                      : `${building.area} m²`
+                    : ''
+                } ${
+                  building.bedrooms
+                    ? building.parking
+                      ? `${building.bedrooms} quartos e`
+                      : `${building.bedrooms} quartos `
+                    : ''
+                } ${building.parking ? `${building.parking} vagas` : ''}.`
               : ''
         })
       );
@@ -176,7 +190,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
             <Column>
               <Text>Ref {building.reference}</Text>
               <ButtonLike onClick={() => handleBtLike(!isFavorite)}>
-                {building.likes}
+                {building.likes > 0 && building.likes}
                 <SVG
                   src={
                     checkFavorite(building.reference)

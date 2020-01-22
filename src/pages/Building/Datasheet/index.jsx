@@ -39,7 +39,7 @@ export default function Datasheet({ property }) {
             {type === 'lancamento' && (
               <CategoryRelease>{category}</CategoryRelease>
             )}
-            {label && Object.values(label).find(x => x === true) && <hr />}
+            <hr />
           </GroupInfo>
           <GroupTags>
             {label && label.is_new && (
@@ -59,14 +59,14 @@ export default function Datasheet({ property }) {
           </BlockTwo>
         )}
         <BlockThree type={property.type}>
-          <Caracteristics.Release release={values.release} />
-          <Caracteristics.Rent
-            rent={values.rent}
+          <Caracteristics.Sell
+            sell={values.sell}
             iptu={values.iptu}
             condo={values.condo}
           />
-          <Caracteristics.Sell
-            sell={values.sell}
+          <Caracteristics.Release release={values.release} />
+          <Caracteristics.Rent
+            rent={values.rent}
             iptu={values.iptu}
             condo={values.condo}
           />

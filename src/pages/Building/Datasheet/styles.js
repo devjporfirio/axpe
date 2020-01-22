@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const DatasheetContent = styled.div`
@@ -23,10 +23,10 @@ export const Block = styled.div`
   border-bottom: 2px solid ${({ theme }) => theme.colors.greenBorder};
 
   ${media.greaterThan('medium')`
-    padding: 42px 36px;
+    padding: 33px 38px;
     width: 100%;
     border-bottom: none;
-    border-right: 2px solid ${({ theme }) => theme.colors.greenBorder};
+    border-right: 1.18px solid ${({ theme }) => theme.colors.greenBorder};
   `}
 `;
 
@@ -38,8 +38,7 @@ export const BlockOne = styled(Block)`
   ${media.greaterThan('medium')`
     flex-direction: column;
     max-width: 349px;
-    justify-content: ${props =>
-      props.type !== 'pronto' ? 'flex-start' : 'space-around'} ;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-shrink: 0;
 
@@ -47,15 +46,22 @@ export const BlockOne = styled(Block)`
       display: block;
       width: 79px;
       margin: 0;
-      border-color: ${({ theme }) => theme.colors.greenBorder};
+      border: 1.18px solid  ${({ theme }) => theme.colors.greenBorder};    
     }
   `}
 `;
 
 export const BlockTwo = styled(Block)`
   ${media.greaterThan('medium')`
-  max-width: 264px;
+    padding: 51px 27px 0 27px;
+    max-width: 264px;
     flex-shrink: 0;
+    align-items: flex-start;
+
+    p {
+      font-size: 16px;
+      line-height: 23.6px;
+    }
   `}
 `;
 
@@ -71,12 +77,7 @@ export const BlockThree = styled(Block)`
 
   ${media.greaterThan('medium')`
     border: none;
-
-    ${props =>
-      props.type === 'pronto' &&
-      css`
-        padding: 20px;
-      `}
+    padding: 17px 26px;
   `}
 `;
 
@@ -200,6 +201,13 @@ export const InfoValue = styled.div`
   p:nth-child(2) {
     font: 18px 'Raleway';
   }
+
+  ${media.greaterThan('medium')`
+    p {
+      font-size: 16px !important;
+      line-height: 18px !important;
+    }
+  `}
 `;
 
 export const Delivery = styled.div`

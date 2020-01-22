@@ -65,6 +65,14 @@ const ContainerRegisterPropertyWhite = css`
   `}
 `;
 
+const ContainerPlanta = css`
+  ${media.greaterThan('medium')`
+    max-width: 1000px;
+    margin: auto;
+    border-radius: 8px;
+  `}
+`;
+
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.green};
   display: flex;
@@ -97,8 +105,12 @@ export const Container = styled.div`
   ${props => props.type === 'contactWork' && ContainerContactWork}
   ${props => props.type === 'landing' && ContainerLanding}
   ${props => props.type === 'registerProperty' && ContainerRegisterProperty}
+  ${props => props.type === 'planta' && ContainerPlanta}
   ${props =>
     props.type === 'registerPropertyWhite' && ContainerRegisterPropertyWhite}
+  ${props => props.type === 'notfound' && media.greaterThan('medium')`
+    margin-top: 60px;
+  `}
 
   ${props =>
     [ 'notfound', 'landing', 'registerPropertyTransform' ].includes(props.type) &&
@@ -243,7 +255,7 @@ const Dream = css`
   }
 
   p {
-    font-size: .95rem;
+    font-size: 0.95rem;
   }
 `;
 

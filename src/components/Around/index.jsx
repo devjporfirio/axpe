@@ -16,15 +16,15 @@ export default function Around({ cep, text }) {
   useEffect(() => {
     async function loadOverviewPolyline() {
       const geocode = await Api.Building.getGeocode(cep.replace('-', ''));
-      if (geocode && geocode.geometry && geocode.geometry.viewport) {
+      if (geocode && geocode.geometry && geocode.geometry.bounds) {
         const directions = await Api.Building.getDirections(
-          geocode.geometry.viewport.northeast,
-          geocode.geometry.viewport.southwest
+          geocode.geometry.bounds.northeast,
+          geocode.geometry.bounds.southwest
         );
-        setLat(geocode.geometry.location.lat)
-        setLng(geocode.geometry.location.lng)
+        setLat(geocode.geometry.location.lat);
+        setLng(geocode.geometry.location.lng);
 
-        if(directions && directions.routes && directions.routes.lenght > 0) {
+        if (directions && directions.routes && directions.routes.length > 0) {
           setOverviewPoly(directions.routes[0].overview_polyline.points);
         }
       }

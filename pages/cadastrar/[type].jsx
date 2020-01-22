@@ -98,7 +98,7 @@ function RegisterForm({ locals, categories, pais, type }) {
     let newLocals = [{ label: 'Selecione', value: '' }];
     const key = keyLocals || 'São Paulo';
     newLocals = [{ label: 'Selecione', value: '' }].concat(
-      locals[key].map(y => ({ label: y, value: y }))
+      locals[key].map(y => ({ label: y.local, value: y.local }))
     );
 
     setLocalsByKey(newLocals);

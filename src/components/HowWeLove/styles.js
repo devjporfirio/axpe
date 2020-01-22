@@ -4,7 +4,7 @@ import Slider from 'components/Slider';
 
 export const Container = styled.div`
   width: 100vw;
-  padding-bottom: 20px;
+  padding-bottom: 36px;
   background-color: #91a8ab;
 
   ${media.greaterThan('medium')`
@@ -32,7 +32,8 @@ export const Title = styled.h2`
   }
 
   ${media.greaterThan('medium')`
-    padding: 45px 80px;
+    padding: 45px 88px;
+    line-height: 48px;
   `}
 `;
 
