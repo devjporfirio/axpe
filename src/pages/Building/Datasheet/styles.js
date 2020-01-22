@@ -26,7 +26,7 @@ export const Block = styled.div`
     padding: 42px 36px;
     width: 100%;
     border-bottom: none;
-    border-right: 2px solid ${({ theme }) => theme.colors.greenBorder};
+    border-right: 1.18px solid ${({ theme }) => theme.colors.greenBorder};
   `}
 `;
 
@@ -47,7 +47,7 @@ export const BlockOne = styled(Block)`
       display: block;
       width: 79px;
       margin: 0;
-      border-color: ${({ theme }) => theme.colors.greenBorder};
+      border: 1.18px solid  ${({ theme }) => theme.colors.greenBorder};    
     }
   `}
 `;

@@ -39,7 +39,7 @@ export default function Datasheet({ property }) {
             {type === 'lancamento' && (
               <CategoryRelease>{category}</CategoryRelease>
             )}
-            {label && Object.values(label).find(x => x === true) && <hr />}
+            <hr />
           </GroupInfo>
           <GroupTags>
             {label && label.is_new && (
