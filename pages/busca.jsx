@@ -261,7 +261,7 @@ function Search({ currentPage, total, totalPages, data }) {
             </Wrapper>
 
 
-            <BlockHighlighted type="notfound" />
+            <BlockHighlighted type="notfound" query={query} />
             <Contact />
           </>
         : null}

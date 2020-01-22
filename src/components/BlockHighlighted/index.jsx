@@ -51,26 +51,44 @@ const ContactWork = () => (
   </>
 );
 
-const NotFound = () => (
-  <>
-    <HighlightedH4 type="notfound">
-      <strong>
-        <span>Não encontrou o </span>
-      </strong>
-      <span>imóvel </span>
-      <span>que busca?</span>
-    </HighlightedH4>
-    <div>
-      <p>
-        Que tal um imóvel na planta? Conheça nossas opções de imóveis em
-        lançamento
-      </p>
-      <Link href="/so-quero-sonhar" passHref fullWidth={true}>
-        Entre em contato
-      </Link>
-    </div>
-  </>
-);
+const NotFound = ({ query }) => {
+  return (
+    <>
+      <HighlightedH4 type="notfound">
+        <strong>
+          <span>Não encontrou o </span>
+        </strong>
+        <span>imóvel </span>
+        <span>que busca?</span>
+      </HighlightedH4>
+      <div>
+
+        {query.ready_release === 'pronto' && (
+          <p>
+            Que tal um imóvel na planta? Conheça nossas opções de imóveis em
+            lançamento
+          </p>
+        )}
+
+        {query.ready_release === 'lancamento' && (
+          <p>
+            Que tal um imóvel na planta? Conheça nossas opções de imóveis prontos
+          </p>
+        )}
+
+        {!query || !query.ready_release ? (
+          <p>
+            Que tal um imóvel?
+          </p>
+        ) : null}
+
+        <Link href="/so-quero-sonhar" passHref fullWidth={true}>
+          Entre em contato
+        </Link>
+      </div>
+    </>
+  );
+}
 
 const Planta = ({ href = '', onClick }) => (
   <>
@@ -177,12 +195,12 @@ const RegisterPropertyWhite = () => (
   </>
 );
 
-export default function BlockHighlighted({ type, href, onClick }) {
+export default function BlockHighlighted({ type, href, onClick, query }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
       {type === 'contact' && <Contact />}
-      {type === 'notfound' && <NotFound />}
+      {type === 'notfound' && <NotFound query={query} />}
       {type === 'planta' && <Planta href={href} onClick={onClick} />}
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
