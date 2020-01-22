@@ -41,6 +41,7 @@ function RegisterForm({ doAfterLogin }) {
   } = useFormik({
     initialValues: {
       name: '',
+      last_name: '',
       email: '',
       password: '',
       passwordConfirmation: '',
@@ -61,6 +62,7 @@ function RegisterForm({ doAfterLogin }) {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.User.postRegister({
         name: values.name,
+        last_name: values.last_name,
         email: values.email,
         password: values.password,
         password_confirmation: values.passwordConfirmation,
@@ -106,11 +108,21 @@ function RegisterForm({ doAfterLogin }) {
       <FormElements
         type="text"
         name="name"
-        label="Nome completo"
-        placeholder="Nome completo:"
+        label="Nome"
+        placeholder="Nome:"
         onChange={handleChange}
         error={touched.name && errors.name}
         value={values.name}
+        onBlur={handleBlur}
+      />
+      <FormElements
+        type="text"
+        name="last_name"
+        label="Sobrenome"
+        placeholder="Sobrenome:"
+        onChange={handleChange}
+        error={touched.last_name && errors.last_name}
+        value={values.last_name}
         onBlur={handleBlur}
       />
       <FormElements
@@ -146,8 +158,8 @@ function RegisterForm({ doAfterLogin }) {
       <FormElements
         type="phone"
         name="phone"
-        label="Telefone ou Celular"
-        placeholder="Telefone ou Celular"
+        label="Celular"
+        placeholder="Celular"
         onChange={handleChange}
         error={touched.phone && errors.phone}
         value={values.phone}
