@@ -33,7 +33,6 @@ export default {
     )
       .then(response => response.json())
       .then(data => data);
-    debugger;
 
     const address = `${
       result.results[0].address_components.find(x => x.types.includes('route'))
