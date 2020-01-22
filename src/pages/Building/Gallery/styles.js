@@ -31,7 +31,6 @@ export const Button360 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 1;
   position: absolute;
   right: 20px;
@@ -44,6 +43,9 @@ export const Button360 = styled.div`
   ${media.greaterThan('medium')`
     width: 66px;
     height: 66px;
+    right: unset;
+    margin-left: 64%;
+    margin-top: 15px;
 
     img {
       width: 40px;
