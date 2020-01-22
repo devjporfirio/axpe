@@ -22,17 +22,44 @@ export default {
   },
   async getGeocode(cep) {
     const apiKey = process.env.config.keyMap;
-    const result = await fetch(
+    let result = await fetch(
       `${baseMaps}geocode/json?address=${cep}&key=${apiKey}`
     )
       .then(response => response.json())
       .then(data => data);
+
+    result = await fetch(
+      `${baseMaps}geocode/json?latlng=${result.results[0].geometry.location.lat},${result.results[0].geometry.location.lng}&key=${apiKey}`
+    )
+      .then(response => response.json())
+      .then(data => data);
+    debugger;
+
+    const address = `${
+      result.results[0].address_components.find(x => x.types.includes('route'))
+        .long_name
+    } ${
+      result.results[0].address_components.find(x =>
+        x.types.includes('sublocality_level_1')
+      ).long_name
+    } ${
+      result.results[0].address_components.find(x =>
+        x.types.includes('administrative_area_level_2')
+      ).long_name
+    }`;
+
+    result = await fetch(
+      `${baseMaps}geocode/json?address=${address}&key=${apiKey}`
+    )
+      .then(response => response.json())
+      .then(data => data);
+
     return result && result.results.length > 0 ? result.results[0] : [];
   },
   async getDirections(northeast, southwest) {
     const apiKey = process.env.config.keyMap;
     const result = await fetch(
-      `https://cors-anywhere.herokuapp.com/${baseMaps}directions/json?origin=${northeast.lat},${northeast.lng}&destination=${southwest.lat},${southwest.lng}&key=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/${baseMaps}directions/json?origin=${southwest.lat},${southwest.lng}&destination=${northeast.lat},${northeast.lng}&key=${apiKey}`
     ).then(response => response.json());
     return result && result.status === 'OK' ? result : [];
   },
