@@ -108,6 +108,9 @@ export const Container = styled.div`
   ${props => props.type === 'planta' && ContainerPlanta}
   ${props =>
     props.type === 'registerPropertyWhite' && ContainerRegisterPropertyWhite}
+  ${props => props.type === 'notfound' && media.greaterThan('medium')`
+    margin-top: 60px;
+  `}
 
   ${props =>
     [ 'notfound', 'landing', 'registerPropertyTransform' ].includes(props.type) &&

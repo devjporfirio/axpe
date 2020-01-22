@@ -90,7 +90,7 @@ function Building({ property }) {
         )}
 
         {similarBuildings && similarBuildings.length > 0 && (
-          <PanelSimilar title="Pessoas que viram este imóvel também viram:">
+          <PanelSimilar className="buildingsSimilar" title="Pessoas que viram este imóvel também viram:">
             {similarBuildings.map(building => (
               <SimilarBuilding item={building} key={building.reference} />
             ))}

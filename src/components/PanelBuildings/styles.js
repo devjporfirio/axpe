@@ -20,6 +20,12 @@ export const Container = styled.div`
     &.suggestion .slick-slider button:nth-child(3) {
       left: 975px;
     }
+
+    &.buildingsSimilar {
+      header h4 {
+        margin: 0 0 40px 0;
+      }
+    }
   `}
 
   ${props => props.isHome && ContainerIsHome}
