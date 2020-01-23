@@ -61,16 +61,17 @@ const NotFound = ({ query }) => {
         <span>imóvel </span>
         <span>que busca?</span>
       </HighlightedH4>
+
       <div>
 
-        {query.ready_release === 'pronto' && (
+        {query && query.ready_release === 'pronto' && (
           <p>
             Que tal um imóvel na planta? Conheça nossas opções de imóveis em
             lançamento
           </p>
         )}
 
-        {query.ready_release === 'lancamento' && (
+        {query && query.ready_release === 'lancamento' && (
           <p>
             Que tal um imóvel na planta? Conheça nossas opções de imóveis prontos
           </p>

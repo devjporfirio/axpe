@@ -19,6 +19,12 @@ export const Container = styled(Modal)`
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.greenDark};
   `}
+
+  ${props =>
+    props.planta &&
+    css`
+      overflow: scroll;
+    `}
 `;
 
 export const Body = styled.div`
@@ -27,122 +33,111 @@ export const Body = styled.div`
     max-width: 1127px;
     max-height: 738px;
     margin: auto;
-    height: 100%;
+    height: calc(100% - 50px);
+  `}
+`;
+
+export const BodySlider = styled.div`
+  display:flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 100vw;
+  width: 90vw;
+
+  img {
+    max-height: 90vw;
+    max-width: 90vw;
+    margin: auto;
+    display: block !important;
+  }
+
+  iframe {
+    width: 90vw;
+    height: 90vw;
+  }
+
+  ${media.greaterThan('1024px')`
+    height: calc(100vh - 170px);
   `}
 `;
 
 export const SliderNav1 = styled(Slider)`
   background-color: ${({ theme }) => theme.colors.white};
   height: 100vw;
-  top: 67px;
 
-  img {
-    max-height: 100vw;
-    max-width: 100vw;
-    margin: auto;
-    width: auto;
-  }
+  ${media.greaterThan('1024px')`
+    width: 100%;
+    max-width: 550px;
+    max-height: calc(100vh - 170px);
+    position: absolute;
+    top: 93px;
+    left: 40%;
 
-  iframe {
-    width: 100vw;
-    height: 100vw;
-  }
+    button {
+      width: 50px;
+      height: 50px;
+      background-size: 50px;
 
-  ${props =>
-    props.planta &&
-    css`
-      top: 0;
+    }
+    button:nth-child(1){
+      margin-left: -20px;
+    }
+    button:nth-child(3){
+      margin-right: -20px;
+    }
 
-      ${media.greaterThan('medium')`
-        width: 100%;
-        max-width: 637px;
-        max-height: 607px;
-        position: absolute;
-        top: 93px;
-        left: 40%;
-
-        button {
-          width: 50px;
-          height: 50px;
-          background-size: 50px;
-
-        }
-        button:nth-child(1){
-          margin-left: -20px;
-        }
-        button:nth-child(3){
-          margin-right: -20px;
-        }
-
-        img {
-          object-fit: contain;
-          width: 637px;
-          height: 607px;
-        }
-      `}
-
-      ${media.between('medium', '1024px')`
-        right: 40px;
-        max-width: 550px;
-      `}
-    `}
-
-  ${media.greaterThan('640px')`
     img {
+      object-fit: contain;
+      max-width: 550px;
       max-height: calc(100vh - 170px);
+    }
+  `}
+
+  ${media.greaterThan('1078px')`
+    max-width: 637px;
+    max-height: 607px;
+
+    img {
+      width: 637px;
+      height: 607px;
     }
   `}
 `;
 
-export const SliderNav2 = styled(Slider)`
-  .slick-slide {
-    opacity: 0.2;
-  }
-
-  .slick-center {
-    opacity: 1;
-  }
-
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+export const ImagesSecundary = styled.div`
+  height: 112px;
+  overflow-x: scroll;
+  display: flex;
 
   img {
     object-fit: cover;
     height: 100px;
-    width: 100px;
-    margin: auto;
+    min-width: 100px;
+    margin: 6px;
   }
 
-  ${media.greaterThan('640px')`
-    height: 70px;
+  .active {
+    border: 3px solid ${({ theme }) => theme.colors.orange};
+  }
+
+  ${media.greaterThan('medium')`
+    width: 336px;
+    height: 336px;
+    flex-wrap: wrap;
+    margin-left: 70px;
+    overflow-x: unset;
+    overflow-y: scroll;
+    align-items: flex-end;
+
+    img {
+      width: 100px;
+
+    }
   `}
 
-  ${props =>
-    props.planta &&
-    css`
-      max-width: 298px;
-      margin-top: 300px;
-      margin-left: 60px;
-      bottom: unset;
-
-      .slick-center {
-        border: 3px solid ${({ theme }) => theme.colors.orange};
-      }
-
-      ${media.greaterThan('medium')`
-        img {
-          width: 82px;
-          height: 82px;
-          margin: 6px;
-        }
-      `}
-
-      ${media.between('medium', '1024px')`
-        margin-left: 30px;
-      `}
-    `}
+  ${media.between('medium', '1024px')`
+    margin-left: 40px;
+  `}
 `;
 
 export const InfoPlanta = styled.div`
