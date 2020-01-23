@@ -117,6 +117,8 @@ function Search({ dispatch }) {
       Object.keys(values).forEach(key => {
         if (key == 'source' && values[key].value) {
           data[key] = values[key].value;
+        } else if (key === 'furnished' && values[key]) {
+          data[key] = values[key] === 'Com mobília' ? 'true' : 'false';
         } else if (Array.isArray(values[key]) && values[key].length) {
           data[key] = values[key].join(',');
         } else if (!Array.isArray(values[key]) && values[key]) {
