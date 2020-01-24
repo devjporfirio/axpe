@@ -53,14 +53,15 @@ function UpdatePass({ active, onClose, user }) {
 
       if (resp.status) {
         dispatch(setUser({ logged: true, me: values }));
-        onClose();
+        setErrorMessage('Alteração realizada com sucesso.');
         resetForm({});
       } else {
         setErrorMessage(resp.msg);
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 3000);
       }
+
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     }
   });
 
