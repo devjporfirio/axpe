@@ -108,7 +108,7 @@ function DreamDetail({ buildings }) {
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
               <div className="item" key={`dream-slider-item-${itemIndex}`}>
-                <Link href={`/so-quero-sonhar/${item.slug}`}>
+                <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
                   <FooterListItemLink>
                     <h3>{item.title}</h3>
                     <p>{item.subtitle}</p>

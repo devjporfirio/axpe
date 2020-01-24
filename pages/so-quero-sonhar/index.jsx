@@ -39,7 +39,7 @@ function Dream() {
             <List>
               {data.map((item, itemIndex) => (
                 <li key={`dream-list-item-${itemIndex}`}>
-                  <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
+                  <Link  href={`/so-quero-sonhar/[slug]`} as={`/so-quero-sonhar/${item.slug}`} passHref>
                     <MainListLink>
                       <h2>{item.title}</h2>
                       <p>{item.subtitle}</p>
