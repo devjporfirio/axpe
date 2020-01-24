@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="26px" viewBox="0 0 27 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Group 11</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-Barra-aberta" transform="translate(-1161.000000, -646.000000)" fill="#FFFFFF">
+            <g id="Group-13" transform="translate(200.000000, 616.000000)">
+                <g id="Group-9-Copy" transform="translate(961.000000, 19.000000)">
+                    <g id="Group-12">
+                        <g id="Group-11" transform="translate(0.500000, 11.000000)">
+                            <path d="M13,0 C5.82029825,0 0,5.82029825 0,13 L0,26 L13,26 C20.1797017,26 26,20.1797017 26,13 C26,5.82029825 20.1797017,0 13,0 Z M13,24 L2,24 L2,13 C2,6.92486775 6.92486775,2 13,2 C19.0751322,2 24,6.92486775 24,13 C24,19.0751322 19.0751322,24 13,24 Z" id="Shape" fill-rule="nonzero"></path>
+                            <circle id="Oval" cx="7.5" cy="13" r="1.5"></circle>
+                            <circle id="Oval" cx="13" cy="13" r="1.5"></circle>
+                            <circle id="Oval" cx="18.5" cy="13" r="1.5"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

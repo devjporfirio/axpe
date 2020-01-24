@@ -8,6 +8,7 @@ import SlickSection from 'components/SlickSection';
 import PanelBuildings from 'components/PanelBuildings';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
+import ContactFloat from 'pages/Home/ContactFloat';
 
 // helpers
 import { suffle } from 'helpers/utils';
@@ -134,6 +135,7 @@ function Home({ hero, components }) {
       </Head>
       <Container>
         <SlickSection useGradient={true} color="white" items={hero} />
+        <ContactFloat />
         {components &&
           components.length > 0 &&
           components.map(c => {
