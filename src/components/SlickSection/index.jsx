@@ -150,8 +150,8 @@ function SlickSection({
     >
       {items &&
         lengthItems > 0 &&
-        items.map((item, index) => (
-          <Slide key={item.id || index} type={type}>
+        items.map((item, slideIndex) => (
+          <Slide key={`slide-${type}-${slideIndex}`} type={type}>
             {item.link && !!item.link.url ? (
               <ItemLink
                 type={type}
