@@ -420,7 +420,9 @@ function Search({ dispatch }) {
               ) : null}
 
               {/* Prontos, Lançamentos */}
-              {formik.values.source.value == 'sao-paulo' &&
+              {
+                formik.values.source.value == 'sao-paulo' &&
+                formik.values.use !== 'COMERCIAL' &&
                 formik.values.finality === 'venda' && (
                   <FormButtonsFilterRow>
                     {readyReleases.map((item, itemIndex) => (
@@ -442,7 +444,9 @@ function Search({ dispatch }) {
                 )}
 
               {/* Sem mobilia, com mobilia */}
-              {formik.values.source.value == 'sao-paulo' &&
+              {
+                formik.values.source.value == 'sao-paulo' &&
+                formik.values.use !== 'COMERCIAL' &&
                 formik.values.finality === 'aluguel' && (
                   <FormButtonsFilterRow>
                     <FormButtonsFilterItemRadio twoColumns={true}>
@@ -479,6 +483,9 @@ function Search({ dispatch }) {
             (formik.values.source.value == 'sao-paulo' &&
               formik.values.finality === 'aluguel' &&
               formik.values.furnished) ||
+            (formik.values.source.value == 'sao-paulo' &&
+              formik.values.use === 'COMERCIAL' &&
+              formik.values.finality) ||
             formik.values.source.value != 'sao-paulo') ? (
             <>
               {filtersData.types && filtersData.types.length ? (
