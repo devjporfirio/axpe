@@ -1,5 +1,5 @@
 import { getParamsFromObject } from 'helpers/utils';
-const baseMaps = 'https://maps.googleapis.com/maps/api/';
+const baseMaps = 'https://maps.googleapis.com/maps/api';
 // https://maps.googleapis.com/maps/api/geocode/json?address=52050370&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
 // https://maps.googleapis.com/maps/api/directions/json?origin=-26.9040582,-49.0882946&destination=-26.9061099,-49.09195949999999&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
 
@@ -22,43 +22,46 @@ export default {
   },
   async getGeocode(cep) {
     const apiKey = process.env.config.keyMap;
+
     let result = await fetch(
-      `${baseMaps}geocode/json?address=${cep}&key=${apiKey}`
+      `${baseMaps}/geocode/json?address=${cep}&key=${apiKey}`
     )
       .then(response => response.json())
       .then(data => data);
 
-    result = await fetch(
-      `${baseMaps}geocode/json?latlng=${result.results[0].geometry.location.lat},${result.results[0].geometry.location.lng}&key=${apiKey}`
-    )
-      .then(response => response.json())
-      .then(data => data);
+    if(result.results.length && result.results[0].geometry) {
+      result = await fetch(
+        `${baseMaps}/geocode/json?latlng=${result.results[0].geometry.location.lat},${result.results[0].geometry.location.lng}&key=${apiKey}`
+      )
+        .then(response => response.json())
+        .then(data => data);
 
-    const address = `${
-      result.results[0].address_components.find(x => x.types.includes('route'))
-        .long_name
-    } ${
-      result.results[0].address_components.find(x =>
-        x.types.includes('sublocality_level_1')
-      ).long_name
-    } ${
-      result.results[0].address_components.find(x =>
-        x.types.includes('administrative_area_level_2')
-      ).long_name
-    }`;
+      const address = `${
+        result.results[0].address_components.find(x => x.types.includes('route'))
+          .long_name
+      } ${
+        result.results[0].address_components.find(x =>
+          x.types.includes('sublocality_level_1')
+        ).long_name
+      } ${
+        result.results[0].address_components.find(x =>
+          x.types.includes('administrative_area_level_2')
+        ).long_name
+      }`;
 
-    result = await fetch(
-      `${baseMaps}geocode/json?address=${address}&key=${apiKey}`
-    )
-      .then(response => response.json())
-      .then(data => data);
+      result = await fetch(
+        `${baseMaps}/geocode/json?address=${address}&key=${apiKey}`
+      )
+        .then(response => response.json())
+        .then(data => data);
+    }
 
-    return result && result.results.length > 0 ? result.results[0] : [];
+    return result && result.results.length > 0 ? result.results[0] : null;
   },
   async getDirections(northeast, southwest) {
     const apiKey = process.env.config.keyMap;
     const result = await fetch(
-      `https://cors-anywhere.herokuapp.com/${baseMaps}directions/json?origin=${southwest.lat},${southwest.lng}&destination=${northeast.lat},${northeast.lng}&key=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/${baseMaps}/directions/json?origin=${southwest.lat},${southwest.lng}&destination=${northeast.lat},${northeast.lng}&key=${apiKey}`
     ).then(response => response.json());
     return result && result.status === 'OK' ? result : [];
   },
