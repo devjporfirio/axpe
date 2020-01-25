@@ -605,7 +605,7 @@ function Search({ dispatch }) {
           <FormTabClose type="button" onClick={() => setTabActive(null)}>
             Fechar
           </FormTabClose>
-          <FormTabTitle>Locais</FormTabTitle>
+          <FormTabTitle>Bairros</FormTabTitle>
           <FormTabContent>
             <ul>
               {sources.map((source, sourceIndex) => (
@@ -670,14 +670,16 @@ function Search({ dispatch }) {
             <FormTabClose type="button" onClick={() => setTabActive(null)}>
               Fechar
             </FormTabClose>
-            <FormTabTitle>Locais</FormTabTitle>
+            <FormTabTitle>{formik.values.source.value === 'sao-paulo' ? 'Bairros' : 'Locais'}</FormTabTitle>
             <FormTabContent>
               <ul>
                 {Object.keys(filtersData.locals).map((local, localIndex) => (
                   <li key={`local-${local}-${localIndex}`}>
-                    <FormTabListItemTitle>
-                      {local == 'SP' ? 'São Paulo' : local}
-                    </FormTabListItemTitle>
+                    {formik.values.source.value !== 'sao-paulo' && (
+                      <FormTabListItemTitle>
+                        {local == 'SP' ? 'São Paulo' : local}
+                      </FormTabListItemTitle>
+                    )}
                     {filtersData.locals[local].length ? (
                       <ul>
                         {filtersData.locals[local].map(
