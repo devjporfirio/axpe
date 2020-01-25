@@ -110,10 +110,12 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       const params = getParamsFromObject(newQuery);
       const response = await Api.Search.getBuildings(params);
 
-      results.push({
-        title: title.replace('{{showTotal}}', getTotalFormated(response.total)),
-        items: response.data
-      })
+      if(response.data && response.data.length) {
+        results.push({
+          title: title.replace('{{showTotal}}', getTotalFormated(response.total)),
+          items: response.data
+        });
+      }
     }
 
     const getTotalFormated = total => {
