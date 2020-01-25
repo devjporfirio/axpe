@@ -59,6 +59,7 @@ function Search({ dispatch }) {
   const [ alertMessage, setAlertMessage ] = useState('');
   const [ categoriesData, setCategoriesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
+  const [ filtersListToggle, setFiltersListToggle ] = useState(null);
   const [ tabActive, setTabActive ] = useState(null);
 
   const readyReleases = [
@@ -140,31 +141,16 @@ function Search({ dispatch }) {
     dispatch(setMain({ searchFormActive: false }));
   }
 
-  async function createAlert() {
-    if (user && user.logged) {
-      const resp = await Api.MyAccount.postAlert(
-        user.access_token,
-        formik.values
-      );
-      if (resp.status === 'success') {
-        setAlertMessage(
-          <p>
-            <strong>Alerta criado com sucesso!</strong> Você pode acompanhar
-            seus alertas no seu perfil.
-          </p>
-        );
-        setAlertCreated(true);
-      } else {
-        setAlertMessage(<p>{resp.msg}</p>);
-        setAlertCreated(true);
-      }
-    } else {
-      dispatch(setMain({ modalLogin: true }));
-    }
+  function handleFiltersListToggle(local) {
+    setFiltersListToggle({
+      ...filtersListToggle,
+      [local]: !filtersListToggle[local]
+    })
   }
 
   function resetForm() {
     setFiltersData(null);
+    setFiltersListToggle(null);
     formik.resetForm();
   }
 
@@ -247,7 +233,31 @@ function Search({ dispatch }) {
   function setSource(source) {
     formik.setFieldValue('source', source);
     setFiltersData(null);
+    setFiltersListToggle(null);
     resetValuesOnChange();
+  }
+
+  async function createAlert() {
+    if (user && user.logged) {
+      const resp = await Api.MyAccount.postAlert(
+        user.access_token,
+        formik.values
+      );
+      if (resp.status === 'success') {
+        setAlertMessage(
+          <p>
+            <strong>Alerta criado com sucesso!</strong> Você pode acompanhar
+            seus alertas no seu perfil.
+          </p>
+        );
+        setAlertCreated(true);
+      } else {
+        setAlertMessage(<p>{resp.msg}</p>);
+        setAlertCreated(true);
+      }
+    } else {
+      dispatch(setMain({ modalLogin: true }));
+    }
   }
 
   useEffect(() => {
@@ -281,6 +291,7 @@ function Search({ dispatch }) {
     const getFilters = async () => {
       const params = getFiltersParams();
       const response = await Api.Search.getFilters(params);
+      const filtersListToggle = {};
       const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
 
       // make sure that all data are Number
@@ -291,8 +302,13 @@ function Search({ dispatch }) {
         }
       });
 
+      Object.keys(response.locals).forEach(local => {
+        filtersListToggle[local] = false;
+      })
+
       formik.setFieldValue('local', []);
 
+      setFiltersListToggle(filtersListToggle)
       setFiltersData(response);
     };
 
@@ -676,11 +692,11 @@ function Search({ dispatch }) {
                 {Object.keys(filtersData.locals).map((local, localIndex) => (
                   <li key={`local-${local}-${localIndex}`}>
                     {formik.values.source.value !== 'sao-paulo' && (
-                      <FormTabListItemTitle>
+                      <FormTabListItemTitle active={filtersListToggle[local]} onClick={() => handleFiltersListToggle(local)}>
                         {local == 'SP' ? 'São Paulo' : local}
                       </FormTabListItemTitle>
                     )}
-                    {filtersData.locals[local].length ? (
+                    {filtersData.locals[local].length && !filtersListToggle[local] ? (
                       <ul>
                         {filtersData.locals[local].map(
                           (localItem, localItemIndex) => (

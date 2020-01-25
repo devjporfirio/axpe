@@ -512,7 +512,9 @@ export const FormTabTitle = styled.h3`
 `;
 
 export const FormTabContent = styled.div`
-  padding-bottom: 50px;
+  &:not(:last-of-type) {
+    padding-bottom: 50px;
+  }
 
   ul {
     ul {
@@ -534,6 +536,7 @@ export const FormTabListItemTitle = styled.h4`
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
+  cursor: pointer;
 
   &:after {
     content: '';
@@ -544,7 +547,14 @@ export const FormTabListItemTitle = styled.h4`
     background: url(${ArrowIconSVG}) no-repeat;
     background-size: contain;
     transform: rotate(90deg);
+    transition: all 300ms ease;
   }
+
+  ${props => props.active && css`
+    &:after {
+      transform: rotate(0deg);
+    }
+  `}
 
   ${media.greaterThan('medium')`
     font-size: 13px;
