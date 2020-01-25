@@ -38,7 +38,7 @@ function Dream() {
           <main>
             <List>
               {data.map((item, itemIndex) => (
-                <li key={`dream-list-item-${itemIndex}`}>
+                <li key={`dream-list-item-${itemIndex}`} style={{ backgroundImage: `url(/static/dream/cover-${item.slug}.jpg)` }}>
                   <Link  href={`/so-quero-sonhar/[slug]`} as={`/so-quero-sonhar/${item.slug}`} passHref>
                     <MainListLink>
                       <h2>{item.title}</h2>

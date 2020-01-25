@@ -107,14 +107,14 @@ function DreamDetail({ buildings }) {
           <h2>Sonhe também com:</h2>
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
-              <div className="item" key={`dream-slider-item-${itemIndex}`}>
+              <article className="item" key={`dream-slider-item-${itemIndex}`}>
                 <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
-                  <FooterListItemLink>
+                  <FooterListItemLink style={{ backgroundImage: `url(/static/dream/cover-${item.slug}.jpg)` }}>
                     <h3>{item.title}</h3>
                     <p>{item.subtitle}</p>
                   </FooterListItemLink>
                 </Link>
-              </div>
+              </article>
             ))}
           </Slider>
         </Footer>
