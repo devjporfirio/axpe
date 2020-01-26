@@ -63,12 +63,7 @@ export default function Building({
   const isFavoriteBuilding = checkFavorite(reference);
 
   const handleButtonRemove = async (ref, action) => {
-    // dispatch(setUserBuildingToLike(ref));
-    await Api.MyAccount.postFavorite(
-      user.access_token,
-      ref,
-      action
-    );
+    await Api.MyAccount.postFavorite(user.access_token, ref, action);
     setHasDeleted(!action);
   };
 
@@ -76,9 +71,13 @@ export default function Building({
     if (user.logged) {
       dispatch(setUserBuildingToLike(reference));
     } else {
+      const modalLoginUrl = location.pathname + location.search;
       dispatch(
         setMain({
-          modalLogin: true
+          modalLogin:
+            modalLoginUrl.search(/[?]/gi) >= 0
+              ? `${modalLoginUrl}&favorite=true`
+              : `${modalLoginUrl}?favorite=true`
         })
       );
       dispatch(setUserBuildingToLike(reference));
@@ -149,9 +148,7 @@ export default function Building({
                 </Category>
                 <div>
                   <div>
-                    {address.local && (
-                      <Local>{address.local}</Local>
-                    )}
+                    {address.local && <Local>{address.local}</Local>}
                     {type === 'lancamento' && (
                       <CategoryRelease>{category}</CategoryRelease>
                     )}
@@ -166,7 +163,7 @@ export default function Building({
                 <div>
                   {!!values.sell || !!values.release ? (
                     <Price>
-                      {type === 'lancamento' ? 'A partir de: ': 'Venda: '}
+                      {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                       {!!values.sell &&
                         formatCurrency.format(parseInt(values.sell))}
                       {!!values.release &&
@@ -184,7 +181,11 @@ export default function Building({
                   )}
                 </div>
               </Link>
-              <FavoriteButton type="button" active={isFavoriteBuilding} onClick={handleButtonFavorite}>
+              <FavoriteButton
+                type="button"
+                active={isFavoriteBuilding}
+                onClick={handleButtonFavorite}
+              >
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </FavoriteButton>
             </ValuesFavGroup>

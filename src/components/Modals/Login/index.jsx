@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // components
@@ -32,6 +32,7 @@ import {
 function LoginModal() {
   const dispatch = useDispatch();
   const { modalLogin } = useSelector(state => state.main);
+  const [ sliderType, setSliderType ] = useState(null);
   const [ showRegister, setShowRegister ] = useState(false);
 
   const closeModal = useCallback(() => {
@@ -58,6 +59,14 @@ function LoginModal() {
     CookieBuildingSeen.saveAll(response);
   }, []);
 
+  useEffect(() => {
+    if(modalLogin && modalLogin.search('favorite=true') >= 0) {
+      setSliderType('favorite');
+    } else {
+      setSliderType(null);
+    }
+  }, [ modalLogin ])
+
   return (
     <Modal
       active={modalLogin}
@@ -66,33 +75,50 @@ function LoginModal() {
       onClickButtonBack={onClickButtonBack}
     >
       <Texts>
-        <Slider propsArrow={{ color: 'white' }}>
-          <Text>
-            <TextWrapper>
-              <h2 className="big">
-                Uma <strong>Axpe</strong> <span>só sua</span>
-              </h2>
-              <p>
-                Leva só 10 segundos: personalize sua navegação salvando seus
-                imóveis favoritos, criando alertas e recebendo notícias de
-                móveis com seu perfil.
-                <br /> É só fazer seu login.
-              </p>
-            </TextWrapper>
-          </Text>
-          <Text>
-            <TextWrapper>
-              <h2>
-                Todos os dias chegam <strong>novos imóveis</strong>. Seja o
-                primeiro a saber.
-              </h2>
-              <p>
-                Faça seu login e receba um alerta sempre que chegar um imóvel
-                com seu perfil
-              </p>
-            </TextWrapper>
-          </Text>
-        </Slider>
+        {!sliderType && (
+          <Slider propsArrow={{ color: 'white' }}>
+            <Text>
+              <TextWrapper>
+                <h2 className="big">
+                  Uma <strong>Axpe</strong> <span>só sua</span>
+                </h2>
+                <p>
+                  Leva só 10 segundos: personalize sua navegação salvando seus
+                  imóveis favoritos, criando alertas e recebendo notícias de
+                  móveis com seu perfil.
+                  <br /> É só fazer seu login.
+                </p>
+              </TextWrapper>
+            </Text>
+            <Text>
+              <TextWrapper>
+                <h2>
+                  Todos os dias chegam <strong>novos imóveis</strong>. Seja o
+                  primeiro a saber.
+                </h2>
+                <p>
+                  Faça seu login e receba um alerta sempre que chegar um imóvel
+                  com seu perfil
+                </p>
+              </TextWrapper>
+            </Text>
+          </Slider>
+        )}
+
+        {sliderType && sliderType === 'favorite' && (
+          <Slider propsArrow={{ color: 'white' }}>
+            <Text>
+              <TextWrapper>
+                <h2>
+                  <strong>Namore</strong> seus favoritos quando quiser
+                </h2>
+                <p>
+                  Faça seu login em poucos segundos e volte para namorar seus favoritos quando quiser
+                </p>
+              </TextWrapper>
+            </Text>
+          </Slider>
+        )}
       </Texts>
       <Column>
         {!showRegister && (

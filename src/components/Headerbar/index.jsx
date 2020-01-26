@@ -90,9 +90,13 @@ function Headerbar({ className, type, title, subtitle, building }) {
     if (user.logged) {
       dispatch(setUserBuildingToLike(building.reference));
     } else {
+      const modalLoginUrl = location.pathname + location.search;
       dispatch(
         setMain({
-          modalLogin: true
+          modalLogin:
+            modalLoginUrl.search(/[?]/gi) >= 0
+              ? `${modalLoginUrl}&favorite=true`
+              : `${modalLoginUrl}?favorite=true`
         })
       );
       dispatch(setUserBuildingToLike(building.reference));
@@ -175,12 +179,12 @@ function Headerbar({ className, type, title, subtitle, building }) {
           {type === 'building' && (
             <Column>
               <Text>Ref {building.reference}</Text>
-              <ButtonLike onClick={handleButtonLike} active={checkFavorite(building.reference)}>
+              <ButtonLike
+                onClick={handleButtonLike}
+                active={checkFavorite(building.reference)}
+              >
                 {building.likes > 0 && building.likes}
-                <SVG
-                  src={LikeIconSVG}
-                  uniquifyIDs={true}
-                />
+                <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </ButtonLike>
               <ButtonMoreInformation
                 type="button"
