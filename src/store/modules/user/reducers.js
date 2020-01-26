@@ -33,6 +33,15 @@ function user(state = initialState, action) {
     case '@user/SET_FAVORITES':
       return { ...state, favorites: action.payload };
 
+    case '@user/SET_ME':
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          ...action.payload
+        }
+      };
+
     default:
       return state;
   }

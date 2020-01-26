@@ -8,7 +8,7 @@ import Api from 'services';
 import FormElements from 'components/FormElements';
 
 // actions
-import { setUser } from 'store/modules/user/actions';
+import { setUserMe } from 'store/modules/user/actions';
 
 // styles
 import { LoginFeedback } from 'components/Modals/Login/styles';
@@ -52,7 +52,7 @@ function UpdatePass({ active, onClose, user }) {
       setSubmitting(false);
 
       if (resp.status) {
-        dispatch(setUser({ logged: true, me: values }));
+        dispatch(setUserMe(values));
         setErrorMessage('Alteração realizada com sucesso.');
         resetForm({});
       } else {

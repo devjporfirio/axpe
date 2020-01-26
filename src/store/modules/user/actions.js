@@ -17,3 +17,7 @@ export function setUserBuildingToLike(data) {
 export function setUserFavorites(data) {
   return { type: '@user/SET_FAVORITES', payload: data };
 }
+
+export function setUserMe(data) {
+  return { type: '@user/SET_ME', payload: data };
+}

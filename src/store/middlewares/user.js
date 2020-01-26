@@ -41,14 +41,25 @@ const user = store => next => async action => {
     })
   }
 
+  const updateMe = async (accessToken) => {
+    const me = await Api.MyAccount.getMe(accessToken);
+    store.dispatch({
+      type: '@user/SET_ME',
+      payload: { ...me.data }
+    })
+  }
+
   if(action.type === '@user/SET_USER') {
     if(!action.payload || !action.payload.logged) {
       removeCookie();
     } else if(action.payload && action.payload.logged) {
+
       Cookies.set('userData', JSON.stringify({
         ...userData,
         ...action.payload
       }), cookieParams);
+
+      updateMe(userData.access_token);
       updateFavorites(userData.access_token);
     }
   } else if(action.type === '@user/SET_USER_BY_COOKIE' && userDataCookie) {
