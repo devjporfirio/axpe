@@ -53,14 +53,17 @@ const user = store => next => async action => {
     if(!action.payload || !action.payload.logged) {
       removeCookie();
     } else if(action.payload && action.payload.logged) {
-
-      Cookies.set('userData', JSON.stringify({
+      const newUserData = {
         ...userData,
         ...action.payload
-      }), cookieParams);
+      };
 
-      updateMe(userData.access_token);
-      updateFavorites(userData.access_token);
+      Cookies.set('userData', JSON.stringify(newUserData), cookieParams);
+
+      updateMe(newUserData.access_token);
+      updateFavorites(newUserData.access_token);
+
+      setTimeout(() => store.dispatch({ type: '@user/SET_BUILDING_TO_LIKE' }), 100);
     }
   } else if(action.type === '@user/SET_USER_BY_COOKIE' && userDataCookie) {
     const currentTime = new Date().getTime();
@@ -77,14 +80,17 @@ const user = store => next => async action => {
     const listBuildingsToLike = buildingsToLike;
 
     if(action.payload && listBuildingsToLike.indexOf(action.payload) < 0) {
-      listBuildingsToLike.push(action.payload)
+      listBuildingsToLike.push(action.payload);
     }
 
-    if(access_token && action.payload) {
+    if(access_token && (action.payload || listBuildingsToLike.length)) {
       action.payload = null;
       await sendBuildingsToLike(access_token, listBuildingsToLike);
     }
 
+  } else if(action.type === '@user/UPDATE_FAVORITES') {
+    const { access_token } = store.getState().user;
+    updateFavorites(access_token);
   } else if(action.type === '@user/UNSET_USER') {
     removeCookie();
   }

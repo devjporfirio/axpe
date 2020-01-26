@@ -63,6 +63,7 @@ export default function Building({
   const isFavoriteBuilding = checkFavorite(reference);
 
   const handleButtonRemove = async (ref, action) => {
+    // dispatch(setUserBuildingToLike(ref));
     await Api.MyAccount.postFavorite(
       user.access_token,
       ref,

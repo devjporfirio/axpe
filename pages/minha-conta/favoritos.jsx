@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Api from 'services';
 
+// components
 import Empty from 'pages/MyAccount/Empty';
+
+// actions
+import { updateUserFavorites } from 'store/modules/user/actions';
 
 // images
 import ShareIconSVG from 'assets/icons/share';
@@ -23,6 +27,7 @@ import {
 import { Title } from 'pages/MyAccount/styles';
 
 function Favorites() {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ buildings, setBuildings ] = useState([]);
 
@@ -41,6 +46,13 @@ function Favorites() {
 
     loadBuildings();
   }, [ user ]);
+
+
+  useEffect(() => {
+    return () => {
+      dispatch(updateUserFavorites());
+    }
+  }, [])
 
   if (!user.logged) return <Container />;
 

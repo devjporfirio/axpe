@@ -14,6 +14,10 @@ export function setUserBuildingToLike(data) {
   return { type: '@user/SET_BUILDING_TO_LIKE', payload: data };
 }
 
+export function updateUserFavorites() {
+  return { type: '@user/UPDATE_FAVORITES' };
+}
+
 export function setUserFavorites(data) {
   return { type: '@user/SET_FAVORITES', payload: data };
 }
