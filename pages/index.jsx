@@ -11,7 +11,7 @@ import Contact from 'components/Contact';
 import ContactFloat from 'pages/Home/ContactFloat';
 
 // helpers
-import { suffle } from 'helpers/utils';
+import { shuffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
@@ -105,7 +105,7 @@ function Home({ hero, components }) {
       case 'buildingsSeen':
       case 'buildingsForYou':
         if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
-          component.items = suffle(component.items);
+          component.items = shuffle(component.items);
         }
         return (
           component.items &&
