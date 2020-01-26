@@ -51,7 +51,12 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    ).then(response => response.json());
+    )
+    .then(response => response.json())
+    .then(data => {
+      const newData = data.map(building => building.slug);
+      return newData;
+    });
     return response;
   },
   async postFavorite(token, reference, status) {

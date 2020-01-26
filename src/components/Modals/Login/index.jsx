@@ -46,7 +46,6 @@ function LoginModal() {
   const doAfterLogin = useCallback(async response => {
     const favorites = await Api.MyAccount.getFavorites(response.access_token);
     const me = await Api.MyAccount.getMe(response.access_token);
-
     const tokenTime = new Date().getTime();
     const tokenMaxTime = tokenTime + (3600 * 1000);
 

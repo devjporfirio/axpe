@@ -214,8 +214,42 @@ export const ValuesFavGroup = styled.div`
   `}
 `;
 
-export const Favorito = styled.img`
+const FavoriteButtonActive = css`
+  svg path {
+    stroke: ${({ theme }) => theme.colors.orange};
+    fill: ${({ theme }) => theme.colors.orange};
+  }
+`;
+
+const FavoriteButtonHover = css`
+  svg path {
+    stroke: ${({ theme }) => theme.colors.orange};
+  }
+`;
+
+export const FavoriteButton = styled.button`
   width: 20px;
+  transition: all 300ms ease;
+
+  &:active {
+    transform: scale(.9);
+  }
+
+  svg {
+    display: block;
+    width: 20px;
+
+    path {
+      transition: all 300ms ease;
+    }
+  }
+
+  ${props => props.active && FavoriteButtonActive}
+  ${media.greaterThan('large')`
+    &:hover {
+      ${FavoriteButtonHover}
+    }
+  `}
 `;
 
 export const Price = styled.p`

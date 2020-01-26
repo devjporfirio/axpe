@@ -5,9 +5,9 @@ import Api from 'services';
 import Empty from 'pages/MyAccount/Empty';
 
 // images
-import IShare from 'assets/icons/share';
-import IMail from 'assets/icons/mail';
-import IWhats from 'assets/icons/whatsapp-orange';
+import ShareIconSVG from 'assets/icons/share';
+import MailIconSVG from 'assets/icons/mail';
+import WhatsappIconSVG from 'assets/icons/whatsapp-orange';
 
 // styles
 import {
@@ -28,8 +28,13 @@ function Favorites() {
 
   useEffect(() => {
     async function loadBuildings() {
-      if (user && user.logged) {
-        const buildings = await Api.MyAccount.getFavorites(user.access_token);
+      if (user && user.logged && user.favorites && user.favorites.length) {
+        const buildings = await Promise.all(
+          user.favorites.map(async reference => {
+            const response = await Api.Building.getPage(reference);
+            return response.building;
+          })
+        );
         setBuildings(buildings);
       }
     }
@@ -57,20 +62,20 @@ function Favorites() {
             Existem <strong>{buildings.length} imóveis</strong> favoritos por
             você
           </Title>
-          <ShareIcon src={IShare} />
+          <ShareIcon src={ShareIconSVG} />
           <GroupIcon>
-            <MailIcon src={IMail} />
-            <WhatsIcon src={IWhats} />
+            <MailIcon src={MailIconSVG} />
+            <WhatsIcon src={WhatsappIconSVG} />
           </GroupIcon>
         </Amount>
         {buildings &&
           buildings.length > 0 &&
-          buildings.map(building => (
+          buildings.map((building, buildingIndex) => (
             <BuildingItem
               useBtRemove
               useBtSchedule
               item={building}
-              key={building.reference}
+              key={`building-${buildingIndex}-${building.reference}`}
             />
           ))}
       </Body>

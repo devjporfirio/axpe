@@ -89,7 +89,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
     refEl.current.style.top = `${topHeaderbar}px`;
   };
 
-  const handleBtLike = async status => {
+  const handleButtonLike = async () => {
     if (access.logged) {
       const response = await Api.MyAccount.postFavorite(
         access.access_token,
@@ -189,7 +189,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
           {type === 'building' && (
             <Column>
               <Text>Ref {building.reference}</Text>
-              <ButtonLike onClick={() => handleBtLike(!isFavorite)}>
+              <ButtonLike onClick={handleButtonLike}>
                 {building.likes > 0 && building.likes}
                 <SVG
                   src={
