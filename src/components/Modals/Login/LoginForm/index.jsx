@@ -42,17 +42,17 @@ function LoginForm({ doAfterLogin }) {
       password: ''
     },
     validationSchema: loginSchema,
-    onSubmit: async (values, { setSubmitting }) => {
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.User.postLogin(values);
 
-      setSubmitting(false);
-
       if (response.access_token) {
-        doAfterLogin(response);
+        await doAfterLogin(response);
         Router.push(typeof modalLogin === 'string' ? modalLogin : `/minha-conta`);
         dispatch(setMain({ modalLogin: false }));
+        resetForm();
       } else if(response.error) {
         let errorMessage = null;
+        setSubmitting(false);
         switch(response.error) {
           case 'user.not.found':
             errorMessage = 'Usuário não encontrado.';

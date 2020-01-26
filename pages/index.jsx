@@ -11,7 +11,7 @@ import Contact from 'components/Contact';
 import ContactFloat from 'pages/Home/ContactFloat';
 
 // helpers
-import { suffle } from 'helpers/utils';
+import { shuffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
@@ -33,21 +33,16 @@ function Home({ hero, components }) {
   useEffect(() => {
     async function loadBuildinsSeen() {
       if (user.logged) {
-        // const buildingsSeen = await Api.MyAccount.getViewed();
-        // const listForYou = await Api.MyAccount.getForYou();
-        // console.log(`buildingsSeen`, buildingsSeen);
-        // console.log(`listForYou`, listForYou);
-        // if(!buildingsSeen.length) return false;
-        // const listBuildingsSeen = await Promise.all(
-        //   buildingsSeenCookie.map(async b => {
-        //     const building = await Api.Building.getPage(b);
-        //     return building;
-        //   })
-        // );
-        // setBuildingsSeen(listBuildingsSeen);
-        // if(listForYou.length) {
-        //   setBuildingsForYou(listForYou);
-        // }
+        const responseBuildingsSeen = await Api.MyAccount.getViewed(user.access_token);
+        const responseBuildingsForYou = await Api.MyAccount.getForYou(user.access_token);
+
+        if(!responseBuildingsSeen.length) return false;
+
+        setBuildingsSeen(responseBuildingsSeen);
+
+        if(responseBuildingsForYou && responseBuildingsForYou.buildings && responseBuildingsForYou.buildings.length) {
+          setBuildingsForYou(responseBuildingsForYou.buildings);
+        }
       } else if (!user.logged) {
         const buildingsSeenCookie = CookieBuildingSeen.get();
 
@@ -110,7 +105,7 @@ function Home({ hero, components }) {
       case 'buildingsSeen':
       case 'buildingsForYou':
         if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
-          component.items = suffle(component.items);
+          component.items = shuffle(component.items);
         }
         return (
           component.items &&
@@ -138,13 +133,13 @@ function Home({ hero, components }) {
         <ContactFloat />
         {components &&
           components.length > 0 &&
-          components.map(c => {
+          components.map((c, cIndex) => {
             if (c.type === 'buildingsSeen') {
               return (
                 buildingsSeen &&
                 buildingsSeen.length > 0 && (
                   <PanelBuildings
-                    key={c.type}
+                    key={`panel-buildings-0-${c.type}-${cIndex}`}
                     className={c.type}
                     title="Imóveis que você viu"
                     isHome={true}
@@ -162,7 +157,7 @@ function Home({ hero, components }) {
                 buildingsForYou &&
                 buildingsForYou.length > 0 && (
                   <PanelBuildings
-                    key={c.type}
+                    key={`panel-buildings-1-${c.type}-${cIndex}`}
                     className={c.type}
                     title="Indicados para você"
                     subTitle="Selecionamos alguns imóveis que acabaram de chegar"
@@ -178,7 +173,7 @@ function Home({ hero, components }) {
               );
             }
             return (
-              <Fragment key={c.type}>{renderComponents(c.type, c)}</Fragment>
+              <Fragment key={`fragment-2-${c.type}-${cIndex}`}>{renderComponents(c.type, c)}</Fragment>
             );
           })}
 

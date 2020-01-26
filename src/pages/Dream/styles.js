@@ -72,13 +72,11 @@ export const List = styled.ul`
     max-width: 100%;
     margin-bottom: .6rem;
     margin-top: .6rem;
-    background-image: url('https://images.unsplash.com/photo-1501183638710-841dd1904471?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
-    background-size: cover;
-    background-position: center;
     border-radius: 4px;
     text-align: center;
     box-shadow: inset 0 -50px 80px rgba(0,0,0,.5);
-    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
 
     ${media.greaterThan('medium')`
       min-width: 30vw;

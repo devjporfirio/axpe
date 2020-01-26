@@ -91,9 +91,10 @@ function Landing({ slug, page }) {
             }
           })}
 
-        {Object.keys(imagesBanner).length > 0 &&
+        {
+          Object.keys(imagesBanner).length > 0 &&
           imagesBanner.desktop &&
-          imagesBanner.mobile(
+          imagesBanner.mobile && (
             <Banner>
               <Image mq="desktop" src={imagesBanner.desktop} />
               <Image mq="mobile" src={imagesBanner.mobile} />

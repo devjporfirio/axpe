@@ -35,7 +35,7 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ currentPage, total, totalPages, data }) {
+function Search({ currentPage, total, totalPages, data, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { query, query: { source, finality, reference, order } } = router;
@@ -110,10 +110,12 @@ function Search({ currentPage, total, totalPages, data }) {
       const params = getParamsFromObject(newQuery);
       const response = await Api.Search.getBuildings(params);
 
-      results.push({
-        title: title.replace('{{showTotal}}', getTotalFormated(response.total)),
-        items: response.data
-      })
+      if(response.data && response.data.length) {
+        results.push({
+          title: title.replace('{{showTotal}}', getTotalFormated(response.total)),
+          items: response.data
+        });
+      }
     }
 
     const getTotalFormated = total => {
@@ -149,6 +151,7 @@ function Search({ currentPage, total, totalPages, data }) {
       query.source === 'sao-paulo' &&
       query.finality === 'venda' &&
       query.use === 'RESIDENCIAL') {
+        const finalText = query.ready_release === 'pronto' ? 'mas ainda em construção' : 'mas pronto para morar';
         const query2 = query.ready_release === 'pronto' ? {
           ...query,
           ready_release: 'lancamento'
@@ -156,8 +159,30 @@ function Search({ currentPage, total, totalPages, data }) {
           ...query,
           ready_release: 'pronto'
         };
+        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, ${finalText}`, query2);
+      }
+
+    if(query.source && query.local && locals) {
+      const localsArr = query.local.split(',');
+
+      let localsSelected = [];
+
+      Object.keys(locals).forEach(local => {
+        locals[local].forEach(item => {
+          if(localsArr.indexOf(item.local) >= 0 && item.related && item.related.length) {
+            localsSelected = [ ...localsSelected, ...item.related ];
+          }
+        })
+      });
+
+      if(localsSelected.length) {
+        const query2 = {
+          ...query,
+          local: localsSelected.join(',')
+        };
         await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, mas em bairros próximos`, query2);
       }
+    }
 
     setSuggestions(results);
   }, [ total ]);
@@ -272,8 +297,12 @@ function Search({ currentPage, total, totalPages, data }) {
 
 Search.getInitialProps = async ({ query }) => {
   const params = getParamsFromObject(query, true);
+  const locals = await Api.Search.getLocals();
   const response = await Api.Search.getBuildings(params);
-  return response;
+  return {
+    ...response,
+    locals
+  };
 }
 
 export default Search;

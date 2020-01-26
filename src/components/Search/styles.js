@@ -386,6 +386,20 @@ export const FormTab = styled.div`
   background: ${({ theme }) => theme.colors.white};
   transition: all 300ms ease;
 
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background: ${({ theme }) => theme.colors.grey};
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.greyLight};
+  }
+
   ${media.greaterThan('medium')`
     left: 0;
     padding: 150px 30px 30px;
@@ -498,7 +512,9 @@ export const FormTabTitle = styled.h3`
 `;
 
 export const FormTabContent = styled.div`
-  padding-bottom: 50px;
+  &:not(:last-of-type) {
+    padding-bottom: 50px;
+  }
 
   ul {
     ul {
@@ -520,6 +536,7 @@ export const FormTabListItemTitle = styled.h4`
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
+  cursor: pointer;
 
   &:after {
     content: '';
@@ -530,7 +547,14 @@ export const FormTabListItemTitle = styled.h4`
     background: url(${ArrowIconSVG}) no-repeat;
     background-size: contain;
     transform: rotate(90deg);
+    transition: all 300ms ease;
   }
+
+  ${props => props.active && css`
+    &:after {
+      transform: rotate(0deg);
+    }
+  `}
 
   ${media.greaterThan('medium')`
     font-size: 13px;

@@ -51,7 +51,8 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    ).then(response => response.json());
+    )
+    .then(response => response.json())
     return response;
   },
   async postFavorite(token, reference, status) {

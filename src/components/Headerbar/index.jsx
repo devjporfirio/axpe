@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router, { useRouter } from 'next/router';
 import SVG from 'react-inlinesvg';
-import Api from 'services';
 
 // store
 import { setMain } from 'store/modules/main/actions';
-import { setUser } from 'store/modules/user/actions';
+import { setUserBuildingToLike } from 'store/modules/user/actions';
 
 // components
 import Share from 'components/Share';
@@ -20,8 +19,7 @@ import checkFavorite from 'helpers/checkFavorite';
 import ArrowIconSVG from 'assets/icons/arrow';
 import AlertIconSVG from 'assets/icons/alert';
 import ShareIconSVG from 'assets/icons/share';
-import HeartIconSVG from 'assets/icons/heart-black';
-import HeartCheckedIconSVG from 'assets/icons/heart-orange-checked';
+import LikeIconSVG from 'assets/icons/like';
 
 // styles
 import {
@@ -43,9 +41,8 @@ function Headerbar({ className, type, title, subtitle, building }) {
   const dispatch = useDispatch();
   const scrollPosition = useScrollPosition();
   const { searchFormActive } = useSelector(state => state.main);
-  const access = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const [ shareActive, setShareActive ] = useState(false);
-  const isFavorite = checkFavorite(building && building.reference);
 
   const toggleShare = useCallback(() => {
     setShareActive(!shareActive);
@@ -89,32 +86,25 @@ function Headerbar({ className, type, title, subtitle, building }) {
     refEl.current.style.top = `${topHeaderbar}px`;
   };
 
-  const handleBtLike = async status => {
-    if (access.logged) {
-      const response = await Api.MyAccount.postFavorite(
-        access.access_token,
-        building.reference,
-        !isFavorite
-      );
-      if (response && response.status) {
-        const favorites = await Api.MyAccount.getFavorites(access.access_token);
-        dispatch(
-          setUser({
-            favorites
-          })
-        );
-      }
+  const handleButtonLike = async () => {
+    if (user.logged) {
+      dispatch(setUserBuildingToLike(building.reference));
     } else {
+      const modalLoginUrl = location.pathname + location.search;
       dispatch(
         setMain({
-          modalLogin: true
+          modalLogin:
+            modalLoginUrl.search(/[?]/gi) >= 0
+              ? `${modalLoginUrl}&favorite=true`
+              : `${modalLoginUrl}?favorite=true`
         })
       );
+      dispatch(setUserBuildingToLike(building.reference));
     }
   };
 
   const handleMoreInfo = type => {
-    if (access.logged) {
+    if (user.logged) {
       dispatch(
         setMain({
           modalContact: true,
@@ -189,16 +179,12 @@ function Headerbar({ className, type, title, subtitle, building }) {
           {type === 'building' && (
             <Column>
               <Text>Ref {building.reference}</Text>
-              <ButtonLike onClick={() => handleBtLike(!isFavorite)}>
+              <ButtonLike
+                onClick={handleButtonLike}
+                active={checkFavorite(building.reference)}
+              >
                 {building.likes > 0 && building.likes}
-                <SVG
-                  src={
-                    checkFavorite(building.reference)
-                      ? HeartCheckedIconSVG
-                      : HeartIconSVG
-                  }
-                  uniquifyIDs={true}
-                />
+                <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </ButtonLike>
               <ButtonMoreInformation
                 type="button"

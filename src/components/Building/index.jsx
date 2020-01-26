@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import SVG from 'react-inlinesvg';
 import Link from 'next/link';
 import Api from 'services';
 
@@ -13,11 +14,10 @@ import checkFavorite from 'helpers/checkFavorite';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
-import { setUser } from 'store/modules/user/actions';
+import { setUserBuildingToLike } from 'store/modules/user/actions';
 
 // images
-import IHeartBlack from 'assets/icons/heart-black.svg';
-import IHeartChecked from 'assets/icons/heart-orange-checked.svg';
+import LikeIconSVG from 'assets/icons/like';
 
 import {
   Container,
@@ -26,7 +26,7 @@ import {
   CategoryRelease,
   Local,
   Reference,
-  Favorito,
+  FavoriteButton,
   CaracteristicsGroup,
   ValuesFavGroup,
   CatLocGroup,
@@ -51,51 +51,36 @@ export default function Building({
     values,
     gallery,
     address,
-    slug,
     infos,
     category,
     type,
     reference,
     status
   } = item;
-  const [ hasDeleted, sethasDeleted ] = useState(false);
+  const [ hasDeleted, setHasDeleted ] = useState(false);
   const dispatch = useDispatch();
-  const access = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
+  const isFavoriteBuilding = checkFavorite(reference);
 
-  const isFavoriteBuilding = checkFavorite(slug);
-
-  const handleBtRemove = async (slug, status) => {
-    const response = await Api.MyAccount.postFavorite(
-      access.access_token,
-      slug,
-      status
-    );
-    if (response.status) {
-      sethasDeleted(!status);
-    }
+  const handleButtonRemove = async (ref, action) => {
+    await Api.MyAccount.postFavorite(user.access_token, ref, action);
+    setHasDeleted(!action);
   };
 
-  const handleBtFavorite = async () => {
-    if (access.logged) {
-      const response = await Api.MyAccount.postFavorite(
-        access.access_token,
-        slug,
-        !isFavoriteBuilding
-      );
-      if (response && response.status) {
-        const favorites = await Api.MyAccount.getFavorites(access.access_token);
-        dispatch(
-          setUser({
-            favorites
-          })
-        );
-      }
+  const handleButtonFavorite = () => {
+    if (user.logged) {
+      dispatch(setUserBuildingToLike(reference));
     } else {
+      const modalLoginUrl = location.pathname + location.search;
       dispatch(
         setMain({
-          modalLogin: true
+          modalLogin:
+            modalLoginUrl.search(/[?]/gi) >= 0
+              ? `${modalLoginUrl}&favorite=true`
+              : `${modalLoginUrl}?favorite=true`
         })
       );
+      dispatch(setUserBuildingToLike(reference));
     }
   };
 
@@ -133,7 +118,7 @@ export default function Building({
                     <div key={index}>
                       <Link
                         href="/building/[reference]"
-                        as={`/building/${slug}`}
+                        as={`/building/${reference}`}
                       >
                         <img src={item.src} alt="Imóvel" />
                       </Link>
@@ -147,12 +132,12 @@ export default function Building({
               <RemoveButton
                 color="greenDark"
                 type="button"
-                onClick={() => handleBtRemove(slug, false)}
+                onClick={() => handleButtonRemove(reference, false)}
               >
                 Remover
               </RemoveButton>
             )}
-            <Link href="/building/[reference]" as={`/building/${slug}`}>
+            <Link href="/building/[reference]" as={`/building/${reference}`}>
               <CatLocGroup>
                 <Category>
                   {type === 'lancamento'
@@ -163,7 +148,7 @@ export default function Building({
                 </Category>
                 <div>
                   <div>
-                    <Local>{address.local}</Local>
+                    {address.local && <Local>{address.local}</Local>}
                     {type === 'lancamento' && (
                       <CategoryRelease>{category}</CategoryRelease>
                     )}
@@ -174,11 +159,11 @@ export default function Building({
             </Link>
 
             <ValuesFavGroup>
-              <Link href="/building/[reference]" as={`/building/${slug}`}>
+              <Link href="/building/[reference]" as={`/building/${reference}`}>
                 <div>
                   {!!values.sell || !!values.release ? (
                     <Price>
-                      {type === 'lancamento' ? 'A partir de: ': 'Venda: '}
+                      {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                       {!!values.sell &&
                         formatCurrency.format(parseInt(values.sell))}
                       {!!values.release &&
@@ -196,13 +181,15 @@ export default function Building({
                   )}
                 </div>
               </Link>
-              <Favorito
-                src={isFavoriteBuilding ? IHeartChecked : IHeartBlack}
-                alt="Favorito"
-                onClick={handleBtFavorite}
-              />
+              <FavoriteButton
+                type="button"
+                active={isFavoriteBuilding}
+                onClick={handleButtonFavorite}
+              >
+                <SVG src={LikeIconSVG} uniquifyIDs={true} />
+              </FavoriteButton>
             </ValuesFavGroup>
-            <Link href="/building/[reference]" as={`/building/${slug}`}>
+            <Link href="/building/[reference]" as={`/building/${reference}`}>
               <div>
                 <CaracteristicsGroup>
                   <Caracteristics.Bedrooms
@@ -254,7 +241,7 @@ export default function Building({
           <UndoButton
             color="greenDark"
             type="button"
-            onClick={() => handleBtRemove(slug, true)}
+            onClick={() => handleButtonRemove(reference, true)}
           >
             Desfazer
           </UndoButton>

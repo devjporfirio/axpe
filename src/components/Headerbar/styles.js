@@ -219,11 +219,28 @@ export const Text = styled.p`
   `}
 `;
 
+const ButtonLikeActive = css`
+  svg path {
+    stroke: ${({ theme }) => theme.colors.orange};
+    fill: ${({ theme }) => theme.colors.orange};
+  }
+`;
+
+const ButtonLikeHover = css`
+  svg path {
+    stroke: ${({ theme }) => theme.colors.orange};
+  }
+`;
+
 export const ButtonLike = styled.button`
   display: flex;
   align-items: center;
   font: 14px 'Raleway';
   transition: all 300ms ease;
+
+  &:active {
+    transform: scale(.9);
+  }
 
   svg {
     display: block;
@@ -236,15 +253,13 @@ export const ButtonLike = styled.button`
     }
   }
 
+  ${props => props.active && ButtonLikeActive}
+
   ${media.lessThan('1169px')`
     font-size: 0;
 
     svg {
       margin-left: 0;
-
-      g {
-        stroke: ${({ theme }) => theme.colors.orange};
-      }
     }
   `}
 
@@ -263,9 +278,7 @@ export const ButtonLike = styled.button`
     &:hover {
       color: ${({ theme }) => theme.colors.orange};
 
-      svg path {
-        stroke: ${({ theme }) => theme.colors.orange};
-      }
+      ${ButtonLikeHover}
     }
   `}
 `;
