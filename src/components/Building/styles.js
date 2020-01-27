@@ -132,7 +132,7 @@ export const Reference = styled.p`
 
 export const Description = styled.p`
   font: 16px 'Raleway';
-  margin-top: 20px;
+  margin-top: 25px;
   display: block;
   display: -webkit-box;
   max-width: 100%;
@@ -146,6 +146,8 @@ export const Description = styled.p`
   ${media.greaterThan('medium')`
     height: 49px;
     -webkit-line-clamp: 3;
+    font-size: 14px;
+    line-height: 16px;
   `};
 `;
 
@@ -184,7 +186,7 @@ export const CaracteristicsGroup = styled.div`
     flex: 0 50%;
 
     p {
-      font-size: 16px !important;
+      font-size: 16px;
     }
   }
 
@@ -210,7 +212,7 @@ export const ValuesFavGroup = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    margin-top: 30px;
+    margin-top: 35px;
   `}
 `;
 
