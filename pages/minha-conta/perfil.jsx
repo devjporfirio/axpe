@@ -33,11 +33,11 @@ import {
 
 const profileSchema = Yup.object().shape({
   name: Yup.string().required(),
-  last_name: Yup.string().required(),
+  lastName: Yup.string().required(),
   email: Yup.string().required(),
   phone: Yup.string().required(),
-  notification_alert: Yup.bool().required(),
-  notification_favorite: Yup.bool().required()
+  notificationAlert: Yup.bool().required(),
+  notificationFavorite: Yup.bool().required()
 });
 
 function Profile() {
@@ -58,11 +58,11 @@ function Profile() {
   } = useFormik({
     initialValues: {
       name: user.me.name,
-      last_name: user.me.last_name,
+      lastName: user.me.lastName,
       email: user.me.email,
       phone: user.me.phone,
-      notification_alert: user.me.notification_alert,
-      notification_favorite: user.me.notification_favorite
+      notificationAlert: user.me.notificationAlert,
+      notificationFavorite: user.me.notificationFavorite
     },
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting }) => {
@@ -88,11 +88,11 @@ function Profile() {
   useEffect(() => {
     if (user.logged) {
       setFieldValue('name', user.me.name);
-      setFieldValue('last_name', user.me.last_name);
+      setFieldValue('lastName', user.me.lastName);
       setFieldValue('email', user.me.email);
       setFieldValue('phone', user.me.phone);
-      setFieldValue('notification_alert', user.me.notification_alert);
-      setFieldValue('notification_favorite', user.me.notification_favorite);
+      setFieldValue('notificationAlert', user.me.notificationAlert);
+      setFieldValue('notificationFavorite', user.me.notificationFavorite);
     }
   }, [ user.logged ]);
 
@@ -115,12 +115,12 @@ function Profile() {
                 onBlur={handleBlur}
               />
               <FormElements
-                name="last_name"
+                name="lastName"
                 label="Sobrenome"
                 placeholder="Sobrenome"
                 onChange={handleChange}
-                error={touched.last_name && errors.last_name}
-                value={values.last_name}
+                error={touched.lastName && errors.lastName}
+                value={values.lastName}
                 onBlur={handleBlur}
               />
             </FormGroupElements>
@@ -157,44 +157,44 @@ function Profile() {
             <FormGroupAlerts>
               <FormElementsCheck
                 type="checkbox"
-                name="notification_alert"
+                name="notificationAlert"
                 label={
                   <>
                     <strong>Meus Alertas</strong> <br />
                     Novos imóveis adicionados
                   </>
                 }
-                checked={values.notification_alert === 1}
+                checked={values.notificationAlert === 1}
                 onChange={() =>
                   setFieldValue(
-                    'notification_alert',
-                    values.notification_alert === 1 ? 0 : 1
+                    'notificationAlert',
+                    values.notificationAlert === 1 ? 0 : 1
                   )
                 }
-                error={touched.notification_alert && errors.notification_alert}
-                value={values.notification_alert}
+                error={touched.notificationAlert && errors.notificationAlert}
+                value={values.notificationAlert}
                 onBlur={handleBlur}
               />
               <FormElementsCheck
                 type="checkbox"
-                name="notification_favorite"
+                name="notificationFavorite"
                 label={
                   <>
                     <strong>Favoritos</strong> <br />
                     Informações atualizadas
                   </>
                 }
-                checked={values.notification_favorite === 1}
+                checked={values.notificationFavorite === 1}
                 onChange={() =>
                   setFieldValue(
-                    'notification_favorite',
-                    values.notification_favorite === 1 ? 0 : 1
+                    'notificationFavorite',
+                    values.notificationFavorite === 1 ? 0 : 1
                   )
                 }
                 error={
-                  touched.notification_favorite && errors.notification_favorite
+                  touched.notificationFavorite && errors.notificationFavorite
                 }
-                value={values.notification_favorite}
+                value={values.notificationFavorite}
                 onBlur={handleBlur}
               />
               {/* <FormSocial>
