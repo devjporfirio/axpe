@@ -26,7 +26,7 @@ export const Block = styled.div`
     padding: 33px 38px;
     width: 100%;
     border-bottom: none;
-    border-right: 1.18px solid ${({ theme }) => theme.colors.greenBorder};
+    border-right: 1px solid ${({ theme }) => theme.colors.greenBorder};
   `}
 `;
 
@@ -46,7 +46,7 @@ export const BlockOne = styled(Block)`
       display: block;
       width: 79px;
       margin: 0;
-      border: 1.18px solid  ${({ theme }) => theme.colors.greenBorder};    
+      border: 1px solid  ${({ theme }) => theme.colors.greenBorder};    
     }
   `}
 `;
@@ -77,7 +77,7 @@ export const BlockThree = styled(Block)`
 
   ${media.greaterThan('medium')`
     border: none;
-    padding: 17px 26px;
+    padding: 19px 26px;
   `}
 `;
 
@@ -163,13 +163,23 @@ export const Price = styled.div`
     font: 14px 'Raleway';
   }
   p:nth-child(2) {
-    font: 22px 'Raleway';
+    font: 22px/26px 'Raleway';
     font-weight: 600;
+  }
+
+  p:nth-child(3) {
+    margin-top: 6px;
   }
   p:nth-child(3),
   p:nth-child(4) {
     font: 11px 'Raleway';
   }
+`;
+
+export const PriceGroup = styled.div`
+  width: 100%;
+  flex-basis: 100% !important;
+  display: flex;
 `;
 
 export const PriceRelease = styled.div`

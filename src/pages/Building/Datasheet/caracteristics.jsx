@@ -2,10 +2,13 @@ import React from 'react';
 import { formatCurrency, checkPluralSingular } from 'helpers/utils';
 import { Price, InfoValue, PriceRelease } from './styles';
 
-export const Release = ({ release }) =>
+export const Release = ({ release, type }) =>
   !!release && (
     <PriceRelease>
-      <p>A partir de: {formatCurrency.format(release)}</p>
+      <p>
+        {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
+        {formatCurrency.format(release)}
+      </p>
     </PriceRelease>
   );
 
@@ -14,15 +17,17 @@ export const Rent = ({ rent, iptu, condo }) =>
     <Price>
       <p>Aluguel:</p>
       <p>{formatCurrency.format(rent)}</p>
-      <p>Total locação: {formatCurrency.format(parseInt(rent + iptu + condo))}</p>
+      <p>
+        Total locação: {formatCurrency.format(parseInt(rent + iptu + condo))}
+      </p>
       <p>(Aluguel + IPTU + Cond.)</p>
     </Price>
   );
 
-export const Sell = ({ sell, iptu, condo }) =>
+export const Sell = ({ sell, iptu, condo, type }) =>
   !!sell && (
     <Price>
-      <p>A partir de </p>
+      <p>{type === 'pronto' ? 'Venda' : 'A partir de'}: </p>
       <p>{formatCurrency.format(sell)}</p>
       <p>IPTU: 10x {formatCurrency.format(parseInt(iptu))}</p>
       <p>Condominio: {formatCurrency.format(parseInt(condo))}</p>
