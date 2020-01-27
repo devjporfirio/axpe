@@ -7,8 +7,9 @@ export const ItemLink = styled(Button)`
   position: absolute;
   background-color: transparent !important;
   z-index: 9;
-  height: 507px;
+  height: 100%;
   padding: 0;
+  width: 100%;
 
   ${props =>
     [ 'slick' ].includes(props.type) &&
@@ -140,6 +141,7 @@ export const Image = styled.img`
     css`
       height: ${props => (props.mq === 'mobile' ? '70vw' : '700px')};
       min-height: 507px;
+      margin-bottom: 9px;
     `}
 
   ${props =>
