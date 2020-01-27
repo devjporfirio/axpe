@@ -15,6 +15,7 @@ import {
   BlockTwo,
   Content,
   BlockThree,
+  PriceGroup,
   Delivery
 } from './styles';
 
@@ -59,17 +60,20 @@ export default function Datasheet({ property }) {
           </BlockTwo>
         )}
         <BlockThree type={property.type}>
-          <Caracteristics.Sell
-            sell={values.sell}
-            iptu={values.iptu}
-            condo={values.condo}
-          />
-          <Caracteristics.Release release={values.release} />
-          <Caracteristics.Rent
-            rent={values.rent}
-            iptu={values.iptu}
-            condo={values.condo}
-          />
+          <PriceGroup>
+            <Caracteristics.Sell
+              sell={values.sell}
+              iptu={values.iptu}
+              condo={values.condo}
+              type={type}
+            />
+            <Caracteristics.Release release={values.release} />
+            <Caracteristics.Rent
+              rent={values.rent}
+              iptu={values.iptu}
+              condo={values.condo}
+            />
+          </PriceGroup>
           <Caracteristics.Bedrooms
             bedrooms={infos.bedrooms}
             suites={infos.suites}
