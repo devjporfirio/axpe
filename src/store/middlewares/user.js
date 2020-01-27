@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import Api from 'services';
+import OneSignalHelper from 'helpers/oneSignal';
 
 const cookieParams = {
   expires: 15
@@ -62,6 +63,8 @@ const user = store => next => async action => {
 
       updateMe(newUserData.access_token);
       updateFavorites(newUserData.access_token);
+
+      OneSignalHelper.watch(store);
 
       setTimeout(() => store.dispatch({ type: '@user/SET_BUILDING_TO_LIKE' }), 100);
     }
