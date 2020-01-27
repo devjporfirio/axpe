@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import Router from 'next/router';
 import Main from 'layouts/main';
+import OneSignalHelper from 'helpers/oneSignal';
 
 // store
 import configureStore from 'store';
@@ -51,6 +52,8 @@ class MyApp extends App {
     Router.events.on('routeChangeComplete', () => {
       dispatch(setLoading({ active: false }));
     });
+
+    OneSignalHelper.start();
 
     dispatch(setLoading({ active: false }));
     dispatch(setUserByCookie());

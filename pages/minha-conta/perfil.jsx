@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 // import SVG from 'react-inlinesvg';
-import * as Yup from 'yup';
+// import OneSignalHelper from 'helpers/oneSignal';
 import Api from 'services';
+import * as Yup from 'yup';
 
 // actions
-import { setUser } from 'store/modules/user/actions';
+import { setUserMe } from 'store/modules/user/actions';
 
 // components
 import FormElements from 'components/FormElements';
@@ -66,18 +67,18 @@ function Profile() {
     },
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      const resp = await Api.MyAccount.putMe(user.access_token, values);
+      const response = await Api.MyAccount.putMe(user.access_token, values);
 
       setSubmitting(false);
 
-      if (resp.status) {
-        dispatch(setUser({ logged: true, me: values }));
+      if (response.status) {
+        dispatch(setUserMe(values));
         setErrorMessage('Alteração realizada com sucesso.');
         setTimeout(() => {
           setErrorMessage(null);
         }, 300);
       } else {
-        setErrorMessage(resp.msg);
+        setErrorMessage(response.msg);
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
@@ -85,8 +86,31 @@ function Profile() {
     }
   });
 
+  const submitField = async ({ name, value }) => {
+    const data = {
+      [name]: value
+    };
+
+    await Api.MyAccount.putMe(user.access_token, data);
+
+    dispatch(setUserMe(data));
+  }
+
+  const handleNotificationAlert = useCallback(() => {
+    const value = values.notificationAlert === 1 ? 0 : 1;
+
+    setFieldValue('notificationAlert', value);
+
+    // OneSignalHelper.handleSubscription({
+    //   action: !!value,
+    //   user
+    // });
+
+    submitField({ name: 'notificationAlert', value });
+  }, [ user.logged, values.notificationAlert ])
+
   useEffect(() => {
-    if (user.logged) {
+    if (user.logged && user.me && user.me.name) {
       setFieldValue('name', user.me.name);
       setFieldValue('lastName', user.me.lastName);
       setFieldValue('email', user.me.email);
@@ -94,9 +118,9 @@ function Profile() {
       setFieldValue('notificationAlert', user.me.notificationAlert);
       setFieldValue('notificationFavorite', user.me.notificationFavorite);
     }
-  }, [ user.logged ]);
+  }, [ user.logged, user.me ]);
 
-  if (!user.logged || !user.me) return <Container />;
+  if (!user.logged || !user.me || !user.me.name) return <Container />;
 
   return (
     <Container>
@@ -165,12 +189,7 @@ function Profile() {
                   </>
                 }
                 checked={values.notificationAlert === 1}
-                onChange={() =>
-                  setFieldValue(
-                    'notificationAlert',
-                    values.notificationAlert === 1 ? 0 : 1
-                  )
-                }
+                onChange={handleNotificationAlert}
                 error={touched.notificationAlert && errors.notificationAlert}
                 value={values.notificationAlert}
                 onBlur={handleBlur}
@@ -204,9 +223,9 @@ function Profile() {
               </FormSocial> */}
             </FormGroupAlerts>
           </FormGroup>
-          
+
           {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
-          
+
           <ButtonSave disabled={isSubmitting} type="submit">
             Salvar
           </ButtonSave>

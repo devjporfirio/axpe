@@ -35,6 +35,7 @@ function Main({ children }) {
         <LoginRegisterSuccessModal />
         <RegisterSuccessModal />
         <ContactModal />
+        <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>
       </>
     </ThemeProvider>
   );
