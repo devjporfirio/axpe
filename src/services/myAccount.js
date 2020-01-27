@@ -128,12 +128,12 @@ export default {
       method: 'PUT',
       body: JSON.stringify({
         name: values.name,
-        last_name: values.last_name,
+        lastName: values.lastName,
         email: values.email,
         phone: values.phone,
-        notification_alert: values.notification_alert ? '1' : '0',
-        notification_favorite: values.notification_favorite ? '1' : '0',
-        password_cur: values.password,
+        notificationAlert: values.notificationAlert ? '1' : '0',
+        notificationFavorite: values.notificationFavorite ? '1' : '0',
+        passwordCur: values.password,
         password: values.passwordNew
       }),
       headers: {

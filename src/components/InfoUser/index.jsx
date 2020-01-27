@@ -30,7 +30,7 @@ export default function InfoUser({ className }) {
       <Info>
         <p>
           Você está logado como
-          <strong> {user.me.name} {user.me.last_name}</strong>
+          <strong> {user.me.name} {user.me.lastName}</strong>
         </p>
         <p>Tel.: {user.me.phone}</p>
         <p>E-mail: {user.me.email}</p>

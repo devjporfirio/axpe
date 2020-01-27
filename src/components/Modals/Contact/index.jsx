@@ -68,7 +68,7 @@ export default function Contact() {
       const resp = await Api.Contact.postContact({
         message: values.message,
         name: user.me.name,
-        lastName: user.me.last_name,
+        lastName: user.me.lastName,
         phone: user.me.phone,
         email: user.me.email,
         subject: 'Mais informações'

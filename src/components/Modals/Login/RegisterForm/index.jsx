@@ -41,7 +41,7 @@ function RegisterForm({ doAfterLogin }) {
   } = useFormik({
     initialValues: {
       name: '',
-      last_name: '',
+      lastName: '',
       email: '',
       password: '',
       passwordConfirmation: '',
@@ -62,10 +62,10 @@ function RegisterForm({ doAfterLogin }) {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.User.postRegister({
         name: values.name,
-        last_name: values.last_name,
+        lastName: values.lastName,
         email: values.email,
         password: values.password,
-        password_confirmation: values.passwordConfirmation,
+        passwordConfirmation: values.passwordConfirmation,
         phone: values.phone
       });
 
@@ -117,12 +117,12 @@ function RegisterForm({ doAfterLogin }) {
       />
       <FormElements
         type="text"
-        name="last_name"
+        name="lastName"
         label="Sobrenome"
         placeholder="Sobrenome:"
         onChange={handleChange}
-        error={touched.last_name && errors.last_name}
-        value={values.last_name}
+        error={touched.lastName && errors.lastName}
+        value={values.lastName}
         onBlur={handleBlur}
       />
       <FormElements
