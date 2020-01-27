@@ -19,6 +19,10 @@ const TypeSlickLargeDesktop = css`
   p:nth-child(4) {
     margin: 0 0 16px 0;
   }
+
+  a {
+    display: none;
+  }
 `;
 
 const TypeSlickLeftDesktop = css`

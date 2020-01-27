@@ -95,8 +95,8 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
         {labelTitle && item[labelTitle] && <hr />}
 
         {address && address.local && <Local>{address.local}</Local>}
+        <Infos>{category}</Infos>
         <Infos>
-          {category},
           {(item.type && item.type === 'lancamento') ||
           (item.building && item.building.type === 'lancamento')
             ? infos && infos.areaUsefulStart && infos.areaUsefulEnd !== 99999999
