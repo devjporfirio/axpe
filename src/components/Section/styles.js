@@ -20,9 +20,10 @@ const TypeSlickLargeDesktop = css`
     margin: 0 0 16px 0;
   }
 
-  a {
-    display: none;
-  }
+  ${media.greaterThan('medium')`
+    display: flex;
+    align-items: center;
+  `}
 `;
 
 const TypeSlickLeftDesktop = css`
@@ -312,8 +313,15 @@ export const LinkContainer = styled.div`
   & > a {
     width: 100%;
 
-    ${media.greaterThan('medium')`
-      width: auto;
-    `}
   }
+
+  ${media.greaterThan('medium')`
+    & > a {
+      width: auto;
+    }
+
+    ${props => props.type === 'slickLarge' && css`
+      display: none;
+    `}
+  `}
 `;

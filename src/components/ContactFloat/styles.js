@@ -12,12 +12,12 @@ export const Button = styled.button`
   font: ${({ theme }) => theme.fontsWeight.semiBold} 18px/25px 'Raleway';
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  position: absolute;
-  margin-top: -64px;
+  position: fixed;
+  bottom: 26px;
   right: 26px;
 
   ${media.greaterThan('medium')`
-    margin-top: -85px;
+    bottom: 40px;
     right: 40px;
   `}
 `;
@@ -26,6 +26,8 @@ export const ButtonClose = styled.button`
   position: absolute;
   margin-top: -30px;
   right: 8px;
+  width: 15px;
+  height: 15px;
 
   &:before,
   &:after {
@@ -49,6 +51,8 @@ export const ButtonClose = styled.button`
 
   ${media.greaterThan('medium')`
     right: 15px;
+    width: 20px;
+    height: 20px;
 
     &:before,
     &:after {
@@ -63,13 +67,14 @@ export const ListContacts = styled.div`
   opacity: 0.95;
   background-color: ${({ theme }) => theme.colors.orange};
   box-shadow: 7px 10px 25px 0 rgba(0, 0, 0, 0.33);
-  margin-top: -86px;
   z-index: 9;
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding-top: 15px;
+  bottom: 0;
+  right: 0;
 
   .desktop {
     display: none;

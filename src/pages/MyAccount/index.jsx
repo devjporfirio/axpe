@@ -54,7 +54,7 @@ export default function MyAccount({ children, className }) {
           </Li>
           <Li active={page === 'alertas'}>
             <Link href="/minha-conta/alertas" passHref>
-              Meus aletas
+              Meus alertas
             </Link>
           </Li>
           <Li active={page === 'favoritos'}>

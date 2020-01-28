@@ -120,7 +120,7 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
         <Reference type={type}>Ref {reference}</Reference>
       </GroupInfo>
       {(useButtom || type === 'slickGrid' || type === 'slickLeft') && (
-        <LinkContainer>
+        <LinkContainer type={type}>
           <Button href="/building/[reference]" as={`/building/${slug}`}>
             Saiba mais
           </Button>

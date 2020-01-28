@@ -2,35 +2,35 @@ import React from 'react';
 import { formatCurrency, checkPluralSingular } from 'helpers/utils';
 import { Price, InfoValue, PriceRelease } from './styles';
 
-export const Release = ({ release, type }) =>
+export const Release = ({ release, type, currency }) =>
   !!release && (
     <PriceRelease>
       <p>
         {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
-        {formatCurrency.format(release)}
+        {formatCurrency.format(release).replace('R$', currency)}
       </p>
     </PriceRelease>
   );
 
-export const Rent = ({ rent, iptu, condo }) =>
+export const Rent = ({ rent, iptu, condo, currency }) =>
   !!rent && (
     <Price>
       <p>Aluguel:</p>
       <p>{formatCurrency.format(rent)}</p>
       <p>
-        Total locação: {formatCurrency.format(parseInt(rent + iptu + condo))}
+        Total locação: {formatCurrency.format(parseInt(rent + iptu + condo)).replace('R$', currency)}
       </p>
       <p>(Aluguel + IPTU + Cond.)</p>
     </Price>
   );
 
-export const Sell = ({ sell, iptu, condo, type }) =>
+export const Sell = ({ sell, iptu, condo, type, currency }) =>
   !!sell && (
     <Price>
       <p>{type === 'pronto' ? 'Venda' : 'A partir de'}: </p>
-      <p>{formatCurrency.format(sell)}</p>
-      <p>IPTU: 10x {formatCurrency.format(parseInt(iptu))}</p>
-      <p>Condominio: {formatCurrency.format(parseInt(condo))}</p>
+      <p>{formatCurrency.format(sell).replace('R$', currency)}</p>
+      <p>IPTU: 10x {formatCurrency.format(parseInt(iptu)).replace('R$', currency)}</p>
+      <p>Condominio: {formatCurrency.format(parseInt(condo)).replace('R$', currency)}</p>
     </Price>
   );
 

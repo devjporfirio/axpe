@@ -37,7 +37,7 @@ function Building({ property }) {
     }
 
     loadSimilarBuildings();
-  }, []);
+  }, [ property ]);
 
   return property && Object.keys(property).length ? (
     <>

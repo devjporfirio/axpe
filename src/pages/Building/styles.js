@@ -31,7 +31,7 @@ export const PanelSimilar = styled(PanelBuildings)`
 `;
 
 export const Images = styled(Gallery)`
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 
   ${media.greaterThan('medium')`
     padding-top: 20px;

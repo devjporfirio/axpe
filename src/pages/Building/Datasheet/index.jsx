@@ -40,7 +40,7 @@ export default function Datasheet({ property }) {
             {type === 'lancamento' && (
               <CategoryRelease>{category}</CategoryRelease>
             )}
-            <hr />
+            {type !== 'lancamento' && <hr />}
           </GroupInfo>
           <GroupTags>
             {label && label.is_new && (
@@ -65,13 +65,18 @@ export default function Datasheet({ property }) {
               sell={values.sell}
               iptu={values.iptu}
               condo={values.condo}
+              currency={values.currency}
               type={type}
             />
-            <Caracteristics.Release release={values.release} />
+            <Caracteristics.Release
+              release={values.release}
+              currency={values.currency}
+            />
             <Caracteristics.Rent
               rent={values.rent}
               iptu={values.iptu}
               condo={values.condo}
+              currency={values.currency}
             />
           </PriceGroup>
           <Caracteristics.Bedrooms

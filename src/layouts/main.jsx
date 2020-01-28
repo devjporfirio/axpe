@@ -11,6 +11,7 @@ import LoginModal from 'components/Modals/Login';
 import LoginRegisterSuccessModal from 'components/Modals/LoginRegisterSuccess';
 import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 import ContactModal from 'components/Modals/Contact';
+import ContactFloat from 'components/ContactFloat';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -35,6 +36,7 @@ function Main({ children }) {
         <LoginRegisterSuccessModal />
         <RegisterSuccessModal />
         <ContactModal />
+        <ContactFloat />
         <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>
       </>
     </ThemeProvider>
