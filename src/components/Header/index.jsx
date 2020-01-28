@@ -60,7 +60,7 @@ function Header() {
     modalNewsletter,
     modalLogin
   } = useSelector(state => state.main);
-  const { logged } = useSelector(state => state.user);
+  const { logged, me: { notificationsAvailable } } = useSelector(state => state.user);
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
 
@@ -204,9 +204,11 @@ function Header() {
                   <Link href="/minha-conta" passHref>
                     <NavSecondaryButton onClick={cancelToggle}>
                       Meu perfil
-                      <NavIconAlert>
-                        <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                      </NavIconAlert>
+                      {notificationsAvailable ? (
+                        <NavIconAlert>
+                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                        </NavIconAlert>
+                      ) : null}
                     </NavSecondaryButton>
                   </Link>
                 ) : (

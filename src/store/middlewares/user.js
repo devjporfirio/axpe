@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import Api from 'services';
+import IoHelper from 'helpers/io';
 import OneSignalHelper from 'helpers/oneSignal';
 
 const cookieParams = {
@@ -11,6 +12,7 @@ const user = store => next => async action => {
   const userData = userDataCookie ? JSON.parse(userDataCookie) : {};
 
   const removeCookie = () => {
+    IoHelper.stop();
     Cookies.remove('userData', cookieParams);
   }
 
@@ -65,6 +67,12 @@ const user = store => next => async action => {
       updateFavorites(newUserData.access_token);
 
       OneSignalHelper.watch(store);
+
+      IoHelper.watch({
+        accessToken: newUserData.access_token,
+        userId: newUserData.id,
+        store
+      });
 
       setTimeout(() => store.dispatch({ type: '@user/SET_BUILDING_TO_LIKE' }), 100);
     }
