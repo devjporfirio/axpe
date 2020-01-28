@@ -62,7 +62,19 @@ export const Infos = styled.div`
   `}
 
   ${media.greaterThan('1280px')`
-    padding: 40px 55px;
+    ${props =>
+      props.type === 'lancamento'
+        ? css`
+            height: calc(100% - 35px);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 55px;
+          `
+        : css`
+            padding: 40px 55px;
+          `}
   `}
 `;
 
@@ -234,7 +246,7 @@ export const FavoriteButton = styled.button`
   transition: all 300ms ease;
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 
   svg {

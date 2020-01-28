@@ -127,7 +127,7 @@ export default function Building({
                 );
               })}
           </Slider>
-          <Infos>
+          <Infos type={type}>
             {useBtRemove && (
               <RemoveButton
                 color="greenDark"
