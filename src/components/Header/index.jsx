@@ -18,6 +18,7 @@ import WhatsappIconSVG from 'assets/icons/whatsapp';
 import FacebookIconSVG from 'assets/icons/facebook';
 import InstagramIconSVG from 'assets/icons/instagram';
 import LinkedinIconSVG from 'assets/icons/linkedin';
+import AlertIconSVG from 'assets/icons/alert';
 
 // styles
 import {
@@ -35,6 +36,7 @@ import {
   NavMainButtonText,
   NavSecondary,
   NavSecondaryButton,
+  NavIconAlert,
   NavLangs,
   NavLangsButton,
   Whatsapp,
@@ -58,7 +60,7 @@ function Header() {
     modalNewsletter,
     modalLogin
   } = useSelector(state => state.main);
-  const { logged } = useSelector(state => state.user);
+  const { logged, me: { notificationsAvailable } } = useSelector(state => state.user);
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
 
@@ -202,6 +204,11 @@ function Header() {
                   <Link href="/minha-conta" passHref>
                     <NavSecondaryButton onClick={cancelToggle}>
                       Meu perfil
+                      {notificationsAvailable ? (
+                        <NavIconAlert>
+                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                        </NavIconAlert>
+                      ) : null}
                     </NavSecondaryButton>
                   </Link>
                 ) : (

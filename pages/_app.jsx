@@ -3,8 +3,12 @@ import App from 'next/app';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import Router from 'next/router';
+
+// layout
 import Main from 'layouts/main';
-import OneSignalHelper from 'helpers/oneSignal';
+
+// helpers
+// import OneSignalHelper from 'helpers/oneSignal';
 
 // store
 import configureStore from 'store';
@@ -53,7 +57,7 @@ class MyApp extends App {
       dispatch(setLoading({ active: false }));
     });
 
-    OneSignalHelper.start();
+    // OneSignalHelper.start();
 
     dispatch(setLoading({ active: false }));
     dispatch(setUserByCookie());

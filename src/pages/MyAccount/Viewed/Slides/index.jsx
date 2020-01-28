@@ -43,7 +43,7 @@ export default function Slides({ items = [], date }) {
       >
         {items.length > 0 &&
           items.map((item, index) => (
-            <Fragment key={index}>
+            <Fragment key={`viewed-slide-${index}`}>
               <Link
                 href={`/building/${
                   item.building ? item.building.slug : item.slug

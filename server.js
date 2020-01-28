@@ -1,28 +1,70 @@
-const next = require('next')
-const http = require('http')
-
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const port = 3000
-const handleNextRequests = app.getRequestHandler()
 
-app.prepare().then(() => {
-  const server = new http.Server((req, res) => {
-    // if (req.headers.host === 'my-app.com') {
-    //   app.setAssetPrefix('http://cdn.com/myapp')
-    // } else {
-    app.setAssetPrefix('')
-    // }
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const next = require('next');
+const axios = require('axios');
+const config = require(`./config/${process.env.NODE_ENV}.json`);
 
-    handleNextRequests(req, res)
-  })
+const nextApp = next({ dev })
+const nextHandler = nextApp.getRequestHandler()
+const port = process.env.PORT || 3000;
 
-  server.listen(port, err => {
-    console.log(`port here ${port}`)
-    if (err) {
-      throw err
+const getNotifications = async (userId) => {
+  let hasNotifications = false;
+
+  try {
+    const items = await axios.get(`${config.apiUrl}/notifications/users`);
+    const results = items.data.filter(item => item.id === userId);
+
+    if(results && results.length) {
+      hasNotifications = true;
+
+      // TODO: Send push notifications by OneSignal
+      // items.forEach(item => {
+      //   console.log(item.idOneSignal)
+      // });
     }
 
+    return hasNotifications;
+  } catch (error) {
+    console.error(`Error: ${error.code}`);
+  }
+}
+
+io.on('connection', socket => {
+  let timer;
+  const timing = 5000;
+
+  socket.on('notifications-init', (userId) => {
+    if(timer) {
+      clearTimeout(timer);
+    }
+
+    const reqGetNotifications = async () => {
+      const response = await getNotifications(userId);
+
+      socket.emit('notifications', response);
+
+      timer = setTimeout(() => reqGetNotifications(), timing);
+    }
+
+    reqGetNotifications();
+  });
+
+  socket.on('disconnect', () => {
+    clearTimeout(timer);
+  });
+})
+
+nextApp.prepare().then(() => {
+  app.get('*', (req, res) => {
+    return nextHandler(req, res)
+  })
+
+  server.listen(port, (err) => {
+    if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`)
   })
 })

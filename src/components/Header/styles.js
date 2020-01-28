@@ -347,6 +347,7 @@ export const NavSecondary = styled.nav`
 `;
 
 export const NavSecondaryButton = styled.a`
+  position: relative;
   text-transform: uppercase;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
@@ -354,6 +355,41 @@ export const NavSecondaryButton = styled.a`
   ${media.greaterThan('large')`
     font-size: 14px;
   `}
+`;
+
+export const NavIconAlert = styled.i`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 120px;
+  width: 29px;
+  height: 29px;
+  background: ${({ theme })=> theme.colors.orange};
+  transform: translateY(-50%);
+  border-radius: 50%;
+
+  ${media.greaterThan('large')`
+    left: 90px;
+    width: 27px;
+    height: 27px;
+  `}
+
+  svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+
+    ${media.greaterThan('large')`
+      width: 16px;
+      height: 16px;
+    `}
+
+    path {
+      fill: ${({ theme })=> theme.colors.white};
+    }
+  }
 `;
 
 export const NavLangs = styled.nav`

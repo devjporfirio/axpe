@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
+import Api from 'services';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
+import { setUserMe } from 'store/modules/user/actions';
 
 // styles
 import { Container, Header, LinkLogOff, Nav, Li, Body } from './styles';
@@ -25,6 +27,14 @@ export default function MyAccount({ children, className }) {
     }
 
     loadUser();
+
+    return async () => {
+      if(user.me && user.me.notificationsAvailable) {
+        const data = { notificationsAvailable: 0 };
+        await Api.MyAccount.putMe(user.access_token, data);
+        dispatch(setUserMe(data));
+      }
+    }
   }, [ user ]);
 
   if(!user.logged) return null;
