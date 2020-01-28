@@ -31,7 +31,6 @@ export const Body = styled.div`
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.greyLight};
     max-width: 1127px;
-    max-height: 738px;
     margin: auto;
     height: calc(100% - 50px);
   `}
@@ -95,7 +94,8 @@ export const SliderNav1 = styled(Slider)`
 
   ${media.greaterThan('1078px')`
     max-width: 637px;
-    max-height: 607px;
+    bottom: 55px;
+    top: unset;
 
     img {
       width: 637px;
@@ -128,6 +128,8 @@ export const ImagesSecundary = styled.div`
     overflow-x: unset;
     overflow-y: scroll;
     align-items: flex-end;
+    position: absolute;
+    bottom: 50px;
 
     img {
       width: 100px;
