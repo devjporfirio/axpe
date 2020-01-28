@@ -119,7 +119,7 @@ function Search({ dispatch }) {
         if (key == 'source' && values[key].value) {
           data[key] = values[key].value;
         } else if (key === 'furnished' && values[key]) {
-          data[key] = values[key] === 'Com mobília' ? 'true' : 'false';
+          data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
         } else if (Array.isArray(values[key]) && values[key].length) {
           data[key] = values[key].join(',');
         } else if (!Array.isArray(values[key]) && values[key]) {
@@ -463,11 +463,11 @@ function Search({ dispatch }) {
                       <input
                         type="radio"
                         name="furnished"
-                        value="Com mobília"
+                        value="Mobiliado"
                         onChange={formik.handleChange}
-                        checked={formik.values.furnished === 'Com mobília'}
+                        checked={formik.values.furnished === 'Mobiliado'}
                       />
-                      <span>Com mobília</span>
+                      <span>Mobiliado</span>
                     </FormButtonsFilterItemRadio>
                   </FormButtonsFilterRow>
                 )}
