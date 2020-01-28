@@ -18,10 +18,10 @@ export const Container = styled.div`
 export const Title = styled.h2`
   padding: 30px 40px;
   max-width: 420px;
+  font: 40px/48px 'Bitter';
 
   span {
     color: ${({ theme }) => theme.colors.white};
-    font: 40px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 
@@ -32,8 +32,10 @@ export const Title = styled.h2`
   }
 
   ${media.greaterThan('medium')`
-    padding: 45px 88px;
+    padding: 45.6px 0 53.94px 88px;
     line-height: 48px;
+    width: 342px;
+    height: 248.2px;
   `}
 `;
 
@@ -83,10 +85,13 @@ export const Reasons = styled(Slider)`
     }
 
     h3 {
-      margin-bottom: 23px;
+      margin-bottom: 23.28px;
       color: ${({ theme }) => theme.colors.orange};
       font: 18px/20px 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
+      height: 40px;
+      display: flex;
+      align-items: flex-end;
     }
 
     p {
@@ -96,7 +101,7 @@ export const Reasons = styled(Slider)`
 
     ${media.greaterThan('medium')`
       width: 160px;
-      padding: 14px 25px;
+      padding: 14.02px 27.03px;
 
       &:before {
         width: calc(100% - 20px);
@@ -104,6 +109,15 @@ export const Reasons = styled(Slider)`
 
       h3, p {
         width: 100%;
+      }
+      p {
+        display: block;
+        display: -webkit-box;
+        height: 171px;
+        -webkit-line-clamp: 9;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     `}
   }
