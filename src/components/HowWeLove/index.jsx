@@ -79,6 +79,7 @@ function HowWeLove({ reasons }) {
       >
         {type === 'html' && html}
         {type === 'array' &&
+          reasons && reasons.length > 0 &&
           reasons.map((reason, index) => (
             <article className="building-lovely-item" key={index}>
               <h3>{reason.title}</h3>

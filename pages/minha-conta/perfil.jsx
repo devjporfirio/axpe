@@ -76,7 +76,7 @@ function Profile() {
         setErrorMessage('Alteração realizada com sucesso.');
         setTimeout(() => {
           setErrorMessage(null);
-        }, 300);
+        }, 3000);
       } else {
         setErrorMessage(response.msg);
         setTimeout(() => {
