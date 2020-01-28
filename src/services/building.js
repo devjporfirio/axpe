@@ -36,20 +36,18 @@ export default {
         .then(response => response.json())
         .then(data => data);
 
-      let address = result.results[0].address_components.find(x =>
+      const addressRoute = result.results[0].address_components.find(x =>
         x.types.includes('route')
       );
+      const addressSub = result.results[0].address_components.find(x =>
+        x.types.includes('sublocality_level_1')
+      );
+      const addressAdm = result.results[0].address_components.find(x =>
+        x.types.includes('administrative_area_level_2')
+      );
 
-      if (address) {
-        address = `${address.long_name} ${
-          result.results[0].address_components.find(x =>
-            x.types.includes('sublocality_level_1')
-          ).long_name
-        } ${
-          result.results[0].address_components.find(x =>
-            x.types.includes('administrative_area_level_2')
-          ).long_name
-        }`;
+      if (addressRoute && addressSub && addressAdm) {
+        const address = `${addressRoute.long_name} ${addressSub.long_name} ${addressAdm.long_name}`;
 
         result = await fetch(
           `${baseMaps}/geocode/json?address=${address}&key=${apiKey}`

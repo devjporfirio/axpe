@@ -165,16 +165,16 @@ export default function Building({
                     <Price>
                       {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                       {!!values.sell &&
-                        formatCurrency.format(parseInt(values.sell))}
+                        formatCurrency.format(parseInt(values.sell)).replace('R$', values.currency)}
                       {!!values.release &&
-                        formatCurrency.format(parseInt(values.release))}
+                        formatCurrency.format(parseInt(values.release)).replace('R$', values.currency)}
                     </Price>
                   ) : (
                     ''
                   )}
                   {!!values.rent ? (
                     <Price>
-                      Locação: {formatCurrency.format(parseInt(values.rent))}
+                      Locação: {formatCurrency.format(parseInt(values.rent)).replace('R$', values.currency)}
                     </Price>
                   ) : (
                     ''
