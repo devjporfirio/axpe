@@ -76,6 +76,7 @@ export const BlockThree = styled(Block)`
   }
 
   ${media.greaterThan('medium')`
+    align-content: start;
     border: none;
     padding: 19px 26px;
   `}
@@ -192,6 +193,8 @@ export const PriceRelease = styled.div`
   }
 
   ${media.greaterThan('medium')`
+    padding-top: 22px;
+    padding-bottom: 29px;
     p {
       font-size: 26px;
     }
@@ -213,6 +216,9 @@ export const InfoValue = styled.div`
   }
 
   ${media.greaterThan('medium')`
+    height: auto;
+    padding: 14px 0;
+
     p {
       font-size: 16px !important;
       line-height: 18px !important;

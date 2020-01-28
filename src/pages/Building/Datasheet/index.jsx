@@ -40,7 +40,7 @@ export default function Datasheet({ property }) {
             {type === 'lancamento' && (
               <CategoryRelease>{category}</CategoryRelease>
             )}
-            <hr />
+            {type !== 'lancamento' && <hr />}
           </GroupInfo>
           <GroupTags>
             {label && label.is_new && (
