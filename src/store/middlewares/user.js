@@ -70,7 +70,7 @@ const user = store => next => async action => {
 
       IoHelper.watch({
         accessToken: newUserData.access_token,
-        userId: newUserData.userId,
+        userId: newUserData.id,
         store
       });
 
