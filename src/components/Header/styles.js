@@ -111,8 +111,8 @@ export const LogoLink = styled.a`
 
 export const ButtonSearch = styled.button`
   display: block;
-  width: 13px;
-  height: 17px;
+  width: 19px;
+  height: 23px;
   margin-left: auto;
   font-size: 0;
   background: url(${SearchIconSVG}) no-repeat;

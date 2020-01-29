@@ -41,8 +41,7 @@ const TypeSlickLeftDesktop = css`
 const TypeSlickLeftMobile = css`
   position: initial;
   width: 70%;
-  margin: auto;
-  padding: 15px 0;
+  margin: 15px auto 15px auto;
   height: 299px;
 
   hr {
@@ -262,6 +261,9 @@ export const Container = styled.section`
 
   ${media.lessThan('medium')`
     ${props => props.type !== 'slick' && TypeSlickLeftMobile}
+    ${props => props.type === 'slickGrid' && css`
+      margin: 15px auto;
+    `}
 
     ${props =>
       [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
