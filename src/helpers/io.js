@@ -6,7 +6,7 @@ import { setUserMe } from 'store/modules/user/actions';
 let socket = null;
 
 function watch({ accessToken, userId, store }) {
-  socket = io(`http://0.0.0.0:3000`);
+  socket = io(`${process.env.config.siteUrl}`);
 
   async function handleNotifications(hasNotifications) {
     if(hasNotifications) {
