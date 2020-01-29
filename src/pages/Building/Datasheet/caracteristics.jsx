@@ -2,15 +2,20 @@ import React from 'react';
 import { formatCurrency, checkPluralSingular } from 'helpers/utils';
 import { Price, InfoValue, PriceRelease } from './styles';
 
-export const Release = ({ release, type, currency }) =>
-  !!release && (
-    <PriceRelease>
-      <p>
-        {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
-        {formatCurrency.format(release).replace('R$', currency)}
-      </p>
-    </PriceRelease>
+export const Release = ({ release, type, currency }) => {
+  return (
+    !!release && (
+      <PriceRelease>
+        <p>
+          {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
+          {currency
+            ? formatCurrency.format(release).replace('R$', currency)
+            : formatCurrency.format(release)}
+        </p>
+      </PriceRelease>
+    )
   );
+};
 
 export const Rent = ({ rent, iptu, condo, currency }) =>
   !!rent && (
@@ -19,9 +24,11 @@ export const Rent = ({ rent, iptu, condo, currency }) =>
       <p>{formatCurrency.format(rent)}</p>
       <p>
         Total locação:{' '}
-        {formatCurrency
-          .format(parseInt(rent + iptu + condo))
-          .replace('R$', currency)}
+        {currency
+          ? formatCurrency
+              .format(parseInt(rent + iptu + condo))
+              .replace('R$', currency)
+          : formatCurrency.format(parseInt(rent + iptu + condo))}
       </p>
       <p>(Aluguel + IPTU + Cond.)</p>
     </Price>
@@ -31,14 +38,22 @@ export const Sell = ({ sell, iptu, condo, type, currency }) =>
   !!sell && (
     <Price>
       <p>{type === 'pronto' ? 'Venda' : 'A partir de'}: </p>
-      <p>{formatCurrency.format(sell).replace('R$', currency)}</p>
+      <p>
+        {currency
+          ? formatCurrency.format(sell).replace('R$', currency)
+          : formatCurrency.format(parseInt(rent + iptu + condo))}
+      </p>
       <p>
         IPTU: 10x{' '}
-        {formatCurrency.format(parseInt(iptu)).replace('R$', currency)}
+        {currency
+          ? formatCurrency.format(parseInt(iptu)).replace('R$', currency)
+          : formatCurrency.format(parseInt(rent + iptu + condo))}
       </p>
       <p>
         Condominio:{' '}
-        {formatCurrency.format(parseInt(condo)).replace('R$', currency)}
+        {currency
+          ? formatCurrency.format(parseInt(condo)).replace('R$', currency)
+          : formatCurrency.format(parseInt(rent + iptu + condo))}
       </p>
     </Price>
   );
