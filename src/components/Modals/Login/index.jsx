@@ -51,6 +51,7 @@ function LoginModal() {
       setUser({
         logged: true,
         access_token: response.access_token,
+        id: response.id,
         tokenTime,
         tokenMaxTime
       })
