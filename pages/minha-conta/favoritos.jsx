@@ -71,8 +71,7 @@ function Favorites() {
       <Body>
         <Amount>
           <Title>
-            Existem <strong>{buildings.length} imóveis</strong> favoritos por
-            você
+            Você tem <strong>{buildings.length} imóveis</strong> favoritos
           </Title>
           <ShareIcon src={ShareIconSVG} />
           <GroupIcon>
