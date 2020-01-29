@@ -9,7 +9,8 @@ export const Container = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};
   max-width: calc(100vw - 32px);
-  margin: auto auto 20px auto;
+  margin: ${props =>
+    props.useBtSchedule ? 'auto auto 33px auto' : 'auto auto 20px auto'};
   overflow: hidden;
   border-radius: 6px;
 
@@ -27,7 +28,6 @@ export const Container = styled.div`
     width: 100%;
     height: ${props =>
       props.useBtSchedule ? (props.hasDeleted ? '45PX' : '386px') : '365px'};
-    margin: auto auto 20px auto;
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
@@ -63,17 +63,17 @@ export const Infos = styled.div`
 
   ${media.greaterThan('1280px')`
     ${props =>
-      props.type === 'lancamento'
+      props.releaseDelivery
         ? css`
             height: calc(100% - 35px);
             margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 55px;
+            padding: 0 40px;
           `
         : css`
-            padding: 40px 55px;
+            padding: 30px 40px 30px 40px;
           `}
   `}
 `;
@@ -121,6 +121,11 @@ export const CategoryRelease = styled.h4`
 export const Category = styled.h4`
   font: 22px/29px 'Bitter';
   letter-spacing: 1px;
+
+  ${media.greaterThan('medium')`
+    font-size: 24px;
+    line-height: 32px;
+  `};
 `;
 
 export const Local = styled.h4`
@@ -131,6 +136,7 @@ export const Local = styled.h4`
 
   ${media.greaterThan('medium')`
     font-size: 16px;
+    line-height: 28px;
   `};
 `;
 
@@ -224,7 +230,7 @@ export const ValuesFavGroup = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    margin-top: 35px;
+    margin-top: 20px;
   `}
 `;
 
@@ -273,7 +279,6 @@ export const Price = styled.p`
   line-height: 28px;
 
   ${media.greaterThan('medium')`
-    line-height: 16px;
     font-size: 16px;
   `};
 `;
@@ -289,12 +294,9 @@ export const RemoveButton = styled(Button)`
   margin-top: -259px;
 
   ${media.greaterThan('medium')`
-    margin-top: -30px;
+    margin-top: 0;
+    top: 0;
     right: 60%;
-  `}
-
-  ${media.greaterThan('1280px')`
-    margin-top: -40px;
   `}
 `;
 

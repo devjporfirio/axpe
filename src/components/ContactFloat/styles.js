@@ -15,6 +15,7 @@ export const Button = styled.button`
   position: fixed;
   bottom: 26px;
   right: 26px;
+  z-index: 9;
 
   ${media.greaterThan('medium')`
     bottom: 40px;

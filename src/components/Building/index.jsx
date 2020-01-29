@@ -51,7 +51,7 @@ export default function Building({
     values,
     gallery,
     address,
-    infos,
+    infos = {},
     category,
     type,
     reference,
@@ -127,7 +127,7 @@ export default function Building({
                 );
               })}
           </Slider>
-          <Infos type={type}>
+          <Infos releaseDelivery={infos.releaseDelivery}>
             {useBtRemove && (
               <RemoveButton
                 color="greenDark"
@@ -144,11 +144,11 @@ export default function Building({
                     ? infos.releaseStatus === 'Pronto'
                       ? 'Pronto para morar'
                       : infos.releaseStatus
-                    : category}
+                    : category || 'Pronto para morar'}
                 </Category>
                 <div>
                   <div>
-                    {address.local && <Local>{address.local}</Local>}
+                    {address && address.local && <Local>{address.local}</Local>}
                     {type === 'lancamento' && (
                       <CategoryRelease>{category}</CategoryRelease>
                     )}
@@ -163,18 +163,25 @@ export default function Building({
                 <div>
                   {!!values.sell || !!values.release ? (
                     <Price>
-                      {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
+                      {type === 'lancamento' ? 'Venda: ' : 'Venda: '}
                       {!!values.sell &&
-                        formatCurrency.format(parseInt(values.sell)).replace('R$', values.currency)}
+                        formatCurrency
+                          .format(parseInt(values.sell))
+                          .replace('R$', values.currency || 'R$')}
                       {!!values.release &&
-                        formatCurrency.format(parseInt(values.release)).replace('R$', values.currency)}
+                        formatCurrency
+                          .format(parseInt(values.release))
+                          .replace('R$', values.currency || 'R$')}
                     </Price>
                   ) : (
                     ''
                   )}
                   {!!values.rent ? (
                     <Price>
-                      Locação: {formatCurrency.format(parseInt(values.rent)).replace('R$', values.currency)}
+                      Locação:{' '}
+                      {formatCurrency
+                        .format(parseInt(values.rent))
+                        .replace('R$', values.currency || 'R$')}
                     </Price>
                   ) : (
                     ''
