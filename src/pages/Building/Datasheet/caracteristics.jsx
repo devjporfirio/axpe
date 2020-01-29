@@ -18,7 +18,10 @@ export const Rent = ({ rent, iptu, condo, currency }) =>
       <p>Aluguel:</p>
       <p>{formatCurrency.format(rent)}</p>
       <p>
-        Total locação: {formatCurrency.format(parseInt(rent + iptu + condo)).replace('R$', currency)}
+        Total locação:{' '}
+        {formatCurrency
+          .format(parseInt(rent + iptu + condo))
+          .replace('R$', currency)}
       </p>
       <p>(Aluguel + IPTU + Cond.)</p>
     </Price>
@@ -29,8 +32,14 @@ export const Sell = ({ sell, iptu, condo, type, currency }) =>
     <Price>
       <p>{type === 'pronto' ? 'Venda' : 'A partir de'}: </p>
       <p>{formatCurrency.format(sell).replace('R$', currency)}</p>
-      <p>IPTU: 10x {formatCurrency.format(parseInt(iptu)).replace('R$', currency)}</p>
-      <p>Condominio: {formatCurrency.format(parseInt(condo)).replace('R$', currency)}</p>
+      <p>
+        IPTU: 10x{' '}
+        {formatCurrency.format(parseInt(iptu)).replace('R$', currency)}
+      </p>
+      <p>
+        Condominio:{' '}
+        {formatCurrency.format(parseInt(condo)).replace('R$', currency)}
+      </p>
     </Price>
   );
 
@@ -89,7 +98,7 @@ export const ParkingBetween = ({ start, end }) =>
 export const AreaBuilding = ({ areaBuilding }) =>
   !!areaBuilding && (
     <InfoValue>
-      <p>{parseFloat(areaBuilding).toFixed(0)}m²</p>
+      <p>{formatCurrency.format(parseInt(areaBuilding)).replace('R$', '')}m²</p>
       <p>Área construída</p>
     </InfoValue>
   );
@@ -97,7 +106,7 @@ export const AreaBuilding = ({ areaBuilding }) =>
 export const AreaGround = ({ areaGround }) =>
   !!areaGround && (
     <InfoValue>
-      <p>{parseFloat(areaGround).toFixed(0)}m²</p>
+      <p>{formatCurrency.format(parseInt(areaGround)).replace('R$', '')}m²</p>
       <p>Área de terreno</p>
     </InfoValue>
   );
@@ -105,7 +114,7 @@ export const AreaGround = ({ areaGround }) =>
 export const AreaTotal = ({ areaTotal }) =>
   !!areaTotal && (
     <InfoValue>
-      <p>{parseFloat(areaTotal).toFixed(0)}m²</p>
+      <p>{formatCurrency.format(parseInt(areaTotal)).replace('R$', '')}m²</p>
       <p>Área total</p>
     </InfoValue>
   );
@@ -113,7 +122,7 @@ export const AreaTotal = ({ areaTotal }) =>
 export const AreaUseFul = ({ areaUseful }) =>
   !!areaUseful && (
     <InfoValue>
-      <p>{parseFloat(areaUseful).toFixed(0)}m²</p>
+      <p>{formatCurrency.format(parseInt(areaUseful)).replace('R$', '')}m²</p>
       <p>Área útil</p>
     </InfoValue>
   );
@@ -122,7 +131,8 @@ export const AreaUseFulBetween = ({ start, end }) =>
   !!start && !!end && end !== 99999999 ? (
     <InfoValue>
       <p>
-        {parseFloat(start).toFixed(0)} a {parseFloat(end).toFixed(0)} m²
+        {formatCurrency.format(parseInt(start)).replace('R$', '')} a{' '}
+        {formatCurrency.format(parseInt(end)).replace('R$', '')} m²
       </p>
       <p>Área útil</p>
     </InfoValue>
