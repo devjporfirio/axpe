@@ -58,9 +58,11 @@ export const Slide = styled(Slider)`
   ${media.greaterThan('medium')`
     .slick-slide {
       padding: 0 15px;
+      max-width: 223px;
 
       section {
         padding: 20px 0;
+        max-width: 223px;
       }
     }
   `}
