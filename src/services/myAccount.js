@@ -51,8 +51,7 @@ export default {
           Authorization: `Bearer ${token}`
         }
       }
-    )
-    .then(response => response.json())
+    ).then(response => response.json());
     return response;
   },
   async postFavorite(token, reference, status) {
@@ -145,16 +144,19 @@ export default {
   },
   async updateIdOneSignal(token, idOneSignal) {
     shouldRenewToken();
-    const result = await fetch(`${process.env.config.apiUrl}/user/notifications`, {
-      method: 'POST',
-      body: JSON.stringify({
-        idOneSignal
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+    const result = await fetch(
+      `${process.env.config.apiUrl}/user/notifications`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          idOneSignal
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
       }
-    }).then(response => response.json());
+    ).then(response => response.json());
     return result;
   }
 };

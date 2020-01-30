@@ -90,5 +90,17 @@ export default {
       .then(response => response.json())
       .then(data => data);
     return result;
-  }
+  },
+  async getFavoritesShare(hash) {
+    const response = await fetch(
+      `${process.env.config.apiUrl}/buildings/favorites/share/${hash}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then(response => response.json());
+    return response;
+  },
 };

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Api from 'services';
 
 // components
+import Share from 'components/Share';
 import Empty from 'pages/MyAccount/Empty';
 
 // actions
@@ -30,6 +31,11 @@ function Favorites() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ buildings, setBuildings ] = useState([]);
+  const [ shareActive, setShareActive ] = useState(false);
+
+  const shareOnClose = useCallback(() => {
+    setShareActive(!shareActive);
+  }, [ shareActive ]);
 
   useEffect(() => {
     async function loadBuildings() {
@@ -47,12 +53,11 @@ function Favorites() {
     loadBuildings();
   }, [ user ]);
 
-
   useEffect(() => {
     return () => {
       dispatch(updateUserFavorites());
-    }
-  }, [])
+    };
+  }, []);
 
   if (!user.logged) return <Container />;
 
@@ -73,12 +78,18 @@ function Favorites() {
           <Title>
             Você tem <strong>{buildings.length} imóveis</strong> favoritos
           </Title>
-          <ShareIcon src={ShareIconSVG} />
+          <ShareIcon src={ShareIconSVG} onClick={() => setShareActive(true)} />
           <GroupIcon>
             <MailIcon src={MailIconSVG} />
             <WhatsIcon src={WhatsappIconSVG} />
           </GroupIcon>
         </Amount>
+        <Share
+          active={shareActive}
+          path={`/favoritos/${user.me.hash}`}
+          title={`Axpe - Resultado de Busca`}
+          onClose={shareOnClose}
+        />
         {buildings &&
           buildings.length > 0 &&
           buildings.map((building, buildingIndex) => (
