@@ -67,6 +67,7 @@ function Building({ property }) {
             local={property.address.local}
             items={property.gallery}
             tour360={property.tour360}
+            reference={property.reference}
           />
         )}
 
@@ -90,7 +91,10 @@ function Building({ property }) {
         )}
 
         {similarBuildings && similarBuildings.length > 0 && (
-          <PanelSimilar className="buildingsSimilar" title="Pessoas que viram este imóvel também viram:">
+          <PanelSimilar
+            className="buildingsSimilar"
+            title="Pessoas que viram este imóvel também viram:"
+          >
             {similarBuildings.map(building => (
               <SimilarBuilding item={building} key={building.reference} />
             ))}

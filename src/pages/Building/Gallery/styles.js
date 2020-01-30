@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import Modal from './Modal';
 
 export const Container = styled.div`
   margin: auto;
@@ -8,6 +9,20 @@ export const Container = styled.div`
   .slick-slide {
     width: calc(100vw - 500px);
     max-width: 780px;
+  }
+`;
+
+export const Tour360 = styled(Modal)`
+  height: 100vh;
+  top: 0;
+  background-color: ${({ theme }) => theme.colors.greenDark};
+
+  iframe {
+    height: 80%;
+    margin: auto;
+    width: 80%;
+    display: block;
+    margin-top: 6%;
   }
 `;
 
