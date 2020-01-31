@@ -1,12 +1,8 @@
-import React from 'react'
-import { Container } from 'pages/English/styles';
+import React from 'react';
+import OtherLanguages from 'pages/OtherLanguages';
 
 function English() {
-  return (
-    <Container>
-      <h1>English</h1>
-    </Container>
-  )
+  return <OtherLanguages language="en" />;
 }
 
 export default English;

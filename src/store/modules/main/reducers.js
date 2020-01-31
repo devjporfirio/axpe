@@ -8,6 +8,7 @@ const initialState = {
   modalLoginRegisterSuccess: false,
   modalRegisterSuccess: false,
   modalContact: false,
+  modalContactSuccess: false,
   modalContactMessage: ''
 };
 

@@ -1,12 +1,9 @@
-import React from 'react'
-import { Container } from 'pages/Spanish/styles';
+import React from 'react';
+import OtherLanguages from 'pages/OtherLanguages';
 
 function Spanish() {
-  return (
-    <Container>
-      <h1>Spanish</h1>
-    </Container>
-  )
+  return <OtherLanguages language="es" />;
 }
 
 export default Spanish;
+
