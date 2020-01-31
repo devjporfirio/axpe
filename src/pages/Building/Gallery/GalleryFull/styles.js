@@ -64,13 +64,13 @@ export const Images = styled(Slider)`
   `}
 
   ${media.greaterThan('medium')`
-    margin: 95px auto 0 auto;
+    margin: 70px auto 0 auto;
     width: 80% !important;
-    height: 80vh;
+    height: 80%;
     display: block !important;
   `};
 
   .slick-slide {
-    max-width: 100%;
+    max-width: 100% !important;
   }
 `;
