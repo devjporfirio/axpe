@@ -10,6 +10,7 @@ import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
 import LoginModal from 'components/Modals/Login';
 import LoginRegisterSuccessModal from 'components/Modals/LoginRegisterSuccess';
 import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
+import ContactSuccessModal from 'components/Modals/ContactSuccess';
 import ContactModal from 'components/Modals/Contact';
 import ContactFloat from 'components/ContactFloat';
 
@@ -35,6 +36,7 @@ function Main({ children }) {
         <LoginModal />
         <LoginRegisterSuccessModal />
         <RegisterSuccessModal />
+        <ContactSuccessModal />
         <ContactModal />
         <ContactFloat />
         <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>
