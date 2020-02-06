@@ -17,7 +17,7 @@ import {
 } from './styles';
 
 // image
-import IWhats from 'assets/icons/whats-white';
+import WhatsappIconSVG from 'assets/icons/whats-white';
 
 const LANGUAGE_TEXT = {
   es: {
@@ -51,7 +51,7 @@ const LANGUAGE_TEXT = {
   }
 };
 
-export default function OtherLanguages({ language }) {
+function OtherLanguages({ language }) {
   return (
     <Container>
       <Header>
@@ -69,7 +69,7 @@ export default function OtherLanguages({ language }) {
             <Contact href="https://api.whatsapp.com/send?phone=5511990373600">
               <p>Whatsapp:</p>
               <p>
-                <SVG src={IWhats} />
+                <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
                 (11) 99037-3600
               </p>
             </Contact>
@@ -78,11 +78,13 @@ export default function OtherLanguages({ language }) {
       </Header>
       <Body>
         {LANGUAGE_TEXT[language].subtitle}
-        {LANGUAGE_TEXT[language].texts.map(t => (
-          <p>{t}</p>
+        {LANGUAGE_TEXT[language].texts.map((text, textIndex) => (
+          <p key={`lang-text-${textIndex}`}>{text}</p>
         ))}
       </Body>
       <FormContact showHeader={false} />
     </Container>
   );
 }
+
+export default OtherLanguages;

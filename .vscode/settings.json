@@ -14,16 +14,16 @@
   "css.validate": false,
   "eslint.run": "onSave",
   "prettier.singleQuote": true,
-  // "[javascript]": {
-  //   "editor.formatOnSave": true
-  // },
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
   "emmet.includeLanguages": {
     "nunjucks": "html",
     "erb": "html"
   },
-  // "editor.codeActionsOnSave": {
-  //   "source.fixAll.eslint": false
-  // }
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  }
 }
 
 
