@@ -1,21 +1,30 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+const ButtonActive = css`
+  ${({ theme }) => theme.show};
+`;
+
 export const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.orange};
-  box-sizing: border-box;
-  height: 49px;
-  width: 177px;
-  border: 1px solid ${({ theme }) => theme.colors.white};
-  border-radius: 24.5px;
-  box-shadow: 7px 10px 25px 0 rgba(0, 0, 0, 0.33);
-  font: ${({ theme }) => theme.fontsWeight.semiBold} 18px/25px 'Raleway';
-  color: ${({ theme }) => theme.colors.white};
-  text-align: center;
   position: fixed;
   bottom: 26px;
   right: 26px;
+  width: 177px;
+  height: 49px;
+  border: 1px solid ${({ theme }) => theme.colors.white};
+  font: ${({ theme }) => theme.fontsWeight.semiBold} 18px/25px 'Raleway';
+  color: ${({ theme }) => theme.colors.white};
+  text-align: center;
+  text-transform: uppercase;
   z-index: 9;
+  background-color: ${({ theme }) => theme.colors.orange};
+  box-sizing: border-box;
+  box-shadow: 7px 10px 25px 0 rgba(0, 0, 0, 0.33);
+  border-radius: 24.5px;
+  transition: all 300ms ease;
+  ${({ theme }) => theme.hide};
+
+  ${props => props.active && ButtonActive}
 
   ${media.greaterThan('medium')`
     bottom: 40px;
@@ -62,24 +71,33 @@ export const ButtonClose = styled.button`
   `}
 `;
 
+const ListContactsActive = css`
+  transform: translateY(0);
+`;
+
 export const ListContacts = styled.div`
-  height: 84px;
-  width: 100%;
-  opacity: 0.95;
-  background-color: ${({ theme }) => theme.colors.orange};
-  box-shadow: 7px 10px 25px 0 rgba(0, 0, 0, 0.33);
-  z-index: 9;
   position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  z-index: 9;
   padding-top: 15px;
-  bottom: 0;
-  right: 0;
+  background-color: ${({ theme }) => theme.colors.orange};
+  box-shadow: 7px 10px 25px 0 rgba(0, 0, 0, 0.33);
+  opacity: 0.95;
+  transform: translateY(100%);
+  transition: all 300ms ease;
+
+  ${props => props.active && ListContactsActive}
 
   .desktop {
     display: none;
   }
+
   .mobile {
     display: block;
   }
@@ -114,7 +132,6 @@ export const ListContacts = styled.div`
 
   ${media.greaterThan('medium')`
     padding: 0;
-    
 
     .desktop {
       display: block !important;
