@@ -23,7 +23,7 @@ import {
 } from 'pages/Work/styles';
 
 function Work() {
-  const linkPolitics = <a href="/politica">política de privacidade</a>;
+  const linkPolitics = <a href="/politica-de-privacidade">política de privacidade</a>;
 
   const workSchema = Yup.object().shape({
     brokerExperience: Yup.string().required(),

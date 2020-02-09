@@ -62,7 +62,7 @@ export const Label = styled.label`
         position: initial;
         /* top: 5px !important; */
 
-        a {
+        a, button {
           text-decoration: underline;
           color: ${({ theme }) => theme.colors.orange};
         }
