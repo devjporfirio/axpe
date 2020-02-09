@@ -11,7 +11,6 @@ export const Container = styled.section`
   z-index: 101;
   background: ${({ theme }) => theme.colors.white};
   transition: all 300ms ease;
-  /* ${({ theme }) => theme.hide}; */
 
   ${media.greaterThan('medium')`
     display: flex;
@@ -22,15 +21,15 @@ export const Container = styled.section`
   `}
 `;
 
-export const Wrapper = styled.header`
+export const Wrapper = styled.div`
   position: relative;
 
   ${media.greaterThan('medium')`
     width: 100%;
     max-width: 760px;
-    position: relative;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     overflow: hidden;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1) 10%);
   `}
 `;
 
@@ -41,6 +40,8 @@ export const Header = styled.header`
 
   ${media.greaterThan('medium')`
     padding: 20px 30px;
+    border-radius: 10px;
+    overflow: hidden;
   `}
 
   h2 {
@@ -105,10 +106,6 @@ export const ButtonCloseLink = styled.a`
 
 export const Body = styled.div`
   padding: 30px;
-
-  ${media.greaterThan('medium')`
-    background: ${({ theme }) => theme.colors.white};
-  `}
 `;
 
 export const Text = styled.div`
