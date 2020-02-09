@@ -63,7 +63,6 @@ const NotFound = ({ query }) => {
       </HighlightedH4>
 
       <div>
-
         {query && query.ready_release === 'pronto' && (
           <p>
             Que tal um imóvel na planta? Conheça nossas opções de imóveis em
@@ -79,7 +78,7 @@ const NotFound = ({ query }) => {
 
         {!query || !query.ready_release ? (
           <p>
-            Que tal um imóvel?
+            Conte para a gente o que está buscando, pois todos os dias chegam novos imóveis na Axpe
           </p>
         ) : null}
 
