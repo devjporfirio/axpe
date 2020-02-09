@@ -29,22 +29,25 @@ import {
 } from 'pages/MyAccount/Alerts/styles';
 
 // icon
-import ITrash from 'assets/icons/trash';
+import TrashIconSVG from 'assets/icons/trash';
 
 function Alerts() {
   const user = useSelector(state => state.user);
+  const [ loaded, setLoaded ] = useState(false);
   const [ alerts, setAlerts ] = useState([]);
 
   useEffect(() => {
     async function loadAlerts() {
       if (user && user.logged) {
         const alertsList = await Api.MyAccount.getAlerts(user.access_token);
+
         setAlerts(alertsList.alerts);
+        setLoaded(true);
       }
     }
 
     loadAlerts();
-  }, [ user ]);
+  }, [ user.logged ]);
 
   const handleRemoveAlert = async id => {
     if (user.logged) {
@@ -69,8 +72,7 @@ function Alerts() {
     areas,
     bedrooms,
     parking
-  }) => {
-    return getParamsFromObject({
+  }) => getParamsFromObject({
       source,
       finality,
       use,
@@ -85,9 +87,8 @@ function Alerts() {
       parking_start: parking && parking.length && parking[0],
       parking_end: parking && parking.length && parking[1]
     });
-  };
 
-  if (!user.logged) return <Container />;
+  if (!user.logged || !loaded) return <Container />;
 
   return (
     <Container>
@@ -117,7 +118,7 @@ function Alerts() {
                     type="button"
                     onClick={() => handleRemoveAlert(alert.id)}
                   >
-                    <SVG src={ITrash} />
+                    <SVG src={TrashIconSVG} uniquifyIDs={true} />
                     excluir
                   </ButtonRemove>
                 </AmountRemoveGroup>

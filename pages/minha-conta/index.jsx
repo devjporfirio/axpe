@@ -11,6 +11,7 @@ import { Container } from 'pages/MyAccount/Viewed/styles';
 
 function Viewed() {
   const user = useSelector(state => state.user);
+  const [ loaded, setLoaded ] = useState(false);
   const [ views, setViews ] = useState([]);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function Viewed() {
       if (user && user.access_token) {
         const buildingViewed = await Api.MyAccount.getViewed(user.access_token);
         setViews(buildingViewed);
+        setLoaded(true);
       }
     }
 
@@ -32,7 +34,7 @@ function Viewed() {
       return h;
     }, {});
 
-  if (!user.logged) return <Container />;
+  if (!user.logged || !loaded) return <Container />;
 
   return (
     <Container>

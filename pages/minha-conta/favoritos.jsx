@@ -30,6 +30,7 @@ import { Title } from 'pages/MyAccount/styles';
 function Favorites() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const [ loaded, setLoaded ] = useState(false);
   const [ buildings, setBuildings ] = useState([]);
   const [ shareActive, setShareActive ] = useState(false);
 
@@ -48,6 +49,7 @@ function Favorites() {
         );
         setBuildings(buildings);
       }
+      setLoaded(true);
     }
 
     loadBuildings();
@@ -59,15 +61,14 @@ function Favorites() {
     };
   }, []);
 
-  if (!user.logged) return <Container />;
+  if (!user.logged || !loaded) return <Container />;
 
   return !buildings || buildings.length <= 0 ? (
     <Container>
       <Body>
         <Empty
           title="Você ainda não tem nenhum imóvel favorito"
-          subtitle="Para favoritar um imóvel, faça uma busca e clique nos ícones de
-              coração em cada imóvel."
+          subtitle="Para favoritar um imóvel, faça uma busca e clique nos ícones de coração em cada imóvel."
         />
       </Body>
     </Container>
