@@ -48,8 +48,8 @@ function Favorites() {
           })
         );
         setBuildings(buildings);
+        setLoaded(true);
       }
-      setLoaded(true);
     }
 
     loadBuildings();
