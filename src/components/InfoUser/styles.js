@@ -38,7 +38,7 @@ export const Info = styled.div`
   padding: 49px 15px 0 15px;
 
   p,
-  button {
+  a {
     font: 14px/18px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
@@ -47,7 +47,7 @@ export const Info = styled.div`
     }
   }
 
-  button {
+  a {
     padding: 0;
     margin-left: calc(100% - 88px);
     text-decoration: underline;
@@ -60,10 +60,12 @@ export const Info = styled.div`
     padding: 0;
     max-width: 300px;
 
-    button {
+    a {
       color: ${({ theme }) => theme.colors.orange};
       margin: 0;
       display: inline;
     }
   `}
 `;
+
+export const LinkLogoff = styled.a``;
