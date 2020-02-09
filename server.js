@@ -1,4 +1,4 @@
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.NODE_ENV !== 'production';
 
 const app = require('express')();
 const server = require('http').Server(app);
@@ -7,18 +7,18 @@ const next = require('next');
 const axios = require('axios');
 const config = require(`./config/${process.env.NODE_ENV}.json`);
 
-const nextApp = next({ dev })
-const nextHandler = nextApp.getRequestHandler()
+const nextApp = next({ dev });
+const nextHandler = nextApp.getRequestHandler();
 const port = process.env.PORT || 3000;
 
-const getNotifications = async (userId) => {
+const getNotifications = async userId => {
   let hasNotifications = false;
 
   try {
     const items = await axios.get(`${config.apiUrl}/notifications/users`);
     const results = items.data.filter(item => item.id === userId);
 
-    if(results && results.length) {
+    if (results && results.length) {
       hasNotifications = true;
 
       // TODO: Send push notifications by OneSignal
@@ -31,15 +31,15 @@ const getNotifications = async (userId) => {
   } catch (error) {
     console.error(`Error: ${error.code}`);
   }
-}
+};
 
 io.on('connection', socket => {
   let timer;
   // const timing = 5000;
   const timing = 30000;
 
-  socket.on('notifications-init', (userId) => {
-    if(timer) {
+  socket.on('notifications-init', userId => {
+    if (timer) {
       clearTimeout(timer);
     }
 
@@ -49,7 +49,7 @@ io.on('connection', socket => {
       socket.emit('notifications', response);
 
       timer = setTimeout(() => reqGetNotifications(), timing);
-    }
+    };
 
     reqGetNotifications();
   });
@@ -57,15 +57,15 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     clearTimeout(timer);
   });
-})
+});
 
 nextApp.prepare().then(() => {
   app.get('*', (req, res) => {
-    return nextHandler(req, res)
-  })
+    return nextHandler(req, res);
+  });
 
-  server.listen(port, (err) => {
+  server.listen(port, err => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`)
-  })
-})
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});

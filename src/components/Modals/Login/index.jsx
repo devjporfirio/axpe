@@ -61,7 +61,7 @@ function LoginModal() {
   }, []);
 
   useEffect(() => {
-    if(modalLogin && modalLogin.search('favorite=true') >= 0) {
+    if(modalLogin && typeof modalLogin === 'string' && modalLogin.search('favorite=true') >= 0) {
       setSliderType('favorite');
     } else {
       setSliderType(null);
