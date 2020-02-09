@@ -14,9 +14,9 @@
   "css.validate": false,
   "eslint.run": "onSave",
   "prettier.singleQuote": true,
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
+  // "[javascript]": {
+  //   "editor.formatOnSave": true
+  // },
   "emmet.includeLanguages": {
     "nunjucks": "html",
     "erb": "html"

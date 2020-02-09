@@ -6,10 +6,12 @@ import { setUserMe } from 'store/modules/user/actions';
 let socket = null;
 
 function watch({ accessToken, userId, store }) {
+  if (process.env.config.env === 'development') return false;
+
   socket = io(`${process.env.config.siteUrl}`);
 
   async function handleNotifications(hasNotifications) {
-    if(hasNotifications) {
+    if (hasNotifications) {
       const data = { notificationsAvailable: 1 };
 
       await Api.MyAccount.putMe(accessToken, data);
@@ -23,13 +25,12 @@ function watch({ accessToken, userId, store }) {
 }
 
 function stop() {
-  if(socket) {
+  if (socket) {
     socket.close();
   }
 }
 
-
 export default {
   watch,
   stop
-}
+};

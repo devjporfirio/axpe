@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
@@ -51,12 +51,13 @@ import {
   FormTabSliderTitle
 } from './styles';
 
-function Search({ dispatch }) {
+function Search() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { searchFormActive } = useSelector(state => state.main);
   const user = useSelector(state => state.user);
   const [ alertCreated, setAlertCreated ] = useState(false);
-  const [ alertMessage, setAlertMessage ] = useState('');
+  const [ alertMessage, setAlertMessage ] = useState(null);
   const [ categoriesData, setCategoriesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
   const [ filtersListToggle, setFiltersListToggle ] = useState(null);
@@ -239,11 +240,13 @@ function Search({ dispatch }) {
 
   async function createAlert() {
     if (user && user.logged) {
-      const resp = await Api.MyAccount.postAlert(
+      const response = await Api.MyAccount.postAlert(
         user.access_token,
         formik.values
       );
-      if (resp.status === 'success') {
+      const timeTohide = response.status ? 6000 : 4000;
+
+      if (response.status) {
         setAlertMessage(
           <p>
             <strong>Alerta criado com sucesso!</strong> Você pode acompanhar
@@ -252,9 +255,14 @@ function Search({ dispatch }) {
         );
         setAlertCreated(true);
       } else {
-        setAlertMessage(<p>{resp.msg}</p>);
+        setAlertMessage(<p>{response.msg}</p>);
         setAlertCreated(true);
       }
+
+      setTimeout(() => {
+        setAlertMessage(null);
+        setAlertCreated(false);
+      }, timeTohide);
     } else {
       dispatch(setMain({ modalLogin: true }));
     }

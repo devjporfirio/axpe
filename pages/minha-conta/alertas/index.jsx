@@ -35,6 +35,7 @@ function Alerts() {
   const user = useSelector(state => state.user);
   const [ loaded, setLoaded ] = useState(false);
   const [ alerts, setAlerts ] = useState([]);
+  const [ removingItems, setRemovingItems ] = useState(false);
 
   useEffect(() => {
     async function loadAlerts() {
@@ -50,15 +51,18 @@ function Alerts() {
   }, [ user.logged ]);
 
   const handleRemoveAlert = async id => {
-    if (user.logged) {
-      const responseRemove = await Api.MyAccount.deleteAlert(
-        user.access_token,
-        id
-      );
-      if (responseRemove.status === 'success') {
-        const alertsList = await Api.MyAccount.getAlerts(user.access_token);
-        setAlerts(alertsList.alerts);
-      }
+    setRemovingItems(true);
+
+    const responseRemove = await Api.MyAccount.deleteAlert(
+      user.access_token,
+      id
+    );
+
+    setRemovingItems(false);
+
+    if (responseRemove.status) {
+      const alertsList = await Api.MyAccount.getAlerts(user.access_token);
+      setAlerts(alertsList.alerts);
     }
   };
 
@@ -117,6 +121,7 @@ function Alerts() {
                   <ButtonRemove
                     type="button"
                     onClick={() => handleRemoveAlert(alert.id)}
+                    disabled={removingItems}
                   >
                     <SVG src={TrashIconSVG} uniquifyIDs={true} />
                     excluir

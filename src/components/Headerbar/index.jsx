@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router, { useRouter } from 'next/router';
 import SVG from 'react-inlinesvg';
+import Api from 'services';
 
 // store
 import { setMain } from 'store/modules/main/actions';
@@ -28,6 +29,7 @@ import {
   Column,
   ButtonBack,
   ButtonIcon,
+  ButtonAlertMessage,
   ButtonContact,
   Text,
   ButtonLike,
@@ -42,7 +44,10 @@ function Headerbar({ className, type, title, subtitle, building }) {
   const scrollPosition = useScrollPosition();
   const { searchFormActive } = useSelector(state => state.main);
   const user = useSelector(state => state.user);
+  const { query } = router;
   const [ shareActive, setShareActive ] = useState(false);
+  const [ alertCreated, setAlertCreated ] = useState(false);
+  const [ alertMessage, setAlertMessage ] = useState(null);
 
   const toggleShare = useCallback(() => {
     setShareActive(!shareActive);
@@ -52,19 +57,19 @@ function Headerbar({ className, type, title, subtitle, building }) {
     setShareActive(!shareActive);
   }, [ shareActive ]);
 
-  const buttonBack = () => {
+  function buttonBack() {
     if (type === 'search') {
       toggleSearch();
     } else {
       Router.back();
     }
-  };
+  }
 
   const toggleSearch = useCallback(() => {
     dispatch(setMain({ searchFormActive: !searchFormActive }));
   }, [ searchFormActive ]);
 
-  const handleScrollPosition = ([ curTop, oldTop ]) => {
+  function handleScrollPosition([ curTop, oldTop ]) {
     const startTopHeaderbar = window.innerWidth < 1170 ? 70 : 0;
 
     if (!refEl || !refEl.current) return false;
@@ -84,9 +89,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
     }
 
     refEl.current.style.top = `${topHeaderbar}px`;
-  };
+  }
 
-  const handleButtonLike = async () => {
+  function handleButtonLike() {
     if (user.logged) {
       dispatch(setUserBuildingToLike(building.reference));
     } else {
@@ -101,9 +106,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
       );
       dispatch(setUserBuildingToLike(building.reference));
     }
-  };
+  }
 
-  const handleMoreInfo = type => {
+  function handleMoreInfo(type) {
     if (user.logged) {
       dispatch(
         setMain({
@@ -131,16 +136,45 @@ function Headerbar({ className, type, title, subtitle, building }) {
     } else {
       dispatch(setMain({ modalLogin: true }));
     }
-  };
+  }
 
-  useEffect(
-    () => {
-      if (type === 'modal') return;
+  async function createAlert() {
+    setAlertCreated(false);
 
-      handleScrollPosition(scrollPosition);
-    },
-    type !== 'modal' ? scrollPosition : []
-  );
+    if (user && user.logged) {
+      const response = await Api.MyAccount.postAlert(
+        user.access_token,
+        query
+      );
+      const timeTohide = response.status ? 6000 : 4000;
+
+      if (response.status) {
+        setAlertMessage(
+          <p>
+            <strong>Alerta criado com sucesso!</strong> Você pode acompanhar
+            seus alertas no seu perfil.
+          </p>
+        );
+        setAlertCreated(true);
+      } else {
+        setAlertMessage(<p>{response.msg}</p>);
+        setAlertCreated(true);
+      }
+
+      setTimeout(() => {
+        setAlertMessage(null);
+        setAlertCreated(false);
+      }, timeTohide);
+    } else {
+      dispatch(setMain({ modalLogin: true }));
+    }
+  }
+
+  useEffect(() => {
+    if (type === 'modal') return;
+
+    handleScrollPosition(scrollPosition);
+  }, type !== 'modal' ? scrollPosition : []);
 
   useEffect(() => {
     dispatch(setMain({ headerHiding: true }));
@@ -160,8 +194,11 @@ function Headerbar({ className, type, title, subtitle, building }) {
 
           {type === 'search' && (
             <Column>
-              <ButtonIcon type="button">
+              <ButtonIcon type="button" active={alertCreated} onClick={createAlert}>
                 <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                <ButtonAlertMessage active={alertCreated}>
+                  {alertMessage}
+                </ButtonAlertMessage>
               </ButtonIcon>
               <ButtonIcon type="button" onClick={toggleShare}>
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />

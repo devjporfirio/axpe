@@ -57,12 +57,10 @@ function Search({ currentPage, total, totalPages, data, locals }) {
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
   const getSourceText = useCallback(() => {
-    switch(source) {
-      case 'sao-paulo':
-        return 'São Paulo';
-      default:
-        return source;
+    if(source && source === 'sao-paulo') {
+      return 'São Paulo';
     }
+    return source;
   }, [ source ])
 
   const getFinalityText = useCallback(() => {
