@@ -278,7 +278,7 @@ function Header() {
               target="_blank"
             >
               <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-              Fale conosco pelo Whatsapp
+              WhatsApp
             </WhatsappButton>
           </Whatsapp>
 
