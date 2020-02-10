@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SVG from 'react-inlinesvg';
 
@@ -37,8 +36,6 @@ import {
   NavSecondary,
   NavSecondaryButton,
   NavIconAlert,
-  NavLangs,
-  NavLangsButton,
   Whatsapp,
   WhatsappButton,
   Contact,
@@ -53,7 +50,6 @@ import {
 function Header() {
   const dispatch = useDispatch();
   const refHeader = useRef(null);
-  const router = useRouter();
   const {
     headerHiding,
     searchFormActive,
@@ -232,45 +228,6 @@ function Header() {
               </li>
             </ul>
           </NavSecondary>
-
-          <NavLangs>
-            <ul>
-              <li>
-                <Link href="/" passHref>
-                  <NavLangsButton
-                    onClick={cancelToggle}
-                    active={
-                      router.pathname !== '/en' && router.pathname !== '/es'
-                    }
-                  >
-                    PT
-                  </NavLangsButton>
-                </Link>
-              </li>
-              <li>|</li>
-              <li>
-                <Link href="/en" passHref>
-                  <NavLangsButton
-                    onClick={cancelToggle}
-                    active={router.pathname === '/en'}
-                  >
-                    EN
-                  </NavLangsButton>
-                </Link>
-              </li>
-              <li>|</li>
-              <li>
-                <Link href="/es" passHref>
-                  <NavLangsButton
-                    onClick={cancelToggle}
-                    active={router.pathname === '/es'}
-                  >
-                    ES
-                  </NavLangsButton>
-                </Link>
-              </li>
-            </ul>
-          </NavLangs>
 
           <Whatsapp>
             <WhatsappButton
