@@ -104,18 +104,22 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
               : null
             : `${infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}`}
         </Infos>
-        {sell || release ? (
+        {sell || release || rent ? (
           <Infos>
-            {(item.type && item.type === 'lancamento') ||
-            (item.building && item.building.type === 'lancamento')
-              ? 'Apartir de: '
-              : 'Venda: '}
-            {sell
-              ? formatCurrency.format(sell)
-              : formatCurrency.format(release)}
+            {sell || release ? (
+              <>
+                {(item.type && item.type === 'lancamento') ||
+                (item.building && item.building.type === 'lancamento')
+                  ? 'Apartir de: '
+                  : 'Venda: '}
+                {sell
+                  ? formatCurrency.format(sell)
+                  : formatCurrency.format(release)}
+              </>
+            ) : null}
+            {rent ? <span>Aluguel: {formatCurrency.format(rent)}</span> : null}
           </Infos>
         ) : null}
-        {rent ? <Infos>Aluguel: {formatCurrency.format(rent)}</Infos> : null}
 
         <Reference type={type}>Ref {reference}</Reference>
       </GroupInfo>

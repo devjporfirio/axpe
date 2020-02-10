@@ -63,6 +63,7 @@ export const Slide = styled(Slider)`
       section {
         padding: 20px 0;
         max-width: 223px;
+        height: 180px;
       }
     }
   `}
