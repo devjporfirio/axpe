@@ -112,10 +112,10 @@ export default function Building({
           >
             {gallery &&
               gallery.length > 0 &&
-              gallery.map((item, index) => {
+              gallery.map((item, itemIndex) => {
                 return (
                   item.tipo === 'imagem' && (
-                    <div key={index}>
+                    <div key={`item-gallery-${reference}-${itemIndex}`}>
                       <Link
                         href="/building/[reference]"
                         as={`/building/${reference}`}
@@ -163,7 +163,7 @@ export default function Building({
                 <div>
                   {!!values.sell || !!values.release ? (
                     <Price>
-                      {type === 'lancamento' ? 'Venda: ' : 'Venda: '}
+                      Venda:{` `}
                       {!!values.sell &&
                         formatCurrency
                           .format(parseInt(values.sell))
