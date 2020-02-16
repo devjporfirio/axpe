@@ -24,10 +24,14 @@ export const Container = styled.div`
       padding: 30px;
     `}
 
+  p, h4 {
+    color: ${({ theme }) => theme.colors.greenDark};
+  }
+
   ${media.greaterThan('medium')`
     width: 100%;
     height: ${props =>
-      props.useBtSchedule ? (props.hasDeleted ? '45PX' : '386px') : '365px'};
+      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
@@ -45,9 +49,14 @@ export const Container = styled.div`
           `}
   `}
 
-  p, h4 {
-    color: ${({ theme }) => theme.colors.greenDark};
-  }
+  ${media.greaterThan('large')`
+    transition: all 300ms ease;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+  `}
 `;
 
 export const Infos = styled.div`
