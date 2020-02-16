@@ -20,7 +20,7 @@ import {
 } from './styles';
 
 export default function Datasheet({ property }) {
-  const { type, infos, category, address, reference, label, values } = property;
+  const { type, infos, category, address, reference, label, values, source } = property;
   return (
     <>
       <DatasheetContent>
@@ -110,9 +110,12 @@ export default function Datasheet({ property }) {
             />
           )}
 
-          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
-            <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
-          )}
+          {category.search('Casa') < 0 &&
+            infos.use !== 'COMERCIAL' &&
+            source !== 'praia' &&
+            source !== 'campo' && (
+              <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+            )}
         </BlockThree>
       </DatasheetContent>
       {type === 'lancamento' && infos.releaseDelivery && (

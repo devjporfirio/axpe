@@ -56,6 +56,7 @@ export default function Building({
     category,
     type,
     reference,
+    source,
     status
   } = item;
   const [ hasDeleted, setHasDeleted ] = useState(false);
@@ -194,6 +195,8 @@ export default function Building({
 
     if(infos.areaTotal &&
       infos.use !== 'COMERCIAL' &&
+      source !== 'praia' &&
+      source !== 'campo' &&
       category !== 'Cobertura' &&
       category !== 'Apartamento' &&
       category.search('Casa') < 0
