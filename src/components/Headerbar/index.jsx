@@ -30,7 +30,6 @@ import {
   ButtonBack,
   ButtonIcon,
   ButtonAlertMessage,
-  ButtonContact,
   Text,
   ButtonLike,
   ButtonMoreInformation,
@@ -203,13 +202,6 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <ButtonIcon type="button" onClick={toggleShare}>
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />
               </ButtonIcon>
-              <ButtonContact
-                type="button"
-                size="small"
-                onClick={() => handleMoreInfo('search')}
-              >
-                Fale conosco
-              </ButtonContact>
             </Column>
           )}
 
