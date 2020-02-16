@@ -153,18 +153,26 @@ const Dream = () => (
   </>
 );
 
-const RegisterProperty = () => (
-  <>
+const RegisterProperty = ({ propertyType }) => {
+  let propertyTypeText = propertyType.toLowerCase();
+
+  if(propertyTypeText === 'praia') {
+    propertyTypeText = 'de praia';
+  } else if(propertyTypeText === 'campo') {
+    propertyTypeText = 'do campo';
+  }
+
+  return (
     <HighlightedH1 type="registerProperty">
       <strong>
-        <span>Cadastre seu imóvel.</span>
+        <span>Cadastre seu imóvel {propertyTypeText}.</span>
       </strong>
       <br />
       <span> Com certeza tem alguém procurando por ele</span>
       <hr />
     </HighlightedH1>
-  </>
-);
+  );
+};
 
 const RegisterPropertyTransform = () => (
   <>
@@ -195,7 +203,7 @@ const RegisterPropertyWhite = () => (
   </>
 );
 
-export default function BlockHighlighted({ type, href, onClick, query }) {
+export default function BlockHighlighted({ type, href, onClick, query, ...props }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
@@ -205,7 +213,7 @@ export default function BlockHighlighted({ type, href, onClick, query }) {
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
       {type === 'dream' && <Dream />}
-      {type === 'registerProperty' && <RegisterProperty />}
+      {type === 'registerProperty' && <RegisterProperty {...props} />}
       {type === 'registerPropertyWhite' && <RegisterPropertyWhite />}
       {type === 'registerPropertyTransform' && <RegisterPropertyTransform />}
     </Container>
