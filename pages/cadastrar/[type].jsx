@@ -147,12 +147,12 @@ function RegisterForm({ locals, categories, pais, type }) {
             : 'Vender'
           : ''
       }`;
-      const resp = await Api.RegisterProperty.postProperty(
+      const response = await Api.RegisterProperty.postProperty(
         user.access_token,
         values
       );
       setSubmitting(false);
-      if (resp.status) {
+      if (response.status) {
         dispatch(
           setMain({
             modalRegisterSuccess: true
