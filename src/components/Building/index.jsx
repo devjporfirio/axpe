@@ -21,6 +21,7 @@ import LikeIconSVG from 'assets/icons/like';
 
 import {
   Container,
+  LinkTag,
   Infos,
   Category,
   CategoryRelease,
@@ -210,10 +211,13 @@ export default function Building({
                   item.tipo === 'imagem' && (
                     <div key={`item-gallery-${reference}-${itemIndex}`}>
                       <Link
-                        href="/building/[reference]"
+                        href={`/building/[reference]`}
                         as={`/building/${reference}`}
+                        passHref
                       >
-                        <img src={item.src} alt="Imóvel" />
+                        <LinkTag>
+                          <img src={item.src} alt={`Axpe ${category} - ${reference}`} />
+                        </LinkTag>
                       </Link>
                     </div>
                   )
@@ -230,56 +234,60 @@ export default function Building({
                 Remover
               </RemoveButton>
             )}
-            <Link href="/building/[reference]" as={`/building/${reference}`}>
-              <CatLocGroup>
-                <Category>
-                  {type === 'lancamento'
-                    ? infos.releaseStatus === 'Pronto'
-                      ? 'Pronto para morar'
-                      : infos.releaseStatus
-                    : category || 'Pronto para morar'}
-                </Category>
-                <div>
+            <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
+              <LinkTag>
+                <CatLocGroup>
+                  <Category>
+                    {type === 'lancamento'
+                      ? infos.releaseStatus === 'Pronto'
+                        ? 'Pronto para morar'
+                        : infos.releaseStatus
+                      : category || 'Pronto para morar'}
+                  </Category>
                   <div>
-                    {address && address.local && <Local>{address.local}</Local>}
-                    {type === 'lancamento' && (
-                      <CategoryRelease>{category}</CategoryRelease>
-                    )}
+                    <div>
+                      {address && address.local && <Local>{address.local}</Local>}
+                      {type === 'lancamento' && (
+                        <CategoryRelease>{category}</CategoryRelease>
+                      )}
+                    </div>
+                    <Reference>Ref {item.reference}</Reference>
                   </div>
-                  <Reference>Ref {item.reference}</Reference>
-                </div>
-              </CatLocGroup>
+                </CatLocGroup>
+              </LinkTag>
             </Link>
 
             <ValuesFavGroup>
-              <Link href="/building/[reference]" as={`/building/${reference}`}>
-                <div>
-                  {!!values.sell || !!values.release ? (
-                    <Price>
-                      Venda:{` `}
-                      {!!values.sell &&
-                        formatCurrency
-                          .format(parseInt(values.sell))
+              <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
+                <LinkTag>
+                  <div>
+                    {!!values.sell || !!values.release ? (
+                      <Price>
+                        Venda:{` `}
+                        {!!values.sell &&
+                          formatCurrency
+                            .format(parseInt(values.sell))
+                            .replace('R$', values.currency || 'R$')}
+                        {!!values.release &&
+                          formatCurrency
+                            .format(parseInt(values.release))
+                            .replace('R$', values.currency || 'R$')}
+                      </Price>
+                    ) : (
+                      ''
+                    )}
+                    {!!values.rent ? (
+                      <Price>
+                        Locação:{' '}
+                        {formatCurrency
+                          .format(parseInt(values.rent))
                           .replace('R$', values.currency || 'R$')}
-                      {!!values.release &&
-                        formatCurrency
-                          .format(parseInt(values.release))
-                          .replace('R$', values.currency || 'R$')}
-                    </Price>
-                  ) : (
-                    ''
-                  )}
-                  {!!values.rent ? (
-                    <Price>
-                      Locação:{' '}
-                      {formatCurrency
-                        .format(parseInt(values.rent))
-                        .replace('R$', values.currency || 'R$')}
-                    </Price>
-                  ) : (
-                    ''
-                  )}
-                </div>
+                      </Price>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </LinkTag>
               </Link>
               <FavoriteButton
                 type="button"
@@ -289,14 +297,15 @@ export default function Building({
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </FavoriteButton>
             </ValuesFavGroup>
-            <Link href="/building/[reference]" as={`/building/${reference}`}>
-              <div>
-                <CaracteristicsGroup>
-                  {getCaracteristics().map((item, itemIndex) => item)}
-                </CaracteristicsGroup>
-
-                <Description>{infos.internalDescription}</Description>
-              </div>
+            <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
+              <LinkTag>
+                <div>
+                  <CaracteristicsGroup>
+                    {getCaracteristics().map((item, itemIndex) => item)}
+                  </CaracteristicsGroup>
+                  <Description>{infos.internalDescription}</Description>
+                </div>
+              </LinkTag>
             </Link>
             {useBtSchedule && (
               <ScheduleButton type="button" onClick={handleBtSchedule}>

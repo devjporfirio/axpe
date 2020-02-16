@@ -51,13 +51,14 @@ export const Container = styled.div`
 
   ${media.greaterThan('large')`
     transition: all 300ms ease;
-    cursor: pointer;
 
     &:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     }
   `}
 `;
+
+export const LinkTag = styled.a``;
 
 export const Infos = styled.div`
   display: block;
