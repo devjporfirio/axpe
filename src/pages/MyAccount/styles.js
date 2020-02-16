@@ -81,6 +81,7 @@ export const Nav = styled.nav`
 
     ul {
       display: flex;
+      overflow: inherit;
 
       li + li {
         border-right: 3px solid ${({ theme }) => theme.colors.greyLight};
