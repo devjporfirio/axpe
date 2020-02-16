@@ -35,7 +35,7 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ currentPage, total, totalPages, data, locals }) {
+function Search({ total, totalPages, data, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { query, query: { source, finality, reference, order } } = router;
@@ -130,7 +130,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       return result;
     }
 
-    if(query.price_start && query.price_end) {
+    if(query.price_start && query.price_end && !reference) {
       const priceEnd = +query.price_end;
       const percent = priceEnd * 20 / 100;
       const newPriceStart = priceEnd + 1;
@@ -143,7 +143,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       });
     }
 
-    if(query.source && query.local && locals) {
+    if(query.source && query.local && locals && !reference) {
       const localsArr = query.local.split(',');
 
       let localsSelected = [];
@@ -171,7 +171,8 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       query.ready_release &&
       query.source === 'sao-paulo' &&
       query.finality === 'venda' &&
-      query.use === 'RESIDENCIAL') {
+      query.use === 'RESIDENCIAL' &&
+      !reference) {
         const finalText = query.ready_release === 'pronto' ? 'mas ainda em construção' : 'mas pronto para morar';
         const query2 = query.ready_release === 'pronto' ? {
           ...query,
@@ -184,7 +185,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       }
 
     setSuggestions(results);
-  }, [ total ]);
+  }, [ total, reference ]);
 
   useEffect(() => {
     setNewData(data, true);
@@ -194,7 +195,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
     if(!dataLoaded) {
       setDataLoaded(true);
     }
-  }, [ total, order ]);
+  }, [ total, order, reference ]);
 
   useEffect(() => {
     const getDataByPage = async () => {
