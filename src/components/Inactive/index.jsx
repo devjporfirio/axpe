@@ -5,12 +5,12 @@ import SVG from 'react-inlinesvg';
 import { Container } from './styles';
 
 // images
-import IEmoji from 'assets/icons/emoji';
+import EmojiIconSVG from 'assets/icons/emoji';
 
 export default function Inactive({ type, className }) {
   return (
     <Container type={type} className={className}>
-      <SVG src={IEmoji} />
+      <SVG src={EmojiIconSVG} uniquifyIDs={true} />
       <p>
         <strong>Ops!</strong>
         <br />

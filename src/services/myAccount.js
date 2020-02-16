@@ -15,7 +15,7 @@ export default {
   async getViewed(token) {
     shouldRenewToken();
     const response = await fetch(
-      `${process.env.config.apiUrl}/user/buildings/viewed?limit=10`,
+      `${process.env.config.apiUrl}/user/buildings/viewed?limit=10&find_all=1`,
       {
         method: 'GET',
         headers: {

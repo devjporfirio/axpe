@@ -150,13 +150,13 @@ function Alerts() {
                       <InfoBase mq="desktop">
                         {alert.finality === 'venda' &&
                           `Comprar ${
-                            alert.values && alert.values.length > 0 ? '- ' : ''
+                            alert.values && alert.values.length >= 1 && alert.values[0] ? '- ' : ''
                           }`}
                         {alert.finality !== 'venda' &&
                           `Alugar ${
-                            alert.values && alert.values.length > 0 ? '- ' : ''
+                            alert.values && alert.values.length >= 1 && alert.values[0] ? '- ' : ''
                           }`}
-                        {alert.values.length > 0 &&
+                        {alert.values.length >= 1 && alert.values[0] &&
                           `${formatCurrency.format(
                             parseInt(alert.values[0])
                           )} à ${formatCurrency.format(
@@ -164,48 +164,51 @@ function Alerts() {
                           )}`}
                       </InfoBase>
 
-                      {alert.areas.length > 0 && (
+                      {alert.areas.length >= 1 && alert.areas[0] && (
                         <InfoBase mq="mobile">
                           {alert.areas[0]} à {alert.areas[1]} m²
                         </InfoBase>
                       )}
-                      {alert.bedrooms.length > 0 && (
+
+                      {alert.bedrooms.length >= 1 && alert.bedrooms[0] && (
                         <InfoBase mq="mobile">
                           {alert.bedrooms[0]} à {alert.bedrooms[1]} Dormitórios
                         </InfoBase>
                       )}
 
-                      <InfoBase mq="desktop">
-                        {alert.areas.length > 0 &&
-                          `${alert.areas[0]} à ${alert.areas[1]} m²`}
+                      {alert.areas[0] || alert.bedrooms[0] || alert.parking[0] ? (
+                        <InfoBase mq="desktop">
+                          {alert.areas.length > 0 &&
+                            `${alert.areas[0]} à ${alert.areas[1]} m²`}
 
-                        {((alert.areas.length > 0 &&
-                          alert.bedrooms.length > 0) ||
-                          (alert.areas.length > 0 &&
-                            alert.parking.length > 0)) &&
-                          ' / '}
+                          {((alert.areas.length > 0 &&
+                            alert.bedrooms.length > 0) ||
+                            (alert.areas.length > 0 &&
+                              alert.parking.length > 0)) &&
+                            ' / '}
 
-                        {alert.bedrooms.length > 0 &&
-                          `${alert.bedrooms[0]} à ${
-                            alert.bedrooms[1]
-                          } Dormitórios`}
+                          {alert.bedrooms.length > 0 &&
+                            `${alert.bedrooms[0]} à ${
+                              alert.bedrooms[1]
+                            } Dormitórios`}
 
-                        {alert.bedrooms.length > 0 &&
-                          alert.parking.length > 0 &&
-                          ' / '}
+                          {alert.bedrooms.length > 0 &&
+                            alert.parking.length > 0 &&
+                            ' / '}
 
-                        {(!alert.bedrooms.length > 0 ||
-                          !alert.areas.length > 0) &&
-                          alert.parking.length > 0 &&
-                          `${alert.parking[0]} à ${alert.parking[1]} Vagas`}
-                      </InfoBase>
+                          {(!alert.bedrooms.length > 0 ||
+                            !alert.areas.length > 0) &&
+                            alert.parking.length > 0 &&
+                            `${alert.parking[0]} à ${alert.parking[1]} Vagas`}
+                        </InfoBase>
+                      ) : null}
 
-                      {alert.parking.length > 0 && (
+                      {alert.parking.length >= 1 && alert.parking[0] && (
                         <InfoBase>
                           {alert.parking[0]} à {alert.parking[1]} Vagas
                         </InfoBase>
                       )}
-                      {alert.locals.length > 0 && (
+                      {alert.locals.length >= 1 && alert.locals[0] && (
                         <InfoBase>{alert.locals.join(', ')}</InfoBase>
                       )}
                     </ItemInfo>
