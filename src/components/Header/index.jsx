@@ -240,7 +240,7 @@ function Header() {
           </Whatsapp>
 
           <Contact>
-            Fale com a gente <strong>(11) 3074-3600</strong>
+            Fale com a gente <a href="tel:+551130743600">(11) 3074-3600</a>
           </Contact>
 
           <Newsletter>
