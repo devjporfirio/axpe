@@ -45,6 +45,9 @@ function Main({ children }) {
 
     Router.events.on('routeChangeComplete', () => {
       dispatch(setLoading({ active: false }));
+      if(window) {
+        window.scrollTo(0, 0);
+      }
     });
 
     // OneSignalHelper.start();
