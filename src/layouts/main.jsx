@@ -1,5 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import Router from 'next/router';
+
+// helpers
+// import OneSignalHelper from 'helpers/oneSignal';
+
+// actions
+import { setLoading } from 'store/modules/loading/actions';
+import { setMain } from 'store/modules/main/actions';
+import { setUserByCookie } from 'store/modules/user/actions';
 
 // components
 import Loading from 'components/Loading';
@@ -21,6 +31,28 @@ import ThemeStyle from './themeStyle';
 import { Wrapper } from './styles';
 
 function Main({ children }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    Router.events.on('routeChangeStart', () => {
+      dispatch(setMain({
+        searchFormActive: false,
+        headerHiding: false,
+        modalLoginRegisterSuccess: false
+      }));
+      dispatch(setLoading({ active: true }));
+    });
+
+    Router.events.on('routeChangeComplete', () => {
+      dispatch(setLoading({ active: false }));
+    });
+
+    // OneSignalHelper.start();
+
+    dispatch(setLoading({ active: false }));
+    dispatch(setUserByCookie());
+  }, []);
+
   return (
     <ThemeProvider theme={ThemeStyle}>
       <>
