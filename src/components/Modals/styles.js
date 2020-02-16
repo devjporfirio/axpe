@@ -332,6 +332,10 @@ export const SuccessColumn = styled.div`
 
   &:last-child {
     margin-bottom: auto;
+
+    p {
+      margin-bottom: 10px;
+    }
   }
 
   ${media.greaterThan('1024px')`
