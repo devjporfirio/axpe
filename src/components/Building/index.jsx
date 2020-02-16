@@ -139,7 +139,7 @@ export default function Building({
       );
     }
 
-    if(infos.areaBuilding) {
+    if(infos.areaBuilding && category !== 'Cobertura' && category !== 'Apartamento') {
       items.push(
         <Caracteristics.AreaBuilding
           areaBuilding={infos.areaBuilding}
@@ -148,7 +148,7 @@ export default function Building({
       );
     }
 
-    if(infos.areaGround) {
+    if(infos.areaGround && category !== 'Cobertura' && category !== 'Apartamento') {
       items.push(
         <Caracteristics.AreaGround
           areaGround={infos.areaGround}
@@ -166,7 +166,7 @@ export default function Building({
       );
     }
 
-    if(infos.areaUsefulStart && infos.areaUsefulEnd) {
+    if(infos.areaUsefulStart && infos.areaUsefulEnd && category !== 'Cobertura' && category !== 'Apartamento') {
       items.push(
         <Caracteristics.AreaUseFulBetween
           start={infos.areaUsefulStart}
@@ -176,7 +176,7 @@ export default function Building({
       );
     }
 
-    if(infos.areaTotal) {
+    if(infos.areaTotal && category !== 'Cobertura' && category !== 'Apartamento') {
       items.push(
         <Caracteristics.AreaTotal
           areaTotal={infos.areaTotal}
