@@ -110,7 +110,7 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
               <>
                 {(item.type && item.type === 'lancamento') ||
                 (item.building && item.building.type === 'lancamento')
-                  ? 'Apartir de: '
+                  ? 'A partir de: '
                   : 'Venda: '}
                 {sell
                   ? formatCurrency.format(sell)

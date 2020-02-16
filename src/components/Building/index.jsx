@@ -286,7 +286,7 @@ export default function Building({
                   <div>
                     {!!values.sell || !!values.release ? (
                       <Price>
-                        Venda:{` `}
+                        {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                         {!!values.sell &&
                           formatCurrency
                             .format(parseInt(values.sell))
