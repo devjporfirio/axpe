@@ -39,10 +39,10 @@ function Viewed() {
   return (
     <Container>
       {Object.keys(group).length > 0 ? (
-        Object.keys(group).map((item, index) => (
-          <Fragment key={index}>
+        Object.keys(group).map((item, itemIndex) => (
+          <Fragment key={`row-viewed-${itemIndex}`}>
             <Slides date={item} items={group[item]} />
-            {Object.keys(group).length - 1 > index && <hr />}
+            {Object.keys(group).length - 1 > itemIndex && <hr />}
           </Fragment>
         ))
       ) : (

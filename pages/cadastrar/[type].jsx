@@ -568,7 +568,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                 {values.images.length > 0 &&
                   values.images.map((imgSrc, index) => {
                     return (
-                      <GroupImage key={index}>
+                      <GroupImage key={`groupimg-${index}`}>
                         <SVG
                           src={IClose}
                           uniquifyIDs={true}

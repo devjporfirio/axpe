@@ -85,14 +85,14 @@ export default function Modules({ property }) {
     <>
       {Array.isArray(property.components) &&
         property.components.map((component, index) => (
-          <Module key={index}>
+          <Module key={`building-module-0-${index}`}>
             {renderModules(component.module.slug, component)}
           </Module>
         ))}
 
       {!Array.isArray(property.components) &&
         Object.keys(property.components).map((componentKey, index) => (
-          <Module key={`building-module-${index}-${componentKey}`}>
+          <Module key={`building-module-1-${index}-${componentKey}`}>
             {renderModules(componentKey, property.components[componentKey])}
           </Module>
         ))}

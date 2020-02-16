@@ -11,7 +11,7 @@ export default function Select(props) {
         {props.items &&
           props.items.length > 0 &&
           props.items.map(i => (
-            <option key={i.value} value={i.value}>
+            <option key={`option-${i.value}`} value={i.value}>
               {i.label}
             </option>
           ))}

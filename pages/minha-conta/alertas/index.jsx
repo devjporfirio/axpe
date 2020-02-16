@@ -104,8 +104,8 @@ function Alerts() {
           <Subtitle>Novos imóveis foram adicionados a sua lista.</Subtitle>
 
           {alerts &&
-            alerts.map((alert, index) => (
-              <Item key={index}>
+            alerts.map((alert, alertIndex) => (
+              <Item key={`alert-item-${alertIndex}`}>
                 <Link href={`alertas/busca${getParams(alert)}`} passHref>
                   <a href={`alertas/busca${getParams(alert)}`}>
                     <Gradient />
