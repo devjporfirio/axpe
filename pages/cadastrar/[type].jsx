@@ -95,9 +95,8 @@ function RegisterForm({ locals, categories, pais, type }) {
   }, [ user ]);
 
   useEffect(() => {
-    let newLocals = [{ label: 'Selecione', value: '' }];
     const key = keyLocals || 'São Paulo';
-    newLocals = [{ label: 'Selecione', value: '' }].concat(
+    const newLocals = [{ label: 'Selecione', value: '' }].concat(
       locals[key].map(y => ({ label: y.local, value: y.local }))
     );
 

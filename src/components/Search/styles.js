@@ -333,8 +333,6 @@ export const FormButtonFilter = styled.button`
     }
   }
 
-  ${props => props.active && FormButtonFilterActive}
-
   ${media.greaterThan('medium')`
     display: block;
     border-bottom: 0;
@@ -364,12 +362,23 @@ export const FormButtonFilter = styled.button`
       }
     }
   `}
+
+  ${props => props.active && FormButtonFilterActive}
+  ${props => props.filled && FormButtonFilterFilled}
 `;
 
-export const FormButtonFilterActive = css`
+const FormButtonFilterActive = css`
   strong {
     color: ${({ theme }) => theme.colors.orange};
   }
+`;
+
+const FormButtonFilterFilled = css`
+  min-height: 60px;
+
+  ${media.greaterThan('medium')`
+    min-height: 60px;
+  `}
 `;
 
 export const FormTab = styled.div`

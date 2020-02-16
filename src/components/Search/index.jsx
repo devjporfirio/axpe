@@ -500,6 +500,7 @@ function Search() {
                 <FormButtonFilter
                   type="button"
                   active={tabActive === 'types'}
+                  filled={!!formik.values.types.length}
                   onClick={() => setTabActive('types')}
                 >
                   <strong>Tipo de imóvel</strong>
@@ -514,6 +515,7 @@ function Search() {
                 <FormButtonFilter
                   type="button"
                   active={tabActive === 'locals'}
+                  filled={!!formik.values.local.length}
                   onClick={() => setTabActive('locals')}
                 >
                   <strong>Selecione a localização</strong>
@@ -539,6 +541,10 @@ function Search() {
                 <FormButtonFilter
                   type="button"
                   active={tabActive === 'filters'}
+                  filled={(formik.values.price_start && formik.values.price_end) ||
+                    (formik.values.area_start && formik.values.area_end) ||
+                    (formik.values.bedroom_start && formik.values.bedroom_end) ||
+                    (formik.values.parking_start && formik.values.parking_end)}
                   onClick={() => setTabActive('filters')}
                 >
                   <strong>Mais filtros</strong>
