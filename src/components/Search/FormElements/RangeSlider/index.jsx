@@ -6,7 +6,7 @@ import { formatCurrency } from 'helpers/utils';
 import { Container, Text, Slider } from './styles'
 
 function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 100, onChange }) {
-  const refRangeSlider = useRef(null);
+  const ref = useRef(null);
   const sliderApi = useRef(null);
   const [ values, setValues ] = useState(null);
 
@@ -17,10 +17,14 @@ function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 1
     })
   }
 
-  const attachRangeSlider = () => {
-    if(!refRangeSlider || !refRangeSlider.current || !data) return false;
+  function renderSlider() {
+    if(!data) return false;
 
-    sliderApi.current = noUiSlider.create(refRangeSlider.current, {
+    if(sliderApi.current) {
+      sliderApi.current.destroy();
+    }
+
+    sliderApi.current = noUiSlider.create(ref.current, {
       start: data,
       connect: true,
       format: {
@@ -45,11 +49,8 @@ function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 1
   }
 
   useEffect(() => {
-    attachRangeSlider()
-  }, [])
-
-  useEffect(() => {
     saveValues(data);
+    renderSlider();
   }, [ data ])
 
   return (
@@ -59,7 +60,7 @@ function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 1
           {`${values.first} ${sep} ${values.last}`}
         </Text>
       ) : null}
-      <Slider ref={refRangeSlider}></Slider>
+      <Slider ref={ref}></Slider>
     </Container>
   )
 }
