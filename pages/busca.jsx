@@ -43,6 +43,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'latest' },
+    { label: 'Menor área útil', value: 'area' },
     { label: 'Maior área útil', value: 'area' },
     { label: 'Menor Preço', value: 'lowest_price' },
     { label: 'Maior Preço', value: 'biggest_price' }
@@ -282,7 +283,6 @@ function Search({ currentPage, total, totalPages, data, locals }) {
                 />
               ))}
             </Wrapper>
-
 
             <BlockHighlighted type="notfound" query={query} />
             <Contact />
