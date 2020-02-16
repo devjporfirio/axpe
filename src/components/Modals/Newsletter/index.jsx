@@ -101,7 +101,7 @@ function NewsletterModal() {
               onBlur={handleBlur}
             />
           </FormGroup>
-          <Button type="submit" disabled={isSubmitting} fullWidth={true}>Começar</Button>
+          <Button type="submit" disabled={isSubmitting} fullWidth={true}>Cadastre-se</Button>
         </FormContainer>
       </Column>
     </Modal>
