@@ -93,22 +93,24 @@ export default function Datasheet({ property }) {
             end={infos.parkingEnd}
           />
 
-          {category.search('Casa') < 0 && (
+          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
           )}
 
           <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
 
-          <Caracteristics.AreaGround areaGround={infos.areaGround} />
+          {infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaGround areaGround={infos.areaGround} />
+          )}
 
-          {category.search('Casa') < 0 && (
+          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaUseFulBetween
               start={infos.areaUsefulStart}
               end={infos.areaUsefulEnd}
             />
           )}
 
-          {category.search('Casa') < 0 && (
+          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
           )}
         </BlockThree>

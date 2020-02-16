@@ -141,6 +141,7 @@ export default function Building({
     }
 
     if(infos.areaBuilding &&
+      infos.use !== 'COMERCIAL' &&
       category !== 'Cobertura' &&
       category !== 'Apartamento' &&
       category.search('Casa') < 0
@@ -162,7 +163,11 @@ export default function Building({
       );
     }
 
-    if(infos.areaGround && category !== 'Cobertura' && category !== 'Apartamento') {
+    if(infos.areaGround &&
+      infos.use !== 'COMERCIAL' &&
+      category !== 'Cobertura' &&
+      category !== 'Apartamento'
+    ) {
       items.push(
         <Caracteristics.AreaGround
           areaGround={infos.areaGround}
@@ -173,6 +178,7 @@ export default function Building({
 
     if(infos.areaUsefulStart &&
       infos.areaUsefulEnd &&
+      infos.use !== 'COMERCIAL' &&
       category !== 'Cobertura' &&
       category !== 'Apartamento' &&
       category.search('Casa') < 0
@@ -187,6 +193,7 @@ export default function Building({
     }
 
     if(infos.areaTotal &&
+      infos.use !== 'COMERCIAL' &&
       category !== 'Cobertura' &&
       category !== 'Apartamento' &&
       category.search('Casa') < 0
