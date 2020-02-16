@@ -8,7 +8,7 @@ import IPinMobile from 'assets/icons/pin-mobile.svg';
 
 import { Container, Mapa, Pin, Text } from './styles';
 
-export default function Around({ cep, text }) {
+function Around({ cep, text }) {
   const [ overvirePoly, setOverviewPoly ] = useState('');
   const [ lat, setLat ] = useState('');
   const [ lng, setLng ] = useState('');
@@ -75,3 +75,5 @@ export default function Around({ cep, text }) {
     </Container>
   );
 }
+
+export default Around;
