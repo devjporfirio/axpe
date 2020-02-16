@@ -13,7 +13,7 @@ export const Container = styled(BaseArticles)`
 
   ${media.greaterThan('1024px')`
     margin-top: 25px;
-    background-color: ${({ theme }) => theme.colors.white};  
+    background-color: ${({ theme }) => theme.colors.white};
 
     header {
       max-width: 510px;

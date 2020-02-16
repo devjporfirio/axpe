@@ -8,7 +8,7 @@ export default function ArticleOffice() {
       <Group>
         <header>
           <TitleSection>
-            <span> Nosso escritório é uma delícia.</span> <br /> A vista é
+            <strong> Nosso escritório é uma delícia.</strong> <br /> A vista é
             linda, com direito a por do sol todos os dias.
           </TitleSection>
         </header>

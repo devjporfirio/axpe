@@ -7,7 +7,7 @@ export default function ArticleElement() {
     <Container id="materia-prima">
       <header>
         <TitleSection>
-          <span>Concreto, vidro e criatividade:</span>
+          <strong>Concreto, vidro e criatividade:</strong>
           <br />
           matéria-prima dos imóveis comerciais na Axpe
         </TitleSection>

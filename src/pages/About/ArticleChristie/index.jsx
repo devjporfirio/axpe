@@ -7,7 +7,7 @@ export default function ArticleChristie() {
     <Container id="christie">
       <header>
         <TitleSection>
-          Um convite da <span>Christie’s</span> não chega a qualquer
+          Um convite da <strong>Christie’s</strong> não chega a qualquer
           imobiliária.
         </TitleSection>
       </header>

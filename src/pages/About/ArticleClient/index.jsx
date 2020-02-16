@@ -8,7 +8,7 @@ export default function ArticleClient() {
       <Group>
         <header>
           <TitleSection>
-            Cliente é <span>como filho</span>
+            Cliente é <strong>como filho</strong>
           </TitleSection>
         </header>
         <img src="static/about/sec-client.jpg" alt="Imagem de sala" />

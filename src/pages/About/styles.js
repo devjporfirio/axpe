@@ -145,7 +145,7 @@ export const TitleSection = styled.h2`
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   color: ${({ theme }) => theme.colors.greenDark};
 
-  span {
+  strong {
     font: 24px/28px 'Raleway';
     color: ${({ theme }) => theme.colors.orange};
     font-weight: ${({ theme }) => theme.fontsWeight.black};
@@ -154,7 +154,8 @@ export const TitleSection = styled.h2`
   ${media.greaterThan('medium')`
     font-size: 37px;
     line-height: 42px;
-    span {
+
+    strong {
       font-size: 37px;
       line-height: 42px;
     }

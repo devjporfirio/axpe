@@ -7,7 +7,7 @@ export default function ArticleSecurity() {
     <Container id="seguranca">
       <header>
         <TitleSection>
-          <span>Segurança pessoal: </span><br/>
+          <strong>Segurança pessoal: </strong><br/>
           também nos preocupamos com isso
         </TitleSection>
       </header>
