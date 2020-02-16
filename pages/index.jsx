@@ -128,7 +128,7 @@ function Home({ hero, components }) {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-        <SlickSection useGradient={true} color="white" items={hero} />
+        <SlickSection name="hero" useGradient={true} color="white" items={hero} />
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {

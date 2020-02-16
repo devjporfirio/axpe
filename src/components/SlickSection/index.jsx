@@ -71,6 +71,7 @@ function SlickSection({
   type = 'slick',
   items = [],
   color,
+  name,
   useGradient = false,
   className
 }) {
@@ -167,7 +168,7 @@ function SlickSection({
               />
             )}
 
-            {useGradient && <Gradient />}
+            {(!name && useGradient) || (name && name === 'hero' && (item.title || item.content) && useGradient) && <Gradient />}
             {renderBackground(type, item)}
             <Section type={type} item={item} />
           </Slide>
