@@ -92,14 +92,25 @@ export default function Datasheet({ property }) {
             start={infos.parkingStart}
             end={infos.parkingEnd}
           />
-          <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
-          <Caracteristics.AreaGround areaGround={infos.areaGround} />
+
+          {category.search('Casa') < 0 && (
+            <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
+          )}
+
           <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
-          <Caracteristics.AreaUseFulBetween
-            start={infos.areaUsefulStart}
-            end={infos.areaUsefulEnd}
-          />
-          <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+
+          <Caracteristics.AreaGround areaGround={infos.areaGround} />
+
+          {category.search('Casa') < 0 && (
+            <Caracteristics.AreaUseFulBetween
+              start={infos.areaUsefulStart}
+              end={infos.areaUsefulEnd}
+            />
+          )}
+
+          {category.search('Casa') < 0 && (
+            <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+          )}
         </BlockThree>
       </DatasheetContent>
       {type === 'lancamento' && infos.releaseDelivery && (

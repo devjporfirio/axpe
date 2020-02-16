@@ -140,19 +140,14 @@ export default function Building({
       );
     }
 
-    if(infos.areaBuilding && category !== 'Cobertura' && category !== 'Apartamento') {
+    if(infos.areaBuilding &&
+      category !== 'Cobertura' &&
+      category !== 'Apartamento' &&
+      category.search('Casa') < 0
+    ) {
       items.push(
         <Caracteristics.AreaBuilding
           areaBuilding={infos.areaBuilding}
-          key={`caracteristic-${reference}-${items.length}`}
-        />
-      );
-    }
-
-    if(infos.areaGround && category !== 'Cobertura' && category !== 'Apartamento') {
-      items.push(
-        <Caracteristics.AreaGround
-          areaGround={infos.areaGround}
           key={`caracteristic-${reference}-${items.length}`}
         />
       );
@@ -167,7 +162,21 @@ export default function Building({
       );
     }
 
-    if(infos.areaUsefulStart && infos.areaUsefulEnd && category !== 'Cobertura' && category !== 'Apartamento') {
+    if(infos.areaGround && category !== 'Cobertura' && category !== 'Apartamento') {
+      items.push(
+        <Caracteristics.AreaGround
+          areaGround={infos.areaGround}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.areaUsefulStart &&
+      infos.areaUsefulEnd &&
+      category !== 'Cobertura' &&
+      category !== 'Apartamento' &&
+      category.search('Casa') < 0
+    ) {
       items.push(
         <Caracteristics.AreaUseFulBetween
           start={infos.areaUsefulStart}
@@ -177,7 +186,11 @@ export default function Building({
       );
     }
 
-    if(infos.areaTotal && category !== 'Cobertura' && category !== 'Apartamento') {
+    if(infos.areaTotal &&
+      category !== 'Cobertura' &&
+      category !== 'Apartamento' &&
+      category.search('Casa') < 0
+    ) {
       items.push(
         <Caracteristics.AreaTotal
           areaTotal={infos.areaTotal}
