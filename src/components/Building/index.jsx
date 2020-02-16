@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Link from 'next/link';
@@ -62,12 +62,12 @@ export default function Building({
   const user = useSelector(state => state.user);
   const isFavoriteBuilding = checkFavorite(reference);
 
-  const handleButtonRemove = async (ref, action) => {
+  const handleButtonRemove = useCallback(async (ref, action) => {
     await Api.MyAccount.postFavorite(user.access_token, ref, action);
     setHasDeleted(!action);
-  };
+  }, [ user.logged ]);
 
-  const handleButtonFavorite = () => {
+  const handleButtonFavorite = useCallback(() => {
     if (user.logged) {
       dispatch(setUserBuildingToLike(reference));
     } else {
@@ -82,9 +82,9 @@ export default function Building({
       );
       dispatch(setUserBuildingToLike(reference));
     }
-  };
+  }, [ user.logged ]);
 
-  const handleBtSchedule = () => {
+  const handleBtSchedule = useCallback(() => {
     dispatch(
       setMain({
         modalContact: true,
@@ -95,7 +95,100 @@ export default function Building({
         } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`
       })
     );
-  };
+  }, []);
+
+  const getCaracteristics = useCallback(() => {
+    let items = [];
+
+    if(infos.bedrooms) {
+      items.push(
+        <Caracteristics.Bedrooms
+          bedrooms={infos.bedrooms}
+          suites={infos.suites}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.bedroomsStart && infos.bedroomsEnd) {
+      items.push(
+        <Caracteristics.BedroomsBetween
+          start={infos.bedroomsStart}
+          end={infos.bedroomsEnd}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.parking) {
+      items.push(
+        <Caracteristics.Parking
+          parking={infos.parking}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.parkingStart && infos.parkingEnd) {
+      items.push(
+        <Caracteristics.ParkingBetween
+          start={infos.parkingStart}
+          end={infos.parkingEnd}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.areaBuilding) {
+      items.push(
+        <Caracteristics.AreaBuilding
+          areaBuilding={infos.areaBuilding}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.areaGround) {
+      items.push(
+        <Caracteristics.AreaGround
+          areaGround={infos.areaGround}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.areaUseful) {
+      items.push(
+        <Caracteristics.AreaUseFul
+          areaUseful={infos.areaUseful}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.areaUsefulStart && infos.areaUsefulEnd) {
+      items.push(
+        <Caracteristics.AreaUseFulBetween
+          start={infos.areaUsefulStart}
+          end={infos.areaUsefulEnd}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    if(infos.areaTotal) {
+      items.push(
+        <Caracteristics.AreaTotal
+          areaTotal={infos.areaTotal}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
+    items = items.slice(0, 4);
+
+    return items;
+  }, [])
 
   return (
     <Container
@@ -199,29 +292,7 @@ export default function Building({
             <Link href="/building/[reference]" as={`/building/${reference}`}>
               <div>
                 <CaracteristicsGroup>
-                  <Caracteristics.Bedrooms
-                    bedrooms={infos.bedrooms}
-                    suites={infos.suites}
-                  />
-                  <Caracteristics.BedroomsBetween
-                    start={infos.bedroomsStart}
-                    end={infos.bedroomsEnd}
-                  />
-                  <Caracteristics.Parking parking={infos.parking} />
-                  <Caracteristics.ParkingBetween
-                    start={infos.parkingStart}
-                    end={infos.parkingEnd}
-                  />
-                  <Caracteristics.AreaBuilding
-                    areaBuilding={infos.areaBuilding}
-                  />
-                  <Caracteristics.AreaGround areaGround={infos.areaGround} />
-                  <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
-                  <Caracteristics.AreaUseFulBetween
-                    start={infos.areaUsefulStart}
-                    end={infos.areaUsefulEnd}
-                  />
-                  <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+                  {getCaracteristics().map((item, itemIndex) => item)}
                 </CaracteristicsGroup>
 
                 <Description>{infos.internalDescription}</Description>

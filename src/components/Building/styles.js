@@ -105,6 +105,10 @@ export const CatLocGroup = styled.div`
     justify-content: space-between;
     align-items: flex-end;
 
+    ${media.greaterThan('medium')`
+      margin-top: 3px;
+    `};
+
     div {
       flex-direction: column;
       align-items: flex-start;
@@ -136,12 +140,12 @@ export const Local = styled.h4`
 
   ${media.greaterThan('medium')`
     font-size: 16px;
-    line-height: 28px;
   `};
 `;
 
 export const Reference = styled.p`
   font: 14px 'Raleway';
+  transform: translateY(-1px);
 
   ${media.greaterThan('medium')`
     font-size: 12px;
@@ -149,12 +153,12 @@ export const Reference = styled.p`
 `;
 
 export const Description = styled.p`
-  font: 16px 'Raleway';
   margin-top: 25px;
   display: block;
   display: -webkit-box;
   max-width: 100%;
   height: 65px;
+  font: 16px 'Raleway';
   line-height: 1;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -167,6 +171,10 @@ export const Description = styled.p`
     font-size: 14px;
     line-height: 16px;
   `};
+
+  ${media.greaterThan('large')`
+    margin-top: 35px;
+  `}
 `;
 
 export const ReleaseDelivery = styled.p`
@@ -224,6 +232,7 @@ export const CaracteristicsGroup = styled.div`
 export const ValuesFavGroup = styled.div`
   ${CenterBetween};
   margin-top: 15px;
+
   p {
     letter-spacing: 0.46px;
     line-height: 18px !important;
@@ -231,6 +240,11 @@ export const ValuesFavGroup = styled.div`
 
   ${media.greaterThan('medium')`
     margin-top: 20px;
+  `}
+
+  ${media.greaterThan('large')`
+    margin-top: 30px;
+    margin-bottom: 20px;
   `}
 `;
 
