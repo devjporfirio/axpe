@@ -42,6 +42,7 @@ export const Li = styled.li`
 
   a {
     padding: 8px;
+    color: ${({ theme }) => theme.colors.greenDark};
   }
 
   ${props =>

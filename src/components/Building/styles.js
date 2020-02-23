@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // components
-import Gallery from 'components/Slider';
 import Button from 'components/Button';
 
 export const Container = styled.div`
@@ -58,6 +57,30 @@ export const Container = styled.div`
   `}
 `;
 
+export const SliderContainer = styled.div`
+  height: 244px;
+
+  iframe,
+  img {
+    height: 244px;
+    object-fit: cover;
+  }
+
+  ${media.greaterThan('medium')`
+    width: 60%;
+    height: ${props => (props.useBtSchedule ? '386px' : '365px')};
+
+    iframe, img {
+      width: 100%;
+      height: ${props => (props.useBtSchedule ? '386px' : '365px')};
+    }
+  `}
+`;
+
+export const SliderItem = styled.article`
+  width: 100%;
+`;
+
 export const LinkTag = styled.a``;
 
 export const Infos = styled.div`
@@ -85,26 +108,6 @@ export const Infos = styled.div`
         : css`
             padding: 30px 40px 30px 40px;
           `}
-  `}
-`;
-
-export const Slider = styled(Gallery)`
-  height: 244px;
-
-  iframe,
-  img {
-    height: 244px;
-    object-fit: cover;
-  }
-
-  ${media.greaterThan('medium')`
-    width: 60%;
-    height: ${props => (props.useBtSchedule ? '386px' : '365px')};
-
-    iframe, img {
-      width: 100%;
-      height: ${props => (props.useBtSchedule ? '386px' : '365px')};
-    }
   `}
 `;
 

@@ -41,8 +41,9 @@ function Home({ hero, components }) {
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
   const heroSettings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     fade: true,
+    lazyLoad: true,
     speed: 800,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -174,7 +175,12 @@ function Home({ hero, components }) {
       <Container>
 
         <Hero>
-          <SliderNew arrowsColor="white" hasVerticalBar={true} settings={heroSettings}>
+          <SliderNew
+            type="full"
+            arrowsColor="white"
+            hasVerticalBar={true}
+            settings={heroSettings}
+          >
             {hero.map((item, itemIndex) => (
               <HeroItem key={`hero-item-${itemIndex}`}>
                 {item.link.target === 'blank' && item.link.url && (

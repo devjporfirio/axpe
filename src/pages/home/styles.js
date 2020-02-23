@@ -38,7 +38,7 @@ export const Banner = styled.a`
 `;
 
 export const Hero = styled.div`
-  .slick-active {
+  .slick-slide.active {
     div[class*='HeroItemInfo'] {
       h2, p {
         transition-duration: 500ms;
@@ -58,7 +58,7 @@ export const Hero = styled.div`
     img[class*='HeroImage'] {
       transform: scale(1.05);
       transition-delay: 0s;
-      transition-duration: 6s;
+      transition-duration: 7s;
     }
   }
 `;

@@ -8,6 +8,7 @@ function SliderNew({
   children,
   arrowsColor = 'white',
   hasVerticalBar = false,
+  type = 'full',
   settings = {
     dots: false,
     infinite: false,
@@ -19,6 +20,21 @@ function SliderNew({
   }
 }) {
   const ref = useRef(null);
+
+  const afterChange = () => {
+    setTimeout(() => {
+      const $list = ref.current.innerSlider.list;
+      const $items = $list.querySelectorAll('.slick-slide');
+
+      $items.forEach($item => {
+        if($item.classList.contains('slick-active')) {
+          $item.classList.add('active');
+        } else {
+          $item.classList.remove('active');
+        }
+      });
+    }, 100);
+  }
 
   useEffect(() => {
     if(ref.current) {
@@ -46,15 +62,18 @@ function SliderNew({
       if($buttonNext) {
         $buttonNext.innerHTML = renderSVG('next');
       }
+
+      afterChange();
     }
-  }, [])
+  }, []);
 
   return (
     <Container
+      type={type}
       arrowsColor={arrowsColor}
       hasVerticalBar={hasVerticalBar}
     >
-      <Slider {...settings} ref={ref}>
+      <Slider {...settings} afterChange={afterChange} ref={ref}>
         {children}
       </Slider>
     </Container>

@@ -16,7 +16,7 @@ export const Container = styled.div`
           content: '';
           display: block;
           position: absolute;
-          bottom: 62px;
+          bottom: 64px;
           left: 134px;
           width: 2px;
           height: 25px;
@@ -34,18 +34,14 @@ export const Container = styled.div`
     position: absolute;
     top: auto;
     right: auto;
-    bottom: 30px;
-    left: 20px;
-    width: 30px;
-    height: 30px;
+    bottom: auto;
+    left: auto;
+    width: 35px;
+    height: 35px;
     transform: none;
-    z-index: 10;
+    z-index: 5;
     font-size: 0;
     transition: all 300ms ease;
-
-    ${media.greaterThan('large')`
-      bottom: 60px;
-    `}
 
     &:before {
       display: none;
@@ -65,8 +61,35 @@ export const Container = styled.div`
     }
 
     &.slick-prev {
+      svg {
+        transform: rotate(-180deg);
+      }
+    }
+
+    &.slick-disabled,
+    &[disabled] {
+      opacity: 0.2;
+      cursor: default;
+    }
+  }
+
+  ${props => props.type === 'full' && ContainerFull}
+  ${props => props.type === 'normal' && ContainerNormal}
+  ${props => props.type === 'buildingList' && ContainerBuildingList}
+`;
+
+const ContainerFull = css`
+  .slick-arrow {
+    bottom: 30px;
+    left: 20px;
+
+    ${media.greaterThan('large')`
+      bottom: 60px;
+    `}
+
+    &.slick-prev {
       ${media.greaterThan('medium')`
-        left: 100px;
+        left: 95px;
       `}
 
       ${media.greaterThan('large')`
@@ -74,10 +97,6 @@ export const Container = styled.div`
           transform: translateX(-2px);
         }
       `}
-
-      svg {
-        transform: rotate(-180deg);
-      }
     }
 
     &.slick-next {
@@ -93,11 +112,42 @@ export const Container = styled.div`
         }
       `}
     }
+  }
+`;
 
-    &.slick-disabled,
-    &[disabled] {
-      opacity: 0.2;
-      cursor: default;
+const ContainerNormal = css`
+  .slick-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.slick-prev {
+      left: 0;
+    }
+
+    &.slick-next {
+      right: 0;
+    }
+  }
+`;
+
+const ContainerBuildingList = css`
+  .slick-arrow {
+    top: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%);
+
+    ${media.greaterThan('large')`
+      &:hover {
+        background: rgba(255, 255, 255, 0.7);
+      }
+    `}
+
+    &.slick-prev {
+      left: 0;
+    }
+
+    &.slick-next {
+      right: 0;
     }
   }
 `;

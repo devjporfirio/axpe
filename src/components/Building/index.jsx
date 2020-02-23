@@ -7,6 +7,7 @@ import Api from 'services';
 // components
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 import Inactive from 'components/Inactive';
+import SliderNew from 'components/SliderNew';
 
 // helpers
 import { formatCurrency } from 'helpers/utils';
@@ -21,6 +22,8 @@ import LikeIconSVG from 'assets/icons/like';
 
 import {
   Container,
+  SliderContainer,
+  SliderItem,
   LinkTag,
   Infos,
   Category,
@@ -32,7 +35,6 @@ import {
   ValuesFavGroup,
   CatLocGroup,
   Price,
-  Slider,
   Description,
   ReleaseDelivery,
   RemoveButton,
@@ -63,6 +65,14 @@ export default function Building({
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const isFavoriteBuilding = checkFavorite(reference);
+  const gallerySettings = {
+    dots: false,
+    infinite: true,
+    lazyLoad: true,
+    speed: 800,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
 
   const handleButtonRemove = useCallback(async (ref, action) => {
     await Api.MyAccount.postFavorite(user.access_token, ref, action);
@@ -223,30 +233,33 @@ export default function Building({
       {useInactive && status === 'inactive' && <Inactive />}
       {!hasDeleted ? (
         <>
-          <Slider
-            useBtSchedule={useBtSchedule}
-            propsArrow={{ type: 'building', backgroundColor: 'white' }}
-          >
-            {gallery &&
-              gallery.length > 0 &&
-              gallery.map((item, itemIndex) => {
-                return (
-                  item.tipo === 'imagem' && (
-                    <div key={`item-gallery-${reference}-${itemIndex}`}>
-                      <Link
-                        href={`/building/[reference]`}
-                        as={`/building/${reference}`}
-                        passHref
-                      >
-                        <LinkTag>
-                          <img src={item.src} alt={`Axpe ${category} - ${reference}`} />
-                        </LinkTag>
-                      </Link>
-                    </div>
-                  )
-                );
-              })}
-          </Slider>
+          <SliderContainer useBtSchedule={useBtSchedule}>
+            <SliderNew
+              type="buildingList"
+              arrowsColor="greenDark"
+              settings={gallerySettings}
+            >
+              {gallery &&
+                gallery.length > 0 &&
+                gallery.map((item, itemIndex) => {
+                  return (
+                    item.tipo === 'imagem' && (
+                      <SliderItem key={`item-gallery-${reference}-${itemIndex}`}>
+                        <Link
+                          href={`/building/[reference]`}
+                          as={`/building/${reference}`}
+                          passHref
+                        >
+                          <LinkTag>
+                            <img src={item.src} alt={`Axpe ${category} - ${reference}`} />
+                          </LinkTag>
+                        </Link>
+                      </SliderItem>
+                    )
+                  );
+                })}
+            </SliderNew>
+          </SliderContainer>
           <Infos releaseDelivery={infos.releaseDelivery}>
             {useBtRemove && (
               <RemoveButton
