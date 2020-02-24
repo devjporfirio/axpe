@@ -18,6 +18,11 @@ export const PanelSimilar = styled(PanelBuildings)`
 
   header {
     max-width: 100%;
+    padding: 0 20px;
+
+    ${media.greaterThan('1024px')`
+      padding: 0;
+    `}
 
     h4 {
       max-width: 100%;

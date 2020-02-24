@@ -12,7 +12,7 @@ import GalleryNav from './Gallery/GalleryNav';
 // styles
 import { Module } from './styles';
 
-export default function Modules({ property }) {
+function Modules({ property }) {
   const [ showGallery, setshowGallery ] = useState(false);
 
   const renderModule = (type, component) => {
@@ -99,3 +99,5 @@ export default function Modules({ property }) {
     </>
   );
 }
+
+export default Modules;

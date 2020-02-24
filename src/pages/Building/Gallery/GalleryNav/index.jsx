@@ -11,7 +11,7 @@ import {
   Info
 } from './styles';
 
-export default function GalleryNav({
+function GalleryNav({
   className,
   items = [],
   onClose,
@@ -98,3 +98,5 @@ export default function GalleryNav({
     </Container>
   );
 }
+
+export default GalleryNav;
