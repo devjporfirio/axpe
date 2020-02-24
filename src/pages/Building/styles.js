@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // components
@@ -56,4 +56,10 @@ export const Alert = styled.div`
 
 export const Module = styled.div`
   margin-bottom: 30px;
+
+  ${props => props.type === 'plantas' && css`
+    ${media.greaterThan('medium')`
+      margin-bottom: 60px;
+    `}
+  `}
 `;

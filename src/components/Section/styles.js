@@ -59,14 +59,13 @@ const TypeSlickLeftMobile = css`
 `;
 
 const TypeSlickGridDesktop = css`
-  /* margin: auto auto auto 60px; */
   position: initial;
   background-color: #fff;
 `;
 
 const TypeSlick = css`
-  margin-left: 28px !important;
   top: 109px;
+  margin-left: 28px !important;
   animation: ${({ theme }) => theme.fadeInOpacity} 600ms ease-in;
 
   hr {
@@ -85,7 +84,8 @@ const TypeSlick = css`
   }
 
   ${media.greaterThan('medium')`
-    margin: 120px !important;
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
 
     h4 {
       font-size: 41px;
@@ -102,7 +102,7 @@ const TypeSlickSmall = css`
     padding: 20px;
     height: 184px;
     border-radius: 0 0 6px 6px;
-    
+
     p {
       font-size: 16px;
 
