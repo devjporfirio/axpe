@@ -75,9 +75,7 @@ export const FormWrapper = styled.div`
     transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
     cursor: default;
 
-    ${props =>
-      props.active &&
-      `
+    ${props => props.active && css`
       transform: translateX(0%);
       transition-duration: 300ms;
     `}
@@ -238,9 +236,9 @@ export const FormButtonsFilterItemRadio = styled.label`
   span {
     display: block;
     width: 100%;
-    height: 30px;
+    height: 40px;
     text-align: center;
-    font: 13px/26px 'Raleway';
+    font: 14px/36px 'Raleway';
     text-transform: uppercase;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     color: ${({ theme }) => theme.colors.white};
@@ -249,9 +247,7 @@ export const FormButtonsFilterItemRadio = styled.label`
     transition: all 300ms ease;
   }
 
-  ${props =>
-    props.twoColumns &&
-    `
+  ${props => props.twoColumns && css`
     width: calc(50% - 20px);
 
     &:last-child {
@@ -260,14 +256,6 @@ export const FormButtonsFilterItemRadio = styled.label`
       &:before {
         display: block;
       }
-    }
-  `}
-
-  ${media.greaterThan('medium')`
-    span {
-      height: 40px;
-      line-height: 36px;
-      font-xize: 14px;
     }
   `}
 
