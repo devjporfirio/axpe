@@ -335,7 +335,7 @@ export const ScheduleButton = styled(Button)`
   padding: 0 10px;
 
   ${media.greaterThan('medium')`
-    width: auto;
+    width: 190px;
   `}
 `;
 

@@ -36,7 +36,7 @@ import {
   CatLocGroup,
   Price,
   Description,
-  ReleaseDelivery,
+  // ReleaseDelivery,
   RemoveButton,
   ScheduleButton,
   UndoButton,
@@ -349,14 +349,14 @@ function BuildingList({
               </ScheduleButton>
             )}
           </Infos>
-          {type === 'lancamento' && infos.releaseDelivery && (
+          {/* {type === 'lancamento' && infos.releaseDelivery && (
             <ReleaseDelivery useBtSchedule={useBtSchedule}>
               {infos.releaseStatus === 'Pronto'
                 ? 'Entregue em '
                 : 'Previsão de entrega em '}
               <span>{infos.releaseDelivery}</span>
             </ReleaseDelivery>
-          )}
+          )} */}
         </>
       ) : (
         <>
