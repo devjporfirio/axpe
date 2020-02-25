@@ -3,16 +3,43 @@ import Api from 'services';
 import { useSelector } from 'react-redux';
 
 // components
-import Slides from 'pages/MyAccount/Viewed/Slides';
+import SliderNew from 'components/SliderNew';
+import BuildingCard from 'components/Building/Card';
 import Empty from 'pages/MyAccount/Empty';
 
 // styles
-import { Container } from 'pages/MyAccount/Viewed/styles';
+import {
+  Container,
+  Items,
+  ItemsTitle
+} from 'pages/MyAccount/Viewed/styles';
 
 function Viewed() {
   const user = useSelector(state => state.user);
   const [ loaded, setLoaded ] = useState(false);
   const [ views, setViews ] = useState([]);
+  const settings = {
+    dots: false,
+    infinite: false,
+    lazyLoad: true,
+    speed: 800,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
+  };
 
   useEffect(() => {
     async function loadBuildings() {
@@ -40,8 +67,24 @@ function Viewed() {
     <Container>
       {Object.keys(group).length > 0 ? (
         Object.keys(group).map((item, itemIndex) => (
+
           <Fragment key={`row-viewed-${itemIndex}`}>
-            <Slides date={item} items={group[item]} />
+            <Items>
+              <ItemsTitle>{item}</ItemsTitle>
+              <SliderNew
+                type="normal"
+                arrowsColor="greenDark"
+                settings={settings}
+              >
+                {group[item].map((building, buildingIndex) => (
+                  <BuildingCard
+                    key={`building-viewed-${building.reference}-${buildingIndex}`}
+                    layout="vertical"
+                    item={building}
+                  />
+                ))}
+              </SliderNew>
+            </Items>
             {Object.keys(group).length - 1 > itemIndex && <hr />}
           </Fragment>
         ))

@@ -12,9 +12,9 @@ import { setMain } from 'store/modules/main/actions'
 import Button from 'components/Button';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
-import Building from 'components/Building';
+import BuildingList from 'components/Building/List';
 import Contact from 'components/Contact';
-import PanelBuildings from 'components/PanelBuildings';
+import BuildingsPanel from 'components/BuildingsPanel';
 
 // helpers
 import { getParamsFromObject } from 'helpers/utils'
@@ -258,7 +258,7 @@ function Search({ total, totalPages, data, locals }) {
 
               <Buildings>
                 {total ? buildings.map((building, buildingIndex) => (
-                    <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                    <BuildingList item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
                   )) : (
                   <BuildingsNotFound>
                     <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
@@ -274,16 +274,16 @@ function Search({ total, totalPages, data, locals }) {
                   </BuildingsLoadMore>
                 ) : null}
               </Buildings>
-
-              {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
-                <PanelBuildings
-                  key={`suggestion-${index}`}
-                  className="suggestion"
-                  title={suggestion.title}
-                  items={suggestion.items}
-                />
-              ))}
             </Wrapper>
+
+            {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
+              <BuildingsPanel
+                key={`suggestion-${index}`}
+                title={suggestion.title}
+                buildingLayout="vertical"
+                data={suggestion.items}
+              />
+            ))}
 
             <BlockHighlighted type="notfound" query={query} />
             <Contact />

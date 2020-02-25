@@ -6,7 +6,7 @@ import Api from 'services';
 
 // components
 import SlickSection from 'components/SlickSection';
-import PanelBuildings from 'components/PanelBuildings';
+import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
 import SliderNew from 'components/SliderNew';
 import Contact from 'components/Contact';
@@ -20,7 +20,6 @@ import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 import {
   Container,
   Banner,
-  GroupSlider,
   Hero,
   HeroItem,
   HeroImage,
@@ -30,9 +29,7 @@ import {
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
-  buildingsGrid: 'slickGrid',
-  buildingsSeen: 'slickLarge',
-  buildingsForYou: 'slickSmall'
+  buildingsGrid: 'slickGrid'
 };
 
 function Home({ hero, components }) {
@@ -74,8 +71,6 @@ function Home({ hero, components }) {
         );
       case 'buildingsSquare':
       case 'buildingsGrid':
-      case 'buildingsSeen':
-      case 'buildingsForYou':
         if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
           component.items = shuffle(component.items);
         }
@@ -199,47 +194,27 @@ function Home({ hero, components }) {
           </SliderNew>
         </Hero>
 
-        {/* <SlickSection name="hero" useGradient={true} color="white" items={hero} /> */}
-
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {
             if (c.type === 'buildingsSeen') {
-              return (
-                buildingsSeen &&
-                buildingsSeen.length > 0 && (
-                  <PanelBuildings
-                    key={`panel-buildings-0-${c.type}-${cIndex}`}
-                    className={c.type}
-                    title="Imóveis que você viu"
-                    isHome={true}
-                  >
-                    <GroupSlider>
-                      {renderComponents('buildingsSeen', {
-                        items: buildingsSeen
-                      })}
-                    </GroupSlider>
-                  </PanelBuildings>
-                )
+              return buildingsSeen && buildingsSeen.length > 0 && (
+                <BuildingsPanel
+                  key={`buildingspanel-0-${c.type}-${cIndex}`}
+                  title="Imóveis que você viu"
+                  buildingLayout="horizontal"
+                  data={buildingsSeen}
+                />
               );
             } else if (c.type === 'buildingsForYou') {
-              return (
-                buildingsForYou &&
-                buildingsForYou.length > 0 && (
-                  <PanelBuildings
-                    key={`panel-buildings-1-${c.type}-${cIndex}`}
-                    className={c.type}
-                    title="Indicados para você"
-                    subTitle="Selecionamos alguns imóveis que acabaram de chegar"
-                    isHome={true}
-                  >
-                    <GroupSlider>
-                      {renderComponents('buildingsForYou', {
-                        items: buildingsForYou
-                      })}
-                    </GroupSlider>
-                  </PanelBuildings>
-                )
+              return buildingsForYou && buildingsForYou.length > 0 && (
+                <BuildingsPanel
+                  key={`panel-buildings-1-${c.type}-${cIndex}`}
+                  title="Indicados para você"
+                  subtitle="Selecionamos alguns imóveis que acabaram de chegar"
+                  buildingLayout="vertical"
+                  data={buildingsForYou}
+                />
               );
             }
             return (

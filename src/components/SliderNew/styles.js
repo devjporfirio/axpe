@@ -10,6 +10,8 @@ export const Container = styled.div`
   }
 
   .slick-slider {
+    width: 100%;
+
     ${props => props.hasVerticalBar && css`
       ${media.greaterThan('large')`
         &:before {
@@ -73,9 +75,24 @@ export const Container = styled.div`
     }
   }
 
-  ${props => props.type === 'full' && ContainerFull}
   ${props => props.type === 'normal' && ContainerNormal}
-  ${props => props.type === 'buildingList' && ContainerBuildingList}
+  ${props => props.type === 'full' && ContainerFull}
+  ${props => props.type === 'buildingListGallery' && ContainerBuildingListGallery}
+`;
+
+const ContainerNormal = css`
+  .slick-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.slick-prev {
+      left: -45px;
+    }
+
+    &.slick-next {
+      right: -45px;
+    }
+  }
 `;
 
 const ContainerFull = css`
@@ -115,22 +132,7 @@ const ContainerFull = css`
   }
 `;
 
-const ContainerNormal = css`
-  .slick-arrow {
-    top: 50%;
-    transform: translateY(-50%);
-
-    &.slick-prev {
-      left: 0;
-    }
-
-    &.slick-next {
-      right: 0;
-    }
-  }
-`;
-
-const ContainerBuildingList = css`
+const ContainerBuildingListGallery = css`
   .slick-arrow {
     top: 50%;
     background: rgba(255, 255, 255, 0.5);

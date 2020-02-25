@@ -7,7 +7,7 @@ import Api from 'services';
 import { getParamsFromObject, formatCurrency } from 'helpers/utils';
 
 // components
-import Building from 'components/Building';
+import BuildingList from 'components/Building/List';
 import Headerbar from 'components/Headerbar';
 
 // styles
@@ -50,7 +50,7 @@ function AlertsSeach({ building, params }) {
 
         <Buildings>
           {building.map((building, buildingIndex) => (
-            <Building
+            <BuildingList
               item={building}
               key={`building-searchitem-${building.reference}-${buildingIndex}`}
               useInactive

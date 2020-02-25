@@ -64,17 +64,15 @@ export default createGlobalStyle`
     box-shadow: none;
   }
 
-  /* Fonts here */
-  /* Fonts end here */
-
   html,
   body {
     width: 100%;
   }
 
-  html { scroll-behavior: smooth; } 
+  html { scroll-behavior: smooth; }
 
   body {
+    font-family: 'Raleway';
     color: ${({ theme }) => theme.colors.greenDark};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

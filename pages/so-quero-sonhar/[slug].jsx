@@ -12,8 +12,8 @@ import DataJSON from 'pages/Dream/data.json';
 import SeoData from 'helpers/seo';
 
 // components
+import BuildingList from 'components/Building/List';
 import BlockHighlighted from 'components/BlockHighlighted';
-import Building from 'components/Building';
 
 // styles
 import { Container, Header, List, Footer, FooterListItemLink } from 'pages/Dream/Detail/styles';
@@ -93,7 +93,7 @@ function DreamDetail({ buildings }) {
           <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
           <Buildings>
             {buildings && buildings.length > 0 ? buildings.map((building, buildingIndex) => (
-                <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                <BuildingList item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
               )) : (
               <BuildingsNotFound>
                 <h6>Não encontramos o imóveis na categoria que você procura <span>:(</span></h6>

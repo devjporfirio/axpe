@@ -5,6 +5,16 @@ export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
   padding-bottom: 20px;
   min-height: 100vh;
+
+  ${media.greaterThan('medium')`
+    padding-left: 50px;
+    padding-right: 50px;
+  `}
+
+  ${media.greaterThan('1280px')`
+    padding-left: 0;
+    padding-right: 0;
+  `}
 `;
 
 export const Title = styled.h4`
@@ -57,6 +67,7 @@ export const Header = styled.header`
 export const LinkLogOff = styled.a`
   text-decoration: underline;
   font: 14px 'Raleway';
+  color: ${({ theme }) => theme.colors.green};
 `;
 
 export const Nav = styled.nav`
@@ -98,10 +109,10 @@ export const Li = styled.li`
   padding: 0 5px;
 
   a {
-    color: ${({ theme }) => theme.colors.green};
     width: 100%;
     height: 44px;
     display: block;
+    color: ${({ theme }) => theme.colors.green};
   }
 
   ${props =>
