@@ -1,10 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+import Head from 'next/head';
 // import SVG from 'react-inlinesvg';
 // import OneSignalHelper from 'helpers/oneSignal';
 import Api from 'services';
 import * as Yup from 'yup';
+
+// helpers
+import SeoData from 'helpers/seo';
 
 // actions
 import { setUserMe } from 'store/modules/user/actions';
@@ -123,120 +127,126 @@ function Profile() {
   if (!user.logged || !user.me || !user.me.name) return <Container />;
 
   return (
-    <Container>
-      <Body>
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <h2>Atualizar perfil</h2>
-            <FormGroupElements>
-              <FormElements
-                name="name"
-                label="Nome"
-                placeholder="Nome"
-                onChange={handleChange}
-                error={touched.name && errors.name}
-                value={values.name}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                name="lastName"
-                label="Sobrenome"
-                placeholder="Sobrenome"
-                onChange={handleChange}
-                error={touched.lastName && errors.lastName}
-                value={values.lastName}
-                onBlur={handleBlur}
-              />
-            </FormGroupElements>
-            <FormGroupElements>
-              <FormElements
-                type="emailmask"
-                name="email"
-                label="E-mail"
-                placeholder="E-mail"
-                onChange={handleChange}
-                error={touched.email && errors.email}
-                value={values.email}
-                onBlur={handleBlur}
-              />
-              <FormElements
-                type="phone"
-                name="phone"
-                label="Telefone"
-                placeholder="Telefone"
-                onChange={handleChange}
-                error={touched.phone && errors.phone}
-                value={values.phone}
-                onBlur={handleBlur}
-              />
-            </FormGroupElements>
-          </FormGroup>
+    <>
+      <Head>
+        <title>{`Perfil | Minha Conta - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        <Body>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <h2>Atualizar perfil</h2>
+              <FormGroupElements>
+                <FormElements
+                  name="name"
+                  label="Nome"
+                  placeholder="Nome"
+                  onChange={handleChange}
+                  error={touched.name && errors.name}
+                  value={values.name}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  name="lastName"
+                  label="Sobrenome"
+                  placeholder="Sobrenome"
+                  onChange={handleChange}
+                  error={touched.lastName && errors.lastName}
+                  value={values.lastName}
+                  onBlur={handleBlur}
+                />
+              </FormGroupElements>
+              <FormGroupElements>
+                <FormElements
+                  type="emailmask"
+                  name="email"
+                  label="E-mail"
+                  placeholder="E-mail"
+                  onChange={handleChange}
+                  error={touched.email && errors.email}
+                  value={values.email}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  type="phone"
+                  name="phone"
+                  label="Telefone"
+                  placeholder="Telefone"
+                  onChange={handleChange}
+                  error={touched.phone && errors.phone}
+                  value={values.phone}
+                  onBlur={handleBlur}
+                />
+              </FormGroupElements>
+            </FormGroup>
 
-          <ButtonPass type="button" onClick={() => setChangePass(true)}>
-            Alterar Senha
-          </ButtonPass>
+            <ButtonPass type="button" onClick={() => setChangePass(true)}>
+              Alterar Senha
+            </ButtonPass>
 
-          <FormGroup>
-            <h2>Notificações</h2>
-            <FormGroupAlerts>
-              <FormElementsCheck
-                type="checkbox"
-                name="notificationAlert"
-                label={
-                  <>
-                    <strong>Meus Alertas</strong> <br />
-                    Novos imóveis adicionados
-                  </>
-                }
-                checked={values.notificationAlert === 1}
-                onChange={handleNotificationAlert}
-                error={touched.notificationAlert && errors.notificationAlert}
-                value={values.notificationAlert}
-                onBlur={handleBlur}
-              />
-              <FormElementsCheck
-                type="checkbox"
-                name="notificationFavorite"
-                label={
-                  <>
-                    <strong>Favoritos</strong> <br />
-                    Informações atualizadas
-                  </>
-                }
-                checked={values.notificationFavorite === 1}
-                onChange={() =>
-                  setFieldValue(
-                    'notificationFavorite',
-                    values.notificationFavorite === 1 ? 0 : 1
-                  )
-                }
-                error={
-                  touched.notificationFavorite && errors.notificationFavorite
-                }
-                value={values.notificationFavorite}
-                onBlur={handleBlur}
-              />
-              {/* <FormSocial>
-                <p>Cadastre suas redes sociais:</p>
-                <SVG src={Facebook} uniquifyIDs={true} />
-                <SVG src={Google} uniquifyIDs={true} />
-              </FormSocial> */}
-            </FormGroupAlerts>
-          </FormGroup>
+            <FormGroup>
+              <h2>Notificações</h2>
+              <FormGroupAlerts>
+                <FormElementsCheck
+                  type="checkbox"
+                  name="notificationAlert"
+                  label={
+                    <>
+                      <strong>Meus Alertas</strong> <br />
+                      Novos imóveis adicionados
+                    </>
+                  }
+                  checked={values.notificationAlert === 1}
+                  onChange={handleNotificationAlert}
+                  error={touched.notificationAlert && errors.notificationAlert}
+                  value={values.notificationAlert}
+                  onBlur={handleBlur}
+                />
+                <FormElementsCheck
+                  type="checkbox"
+                  name="notificationFavorite"
+                  label={
+                    <>
+                      <strong>Favoritos</strong> <br />
+                      Informações atualizadas
+                    </>
+                  }
+                  checked={values.notificationFavorite === 1}
+                  onChange={() =>
+                    setFieldValue(
+                      'notificationFavorite',
+                      values.notificationFavorite === 1 ? 0 : 1
+                    )
+                  }
+                  error={
+                    touched.notificationFavorite && errors.notificationFavorite
+                  }
+                  value={values.notificationFavorite}
+                  onBlur={handleBlur}
+                />
+                {/* <FormSocial>
+                  <p>Cadastre suas redes sociais:</p>
+                  <SVG src={Facebook} uniquifyIDs={true} />
+                  <SVG src={Google} uniquifyIDs={true} />
+                </FormSocial> */}
+              </FormGroupAlerts>
+            </FormGroup>
 
-          {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+            {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
 
-          <ButtonSave disabled={isSubmitting} type="submit">
-            Salvar
-          </ButtonSave>
-        </Form>
-      </Body>
-      <UpdatePass
-        active={changePass}
-        onClose={() => setChangePass(false)}
-        user={values}
-      />
-    </Container>
+            <ButtonSave disabled={isSubmitting} type="submit">
+              Salvar
+            </ButtonSave>
+          </Form>
+        </Body>
+        <UpdatePass
+          active={changePass}
+          onClose={() => setChangePass(false)}
+          user={values}
+        />
+      </Container>
+    </>
   );
 }
 
