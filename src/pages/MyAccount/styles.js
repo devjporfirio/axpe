@@ -34,11 +34,10 @@ export const Title = styled.h4`
 `;
 
 export const Header = styled.header`
-  padding: 30px 29px;
+  padding: 70px 30px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 47px;
 
   h1 {
     font: 24px/28px 'Bitter';
@@ -49,7 +48,7 @@ export const Header = styled.header`
   }
 
   ${media.greaterThan('medium')`
-    padding: 94px 0 47px;
+    padding: 30px 0;
     max-width: 1000px;
     margin: 0 auto;
 
@@ -72,12 +71,13 @@ export const LinkLogOff = styled.a`
 
 export const Nav = styled.nav`
   position: fixed;
+  top: 70px;
+  left: 0;
   background-color: white;
   z-index: 4;
-  /* box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34); */
   width: 100%;
-  margin-top: -137px;
   height: 47px;
+  /* box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34); */
 
   ul {
     white-space: nowrap;
