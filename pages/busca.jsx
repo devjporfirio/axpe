@@ -279,6 +279,7 @@ function Search({ total, totalPages, data, locals }) {
             {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
               <BuildingsPanel
                 key={`suggestion-${index}`}
+                headerBig={true}
                 title={suggestion.title}
                 buildingLayout="vertical"
                 data={suggestion.items}

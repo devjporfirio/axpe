@@ -73,10 +73,12 @@ export const Header = styled.header`
     `}
   }
 
-  ${props => props.headerBig && HeaderBig}
+  ${props => props.headerBig && css`
+    h3 {
+      text-align: left;
+    }
+  `}
 `;
-
-const HeaderBig = css``;
 
 export const Items = styled.div`
   position: relative;
