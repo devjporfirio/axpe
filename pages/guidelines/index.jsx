@@ -7,7 +7,7 @@ import {
   Wrapper,
   Header,
   List
-} from './styles';
+} from 'pages/Guidelines/styles';
 
 function Guidelines() {
   return (
@@ -24,7 +24,7 @@ function Guidelines() {
 
         <List>
           <li>
-            <Link href="/guildelines/buildings" passHref>Buildings: List, Card (Horizontal and Vertical)</Link>
+            <Link href="/guidelines/buildings" passHref>Buildings: List, Card (Horizontal and Vertical)</Link>
           </li>
         </List>
 
