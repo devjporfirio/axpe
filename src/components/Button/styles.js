@@ -5,7 +5,7 @@ export const ButtonStyle = css`
   display: inline-block;
   height: 45px;
   border-radius: 4px;
-  font: 15px/40px 'Raleway';
+  font: 15px/45px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-align: center;
   background-color: ${props => props.theme.colors[props.color]};

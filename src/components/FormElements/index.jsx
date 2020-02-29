@@ -18,6 +18,7 @@ const TYPE_FIELD = {
   checkbox: Checkbox,
   checkboxLink: Checkbox,
   radio: Checkbox,
+  email: Email,
   emailmask: Email,
   phone: Phone,
   select: Select,

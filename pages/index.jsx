@@ -22,6 +22,7 @@ import {
   Banner,
   Hero,
   HeroItem,
+  HeroLink,
   HeroImage,
   HeroItemWrapper,
   HeroItemInfo
@@ -179,9 +180,9 @@ function Home({ hero, components }) {
             {hero.map((item, itemIndex) => (
               <HeroItem key={`hero-item-${itemIndex}`}>
                 {item.link.target === 'blank' && item.link.url && (
-                  <HeroItemLink href={item.link.url} target="_blank">
+                  <HeroLink href={item.link.url} target="_blank">
                     {renderHeroItem(item)}
-                  </HeroItemLink>
+                  </HeroLink>
                 )}
                 {item.link.target === 'self' && item.link.url && (
                   <Link href={item.link.url} passHref>

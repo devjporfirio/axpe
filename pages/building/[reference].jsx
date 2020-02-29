@@ -9,6 +9,7 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import SimilarBuildingList from 'components/Building/List';
 import DataSheet from 'pages/Building/Datasheet';
+import BuildingForm from 'pages/Building/Form';
 import Modules from 'pages/Building/modules';
 
 // helpers
@@ -103,6 +104,8 @@ function Building({ property }) {
 
         <BlockHighlighted type="notfound" />
         <Contact />
+
+        <BuildingForm />
       </Container>
     </>
   ) : null;
