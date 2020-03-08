@@ -13,7 +13,7 @@ import { setMain } from 'store/modules/main/actions';
 
 // assets
 import FacebookRoundedIconSVG from 'assets/icons/facebook-rounded';
-import GoogleRoundedIconSVG from 'assets/icons/google-rounded';
+// import GoogleRoundedIconSVG from 'assets/icons/google-rounded';
 
 // styles
 import {
@@ -52,8 +52,8 @@ function LoginSocials({
     });
   }, []);
 
-  const doGoogleLogin = useCallback(() => {
-  }, []);
+  // const doGoogleLogin = useCallback(() => {
+  // }, []);
 
   return (
     <Container>
@@ -61,9 +61,9 @@ function LoginSocials({
       <ButtonSocial type="button" onClick={doFacebookLogin}>
         <SVG src={FacebookRoundedIconSVG} uniquifyIDs={true} />
       </ButtonSocial>
-      <ButtonSocial type="button" onClick={doGoogleLogin}>
+      {/* <ButtonSocial type="button" onClick={doGoogleLogin}>
         <SVG src={GoogleRoundedIconSVG} uniquifyIDs={true} />
-      </ButtonSocial>
+      </ButtonSocial> */}
     </Container>
    );
 

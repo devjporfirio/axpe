@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modals';
 import Slider from 'components/Slider';
 import Button from 'components/Button';
+import ForgotPasswordForm from 'components/Modals/Login/ForgotPasswordForm';
 import LoginForm from 'components/Modals/Login/LoginForm';
 import RegisterForm from 'components/Modals/Login/RegisterForm';
 import LoginSocials from 'components/Modals/Login/LoginSocials';
@@ -27,7 +28,8 @@ import {
 
 import {
   LoginContainer,
-  LoginRow
+  LoginRow,
+  ForgotPassButton
 } from './styles';
 
 function LoginModal() {
@@ -35,6 +37,7 @@ function LoginModal() {
   const { modalLogin } = useSelector(state => state.main);
   const [ sliderType, setSliderType ] = useState(null);
   const [ showRegister, setShowRegister ] = useState(false);
+  const [ showForgotPasswordForm, setShowForgotPasswordForm ] = useState(false);
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalLogin: false }));
@@ -60,6 +63,10 @@ function LoginModal() {
 
     CookieBuildingSeen.saveAll(response);
   }, []);
+
+  const toggleForgotPassordForm = useCallback(() => {
+    setShowForgotPasswordForm(!showForgotPasswordForm);
+  }, [ showForgotPasswordForm ]);
 
   useEffect(() => {
     if(modalLogin && typeof modalLogin === 'string' && modalLogin.search('favorite=true') >= 0) {
@@ -126,10 +133,24 @@ function LoginModal() {
         {!showRegister && (
           <LoginContainer>
             <LoginRow>
-              <ColumnTitle>
-                Já tem um cadastro? <span>Faça seu login.</span>
-              </ColumnTitle>
-              <LoginForm doAfterLogin={doAfterLogin} />
+              {!showForgotPasswordForm ? (
+                <>
+                  <ColumnTitle>
+                    Já tem um cadastro? <span>Faça seu login.</span>
+                  </ColumnTitle>
+                  <LoginForm doAfterLogin={doAfterLogin} />
+                </>
+              ) : (
+                <>
+                  <ColumnTitle>
+                    Preencha seu e-mail, <span>vamos te ajudar.</span>
+                  </ColumnTitle>
+                  <ForgotPasswordForm />
+                </>
+              )}
+              <ForgotPassButton type="button" onClick={toggleForgotPassordForm}>
+                {!showForgotPasswordForm ? 'Esqueceu sua senha?' : 'voltar para login'}
+              </ForgotPassButton>
               <LoginSocials doAfterLogin={doAfterLogin} />
             </LoginRow>
             <LoginRow>

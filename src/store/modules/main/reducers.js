@@ -7,6 +7,7 @@ const initialState = {
   modalLogin: false,
   modalLoginRegisterSuccess: false,
   modalRegisterSuccess: false,
+  modalForgotPasswordSuccess: false,
   modalContact: false,
   modalContactSuccess: false,
   modalContactMessage: ''

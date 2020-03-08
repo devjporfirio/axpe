@@ -66,4 +66,15 @@ export default {
     .then(response => response.json())
     return result;
   },
+  async postForgotPassword(data) {
+    const result = await fetch(`${process.env.config.apiUrl}/user/forgot/password`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    return result;
+  },
 };
