@@ -95,9 +95,8 @@ function RegisterForm({ locals, categories, pais, type }) {
   }, [ user ]);
 
   useEffect(() => {
-    let newLocals = [{ label: 'Selecione', value: '' }];
     const key = keyLocals || 'São Paulo';
-    newLocals = [{ label: 'Selecione', value: '' }].concat(
+    const newLocals = [{ label: 'Selecione', value: '' }].concat(
       locals[key].map(y => ({ label: y.local, value: y.local }))
     );
 
@@ -148,12 +147,12 @@ function RegisterForm({ locals, categories, pais, type }) {
             : 'Vender'
           : ''
       }`;
-      const resp = await Api.RegisterProperty.postProperty(
+      const response = await Api.RegisterProperty.postProperty(
         user.access_token,
         values
       );
       setSubmitting(false);
-      if (resp.status) {
+      if (response.status) {
         dispatch(
           setMain({
             modalRegisterSuccess: true
@@ -189,60 +188,9 @@ function RegisterForm({ locals, categories, pais, type }) {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-        <BlockHighlighted type="registerProperty" />
+        <BlockHighlighted type="registerProperty" propertyType={type} />
         <Body>
           <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>
-              <FormGroupFlex>
-                <FormElements
-                  name="type"
-                  type="checkbox"
-                  label="Residencial"
-                  size="big"
-                  checked={values.type === 'Residencial'}
-                  onChange={() => setFieldValue('type', 'Residencial')}
-                  error={touched.type && errors.type}
-                />
-                <FormElements
-                  name="type"
-                  type="checkbox"
-                  label="Comercial"
-                  size="big"
-                  checked={values.type === 'Comercial'}
-                  onChange={() => setFieldValue('type', 'Comercial')}
-                  error={touched.type && errors.type}
-                />
-                <FormElements
-                  name="type"
-                  type="checkbox"
-                  label="Praia"
-                  size="big"
-                  checked={values.type === 'Praia'}
-                  onChange={() => setFieldValue('type', 'Praia')}
-                  error={touched.type && errors.type}
-                />
-                <FormElements
-                  name="type"
-                  type="checkbox"
-                  label="Campo"
-                  size="big"
-                  checked={values.type === 'Campo'}
-                  onChange={() => setFieldValue('type', 'Campo')}
-                  error={touched.type && errors.type}
-                />
-                <FormElements
-                  name="type"
-                  type="checkbox"
-                  label="Internacional"
-                  size="big"
-                  checked={values.type === 'Internacional'}
-                  onChange={() => setFieldValue('type', 'Internacional')}
-                  error={touched.type && errors.type}
-                />
-              </FormGroupFlex>
-            </FormGroup>
-
             <FormRow>
               <FormGroup>
                 <h2>O que você deseja?</h2>
@@ -569,7 +517,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                 {values.images.length > 0 &&
                   values.images.map((imgSrc, index) => {
                     return (
-                      <GroupImage key={index}>
+                      <GroupImage key={`groupimg-${index}`}>
                         <SVG
                           src={IClose}
                           uniquifyIDs={true}

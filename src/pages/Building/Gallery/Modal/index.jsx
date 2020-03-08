@@ -3,17 +3,19 @@ import React from 'react';
 // styles
 import { Container, ButtonClose, Header } from './styles';
 
-export default function Modal({
+function Modal({
   closeModal = () => {},
   children,
   className,
   category,
-  local
+  local,
+  planta
 }) {
   return (
     <Container className={className}>
       <Header type="modal" title={category} subtitle={local} />
       <ButtonClose
+        planta={planta}
         onClick={closeModal}
       >
         <span>Fechar</span>
@@ -24,3 +26,5 @@ export default function Modal({
     </Container>
   );
 }
+
+export default Modal;

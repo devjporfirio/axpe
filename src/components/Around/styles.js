@@ -69,5 +69,10 @@ export const Text = styled(Section)`
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     width: 240px;
+
+    ${media.greaterThan('medium')`
+      width: 100%;
+      max-width: 360px;
+    `}
   }
 `;

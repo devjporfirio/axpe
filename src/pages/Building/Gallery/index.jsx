@@ -77,7 +77,7 @@ function Gallery({
                   setShowGalleryFull(true);
                 }
               }}
-              key={index}
+              key={`building-gallery-image-${index}`}
               src={item.src}
             />
           ))}

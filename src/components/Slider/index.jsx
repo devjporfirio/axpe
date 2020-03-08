@@ -4,9 +4,6 @@ import { NextArrow, PrevArrow } from 'components/Arrow';
 
 import { Container } from './styles';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
 export default function Slick({
   adaptiveHeight = false,
   initialSlide = 0,

@@ -1,5 +1,6 @@
 {
-  "siteUrl": "http://localhost:3000",
+  "env": "development",
+  "siteUrl": "http://0.0.0.0:3000",
   "apiUrl": "https://futurebrand.com.br/projetos/axpe/painel/api",
   "keyMap": "AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto"
 }

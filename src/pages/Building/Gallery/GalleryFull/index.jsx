@@ -12,11 +12,11 @@ export default function GalleryFull({ goTo, onClose, items, category, local }) {
       >
         {items &&
           items.length > 0 &&
-          items.map((item, index) => {
+          items.map((item, itemIndex) => {
             switch (item.tipo) {
               case 'imagem':
                 return (
-                  <Slide key={index}>
+                  <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
                     <TransformWrapper>
                       <TransformComponent>
                         <img alt="Foto do Imóvel" src={item.src} />
@@ -26,7 +26,7 @@ export default function GalleryFull({ goTo, onClose, items, category, local }) {
                 );
               case 'video':
                 return (
-                  <Slide key={index}>
+                  <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
                     <iframe
                       title="video"
                       src={`https://www.youtube.com/embed/${item.video}`}

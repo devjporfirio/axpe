@@ -1,5 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheet } from 'styled-components';
+
+// layouts
+import HeaderStyles from 'layouts/vendors/headerStyles';
+import BodyScripts from 'layouts/vendors/bodyScripts';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -28,20 +32,18 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    const apiKey = process.env.config.keyMap;
     return (
       <Html>
         <Head>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700|Raleway:300,400,500,600,700,800,900&display=swap" rel="stylesheet"></link>
-          <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-          <script>var OneSignal = OneSignal || [];</script>
-          <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=geometry`}></script>
+          <meta name="google-signin-client_id" content="901672099745-eq39kut952o1o0ht6ctiuiaf2drve1le.apps.googleusercontent.com" />
+          <HeaderStyles />
         </Head>
         <body>
           <Main />
+          <BodyScripts />
           <NextScript />
         </body>
       </Html>

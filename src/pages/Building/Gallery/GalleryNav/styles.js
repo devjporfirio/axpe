@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Slider from 'components/Slider';
 import Modal from '../Modal';
 
@@ -29,6 +31,7 @@ export const Container = styled(Modal)`
 
 export const Body = styled.div`
   ${media.greaterThan('medium')`
+    position: relative;
     background-color: ${({ theme }) => theme.colors.greyLight};
     max-width: 1127px;
     margin: auto;
@@ -65,24 +68,24 @@ export const SliderNav1 = styled(Slider)`
   height: 100vw;
 
   ${media.greaterThan('1024px')`
-    width: 100%;
-    max-width: 550px;
-    max-height: calc(100vh - 170px);
     position: absolute;
     top: 93px;
     left: 40%;
+    width: calc(60% - 60px);
+    max-height: calc(100vh - 170px);
 
     button {
       width: 50px;
       height: 50px;
       background-size: 50px;
 
-    }
-    button:nth-child(1){
-      margin-left: -20px;
-    }
-    button:nth-child(3){
-      margin-right: -20px;
+      &:nth-child(1) {
+        margin-left: -20px;
+      }
+
+      &:nth-child(3) {
+        margin-right: -20px;
+      }
     }
 
     img {
@@ -93,7 +96,6 @@ export const SliderNav1 = styled(Slider)`
   `}
 
   ${media.greaterThan('1078px')`
-    max-width: 637px;
     bottom: 55px;
     top: unset;
 
@@ -121,19 +123,22 @@ export const ImagesSecundary = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    width: 336px;
+    width: 25%;
     height: 336px;
     flex-wrap: wrap;
     margin-left: 70px;
     overflow-x: unset;
-    overflow-y: scroll;
+    overflow-y: auto;
     align-items: flex-end;
+    align-content: flex-end;
     position: absolute;
     bottom: 50px;
 
     img {
-      width: 100px;
-
+      width: 28%;
+      margin-right: 2%;
+      min-width: 0;
+      height: 60px;
     }
   `}
 

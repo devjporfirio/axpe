@@ -83,3 +83,18 @@ export const RegisterFormContainer = styled.form`
     }
   }
 `;
+
+export const ForgotPassButton = styled.button`
+  margin-top: 10px;
+  font-size: 12px;
+  text-decoration: underline;
+  color: ${({ theme }) => theme.colors.greenDark};
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  transition: all 300ms ease;
+
+  ${media.greaterThan('large')`
+    &:hover {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  `}
+`;

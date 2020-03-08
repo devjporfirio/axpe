@@ -527,10 +527,11 @@ export const Contact = styled.p`
     right: -30px;
   }
 
-  strong {
+  a {
     display: block;
     font: 26px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    color: ${({ theme }) => theme.colors.greenDark};
 
     ${media.greaterThan('large')`
       font-size: 16px;

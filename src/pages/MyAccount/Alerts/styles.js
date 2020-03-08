@@ -27,6 +27,10 @@ export const Item = styled.div`
   margin-top: 30px;
   border-radius: 8px;
 
+  a {
+    color: ${({ theme }) => theme.colors.greenDark};
+  }
+
   ${media.greaterThan('medium')`
     display:flex;
     align-items: center;

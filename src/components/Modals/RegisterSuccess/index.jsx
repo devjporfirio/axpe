@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 // components
 import Modal from 'components/Modals';
@@ -14,13 +15,15 @@ import { Success } from './styles';
 
 function RegisterSuccess() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { modalRegisterSuccess } = useSelector(state => state.main);
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalRegisterSuccess: false }));
+    router.push(`/`);
   }, [ modalRegisterSuccess ]);
 
-  return (
+  return modalRegisterSuccess ? (
     <Modal
       active={modalRegisterSuccess}
       onClose={closeModal}
@@ -41,7 +44,7 @@ function RegisterSuccess() {
         </SuccessColumn>
       </Success>
     </Modal>
-  );
+  ) : null;
 }
 
 export default RegisterSuccess;

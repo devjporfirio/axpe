@@ -6,7 +6,14 @@ import SlickSection from 'components/SlickSection';
 // styles
 import { Container, Header, Title, SubTitle } from './styles';
 
-export default function PanelBuildings({ className, children, items = [], title, subTitle, isHome }) {
+function PanelBuildings({
+  className,
+  children,
+  items = [],
+  title,
+  subTitle,
+  isHome
+}) {
   return (
     <Container className={className} hasSubtitle={!!subTitle} isHome={isHome}>
 
@@ -25,3 +32,5 @@ export default function PanelBuildings({ className, children, items = [], title,
     </Container>
   );
 }
+
+export default PanelBuildings;

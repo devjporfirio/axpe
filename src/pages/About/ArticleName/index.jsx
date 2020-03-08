@@ -8,7 +8,7 @@ export default function ArticleName() {
       <Group>
         <header>
           <TitleSection>
-            <span>Nosso nome</span>
+            <strong>Nosso nome</strong>
             <br />
             Axpe é uma pequena aldeia no País Basco, Espanha. É um local
             especial.

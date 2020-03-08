@@ -14,7 +14,8 @@ export const Container = styled(BaseArticles)`
 
   ${media.greaterThan('1024px')`
     margin-top: 70px;
-    
+    min-height: 600px;
+
     header {
       background-color: ${({ theme }) => theme.colors.greyLight};
       width: 718px;
@@ -27,6 +28,7 @@ export const Container = styled(BaseArticles)`
         margin: 0 28px 0 auto ;
       }
     }
+
     img {
       width: 600px;
       height: 584px;

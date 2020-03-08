@@ -1,12 +1,14 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
 import Head from 'next/head';
 import Api from 'services';
 
 // components
 import SlickSection from 'components/SlickSection';
-import PanelBuildings from 'components/PanelBuildings';
+import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
+import SliderNew from 'components/SliderNew';
 import Contact from 'components/Contact';
 
 // helpers
@@ -15,19 +17,101 @@ import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
 // styles
-import { Container, Banner, GroupSlider } from 'pages/Home/styles';
+import {
+  Container,
+  Banner,
+  Hero,
+  HeroItem,
+  HeroLink,
+  HeroImage,
+  HeroItemWrapper,
+  HeroItemInfo
+} from 'pages/Home/styles';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
-  buildingsGrid: 'slickGrid',
-  buildingsSeen: 'slickLarge',
-  buildingsForYou: 'slickSmall'
+  buildingsGrid: 'slickGrid'
 };
 
 function Home({ hero, components }) {
   const user = useSelector(state => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
+  const heroSettings = {
+    dots: false,
+    infinite: true,
+    fade: true,
+    lazyLoad: true,
+    speed: 800,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
+  const renderComponents = useCallback((type, component) => {
+    switch (type) {
+      case 'banner':
+        return (
+          <>
+            <Banner
+              href={component.link.url}
+              target={component.link.external ? '_blank' : '_self'}
+              mq="mobile"
+            >
+              <img src={component.images.mobile} alt="" />
+            </Banner>
+            <Banner
+              href={component.link.url}
+              target={component.link.external ? '_blank' : '_self'}
+              mq="desktop"
+            >
+              <img src={component.images.desktop} alt="" />
+            </Banner>
+          </>
+        );
+      case 'buildingsSquare':
+      case 'buildingsGrid':
+        if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
+          component.items = shuffle(component.items);
+        }
+        return (
+          component.items &&
+          component.items.length > 0 && (
+            <SlickSection
+              type={COMPONENT_SLICK[type]}
+              items={component.items}
+              useButtom
+            />
+          )
+        );
+      case 'contact':
+        return <BlockHighlighted type="contactHome" />;
+    }
+  }, []);
+
+  const renderHeroItem = useCallback((item) => {
+    const hasContent = (item.title || item.content) ? true : false;
+
+    return (
+      <>
+        <HeroItemWrapper hasContent={hasContent}>
+          <HeroImage mq="mobile" src={item.images.mobile} alt={item.title} />
+          <HeroImage mq="desktop" src={item.images.desktop} alt={item.title} />
+          {item.title || item.content ? (
+            <HeroItemInfo>
+              {item && (
+                <h2>{item.title}</h2>
+              )}
+              {item.content && (
+                <p>{item.content}</p>
+              )}
+            </HeroItemInfo>
+          ) : null}
+        </HeroItemWrapper>
+      </>
+    )
+  }, []);
 
   useEffect(() => {
     async function loadBuildinsSeen() {
@@ -44,6 +128,14 @@ function Home({ hero, components }) {
         }
       } else if (!user.logged) {
         const buildingsSeenCookie = CookieBuildingSeen.get();
+
+        if(buildingsSeenCookie.length) {
+          for(let i = buildingsSeenCookie.length - 1; i >= 0; --i) {
+            if(!buildingsSeenCookie[i]) {
+              buildingsSeenCookie.splice(i, 1);
+            }
+          }
+        }
 
         if (!buildingsSeenCookie.length) return false;
 
@@ -78,49 +170,6 @@ function Home({ hero, components }) {
     loadBuildinsSeen();
   }, []);
 
-  function renderComponents(type, component) {
-    switch (type) {
-      case 'banner':
-        return (
-          <>
-            <Banner
-              href={component.link.url}
-              target={component.link.external ? '_blank' : '_self'}
-              mq="mobile"
-            >
-              <img src={component.images.mobile} alt="" />
-            </Banner>
-            <Banner
-              href={component.link.url}
-              target={component.link.external ? '_blank' : '_self'}
-              mq="desktop"
-            >
-              <img src={component.images.desktop} alt="" />
-            </Banner>
-          </>
-        );
-      case 'buildingsSquare':
-      case 'buildingsGrid':
-      case 'buildingsSeen':
-      case 'buildingsForYou':
-        if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
-          component.items = shuffle(component.items);
-        }
-        return (
-          component.items &&
-          component.items.length > 0 && (
-            <SlickSection
-              type={COMPONENT_SLICK[type]}
-              items={component.items}
-              useButtom
-            />
-          )
-        );
-      case 'contact':
-        return <BlockHighlighted type="contactHome" />;
-    }
-  }
-
   return (
     <>
       <Head>
@@ -128,46 +177,53 @@ function Home({ hero, components }) {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-        <SlickSection useGradient={true} color="white" items={hero} />
+
+        <Hero>
+          <SliderNew
+            type="full"
+            arrowsColor="white"
+            hasVerticalBar={true}
+            settings={heroSettings}
+          >
+            {hero.map((item, itemIndex) => (
+              <HeroItem key={`hero-item-${itemIndex}`}>
+                {item.link.target === 'blank' && item.link.url && (
+                  <HeroLink href={item.link.url} target="_blank">
+                    {renderHeroItem(item)}
+                  </HeroLink>
+                )}
+                {item.link.target === 'self' && item.link.url && (
+                  <Link href={item.link.url} passHref>
+                    {renderHeroItem(item)}
+                  </Link>
+                )}
+                {!item.link || !item.link.url ? renderHeroItem(item) : null}
+              </HeroItem>
+            ))}
+          </SliderNew>
+        </Hero>
+
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {
             if (c.type === 'buildingsSeen') {
-              return (
-                buildingsSeen &&
-                buildingsSeen.length > 0 && (
-                  <PanelBuildings
-                    key={`panel-buildings-0-${c.type}-${cIndex}`}
-                    className={c.type}
-                    title="Imóveis que você viu"
-                    isHome={true}
-                  >
-                    <GroupSlider>
-                      {renderComponents('buildingsSeen', {
-                        items: buildingsSeen
-                      })}
-                    </GroupSlider>
-                  </PanelBuildings>
-                )
+              return buildingsSeen && buildingsSeen.length > 0 && (
+                <BuildingsPanel
+                  key={`buildingspanel-0-${c.type}-${cIndex}`}
+                  title="Imóveis que você viu"
+                  buildingLayout="horizontal"
+                  data={buildingsSeen}
+                />
               );
             } else if (c.type === 'buildingsForYou') {
-              return (
-                buildingsForYou &&
-                buildingsForYou.length > 0 && (
-                  <PanelBuildings
-                    key={`panel-buildings-1-${c.type}-${cIndex}`}
-                    className={c.type}
-                    title="Indicados para você"
-                    subTitle="Selecionamos alguns imóveis que acabaram de chegar"
-                    isHome={true}
-                  >
-                    <GroupSlider>
-                      {renderComponents('buildingsForYou', {
-                        items: buildingsForYou
-                      })}
-                    </GroupSlider>
-                  </PanelBuildings>
-                )
+              return buildingsForYou && buildingsForYou.length > 0 && (
+                <BuildingsPanel
+                  key={`panel-buildings-1-${c.type}-${cIndex}`}
+                  title="Indicados para você"
+                  subtitle="Selecionamos alguns imóveis que acabaram de chegar"
+                  buildingLayout="vertical"
+                  data={buildingsForYou}
+                />
               );
             }
             return (

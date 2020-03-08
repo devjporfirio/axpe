@@ -1,4 +1,5 @@
 {
+  "env": "production",
   "siteUrl": "http://homolog.axpe.com.br",
   "apiUrl": "https://futurebrand.com.br/projetos/axpe/painel/api",
   "keyMap": "AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto"

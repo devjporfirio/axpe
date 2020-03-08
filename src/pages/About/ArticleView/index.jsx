@@ -6,7 +6,7 @@ export default function ArticleView() {
     <Container id="nosso-jeito">
       <header>
         <Title>
-          Uma imobiliária com uma <span>visão diferente</span> do morar.
+          Uma imobiliária com uma <strong>visão diferente</strong> do morar.
         </Title>
       </header>
 
@@ -18,22 +18,14 @@ export default function ArticleView() {
 
         <div>
           <p>
-            Todos os imóveis da Axpe são especiais, mas qual deles é especial
-            para você?
+            Todos os imóveis da Axpe são especiais, mas qual deles é especial para você?
           </p>
           <p>
-            Qual tem aquele astral, aquele charme capaz de fazer você enxergar
-            ali o seu canto?
+            Escolher um lugar para fazer parte da sua história é, também, uma decisão afetiva.
           </p>
           <p>
-            Escolher um lugar para fazer parte da sua história é, também, uma
-            decisão afetiva.
-            E para ajudar você nessa escolha tão importante, capaz de
-            influenciar sua vida, você precisa de uma imobiliária que tenha uma
-            visão diferente do morar, que enxergue além da metragem, da
-            disposição da planta ou do número de banheiros.
+            E para ajudar você nessa escolha tão importante, você precisa de uma imobiliária que tenha uma visão diferente do morar, que enxergue além da metragem, da disposição da planta ou do número de banheiros. Fique tranquilo, você encontrou.
           </p>
-          <p>Fique tranquilo, você encontrou.</p>
         </div>
       </GroupBody>
     </Container>

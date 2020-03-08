@@ -51,7 +51,7 @@ function NewsletterModal() {
     dispatch(setMain({ modalNewsletter: false }))
   }, [ modalNewsletter ]);
 
-  return (
+  return modalNewsletter ? (
     <Modal active={modalNewsletter} onClose={closeModal}>
       <Texts>
         <Slider propsArrow={{ color: 'white' }}>
@@ -101,11 +101,11 @@ function NewsletterModal() {
               onBlur={handleBlur}
             />
           </FormGroup>
-          <Button type="submit" disabled={isSubmitting} fullWidth={true}>Começar</Button>
+          <Button type="submit" disabled={isSubmitting} fullWidth={true}>Cadastre-se</Button>
         </FormContainer>
       </Column>
     </Modal>
-  )
+  ) : null
 }
 
 export default NewsletterModal

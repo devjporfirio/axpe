@@ -1,32 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
 import SVG from 'react-inlinesvg';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-// actions
-import { setUser } from 'store/modules/user/actions';
+// store
+import { setMain } from 'store/modules/main/actions';
 
 // images
-import IUser from 'assets/icons/user';
+import UserIconSVG from 'assets/icons/user';
 
 // styles
-import { Info, InfoLogin } from './styles';
+import { Info, InfoLogin, LinkLogoff } from './styles';
 
-export default function InfoUser({ className }) {
+function InfoUser({ className }) {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const handleLogOff = () => {
-    dispatch(
-      setUser({
-        logged: false,
-        access_token: '',
-        favorites: []
-      })
-    );
-  };
+
+  function handleLogoff() {
+    dispatch(setMain({ modalContact: false }));
+  }
 
   return (
     <InfoLogin className={className}>
-      <SVG src={IUser} uniquifyIDs={true} />
+      <SVG src={UserIconSVG} uniquifyIDs={true} />
       <Info>
         <p>
           Você está logado como
@@ -36,11 +32,13 @@ export default function InfoUser({ className }) {
         <p>E-mail: {user.me.email}</p>
         <p>
           Se não for você{' '}
-          <Link href="/" passHref>
-            <button onClick={handleLogOff}>clique aqui</button>
+          <Link href="/logout" passHref>
+            <LinkLogoff onClick={handleLogoff}>clique aqui</LinkLogoff>
           </Link>
         </p>
       </Info>
     </InfoLogin>
   );
 }
+
+export default InfoUser;

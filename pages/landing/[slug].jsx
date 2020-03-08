@@ -6,7 +6,7 @@ import Api from 'services';
 import SeoData from 'helpers/seo';
 
 // components
-import Building from 'components/Building';
+import BuildingList from 'components/Building/List';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 
@@ -71,7 +71,7 @@ function Landing({ slug, page }) {
                     {comp.buildings &&
                       comp.buildings.length > 0 &&
                       comp.buildings.map(building => (
-                        <Building item={building} key={building.reference} />
+                        <BuildingList item={building} key={building.reference} />
                       ))}
                   </Module>
                 );

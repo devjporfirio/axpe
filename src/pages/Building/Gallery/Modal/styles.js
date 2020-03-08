@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 import Headerbar from 'components/Headerbar';
 
@@ -57,13 +57,12 @@ export const ButtonClose = styled.button`
 
   ${media.greaterThan('640px')`
     top: 5px;
-    display: block;
-    background: none;
-    font: 14px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     margin: 30px 78px 20px auto;
     display: flex;
     align-items: center;
+    background: none;
+    font: 14px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     width: auto;
 
     span {
@@ -78,9 +77,39 @@ export const ButtonClose = styled.button`
         background: ${({ theme }) => theme.colors.white};
       }
     }
+
+    ${props => props.planta && css`
+      margin-right: 0;
+      right: 15px;
+
+      span {
+        display: none;
+      }
+
+      i {
+        width: 35px;
+        height: 35px;
+
+        &:before,
+        &:after {
+          width: 3px;
+          height: 35px;
+        }
+      }
+    `}
+  `}
+
+  ${media.greaterThan('1130px')`
+    ${props => props.planta && css`
+      right: auto;
+      left: 50%;
+      transform: translateX(515px);
+    `}
   `}
 
   ${media.greaterThan('1281px')`
-    right: 8%;
+    ${props => !props.planta && css`
+      right: 8%;
+    `}
   `}
 `;

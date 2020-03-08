@@ -10,7 +10,7 @@ import { setMain } from 'store/modules/main/actions';
 // styles
 import { Success, SuccessColumn } from 'components/Modals/styles';
 
-function NewsletterModal() {
+function NewsletterSuccess() {
   const dispatch = useDispatch();
   const { modalNewsletterSuccess } = useSelector(state => state.main);
 
@@ -18,7 +18,7 @@ function NewsletterModal() {
     dispatch(setMain({ modalNewsletterSuccess: false }))
   }, [ modalNewsletterSuccess ])
 
-  return (
+  return modalNewsletterSuccess ? (
     <Modal active={modalNewsletterSuccess} onClose={closeModal} themeColor="green">
       <Success>
         <SuccessColumn>
@@ -29,7 +29,7 @@ function NewsletterModal() {
         </SuccessColumn>
       </Success>
     </Modal>
-  )
+  ) : null;
 }
 
-export default NewsletterModal
+export default NewsletterSuccess

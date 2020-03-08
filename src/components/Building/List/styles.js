@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // components
-import Gallery from 'components/Slider';
 import Button from 'components/Button';
 
 export const Container = styled.div`
@@ -24,10 +23,14 @@ export const Container = styled.div`
       padding: 30px;
     `}
 
+  p, h4 {
+    color: ${({ theme }) => theme.colors.greenDark};
+  }
+
   ${media.greaterThan('medium')`
     width: 100%;
     height: ${props =>
-      props.useBtSchedule ? (props.hasDeleted ? '45PX' : '386px') : '365px'};
+      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
@@ -45,10 +48,40 @@ export const Container = styled.div`
           `}
   `}
 
-  p, h4 {
-    color: ${({ theme }) => theme.colors.greenDark};
-  }
+  ${media.greaterThan('large')`
+    transition: all 300ms ease;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+  `}
 `;
+
+export const SliderContainer = styled.div`
+  height: 244px;
+
+  iframe,
+  img {
+    height: 244px;
+    object-fit: cover;
+  }
+
+  ${media.greaterThan('medium')`
+    width: 60%;
+    height: ${props => (props.useBtSchedule ? '386px' : '365px')};
+
+    iframe, img {
+      width: 100%;
+      height: ${props => (props.useBtSchedule ? '386px' : '365px')};
+    }
+  `}
+`;
+
+export const SliderItem = styled.article`
+  width: 100%;
+`;
+
+export const LinkTag = styled.a``;
 
 export const Infos = styled.div`
   display: block;
@@ -78,32 +111,16 @@ export const Infos = styled.div`
   `}
 `;
 
-export const Slider = styled(Gallery)`
-  height: 244px;
-
-  iframe,
-  img {
-    height: 244px;
-    object-fit: cover;
-  }
-
-  ${media.greaterThan('medium')`
-    width: 60%;
-    height: ${props => (props.useBtSchedule ? '386px' : '365px')};
-
-    iframe, img {
-      width: 100%;
-      height: ${props => (props.useBtSchedule ? '386px' : '365px')};
-    }
-  `}
-`;
-
 export const CatLocGroup = styled.div`
   div {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     align-items: flex-end;
+
+    ${media.greaterThan('medium')`
+      margin-top: 3px;
+    `};
 
     div {
       flex-direction: column;
@@ -136,12 +153,12 @@ export const Local = styled.h4`
 
   ${media.greaterThan('medium')`
     font-size: 16px;
-    line-height: 28px;
   `};
 `;
 
 export const Reference = styled.p`
   font: 14px 'Raleway';
+  transform: translateY(-1px);
 
   ${media.greaterThan('medium')`
     font-size: 12px;
@@ -149,12 +166,12 @@ export const Reference = styled.p`
 `;
 
 export const Description = styled.p`
-  font: 16px 'Raleway';
   margin-top: 25px;
   display: block;
   display: -webkit-box;
   max-width: 100%;
   height: 65px;
+  font: 16px 'Raleway';
   line-height: 1;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -167,6 +184,10 @@ export const Description = styled.p`
     font-size: 14px;
     line-height: 16px;
   `};
+
+  ${media.greaterThan('large')`
+    margin-top: 35px;
+  `}
 `;
 
 export const ReleaseDelivery = styled.p`
@@ -224,6 +245,7 @@ export const CaracteristicsGroup = styled.div`
 export const ValuesFavGroup = styled.div`
   ${CenterBetween};
   margin-top: 15px;
+
   p {
     letter-spacing: 0.46px;
     line-height: 18px !important;
@@ -231,6 +253,11 @@ export const ValuesFavGroup = styled.div`
 
   ${media.greaterThan('medium')`
     margin-top: 20px;
+  `}
+
+  ${media.greaterThan('large')`
+    margin-top: 30px;
+    margin-bottom: 20px;
   `}
 `;
 
@@ -308,7 +335,7 @@ export const ScheduleButton = styled(Button)`
   padding: 0 10px;
 
   ${media.greaterThan('medium')`
-    width: auto;
+    width: 190px;
   `}
 `;
 

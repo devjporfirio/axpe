@@ -20,7 +20,7 @@ import {
 } from './styles';
 
 export default function Datasheet({ property }) {
-  const { type, infos, category, address, reference, label, values } = property;
+  const { type, infos, category, address, reference, label, values, source } = property;
   return (
     <>
       <DatasheetContent>
@@ -92,14 +92,30 @@ export default function Datasheet({ property }) {
             start={infos.parkingStart}
             end={infos.parkingEnd}
           />
-          <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
-          <Caracteristics.AreaGround areaGround={infos.areaGround} />
+
+          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
+          )}
+
           <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
-          <Caracteristics.AreaUseFulBetween
-            start={infos.areaUsefulStart}
-            end={infos.areaUsefulEnd}
-          />
-          <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+
+          {infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaGround areaGround={infos.areaGround} />
+          )}
+
+          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaUseFulBetween
+              start={infos.areaUsefulStart}
+              end={infos.areaUsefulEnd}
+            />
+          )}
+
+          {category.search('Casa') < 0 &&
+            infos.use !== 'COMERCIAL' &&
+            source !== 'praia' &&
+            source !== 'campo' && (
+              <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+            )}
         </BlockThree>
       </DatasheetContent>
       {type === 'lancamento' && infos.releaseDelivery && (

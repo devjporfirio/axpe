@@ -1,5 +1,8 @@
 import { createGlobalStyle, css } from 'styled-components';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 export default createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
     v2.0 | 20110126
@@ -57,22 +60,20 @@ export default createGlobalStyle`
   }
 
   * {
-    color: ${({ theme }) => theme.colors.greenDark};
     outline:none;
     box-shadow: none;
   }
-
-  /* Fonts here */
-  /* Fonts end here */
 
   html,
   body {
     width: 100%;
   }
 
-  html { scroll-behavior: smooth; } 
+  html { scroll-behavior: smooth; }
 
   body {
+    font-family: 'Raleway';
+    color: ${({ theme }) => theme.colors.greenDark};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

@@ -63,6 +63,7 @@ export const ButtonClose = styled.button`
     right: 15px;
     width: 20px;
     height: 20px;
+    margin-top: -25px;
 
     &:before,
     &:after {
@@ -107,27 +108,32 @@ export const ListContacts = styled.div`
   }
 
   p {
+    display: block;
+    margin-top: 9px;
     color: ${({ theme }) => theme.colors.white};
     font: ${({ theme }) => theme.fontsWeight.semiBold} 16px/24px 'Raleway';
-    margin-top: 9px;
-    display: block;
   }
 
-  svg:nth-child(1) {
-    height: 26px;
-    width: 25px;
-  }
-  svg:nth-child(2) {
-    height: 22px;
-    width: 33px;
-  }
-  svg:nth-child(3) {
-    height: 22px;
-    width: 23px;
-  }
-  svg:nth-child(4) {
-    height: 26px;
-    width: 26px;
+  svg {
+    &:nth-child(1) {
+      height: 26px;
+      width: 25px;
+    }
+
+    &:nth-child(2) {
+      height: 22px;
+      width: 33px;
+    }
+
+    &:nth-child(3) {
+      height: 22px;
+      width: 23px;
+    }
+
+    &:nth-child(4) {
+      height: 26px;
+      width: 26px;
+    }
   }
 
   ${media.greaterThan('medium')`
@@ -149,8 +155,9 @@ export const ListContacts = styled.div`
     }
 
     p {
-      text-align: left;
       margin-left: 14.5px;
+      margin-top: 0;
+      text-align: left;
     }
 
     a + a {

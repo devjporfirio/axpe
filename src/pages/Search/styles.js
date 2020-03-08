@@ -20,6 +20,7 @@ export const Container = styled.section`
 
 export const Wrapper = styled.div`
   width: 100%;
+  max-width: 954px;
   padding: 0 0 30px 0;
 
   ${media.greaterThan('medium')`
@@ -28,8 +29,7 @@ export const Wrapper = styled.div`
     min-height: calc(100vh - 268px);
   `}
 
-  ${media.greaterThan('1024px')`
-    width: 80%;
+  ${media.greaterThan('1280px')`
     padding-left: 0;
     padding-right: 0;
   `}
@@ -139,6 +139,7 @@ export const ButtonBack = styled.button`
     height: calc(100%);
     background: ${({ theme }) => theme.colors.green};
     font-size: 0;
+    z-index: 2;
 
     svg {
       display: block;

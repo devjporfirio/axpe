@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // assets
-import IRectangle from 'assets/icons/rectangle.svg';
+import RectangleIconSVG from 'assets/icons/rectangle';
 
 const TypeSlickLargeDesktop = css`
   position: initial;
@@ -31,7 +31,7 @@ const TypeSlickLeftDesktop = css`
   background-color: #fff;
   width: 310px;
   height: 100%;
-  margin: auto 106px;
+  margin: auto 100px;
 
   ${media.greaterThan('1440px')`
     margin: auto;
@@ -59,14 +59,13 @@ const TypeSlickLeftMobile = css`
 `;
 
 const TypeSlickGridDesktop = css`
-  /* margin: auto auto auto 60px; */
   position: initial;
   background-color: #fff;
 `;
 
 const TypeSlick = css`
-  margin-left: 28px !important;
   top: 109px;
+  margin-left: 28px !important;
   animation: ${({ theme }) => theme.fadeInOpacity} 600ms ease-in;
 
   hr {
@@ -85,7 +84,8 @@ const TypeSlick = css`
   }
 
   ${media.greaterThan('medium')`
-    margin: 120px !important;
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
 
     h4 {
       font-size: 41px;
@@ -102,7 +102,7 @@ const TypeSlickSmall = css`
     padding: 20px;
     height: 184px;
     border-radius: 0 0 6px 6px;
-    
+
     p {
       font-size: 16px;
 
@@ -131,7 +131,7 @@ const TypeDestaqueTexto = css`
   }
 
   ${media.greaterThan('medium')`
-    background: url(${IRectangle}) center no-repeat;
+    background: url(${RectangleIconSVG}) center no-repeat;
     position: initial;
     max-width: 1000px;
     padding: 0 !important;
@@ -223,7 +223,7 @@ export const Block2DestaqueTextoBullet = styled(Block2DestaqueTexto)`
 
 export const GroupInfo = styled.div`
   ${media.greaterThan('medium')`
-    min-height: 156px;
+    min-height: 170px;
   `}
 `;
 
@@ -297,6 +297,10 @@ export const Local = styled.p`
 
 export const Infos = styled.p`
   font: 18px/25px 'Raleway';
+
+  span {
+    display: block;
+  }
 `;
 
 export const Reference = styled(Infos)`

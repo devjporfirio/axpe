@@ -158,6 +158,8 @@ export const ButtonBack = styled.button`
 `;
 
 export const ButtonIcon = styled.button`
+  position: relative;
+
   svg {
     display: block;
 
@@ -209,6 +211,45 @@ export const ButtonContact = styled(Button)`
   ${media.lessThan('1169px')`
     display: none;
   `}
+`;
+
+export const ButtonAlertMessage = styled.div`
+  display: block;
+  position: absolute;
+  top: 35px;
+  right: -9px;
+  width: 210px;
+  padding: 15px;
+  font: 12px/15px 'Raleway';
+  background: ${({ theme }) => theme.colors.yellowLight};
+  border-radius: 1px;
+  transition: all 300ms ease;
+  ${({ theme }) => theme.hide}
+
+  ${props => props.active && ButtonAlertMessageActive}
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid ${({ theme }) => theme.colors.yellowLight};
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  strong {
+    display: block;
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  }
+`;
+
+const ButtonAlertMessageActive = css`
+  ${({ theme }) => theme.show}
 `;
 
 export const Text = styled.p`

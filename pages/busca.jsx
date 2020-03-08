@@ -12,9 +12,9 @@ import { setMain } from 'store/modules/main/actions'
 import Button from 'components/Button';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
-import Building from 'components/Building';
+import BuildingList from 'components/Building/List';
 import Contact from 'components/Contact';
-import PanelBuildings from 'components/PanelBuildings';
+import BuildingsPanel from 'components/BuildingsPanel';
 
 // helpers
 import { getParamsFromObject } from 'helpers/utils'
@@ -35,7 +35,7 @@ import {
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ currentPage, total, totalPages, data, locals }) {
+function Search({ total, totalPages, data, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { query, query: { source, finality, reference, order } } = router;
@@ -43,6 +43,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'latest' },
+    { label: 'Menor área útil', value: 'area' },
     { label: 'Maior área útil', value: 'area' },
     { label: 'Menor Preço', value: 'lowest_price' },
     { label: 'Maior Preço', value: 'biggest_price' }
@@ -57,12 +58,10 @@ function Search({ currentPage, total, totalPages, data, locals }) {
   const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
 
   const getSourceText = useCallback(() => {
-    switch(source) {
-      case 'sao-paulo':
-        return 'São Paulo';
-      default:
-        return source;
+    if(source && source === 'sao-paulo') {
+      return 'São Paulo';
     }
+    return source;
   }, [ source ])
 
   const getFinalityText = useCallback(() => {
@@ -131,7 +130,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       return result;
     }
 
-    if(query.price_start && query.price_end) {
+    if(query.price_start && query.price_end && !reference) {
       const priceEnd = +query.price_end;
       const percent = priceEnd * 20 / 100;
       const newPriceStart = priceEnd + 1;
@@ -144,25 +143,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       });
     }
 
-    if(query.source &&
-      query.finality &&
-      query.use &&
-      query.ready_release &&
-      query.source === 'sao-paulo' &&
-      query.finality === 'venda' &&
-      query.use === 'RESIDENCIAL') {
-        const finalText = query.ready_release === 'pronto' ? 'mas ainda em construção' : 'mas pronto para morar';
-        const query2 = query.ready_release === 'pronto' ? {
-          ...query,
-          ready_release: 'lancamento'
-        } : {
-          ...query,
-          ready_release: 'pronto'
-        };
-        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, ${finalText}`, query2);
-      }
-
-    if(query.source && query.local && locals) {
+    if(query.source && query.local && locals && !reference) {
       const localsArr = query.local.split(',');
 
       let localsSelected = [];
@@ -184,8 +165,27 @@ function Search({ currentPage, total, totalPages, data, locals }) {
       }
     }
 
+    if(query.source &&
+      query.finality &&
+      query.use &&
+      query.ready_release &&
+      query.source === 'sao-paulo' &&
+      query.finality === 'venda' &&
+      query.use === 'RESIDENCIAL' &&
+      !reference) {
+        const finalText = query.ready_release === 'pronto' ? 'mas ainda em construção' : 'mas pronto para morar';
+        const query2 = query.ready_release === 'pronto' ? {
+          ...query,
+          ready_release: 'lancamento'
+        } : {
+          ...query,
+          ready_release: 'pronto'
+        };
+        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, ${finalText}`, query2);
+      }
+
     setSuggestions(results);
-  }, [ total ]);
+  }, [ total, reference ]);
 
   useEffect(() => {
     setNewData(data, true);
@@ -195,7 +195,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
     if(!dataLoaded) {
       setDataLoaded(true);
     }
-  }, [ total, order ]);
+  }, [ total, order, reference ]);
 
   useEffect(() => {
     const getDataByPage = async () => {
@@ -258,7 +258,7 @@ function Search({ currentPage, total, totalPages, data, locals }) {
 
               <Buildings>
                 {total ? buildings.map((building, buildingIndex) => (
-                    <Building item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                    <BuildingList item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
                   )) : (
                   <BuildingsNotFound>
                     <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
@@ -274,17 +274,17 @@ function Search({ currentPage, total, totalPages, data, locals }) {
                   </BuildingsLoadMore>
                 ) : null}
               </Buildings>
-
-              {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
-                <PanelBuildings
-                  key={`suggestion-${index}`}
-                  className="suggestion"
-                  title={suggestion.title}
-                  items={suggestion.items}
-                />
-              ))}
             </Wrapper>
 
+            {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
+              <BuildingsPanel
+                key={`suggestion-${index}`}
+                headerBig={true}
+                title={suggestion.title}
+                buildingLayout="vertical"
+                data={suggestion.items}
+              />
+            ))}
 
             <BlockHighlighted type="notfound" query={query} />
             <Contact />

@@ -63,7 +63,6 @@ const NotFound = ({ query }) => {
       </HighlightedH4>
 
       <div>
-
         {query && query.ready_release === 'pronto' && (
           <p>
             Que tal um imóvel na planta? Conheça nossas opções de imóveis em
@@ -79,7 +78,7 @@ const NotFound = ({ query }) => {
 
         {!query || !query.ready_release ? (
           <p>
-            Que tal um imóvel?
+            Conte para a gente o que está buscando, pois todos os dias chegam novos imóveis na Axpe
           </p>
         ) : null}
 
@@ -154,18 +153,26 @@ const Dream = () => (
   </>
 );
 
-const RegisterProperty = () => (
-  <>
+const RegisterProperty = ({ propertyType }) => {
+  let propertyTypeText = propertyType.toLowerCase();
+
+  if(propertyTypeText === 'praia') {
+    propertyTypeText = 'de praia';
+  } else if(propertyTypeText === 'campo') {
+    propertyTypeText = 'do campo';
+  }
+
+  return (
     <HighlightedH1 type="registerProperty">
       <strong>
-        <span>Cadastre seu imóvel.</span>
+        <span>Cadastre seu imóvel {propertyTypeText}.</span>
       </strong>
       <br />
       <span> Com certeza tem alguém procurando por ele</span>
       <hr />
     </HighlightedH1>
-  </>
-);
+  );
+};
 
 const RegisterPropertyTransform = () => (
   <>
@@ -196,7 +203,7 @@ const RegisterPropertyWhite = () => (
   </>
 );
 
-export default function BlockHighlighted({ type, href, onClick, query }) {
+export default function BlockHighlighted({ type, href, onClick, query, ...props }) {
   return (
     <Container type={type}>
       {type === 'contactHome' && <ContactHome />}
@@ -206,7 +213,7 @@ export default function BlockHighlighted({ type, href, onClick, query }) {
       {type === 'contactWork' && <ContactWork />}
       {type === 'landing' && <Landing />}
       {type === 'dream' && <Dream />}
-      {type === 'registerProperty' && <RegisterProperty />}
+      {type === 'registerProperty' && <RegisterProperty {...props} />}
       {type === 'registerPropertyWhite' && <RegisterPropertyWhite />}
       {type === 'registerPropertyTransform' && <RegisterPropertyTransform />}
     </Container>

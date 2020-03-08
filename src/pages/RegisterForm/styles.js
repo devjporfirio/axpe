@@ -22,7 +22,7 @@ export const FormRow = styled.div`
   ${media.greaterThan('medium')`
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
 
     div {
       flex-basis: 49%;

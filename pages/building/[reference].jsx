@@ -7,8 +7,9 @@ import Api from 'services';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import SimilarBuilding from 'components/Building';
+import SimilarBuildingList from 'components/Building/List';
 import DataSheet from 'pages/Building/Datasheet';
+// import BuildingForm from 'pages/Building/Form';
 import Modules from 'pages/Building/modules';
 
 // helpers
@@ -96,13 +97,15 @@ function Building({ property }) {
             title="Pessoas que viram este imóvel também viram:"
           >
             {similarBuildings.map(building => (
-              <SimilarBuilding item={building} key={building.reference} />
+              <SimilarBuildingList item={building} key={building.reference} />
             ))}
           </PanelSimilar>
         )}
 
         <BlockHighlighted type="notfound" />
         <Contact />
+
+        {/* <BuildingForm /> */}
       </Container>
     </>
   ) : null;

@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
+import Head from 'next/head';
 import Api from 'services';
 
 // helpers
+import SeoData from 'helpers/seo';
 import { getParamsFromObject, formatCurrency } from 'helpers/utils';
 
 // components
-import Building from 'components/Building';
+import BuildingList from 'components/Building/List';
 import Headerbar from 'components/Headerbar';
 
 // styles
@@ -25,40 +26,46 @@ function AlertsSeach({ building, params }) {
 
   if (!user.logged) return <Container />;
   return (
-    <Container>
-      <Headerbar type="search" title="Meus Alertas" />
-      <Body>
-        <Title>
-          <span>{params.source}</span>
-          <span> - {params.use}</span>
-        </Title>
-        <Subtitle>
-          {params.price_start &&
-            `${formatCurrency.format(
-              params.price_start
-            )} - ${formatCurrency.format(params.price_end)}`}
-          {params.price_start && params.area_start && ' | '}
-          {params.area_start && `${params.area_start} - ${params.area_end}`}
-          {(params.price_start || params.area_start) && params.local && ' | '}
-          {params.local && `${params.local}`}
-        </Subtitle>
+    <>
+      <Head>
+        <title>{`Alertas | Minha Conta - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        <Headerbar type="search" title="Meus Alertas" />
+        <Body>
+          <Title>
+            <span>{params.source}</span>
+            <span> - {params.use}</span>
+          </Title>
+          <Subtitle>
+            {params.price_start &&
+              `${formatCurrency.format(
+                params.price_start
+              )} - ${formatCurrency.format(params.price_end)}`}
+            {params.price_start && params.area_start && ' | '}
+            {params.area_start && `${params.area_start} - ${params.area_end}`}
+            {(params.price_start || params.area_start) && params.local && ' | '}
+            {params.local && `${params.local}`}
+          </Subtitle>
 
-        <Amount>
-          Encontramos <strong>{building.length} imóveis</strong> para a sua
-          busca
-        </Amount>
+          <Amount>
+            Encontramos <strong>{building.length} imóveis</strong> para a sua
+            busca
+          </Amount>
 
-        <Buildings>
-          {building.map((building, buildingIndex) => (
-            <Building
-              item={building}
-              key={`building-searchitem-${building.reference}-${buildingIndex}`}
-              useInactive
-            />
-          ))}
-        </Buildings>
-      </Body>
-    </Container>
+          <Buildings>
+            {building.map((building, buildingIndex) => (
+              <BuildingList
+                item={building}
+                key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                useInactive
+              />
+            ))}
+          </Buildings>
+        </Body>
+      </Container>
+    </>
   );
 }
 

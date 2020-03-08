@@ -12,7 +12,7 @@ import {
 import WhatsappIconSVG from 'assets/icons/whats-white-trans';
 import MailIconSVG from 'assets/icons/mail-white-trans';
 import PhoneIconSVG from 'assets/icons/phone-white-trans';
-import ChatIconSVG from 'assets/icons/chat-white-trans';
+import ChatIconSVG from 'assets/icons/chat';
 
 function ContactFloat() {
   const [ showContact, setShowContact ] = useState(false);

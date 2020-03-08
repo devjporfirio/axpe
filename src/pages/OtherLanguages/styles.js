@@ -154,4 +154,8 @@ export const Body = styled.div`
       margin-bottom: 25px;
     }
   `}
+
+  ${media.greaterThan('large')`
+    max-width: 85%;
+  `}
 `;

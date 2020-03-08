@@ -53,6 +53,7 @@ function LoginForm({ doAfterLogin }) {
       } else if(response.error) {
         let errorMessage = null;
         setSubmitting(false);
+
         switch(response.error) {
           case 'user.not.found':
             errorMessage = 'Usuário não encontrado.';
@@ -61,6 +62,7 @@ function LoginForm({ doAfterLogin }) {
             errorMessage = response.error;
             break;
         }
+
         setErrorMessage(errorMessage);
         setTimeout(() => {
           setErrorMessage(null);

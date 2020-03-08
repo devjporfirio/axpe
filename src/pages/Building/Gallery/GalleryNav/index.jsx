@@ -11,7 +11,7 @@ import {
   Info
 } from './styles';
 
-export default function GalleryNav({
+function GalleryNav({
   className,
   items = [],
   onClose,
@@ -62,8 +62,8 @@ export default function GalleryNav({
           >
             {items &&
               items.length > 0 &&
-              items.map((item, index) => (
-                <BodySlider key={index}>
+              items.map((item, itemIndex) => (
+                <BodySlider key={`building-gallerynav1-${itemIndex}`}>
                   {item.image || item.src ? (
                     <img src={item.src || item.image} alt="Imóvel" />
                   ) : item.video ? (
@@ -82,14 +82,14 @@ export default function GalleryNav({
           <ImagesSecundary>
             {items &&
               items.length > 0 &&
-              items.map((item, index) => (
+              items.map((item, itemIndex) => (
                 <img
-                  key={index}
+                  key={`building-gallerynav2-${itemIndex}`}
                   src={item.src || item.image}
                   alt="Imóvel"
-                  className={plantaSelect === index ? 'active' : ''}
+                  className={plantaSelect === itemIndex ? 'active' : ''}
                   role="presentation"
-                  onClick={() => slider1.current.slickGoTo(index)}
+                  onClick={() => slider1.current.slickGoTo(itemIndex)}
                 />
               ))}
           </ImagesSecundary>
@@ -98,3 +98,5 @@ export default function GalleryNav({
     </Container>
   );
 }
+
+export default GalleryNav;

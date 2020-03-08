@@ -4,7 +4,7 @@ import SVG from 'react-inlinesvg';
 
 // components
 import MyAccount from '..';
-import Building from 'components/Building';
+import BuildingList from 'components/Building/List';
 
 export const Container = styled(MyAccount)``;
 
@@ -59,6 +59,6 @@ export const MailIcon = styled(SVG)`
   `}
 `;
 
-export const BuildingItem = styled(Building)`
+export const BuildingItem = styled(BuildingList)`
   border: 2px solid ${({ theme }) => theme.colors.grey};
 `;

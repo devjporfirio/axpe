@@ -9,7 +9,6 @@ import Modal from 'components/Modals';
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
 
-
 // store
 import { setMain } from 'store/modules/main/actions';
 
@@ -65,7 +64,7 @@ export default function Contact() {
     },
     validationSchema: contactSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.Contact.postContact({
+      const response = await Api.Contact.postContact({
         message: values.message,
         name: user.me.name,
         lastName: user.me.lastName,
@@ -73,8 +72,10 @@ export default function Contact() {
         email: user.me.email,
         subject: 'Mais informações'
       });
+
       setSubmitting(false);
-      if (resp.status) {
+
+      if (response.status) {
         dispatch(
           setMain({
             modalNewsletterSuccess: true,
@@ -87,7 +88,7 @@ export default function Contact() {
     }
   });
 
-  return (
+  return modalContact ? (
     <Modal
       active={modalContact}
       onClose={closeModal}
@@ -115,7 +116,6 @@ export default function Contact() {
               value={values.message}
               onBlur={handleBlur}
             />
-
             <Button disabled={isSubmitting} type="submit" fullWidth>
               Enviar
             </Button>
@@ -124,5 +124,5 @@ export default function Contact() {
         <InfoUserContact />
       </ColumnContact>
     </Modal>
-  );
+  ) : null;
 }

@@ -15,7 +15,7 @@ export default {
   async getViewed(token) {
     shouldRenewToken();
     const response = await fetch(
-      `${process.env.config.apiUrl}/user/buildings/viewed?limit=10`,
+      `${process.env.config.apiUrl}/user/buildings/viewed?limit=10&find_all=1`,
       {
         method: 'GET',
         headers: {
@@ -89,7 +89,10 @@ export default {
     const result = await fetch(`${process.env.config.apiUrl}/user/alerts`, {
       method: 'POST',
       body: JSON.stringify({
-        source: params.source.value,
+        source:
+          params.source && params.source.value
+            ? params.source.value
+            : params.source,
         use: params.use,
         finality: params.finality,
         type: params.ready_release,

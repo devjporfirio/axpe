@@ -14,8 +14,7 @@ function Favoritos({ buildings, name }) {
     <Container>
       <Empty
         title="Você ainda não tem nenhum imóvel favorito"
-        subtitle="Para favoritar um imóvel, faça uma busca e clique nos ícones de
-              coração em cada imóvel."
+        subtitle="Para favoritar um imóvel, faça uma busca e clique nos ícones de coração em cada imóvel."
       />
     </Container>
   ) : (

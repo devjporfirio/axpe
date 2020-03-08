@@ -8,28 +8,18 @@ export default function ArticleVisit() {
       <header>
         <TitleSection>
           Visitar imóveis comuns? <br />
-          <span> Ninguém merece.</span>
+          <strong> Ninguém merece.</strong>
         </TitleSection>
       </header>
       <img src="static/about/sec-visit.jpg" alt="Imagem de uma sala" />
 
       <Group>
         <p>
-          Com certeza, mais cedo ou mais tarde, às vezes bem mais tarde, você
-          vai encontrar o imóvel perfeito. Como você quer que seja esse
-          processo?
+          Cedo ou tarde, às vezes bem mais tarde, você vai encontrar o imóvel perfeito. Como você quer que seja esse processo? Demorado e desgastante ou fluído e assertivo?
         </p>
-
-        <p>Demorado e desgastante ou fluído e assertivo?</p>
-
         <p>
-          Trabalhamos para você economizar seu precioso tempo. Todos os nossos
-          imóveis são visitados antes pelos nossos corretores, justamente para
-          você não precisar visitar o que não interessa. Ou seja: a gente faz a
-          parte demorada e desgastante pra você.
+          Seu tempo vale muito, por isso nossos corretores analisam bem os imóveis antes de apresentá-los a você.
         </p>
-
-        <p>Ufa!</p>
       </Group>
     </Container>
   );

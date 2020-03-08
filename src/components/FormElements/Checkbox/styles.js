@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import CheckedIconSVG from 'assets/icons/checked.svg';
+
+// assets
+import CheckedIconSVG from 'assets/icons/checked';
 
 const SizeBig = css`
   width: calc(100% - 4px);

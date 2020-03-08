@@ -1,18 +1,49 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Api from 'services';
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
+
+// helpers
+import SeoData from 'helpers/seo';
 
 // components
-import Slides from 'pages/MyAccount/Viewed/Slides';
+import SliderNew from 'components/SliderNew';
+import BuildingCard from 'components/Building/Card';
 import Empty from 'pages/MyAccount/Empty';
 
 // styles
-import { Container } from 'pages/MyAccount/Viewed/styles';
+import {
+  Container,
+  Items,
+  ItemsTitle
+} from 'pages/MyAccount/Viewed/styles';
 
 function Viewed() {
   const user = useSelector(state => state.user);
   const [ loaded, setLoaded ] = useState(false);
   const [ views, setViews ] = useState([]);
+  const settings = {
+    dots: false,
+    infinite: false,
+    lazyLoad: true,
+    speed: 800,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
+  };
 
   useEffect(() => {
     async function loadBuildings() {
@@ -37,21 +68,43 @@ function Viewed() {
   if (!user.logged || !loaded) return <Container />;
 
   return (
-    <Container>
-      {Object.keys(group).length > 0 ? (
-        Object.keys(group).map((item, index) => (
-          <Fragment key={index}>
-            <Slides date={item} items={group[item]} />
-            {Object.keys(group).length - 1 > index && <hr />}
-          </Fragment>
-        ))
-      ) : (
-        <Empty
-          title="Você ainda não visualizou nenhum imóvel"
-          subtitle="Navegue pelo site, visualize imóveis, e eles ficarão disponíveis para visualizações futuras aqui."
-        />
-      )}
-    </Container>
+    <>
+      <Head>
+        <title>{`Minha Conta - ${SeoData.title}`}</title>
+        <meta name="description" content={SeoData.description} />
+      </Head>
+      <Container>
+        {Object.keys(group).length > 0 ? (
+          Object.keys(group).map((item, itemIndex) => (
+
+            <Fragment key={`row-viewed-${itemIndex}`}>
+              <Items>
+                <ItemsTitle>{item}</ItemsTitle>
+                <SliderNew
+                  type="normal"
+                  arrowsColor="greenDark"
+                  settings={settings}
+                >
+                  {group[item].map((building, buildingIndex) => (
+                    <BuildingCard
+                      key={`building-viewed-${building.reference}-${buildingIndex}`}
+                      layout="vertical"
+                      item={building}
+                    />
+                  ))}
+                </SliderNew>
+              </Items>
+              {Object.keys(group).length - 1 > itemIndex && <hr />}
+            </Fragment>
+          ))
+        ) : (
+          <Empty
+            title="Você ainda não visualizou nenhum imóvel"
+            subtitle="Navegue pelo site, visualize imóveis, e eles ficarão disponíveis para visualizações futuras aqui."
+          />
+        )}
+      </Container>
+    </>
   );
 }
 

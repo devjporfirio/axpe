@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // components
@@ -18,6 +18,11 @@ export const PanelSimilar = styled(PanelBuildings)`
 
   header {
     max-width: 100%;
+    padding: 0 20px;
+
+    ${media.greaterThan('1024px')`
+      padding: 0;
+    `}
 
     h4 {
       max-width: 100%;
@@ -56,4 +61,10 @@ export const Alert = styled.div`
 
 export const Module = styled.div`
   margin-bottom: 30px;
+
+  ${props => props.type === 'plantas' && css`
+    ${media.greaterThan('medium')`
+      margin-bottom: 60px;
+    `}
+  `}
 `;
