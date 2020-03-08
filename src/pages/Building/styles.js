@@ -3,37 +3,6 @@ import media from 'styled-media-query';
 
 // components
 import Gallery from './Gallery';
-import PanelBuildings from 'components/PanelBuildings';
-
-export const PanelSimilar = styled(PanelBuildings)`
-  width: 100%;
-  margin: 0 auto;
-
-  ${media.greaterThan('1024px')`
-    width: 100%;
-    max-width: 954px;
-    padding-left: 0;
-    padding-right: 0;
-  `}
-
-  header {
-    max-width: 100%;
-    padding: 0 20px;
-
-    ${media.greaterThan('1024px')`
-      padding: 0;
-    `}
-
-    h4 {
-      max-width: 100%;
-      width: 100%;
-
-      ${media.greaterThan('1024px')`
-        text-align: left;
-      `}
-    }
-  }
-`;
 
 export const Images = styled(Gallery)`
   margin-bottom: 2px;
@@ -48,7 +17,7 @@ export const Container = styled.section`
 `;
 
 export const Alert = styled.div`
-  max-width: 1000px;
+  max-width: 974px;
   margin: auto;
   padding: 20px;
 

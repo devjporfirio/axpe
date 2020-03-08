@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const DatasheetContent = styled.div`
-  max-width: 1000px;
+  max-width: 974px;
   margin: auto;
   background-color: ${({ theme }) => theme.colors.green};
   p {
@@ -244,7 +244,7 @@ export const Delivery = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    max-width: 1000px;
+    max-width: 974px;
     margin: auto;
 
     p {

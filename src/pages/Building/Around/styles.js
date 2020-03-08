@@ -3,7 +3,7 @@ import media from 'styled-media-query';
 import Section from 'components/Section';
 
 export const Container = styled.div`
-  max-width: 1000px;
+  max-width: 974px;
   margin: auto;
 
   ${media.greaterThan('medium')`

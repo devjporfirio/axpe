@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 // components
-import HowWeLove from 'components/HowWeLove';
+import Around from 'pages/Building/Around';
+import HowWeLove from 'pages/Building/HowWeLove';
 import BlockHighlighted from 'components/BlockHighlighted';
 import DestaquesSection from 'components/DestaquesSection';
 import SlickText from 'components/SlickText';
 import Section from 'components/Section';
-import Around from 'components/Around';
 import GalleryNav from './Gallery/GalleryNav';
 
 // styles

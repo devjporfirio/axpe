@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Slider from 'components/Slider';
 
 export const Container = styled.div`
@@ -8,8 +10,8 @@ export const Container = styled.div`
   background-color: #91a8ab;
 
   ${media.greaterThan('medium')`
-    max-width: 1000px;
     width: 100%;
+    max-width: 974px;
     margin: auto;
     border-radius: 6px;
   `}

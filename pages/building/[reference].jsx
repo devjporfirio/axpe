@@ -7,7 +7,7 @@ import Api from 'services';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import SimilarBuildingList from 'components/Building/List';
+import BuildingsPanel from 'components/BuildingsPanel';
 import DataSheet from 'pages/Building/Datasheet';
 // import BuildingForm from 'pages/Building/Form';
 import Modules from 'pages/Building/modules';
@@ -17,7 +17,11 @@ import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 import SeoData from 'helpers/seo';
 
 // styles
-import { Container, Images, Alert, PanelSimilar } from 'pages/Building/styles';
+import {
+  Container,
+  Images,
+  Alert
+} from 'pages/Building/styles';
 
 function Building({ property }) {
   const user = useSelector(state => state.user);
@@ -92,14 +96,12 @@ function Building({ property }) {
         )}
 
         {similarBuildings && similarBuildings.length > 0 && (
-          <PanelSimilar
-            className="buildingsSimilar"
+          <BuildingsPanel
             title="Pessoas que viram este imóvel também viram:"
-          >
-            {similarBuildings.map(building => (
-              <SimilarBuildingList item={building} key={building.reference} />
-            ))}
-          </PanelSimilar>
+            buildingLayout="horizontal"
+            type="building"
+            data={similarBuildings}
+          />
         )}
 
         <BlockHighlighted type="notfound" />

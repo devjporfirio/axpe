@@ -13,6 +13,10 @@ export const Wrapper = styled.div`
   max-width: 974px;
   padding: 30px 50px;
 
+  ${props => props.type === 'building' && css`
+    max-width: 994px;
+  `}
+
   ${media.greaterThan('medium')`
     padding: 50px;
   `}

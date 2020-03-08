@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 
-import { Container, Title, Reasons } from './styles';
+// styles
+import {
+  Container,
+  Title,
+  Reasons
+} from './styles';
 
 function HowWeLove({ reasons }) {
   const [ html, setHtml ] = useState(null);

@@ -17,7 +17,8 @@ function BuildingsPanel({
   headerBig = false,
   buildingLayout = 'vertical',
   subtitle,
-  data
+  data,
+  type = 'normal'
 }) {
   const settings = {
     vertical: {
@@ -65,8 +66,8 @@ function BuildingsPanel({
   }
 
   return (
-    <Container>
-      <Wrapper>
+    <Container type={type}>
+      <Wrapper type={type}>
         <Header headerBig={headerBig}>
           {title && (
             <h3 dangerouslySetInnerHTML={{ __html: title }} />

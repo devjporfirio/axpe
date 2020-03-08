@@ -4,7 +4,7 @@ import Modal from './Modal';
 
 export const Container = styled.div`
   margin: auto;
-  max-width: 1000px;
+  max-width: 974px;
 
   .slick-slide {
     width: calc(100vw - 500px);

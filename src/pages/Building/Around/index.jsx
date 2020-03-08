@@ -3,10 +3,17 @@ import GoogleMapReact from 'google-map-react';
 import Api from 'services';
 import mapOptions from './mapOptions';
 
-import IPinDesktop from 'assets/icons/pin-desktop.svg';
-import IPinMobile from 'assets/icons/pin-mobile.svg';
+// assets
+import PinDesktopIconSVG from 'assets/icons/pin-desktop';
+import PinMobileIconSVG from 'assets/icons/pin-mobile';
 
-import { Container, Mapa, Pin, Text } from './styles';
+// styles
+import {
+  Container,
+  Mapa,
+  Pin,
+  Text
+} from './styles';
 
 function Around({ cep, text }) {
   const [ overvirePoly, setOverviewPoly ] = useState('');
@@ -68,8 +75,8 @@ function Around({ cep, text }) {
         )}
       </Mapa>
 
-      <Pin src={IPinDesktop} mq="desktop" alt="" />
-      <Pin src={IPinMobile} mq="mobile" alt="" />
+      <Pin src={PinDesktopIconSVG} mq="desktop" alt="" />
+      <Pin src={PinMobileIconSVG} mq="mobile" alt="" />
 
       <Text item={{ title: 'Ao seu redor', text }} />
     </Container>
