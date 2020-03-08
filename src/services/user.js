@@ -12,7 +12,29 @@ export default {
         'Content-Type': 'application/json'
       }
     })
-      .then(response => response.json())
+    .then(response => response.json())
+    return result;
+  },
+  async postLoginFacebook(data) {
+    const result = await fetch(`${process.env.config.apiUrl}/auth/login/facebook`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    return result;
+  },
+  async postLoginGoogle(data) {
+    const result = await fetch(`${process.env.config.apiUrl}/auth/login/google`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
     return result;
   },
   async postBuildingSeen(token, reference) {
@@ -30,7 +52,7 @@ export default {
         }
       }
     )
-      .then(response => response.json())
+    .then(response => response.json())
     return result;
   },
   async postRegister(data) {
@@ -41,7 +63,7 @@ export default {
         'Content-Type': 'application/json'
       }
     })
-      .then(response => response.json())
+    .then(response => response.json())
     return result;
   },
 };

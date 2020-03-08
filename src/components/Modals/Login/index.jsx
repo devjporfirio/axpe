@@ -7,6 +7,7 @@ import Slider from 'components/Slider';
 import Button from 'components/Button';
 import LoginForm from 'components/Modals/Login/LoginForm';
 import RegisterForm from 'components/Modals/Login/RegisterForm';
+import LoginSocials from 'components/Modals/Login/LoginSocials';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -129,6 +130,7 @@ function LoginModal() {
                 Já tem um cadastro? <span>Faça seu login.</span>
               </ColumnTitle>
               <LoginForm doAfterLogin={doAfterLogin} />
+              <LoginSocials doAfterLogin={doAfterLogin} />
             </LoginRow>
             <LoginRow>
               <ColumnTitle>É sua primeira visita?</ColumnTitle>
