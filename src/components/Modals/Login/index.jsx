@@ -76,7 +76,7 @@ function LoginModal() {
     }
   }, [ modalLogin ])
 
-  return (
+  return modalLogin ? (
     <Modal
       active={modalLogin}
       onClose={closeModal}
@@ -171,7 +171,7 @@ function LoginModal() {
         )}
       </Column>
     </Modal>
-  );
+  ) : null;
 }
 
 export default LoginModal;

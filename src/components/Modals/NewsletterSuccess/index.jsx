@@ -18,7 +18,7 @@ function NewsletterSuccess() {
     dispatch(setMain({ modalNewsletterSuccess: false }))
   }, [ modalNewsletterSuccess ])
 
-  return (
+  return modalNewsletterSuccess ? (
     <Modal active={modalNewsletterSuccess} onClose={closeModal} themeColor="green">
       <Success>
         <SuccessColumn>
@@ -29,7 +29,7 @@ function NewsletterSuccess() {
         </SuccessColumn>
       </Success>
     </Modal>
-  )
+  ) : null;
 }
 
 export default NewsletterSuccess

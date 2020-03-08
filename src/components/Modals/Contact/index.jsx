@@ -88,7 +88,7 @@ export default function Contact() {
     }
   });
 
-  return (
+  return modalContact ? (
     <Modal
       active={modalContact}
       onClose={closeModal}
@@ -124,5 +124,5 @@ export default function Contact() {
         <InfoUserContact />
       </ColumnContact>
     </Modal>
-  );
+  ) : null;
 }

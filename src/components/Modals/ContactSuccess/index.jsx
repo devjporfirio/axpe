@@ -19,7 +19,7 @@ function ContactSuccess() {
     dispatch(setMain({ modalContactSuccess: false }));
   }, [ modalContactSuccess ]);
 
-  return (
+  return modalContactSuccess ? (
     <Modal active={modalContactSuccess} onClose={closeModal} themeColor="green">
       <Success>
         <SuccessColumn>
@@ -32,7 +32,7 @@ function ContactSuccess() {
         </SuccessColumn>
       </Success>
     </Modal>
-  );
+  ) : null;
 }
 
 export default ContactSuccess;

@@ -23,7 +23,7 @@ function RegisterSuccess() {
     router.push(`/`);
   }, [ modalRegisterSuccess ]);
 
-  return (
+  return modalRegisterSuccess ? (
     <Modal
       active={modalRegisterSuccess}
       onClose={closeModal}
@@ -44,7 +44,7 @@ function RegisterSuccess() {
         </SuccessColumn>
       </Success>
     </Modal>
-  );
+  ) : null;
 }
 
 export default RegisterSuccess;

@@ -19,7 +19,7 @@ function LoginRegisterSuccessModal() {
     dispatch(setMain({ modalLoginRegisterSuccess: false }))
   }, [ modalLoginRegisterSuccess ]);
 
-  return (
+  return modalLoginRegisterSuccess ? (
     <Modal active={modalLoginRegisterSuccess} onClose={closeModal} themeColor="green">
       <Success size="big">
         <SuccessColumn>
@@ -31,7 +31,7 @@ function LoginRegisterSuccessModal() {
         </SuccessColumn>
       </Success>
     </Modal>
-  )
+  ) : null;
 }
 
 export default LoginRegisterSuccessModal;

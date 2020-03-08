@@ -51,7 +51,7 @@ function NewsletterModal() {
     dispatch(setMain({ modalNewsletter: false }))
   }, [ modalNewsletter ]);
 
-  return (
+  return modalNewsletter ? (
     <Modal active={modalNewsletter} onClose={closeModal}>
       <Texts>
         <Slider propsArrow={{ color: 'white' }}>
@@ -105,7 +105,7 @@ function NewsletterModal() {
         </FormContainer>
       </Column>
     </Modal>
-  )
+  ) : null
 }
 
 export default NewsletterModal
