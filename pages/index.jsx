@@ -129,6 +129,14 @@ function Home({ hero, components }) {
       } else if (!user.logged) {
         const buildingsSeenCookie = CookieBuildingSeen.get();
 
+        if(buildingsSeenCookie.length) {
+          for(let i = buildingsSeenCookie.length - 1; i >= 0; --i) {
+            if(!buildingsSeenCookie[i]) {
+              buildingsSeenCookie.splice(i, 1);
+            }
+          }
+        }
+
         if (!buildingsSeenCookie.length) return false;
 
         const listBuildingsSeen = await Promise.all(
