@@ -99,7 +99,7 @@ function LoginModal() {
                 </p>
               </TextWrapper>
             </Text>
-            <Text>
+            {/* <Text>
               <TextWrapper>
                 <h2>
                   Todos os dias chegam <strong>novos imóveis</strong>. Seja o
@@ -110,7 +110,7 @@ function LoginModal() {
                   com seu perfil
                 </p>
               </TextWrapper>
-            </Text>
+            </Text> */}
           </Slider>
         )}
 
