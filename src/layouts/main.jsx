@@ -23,7 +23,7 @@ import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 import ForgotPasswordSuccess from 'components/Modals/ForgotPasswordSuccess';
 import ContactSuccessModal from 'components/Modals/ContactSuccess';
 import ContactModal from 'components/Modals/Contact';
-import ContactFloat from 'components/ContactFloat';
+import ContactBar from 'components/ContactBar';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -75,7 +75,7 @@ function Main({ children }) {
         <ForgotPasswordSuccess />
         <ContactSuccessModal />
         <ContactModal />
-        <ContactFloat />
+        <ContactBar />
         <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>
       </>
     </ThemeProvider>
