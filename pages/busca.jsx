@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
-import Router, { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router';
 
 // store
-import { setMain } from 'store/modules/main/actions'
+import { setMain } from 'store/modules/main/actions';
 
 // components
 import Button from 'components/Button';
@@ -43,8 +43,8 @@ function Search({ total, totalPages, data, locals }) {
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'latest' },
-    { label: 'Menor área útil', value: 'area' },
-    { label: 'Maior área útil', value: 'area' },
+    { label: 'Menor área útil', value: 'lowest_area' },
+    { label: 'Maior área útil', value: 'biggest_area' },
     { label: 'Menor Preço', value: 'lowest_price' },
     { label: 'Maior Preço', value: 'biggest_price' }
   ];

@@ -11,7 +11,7 @@ import {
 // assets
 import WhatsappIconSVG from 'assets/icons/whats-white-trans';
 import MailIconSVG from 'assets/icons/mail-white-trans';
-import PhoneIconSVG from 'assets/icons/phone-white-trans';
+import PhoneIconSVG from 'assets/icons/phone';
 import ChatIconSVG from 'assets/icons/chat';
 
 function ContactFloat() {

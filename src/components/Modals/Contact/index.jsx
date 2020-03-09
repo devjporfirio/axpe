@@ -8,14 +8,17 @@ import Api from 'services';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
+import InfoUser from 'components/InfoUser';
 
 // store
 import { setMain } from 'store/modules/main/actions';
 
 // styles
-import { Form, TextContact, ColumnContact, InfoUserContact } from './styles';
+import { Form } from './styles';
 import { FormGroup } from 'components/FormElements/styles';
 import {
+  Texts,
+  Column,
   Text,
   TextWrapper,
   ColumnTitle
@@ -95,7 +98,7 @@ export default function Contact() {
       showButtonBack={showRegister}
       onClickButtonBack={onClickButtonBack}
     >
-      <TextContact>
+      <Texts>
         <Text>
           <TextWrapper>
             <h2>
@@ -103,8 +106,8 @@ export default function Contact() {
             </h2>
           </TextWrapper>
         </Text>
-      </TextContact>
-      <ColumnContact>
+      </Texts>
+      <Column>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <ColumnTitle>Quer mais informações sobre este imóvel?</ColumnTitle>
@@ -121,8 +124,8 @@ export default function Contact() {
             </Button>
           </FormGroup>
         </Form>
-        <InfoUserContact />
-      </ColumnContact>
+        <InfoUser asInclude={true} />
+      </Column>
     </Modal>
   ) : null;
 }

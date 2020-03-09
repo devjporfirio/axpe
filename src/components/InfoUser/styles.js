@@ -1,45 +1,31 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-export const InfoLogin = styled.div`
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
-  height: 190px;
-  padding-top: 23px;
+  padding: 30px;
+  background-color: ${({ theme }) => theme.colors.white};
+
+  ${props => props.asInclude && css`
+    padding-left: 0;
+    padding-right: 0;
+  `}
 
   svg {
-    position: absolute;
-    margin-top: -23px;
-    margin-left: 15px;
+    display: block;
+    margin-right: 20px;
+    width: 32px;
+    height: 46px;
   }
-
-  ${media.greaterThan('medium')`
-    background-color: ${({ theme }) => theme.colors.white};
-    width: 370px;
-    min-width: 360px;
-    height: 88px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-right: 42px;
-
-    svg {
-      width: 32px;
-      height: 46px;
-      position: initial;
-      margin: 0;
-    }
-  `}
 `;
 
-export const Info = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
-  height: 167px;
-  padding: 49px 15px 0 15px;
-
-  p,
-  a {
-    font: 14px/18px 'Raleway';
+export const Text = styled.div`
+  p {
+    font-size: 14px;
+    line-height: 18px;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
     strong {
@@ -47,25 +33,12 @@ export const Info = styled.div`
     }
   }
 
-  a {
-    padding: 0;
-    margin-left: calc(100% - 88px);
-    text-decoration: underline;
-    display: block;
-    margin-top: -18px;
-  }
-
   ${media.greaterThan('medium')`
-    height: auto;
-    padding: 0;
     max-width: 300px;
-
-    a {
-      color: ${({ theme }) => theme.colors.orange};
-      margin: 0;
-      display: inline;
-    }
   `}
 `;
 
-export const LinkLogoff = styled.a``;
+export const LinkLogout = styled.a`
+  text-decoration: underline;
+  color: ${({ theme }) => theme.colors.orange};
+`;

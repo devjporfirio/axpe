@@ -164,7 +164,7 @@ export const ButtonContainer = styled.span`
   height: 45px;
   margin-top: 30px;
   border-radius: 4px;
-  font: 15px/40px 'Raleway';
+  font: 15px/44px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-align: center;
   background-color: ${({ theme }) => theme.colors.orange};

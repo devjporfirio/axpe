@@ -10,9 +10,13 @@ import { setMain } from 'store/modules/main/actions';
 import UserIconSVG from 'assets/icons/user';
 
 // styles
-import { Info, InfoLogin, LinkLogoff } from './styles';
+import {
+  Container,
+  Text,
+  LinkLogout
+} from './styles';
 
-function InfoUser({ className }) {
+function InfoUser({ asInclude }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
@@ -21,23 +25,21 @@ function InfoUser({ className }) {
   }
 
   return (
-    <InfoLogin className={className}>
+    <Container asInclude={asInclude}>
       <SVG src={UserIconSVG} uniquifyIDs={true} />
-      <Info>
+      <Text>
         <p>
           Você está logado como
           <strong> {user.me.name} {user.me.lastName}</strong>
         </p>
-        <p>Tel.: {user.me.phone}</p>
-        <p>E-mail: {user.me.email}</p>
         <p>
           Se não for você{' '}
           <Link href="/logout" passHref>
-            <LinkLogoff onClick={handleLogoff}>clique aqui</LinkLogoff>
+            <LinkLogout onClick={handleLogoff}>clique aqui</LinkLogout>
           </Link>
         </p>
-      </Info>
-    </InfoLogin>
+      </Text>
+    </Container>
   );
 }
 
