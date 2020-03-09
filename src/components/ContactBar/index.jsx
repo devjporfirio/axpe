@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { setMain } from 'store/modules/main/actions';
 
 // components
-import InfoUser from 'components/InfoUser';
+import UserInfo from 'components/UserInfo';
 
 // assets
 import WhatsappIconSVG from 'assets/icons/whats-white-trans';
@@ -78,7 +78,7 @@ function ContactBar() {
                 </Header>
                 <IframeContainer>
                   <Iframe src="/forms/imovel/index.html" border="none" frameBorder="0" title={router.asPath}></Iframe>
-                  <InfoUser />
+                  <UserInfo />
                 </IframeContainer>
               </>
             ) : (

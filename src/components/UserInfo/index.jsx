@@ -16,7 +16,7 @@ import {
   LinkLogout
 } from './styles';
 
-function InfoUser({ asInclude }) {
+function UserInfo({ asInclude }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
@@ -43,4 +43,4 @@ function InfoUser({ asInclude }) {
   );
 }
 
-export default InfoUser;
+export default UserInfo;

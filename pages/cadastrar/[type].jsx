@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
-import InfoUser from 'components/InfoUser';
+import UserInfo from 'components/UserInfo';
 
 // helpers
 import SeoData from 'helpers/seo';
@@ -545,7 +545,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                 onBlur={handleBlur}
               />
 
-              <InfoUser />
+              <UserInfo />
 
               <ButtonSubmit disabled={isSubmitting} type="submit">
                 Enviar

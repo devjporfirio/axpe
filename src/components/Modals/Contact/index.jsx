@@ -8,7 +8,7 @@ import Api from 'services';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
-import InfoUser from 'components/InfoUser';
+import UserInfo from 'components/UserInfo';
 
 // store
 import { setMain } from 'store/modules/main/actions';
@@ -124,7 +124,7 @@ export default function Contact() {
             </Button>
           </FormGroup>
         </Form>
-        <InfoUser asInclude={true} />
+        <UserInfo asInclude={true} />
       </Column>
     </Modal>
   ) : null;
