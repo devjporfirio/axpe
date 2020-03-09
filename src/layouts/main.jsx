@@ -14,6 +14,7 @@ import { setUserByCookie } from 'store/modules/user/actions';
 // components
 import Loading from 'components/Loading';
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 import Search from 'components/Search';
 import NewsletterModal from 'components/Modals/Newsletter';
 import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
@@ -66,6 +67,7 @@ function Main({ children }) {
         <Search />
         <Wrapper>
           {children}
+          <Footer />
         </Wrapper>
         <NewsletterModal />
         <NewsletterSuccessModal />
