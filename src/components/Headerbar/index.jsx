@@ -32,7 +32,6 @@ import {
   ButtonAlertMessage,
   Text,
   ButtonLike,
-  ButtonMoreInformation,
   PhoneContact
 } from './styles';
 
@@ -104,36 +103,6 @@ function Headerbar({ className, type, title, subtitle, building }) {
         })
       );
       dispatch(setUserBuildingToLike(building.reference));
-    }
-  }
-
-  function handleMoreInfo(type) {
-    if (user.logged) {
-      dispatch(
-        setMain({
-          modalContact: true,
-          modalContactMessage:
-            type === 'building'
-              ? `Olá, gostaria de saber mais sobre o imóvel ${
-                  building.reference
-                } - ${building.local}, com ${
-                  building.area
-                    ? building.bedrooms || building.parking
-                      ? `, ${building.area} m²`
-                      : `${building.area} m²`
-                    : ''
-                } ${
-                  building.bedrooms
-                    ? building.parking
-                      ? `${building.bedrooms} quartos e`
-                      : `${building.bedrooms} quartos `
-                    : ''
-                } ${building.parking ? `${building.parking} vagas` : ''}.`
-              : ''
-        })
-      );
-    } else {
-      dispatch(setMain({ modalLogin: true }));
     }
   }
 
@@ -215,13 +184,6 @@ function Headerbar({ className, type, title, subtitle, building }) {
                 {building.likes > 0 && building.likes}
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </ButtonLike>
-              <ButtonMoreInformation
-                type="button"
-                size="small"
-                onClick={() => handleMoreInfo('building')}
-              >
-                Mais informações
-              </ButtonMoreInformation>
               <PhoneContact>11 3074-3600</PhoneContact>
             </Column>
           )}

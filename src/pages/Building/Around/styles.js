@@ -37,6 +37,7 @@ export const Mapa = styled.div`
 `;
 
 export const Pin = styled.img`
+  position: relative;
   display: ${props => (props.mq === 'desktop' ? 'none' : 'block')};
   width: 28px;
   margin: -20px 0 0 30px;

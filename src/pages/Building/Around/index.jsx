@@ -5,7 +5,7 @@ import mapOptions from './mapOptions';
 
 // assets
 import PinDesktopIconSVG from 'assets/icons/pin-desktop';
-import PinMobileIconSVG from 'assets/icons/pin-mobile';
+import PinWhiteIconSVG from 'assets/icons/pin-white';
 
 // styles
 import {
@@ -76,7 +76,7 @@ function Around({ cep, text }) {
       </Mapa>
 
       <Pin src={PinDesktopIconSVG} mq="desktop" alt="" />
-      <Pin src={PinMobileIconSVG} mq="mobile" alt="" />
+      <Pin src={PinWhiteIconSVG} mq="mobile" alt="" />
 
       <Text item={{ title: 'Ao seu redor', text }} />
     </Container>
