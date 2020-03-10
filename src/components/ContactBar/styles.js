@@ -14,6 +14,7 @@ export const ButtonFloat = styled.button`
   background: ${({ theme }) => theme.colors.orange};
   border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.colors.white};
+  z-index: 10;
 
   ${media.greaterThan('large')`
     right: 70px;
