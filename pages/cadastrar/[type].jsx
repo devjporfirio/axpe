@@ -19,7 +19,7 @@ import SeoData from 'helpers/seo';
 import { setMain } from 'store/modules/main/actions';
 
 // images
-import IClose from 'assets/icons/close-white';
+import CloseIconSVG from 'assets/icons/close-white';
 
 // styles
 import { FormGroup } from 'components/FormElements/styles';
@@ -74,7 +74,7 @@ const registrySchema = Yup.object().shape({
     .required()
 });
 
-function RegisterForm({ locals, categories, pais, type }) {
+function RegisterForm({ locals, categories, countries, type }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ keyLocals, setKeyLocals ] = useState('São Paulo');
@@ -240,12 +240,12 @@ function RegisterForm({ locals, categories, pais, type }) {
                     <FormElements
                       name="pais"
                       type="select"
-                      items={pais}
+                      items={countries}
                       onChange={e => {
                         handleChange(e);
                         setKeyLocals(e.currentTarget.value);
                       }}
-                      error={touched.pais && errors.pais}
+                      error={touched.countries && errors.countries}
                       onBlur={handleBlur}
                     />
                   </FormGroup>
@@ -519,7 +519,7 @@ function RegisterForm({ locals, categories, pais, type }) {
                     return (
                       <GroupImage key={`groupimg-${index}`}>
                         <SVG
-                          src={IClose}
+                          src={CloseIconSVG}
                           uniquifyIDs={true}
                           onClick={() => handleRemoveImage(index)}
                         />
@@ -559,18 +559,18 @@ function RegisterForm({ locals, categories, pais, type }) {
   );
 }
 
-RegisterForm.getInitialProps = async ({ type, query }) => {
+RegisterForm.getInitialProps = async ({ query }) => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
-  const paises = await Api.Search.getFilters('?source=internacional');
+  const countries = await Api.Search.getFilters('?source=internacional');
   const itemBase = { label: 'Selecione', value: '' };
 
-  const newPais = [ itemBase ];
-  Object.keys(paises.locals).map(x => newPais.push({ label: x, value: x }));
+  const newContries = [ itemBase ];
+  Object.keys(countries.locals).map(x => newContries.push({ label: x, value: x }));
 
   return {
     locals: locals,
-    pais: newPais,
+    countries: newContries,
     categories,
     type: query.type
   };

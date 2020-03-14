@@ -79,7 +79,7 @@ function Search({ total, totalPages, data, locals }) {
     dispatch(setMain({ searchFormActive: !searchFormActive }))
   }, [ searchFormActive ]);
 
-  const handleOrderBy = (event) => {
+  const handleOrderBy = useCallback((event) => {
     const newOrder = event.target.value;
     const params = getParamsFromObject({
       ...query,
@@ -90,7 +90,7 @@ function Search({ total, totalPages, data, locals }) {
       setOrderBy(newOrder);
       Router.push(`/busca${params}`);
     }
-  }
+  }, [ query ]);
 
   const setNewData = useCallback((newData, first) => {
     const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
@@ -187,6 +187,17 @@ function Search({ total, totalPages, data, locals }) {
     setSuggestions(results);
   }, [ total, reference ]);
 
+
+  useEffect(() => {
+    dispatch(setMain({
+      searchFunnel: {
+        use: query.use,
+        finality: query.finality,
+        source: query.source
+      }
+    }))
+  }, []);
+
   useEffect(() => {
     setNewData(data, true);
     setPage(1);
@@ -212,7 +223,7 @@ function Search({ total, totalPages, data, locals }) {
       setIsLoading(true);
       getDataByPage();
     }
-  }, [ page ])
+  }, [ page ]);
 
   return (
     <>

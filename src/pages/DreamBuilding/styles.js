@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const Container = styled.section`
+  background: ${({ theme }) => theme.colors.greyLight};
+
   ${media.greaterThan('medium')`
     display: flex;
     align-items: center;
@@ -25,13 +27,17 @@ export const Wrapper = styled.div`
 export const Header = styled.header`
   margin-bottom: 30px;
 
+  ${media.greaterThan('medium')`
+    margin-bottom: 20px;
+  `}
+
   h2 {
     margin-bottom: 30px;
     font: 25px/30px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
     ${media.greaterThan('medium')`
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-size: 40px;
       line-height: 48px;
     `}
@@ -79,7 +85,8 @@ export const ListButton = styled.a`
   border-radius: 4px;
   overflow: hidden;
 
-  &:before {
+  &:before,
+  &:after {
     content: '';
     display: block;
     position: absolute;
@@ -89,7 +96,25 @@ export const ListButton = styled.a`
     height: 100%;
     z-index: 2;
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+    transition: all 300ms ease;
   }
+
+  &:after {
+    background: linear-gradient(to bottom, transparent 50%, rgba(238, 105, 0, 0.6));
+    ${({ theme }) => theme.hide};
+  }
+
+  ${media.greaterThan('large')`
+    &:hover {
+      &:before {
+        /* ${({ theme }) => theme.hide}; */
+      }
+
+      &:after {
+        ${({ theme }) => theme.show};
+      }
+    }
+  `}
 `;
 
 export const ListImage = styled.img`
@@ -105,12 +130,12 @@ export const ListText = styled.div`
   z-index: 4;
   width: 100%;
   text-align: center;
-  padding: 0 10px 30px 10px;
+  padding: 0 5px 30px 5px;
   color: ${({ theme }) => theme.colors.white};
 
   h3 {
     margin-bottom: 10px;
-    font: 25px/30px 'Bitter';
+    font: 24px/30px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 `;

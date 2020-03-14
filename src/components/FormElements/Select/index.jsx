@@ -2,7 +2,7 @@ import React from 'react';
 import SVG from 'react-inlinesvg';
 import { InputSelect } from '../styles';
 
-import IArrow from 'assets/icons/arrow';
+import ArrowIconSVG from 'assets/icons/arrow';
 
 export default function Select(props) {
   return (
@@ -16,7 +16,7 @@ export default function Select(props) {
             </option>
           ))}
       </InputSelect>
-      <SVG src={IArrow} uniquifyIDs={true} />
+      <SVG src={ArrowIconSVG} uniquifyIDs={true} />
     </>
   );
 }

@@ -1,7 +1,9 @@
 const initialState = {
   loaded: false,
+  currentBuilding: null,
   headerHiding: false,
   searchFormActive: false,
+  searchFunnel: null,
   modalNewsletter: false,
   modalNewsletterSuccess: false,
   modalLogin: false,

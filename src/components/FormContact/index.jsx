@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+// import { useDispatch } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
-import { useFormik } from 'formik';
-import Api from 'services';
-import * as Yup from 'yup';
+// import Api from 'services';
 
 // actions
-import { setMain } from 'store/modules/main/actions';
+// import { setMain } from 'store/modules/main/actions';
 
 // components
-import PrivacyPolicy from 'components/PrivacyPolicy';
 import BlockHighlighted from 'components/BlockHighlighted';
-import FormElements from 'components/FormElements';
-import { FormGroup } from 'components/FormElements/styles';
 
 // styles
 import {
-  ButtonContainer,
   Container,
   Header,
   Body,
@@ -26,84 +20,29 @@ import {
   Tel,
   Message,
   Whats,
-  Form,
-  FormGroupButton,
+  IframeContainer,
+  Iframe,
   Mapa,
   Balloon,
   Pin,
   Circle,
   Rec
-} from 'components/FormContact/styles';
-
-const contactSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2)
-    .required(),
-  lastName: Yup.string()
-    .min(2)
-    .required(),
-  email: Yup.string()
-    .email()
-    .required(),
-  phone: Yup.string().required(),
-  mobile: Yup.string().required(),
-  subject: Yup.string().required(),
-  message: Yup.string()
-    .min(2)
-    .required(),
-  terms: Yup.boolean()
-    .oneOf([ true ])
-    .required()
-});
+} from './styles';
 
 function FormContact({ showHeader = true }) {
-  const dispatch = useDispatch();
-  const [ privacyPolicyActive, setPrivacyPolicyActive ] = useState(false);
-  const btnPrivacyPolicy = <button type="type" onClick={event => {
-    event.preventDefault();
-    event.stopPropagation();
-    handlePrivacyPolicy();
-  }}>política de privacidade</button>;
-
-  function handlePrivacyPolicy(event) {
-    setPrivacyPolicyActive(!privacyPolicyActive);
-  }
-
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    isSubmitting,
-    values,
-    touched,
-    errors
-  } = useFormik({
-    initialValues: {
-      name: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      mobile: '',
-      subject: '',
-      message: '',
-      terms: false
-    },
-    validationSchema: contactSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.Contact.postContact(values);
-
-      setSubmitting(false);
-
-      if (resp.status) {
-        dispatch(
-          setMain({
-            modalContactSuccess: true
-          })
-        );
-        resetForm({});
-      }
-    }
-  });
+  // const dispatch = useDispatch();
+  // onSubmit: async (values, { setSubmitting, resetForm }) => {
+  //   const resp = await Api.Contact.postContact(values);
+  //   setSubmitting(false);
+  //   if (resp.status) {
+  //     dispatch(
+  //       setMain({
+  //         modalContactSuccess: true
+  //       })
+  //     );
+  //     resetForm({});
+  //   }
+  // }
 
   return (
     <>
@@ -130,107 +69,14 @@ function FormContact({ showHeader = true }) {
               assunto. Pedir um imóvel bem específico, tirar dúvidas, pedir uma
               informação e também reclamar, dar sugestões, elogiar.
             </Message>
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <h2>Seus dados de contato</h2>
-                <FormElements
-                  name="name"
-                  label="Nome"
-                  placeholder="Nome"
-                  onChange={handleChange}
-                  error={touched.name && errors.name}
-                  value={values.name}
-                  onBlur={handleBlur}
-                />
-                <FormElements
-                  name="lastName"
-                  label="Sobrenome"
-                  placeholder="Sobrenome"
-                  onChange={handleChange}
-                  error={touched.lastName && errors.lastName}
-                  value={values.lastName}
-                  onBlur={handleBlur}
-                />
-                <FormElements
-                  type="emailmask"
-                  name="email"
-                  label="E-mail"
-                  placeholder="E-mail"
-                  onChange={handleChange}
-                  error={touched.email && errors.email}
-                  value={values.email}
-                  onBlur={handleBlur}
-                />
-                <FormElements
-                  type="phone"
-                  name="phone"
-                  label="Telefone"
-                  placeholder="Telefone"
-                  onChange={handleChange}
-                  error={touched.phone && errors.phone}
-                  value={values.phone}
-                  onBlur={handleBlur}
-                />
-                <FormElements
-                  type="phone"
-                  name="mobile"
-                  label="Celular"
-                  placeholder="Celular"
-                  onChange={handleChange}
-                  error={touched.mobile && errors.mobile}
-                  value={values.mobile}
-                  onBlur={handleBlur}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <h2>Assunto:</h2>
-                <FormElements
-                  name="subject"
-                  type="select"
-                  items={[
-                    { label: 'Selecione o assunto', value: '' },
-                    { label: 'Compra', value: 'compra' },
-                    { label: 'Venda', value: 'venda' }
-                  ]}
-                  onChange={handleChange}
-                  error={touched.subject && errors.subject}
-                  value={values.subject}
-                  onBlur={handleBlur}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <h2>Sua Mensagem</h2>
-                <FormElements
-                  type="area"
-                  name="message"
-                  placeholder="Digite sua mensagem"
-                  onChange={handleChange}
-                  error={touched.message && errors.message}
-                  value={values.message}
-                  onBlur={handleBlur}
-                />
-              </FormGroup>
-
-              <FormGroupButton>
-                <FormElements
-                  type="checkboxLink"
-                  name="terms"
-                  label={
-                    <>Declaro que li e concordo com a {btnPrivacyPolicy} da Axpe.</>
-                  }
-                  onChange={handleChange}
-                  error={touched.terms && errors.terms}
-                  value={values.terms}
-                  checked={values.terms}
-                  onBlur={handleBlur}
-                />
-                <ButtonContainer disabled={isSubmitting} type="submit">
-                  Enviar
-                </ButtonContainer>
-              </FormGroupButton>
-            </Form>
+            <IframeContainer>
+              <Iframe
+                src="/forms/imovel/contato.html"
+                border="none"
+                frameBorder="0"
+                title="Contato"
+              ></Iframe>
+            </IframeContainer>
             <BlockHighlighted type="contactWork" />
           </BlockForm>
           <Mapa>
@@ -260,11 +106,11 @@ function FormContact({ showHeader = true }) {
           </Mapa>
         </Body>
       </Container>
-      <PrivacyPolicy
+      {/* <PrivacyPolicy
         onDemand={true}
         active={privacyPolicyActive}
         onClose={handlePrivacyPolicy}
-      />
+      /> */}
     </>
   );
 }

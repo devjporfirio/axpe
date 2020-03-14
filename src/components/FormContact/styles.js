@@ -102,9 +102,22 @@ export const Numbers = styled.div`
 
   ${media.greaterThan('medium')`
     justify-content: flex-start;
-    /* max-width: 1000px; */
     margin: auto;
   `}
+`;
+
+export const IframeContainer = styled.div`
+  padding: 0 30px;
+
+  ${media.greaterThan('medium')`
+    padding: 0;
+  `}
+`;
+
+export const Iframe = styled.iframe`
+  display: block;
+  width: 100%;
+  height: 760px;
 `;
 
 export const Form = styled.form`

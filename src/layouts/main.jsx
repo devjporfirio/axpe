@@ -36,7 +36,7 @@ function Main({ children }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Router.events.on('routeChangeStart', () => {
+    Router.events.on('routeChangeStart', (a) => {
       dispatch(setMain({
         searchFormActive: false,
         headerHiding: false,

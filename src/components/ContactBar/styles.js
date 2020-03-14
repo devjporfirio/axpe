@@ -53,6 +53,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  position: relative;
   width: 100%;
   min-height: 100vh;
 
@@ -138,6 +139,7 @@ export const IframeContainer = styled.div`
 export const Iframe = styled.iframe`
   display: block;
   width: 100%;
+  height: 100vh;
 `;
 
 export const Column = styled.div`

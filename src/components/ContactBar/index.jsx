@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import { useRouter } from 'next/router';
@@ -6,8 +6,8 @@ import { useRouter } from 'next/router';
 // actions
 import { setMain } from 'store/modules/main/actions';
 
-// components
-import UserInfo from 'components/UserInfo';
+// helpers
+import { getParamsFromObject } from 'helpers/utils';
 
 // assets
 import WhatsappIconSVG from 'assets/icons/whats-white-trans';
@@ -22,7 +22,6 @@ import {
   Header,
   ButtonClose,
   Iframe,
-  IframeContainer,
   Column,
   List,
   ListLink,
@@ -32,9 +31,26 @@ import {
 function ContactBar() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const refIframe = useRef(null);
+  const { currentBuilding, searchFunnel } = useSelector(state => state.main);
   const user = useSelector(state => state.user);
   const [ isBuilding, setIsBuilding ] = useState(false);
   const [ show, setShow ] = useState(false);
+  const [ iframeUrl, setIframeUrl ] = useState(null);
+  const iframes = [
+    {
+      source: 'praia-campo',
+      finality: 'aluguel',
+      use: 'RESIDENCIAL',
+      src: '/forms/imovel/locacao-praiacampo-residencial.html'
+    },
+    {
+      source: 'sao-paulo',
+      finality: 'aluguel',
+      use: 'COMERCIAL',
+      src: '/forms/imovel/locacao-saopaulo-comercial.html'
+    }
+  ];
 
   const clickContainer = useCallback((event) => {
     event.preventDefault();
@@ -58,8 +74,51 @@ function ContactBar() {
   }, [ show, isBuilding, user.logged ]);
 
   useEffect(() => {
+    if(user.logged && currentBuilding) {
+      const paramsObj = {
+        reference: currentBuilding.reference,
+        category: currentBuilding.category,
+        type: currentBuilding.type,
+        source: currentBuilding.source,
+        region: currentBuilding.address.region,
+        local: currentBuilding.address.local,
+        areaUseful: currentBuilding.infos.areaUseful,
+        bedrooms: currentBuilding.infos.bedrooms,
+        parking: currentBuilding.infos.parking,
+        value: currentBuilding.values.sell,
+        userFirstName: user.me.name,
+        userLastName: user.me.lastName,
+        userPhone: user.me.phone,
+        userEmail: user.me.email,
+      };
+      const params = getParamsFromObject(paramsObj);
+      let iframeSelected = null;
+
+      if(searchFunnel) {
+        iframes.forEach(iframe => {
+          if(searchFunnel.finality === iframe.finality &&
+            currentBuilding.infos.use === iframe.use &&
+            iframe.source.search(currentBuilding.source) >= 0) {
+            iframeSelected = iframe;
+          }
+        });
+        if(iframeSelected) {
+          setIframeUrl(`${iframeSelected.src}${params}`);
+        }
+      }
+    } else {
+      setIframeUrl(null);
+    }
+
     setIsBuilding(router.route === '/building/[reference]' ? true : false);
-  }, [ router.route ]);
+  }, [ router.route, user.logged ]);
+
+
+  // useEffect(() => {
+  //   if(refIframe.current) {
+  //     console.log(refIframe);
+  //   }
+  // }, [ refIframe.current ])
 
   return (
     <>
@@ -70,58 +129,57 @@ function ContactBar() {
       {show && (
         <Container onClick={clickContainer}>
           <Wrapper onClick={clickWrapper}>
-            {isBuilding ? (
+            {isBuilding && iframeUrl ? (
+              <Iframe
+                ref={refIframe}
+                src={iframeUrl}
+                border="none"
+                frameBorder="0"
+                title={router.asPath}
+              ></Iframe>
+            ) : (
               <>
                 <Header isBuilding={isBuilding}>
                   <ButtonClose type="button" onClick={toggleShow} isBuilding={isBuilding}>Fechar</ButtonClose>
-                  <h3>Quer mais informações sobre este imóvel?</h3>
+                  <h3><strong>Pergunte</strong>, peça um imóvel ou reclame. Pode elogiar também.</h3>
                 </Header>
-                <IframeContainer>
-                  <Iframe src="/forms/imovel/index.html" border="none" frameBorder="0" title={router.asPath}></Iframe>
-                  <UserInfo />
-                </IframeContainer>
+                <Column>
+                  <p>Você pode também falar diretamente conosco:</p>
+                  <List>
+                    <li>
+                      <ListLink href="https://api.whatsapp.com/send?phone=5511999998888" target="_blank">
+                        <i>
+                          <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
+                        </i>
+                        <span>
+                          Whatsapp:<br/>
+                          <strong>(11) 99999-8888</strong>
+                        </span>
+                      </ListLink>
+                    </li>
+                    <li>
+                      <ListLink href="tel:+5511999998889" target="_blank">
+                        <i>
+                          <SVG src={PhoneIconSVG} uniquifyIDs={true} />
+                        </i>
+                        <span>
+                          Telefone:<br/>
+                          <strong>(11) 99999-8888</strong>
+                        </span>
+                      </ListLink>
+                    </li>
+                    <li>
+                      <ListButton type="button">
+                        <i>
+                          <SVG src={ChatIconSVG} uniquifyIDs={true} />
+                        </i>
+                        <span className="big">Chat</span>
+                      </ListButton>
+                    </li>
+                  </List>
+                </Column>
               </>
-            ) : (
-              <Header isBuilding={isBuilding}>
-                <ButtonClose type="button" onClick={toggleShow} isBuilding={isBuilding}>Fechar</ButtonClose>
-                <h3><strong>Pergunte</strong>, peça um imóvel ou reclame. Pode elogiar também.</h3>
-              </Header>
             )}
-            <Column>
-              <p>Você pode também falar diretamente conosco:</p>
-              <List>
-                <li>
-                  <ListLink href="https://api.whatsapp.com/send?phone=5511999998888" target="_blank">
-                    <i>
-                      <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-                    </i>
-                    <span>
-                      Whatsapp:<br/>
-                      <strong>(11) 99999-8888</strong>
-                    </span>
-                  </ListLink>
-                </li>
-                <li>
-                  <ListLink href="tel:+5511999998889" target="_blank">
-                    <i>
-                      <SVG src={PhoneIconSVG} uniquifyIDs={true} />
-                    </i>
-                    <span>
-                      Telefone:<br/>
-                      <strong>(11) 99999-8888</strong>
-                    </span>
-                  </ListLink>
-                </li>
-                <li>
-                  <ListButton type="button">
-                    <i>
-                      <SVG src={ChatIconSVG} uniquifyIDs={true} />
-                    </i>
-                    <span className="big">Chat</span>
-                  </ListButton>
-                </li>
-              </List>
-            </Column>
           </Wrapper>
         </Container>
       )}

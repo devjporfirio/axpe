@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Api from 'services';
 
@@ -9,12 +9,14 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
 import BuildingsPanel from 'components/BuildingsPanel';
 import DataSheet from 'pages/Building/Datasheet';
-// import BuildingForm from 'pages/Building/Form';
 import Modules from 'pages/Building/modules';
 
 // helpers
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 import SeoData from 'helpers/seo';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // styles
 import {
@@ -24,11 +26,14 @@ import {
 } from 'pages/Building/styles';
 
 function Building({ property }) {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
 
   useEffect(() => {
     CookieBuildingSeen.set(property.reference, user);
+
+    dispatch(setMain({ currentBuilding: property }));
 
     async function loadSimilarBuildings() {
       const similar = await Api.Building.getSimilar(property, 3);
@@ -43,6 +48,12 @@ function Building({ property }) {
 
     loadSimilarBuildings();
   }, [ property ]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setMain({ currentBuilding: null }));
+    }
+  }, []);
 
   return property && Object.keys(property).length ? (
     <>
@@ -106,8 +117,6 @@ function Building({ property }) {
 
         <BlockHighlighted type="notfound" />
         <Contact />
-
-        {/* <BuildingForm /> */}
       </Container>
     </>
   ) : null;

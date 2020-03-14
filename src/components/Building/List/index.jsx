@@ -153,6 +153,7 @@ function BuildingList({
 
     if(infos.areaBuilding &&
       infos.use !== 'COMERCIAL' &&
+      category &&
       category !== 'Cobertura' &&
       category !== 'Apartamento' &&
       category.search('Casa') < 0
@@ -203,7 +204,8 @@ function BuildingList({
       );
     }
 
-    if(infos.areaTotal &&
+    if(infos &&
+      infos.areaTotal &&
       infos.use !== 'COMERCIAL' &&
       source !== 'praia' &&
       source !== 'campo' &&
