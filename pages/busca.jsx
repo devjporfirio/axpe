@@ -191,9 +191,7 @@ function Search({ total, totalPages, data, locals }) {
   useEffect(() => {
     dispatch(setMain({
       searchFunnel: {
-        use: query.use,
         finality: query.finality,
-        source: query.source
       }
     }))
   }, []);

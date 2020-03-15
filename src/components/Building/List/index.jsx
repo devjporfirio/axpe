@@ -111,6 +111,7 @@ function BuildingList({
 
   const getCaracteristics = useCallback(() => {
     let items = [];
+    const categoryText = category ? category : '';
 
     if(infos.bedrooms) {
       items.push(
@@ -153,10 +154,9 @@ function BuildingList({
 
     if(infos.areaBuilding &&
       infos.use !== 'COMERCIAL' &&
-      category &&
-      category !== 'Cobertura' &&
-      category !== 'Apartamento' &&
-      category.search('Casa') < 0
+      categoryText !== 'Cobertura' &&
+      categoryText !== 'Apartamento' &&
+      categoryText.search('Casa') < 0
     ) {
       items.push(
         <Caracteristics.AreaBuilding
@@ -177,8 +177,8 @@ function BuildingList({
 
     if(infos.areaGround &&
       infos.use !== 'COMERCIAL' &&
-      category !== 'Cobertura' &&
-      category !== 'Apartamento'
+      categoryText !== 'Cobertura' &&
+      categoryText !== 'Apartamento'
     ) {
       items.push(
         <Caracteristics.AreaGround
@@ -191,9 +191,9 @@ function BuildingList({
     if(infos.areaUsefulStart &&
       infos.areaUsefulEnd &&
       infos.use !== 'COMERCIAL' &&
-      category !== 'Cobertura' &&
-      category !== 'Apartamento' &&
-      category.search('Casa') < 0
+      categoryText !== 'Cobertura' &&
+      categoryText !== 'Apartamento' &&
+      categoryText.search('Casa') < 0
     ) {
       items.push(
         <Caracteristics.AreaUseFulBetween
@@ -209,9 +209,9 @@ function BuildingList({
       infos.use !== 'COMERCIAL' &&
       source !== 'praia' &&
       source !== 'campo' &&
-      category !== 'Cobertura' &&
-      category !== 'Apartamento' &&
-      category.search('Casa') < 0
+      categoryText !== 'Cobertura' &&
+      categoryText !== 'Apartamento' &&
+      categoryText.search('Casa') < 0
     ) {
       items.push(
         <Caracteristics.AreaTotal

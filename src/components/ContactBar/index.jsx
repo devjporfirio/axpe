@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Router, { useRouter } from 'next/router';
 import SVG from 'react-inlinesvg';
-import { useRouter } from 'next/router';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -40,6 +40,13 @@ function ContactBar() {
   const iframes = [
     {
       source: 'praia-campo',
+      finality: null,
+      use: null,
+      type: 'lancamento',
+      src: '/forms/imovel/praiacampo-saopaulo-lancamentos.html'
+    },
+    {
+      source: 'praia-campo',
       finality: 'aluguel',
       use: 'RESIDENCIAL',
       src: '/forms/imovel/locacao-praiacampo-residencial.html'
@@ -49,7 +56,74 @@ function ContactBar() {
       finality: 'aluguel',
       use: 'COMERCIAL',
       src: '/forms/imovel/locacao-saopaulo-comercial.html'
-    }
+    },
+    {
+      source: 'sao-paulo',
+      finality: 'aluguel',
+      use: 'RESIDENCIAL',
+      src: '/forms/imovel/locacao-saopaulo-residencial.html'
+    },
+    {
+      source: 'internacional',
+      finality: 'temporada',
+      use: null,
+      src: '/forms/imovel/temporada-internacional-residencial.html'
+    },
+    {
+      source: 'praia-campo',
+      finality: 'temporada',
+      use: null,
+      src: '/forms/imovel/temporada-praiacampo-residencial.html'
+    },
+    {
+      source: 'internacional',
+      finality: 'venda',
+      use: null,
+      type: 'lancamento',
+      src: '/forms/imovel/venda-internacional-lancamentos.html'
+    },
+    {
+      source: 'internacional',
+      finality: 'venda',
+      use: null,
+      type: 'pronto',
+      src: '/forms/imovel/venda-internacional-prontos.html'
+    },
+    {
+      source: 'praia-campo',
+      finality: 'venda',
+      use: null,
+      type: 'pronto',
+      src: '/forms/imovel/venda-praiacampo-prontos.html'
+    },
+    {
+      source: 'sao-paulo',
+      finality: 'venda',
+      use: 'COMERCIAL',
+      type: 'lancamento',
+      src: '/forms/imovel/venda-saopaulo-comercial-lancamentos.html'
+    },
+    {
+      source: 'sao-paulo',
+      finality: 'venda',
+      use: 'COMERCIAL',
+      type: 'pronto',
+      src: '/forms/imovel/venda-saopaulo-comercial-prontos.html'
+    },
+    {
+      source: 'sao-paulo',
+      finality: 'venda',
+      use: 'RESIDENCIAL',
+      type: 'lancamento',
+      src: '/forms/imovel/venda-saopaulo-residencial-lancamentos.html'
+    },
+    {
+      source: 'sao-paulo',
+      finality: 'venda',
+      use: 'RESIDENCIAL',
+      type: 'pronto',
+      src: '/forms/imovel/venda-saopaulo-residencial-prontos.html'
+    },
   ];
 
   const clickContainer = useCallback((event) => {
@@ -93,32 +167,76 @@ function ContactBar() {
       };
       const params = getParamsFromObject(paramsObj);
       let iframeSelected = null;
+      let iframesPreSelected = iframes;
+      const matches = [];
 
       if(searchFunnel) {
-        iframes.forEach(iframe => {
-          if(searchFunnel.finality === iframe.finality &&
-            currentBuilding.infos.use === iframe.use &&
-            iframe.source.search(currentBuilding.source) >= 0) {
-            iframeSelected = iframe;
+        iframesPreSelected = iframes.filter(iframe => iframe.finality === searchFunnel.finality);
+      }
+
+      // console.log(`iframesPreSelected`, iframesPreSelected);
+
+      if(iframesPreSelected.length) {
+        iframesPreSelected.forEach(iframe => {
+          let matchesTotal = 0;
+
+          if(iframe.source && iframe.source.search(currentBuilding.source) >= 0) {
+            matchesTotal++;
+
+            if(iframe.type && iframe.type === currentBuilding.type) {
+              matchesTotal++;
+            }
+
+            if(iframe.use && iframe.use === currentBuilding.infos.use) {
+              matchesTotal++;
+            }
+
+            matches.push({ matchesTotal, ...iframe });
           }
         });
+
+        // console.log(`iframesMatches`, matches);
+
+        iframeSelected = matches.reduce((prev, current) => (prev.matchesTotal && prev.matchesTotal > current.matchesTotal) ? prev : current, {})
+
+        // console.log('iframeSelected', iframeSelected)
+
         if(iframeSelected) {
           setIframeUrl(`${iframeSelected.src}${params}`);
         }
       }
+
     } else {
       setIframeUrl(null);
     }
 
     setIsBuilding(router.route === '/building/[reference]' ? true : false);
-  }, [ router.route, user.logged ]);
+  }, [ router.route, user.logged, currentBuilding ]);
 
 
-  // useEffect(() => {
-  //   if(refIframe.current) {
-  //     console.log(refIframe);
-  //   }
-  // }, [ refIframe.current ])
+  useEffect(() => {
+    if(refIframe.current) {
+      refIframe.current.onload = function() {
+        const $contents = this.contentDocument || this.contentWindow.document;
+
+        const $btnClose = $contents.querySelector('.header__close');
+        const $btnLogout = $contents.querySelector('.userinfo__btn');
+
+        if($btnClose) {
+          $btnClose.addEventListener('click', event => {
+            toggleShow();
+          })
+        }
+
+        if($btnLogout) {
+          $btnLogout.addEventListener('click', event => {
+            toggleShow();
+            Router.push('/logout');
+          })
+        }
+      }
+    }
+  }, [ refIframe, show ])
 
   return (
     <>
