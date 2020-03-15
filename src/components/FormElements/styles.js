@@ -14,10 +14,12 @@ export const Label = styled.label`
   border-radius: 4px;
   width: 100%;
   transition: all 300ms ease;
+  cursor: pointer;
 
   input ~ span {
     position: absolute;
     top: 50%;
+    margin-top: 0;
     transform: translateY(-50%);
     transition: top 0.2s ease;
   }

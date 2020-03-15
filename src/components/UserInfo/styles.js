@@ -14,10 +14,17 @@ export const Container = styled.div`
     padding-right: 0;
   `}
 
+  ${props => props.layout === 'register-property' && css`
+    ${media.greaterThan('medium')`
+      max-width: 370px;
+    `}
+  `}
+
   svg {
     display: block;
     margin-right: 20px;
     width: 32px;
+    min-width: 32px;
     height: 46px;
   }
 `;

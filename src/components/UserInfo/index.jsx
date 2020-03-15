@@ -16,7 +16,7 @@ import {
   LinkLogout
 } from './styles';
 
-function UserInfo({ asInclude }) {
+function UserInfo({ asInclude, layout }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
@@ -25,7 +25,7 @@ function UserInfo({ asInclude }) {
   }
 
   return (
-    <Container asInclude={asInclude}>
+    <Container asInclude={asInclude} layout={layout}>
       <SVG src={UserIconSVG} uniquifyIDs={true} />
       <Text>
         <p>

@@ -153,26 +153,16 @@ const Dream = () => (
   </>
 );
 
-const RegisterProperty = ({ propertyType }) => {
-  let propertyTypeText = propertyType.toLowerCase();
-
-  if(propertyTypeText === 'praia') {
-    propertyTypeText = 'de praia';
-  } else if(propertyTypeText === 'campo') {
-    propertyTypeText = 'do campo';
-  }
-
-  return (
-    <HighlightedH1 type="registerProperty">
-      <strong>
-        <span>Cadastre seu imóvel {propertyTypeText}.</span>
-      </strong>
-      <br />
-      <span> Com certeza tem alguém procurando por ele</span>
-      <hr />
-    </HighlightedH1>
-  );
-};
+const RegisterProperty = ({ propertyType }) => (
+  <HighlightedH1 type="registerProperty">
+    <strong>
+      <span>Cadastre seu imóvel.</span>
+    </strong>
+    <br />
+    <span> Com certeza tem alguém procurando por ele</span>
+    <hr />
+  </HighlightedH1>
+);
 
 const RegisterPropertyTransform = () => (
   <>

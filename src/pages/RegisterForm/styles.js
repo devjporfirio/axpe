@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
 
@@ -86,20 +88,27 @@ export const FormGroupAddress = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 
-    label:nth-child(1),
-    label:nth-child(3) {
-      flex-basis: 20%;
-    }
-    label:nth-child(2) {
-      flex-basis: 55%;
-    }
-    label:nth-child(4),
-    label:nth-child(5) {
-      max-width: 49%;
+    label {
+      &:nth-child(1) {
+        flex-basis: 80%;
+      }
+
+      &:nth-child(2) {
+        flex-basis: 18%;
+      }
+
+      &:nth-child(3) {
+        width: 40%;
+      }
+
+      &:nth-child(4) {
+        width: 40%;
+        margin-right: 18%;
+      }
     }
 
     p {
-      margin-left: 51%;
+      margin-left: 42%;
     }
   `}
 `;
@@ -178,6 +187,7 @@ export const CheckLinkTerms = styled(FormElements)`
 export const GroupImages = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 `;
 
 export const GroupImage = styled.div`
