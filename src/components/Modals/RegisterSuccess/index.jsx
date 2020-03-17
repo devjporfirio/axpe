@@ -18,15 +18,15 @@ function RegisterSuccess() {
   const router = useRouter();
   const { modalRegisterSuccess } = useSelector(state => state.main);
 
-  const closeModal = useCallback(() => {
+  const closeModal = useCallback((redirectUrl = '/') => {
     dispatch(setMain({ modalRegisterSuccess: false }));
-    router.push(`/`);
+    router.push(redirectUrl);
   }, [ modalRegisterSuccess ]);
 
   return modalRegisterSuccess ? (
     <Modal
       active={modalRegisterSuccess}
-      onClose={closeModal}
+      onClose={() => closeModal()}
       themeColor="green"
     >
       <Success>
@@ -38,7 +38,7 @@ function RegisterSuccess() {
         </SuccessColumn>
         <SuccessColumn>
           <p>Aguarde nosso contato para agendar uma visita ao seu imóvel.</p>
-          <Button type="button" onClick={closeModal}>
+          <Button type="button" onClick={() => closeModal('/cadastrar')}>
             Cadastrar outro
           </Button>
         </SuccessColumn>

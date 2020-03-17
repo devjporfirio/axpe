@@ -31,7 +31,7 @@ function DreamBuilding() {
           </Header>
           <List>
             <li>
-              <Link href="/imovel-dos-sonhos/sao-paulo-comprar" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-comprar-residencial" passHref>
                 <ListButton>
                   <ListText>
                     <h3>São Paulo - Comprar</h3>
@@ -42,7 +42,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link href="/imovel-dos-sonhos/sao-paulo-lancamentos" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-comprar-lancamentos" passHref>
                 <ListButton>
                   <ListText>
                     <h3>São Paulo - Lançamentos</h3>
@@ -53,7 +53,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link href="/imovel-dos-sonhos/sao-paulo-alugar" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-alugar-residencial" passHref>
                 <ListButton>
                   <ListText>
                     <h3>São Paulo - Alugar</h3>

@@ -184,13 +184,15 @@ export const FormGroup = styled.div`
   }
 
   h2 {
-    font: 16px 'Raleway';
+    font: 16px/21px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     text-transform: uppercase;
     width: 100%;
     margin: 30px 0 17px 0;
 
-    ${media.greaterThan('medium')`font-size: 18px;`}
+    ${media.greaterThan('medium')`
+      font-size: 18px;
+    `}
   }
 `;
 

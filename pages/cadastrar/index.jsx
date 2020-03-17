@@ -33,6 +33,7 @@ import {
   FormGroupRow,
   FormRow,
   FormGroupValues,
+  FormGroupValuesSub,
   FormGroupAddress,
   FormGroupPhotos,
   Description,
@@ -42,7 +43,7 @@ import {
   FormGroupFooter,
   CheckLinkTerms,
   ButtonSubmit
-} from 'pages/RegisterForm/styles';
+} from 'pages/Register/styles';
 
 const registrySchema = Yup.object().shape({
   Dropdown2: Yup.string()
@@ -59,28 +60,31 @@ const registrySchema = Yup.object().shape({
   SingleLine: Yup.string().required(),
   SingleLine2: Yup.string().required(),
   SingleLine3: Yup.string(),
-  SingleLine4: Yup.string().required(),
-  Dropdown3: Yup.string(),
+  SingleLine4: Yup.string(),
+  Dropdown3: Yup.string().required(),
+  Dropdown7: Yup.string(),
   Number2: Yup.string().required(),
   Number: Yup.string(),
   Number1: Yup.string().required(),
   Radio1: Yup.string().required(),
   Currency: Yup.string().required(),
   Currency_copy: Yup.string().required(),
+  Currency1: Yup.string(),
+  Currency1_copy: Yup.string(),
   Currency2: Yup.string(),
+  Currency2_copy: Yup.string(),
+  Currency3: Yup.string(),
+  Currency3_copy: Yup.string(),
   MultiLine: Yup.string(),
   MultiLine2: Yup.string().required(),
   MultiLine1: Yup.string().required(),
-  // Dropdown5: Yup.string().required(),
-  // Dropdown6: Yup.string().required(),
-  // SingleLine1: Yup.string().required(),
   finalityVender: Yup.string().required(),
   finalityAluguel: Yup.string().required(),
   images: Yup.array(),
   terms: Yup.boolean().oneOf([ true ]).required()
 });
 
-function RegisterForm({ locals, categories, countries }) {
+function Register({ locals, categories, countries }) {
   const dispatch = useDispatch();
   const refForm = useRef(null);
   const user = useSelector(state => state.user);
@@ -102,7 +106,7 @@ function RegisterForm({ locals, categories, countries }) {
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
-      zf_redirect_url: '',
+      zf_redirect_url: 'http://homolog.axpe.com.br/cadastrar/sucesso',
       zc_gad: '',
       utm_source: '',
       utm_medium: '',
@@ -123,20 +127,23 @@ function RegisterForm({ locals, categories, countries }) {
       SingleLine2: '', // Número
       SingleLine3: '', // Complemento
       SingleLine4: '', // Cidade
-      Dropdown3: '', // País
+      Dropdown3: '', // Bairros
+      Dropdown7: '', // País
       Number2: '', // Area util
       Number: '', // Quartos
       Number1: '', // Vagas
       Radio1: '', // Imóvel vago? Sim ou Não
-      Currency: '', // Valor
-      Currency_copy: '', // Valor
-      Currency2: '', // Valor
+      Currency_copy: '', // Valor de venda
+      Currency: '', // Valor de venda
+      Currency1: '', // Valor de aluguel
+      Currency1_copy: '', // Valor de aluguel
+      Currency2: '', // Valor de condominio
+      Currency2_copy: '', // Valor de condominio
+      Currency3: '', // Valor de iptu
+      Currency3_copy: '', // Valor de iptu
       MultiLine: '', // Fotos urls
       MultiLine2: '', // O que o imóvel tem de melhor?
       MultiLine1: '', // O que não é tão bacana
-      // Dropdown5: '', // Como você conheceu a Axpe?
-      // Dropdown6: '', // Você Já foi atendido por alguém da Axpe? Sim ou Não
-      // SingleLine1: '', // Por quem?
       finalityVender: true,
       finalityAluguel: true,
       images: [],
@@ -205,21 +212,19 @@ function RegisterForm({ locals, categories, countries }) {
     setFieldValue('MultiLine', imagesNames.join(', '));
   }, [ values ]);
 
-  const setFinality = () => {
-    setTimeout(() => {
-      const arr = [];
+  const setFinality = useCallback((sell, rent) => {
+    const arr = [];
 
-      if(values.finalityVender) {
-        arr.push('Venda')
-      }
+    if(sell) {
+      arr.push('Venda')
+    }
 
-      if(values.finalityAluguel) {
-        arr.push('Locação')
-      }
+    if(rent) {
+      arr.push('Locação')
+    }
 
-      setFieldValue('Dropdown1', arr.length ? arr.join(' e ') : '');
-    }, 500)
-  };
+    setFieldValue('Dropdown1', arr.length ? arr.join(' e ') : '');
+  }, []);
 
   return (
     <>
@@ -230,7 +235,7 @@ function RegisterForm({ locals, categories, countries }) {
       <Container>
         <BlockHighlighted type="registerProperty" />
         <Body>
-          <Form ref={refForm} action="https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROINTERNACIONALRESIDENCIAL/formperma/1mgCCwm4itkZgGWm_P2lBNf0FHTjNQl2qmQoJ2UGjo4/htmlRecords/submit" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onSubmit={handleSubmit}>
+          <Form ref={refForm} action="https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onSubmit={handleSubmit}>
             <input type="hidden" name="zf_referrer_name" value={values.zf_referrer_name} />
             <input type="hidden" name="zf_redirect_url" value={values.zf_redirect_url} />
             <input type="hidden" name="zc_gad" value={values.zc_gad} />
@@ -243,6 +248,10 @@ function RegisterForm({ locals, categories, countries }) {
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
             <input type="hidden" name="PhoneNumber_countrycode" value={values.PhoneNumber_countrycode} />
             <input type="hidden" name="Email" value={values.Email} />
+            <input type="hidden" name="Currency" value={values.Currency} />
+            <input type="hidden" name="Currency1" value={values.Currency1} />
+            <input type="hidden" name="Currency2" value={values.Currency2} />
+            <input type="hidden" name="Currency3" value={values.Currency3} />
 
             <FormGroup>
               <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>
@@ -305,7 +314,7 @@ function RegisterForm({ locals, categories, countries }) {
                     label="Vender"
                     onChange={() => {
                       setFieldValue('finalityVender', !values.finalityVender);
-                      setFinality();
+                      setFinality(!values.finalityVender, values.finalityAluguel);
                     }}
                     error={touched.finalityVender && errors.finalityVender}
                     value={values.finalityVender}
@@ -318,7 +327,7 @@ function RegisterForm({ locals, categories, countries }) {
                     label="Alugar"
                     onChange={() => {
                       setFieldValue('finalityAluguel', !values.finalityAluguel);
-                      setFinality();
+                      setFinality(values.finalityVender, !values.finalityAluguel);
                     }}
                     error={touched.finalityAluguel && errors.finalityAluguel}
                     value={values.finalityAluguel}
@@ -346,14 +355,14 @@ function RegisterForm({ locals, categories, countries }) {
                   <FormGroup>
                     <h2>Qual o país?</h2>
                     <FormElements
-                      name="Dropdown3"
+                      name="Dropdown7"
                       type="select"
                       items={countries}
                       onChange={e => {
                         handleChange(e);
                         setKeyLocals(e.currentTarget.value);
                       }}
-                      error={touched.Dropdown3 && errors.Dropdown3}
+                      error={touched.Dropdown7 && errors.Dropdown7}
                       onBlur={handleBlur}
                     />
                   </FormGroup>
@@ -393,14 +402,23 @@ function RegisterForm({ locals, categories, countries }) {
                 />
                 <FormElements
                   name="SingleLine4"
+                  label="Cidade"
+                  placeholder="Cidade"
+                  onChange={handleChange}
+                  error={touched.SingleLine4 && errors.SingleLine4}
+                  value={values.SingleLine4}
+                  onBlur={handleBlur}
+                />
+                <FormElements
+                  name="Dropdown3"
                   placeholder="Bairro"
                   label="Bairro"
                   type="select"
                   items={localsByKey}
                   message="* Por enquanto atuamos apenas nestes bairros"
                   onChange={handleChange}
-                  error={touched.SingleLine4 && errors.SingleLine4}
-                  value={values.SingleLine4}
+                  error={touched.Dropdown3 && errors.Dropdown3}
+                  value={values.Dropdown3}
                   onBlur={handleBlur}
                 />
               </FormGroupAddress>
@@ -506,7 +524,7 @@ function RegisterForm({ locals, categories, countries }) {
                 {values.finalityAluguel && (
                   <FormElements
                     type="currency"
-                    name="Currency2"
+                    name="Currency1"
                     label="Qual o valor de aluguel que gostaria?"
                     placeholder="R$"
                     message={
@@ -514,39 +532,51 @@ function RegisterForm({ locals, categories, countries }) {
                         ? 'Incluindo comissão (primeiro aluguel)'
                         : ''
                     }
-                    onChange={handleChange}
-                    error={touched.Currency2 && errors.Currency2}
-                    value={values.Currency2}
+                    onChange={event => {
+                      const currency = event.target.value;
+                      setFieldValue('Currency1_copy', currency)
+                      setFieldValue('Currency1', currency.replace('R$', '').replace(/[.]/g, ''))
+                    }}
+                    error={touched.Currency1 && errors.Currency1}
+                    value={values.Currency1}
                     onBlur={handleBlur}
                   />
                 )}
 
-                {/* {values.Dropdown2 !== 'Internacional' && (
-                  <>
+                {values.Dropdown2 !== 'Internacional' && (
+                  <FormGroupValuesSub>
                     <FormElements
                       type="currency"
-                      name="valueTax"
+                      name="Currency3"
                       label="Valor mensal de IPTU"
                       placeholder="R$"
-                      onChange={handleChange}
-                      error={touched.valueTax && errors.valueTax}
-                      value={values.valueTax}
+                      onChange={event => {
+                        const currency = event.target.value;
+                        setFieldValue('Currency3_copy', currency)
+                        setFieldValue('Currency3', currency.replace('R$', '').replace(/[.]/g, ''))
+                      }}
+                      error={touched.Currency3 && errors.Currency3}
+                      value={values.Currency3}
                       onBlur={handleBlur}
                     />
                     {values.Dropdown4 !== 'Casa' && (
                       <FormElements
                         type="currency"
-                        name="valueCondo"
+                        name="Currency2"
                         label="Qual o valor do condomínio"
                         placeholder="R$"
-                        onChange={handleChange}
-                        error={touched.valueCondo && errors.valueCondo}
-                        value={values.valueCondo}
+                        onChange={event => {
+                          const currency = event.target.value;
+                          setFieldValue('Currency2_copy', currency)
+                          setFieldValue('Currency2', currency.replace('R$', '').replace(/[.]/g, ''))
+                        }}
+                        error={touched.Currency2 && errors.Currency2}
+                        value={values.Currency2}
                         onBlur={handleBlur}
                       />
                     )}
-                  </>
-                )} */}
+                  </FormGroupValuesSub>
+                )}
               </FormGroupValues>
             </FormGroup>
 
@@ -646,7 +676,7 @@ function RegisterForm({ locals, categories, countries }) {
   );
 }
 
-RegisterForm.getInitialProps = async ({ query }) => {
+Register.getInitialProps = async ({ query }) => {
   const locals = await Api.Search.getLocals();
   const categories = await Api.Search.getCategories();
   const countries = await Api.Search.getFilters('?source=internacional');
@@ -662,4 +692,4 @@ RegisterForm.getInitialProps = async ({ query }) => {
   };
 };
 
-export default RegisterForm;
+export default Register;

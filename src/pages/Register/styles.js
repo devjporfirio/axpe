@@ -68,6 +68,17 @@ export const FormGroupValues = styled.div`
   `}
 `;
 
+export const FormGroupValuesSub = styled.div`
+  margin-top: 30px;
+  width: 100%;
+
+  ${media.greaterThan('medium')`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  `}
+`;
+
 export const FormGroupFlex = styled.div`
   ${media.greaterThan('medium')`
     display: flex;
@@ -98,12 +109,15 @@ export const FormGroupAddress = styled.div`
       }
 
       &:nth-child(3) {
-        width: 40%;
+        width: 36%;
       }
 
       &:nth-child(4) {
-        width: 40%;
-        margin-right: 18%;
+        width: 30%;
+      }
+
+      &:nth-child(5) {
+        width: 30%;
       }
     }
 
@@ -226,6 +240,6 @@ export const ButtonSubmit = styled(Button)`
   margin-top: 20px;
 
   ${media.greaterThan('medium')`
-    width: 181px;
+    width: 180px;
   `}
 `;

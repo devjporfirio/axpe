@@ -148,7 +148,7 @@ function ContactBar() {
   }, [ show, isBuilding, user.logged ]);
 
   useEffect(() => {
-    if(user.logged && currentBuilding) {
+    if(user.logged && user.me && currentBuilding) {
       const paramsObj = {
         reference: currentBuilding.reference,
         category: currentBuilding.category,
@@ -211,7 +211,7 @@ function ContactBar() {
     }
 
     setIsBuilding(router.route === '/building/[reference]' ? true : false);
-  }, [ router.route, user.logged, currentBuilding ]);
+  }, [ router.route, user.logged, user.me, currentBuilding ]);
 
 
   useEffect(() => {
