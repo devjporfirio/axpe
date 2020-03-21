@@ -15,7 +15,7 @@ import { setUserMe } from 'store/modules/user/actions';
 
 // components
 import FormElements from 'components/FormElements';
-import UpdatePass from 'pages/MyAccount/Profile/UpdatePass';
+import UpdatePassModal from 'components/Modals/UpdatePass';
 
 // icons
 // import Facebook from 'assets/icons/facebook-rounded';
@@ -240,7 +240,7 @@ function Profile() {
             </ButtonSave>
           </Form>
         </Body>
-        <UpdatePass
+        <UpdatePassModal
           active={changePass}
           onClose={() => setChangePass(false)}
           user={values}

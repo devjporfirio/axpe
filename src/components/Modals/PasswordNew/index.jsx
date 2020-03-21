@@ -7,26 +7,23 @@ import Api from 'services';
 // components
 import FormElements from 'components/FormElements';
 
-// actions
-import { setUserMe } from 'store/modules/user/actions';
-
 // styles
-import { LoginFeedback } from 'components/Modals/Login/styles';
 import { FormGroup } from 'components/FormElements/styles';
-import { Form, ButtonSave } from '../styles';
-import { Container, Note } from './styles';
+import { Form, ButtonSave } from 'pages/MyAccount/Profile/styles';
+import { Container, FormFeedback, Note } from './styles';
 
-const profileSchema = Yup.object().shape({
-  password: Yup.string().required(),
+const formSchema = Yup.object().shape({
+  passwordConf: Yup.string().required(),
   passwordNew: Yup.string().required(),
-  passwordConfirmation: Yup.string()
+  passwordNewConfirmation: Yup.string()
     .oneOf([ Yup.ref('passwordNew') ])
     .required()
 });
 
-function UpdatePass({ active, onClose, user }) {
+function PasswordNew({ active, onClose, hash }) {
   const dispatch = useDispatch();
-  const userRedux = useSelector(state => state.user);
+  const { modalPasswordNew } = useSelector(state => state.main);
+  const [ successMessage, setSuccessMessage ] = useState(null);
   const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
@@ -39,45 +36,50 @@ function UpdatePass({ active, onClose, user }) {
     errors
   } = useFormik({
     initialValues: {
-      password: '',
+      hash,
+      passwordConf: '',
       passwordNew: '',
-      passwordConfirmation: ''
+      passwordNewConfirmation: ''
     },
-    validationSchema: profileSchema,
+    validationSchema: formSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.MyAccount.putMe(userRedux.access_token, {
-        ...user,
-        ...values
-      });
+      const response = await Api.User.postChangePassword(values);
+
+      setErrorMessage(false);
       setSubmitting(false);
 
-      if (resp.status) {
+      if (response.status) {
         dispatch(setUserMe(values));
-        setErrorMessage('Alteração realizada com sucesso.');
-        resetForm({});
+        resetForm();
+
+        setTimeout(() => {
+          setSuccessMessage(false);
+          onClose();
+        }, 3000);
       } else {
-        setErrorMessage(resp.msg);
+        setErrorMessage(response.msg);
+
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 3000);
       }
 
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 3000);
     }
   });
 
-  return (
-    <Container active={active} onClose={onClose}>
+  return modalPasswordNew ? (
+    <Container active={modalPasswordNew} onClose={onClose}>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <h2>Atualizar senha</h2>
+          <h2>Crie uma nova senha</h2>
           <FormElements
             type="password"
-            name="password"
+            name="passwordConf"
             label="Senha atual"
             placeholder="Senha atual"
             onChange={handleChange}
-            error={touched.password && errors.password}
-            value={values.password}
+            error={touched.passwordConf && errors.passwordConf}
+            value={values.passwordConf}
             onBlur={handleBlur}
             useEye
           />
@@ -94,12 +96,12 @@ function UpdatePass({ active, onClose, user }) {
           />
           <FormElements
             type="password"
-            name="passwordConfirmation"
+            name="passwordNewConfirmation"
             label="Confirmar senha"
             placeholder="Confirmar senha"
             onChange={handleChange}
-            error={touched.passwordConfirmation && errors.passwordConfirmation}
-            value={values.passwordConfirmation}
+            error={touched.passwordNewConfirmation && errors.passwordNewConfirmation}
+            value={values.passwordNewConfirmation}
             onBlur={handleBlur}
             useEye
           />
@@ -110,14 +112,15 @@ function UpdatePass({ active, onClose, user }) {
           caracter especial.
         </Note>
 
-        {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+        {successMessage && <FormFeedback>Senha alterada com sucesso!</FormFeedback>}
+        {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
 
         <ButtonSave disabled={isSubmitting} type="submit">
           Salvar
         </ButtonSave>
       </Form>
     </Container>
-  );
+  ) : null;
 }
 
-export default UpdatePass;
+export default PasswordNew;

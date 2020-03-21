@@ -252,6 +252,13 @@ export const ButtonFile = styled(Button)`
 `;
 
 export const ButtonEye = styled.button`
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 23px;
+  height: 15px;
+  z-index: 9;
+
   ${props => props.active && css`
     svg path {
       fill: ${({ theme }) => theme.colors.orange};
@@ -260,13 +267,6 @@ export const ButtonEye = styled.button`
 `;
 
 export const SVGEye = styled(SVG)`
-  width: 23px;
-  height: 15px;
-  position: absolute;
-  right: 8px;
-  top: 13px;
-  z-index: 9;
-
   path {
     transition: all 300ms ease;
   }

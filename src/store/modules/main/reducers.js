@@ -12,7 +12,8 @@ const initialState = {
   modalForgotPasswordSuccess: false,
   modalContact: false,
   modalContactSuccess: false,
-  modalContactMessage: ''
+  modalContactMessage: '',
+  modalPasswordNew: false
 };
 
 function main(state = initialState, action) {

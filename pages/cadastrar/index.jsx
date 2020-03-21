@@ -154,18 +154,19 @@ function Register({ locals, categories, countries }) {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
-      // console.log(values)
+      // console.log(values);
 
       // const response = await Api.User.postRegisterProperty(
-      //   user.access_token,
-      //   { files: values.images }
-      // );
+      await Api.User.postRegisterProperty(
+        user.access_token,
+        { files: values.images }
+      );
 
       // setFieldValue('MultiLine', imagesNames.join('; '));
 
       // console.log(response)
       
-      return false;
+      // return false;
 
       setTimeout(() => {
         refForm.current.submit();
@@ -272,7 +273,7 @@ function Register({ locals, categories, countries }) {
               <FormGroupFlex>
                 <FormElements
                   name="SingleLine5"
-                  type="checkbox"
+                  type="radio"
                   label="Residencial"
                   size="big"
                   value="Residencial"
@@ -282,7 +283,7 @@ function Register({ locals, categories, countries }) {
                 />
                 <FormElements
                   name="SingleLine5"
-                  type="checkbox"
+                  type="radio"
                   label="Comercial"
                   size="big"
                   value="Comercial"
@@ -292,7 +293,7 @@ function Register({ locals, categories, countries }) {
                 />
                 <FormElements
                   name="SingleLine5"
-                  type="checkbox"
+                  type="radio"
                   label="Praia"
                   size="big"
                   value="Praia"
@@ -302,7 +303,7 @@ function Register({ locals, categories, countries }) {
                 />
                 <FormElements
                   name="SingleLine5"
-                  type="checkbox"
+                  type="radio"
                   label="Campo"
                   size="big"
                   value="Campo"
@@ -312,7 +313,7 @@ function Register({ locals, categories, countries }) {
                 />
                 <FormElements
                   name="SingleLine5"
-                  type="checkbox"
+                  type="radio"
                   label="Internacional"
                   size="big"
                   value="Internacional"

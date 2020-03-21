@@ -26,7 +26,16 @@ const newsletterSchema = Yup.object().shape({
 function NewsletterModal() {
   const dispatch = useDispatch();
   const { modalNewsletter } = useSelector(state => state.main);
-  const { handleChange, handleBlur, handleSubmit, isSubmitting, values, touched, errors } = useFormik({
+
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+    values,
+    touched,
+    errors
+  } = useFormik({
     initialValues: {
       name: '',
       lastname: '',

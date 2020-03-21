@@ -37,7 +37,6 @@ export const Form = styled.form`
 
 export const ButtonCommon = css`
   width: 100%;
-  height: 40px;
 
   ${media.greaterThan('medium')`
     width: 185px;

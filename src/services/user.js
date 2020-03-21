@@ -74,7 +74,7 @@ export default {
     const result = await fetch(`${process.env.config.apiUrl}/user/register_your_building`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'multipart/form-data',
+        // 'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`
       },
       body: formData
@@ -84,6 +84,17 @@ export default {
   },
   async postForgotPassword(data) {
     const result = await fetch(`${process.env.config.apiUrl}/user/forgot/password`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    return result;
+  },
+  async postChangePassword(data) {
+    const result = await fetch(`${process.env.config.apiUrl}/user/change/password`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
