@@ -82,7 +82,7 @@ const NotFound = ({ query }) => {
           </p>
         ) : null}
 
-        <Link href="/so-quero-sonhar" passHref fullWidth={true}>
+        <Link href="/imovel-dos-sonhos" passHref fullWidth={true}>
           Entre em contato
         </Link>
       </div>

@@ -308,6 +308,7 @@ Search.getInitialProps = async ({ query }) => {
   const params = getParamsFromObject(query, true);
   const locals = await Api.Search.getLocals();
   const response = await Api.Search.getBuildings(params);
+
   return {
     ...response,
     locals
