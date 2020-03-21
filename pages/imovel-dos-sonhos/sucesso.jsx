@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
+import React from 'react';
+import Link from 'next/link';
 
 // styles
 import {
-  Container
-} from 'pages/Register/Success/styles'
+  Container,
+  Wrapper,
+  Button
+} from 'pages/DreamBuilding/Success/styles'
 
 function DreamBuildingSuccess() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      setMain({
-        modalContactSuccess: true
-      })
-    );
-
-  }, []);
-
   return (
-    <Container></Container>
+    <Container>
+      <Wrapper>
+        <h2>”Um sonho sonhado sozinho é um sonho. <strong>Um sonho sonhado junto é realidade”</strong><span>(Yoko Ono)</span></h2>
+        <p>Seu sonho já foi enviado. Agora é conosco.</p>
+        <p>Em breve, entraremos em contato.</p>
+
+        <Link href="/">
+          <Button>
+            &lt; Voltar à home
+          </Button>
+        </Link>
+      </Wrapper>
+    </Container>
   )
 }
 

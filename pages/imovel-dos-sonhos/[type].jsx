@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import SVG from 'react-inlinesvg';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useFormik } from 'formik';
@@ -16,6 +17,9 @@ import { setMain } from 'store/modules/main/actions';
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
 
+// assets
+import ArrowIconSVG from 'assets/icons/arrow';
+
 // styles
 import {
   Container,
@@ -24,6 +28,10 @@ import {
   Header,
   Form,
   ButtonLocals,
+  LocalsModal,
+  LocalsModalClose,
+  LocalsModalHeader,
+  LocalsModalList,
   FormGroupContainer,
   FormList,
   FormListItem,
@@ -51,6 +59,9 @@ function DreamBuildingSingle({ type }) {
   const dispatch = useDispatch();
   const refForm = useRef(null);
   const user = useSelector(state => state.user);
+  const [ breadcrumb, setBreadcrumb ] = useState([]);
+  const [ localsModal, setLocalsModal ] = useState(false);
+
   const getUrlFromType = useCallback(() => {
     switch(type) {
       case 'sao-paulo-comprar-residencial':
@@ -66,7 +77,24 @@ function DreamBuildingSingle({ type }) {
       case 'internacional':
         return 'https://forms.zohopublic.com/axpeimoveis1/form/SITEVENDAINTERNACIONALPRONTOS/formperma/X3ojk7J71y7QdRK3lSWLBoDtLeIrb42xOHfcDOB3czE/htmlRecords/submit';
     }
-  }, [ type ])
+  }, [ type ]);
+
+  const getBreadcrumb = useCallback(() => {
+    switch(type) {
+      case 'sao-paulo-comprar-residencial':
+        return [ 'sp', 'Residencial / Comprar' ];
+      case 'sao-paulo-comprar-lancamentos':
+        return [ 'sp', 'Lançamentos / Comprar' ];
+      case 'sao-paulo-alugar-residencial':
+        return [ 'sp', 'Residencial / Alugar' ];
+      case 'sao-paulo-comerciais':
+        return [ 'sp', 'Comerciais' ];
+      case 'praia-campo':
+        return [ 'sp', 'Praia / Campo' ];
+      case 'internacional':
+        return [ 'Internacional' ];
+    }
+  }, [ type ]);
 
   const optionsDropdownNumbers = [ ...Array(11).keys() ].map(i => ({ label: i, value: i }));
   const optionsLeisure = [
@@ -124,6 +152,10 @@ function DreamBuildingSingle({ type }) {
   ];
 
   useEffect(() => {
+    setBreadcrumb(getBreadcrumb());
+  }, [ type ])
+
+  useEffect(() => {
     async function loadMe() {
       if (user && user.logged) {
         dispatch(setMain({ modalLogin: false }));
@@ -158,6 +190,11 @@ function DreamBuildingSingle({ type }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
+      Dropdown: 'Interessado',
+      Dropdown1: 'VD-RES Revenda',
+      Dropdown2: 'VD-RES Revenda SP',
+      DecisionBox: true,
+      Radio: 'Novo Lead',
       Name_First: user.me.name,
       Name_Last: user.me.lastName,
       PhoneNumber_countrycode: user.me.phone,
@@ -191,15 +228,21 @@ function DreamBuildingSingle({ type }) {
       <Container>
         <Wrapper>
 
-          <Breadcrumb>
-            <Link href="/imovel-dos-sonhos" passHref>
-              <a href="/imovel-dos-sonhos">
-                São Paulo
-              </a>
-            </Link>
-            <span>/</span>
-            <strong>Lançamento / Comprar</strong>
-          </Breadcrumb>
+          {breadcrumb.length > 0 && (
+            <Breadcrumb>
+              <Link href="/imovel-dos-sonhos" passHref>
+                <a href="/imovel-dos-sonhos">
+                  {breadcrumb[0] === 'sp' ? 'São Paulo' : breadcrumb[0]}
+                </a>
+              </Link>
+              {breadcrumb[1] ? (
+                <>
+                  <span>/</span>
+                  <strong>{breadcrumb[1]}</strong>
+                </>
+              ) : null}
+            </Breadcrumb>
+          )}
 
           <Header>
             <h2>Conte com é o imóvel <strong>dos seus sonhos</strong></h2>
@@ -214,6 +257,11 @@ function DreamBuildingSingle({ type }) {
             <input type="hidden" name="utm_campaign" value={values.utm_campaign} />
             <input type="hidden" name="utm_term" value={values.utm_term} />
             <input type="hidden" name="utm_content" value={values.utm_content} />
+            <input type="hidden" name="Dropdown" value={values.Dropdown} />
+            <input type="hidden" name="Dropdown1" value={values.Dropdown1} />
+            <input type="hidden" name="Dropdown2" value={values.Dropdown2} />
+            <input type="checkbox" checked={true} name="DecisionBox"/>
+            <input type="radio" name="Radio" value={values.Radio} checked />
             <input type="hidden" name="Name_First" value={values.Name_First} />
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
             <input type="hidden" name="PhoneNumber_countrycode" value={values.PhoneNumber_countrycode} />
@@ -229,6 +277,8 @@ function DreamBuildingSingle({ type }) {
                       name="MultipleChoice1"
                       type="checkbox"
                       label={type.label}
+                      onChange={handleChange}
+                      data-test={values.MultipleChoice1.includes(type.value)}
                       error={touched.MultipleChoice1 && errors.MultipleChoice1}
                       value={type.value}
                       onBlur={handleBlur}
@@ -238,7 +288,35 @@ function DreamBuildingSingle({ type }) {
               </FormList>
             </FormGroupContainer>
 
-            <ButtonLocals type="button">Aonde você deseja? <strong>Selecione um ou mais bairros</strong></ButtonLocals>
+            <ButtonLocals type="button" onClick={() => setLocalsModal(true)}>Aonde você deseja? <strong>Selecione um ou mais bairros</strong></ButtonLocals>
+
+            <LocalsModal active={localsModal}>
+              <LocalsModalClose type="button" onClick={() => setLocalsModal(false)} active={localsModal}>
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+              </LocalsModalClose>
+              <LocalsModalHeader>
+                <h4>Aonde você deseja?</h4>
+                <p>Selecione um ou mais bairros</p>
+              </LocalsModalHeader>
+              <LocalsModalList>
+                <FormList>
+                  {optionsLocals.map((local, localIndex) => (
+                    <FormListItem key={`formlistitem-type-${localIndex}-${local.value}`}>
+                      <FormElements
+                        name="MultipleChoice"
+                        type="checkbox"
+                        label={local.label}
+                        onChange={handleChange}
+                        checked={values.MultipleChoice.includes(local.value)}
+                        error={touched.MultipleChoice && errors.MultipleChoice}
+                        value={local.value}
+                        onBlur={handleBlur}
+                      />
+                    </FormListItem>
+                  ))}
+                </FormList>
+              </LocalsModalList>
+            </LocalsModal>
 
             <FormGroupContainer mq="desktop">
               <h2>Aonde você deseja? <strong>Selecione um ou mais bairros</strong></h2>
@@ -249,6 +327,8 @@ function DreamBuildingSingle({ type }) {
                       name="MultipleChoice"
                       type="checkbox"
                       label={local.label}
+                      onChange={handleChange}
+                      checked={values.MultipleChoice.includes(local.value)}
                       error={touched.MultipleChoice && errors.MultipleChoice}
                       value={local.value}
                       onBlur={handleBlur}
@@ -267,6 +347,7 @@ function DreamBuildingSingle({ type }) {
                 <h3>Quanto você está planejando investir?</h3>
                 <FormGroup>
                   <FormElements
+                    type="currency"
                     name="Currency_copy"
                     label="Valor em R$"
                     placeholder="Valor em R$"
@@ -314,6 +395,7 @@ function DreamBuildingSingle({ type }) {
                 <h3>De quanto espaço você precisa?</h3>
                 <FormGroup>
                   <FormElements
+                    type="number"
                     name="Number2"
                     label="Área útil (m²)"
                     placeholder="Área útil (m²)"

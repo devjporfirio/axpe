@@ -195,11 +195,7 @@ function ContactBar() {
           }
         });
 
-        // console.log(`iframesMatches`, matches);
-
         iframeSelected = matches.reduce((prev, current) => (prev.matchesTotal && prev.matchesTotal > current.matchesTotal) ? prev : current, {})
-
-        // console.log('iframeSelected', iframeSelected)
 
         if(iframeSelected) {
           setIframeUrl(`${iframeSelected.src}${params}`);
@@ -225,6 +221,10 @@ function ContactBar() {
         if($btnClose) {
           $btnClose.addEventListener('click', event => {
             toggleShow();
+
+            if($btnClose.classList.contains('js-reset-iframe-url')) {
+              refIframe.current.setAttribute('src', iframeUrl);
+            }
           })
         }
 

@@ -140,6 +140,12 @@ const BaseInput = css`
     padding: 10px 12px 0;
   }
 
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   &:not(:placeholder-shown) + span,
   &:focus ~ span {
     top: 25%;

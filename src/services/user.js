@@ -66,6 +66,22 @@ export default {
     .then(response => response.json())
     return result;
   },
+  async postRegisterProperty(token, data) {
+    const formData = new FormData();
+
+    formData.append('files', data.files);
+
+    const result = await fetch(`${process.env.config.apiUrl}/user/register_your_building`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    })
+    .then(response => response.json())
+    return result;
+  },
   async postForgotPassword(data) {
     const result = await fetch(`${process.env.config.apiUrl}/user/forgot/password`, {
       method: 'POST',

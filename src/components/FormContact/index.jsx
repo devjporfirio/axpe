@@ -1,10 +1,10 @@
-import React from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 // import Api from 'services';
 
 // actions
-// import { setMain } from 'store/modules/main/actions';
+import { setMain } from 'store/modules/main/actions';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -30,19 +30,26 @@ import {
 } from './styles';
 
 function FormContact({ showHeader = true }) {
-  // const dispatch = useDispatch();
-  // onSubmit: async (values, { setSubmitting, resetForm }) => {
-  //   const resp = await Api.Contact.postContact(values);
-  //   setSubmitting(false);
-  //   if (resp.status) {
-  //     dispatch(
-  //       setMain({
-  //         modalContactSuccess: true
-  //       })
-  //     );
-  //     resetForm({});
-  //   }
-  // }
+  const dispatch = useDispatch();
+  const refIframe = useRef(null);
+
+  useEffect(() => {
+    if(refIframe.current) {
+      refIframe.current.onload = function() {
+        const $contents = this.contentDocument || this.contentWindow.document;
+        const $success = $contents.querySelector('.success-detect');
+
+        if($success) {
+          dispatch(
+            setMain({
+              modalContactSuccess: true
+            })
+          );
+          refIframe.current.setAttribute('src', '/forms/imovel/contato.html');
+        }
+      }
+    }
+  }, [ refIframe ])
 
   return (
     <>
@@ -71,6 +78,7 @@ function FormContact({ showHeader = true }) {
             </Message>
             <IframeContainer>
               <Iframe
+                ref={refIframe}
                 src="/forms/imovel/contato.html"
                 border="none"
                 frameBorder="0"

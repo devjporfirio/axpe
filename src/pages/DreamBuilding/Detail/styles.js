@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+// assets
+import ArrowIconSVG from 'assets/icons/arrow';
+
 // styles
 import { FormGroup } from 'components/FormElements/styles';
 
@@ -126,6 +129,7 @@ export const FormListItem = styled.li`
 export const ButtonLocals = styled.button`
   display: block;
   width: 100%;
+  position: relative;
   padding: 15px 0;
   font: 18px/21px 'Raleway';
   text-align: left;
@@ -139,6 +143,19 @@ export const ButtonLocals = styled.button`
     display: none;
   `}
 
+  &:after {
+    content: '';
+    display: block;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background: url(${ArrowIconSVG}) no-repeat;
+    background-size: contain;
+    transform: translateY(-50%);
+  }
+
   strong {
     display: block;
     text-align: left;
@@ -148,6 +165,79 @@ export const ButtonLocals = styled.button`
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
 `;
+
+export const LocalsModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  padding: 60px 30px 30px 80px;
+  overflow: hidden;
+  overflow-y: auto;
+  z-index: 1000;
+  background: ${({ theme }) => theme.colors.greyLight};
+  transition: all 300ms ease;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
+
+  ${props => props.active && css`
+    left: 0%;
+  `}
+`;
+
+export const LocalsModalClose = styled.button`
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 50px;
+  height: 100%;
+  background: ${({ theme }) => theme.colors.greenDark};
+  transition: all 300ms ease;
+
+  ${props => props.active && css`
+    left: 0%;
+  `}
+
+  svg {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26px;
+    height: 26px;
+    transform: translate(-50%, -50%) rotate(180deg);
+
+    rect {
+      fill: ${({ theme }) => theme.colors.white};
+    }
+  }
+`;
+
+export const LocalsModalHeader = styled.header`
+  margin-bottom: 20px;
+
+  h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  }
+
+  p {
+    font-size: 18px;
+  }
+`;
+
+export const LocalsModalList = styled.div`
+  label {
+    margin-bottom: 16px;
+  }
+`;
+
 
 export const FormCols = styled.div`
   ${media.greaterThan('medium')`

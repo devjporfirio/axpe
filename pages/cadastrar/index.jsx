@@ -46,29 +46,29 @@ import {
 } from 'pages/Register/styles';
 
 const registrySchema = Yup.object().shape({
-  Dropdown2: Yup.string()
+  SingleLine5: Yup.string()
     .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
     .required(),
-  Dropdown1: Yup.string().required(),
+  SingleLine6: Yup.string().required(),
   DecisionBox: Yup.string().required(),
   Radio: Yup.string().required(),
   Name_First: Yup.string().required(),
   Name_Last: Yup.string().required(),
   PhoneNumber_countrycode: Yup.string().required(),
   Email: Yup.string().required(),
-  Dropdown4: Yup.string(),
+  SingleLine11: Yup.string(),
   SingleLine: Yup.string().required(),
   SingleLine2: Yup.string().required(),
   SingleLine3: Yup.string(),
   SingleLine4: Yup.string(),
-  Dropdown3: Yup.string().required(),
-  Dropdown7: Yup.string(),
+  SingleLine7: Yup.string().required(),
+  SingleLine8: Yup.string(),
   Number2: Yup.string().required(),
   Number: Yup.string(),
   Number1: Yup.string().required(),
-  Radio1: Yup.string().required(),
-  Currency: Yup.string().required(),
-  Currency_copy: Yup.string().required(),
+  SingleLine12: Yup.string().required(),
+  Currency: Yup.string(),
+  Currency_copy: Yup.string(),
   Currency1: Yup.string(),
   Currency1_copy: Yup.string(),
   Currency2: Yup.string(),
@@ -114,25 +114,25 @@ function Register({ locals, categories, countries }) {
       utm_term: '',
       utm_content: '',
       Dropdown: 'Proprietário',
-      Dropdown1: 'Venda e Locação', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
-      Dropdown2: '', // Categoria do Imóvel - Residencial em SP, Comercial em SP, Praia, Campo ou Internacional
+      SingleLine6: 'Venda e Locação', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
+      SingleLine5: '', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
       DecisionBox: true,
-      Radio: true,
+      Radio: 'Novo Lead',
       Name_First: user.me.name,
       Name_Last: user.me.lastName,
       PhoneNumber_countrycode: user.me.phone,
       Email: user.me.email,
-      Dropdown4: '', // Tipo do Imóvel - Apartamento, Casa, Cobertura, Conjunto, etc
+      SingleLine11: '', // Tipo do Imóvel - Apartamento, Casa, Cobertura, Conjunto, etc
       SingleLine: '', // Endereço
       SingleLine2: '', // Número
       SingleLine3: '', // Complemento
       SingleLine4: '', // Cidade
-      Dropdown3: '', // Bairros
-      Dropdown7: '', // País
+      SingleLine7: '', // Bairros
+      SingleLine8: '', // País
       Number2: '', // Area util
       Number: '', // Quartos
       Number1: '', // Vagas
-      Radio1: '', // Imóvel vago? Sim ou Não
+      SingleLine12: '', // Imóvel vago? Sim ou Não
       Currency_copy: '', // Valor de venda
       Currency: '', // Valor de venda
       Currency1: '', // Valor de aluguel
@@ -154,9 +154,22 @@ function Register({ locals, categories, countries }) {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
+      // console.log(values)
+
+      // const response = await Api.User.postRegisterProperty(
+      //   user.access_token,
+      //   { files: values.images }
+      // );
+
+      // setFieldValue('MultiLine', imagesNames.join('; '));
+
+      // console.log(response)
+      
+      return false;
+
       setTimeout(() => {
         refForm.current.submit();
-      }, 1000);
+      }, 100);
     }
   });
 
@@ -187,11 +200,11 @@ function Register({ locals, categories, countries }) {
 
   useEffect(() => {
     let newCats = categories &&
-    Object.keys(categories).length > 0 && values.Dropdown2 ? categories[values.Dropdown2.toUpperCase()] : null;
+    Object.keys(categories).length > 0 && values.SingleLine5 ? categories[values.SingleLine5.toUpperCase()] : null;
 
     if(newCats) {
       newCats = [{ label: 'Selecione', value: '' }].concat(
-        categories[values.Dropdown2.toUpperCase()].map(x => ({
+        categories[values.SingleLine5.toUpperCase()].map(x => ({
           label: x,
           value: x
         }))
@@ -206,24 +219,21 @@ function Register({ locals, categories, countries }) {
 
     newList.splice(position, 1);
 
-    const imagesNames = newList.map(img => img.name);
-
     setFieldValue('images', newList);
-    setFieldValue('MultiLine', imagesNames.join(', '));
   }, [ values ]);
 
   const setFinality = useCallback((sell, rent) => {
-    const arr = [];
+    let result = '';
 
-    if(sell) {
-      arr.push('Venda')
+    if(sell && rent) {
+      result = 'Venda e Locação';
+    } else if(sell) {
+      result = 'Apenas Venda';
+    } else if(rent) {
+      result = 'Apenas Locação';
     }
 
-    if(rent) {
-      arr.push('Locação')
-    }
-
-    setFieldValue('Dropdown1', arr.length ? arr.join(' e ') : '');
+    setFieldValue('SingleLine6', result);
   }, []);
 
   return (
@@ -248,6 +258,10 @@ function Register({ locals, categories, countries }) {
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
             <input type="hidden" name="PhoneNumber_countrycode" value={values.PhoneNumber_countrycode} />
             <input type="hidden" name="Email" value={values.Email} />
+            <input type="hidden" name="Radio" value={values.Radio} />
+            <input type="hidden" name="Dropdown" value={values.Dropdown} />
+            <input type="hidden" name="SingleLine6" value={values.SingleLine6} />
+            <input type="checkbox" name="DecisionBox" checked={true} />
             <input type="hidden" name="Currency" value={values.Currency} />
             <input type="hidden" name="Currency1" value={values.Currency1} />
             <input type="hidden" name="Currency2" value={values.Currency2} />
@@ -257,49 +271,54 @@ function Register({ locals, categories, countries }) {
               <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>
               <FormGroupFlex>
                 <FormElements
-                  name="Dropdown2"
+                  name="SingleLine5"
                   type="checkbox"
                   label="Residencial"
                   size="big"
-                  checked={values.Dropdown2 === 'Residencial'}
-                  onChange={() => setFieldValue('Dropdown2', 'Residencial')}
-                  error={touched.Dropdown2 && errors.Dropdown2}
+                  value="Residencial"
+                  checked={values.SingleLine5 === 'Residencial'}
+                  onChange={() => setFieldValue('SingleLine5', 'Residencial')}
+                  error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
-                  name="Dropdown2"
+                  name="SingleLine5"
                   type="checkbox"
                   label="Comercial"
                   size="big"
-                  checked={values.Dropdown2 === 'Comercial'}
-                  onChange={() => setFieldValue('Dropdown2', 'Comercial')}
-                  error={touched.Dropdown2 && errors.Dropdown2}
+                  value="Comercial"
+                  checked={values.SingleLine5 === 'Comercial'}
+                  onChange={() => setFieldValue('SingleLine5', 'Comercial')}
+                  error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
-                  name="Dropdown2"
+                  name="SingleLine5"
                   type="checkbox"
                   label="Praia"
                   size="big"
-                  checked={values.Dropdown2 === 'Praia'}
-                  onChange={() => setFieldValue('Dropdown2', 'Praia')}
-                  error={touched.Dropdown2 && errors.Dropdown2}
+                  value="Praia"
+                  checked={values.SingleLine5 === 'Praia'}
+                  onChange={() => setFieldValue('SingleLine5', 'Praia')}
+                  error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
-                  name="Dropdown2"
+                  name="SingleLine5"
                   type="checkbox"
                   label="Campo"
                   size="big"
-                  checked={values.Dropdown2 === 'Campo'}
-                  onChange={() => setFieldValue('Dropdown2', 'Campo')}
-                  error={touched.Dropdown2 && errors.Dropdown2}
+                  value="Campo"
+                  checked={values.SingleLine5 === 'Campo'}
+                  onChange={() => setFieldValue('SingleLine5', 'Campo')}
+                  error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
-                  name="Dropdown2"
+                  name="SingleLine5"
                   type="checkbox"
                   label="Internacional"
                   size="big"
-                  checked={values.Dropdown2 === 'Internacional'}
-                  onChange={() => setFieldValue('Dropdown2', 'Internacional')}
-                  error={touched.Dropdown2 && errors.Dropdown2}
+                  value="Internacional"
+                  checked={values.SingleLine5 === 'Internacional'}
+                  onChange={() => setFieldValue('SingleLine5', 'Internacional')}
+                  error={touched.SingleLine5 && errors.SingleLine5}
                 />
               </FormGroupFlex>
             </FormGroup>
@@ -342,27 +361,27 @@ function Register({ locals, categories, countries }) {
                   <FormGroup>
                     <h2>Qual o tipo do imóvel?</h2>
                     <FormElements
-                      name="Dropdown4"
+                      name="SingleLine11"
                       type="select"
                       items={cats}
                       onChange={handleChange}
-                      error={touched.Dropdown4 && errors.Dropdown4}
+                      error={touched.SingleLine11 && errors.SingleLine11}
                       onBlur={handleBlur}
                     />
                   </FormGroup>
                 ) : null}
-                {values.Dropdown2 === 'Internacional' && (
+                {values.SingleLine5 === 'Internacional' && (
                   <FormGroup>
                     <h2>Qual o país?</h2>
                     <FormElements
-                      name="Dropdown7"
+                      name="SingleLine8"
                       type="select"
                       items={countries}
                       onChange={e => {
                         handleChange(e);
                         setKeyLocals(e.currentTarget.value);
                       }}
-                      error={touched.Dropdown7 && errors.Dropdown7}
+                      error={touched.SingleLine8 && errors.SingleLine8}
                       onBlur={handleBlur}
                     />
                   </FormGroup>
@@ -410,15 +429,15 @@ function Register({ locals, categories, countries }) {
                   onBlur={handleBlur}
                 />
                 <FormElements
-                  name="Dropdown3"
+                  name="SingleLine7"
                   placeholder="Bairro"
                   label="Bairro"
                   type="select"
                   items={localsByKey}
                   message="* Por enquanto atuamos apenas nestes bairros"
                   onChange={handleChange}
-                  error={touched.Dropdown3 && errors.Dropdown3}
-                  value={values.Dropdown3}
+                  error={touched.SingleLine7 && errors.SingleLine7}
+                  value={values.SingleLine7}
                   onBlur={handleBlur}
                 />
               </FormGroupAddress>
@@ -428,6 +447,7 @@ function Register({ locals, categories, countries }) {
               <h2>Características do imóvel</h2>
               <FormGroupFlex>
                 <FormElements
+                  type="number"
                   name="Number2"
                   label="Área útil (m²)"
                   placeholder="Área útil (m²)"
@@ -436,9 +456,10 @@ function Register({ locals, categories, countries }) {
                   value={values.Number2}
                   onBlur={handleBlur}
                 />
-                {values.Dropdown2 === 'Residencial' && (
+                {values.SingleLine5 === 'Residencial' && (
                   <>
                     <FormElements
+                      type="number"
                       name="Number"
                       label="Dormitórios"
                       placeholder="Dormitórios"
@@ -450,6 +471,7 @@ function Register({ locals, categories, countries }) {
                   </>
                 )}
                 <FormElements
+                  type="number"
                   name="Number1"
                   label="Vagas de garagem"
                   placeholder="Vagas de garagem"
@@ -466,22 +488,24 @@ function Register({ locals, categories, countries }) {
                 <h2>O imóvel está vago?</h2>
                 <FormGroupFlex>
                   <FormElements
-                    name="Radio1"
+                    name="SingleLine12"
                     type="checkbox"
                     label="Não"
                     size="big"
-                    checked={values.Radio1 === 'Não'}
-                    onChange={() => setFieldValue('Radio1', 'Não')}
-                    error={touched.Radio1 && errors.Radio1}
+                    value="Não"
+                    checked={values.SingleLine12 === 'Não'}
+                    onChange={() => setFieldValue('SingleLine12', 'Não')}
+                    error={touched.SingleLine12 && errors.SingleLine12}
                   />
                   <FormElements
-                    name="Radio1"
+                    name="SingleLine12"
                     type="checkbox"
                     label="Sim"
                     size="big"
-                    checked={values.Radio1 === 'Sim'}
-                    onChange={() => setFieldValue('Radio1', 'Sim')}
-                    error={touched.Radio1 && errors.Radio1}
+                    value="Sim"
+                    checked={values.SingleLine12 === 'Sim'}
+                    onChange={() => setFieldValue('SingleLine12', 'Sim')}
+                    error={touched.SingleLine12 && errors.SingleLine12}
                   />
                 </FormGroupFlex>
               </FormGroup>
@@ -528,7 +552,7 @@ function Register({ locals, categories, countries }) {
                     label="Qual o valor de aluguel que gostaria?"
                     placeholder="R$"
                     message={
-                      values.Dropdown2 !== 'Residencial'
+                      values.SingleLine5 !== 'Residencial'
                         ? 'Incluindo comissão (primeiro aluguel)'
                         : ''
                     }
@@ -543,7 +567,7 @@ function Register({ locals, categories, countries }) {
                   />
                 )}
 
-                {values.Dropdown2 !== 'Internacional' && (
+                {values.SingleLine5 !== 'Internacional' && (
                   <FormGroupValuesSub>
                     <FormElements
                       type="currency"
@@ -559,7 +583,7 @@ function Register({ locals, categories, countries }) {
                       value={values.Currency3}
                       onBlur={handleBlur}
                     />
-                    {values.Dropdown4 !== 'Casa' && (
+                    {values.SingleLine11 !== 'Casa' && (
                       <FormElements
                         type="currency"
                         name="Currency2"
@@ -617,16 +641,12 @@ function Register({ locals, categories, countries }) {
                   faremos no seu imóvel.
                 </Description>
 
-                {values.MultiLine}
-
                 <FormElements
                   type="file"
                   multiple
                   onChange={e => {
                     const imagesArr = [ ...values.images, ...e.target.files ];
-                    const imagesNames = imagesArr.map(img => img.name);
                     setFieldValue('images', imagesArr);
-                    setFieldValue('MultiLine', imagesNames.join(', '));
                   }}
                 ></FormElements>
               </FormGroupPhotos>

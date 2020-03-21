@@ -6,8 +6,8 @@ export const ButtonFloat = styled.button`
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 80px;
-  right: 30px;
+  bottom: 25px;
+  right: 25px;
   width: 70px;
   height: 70px;
   font-size: 0;
@@ -17,7 +17,7 @@ export const ButtonFloat = styled.button`
   z-index: 10;
 
   ${media.greaterThan('large')`
-    right: 70px;
+    bottom: 100px;
     transition: all 300ms ease;
 
     &:hover {

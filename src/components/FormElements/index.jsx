@@ -23,6 +23,7 @@ const TYPE_FIELD = {
   phone: Phone,
   select: Select,
   text: Text,
+  number: Text,
   cpf: CPF,
   cep: CEP,
   file: File,
