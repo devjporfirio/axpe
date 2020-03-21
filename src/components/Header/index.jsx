@@ -156,13 +156,13 @@ function Header() {
               <li>
                 {logged ? (
                   <Link href="/cadastrar" passHref>
-                    <NavMainButton type="register">
+                    <NavMainButton type="register" onClick={cancelToggle}>
                       <SVG src={HomeIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                     </NavMainButton>
                   </Link>
                 ) : (
-                  <NavMainButton type="register" onClick={()=> openModalLogin('/cadastrar')}>
+                  <NavMainButton type="register" onClick={() => openModalLogin('/cadastrar')}>
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                   </NavMainButton>

@@ -108,7 +108,7 @@ export const GroupNeigRef = styled.div`
 `;
 
 export const Neighborhood = styled.p`
-  font: 15px 'Raleway';
+  font-size: 15px;
   text-transform: uppercase;
   margin-bottom: 5px;
 
@@ -120,7 +120,8 @@ export const Neighborhood = styled.p`
 `;
 
 export const CategoryRelease = styled.p`
-  font: 16px/25px 'Raleway';
+  font-size: 16px;
+  line-height: 25px;
   letter-spacing: 0.69px;
   display: none;
 
@@ -131,7 +132,7 @@ export const CategoryRelease = styled.p`
 `;
 
 export const Ref = styled.p`
-  font: 14px 'Raleway';
+  font-size: 14px;
 
   ${media.greaterThan('medium')`
     font-size: 12px;
@@ -151,7 +152,7 @@ export const GroupTags = styled.div`
 `;
 
 export const Content = styled.p`
-  font: 18px 'Raleway';
+  font-size: 18px;
 `;
 
 export const Price = styled.div`
@@ -160,21 +161,27 @@ export const Price = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
 
-  p:nth-child(1) {
-    font: 14px 'Raleway';
-  }
-  p:nth-child(2) {
-    font: 22px/26px 'Raleway';
-    font-weight: 600;
+  p {
+    &:nth-child(1) {
+      font-size: 14px;
+    }
+
+    &:nth-child(2) {
+      font-size: 22px;
+      line-height: 26px;
+      font-weight: 600;
+    }
+
+    &:nth-child(3) {
+      margin-top: 6px;
+    }
+
+    &:nth-child(3),
+    &:nth-child(4) {
+      font-size: 12px;
+    }
   }
 
-  p:nth-child(3) {
-    margin-top: 6px;
-  }
-  p:nth-child(3),
-  p:nth-child(4) {
-    font: 11px 'Raleway';
-  }
 `;
 
 export const PriceGroup = styled.div`
@@ -188,13 +195,14 @@ export const PriceRelease = styled.div`
   flex-basis: 100% !important;
 
   p {
-    font: 22px 'Raleway';
+    font-size: 22px;
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   }
 
   ${media.greaterThan('medium')`
     padding-top: 22px;
     padding-bottom: 29px;
+
     p {
       font-size: 26px;
     }
@@ -207,12 +215,15 @@ export const InfoValue = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  p:nth-child(1) {
-    font: 18px 'Raleway';
-    font-weight: 600;
-  }
-  p:nth-child(2) {
-    font: 18px 'Raleway';
+  p {
+    &:nth-child(1) {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    &:nth-child(2) {
+      font-size: 18px;
+    }
   }
 
   ${media.greaterThan('medium')`
@@ -231,13 +242,13 @@ export const Delivery = styled.div`
     text-align: center;
     background-color: ${({ theme }) => theme.colors.greenLight};
     color: ${({ theme }) => theme.colors.white};
-    font: 16px 'Raleway';
+    font-size: 16px;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     height: 35px;
     line-height: 35px;
 
     span {
-      font: 16px 'Raleway';
+      font-size: 16px;
       font-weight: 600;
       color: ${({ theme }) => theme.colors.white};
     }

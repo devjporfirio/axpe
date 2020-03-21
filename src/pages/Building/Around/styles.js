@@ -5,20 +5,20 @@ import Section from 'components/Section';
 export const Container = styled.div`
   max-width: 974px;
   margin: auto;
+  padding: 0 15px;
 
   ${media.greaterThan('medium')`
     display: flex;
-    section {
-      border-radius: 0 6px 6px 0;
-    }
+    padding: 0;
+    border-radius: 6px;
+    overflow: hidden;
   `}
 `;
 
 export const Mapa = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 182px;
   background-color: #143643;
-  border-radius: 6px;
   overflow: hidden;
 
   iframe {
@@ -60,20 +60,19 @@ export const Text = styled(Section)`
     width: 70%;
     margin: -1px 0 0 0;
     height: 428px;
-
-    p {
-      margin-top: 120px;
-    }
   `}
 
   p {
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-    width: 240px;
+    display: block !important;
+    font-size: 18px;
+    line-height: 20px;
 
     ${media.greaterThan('medium')`
       width: 100%;
-      max-width: 360px;
+      max-width: 240px;
+      margin-top: 120px;
+      line-height: 25px;
+      font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     `}
   }
 `;

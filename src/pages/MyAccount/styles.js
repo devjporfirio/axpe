@@ -77,7 +77,6 @@ export const Nav = styled.nav`
   z-index: 4;
   width: 100%;
   height: 47px;
-  /* box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34); */
 
   ul {
     white-space: nowrap;
@@ -103,15 +102,17 @@ export const Nav = styled.nav`
 
 export const Li = styled.li`
   display: inline-block;
-  font: 14px/44px 'Bitter';
-  font-weight: ${({ theme }) => theme.fontsWeight.regular};
   height: 44px;
   padding: 0 5px;
+  font-size: 14px;
+  line-height: 44px;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
 
   a {
+    display: block;
     width: 100%;
     height: 44px;
-    display: block;
+    padding: 0 15px;
     color: ${({ theme }) => theme.colors.green};
   }
 
