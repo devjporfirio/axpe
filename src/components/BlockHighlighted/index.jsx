@@ -146,7 +146,7 @@ const Dream = () => (
         o imóvel dos seus sonhos <br/>
         e vamos encontrá-lo para você
       </p>
-      <Link href="/contato" target="_blank">
+      <Link href="/imovel-dos-sonhos" target="_blank">
         Fale conosco
       </Link>
     </HighlightedH4>
