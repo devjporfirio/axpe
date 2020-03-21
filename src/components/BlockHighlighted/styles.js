@@ -74,14 +74,15 @@ const ContainerPlanta = css`
 `;
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.colors.green};
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   min-height: 268px;
   padding: 30px;
+  width: 100%;
   align-items: flex-start;
   justify-content: flex-start;
+  background-color: ${({ theme }) => theme.colors.green};
 
   div {
     margin-top: 20px;

@@ -259,6 +259,10 @@ export const FormButtonsFilterItemRadio = styled.label`
     }
   `}
 
+  ${props => !props.twoColumns && css`
+    margin-bottom: 15px
+  `}
+
   ${media.greaterThan('1024px')`
     &:hover {
       span {
