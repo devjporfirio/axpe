@@ -7,7 +7,7 @@ import Api from 'services';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import BuildingsPanel from 'components/BuildingsPanel';
+import BuildingList from 'components/Building/List';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 
@@ -22,7 +22,10 @@ import { setMain } from 'store/modules/main/actions';
 import {
   Container,
   Images,
-  Alert
+  Alert,
+  SimilarBuildings,
+  SimilarBuildingsHeader,
+  SimilarBuildingsList
 } from 'pages/Building/styles';
 
 function Building({ property }) {
@@ -107,12 +110,20 @@ function Building({ property }) {
         )}
 
         {similarBuildings && similarBuildings.length > 0 && (
-          <BuildingsPanel
-            title="Pessoas que viram este imóvel também viram:"
-            buildingLayout="horizontal"
-            type="building"
-            data={similarBuildings}
-          />
+          <SimilarBuildings>
+            <SimilarBuildingsHeader>
+              <h2>Pessoas que viram este imóvel também viram:</h2>
+            </SimilarBuildingsHeader>
+            <SimilarBuildingsList>
+              {similarBuildings.map((building, buildingIndex) => (
+                <BuildingList
+                  layout="horizontal"
+                  item={building}
+                  key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                />
+              ))}
+            </SimilarBuildingsList>
+          </SimilarBuildings>
         )}
 
         <BlockHighlighted type="notfound" />

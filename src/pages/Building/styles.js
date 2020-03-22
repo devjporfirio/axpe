@@ -37,3 +37,30 @@ export const Module = styled.div`
     `}
   `}
 `;
+
+export const SimilarBuildings = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 974px;
+
+  ${media.greaterThan('large')`
+    padding: 0;
+  `}
+`;
+
+export const SimilarBuildingsHeader = styled.header`
+  margin-bottom: 20px;
+
+  h2 {
+    font: 22px/26px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+
+    ${media.greaterThan('large')`
+      font-size: 41px;
+      line-height: 49px;
+    `}
+  }
+`;
+
+export const SimilarBuildingsList = styled.div``;

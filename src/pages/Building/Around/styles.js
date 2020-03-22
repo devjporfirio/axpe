@@ -9,9 +9,12 @@ export const Container = styled.div`
 
   ${media.greaterThan('medium')`
     display: flex;
-    padding: 0;
     border-radius: 6px;
     overflow: hidden;
+  `}
+
+  ${media.greaterThan('large')`
+    padding: 0;
   `}
 `;
 
