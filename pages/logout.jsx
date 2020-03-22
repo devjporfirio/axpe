@@ -10,10 +10,12 @@ function Logout() {
   useEffect(async () => {
     dispatch(unsetUser());
 
-    if(gapi) {
-      const auth2 = gapi.auth2.getAuthInstance();
-      await auth2.signOut();
-    }
+    try {
+      if(gapi) {
+        const auth2 = gapi.auth2.getAuthInstance();
+        await auth2.signOut();
+      }
+    } catch(error) {}
 
     window.location = '/';
   }, [])

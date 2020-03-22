@@ -65,10 +65,10 @@ function RegisterForm({ doAfterLogin }) {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.User.postRegister({
         name: values.name,
-        lastName: values.lastName,
+        last_name: values.lastName,
         email: values.email,
         password: values.password,
-        passwordConfirmation: values.passwordConfirmation,
+        password_confirmation: values.passwordConfirmation,
         phone: values.phone
       });
 
@@ -93,11 +93,11 @@ function RegisterForm({ doAfterLogin }) {
           resetForm({});
         }
 
-      } else if(response.status === 'error') {
-        const errorMessage = getErrorMessage(response.error);
+      } else if(!response.status && response.error) {
+        const errorMessages = response.error.map(err => getErrorMessage(err));
 
         setSubmitting(false);
-        setRegisterError(errorMessage);
+        setRegisterError(errorMessages.join(', '));
 
         setTimeout(() => {
           setRegisterError(null);
