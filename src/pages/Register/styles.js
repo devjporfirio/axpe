@@ -60,10 +60,10 @@ export const FormGroupValues = styled.div`
     p {
       position: absolute;
       margin-top: 50px;
-    }
 
-    p:nth-child(4){
-      margin-left: 295px;
+      &:nth-child(4){
+        margin-left: 295px;
+      }
     }
   `}
 `;
@@ -109,7 +109,7 @@ export const FormGroupAddress = styled.div`
       }
 
       &:nth-child(3) {
-        width: 36%;
+        width: 31%;
       }
 
       &:nth-child(4) {
@@ -117,12 +117,12 @@ export const FormGroupAddress = styled.div`
       }
 
       &:nth-child(5) {
-        width: 30%;
+        width: 35%;
       }
     }
 
     p {
-      margin-left: 42%;
+      margin-left: 65%;
     }
   `}
 `;

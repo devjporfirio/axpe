@@ -161,6 +161,6 @@ export const Body = styled.div`
     background-color: ${({ theme }) => theme.colors.white};
     max-width: 1044px;
     margin: auto;
-    padding: 0 45px;
+    padding: 0 45px 30px 45px;
   `}
 `;
