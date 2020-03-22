@@ -69,13 +69,7 @@ function HowWeLove({ reasons }) {
             }
           },
           {
-            breakpoint: 660,
-            settings: {
-              slidesToShow: 2
-            }
-          },
-          {
-            breakpoint: 480,
+            breakpoint: 639,
             settings: {
               slidesToShow: 1
             }
