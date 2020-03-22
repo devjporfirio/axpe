@@ -49,7 +49,7 @@ export const Header = styled.header`
 
   ${media.greaterThan('medium')`
     padding: 30px 0;
-    max-width: 1000px;
+    max-width: 1044px;
     margin: 0 auto;
 
     h1 {
@@ -87,7 +87,7 @@ export const Nav = styled.nav`
   ${media.greaterThan('medium')`
     position: initial;
     margin: auto;
-    max-width: 1000px;
+    max-width: 1044px;
 
     ul {
       display: flex;
@@ -102,16 +102,16 @@ export const Nav = styled.nav`
 
 export const Li = styled.li`
   display: inline-block;
-  height: 44px;
+  height: 47px;
   padding: 0 5px;
   font-size: 14px;
-  line-height: 44px;
+  line-height: 47px;
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
 
   a {
     display: block;
     width: 100%;
-    height: 44px;
+    height: 47px;
     padding: 0 15px;
     color: ${({ theme }) => theme.colors.green};
   }
@@ -142,12 +142,15 @@ export const Li = styled.li`
       &:nth-of-type(1) {
         order: 4;
       }
+
       &:nth-of-type(2) {
         order: 3;
       }
+
       &:nth-of-type(3) {
         order: 2;
       }
+
       &:nth-of-type(4) {
         order: 1;
       }
@@ -157,7 +160,7 @@ export const Li = styled.li`
 export const Body = styled.div`
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.white};
-    max-width: 1000px;
+    max-width: 1044px;
     margin: auto;
     padding: 0 45px;
   `}

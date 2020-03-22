@@ -10,7 +10,7 @@ export const Container = styled(MyAccount)`
   ${media.greaterThan('medium')`
     hr {
       display: block;
-      max-width: calc(100% - 95px);
+      max-width: calc(100% - 35px);
       border: 1px solid ${({ theme }) => theme.colors.greyDark};
     }
   `}
@@ -58,6 +58,6 @@ export const ItemsTitle = styled.h3`
 
   ${media.greaterThan('medium')`
     font-size: 25px;
-    padding: 0 10px;
+    padding: 0 20px;
   `}
 `
