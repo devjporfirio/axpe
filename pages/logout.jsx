@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Router from 'next/router';
 
 // actions
 import { unsetUser } from 'store/modules/user/actions';
@@ -16,7 +15,7 @@ function Logout() {
       await auth2.signOut();
     }
 
-    Router.push('/');
+    window.location = '/';
   }, [])
 
   return null;

@@ -4,12 +4,15 @@ import { useFormik } from 'formik';
 import Api from 'services';
 import * as Yup from 'yup';
 
-// components
-import Button from 'components/Button';
-import FormElements from 'components/FormElements';
+// helpers
+import { getErrorMessage } from 'helpers/errors';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
+
+// components
+import Button from 'components/Button';
+import FormElements from 'components/FormElements';
 
 // styles
 import {
@@ -91,10 +94,10 @@ function RegisterForm({ doAfterLogin }) {
         }
 
       } else if(response.status === 'error') {
-        const errorMessages = response.msg;
+        const errorMessage = getErrorMessage(response.error);
 
         setSubmitting(false);
-        setRegisterError(errorMessages.join(', '));
+        setRegisterError(errorMessage);
 
         setTimeout(() => {
           setRegisterError(null);
