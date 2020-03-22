@@ -36,7 +36,7 @@ export const Items = styled.div`
   `}
 
   ${media.greaterThan('1280px')`
-    padding: 50px 0;
+    padding: 50px 0 20px 0;
   `}
 
   hr {
@@ -57,7 +57,8 @@ export const ItemsTitle = styled.h3`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
   ${media.greaterThan('medium')`
-    font-size: 25px;
     padding: 0 20px;
+    margin-bottom: 15px;
+    font-size: 25px;
   `}
 `

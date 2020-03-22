@@ -7,8 +7,7 @@ export const Container = styled.section`
   min-height: 100vh;
 
   ${media.greaterThan('medium')`
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 0 50px 50px;
   `}
 
   ${media.greaterThan('1280px')`

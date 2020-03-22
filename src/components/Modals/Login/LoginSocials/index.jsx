@@ -59,12 +59,13 @@ function LoginSocials({
   const doGoogleLogin = useCallback(async (googleResponse) => {
     if(googleResponse && googleResponse.uc && !googleResponse.error) {
       dispatch(setLoading({ active: true }));
+      const token = googleResponse.getAuthResponse().id_token;
 
       const response = await Api.User.postLoginGoogle({
-        access_token: googleResponse.uc.access_token
+        access_token: token
       });
 
-      if(response.status && !response.error) {
+      if(response.access_token && !response.error) {
         handleResponse(response);
       } else {
         dispatch(setLoading({ active: false }));
@@ -73,15 +74,17 @@ function LoginSocials({
   }, []);
 
   useEffect(() => {
-    gapi.signin2.render('button-google-login', {
-      'scope': 'profile email',
-      'width': 240,
-      'height': 50,
-      'longtitle': true,
-      'theme': 'dark',
-      'onsuccess': doGoogleLogin,
-      'onfailure': doGoogleLogin
-    });
+    if(window.gapi) {
+      gapi.signin2.render('button-google-login', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': doGoogleLogin,
+        'onfailure': doGoogleLogin
+      });
+    }
   }, []);
 
   return (
