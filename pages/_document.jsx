@@ -38,7 +38,6 @@ export default class MyDocument extends Document {
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <meta name="google-signin-client_id" content="901672099745-eq39kut952o1o0ht6ctiuiaf2drve1le.apps.googleusercontent.com" />
           <HeaderStyles />
         </Head>
         <body>

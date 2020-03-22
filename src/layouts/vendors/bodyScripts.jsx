@@ -6,6 +6,19 @@ function BodyScripts() {
     <>
       <Script>
         {`
+          (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://apis.google.com/js/platform.js";
+            js.async = true;
+            js.defer = true;
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'google-jsapi'));
+        `}
+      </Script>
+      <Script>
+        {`
           window.fbAsyncInit = function() {
             FB.init({
               appId: '147793746416296',

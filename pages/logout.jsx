@@ -8,8 +8,14 @@ import { unsetUser } from 'store/modules/user/actions';
 function Logout() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(async () => {
     dispatch(unsetUser());
+
+    if(gapi) {
+      const auth2 = gapi.auth2.getAuthInstance();
+      await auth2.signOut();
+    }
+
     Router.push('/');
   }, [])
 

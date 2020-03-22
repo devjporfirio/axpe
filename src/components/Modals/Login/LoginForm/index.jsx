@@ -5,12 +5,15 @@ import { useFormik } from 'formik';
 import Api from 'services';
 import * as Yup from 'yup';
 
-// components
-import Button from 'components/Button';
-import FormElements from 'components/FormElements';
+// helpers
+import { getErrorMessage } from 'helpers/errors';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
+
+// components
+import Button from 'components/Button';
+import FormElements from 'components/FormElements';
 
 // styles
 import {
@@ -51,19 +54,11 @@ function LoginForm({ doAfterLogin }) {
         dispatch(setMain({ modalLogin: false }));
         resetForm();
       } else if(response.error) {
-        let errorMessage = null;
+        const errorMessage = getErrorMessage(response.error);
+
         setSubmitting(false);
-
-        switch(response.error) {
-          case 'user.not.found':
-            errorMessage = 'Usuário não encontrado.';
-            break;
-          default:
-            errorMessage = response.error;
-            break;
-        }
-
         setErrorMessage(errorMessage);
+
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
