@@ -14,9 +14,6 @@ import SearchIconSVG from 'assets/icons/search';
 import HomeIconSVG from 'assets/icons/home';
 import CloudIconSVG from 'assets/icons/cloud';
 import WhatsappIconSVG from 'assets/icons/whatsapp';
-import FacebookIconSVG from 'assets/icons/facebook';
-import InstagramIconSVG from 'assets/icons/instagram';
-import LinkedinIconSVG from 'assets/icons/linkedin';
 import AlertIconSVG from 'assets/icons/alert';
 
 // styles
@@ -40,11 +37,7 @@ import {
   WhatsappButton,
   Contact,
   Newsletter,
-  NewsletterButton,
-  Footer,
-  Socials,
-  SocialsButton,
-  Creci
+  NewsletterButton
 } from './styles';
 
 function Header() {
@@ -248,33 +241,6 @@ function Header() {
               Receba nossas <strong>novidades</strong>
             </NewsletterButton>
           </Newsletter>
-
-          <Footer>
-            <Socials>
-              <SocialsButton
-                type="facebook"
-                href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997"
-                target="_blank"
-              >
-                <SVG src={FacebookIconSVG} uniquifyIDs={true} />
-              </SocialsButton>
-              <SocialsButton
-                type="instagram"
-                href="http://instagram.com/axpe_imoveis"
-                target="_blank"
-              >
-                <SVG src={InstagramIconSVG} uniquifyIDs={true} />
-              </SocialsButton>
-              <SocialsButton
-                type="linkedin"
-                href="https://br.linkedin.com/company/axpe-im-veis"
-                target="_blank"
-              >
-                <SVG src={LinkedinIconSVG} uniquifyIDs={true} />
-              </SocialsButton>
-            </Socials>
-            <Creci>CRECI 19111J</Creci>
-          </Footer>
         </Box>
       </Wrapper>
     </Container>
