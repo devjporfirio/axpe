@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Tag from 'components/Tag';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 
@@ -21,6 +22,8 @@ import {
 
 export default function Datasheet({ property }) {
   const { type, infos, category, address, reference, label, values, source } = property;
+  const { searchFunnel } = useSelector(state => state.main);
+
   return (
     <>
       <DatasheetContent>
@@ -54,30 +57,39 @@ export default function Datasheet({ property }) {
             )}
           </GroupTags>
         </BlockOne>
+
         {!!infos.internalDescription && (
           <BlockTwo>
             <Content>{infos.internalDescription}</Content>
           </BlockTwo>
         )}
+
         <BlockThree type={property.type}>
           <PriceGroup>
-            <Caracteristics.Sell
-              sell={values.sell}
-              iptu={values.iptu}
-              condo={values.condo}
-              currency={values.currency}
-              type={type}
-            />
+
+            {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
+              <Caracteristics.Sell
+                sell={values.sell}
+                iptu={values.iptu}
+                condo={values.condo}
+                currency={values.currency}
+                type={type}
+              />
+            ) : null}
+
             <Caracteristics.Release
               release={values.release}
               currency={values.currency}
             />
-            <Caracteristics.Rent
-              rent={values.rent}
-              iptu={values.iptu}
-              condo={values.condo}
-              currency={values.currency}
-            />
+
+            {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
+              <Caracteristics.Rent
+                rent={values.rent}
+                iptu={values.iptu}
+                condo={values.condo}
+                currency={values.currency}
+              />
+            ) : null}
           </PriceGroup>
           <Caracteristics.Bedrooms
             bedrooms={infos.bedrooms}
@@ -93,7 +105,7 @@ export default function Datasheet({ property }) {
             end={infos.parkingEnd}
           />
 
-          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
+          {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
           )}
 
@@ -103,14 +115,14 @@ export default function Datasheet({ property }) {
             <Caracteristics.AreaGround areaGround={infos.areaGround} />
           )}
 
-          {category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
+          {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaUseFulBetween
               start={infos.areaUsefulStart}
               end={infos.areaUsefulEnd}
             />
           )}
 
-          {category.search('Casa') < 0 &&
+          {category && category.search('Casa') < 0 &&
             infos.use !== 'COMERCIAL' &&
             source !== 'praia' &&
             source !== 'campo' && (

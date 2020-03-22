@@ -64,6 +64,7 @@ function BuildingList({
   const [ hasDeleted, setHasDeleted ] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const { searchFunnel } = useSelector(state => state.main);
   const isFavoriteBuilding = checkFavorite(reference);
   const gallerySettings = {
     dots: false,
@@ -299,7 +300,7 @@ function BuildingList({
               <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
                 <LinkTag>
                   <div>
-                    {!!values.sell || !!values.release ? (
+                    {(!!values.sell || !!values.release) && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
                       <Price>
                         {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                         {!!values.sell &&
@@ -311,19 +312,15 @@ function BuildingList({
                             .format(parseInt(values.release))
                             .replace('R$', values.currency || 'R$')}
                       </Price>
-                    ) : (
-                      ''
-                    )}
-                    {!!values.rent ? (
+                    ) : null}
+                    {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
                       <Price>
                         Locação:{' '}
                         {formatCurrency
                           .format(parseInt(values.rent))
                           .replace('R$', values.currency || 'R$')}
                       </Price>
-                    ) : (
-                      ''
-                    )}
+                    ) : null}
                   </div>
                 </LinkTag>
               </Link>
