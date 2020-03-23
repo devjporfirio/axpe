@@ -11,6 +11,7 @@ export const Container = styled(MyAccount)``;
 export const Body = styled.div``;
 
 export const Amount = styled.div`
+  position: relative;
   padding: 0 29px 30px 29px;
   display: flex;
   align-items: center;
@@ -18,18 +19,37 @@ export const Amount = styled.div`
 
   ${media.greaterThan('medium')`
     align-items: flex-end;
+    padding: 0 0 30px 0;
   `}
 `;
 
-export const ShareIcon = styled(SVG)`
-  width: 19.2px;
-  height: 24px;
+export const ButtonShare = styled.button`
   position: absolute;
   right: 29px;
+  bottom: 35px;
+  cursor: pointer;
 
   ${media.greaterThan('medium')`
-    display: none;
+    right: 0;
   `}
+
+  ${media.greaterThan('large')`
+    &:hover {
+      svg path {
+        stroke: ${({ theme }) => theme.colors.orange};
+      }
+    }
+  `}
+
+  svg {
+    display: block;
+    width: 19px;
+    height: 24px;
+
+    path {
+      transition: all 300ms ease;
+    }
+  }
 `;
 
 export const GroupIcon = styled.div`
