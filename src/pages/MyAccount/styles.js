@@ -7,8 +7,7 @@ export const Container = styled.section`
   min-height: 100vh;
 
   ${media.greaterThan('medium')`
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 0 50px 50px;
   `}
 
   ${media.greaterThan('1280px')`
@@ -49,7 +48,7 @@ export const Header = styled.header`
 
   ${media.greaterThan('medium')`
     padding: 30px 0;
-    max-width: 1000px;
+    max-width: 1044px;
     margin: 0 auto;
 
     h1 {
@@ -77,7 +76,6 @@ export const Nav = styled.nav`
   z-index: 4;
   width: 100%;
   height: 47px;
-  /* box-shadow: 2px 0 4px 0 rgba(178, 178, 178, 0.34); */
 
   ul {
     white-space: nowrap;
@@ -88,7 +86,7 @@ export const Nav = styled.nav`
   ${media.greaterThan('medium')`
     position: initial;
     margin: auto;
-    max-width: 1000px;
+    max-width: 1044px;
 
     ul {
       display: flex;
@@ -103,15 +101,17 @@ export const Nav = styled.nav`
 
 export const Li = styled.li`
   display: inline-block;
-  font: 14px/44px 'Bitter';
-  font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  height: 44px;
+  height: 47px;
   padding: 0 5px;
+  font-size: 14px;
+  line-height: 47px;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
 
   a {
-    width: 100%;
-    height: 44px;
     display: block;
+    width: 100%;
+    height: 47px;
+    padding: 0 15px;
     color: ${({ theme }) => theme.colors.green};
   }
 
@@ -141,12 +141,15 @@ export const Li = styled.li`
       &:nth-of-type(1) {
         order: 4;
       }
+
       &:nth-of-type(2) {
         order: 3;
       }
+
       &:nth-of-type(3) {
         order: 2;
       }
+
       &:nth-of-type(4) {
         order: 1;
       }
@@ -156,8 +159,8 @@ export const Li = styled.li`
 export const Body = styled.div`
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.white};
-    max-width: 1000px;
+    max-width: 1044px;
     margin: auto;
-    padding: 0 45px;
+    padding: 0 45px 30px 45px;
   `}
 `;

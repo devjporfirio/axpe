@@ -14,7 +14,7 @@ const ContactHome = () => (
       <p>
         Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
       </p>
-      <Link href="/so-quero-sonhar" passHref fullWidth={true}>
+      <Link href="/imovel-dos-sonhos" passHref fullWidth={true}>
         Entre em contato
       </Link>
     </div>

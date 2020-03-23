@@ -69,7 +69,10 @@ export default {
   async postRegisterProperty(token, data) {
     const formData = new FormData();
 
-    formData.append('files', data.files);
+    data.files.forEach((file, fileIndex) => {
+      formData.append(`file${fileIndex}`, file);
+    })
+
 
     const result = await fetch(`${process.env.config.apiUrl}/user/register_your_building`, {
       method: 'POST',

@@ -3,7 +3,7 @@ import media from 'styled-media-query';
 
 export const Container = styled.article`
   ${media.greaterThan('medium')`
-    padding: 0 10px;
+    padding: 0 18px;
 
     ${props => props.layout === 'horizontal' && css`
       padding: 15px 10px;
@@ -71,6 +71,12 @@ export const Gallery = styled.div`
   }
 
   ${media.greaterThan('medium')`
+    height: 200px;
+
+    ${props => props.layout === 'vertical' && css`
+      border-radius: 6px;
+    `}
+
     ${props => props.layout === 'horizontal' && css`
       width: 65%;
       height: 260px;
@@ -137,10 +143,18 @@ export const Text = styled.div`
     text-transform: uppercase;
     font-size: 16px;
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+
+    ${props => props.layout === 'vertical' && css`
+      font-size: 18px;
+    `}
   }
 
   p {
     font-size: 18px;
+
+    ${props => props.layout === 'vertical' && css`
+      font-size: 16px;
+    `}
   }
 
   span {

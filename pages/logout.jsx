@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Router from 'next/router';
 
 // actions
 import { unsetUser } from 'store/modules/user/actions';
@@ -8,9 +7,17 @@ import { unsetUser } from 'store/modules/user/actions';
 function Logout() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(async () => {
     dispatch(unsetUser());
-    Router.push('/');
+
+    try {
+      if(gapi) {
+        const auth2 = gapi.auth2.getAuthInstance();
+        await auth2.signOut();
+      }
+    } catch(error) {}
+
+    window.location = '/';
   }, [])
 
   return null;

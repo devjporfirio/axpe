@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Api from 'services';
+import SVG from 'react-inlinesvg';
 
 // helpers
 import SeoData from 'helpers/seo';
@@ -15,18 +16,18 @@ import { updateUserFavorites } from 'store/modules/user/actions';
 
 // images
 import ShareIconSVG from 'assets/icons/share';
-import MailIconSVG from 'assets/icons/mail';
-import WhatsappIconSVG from 'assets/icons/whatsapp-orange';
+// import MailIconSVG from 'assets/icons/mail';
+// import WhatsappIconSVG from 'assets/icons/whatsapp-orange';
 
 // styles
 import {
   Container,
   Body,
   Amount,
-  ShareIcon,
-  GroupIcon,
-  MailIcon,
-  WhatsIcon,
+  ButtonShare,
+  // GroupIcon,
+  // MailIcon,
+  // WhatsIcon,
   BuildingItem
 } from 'pages/MyAccount/Favorites/styles';
 import { Title } from 'pages/MyAccount/styles';
@@ -51,9 +52,13 @@ function Favorites() {
             return response.building;
           })
         );
+
         setBuildings(buildings);
-        setLoaded(true);
+      } else {
+        setBuildings([]);
       }
+
+      setLoaded(true);
     }
 
     loadBuildings();
@@ -73,7 +78,7 @@ function Favorites() {
         <title>{`Favoritos | Minha Conta - ${SeoData.title}`}</title>
         <meta name="description" content={SeoData.description} />
       </Head>
-      {!buildings || buildings.length <= 0 ? (
+      {!buildings || !buildings.length ? (
         <Container>
           <Body>
             <Empty
@@ -89,11 +94,13 @@ function Favorites() {
               <Title>
                 Você tem <strong>{buildings.length} imóveis</strong> favoritos
               </Title>
-              <ShareIcon src={ShareIconSVG} onClick={() => setShareActive(true)} />
-              <GroupIcon>
+              <ButtonShare onClick={() => setShareActive(true)}>
+                <SVG src={ShareIconSVG} uniquifyIDs={true} />
+              </ButtonShare>
+              {/* <GroupIcon>
                 <MailIcon src={MailIconSVG} />
                 <WhatsIcon src={WhatsappIconSVG} />
-              </GroupIcon>
+              </GroupIcon> */}
             </Amount>
             <Share
               active={shareActive}

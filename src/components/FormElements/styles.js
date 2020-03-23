@@ -271,3 +271,13 @@ export const SVGEye = styled(SVG)`
     transition: all 300ms ease;
   }
 `;
+
+export const FormFeedback = styled.p`
+  margin-top: 10px;
+  font: 14px 'Raleway';
+  color: ${({ theme }) => theme.colors.orange};
+
+  ${props => props.themeColor && css`
+    color: ${({ theme }) => theme.colors[props.themeColor]};
+  `}
+`;

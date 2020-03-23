@@ -4,16 +4,22 @@ import { useFormik } from 'formik';
 import Api from 'services';
 import * as Yup from 'yup';
 
-// components
-import Button from 'components/Button';
-import FormElements from 'components/FormElements';
+// helpers
+import { getErrorMessage } from 'helpers/errors';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
 
+// components
+import Button from 'components/Button';
+import FormElements from 'components/FormElements';
+
 // styles
 import {
-  LoginFeedback,
+  FormFeedback
+} from 'components/FormElements/styles';
+
+import {
   RegisterFormContainer
 } from 'components/Modals/Login/styles';
 
@@ -28,7 +34,7 @@ const registerSchema = Yup.object().shape({
 
 function RegisterForm({ doAfterLogin }) {
   const dispatch = useDispatch();
-  const [ registerError, setRegisterError ] = useState(null);
+  const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
     handleSubmit,
@@ -62,10 +68,10 @@ function RegisterForm({ doAfterLogin }) {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.User.postRegister({
         name: values.name,
-        lastName: values.lastName,
+        last_name: values.lastName,
         email: values.email,
         password: values.password,
-        passwordConfirmation: values.passwordConfirmation,
+        password_confirmation: values.passwordConfirmation,
         phone: values.phone
       });
 
@@ -74,8 +80,6 @@ function RegisterForm({ doAfterLogin }) {
           email: values.email,
           password: values.password
         });
-
-        setSubmitting(false);
 
         if(loginResponse.access_token) {
           dispatch(
@@ -90,14 +94,14 @@ function RegisterForm({ doAfterLogin }) {
           resetForm({});
         }
 
-      } else if(response.status === 'error') {
-        const errorMessages = response.msg;
+      } else if(!response.status && response.error) {
+        const msgs = response.error.map(err => getErrorMessage(err));
 
         setSubmitting(false);
-        setRegisterError(errorMessages.join(', '));
+        setErrorMessage(msgs.join(', '));
 
         setTimeout(() => {
-          setRegisterError(null);
+          setErrorMessage(null);
         }, 3000);
       }
     }
@@ -178,7 +182,7 @@ function RegisterForm({ doAfterLogin }) {
       <Button type="submit" disabled={isSubmitting} fullWidth>
         Começar
       </Button>
-      {registerError && <LoginFeedback>{registerError}</LoginFeedback>}
+      {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
     </RegisterFormContainer>
   )
 }

@@ -10,7 +10,7 @@ export const Container = styled(MyAccount)`
   ${media.greaterThan('medium')`
     hr {
       display: block;
-      max-width: calc(100% - 95px);
+      max-width: calc(100% - 35px);
       border: 1px solid ${({ theme }) => theme.colors.greyDark};
     }
   `}
@@ -36,7 +36,11 @@ export const Items = styled.div`
   `}
 
   ${media.greaterThan('1280px')`
-    padding: 50px 0;
+    padding: 30px 0 20px 0;
+
+    &:first-child {
+      padding-top: 50px;
+    }
   `}
 
   hr {
@@ -57,7 +61,8 @@ export const ItemsTitle = styled.h3`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
   ${media.greaterThan('medium')`
+    padding: 0 20px;
+    margin-bottom: 15px;
     font-size: 25px;
-    padding: 0 10px;
   `}
 `

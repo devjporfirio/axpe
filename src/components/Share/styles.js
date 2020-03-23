@@ -87,6 +87,7 @@ export const SocialsButton = styled.a`
   width: 70px;
   font: 12px 'Raleway';
   text-align: center;
+  color: ${({ theme }) => theme.colors.greenDark};
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   transition: all 300ms ease;
 
@@ -134,6 +135,7 @@ export const Copy = styled.div`
     text-align: left;
     background: transparent;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    color: ${({ theme }) => theme.colors.greenDark};
   }
 
   button {

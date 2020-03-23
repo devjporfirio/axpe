@@ -60,10 +60,10 @@ export const FormGroupValues = styled.div`
     p {
       position: absolute;
       margin-top: 50px;
-    }
 
-    p:nth-child(4){
-      margin-left: 295px;
+      &:nth-child(4){
+        margin-left: 295px;
+      }
     }
   `}
 `;
@@ -80,6 +80,14 @@ export const FormGroupValuesSub = styled.div`
 `;
 
 export const FormGroupFlex = styled.div`
+  label {
+    &[for='SingleLine5'],
+    &[for='SingleLine12'] {
+      margin-bottom: 5px;
+      background: none;
+    }
+  }
+
   ${media.greaterThan('medium')`
     display: flex;
 
@@ -89,11 +97,19 @@ export const FormGroupFlex = styled.div`
 
     label {
       height: 50px;
+
+      &[for='SingleLine5'] {
+        background: none;
+      }
     }
   `}
 `;
 
 export const FormGroupAddress = styled.div`
+  p {
+    margin-top: 10px;
+  }
+
   ${media.greaterThan('medium')`
     display: flex;
     flex-wrap: wrap;
@@ -109,7 +125,7 @@ export const FormGroupAddress = styled.div`
       }
 
       &:nth-child(3) {
-        width: 36%;
+        width: 31%;
       }
 
       &:nth-child(4) {
@@ -117,12 +133,13 @@ export const FormGroupAddress = styled.div`
       }
 
       &:nth-child(5) {
-        width: 30%;
+        width: 35%;
       }
     }
 
     p {
-      margin-left: 42%;
+      margin-top: -5px;
+      margin-left: 65%;
     }
   `}
 `;

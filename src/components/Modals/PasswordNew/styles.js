@@ -43,17 +43,6 @@ export const Container = styled(Modals)`
   }
 `;
 
-export const FormFeedback = styled.p`
-  margin-top: 10px;
-  font: 14px 'Raleway';
-  color: ${({ theme }) => theme.colors.orange};
-
-  ${props => props.themeColor && css`
-    color: ${({ theme }) => theme.colors[props.themeColor]};
-  `}
-`;
-
-
 export const Note = styled.p`
   width: 183px;
   font: ${({ theme }) => theme.fontsWeight.medium} 12px/17px 'Raleway';

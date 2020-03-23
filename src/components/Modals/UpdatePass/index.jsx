@@ -4,6 +4,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from 'services';
 
+// helpers
+import { getErrorMessage } from 'helpers/errors';
+
 // components
 import FormElements from 'components/FormElements';
 
@@ -11,12 +14,11 @@ import FormElements from 'components/FormElements';
 import { setUserMe } from 'store/modules/user/actions';
 
 // styles
-import { FormGroup } from 'components/FormElements/styles';
+import { FormGroup, FormFeedback } from 'components/FormElements/styles';
 import { Form, ButtonSave } from 'pages/MyAccount/Profile/styles';
 import {
   Container,
-  Note,
-  FormFeedback
+  Note
 } from './styles';
 
 const formSchema = Yup.object().shape({
@@ -54,9 +56,6 @@ function UpdatePass({ active, onClose, user }) {
         ...values
       });
 
-      setErrorMessage(false);
-      setSubmitting(false);
-
       if (response.status) {
         dispatch(setUserMe(values));
         setSuccessMessage(true);
@@ -67,7 +66,10 @@ function UpdatePass({ active, onClose, user }) {
           onClose();
         }, 3000);
       } else {
-        setErrorMessage(response.msg);
+        const msg = getErrorMessage(response.error);
+
+        setErrorMessage(msg);
+        setSubmitting(false);
 
         setTimeout(() => {
           setErrorMessage(null);

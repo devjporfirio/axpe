@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 
 // styles
@@ -11,9 +11,12 @@ import {
 function HowWeLove({ reasons }) {
   const [ html, setHtml ] = useState(null);
   const [ type, setType ] = useState(null);
+  const [ data, setData ] = useState(null);
 
-  const filterHtml = () => {
-    const response = reasons.title
+  const filterHtml = useCallback(() => {
+    if(!data) return null;
+
+    const response = data.title
       .replace('<div class="building-lovely-items">', '')
       .replace('<div class="building-lovely-items-wrapper">', '')
       .replace(/\n/g, '')
@@ -23,27 +26,31 @@ function HowWeLove({ reasons }) {
       .trim();
 
     return parse(response);
-  };
+  }, [ data ]);
+
+  const checkSlidesToShow = useCallback(() => {
+    if (type === 'html' && html && html.length) {
+      return html.length > 5 ? 5 : html.length;
+    } else if (type === 'array' && data && data.length) {
+      return data.length > 5 ? 5 : data.length;
+    }
+    return 0;
+  }, [ data, html ]);
 
   useEffect(() => {
-    if (Array.isArray(reasons)) {
+    if (Array.isArray(data)) {
       setType('array');
     } else {
       setType('html');
       setHtml(filterHtml());
     }
-  }, []);
+  }, [ data ]);
 
-  const checkSlidesToShow = () => {
-    if (type === 'html' && html && html.length) {
-      return html.length > 5 ? 5 : html.length;
-    } else if (type === 'array' && reasons && reasons.length) {
-      return reasons.length > 5 ? 5 : reasons.length;
-    }
-    return 0;
-  };
+  useEffect(() => {
+    setData(reasons);
+  }, [ reasons ])
 
-  return type === 'array' || (type === 'html' && html) ? (
+  return type === 'array' || (type === 'html' && html) && data ? (
     <Container>
       <Title>
         <span>Por que </span>
@@ -69,13 +76,7 @@ function HowWeLove({ reasons }) {
             }
           },
           {
-            breakpoint: 660,
-            settings: {
-              slidesToShow: 2
-            }
-          },
-          {
-            breakpoint: 480,
+            breakpoint: 639,
             settings: {
               slidesToShow: 1
             }
@@ -84,8 +85,8 @@ function HowWeLove({ reasons }) {
       >
         {type === 'html' && html}
         {type === 'array' &&
-          reasons && reasons.length > 0 &&
-          reasons.map((reason, index) => (
+          data && data.length > 0 &&
+          data.map((reason, index) => (
             <article className="building-lovely-item" key={index}>
               <h3>{reason.title}</h3>
               <p>{reason.text}</p>

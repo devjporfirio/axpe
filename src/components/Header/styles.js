@@ -34,7 +34,7 @@ export const Container = styled.header`
   `}
 
   ${css`
-    @media (min-width: 768px) and (max-height: 640px) {
+    @media (min-width: 768px) and (max-height: 580px) {
       display: block;
       overflow: hidden;
       overflow-y: auto;
@@ -58,7 +58,7 @@ export const Wrapper = styled.div`
   `}
 
   ${css`
-    @media (min-width: 768px) and (max-height: 640px) {
+    @media (min-width: 768px) and (max-height: 580px) {
       padding: 30px;
     }
   `}
@@ -152,9 +152,7 @@ export const ButtonToggle = styled.button`
       top: 16px;
     }
 
-    ${props =>
-      props.navToggle &&
-      `
+    ${props => props.navToggle && css`
       &:nth-child(1) {
         top: 8px;
         transform: rotate(45deg);
@@ -284,13 +282,10 @@ export const NavMainButton = styled.a`
     left: 0;
     transform: translateY(-50%);
 
-    ${props =>
-      props.type == 'register'
-        ? `
+    ${props => props.type == 'register' ? css`
       width: 22px;
       height: 18px;
-    `
-        : `
+    ` : css`
       width: 24px;
       height: 16px;
     `}
@@ -601,31 +596,25 @@ export const SocialsButton = styled.button`
     display: block;
   }
 
-  ${props =>
-    props.type == 'facebook' &&
-    `
-  svg {
-    width: 8px;
-    height: 16px;
-  }
+  ${props => props.type == 'facebook' && css`
+    svg {
+      width: 8px;
+      height: 16px;
+    }
   `}
 
-  ${props =>
-    props.type == 'instagram' &&
-    `
-  svg {
-    width: 15px;
-    height: 15px;
-  }
+  ${props => props.type == 'instagram' && css`
+    svg {
+      width: 15px;
+      height: 15px;
+    }
   `}
 
-  ${props =>
-    props.type == 'linkedin' &&
-    `
-  svg {
-    width: 14px;
-    height: 14px;
-  }
+  ${props => props.type == 'linkedin' && css`
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   `}
 `;
 

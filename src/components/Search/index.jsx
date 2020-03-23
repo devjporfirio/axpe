@@ -10,7 +10,7 @@ import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 import { setMain } from 'store/modules/main/actions';
 
 // components
-import SearchIconSVG from 'assets/icons/search';
+import Button from 'components/Button';
 import Input from 'components/Search/FormElements/Input';
 import InputSource from 'components/Search/FormElements/InputSource';
 import ButtonSource from 'components/Search/FormElements/ButtonSource';
@@ -19,6 +19,7 @@ import RangeSlider from 'components/Search/FormElements/RangeSlider';
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
 import AlertIconSVG from 'assets/icons/alert';
+import SearchIconSVG from 'assets/icons/search';
 
 // styles
 import {
@@ -45,6 +46,7 @@ import {
   FormTabClose,
   FormTabTitle,
   FormTabContent,
+  FormTabFooter,
   FormTabListItemTitle,
   FormTabListItemButton,
   FormTabSlider,
@@ -708,7 +710,7 @@ function Search() {
               Fechar
             </FormTabClose>
             <FormTabTitle>{formik.values.source.value === 'sao-paulo' ? 'Bairros' : 'Locais'}</FormTabTitle>
-            <FormTabContent>
+            <FormTabContent hasFooter={true}>
               <ul>
                 {Object.keys(filtersData.locals).map((local, localIndex) => (
                   <li key={`local-${local}-${localIndex}`}>
@@ -742,6 +744,11 @@ function Search() {
                 ))}
               </ul>
             </FormTabContent>
+            {formik.values.local.length > 0 ? (
+              <FormTabFooter>
+                <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
+              </FormTabFooter>
+            ) : null}
           </FormTab>
         ) : null}
 

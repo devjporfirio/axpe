@@ -7,7 +7,7 @@ import Api from 'services';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import Contact from 'components/Contact';
-import BuildingsPanel from 'components/BuildingsPanel';
+import BuildingList from 'components/Building/List';
 import DataSheet from 'pages/Building/Datasheet';
 import Modules from 'pages/Building/modules';
 
@@ -22,13 +22,17 @@ import { setMain } from 'store/modules/main/actions';
 import {
   Container,
   Images,
-  Alert
+  Alert,
+  SimilarBuildings,
+  SimilarBuildingsHeader,
+  SimilarBuildingsList
 } from 'pages/Building/styles';
 
 function Building({ property }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
+  const [ data, setData ] = useState([]);
 
   useEffect(() => {
     CookieBuildingSeen.set(property.reference, user);
@@ -47,6 +51,7 @@ function Building({ property }) {
     }
 
     loadSimilarBuildings();
+    setData(property);
   }, [ property ]);
 
   useEffect(() => {
@@ -55,7 +60,7 @@ function Building({ property }) {
     }
   }, []);
 
-  return property && Object.keys(property).length ? (
+  return data && Object.keys(data).length ? (
     <>
       <Head>
         <title>{SeoData.title}</title>
@@ -64,30 +69,30 @@ function Building({ property }) {
       <Container>
         <Headerbar
           type="building"
-          title={property.category}
-          subtitle={property.address.local}
+          title={data.category}
+          subtitle={data.address.local}
           building={{
-            reference: property.reference,
-            source: property.source,
-            likes: property.totalFavorites,
-            local: property.address.local,
-            area: property.infos.areaBuilding,
-            bedrooms: property.infos.bedrooms,
-            parking: property.infos.parking
+            reference: data.reference,
+            source: data.source,
+            likes: data.totalFavorites,
+            local: data.address.local,
+            area: data.infos.areaBuilding,
+            bedrooms: data.infos.bedrooms,
+            parking: data.infos.parking
           }}
         />
 
-        {property.gallery && (
+        {data.gallery && (
           <Images
-            category={property.category}
-            local={property.address.local}
-            items={property.gallery}
-            tour360={property.tour360}
-            reference={property.reference}
+            category={data.category}
+            local={data.address.local}
+            items={data.gallery}
+            tour360={data.tour360}
+            reference={data.reference}
           />
         )}
 
-        <DataSheet property={property} />
+        <DataSheet property={data} />
 
         <Alert>
           <p>
@@ -102,17 +107,25 @@ function Building({ property }) {
           </p>
         </Alert>
 
-        {Object.keys(property.components).length > 0 && (
-          <Modules property={property} />
+        {Object.keys(data.components).length > 0 && (
+          <Modules property={data} />
         )}
 
         {similarBuildings && similarBuildings.length > 0 && (
-          <BuildingsPanel
-            title="Pessoas que viram este imóvel também viram:"
-            buildingLayout="horizontal"
-            type="building"
-            data={similarBuildings}
-          />
+          <SimilarBuildings>
+            <SimilarBuildingsHeader>
+              <h2>Pessoas que viram este imóvel também viram:</h2>
+            </SimilarBuildingsHeader>
+            <SimilarBuildingsList>
+              {similarBuildings.map((building, buildingIndex) => (
+                <BuildingList
+                  layout="horizontal"
+                  item={building}
+                  key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                />
+              ))}
+            </SimilarBuildingsList>
+          </SimilarBuildings>
         )}
 
         <BlockHighlighted type="notfound" />

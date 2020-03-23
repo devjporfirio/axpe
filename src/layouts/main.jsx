@@ -30,7 +30,9 @@ import ContactBar from 'components/ContactBar';
 import GlobalStyle from './globalStyle';
 import noUiSliderCSS from './vendors/noUiSlider';
 import ThemeStyle from './themeStyle';
-import { Wrapper } from './styles';
+import {
+  Wrapper
+} from './styles';
 
 function Main({ children }) {
   const dispatch = useDispatch();

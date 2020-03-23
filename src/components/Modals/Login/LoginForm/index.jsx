@@ -5,16 +5,22 @@ import { useFormik } from 'formik';
 import Api from 'services';
 import * as Yup from 'yup';
 
-// components
-import Button from 'components/Button';
-import FormElements from 'components/FormElements';
+// helpers
+import { getErrorMessage } from 'helpers/errors';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
 
+// components
+import Button from 'components/Button';
+import FormElements from 'components/FormElements';
+
 // styles
 import {
-  LoginFeedback,
+  FormFeedback
+} from 'components/FormElements/styles';
+
+import {
   LoginFormContainer
 } from 'components/Modals/Login/styles';
 
@@ -51,19 +57,11 @@ function LoginForm({ doAfterLogin }) {
         dispatch(setMain({ modalLogin: false }));
         resetForm();
       } else if(response.error) {
-        let errorMessage = null;
+        const msg = getErrorMessage(response.error);
+
         setSubmitting(false);
+        setErrorMessage(msg);
 
-        switch(response.error) {
-          case 'user.not.found':
-            errorMessage = 'Usuário não encontrado.';
-            break;
-          default:
-            errorMessage = response.error;
-            break;
-        }
-
-        setErrorMessage(errorMessage);
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
@@ -97,7 +95,7 @@ function LoginForm({ doAfterLogin }) {
       <Button disabled={isSubmitting} type="submit" fullWidth>
         Entrar
       </Button>
-      {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+      {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
     </LoginFormContainer>
   )
 }

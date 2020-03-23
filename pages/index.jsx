@@ -1,20 +1,25 @@
 import React, { Fragment, useCallback, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
 import Api from 'services';
 
-// components
-import SlickSection from 'components/SlickSection';
-import BuildingsPanel from 'components/BuildingsPanel';
-import BlockHighlighted from 'components/BlockHighlighted';
-import SliderNew from 'components/SliderNew';
-import Contact from 'components/Contact';
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // helpers
 import { shuffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
+
+// components
+import PasswordNewModal from 'components/Modals/PasswordNew';
+import SlickSection from 'components/SlickSection';
+import BuildingsPanel from 'components/BuildingsPanel';
+import BlockHighlighted from 'components/BlockHighlighted';
+import SliderNew from 'components/SliderNew';
+import Contact from 'components/Contact';
 
 // styles
 import {
@@ -34,9 +39,13 @@ const COMPONENT_SLICK = {
 };
 
 function Home({ hero, components }) {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { query: { action, hash } } = router;
   const user = useSelector(state => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
+
   const heroSettings = {
     dots: false,
     infinite: true,
@@ -114,6 +123,16 @@ function Home({ hero, components }) {
   }, []);
 
   useEffect(() => {
+    function checkActionParams() {
+      if(action) {
+        dispatch(
+          setMain({
+            modalPasswordNew: true
+          })
+        );
+      }
+    }
+
     async function loadBuildinsSeen() {
       if (user.logged) {
         const responseBuildingsSeen = await Api.MyAccount.getViewed(user.access_token);
@@ -167,6 +186,7 @@ function Home({ hero, components }) {
       }
     }
 
+    checkActionParams();
     loadBuildinsSeen();
   }, []);
 
@@ -232,6 +252,10 @@ function Home({ hero, components }) {
           })}
 
         <Contact />
+
+        {action && action === 'senha-nova' && (
+          <PasswordNewModal hash={hash} />
+        )}
       </Container>
     </>
   );

@@ -8,9 +8,9 @@ import Api from 'services';
 import FormElements from 'components/FormElements';
 
 // styles
-import { FormGroup } from 'components/FormElements/styles';
+import { FormGroup, FormFeedback } from 'components/FormElements/styles';
 import { Form, ButtonSave } from 'pages/MyAccount/Profile/styles';
-import { Container, FormFeedback, Note } from './styles';
+import { Container, Note } from './styles';
 
 const formSchema = Yup.object().shape({
   passwordConf: Yup.string().required(),

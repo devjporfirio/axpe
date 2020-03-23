@@ -62,8 +62,9 @@ export const Reasons = styled(Slider)`
     align-items: center;
     flex-direction: column;
     width: 100%;
+    max-width: 260px;
     height: 270px;
-    padding: 30px 60px;
+    padding: 30px 15px;
 
     &:before {
       content: '';
@@ -71,7 +72,7 @@ export const Reasons = styled(Slider)`
       position: absolute;
       top: 0;
       left: 50%;
-      width: calc(100% - 80px);
+      width: 100%;
       height: 100%;
       border-radius: 7px;
       background-color: ${({ theme }) => theme.colors.greyLight};

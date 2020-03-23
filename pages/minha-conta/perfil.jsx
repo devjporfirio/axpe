@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 // helpers
 import SeoData from 'helpers/seo';
+import { getErrorMessage } from 'helpers/errors';
 
 // actions
 import { setUserMe } from 'store/modules/user/actions';
@@ -22,8 +23,7 @@ import UpdatePassModal from 'components/Modals/UpdatePass';
 // import Google from 'assets/icons/google-rounded';
 
 // styles
-import { LoginFeedback } from 'components/Modals/Login/styles';
-import { FormGroup } from 'components/FormElements/styles';
+import { FormGroup, FormFeedback } from 'components/FormElements/styles';
 import {
   Container,
   Body,
@@ -50,6 +50,7 @@ function Profile() {
   const user = useSelector(state => state.user);
   const [ changePass, setChangePass ] = useState(false);
   const [ errorMessage, setErrorMessage ] = useState(null);
+  const [ successMessage, setSuccessMessage ] = useState(null);
 
   const {
     handleSubmit,
@@ -77,12 +78,16 @@ function Profile() {
 
       if (response.status) {
         dispatch(setUserMe(values));
-        setErrorMessage('Alteração realizada com sucesso.');
+        setSuccessMessage(true);
+
         setTimeout(() => {
-          setErrorMessage(null);
+          setSuccessMessage(null);
         }, 3000);
       } else {
-        setErrorMessage(response.msg);
+        const msgs = response.error.map(err => getErrorMessage(err));
+
+        setErrorMessage(msgs.join(', '));
+
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
@@ -233,7 +238,12 @@ function Profile() {
               </FormGroupAlerts>
             </FormGroup>
 
-            {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+            {successMessage && (
+              <FormFeedback themeColor="greenLight">
+                Alteração realizada com sucesso.
+              </FormFeedback>
+            )}
+            {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
 
             <ButtonSave disabled={isSubmitting} type="submit">
               Salvar

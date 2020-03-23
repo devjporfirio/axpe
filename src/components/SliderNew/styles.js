@@ -86,11 +86,19 @@ const ContainerNormal = css`
     transform: translateY(-50%);
 
     &.slick-prev {
-      left: -45px;
+      left: -44px;
+
+      ${media.greaterThan('large')`
+        left: -30px;
+      `}
     }
 
     &.slick-next {
-      right: -45px;
+      right: -42px;
+
+      ${media.greaterThan('large')`
+        right: -30px;
+      `}
     }
   }
 `;
