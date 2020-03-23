@@ -16,7 +16,10 @@ import FormElements from 'components/FormElements';
 
 // styles
 import {
-  LoginFeedback,
+  FormFeedback
+} from 'components/FormElements/styles';
+
+import {
   RegisterFormContainer
 } from 'components/Modals/Login/styles';
 
@@ -31,7 +34,7 @@ const registerSchema = Yup.object().shape({
 
 function RegisterForm({ doAfterLogin }) {
   const dispatch = useDispatch();
-  const [ registerError, setRegisterError ] = useState(null);
+  const [ errorMessage, setErrorMessage ] = useState(null);
 
   const {
     handleSubmit,
@@ -78,8 +81,6 @@ function RegisterForm({ doAfterLogin }) {
           password: values.password
         });
 
-        setSubmitting(false);
-
         if(loginResponse.access_token) {
           dispatch(
             setMain({
@@ -94,13 +95,13 @@ function RegisterForm({ doAfterLogin }) {
         }
 
       } else if(!response.status && response.error) {
-        const errorMessages = response.error.map(err => getErrorMessage(err));
+        const msgs = response.error.map(err => getErrorMessage(err));
 
         setSubmitting(false);
-        setRegisterError(errorMessages.join(', '));
+        setErrorMessage(msgs.join(', '));
 
         setTimeout(() => {
-          setRegisterError(null);
+          setErrorMessage(null);
         }, 3000);
       }
     }
@@ -181,7 +182,7 @@ function RegisterForm({ doAfterLogin }) {
       <Button type="submit" disabled={isSubmitting} fullWidth>
         Começar
       </Button>
-      {registerError && <LoginFeedback>{registerError}</LoginFeedback>}
+      {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
     </RegisterFormContainer>
   )
 }

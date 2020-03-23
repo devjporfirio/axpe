@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import media from 'styled-media-query';
 
 // components
@@ -41,16 +41,6 @@ export const Container = styled(Modals)`
       width: 100%;
     }
   }
-`;
-
-export const FormFeedback = styled.p`
-  margin-top: 10px;
-  font: 14px 'Raleway';
-  color: ${({ theme }) => theme.colors.orange};
-
-  ${props => props.themeColor && css`
-    color: ${({ theme }) => theme.colors[props.themeColor]};
-  `}
 `;
 
 export const Note = styled.p`

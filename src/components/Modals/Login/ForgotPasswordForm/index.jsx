@@ -4,6 +4,9 @@ import { useFormik } from 'formik';
 import Api from 'services';
 import * as Yup from 'yup';
 
+// helpers
+import { getErrorMessage } from 'helpers/errors';
+
 // components
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
@@ -13,8 +16,8 @@ import { setMain } from 'store/modules/main/actions';
 
 // styles
 import {
-  LoginFeedback
-} from 'components/Modals/Login/styles';
+  FormFeedback
+} from 'components/FormElements/styles';
 
 import {
   FormContainer
@@ -49,22 +52,14 @@ function ForgotPasswordForm() {
           modalLogin: false,
           modalForgotPasswordSuccess: true
         }));
+
         resetForm();
       } else if(response.error) {
-        let errorMessage = null;
+        const msg = getErrorMessage(response.error);
 
         setSubmitting(false);
+        setErrorMessage(msg);
 
-        switch(response.error) {
-          case 'user.not.found':
-            errorMessage = 'Usuário não encontrado.';
-            break;
-          default:
-            errorMessage = response.error;
-            break;
-        }
-
-        setErrorMessage(errorMessage);
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
@@ -87,7 +82,7 @@ function ForgotPasswordForm() {
       <Button disabled={isSubmitting} type="submit" fullWidth>
         Enviar
       </Button>
-      {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+      {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
     </FormContainer>
   )
 }

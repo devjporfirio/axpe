@@ -57,12 +57,6 @@ export const LoginRow = styled.div`
   `}
 `;
 
-export const LoginFeedback = styled.p`
-  margin-top: 10px;
-  font: 14px 'Raleway';
-  color: ${({ theme }) => theme.colors.orange};
-`;
-
 export const LoginFormContainer = styled.form`
   margin-top: 17px;
 

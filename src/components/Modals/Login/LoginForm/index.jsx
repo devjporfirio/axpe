@@ -17,7 +17,10 @@ import FormElements from 'components/FormElements';
 
 // styles
 import {
-  LoginFeedback,
+  FormFeedback
+} from 'components/FormElements/styles';
+
+import {
   LoginFormContainer
 } from 'components/Modals/Login/styles';
 
@@ -54,10 +57,10 @@ function LoginForm({ doAfterLogin }) {
         dispatch(setMain({ modalLogin: false }));
         resetForm();
       } else if(response.error) {
-        const errorMessage = getErrorMessage(response.error);
+        const msg = getErrorMessage(response.error);
 
         setSubmitting(false);
-        setErrorMessage(errorMessage);
+        setErrorMessage(msg);
 
         setTimeout(() => {
           setErrorMessage(null);
@@ -92,7 +95,7 @@ function LoginForm({ doAfterLogin }) {
       <Button disabled={isSubmitting} type="submit" fullWidth>
         Entrar
       </Button>
-      {errorMessage && <LoginFeedback>{errorMessage}</LoginFeedback>}
+      {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
     </LoginFormContainer>
   )
 }
