@@ -425,6 +425,10 @@ export const FormTabActive = css`
     left: 0%;
   }
 
+  footer[class*='FormTabFooter'] {
+    right: 0;
+  }
+
   ${media.greaterThan('medium')`
     left: 360px;
     ${({ theme }) => theme.show}
@@ -513,6 +517,12 @@ export const FormTabTitle = styled.h3`
 `;
 
 export const FormTabContent = styled.div`
+  ${media.lessThan('medium')`
+    ${props => props.hasFooter && css`
+      padding-bottom: 100px;
+    `}
+  `}
+
   &:not(:last-of-type) {
     padding-bottom: 50px;
   }
@@ -526,6 +536,21 @@ export const FormTabContent = styled.div`
   li {
     margin-bottom: 10px;
   }
+`;
+
+export const FormTabFooter = styled.footer`
+  position: fixed;
+  bottom: 0;
+  right: -100%;
+  width: calc(100% - 50px);
+  padding: 50px 20px 20px 20px;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1) 30%);
+  transition: all 300ms ease;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
 `;
 
 export const FormTabListItemTitle = styled.h4`
