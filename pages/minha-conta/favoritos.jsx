@@ -51,9 +51,13 @@ function Favorites() {
             return response.building;
           })
         );
+
         setBuildings(buildings);
-        setLoaded(true);
+      } else {
+        setBuildings([]);
       }
+
+      setLoaded(true);
     }
 
     loadBuildings();
@@ -73,7 +77,7 @@ function Favorites() {
         <title>{`Favoritos | Minha Conta - ${SeoData.title}`}</title>
         <meta name="description" content={SeoData.description} />
       </Head>
-      {!buildings || buildings.length <= 0 ? (
+      {!buildings || !buildings.length ? (
         <Container>
           <Body>
             <Empty

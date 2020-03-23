@@ -36,7 +36,11 @@ export const Items = styled.div`
   `}
 
   ${media.greaterThan('1280px')`
-    padding: 50px 0 20px 0;
+    padding: 30px 0 20px 0;
+
+    &:first-child {
+      padding-top: 50px;
+    }
   `}
 
   hr {
