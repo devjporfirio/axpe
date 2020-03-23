@@ -54,7 +54,7 @@ const registrySchema = Yup.object().shape({
   Radio: Yup.string().required(),
   Name_First: Yup.string().required(),
   Name_Last: Yup.string().required(),
-  PhoneNumber_countrycode: Yup.string().required(),
+  PhoneNumber_countrycode: Yup.string(),
   Email: Yup.string().required(),
   SingleLine11: Yup.string(),
   SingleLine: Yup.string().required(),
@@ -115,7 +115,7 @@ function Register({ locals, categories, countries }) {
       utm_content: '',
       Dropdown: 'Proprietário',
       SingleLine6: 'Venda e Locação', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
-      SingleLine5: '', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
+      SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
       DecisionBox: true,
       Radio: 'Novo Lead',
       Name_First: user.me.name,
@@ -154,23 +154,18 @@ function Register({ locals, categories, countries }) {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
-      // console.log(values);
-
-      // const response = await Api.User.postRegisterProperty(
-      await Api.User.postRegisterProperty(
+      const response = await Api.User.postRegisterProperty(
         user.access_token,
         { files: values.images }
       );
 
-      // setFieldValue('MultiLine', imagesNames.join('; '));
-
-      // console.log(response)
-      
-      // return false;
+      if(response.status) {
+        setFieldValue('MultiLine', response.imgs.join(', '));
+      }
 
       setTimeout(() => {
         refForm.current.submit();
-      }, 100);
+      }, 500);
     }
   });
 
@@ -267,6 +262,7 @@ function Register({ locals, categories, countries }) {
             <input type="hidden" name="Currency1" value={values.Currency1} />
             <input type="hidden" name="Currency2" value={values.Currency2} />
             <input type="hidden" name="Currency3" value={values.Currency3} />
+            <input type="hidden" name="MultiLine" value={values.MultiLine} />
 
             <FormGroup>
               <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>

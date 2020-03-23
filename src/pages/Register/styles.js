@@ -89,6 +89,10 @@ export const FormGroupFlex = styled.div`
 
     label {
       height: 50px;
+
+      &[for='SingleLine5'] {
+        background: none;
+      }
     }
   `}
 `;

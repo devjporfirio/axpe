@@ -56,9 +56,13 @@ function LoginSocials({
     });
   }, []);
 
+  const clickButtonGoogle = useCallback(() => {
+    window.clicked = true;
+  }, [ window.clicked ]);
+
   const doGoogleLogin = useCallback(async (googleResponse) => {
-    if(googleResponse && googleResponse.uc && !googleResponse.error) {
-      dispatch(setLoading({ active: true }));
+    if(googleResponse && googleResponse.uc && !googleResponse.error && window.clicked) {
+      dispatch(setLoading({   active: true }));
       const token = googleResponse.getAuthResponse().id_token;
 
       const response = await Api.User.postLoginGoogle({
@@ -71,6 +75,12 @@ function LoginSocials({
         dispatch(setLoading({ active: false }));
       }
     }
+
+    window.clicked = false;
+  }, [ window.clicked ]);
+
+  const doGoogleLoginError = useCallback(() => {
+    // handle error
   }, []);
 
   useEffect(() => {
@@ -82,10 +92,10 @@ function LoginSocials({
         'longtitle': true,
         'theme': 'dark',
         'onsuccess': doGoogleLogin,
-        'onfailure': doGoogleLogin
+        'onfailure': doGoogleLoginError
       });
     }
-  }, []);
+  }, [ window.gapi ]);
 
   return (
     <Container>
@@ -93,7 +103,7 @@ function LoginSocials({
       <ButtonSocial type="button" socialNetwork="facebook" onClick={doFacebookLogin}>
         <SVG src={FacebookRoundedIconSVG} uniquifyIDs={true} />
       </ButtonSocial>
-      <ButtonSocial type="button" socialNetwork="google" onClick={doGoogleLogin}>
+      <ButtonSocial type="button" socialNetwork="google" onClick={clickButtonGoogle}>
         <SVG src={GoogleRoundedIconSVG} uniquifyIDs={true} />
         <div id="button-google-login" />
       </ButtonSocial>
