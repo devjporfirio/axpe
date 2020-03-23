@@ -80,6 +80,14 @@ export const FormGroupValuesSub = styled.div`
 `;
 
 export const FormGroupFlex = styled.div`
+  label {
+    &[for='SingleLine5'],
+    &[for='SingleLine12'] {
+      margin-bottom: 5px;
+      background: none;
+    }
+  }
+
   ${media.greaterThan('medium')`
     display: flex;
 
@@ -98,6 +106,10 @@ export const FormGroupFlex = styled.div`
 `;
 
 export const FormGroupAddress = styled.div`
+  p {
+    margin-top: 10px;
+  }
+
   ${media.greaterThan('medium')`
     display: flex;
     flex-wrap: wrap;
@@ -126,6 +138,7 @@ export const FormGroupAddress = styled.div`
     }
 
     p {
+      margin-top: -5px;
       margin-left: 65%;
     }
   `}
