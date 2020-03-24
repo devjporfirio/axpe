@@ -1,0 +1,9 @@
+User-Agent: *
+
+Disallow: /tmp
+Disallow: /teste
+Disallow: /assinatura
+Disallow: /import_root
+Disallow: /import_log
+Disallow: /emails
+Disallow: /forms
