@@ -123,32 +123,38 @@ function ContactBar() {
       use: 'RESIDENCIAL',
       type: 'pronto',
       src: '/forms/imovel/venda-saopaulo-residencial-prontos.html'
-    },
+    }
   ];
 
-  const clickContainer = useCallback((event) => {
-    event.preventDefault();
-    toggleShow();
-  }, [ show ]);
+  const clickContainer = useCallback(
+    event => {
+      event.preventDefault();
+      toggleShow();
+    },
+    [ show ]
+  );
 
-  const clickWrapper = useCallback((event) => {
+  const clickWrapper = useCallback(event => {
     event.preventDefault();
     event.stopPropagation();
   }, []);
 
   const toggleShow = useCallback(() => {
-    if(!isBuilding || (isBuilding && user.logged)) {
+    if (!isBuilding || (isBuilding && user.logged)) {
       setShow(!show);
     } else {
       setShow(false);
-      dispatch(setMain({
-        modalLogin: router.asPath
-      }));
+      dispatch(
+        setMain({
+          modalLogin: router.asPath
+        })
+      );
     }
   }, [ show, isBuilding, user.logged ]);
 
   useEffect(() => {
-    if(user.logged && user.me && currentBuilding) {
+    if (user.logged && user.me && currentBuilding) {
+      const areaUseful = currentBuilding.infos.areaUseful;
       const paramsObj = {
         reference: currentBuilding.reference,
         category: currentBuilding.category,
@@ -156,38 +162,50 @@ function ContactBar() {
         source: currentBuilding.source,
         region: currentBuilding.address.region,
         local: currentBuilding.address.local,
-        areaUseful: currentBuilding.infos.areaUseful,
+        areaUseful: !isNaN(areaUseful) ? parseInt(areaUseful) : areaUseful,
         bedrooms: currentBuilding.infos.bedrooms,
         parking: currentBuilding.infos.parking,
-        value: currentBuilding.values.sell,
+        value: currentBuilding.values.sell ? currentBuilding.values.sell : currentBuilding.values.rent,
         userFirstName: user.me.name,
         userLastName: user.me.lastName,
         userPhone: user.me.phone,
-        userEmail: user.me.email,
+        userEmail: user.me.email
       };
       const params = getParamsFromObject(paramsObj);
       let iframeSelected = null;
       let iframesPreSelected = iframes;
       const matches = [];
 
-      if(searchFunnel) {
-        iframesPreSelected = iframes.filter(iframe => iframe.finality === searchFunnel.finality);
+      if (searchFunnel) {
+        iframesPreSelected = iframes.filter(
+          iframe => iframe.finality === searchFunnel.finality
+        );
       }
 
-      // console.log(`iframesPreSelected`, iframesPreSelected);
-
-      if(iframesPreSelected.length) {
+      if (iframesPreSelected.length) {
         iframesPreSelected.forEach(iframe => {
           let matchesTotal = 0;
 
-          if(iframe.source && iframe.source.search(currentBuilding.source) >= 0) {
+          if (
+            iframe.source &&
+            iframe.source.search(currentBuilding.source) >= 0
+          ) {
             matchesTotal++;
 
-            if(iframe.type && iframe.type === currentBuilding.type) {
+            if (iframe.type && iframe.type === currentBuilding.type) {
               matchesTotal++;
             }
 
-            if(iframe.use && iframe.use === currentBuilding.infos.use) {
+            if(!searchFunnel || !searchFunnel.finality) {
+              if ((iframe.finality === 'venda' && currentBuilding.values.sell) || (iframe.finality === 'aluguel' && currentBuilding.values.rent)) {
+                matchesTotal++;
+              } else {
+                matchesTotal--;
+              }
+            }
+
+
+            if (iframe.use && iframe.use === currentBuilding.infos.use) {
               matchesTotal++;
             }
 
@@ -195,13 +213,18 @@ function ContactBar() {
           }
         });
 
-        iframeSelected = matches.reduce((prev, current) => (prev.matchesTotal && prev.matchesTotal > current.matchesTotal) ? prev : current, {})
+        iframeSelected = matches.reduce(
+          (prev, current) =>
+            prev.matchesTotal && prev.matchesTotal > current.matchesTotal
+              ? prev
+              : current,
+          {}
+        );
 
-        if(iframeSelected) {
+        if (iframeSelected) {
           setIframeUrl(`${iframeSelected.src}${params}`);
         }
       }
-
     } else {
       setIframeUrl(null);
     }
@@ -209,34 +232,33 @@ function ContactBar() {
     setIsBuilding(router.route === '/building/[reference]' ? true : false);
   }, [ router.route, user.logged, user.me, currentBuilding ]);
 
-
   useEffect(() => {
-    if(refIframe.current) {
+    if (refIframe.current) {
       refIframe.current.onload = function() {
         const $contents = this.contentDocument || this.contentWindow.document;
 
         const $btnClose = $contents.querySelector('.header__close');
         const $btnLogout = $contents.querySelector('.userinfo__btn');
 
-        if($btnClose) {
+        if ($btnClose) {
           $btnClose.addEventListener('click', event => {
             toggleShow();
 
-            if($btnClose.classList.contains('js-reset-iframe-url')) {
+            if ($btnClose.classList.contains('js-reset-iframe-url')) {
               refIframe.current.setAttribute('src', iframeUrl);
             }
-          })
+          });
         }
 
-        if($btnLogout) {
+        if ($btnLogout) {
           $btnLogout.addEventListener('click', event => {
             toggleShow();
             Router.push('/logout');
-          })
+          });
         }
-      }
+      };
     }
-  }, [ refIframe, show ])
+  }, [ refIframe, show ]);
 
   return (
     <>
@@ -258,19 +280,32 @@ function ContactBar() {
             ) : (
               <>
                 <Header isBuilding={isBuilding}>
-                  <ButtonClose type="button" onClick={toggleShow} isBuilding={isBuilding}>Fechar</ButtonClose>
-                  <h3><strong>Pergunte</strong>, peça um imóvel ou reclame. Pode elogiar também.</h3>
+                  <ButtonClose
+                    type="button"
+                    onClick={toggleShow}
+                    isBuilding={isBuilding}
+                  >
+                    Fechar
+                  </ButtonClose>
+                  <h3>
+                    <strong>Pergunte</strong>, peça um imóvel ou reclame. Pode
+                    elogiar também.
+                  </h3>
                 </Header>
                 <Column>
                   <p>Você pode também falar diretamente conosco:</p>
                   <List>
                     <li>
-                      <ListLink href="https://api.whatsapp.com/send?phone=5511999998888" target="_blank">
+                      <ListLink
+                        href="https://api.whatsapp.com/send?phone=5511999998888"
+                        target="_blank"
+                      >
                         <i>
                           <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
                         </i>
                         <span>
-                          Whatsapp:<br/>
+                          Whatsapp:
+                          <br />
                           <strong>(11) 99999-8888</strong>
                         </span>
                       </ListLink>
@@ -281,7 +316,8 @@ function ContactBar() {
                           <SVG src={PhoneIconSVG} uniquifyIDs={true} />
                         </i>
                         <span>
-                          Telefone:<br/>
+                          Telefone:
+                          <br />
                           <strong>(11) 99999-8888</strong>
                         </span>
                       </ListLink>
@@ -302,7 +338,7 @@ function ContactBar() {
         </Container>
       )}
     </>
-  )
+  );
 }
 
-export default ContactBar
+export default ContactBar;

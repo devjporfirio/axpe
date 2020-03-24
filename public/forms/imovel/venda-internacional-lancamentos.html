@@ -82,26 +82,27 @@
       <label for="Radio_1" >Novo&#x20;Lead</label>
 
       <label>Nome</label>
-      <input type="text" maxlength="255" name="Name_First" fieldType=7 /><label>Primeiro nome</label>
-      <input type="text" maxlength="255" name="Name_Last" fieldType=7 /><label>Sobrenome</label>
+      <input type="text" maxlength="255" name="Name_First" data-element="userFirstName" fieldType=7 /><label>Primeiro nome</label>
+      <input type="text" maxlength="255" name="Name_Last" data-element="userLastName" fieldType=7 /><label>Sobrenome</label>
 
       <label>Celular</label>
-      <input type="text" compname="PhoneNumber" name="PhoneNumber_countrycode" phoneFormat="1" isCountryCodeEnabled=false maxlength="20" value="" fieldType=11 id="international_PhoneNumber_countrycode" />
+      <input type="text" compname="PhoneNumber" data-element="userPhone" name="PhoneNumber_countrycode" phoneFormat="1" isCountryCodeEnabled=false maxlength="20" value="" fieldType=11 id="international_PhoneNumber_countrycode" />
+      <label>Number</label>
 
       <label>Email</label>
-      <input type="text" maxlength="255" name="Email" value="" fieldType=9 />
+      <input type="text" maxlength="255" name="Email" value="" fieldType=9 data-element="userEmail" />
 
       <label>Referência do imóvel</label>
-      <input  type="text" name="SingleLine" value="" fieldType=1 maxlength="255" />
+      <input  type="text" name="SingleLine" value="" fieldType=1 maxlength="255" data-element="reference" />
 
       <label>Tipo de imóvel</label>
       <input type="text" name="MultipleChoice1" data-element="category" />
     </div>
   
-    <div class="form-group">
+    <div class="form-group none">
       <label>País de interesse</label>
       <div class="form-combo">
-        <select name="Dropdown3">
+        <select name="Dropdown3" data-element="region">
           <option selected="true" value="">Selecione uma opção</option>
           <option value="&Aacute;frica&#x20;do&#x20;Sul">&Aacute;frica do Sul</option>
           <option value="Argentina">Argentina</option>
@@ -148,8 +149,8 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <input type="text" name="SingleLine2" value="" fieldType=1 maxlength="255" class="form-group__control" />
+    <div class="form-group none">
+      <input type="text" name="SingleLine2" value="" fieldType=1 maxlength="255" class="form-group__control" data-element="local" />
       <span class="form-group__label">Quais cidades de interesse?</span>
     </div>
 
