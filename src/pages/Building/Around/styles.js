@@ -59,7 +59,7 @@ export const Text = styled(Section)`
   padding: 20px;
 
   ${media.greaterThan('medium')`
-    padding: 60px 0 0 60px;
+    padding: 60px 30px 0 60px;
     width: 70%;
     margin: -1px 0 0 0;
     height: 428px;
@@ -72,7 +72,6 @@ export const Text = styled(Section)`
 
     ${media.greaterThan('medium')`
       width: 100%;
-      max-width: 240px;
       margin-top: 120px;
       line-height: 25px;
       font-weight: ${({ theme }) => theme.fontsWeight.semiBold};

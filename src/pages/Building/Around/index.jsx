@@ -23,11 +23,13 @@ function Around({ cep, text }) {
   useEffect(() => {
     async function loadOverviewPolyline() {
       const geocode = await Api.Building.getGeocode(cep.replace('-', ''));
+
       if (geocode && geocode.geometry && geocode.geometry.bounds) {
         const directions = await Api.Building.getDirections(
           geocode.geometry.bounds.northeast,
           geocode.geometry.bounds.southwest
         );
+
         setLat(geocode.geometry.location.lat);
         setLng(geocode.geometry.location.lng);
 
@@ -36,16 +38,17 @@ function Around({ cep, text }) {
         }
       }
     }
+
     loadOverviewPolyline();
   }, []);
 
   return (
     <Container>
       <Mapa>
-        {!!overvirePoly && !!process.env.config.keyMap && (
+        {!!overvirePoly && !!process.env.config.googleApiKey && (
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: process.env.config.keyMap
+              key: process.env.config.googleApiKey
             }}
             defaultCenter={{
               lat,

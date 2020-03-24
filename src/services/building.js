@@ -21,17 +21,17 @@ export default {
     return result;
   },
   async getGeocode(cep) {
-    const apiKey = process.env.config.keyMap;
+    const googleApiKey = process.env.config.googleApiKey;
 
     let result = await fetch(
-      `${baseMaps}/geocode/json?address=${cep}&key=${apiKey}`
+      `${baseMaps}/geocode/json?address=${cep}&key=${googleApiKey}`
     )
       .then(response => response.json())
       .then(data => data);
 
     if (result.results.length && result.results[0].geometry) {
       result = await fetch(
-        `${baseMaps}/geocode/json?latlng=${result.results[0].geometry.location.lat},${result.results[0].geometry.location.lng}&key=${apiKey}`
+        `${baseMaps}/geocode/json?latlng=${result.results[0].geometry.location.lat},${result.results[0].geometry.location.lng}&key=${googleApiKey}`
       )
         .then(response => response.json())
         .then(data => data);
@@ -50,7 +50,7 @@ export default {
         const address = `${addressRoute.long_name} ${addressSub.long_name} ${addressAdm.long_name}`;
 
         result = await fetch(
-          `${baseMaps}/geocode/json?address=${address}&key=${apiKey}`
+          `${baseMaps}/geocode/json?address=${address}&key=${googleApiKey}`
         )
           .then(response => response.json())
           .then(data => data);
@@ -60,9 +60,9 @@ export default {
     return result && result.results.length > 0 ? result.results[0] : null;
   },
   async getDirections(northeast, southwest) {
-    const apiKey = process.env.config.keyMap;
+    const googleApiKey = process.env.config.googleApiKey;
     const result = await fetch(
-      `https://cors-anywhere.herokuapp.com/${baseMaps}/directions/json?origin=${southwest.lat},${southwest.lng}&destination=${northeast.lat},${northeast.lng}&key=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/${baseMaps}/directions/json?origin=${southwest.lat},${southwest.lng}&destination=${northeast.lat},${northeast.lng}&key=${googleApiKey}`
     ).then(response => response.json());
     return result && result.status === 'OK' ? result : [];
   },
