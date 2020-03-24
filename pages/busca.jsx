@@ -194,7 +194,7 @@ function Search({ total, totalPages, data, locals }) {
         finality: query.finality,
       }
     }))
-  }, []);
+  }, [ query.finality ]);
 
   useEffect(() => {
     setNewData(data, true);

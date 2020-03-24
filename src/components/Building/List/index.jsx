@@ -225,7 +225,7 @@ function BuildingList({
     items = items.slice(0, 4);
 
     return items;
-  }, [])
+  }, []);
 
   return (
     <Container
