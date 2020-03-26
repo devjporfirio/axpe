@@ -12,8 +12,7 @@ function DreamBuildingSuccess() {
   return (
     <Container>
       <Wrapper>
-        <h2>”Um sonho sonhado sozinho é um sonho. <strong>Um sonho sonhado junto é realidade”</strong><span>(Yoko Ono)</span></h2>
-        <p>Seu sonho já foi enviado. Agora é conosco.</p>
+        <p>Foi! Agora é com a gente.</p>
         <p>Em breve, entraremos em contato.</p>
 
         <Link href="/">

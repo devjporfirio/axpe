@@ -35,7 +35,7 @@ import {
 function LoginModal() {
   const dispatch = useDispatch();
   const { modalLogin } = useSelector(state => state.main);
-  const [ sliderType, setSliderType ] = useState(null);
+  const [ loginType, setLoginType ] = useState(null);
   const [ showRegister, setShowRegister ] = useState(false);
   const [ showForgotPasswordForm, setShowForgotPasswordForm ] = useState(false);
 
@@ -70,9 +70,9 @@ function LoginModal() {
 
   useEffect(() => {
     if(modalLogin && typeof modalLogin === 'string' && modalLogin.search('favorite=true') >= 0) {
-      setSliderType('favorite');
+      setLoginType('favorite');
     } else {
-      setSliderType(null);
+      setLoginType(null);
     }
   }, [ modalLogin ])
 
@@ -84,18 +84,16 @@ function LoginModal() {
       onClickButtonBack={onClickButtonBack}
     >
       <Texts>
-        {!sliderType && (
+        {!loginType && (
           <Slider propsArrow={{ color: 'white' }}>
             <Text>
               <TextWrapper>
-                <h2 className="big">
-                  Uma <strong>Axpe</strong> <span>só sua</span>
+                <h2>
+                  Imóveis bacanas atraem <strong>clientes bacanas.</strong> <span>E vice-versa.</span>
                 </h2>
                 <p>
-                  Leva só 10 segundos: personalize sua navegação salvando seus
-                  imóveis favoritos, criando alertas e recebendo notícias de
-                  móveis com seu perfil.
-                  <br /> É só fazer seu login.
+                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso.<br/>
+                  Vamos começar?
                 </p>
               </TextWrapper>
             </Text>
@@ -114,7 +112,7 @@ function LoginModal() {
           </Slider>
         )}
 
-        {sliderType && sliderType === 'favorite' && (
+        {loginType && loginType === 'favorite' && (
           <Slider propsArrow={{ color: 'white' }}>
             <Text>
               <TextWrapper>
@@ -122,7 +120,7 @@ function LoginModal() {
                   <strong>Namore</strong> seus favoritos quando quiser
                 </h2>
                 <p>
-                  Faça seu login em poucos segundos e volte para namorar seus favoritos quando quiser
+                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso. Vamos começar?
                 </p>
               </TextWrapper>
             </Text>
@@ -156,7 +154,7 @@ function LoginModal() {
             <LoginRow>
               <ColumnTitle>É sua primeira visita?</ColumnTitle>
               <Button type="button" fullWidth={true} onClick={() => setShowRegister(true)}>
-                Cadastre
+                Quero me cadastrar
               </Button>
             </LoginRow>
           </LoginContainer>
@@ -164,7 +162,7 @@ function LoginModal() {
         {showRegister && (
           <LoginContainer type="register">
             <ColumnTitle>
-              Crie sua conta
+              {loginType && loginType === 'favorite' ? 'Crie seu login e comece a favoritar.' : 'Crie sua conta'}
             </ColumnTitle>
             <RegisterForm doAfterLogin={doAfterLogin} />
           </LoginContainer>

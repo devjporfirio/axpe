@@ -16,6 +16,24 @@ export const Container = styled(MyAccount)`
   `}
 `;
 
+export const Header = styled.header`
+  padding: 0 30px;
+
+  ${media.greaterThan('large')`
+    padding: 0 20px;
+  `}
+`;
+
+export const Subtitle = styled.p`
+  font: 18px/19px 'Raleway';
+  margin-top: 10px;
+
+  ${media.greaterThan('medium')`
+    margin-bottom: 37px;
+  `}
+`;
+
+
 export const Items = styled.div`
   width: 100%;
   margin: 0 auto;

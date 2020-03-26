@@ -12,8 +12,11 @@ import BuildingCard from 'components/Building/Card';
 import Empty from 'pages/MyAccount/Empty';
 
 // styles
+import { Title } from 'pages/MyAccount/styles';
 import {
   Container,
+  Header,
+  Subtitle,
   Items,
   ItemsTitle
 } from 'pages/MyAccount/Viewed/styles';
@@ -74,6 +77,13 @@ function Viewed() {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
+        <Header>
+          <Title>
+            Refresque a memória.
+          </Title>
+          <Subtitle>Imóveis que você viu recentemente.</Subtitle>
+        </Header>
+
         {Object.keys(group).length > 0 ? (
           Object.keys(group).map((item, itemIndex) => (
 

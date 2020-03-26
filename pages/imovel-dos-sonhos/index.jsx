@@ -34,7 +34,7 @@ function DreamBuilding() {
               <Link href="/imovel-dos-sonhos/sao-paulo-comprar-residencial" passHref>
                 <ListButton>
                   <ListText>
-                    <h3>São Paulo - Comprar</h3>
+                    <h3>Residenciais - São Paulo</h3>
                     <p>Prontos para morar</p>
                   </ListText>
                   <ListImage src="/static/dream-building/sao-paulo-comprar.jpg" alt="São Paulo - Comprar" />
@@ -45,7 +45,7 @@ function DreamBuilding() {
               <Link href="/imovel-dos-sonhos/sao-paulo-comprar-lancamentos" passHref>
                 <ListButton>
                   <ListText>
-                    <h3>São Paulo - Lançamentos</h3>
+                    <h3>Lançamentos - São Paulo</h3>
                     <p>Imóveis residenciais</p>
                   </ListText>
                   <ListImage src="/static/dream-building/sao-paulo-lancamentos.jpg" alt="São Paulo - Lançamentos" />
@@ -56,8 +56,8 @@ function DreamBuilding() {
               <Link href="/imovel-dos-sonhos/sao-paulo-alugar-residencial" passHref>
                 <ListButton>
                   <ListText>
-                    <h3>São Paulo - Alugar</h3>
-                    <p>Prontos para morar</p>
+                    <h3>Locação - São Paulo</h3>
+                    <p>Imóveis residenciais</p>
                   </ListText>
                   <ListImage src="/static/dream-building/sao-paulo-alugar.jpg" alt="São Paulo - Alugar" />
                 </ListButton>
@@ -67,7 +67,7 @@ function DreamBuilding() {
               <Link href="/imovel-dos-sonhos/sao-paulo-comerciais" passHref>
                 <ListButton>
                   <ListText>
-                    <h3>São Paulo - Comerciais</h3>
+                    <h3>Comerciais - São Paulo</h3>
                     <p>Alugar ou Comprar</p>
                   </ListText>
                   <ListImage src="/static/dream-building/sao-paulo-comerciais.jpg" alt="São Paulo - Comerciais" />
@@ -90,7 +90,7 @@ function DreamBuilding() {
                 <ListButton>
                   <ListText>
                     <h3>Internacional</h3>
-                    <p>Alugar ou morar</p>
+                    <p>Comprar</p>
                   </ListText>
                   <ListImage src="/static/dream-building/internacional.jpg" alt="Internacional" />
                 </ListButton>

@@ -73,7 +73,7 @@ function NewsletterModal() {
       </Texts>
       <Column>
         <FormContainer onSubmit={handleSubmit}>
-          <ColumnTitle>Por favor, preencha seus dados abaixo</ColumnTitle>
+          <ColumnTitle>Por favor, preencha seus dados e fique por dentro do que acontece na Axpe.</ColumnTitle>
           <FormGroup>
             <FormElements
               name="name"

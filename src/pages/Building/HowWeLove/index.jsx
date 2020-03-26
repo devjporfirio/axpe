@@ -54,7 +54,7 @@ function HowWeLove({ reasons }) {
     <Container>
       <Title>
         <span>Por que </span>
-        <span>adoramos </span>
+        <span>curtimos </span>
         <span>esse imóvel</span>
       </Title>
 

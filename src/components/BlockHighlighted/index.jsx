@@ -6,16 +6,16 @@ const ContactHome = () => (
     <HighlightedH4 type="contactHome">
       <span>Sem tempo </span>
       <strong>
-        <span>para buscar e visitar </span>
+        <span>para garimpar </span>
       </strong>
       <span>imóveis?</span>
     </HighlightedH4>
     <div>
       <p>
-        Conte o que está buscando e vamos encontrar o imóvel dos seus sonhos
+        Conte o que está buscando e deixe com a gente.
       </p>
       <Link href="/imovel-dos-sonhos" passHref fullWidth={true}>
-        Entre em contato
+        Conte aqui
       </Link>
     </div>
   </>
@@ -27,7 +27,7 @@ const Contact = () => (
       <strong>
         <span>Pergunte</span>
       </strong>
-      <span>, peça um imóvel ou reclame. Pode elogiar também.</span>
+      <span>, sugira, peça um imóvel. Pode elogiar também. Ou reclamar.</span>
       <hr />
     </HighlightedH1>
   </>
@@ -58,32 +58,33 @@ const NotFound = ({ query }) => {
         <strong>
           <span>Não encontrou o </span>
         </strong>
-        <span>imóvel </span>
-        <span>que busca?</span>
+        <span>que procura?</span>
       </HighlightedH4>
 
       <div>
         {query && query.ready_release === 'pronto' && (
           <p>
-            Que tal um imóvel na planta? Conheça nossas opções de imóveis em
-            lançamento
+            {/* Que tal um imóvel na planta? Conheça nossas opções de imóveis em
+            lançamento */}
+            Que tal um imóvel na planta? Como é o imóvel dos seus sonhos?
           </p>
         )}
 
         {query && query.ready_release === 'lancamento' && (
           <p>
-            Que tal um imóvel na planta? Conheça nossas opções de imóveis prontos
+            {/* Que tal um imóvel na planta? Conheça nossas opções de imóveis prontos */}
+            Que tal um imóvel na planta? Como é o imóvel dos seus sonhos?
           </p>
         )}
 
         {!query || !query.ready_release ? (
           <p>
-            Conte para a gente o que está buscando, pois todos os dias chegam novos imóveis na Axpe
+            Temos imóveis recém-chegados que ainda não entraram no site. Como é o imóvel dos seus sonhos?
           </p>
         ) : null}
 
         <Link href="/imovel-dos-sonhos" passHref fullWidth={true}>
-          Entre em contato
+          Conte aqui
         </Link>
       </div>
     </>
@@ -93,14 +94,13 @@ const NotFound = ({ query }) => {
 const Planta = ({ href = '', onClick }) => (
   <>
     <HighlightedH4 type="planta">
-      <span>Veja a </span>
+      <span>Veja as </span>
       <strong>
-        <span>planta </span>
+        <span>plantas</span>
       </strong>
-      <span>desse imóvel</span>
     </HighlightedH4>
     <div>
-      <p>E descubra se ela é a ideal para você</p>
+      <p>Descubra se é o ideal para você</p>
       <Link
         href={href}
         type={!!onClick ? 'button' : ''}
@@ -108,7 +108,7 @@ const Planta = ({ href = '', onClick }) => (
         color="greenLight"
         target="_blank"
       >
-        Veja as plantas
+        Quero ver
       </Link>
     </div>
   </>

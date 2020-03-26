@@ -18,7 +18,6 @@ import {
   Numbers,
   PhoneNumber,
   Tel,
-  Message,
   Whats,
   IframeContainer,
   Iframe,
@@ -45,7 +44,7 @@ function FormContact({ showHeader = true }) {
               modalContactSuccess: true
             })
           );
-          refIframe.current.setAttribute('src', '/forms/imovel/contato.html');
+          refIframe.current.setAttribute('src', '/forms/contato/index.html');
         }
       }
     }
@@ -71,15 +70,10 @@ function FormContact({ showHeader = true }) {
         )}
         <Body>
           <BlockForm showHeader={showHeader}>
-            <Message showHeader={showHeader}>
-              Esse é sua linha direta para falar com a gente sobre qualquer
-              assunto. Pedir um imóvel bem específico, tirar dúvidas, pedir uma
-              informação e também reclamar, dar sugestões, elogiar.
-            </Message>
             <IframeContainer>
               <Iframe
                 ref={refIframe}
-                src="/forms/imovel/contato.html"
+                src="/forms/contato/index.html"
                 border="none"
                 frameBorder="0"
                 title="Contato"

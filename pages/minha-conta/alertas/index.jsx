@@ -107,7 +107,7 @@ function Alerts() {
             <Title>
               Você tem <strong>{alerts.length} alertas</strong> salvos
             </Title>
-            <Subtitle>Novos imóveis foram adicionados a sua lista.</Subtitle>
+            <Subtitle>Tem novidade do jeito que você pediu.</Subtitle>
 
             {alerts &&
               alerts.map((alert, alertIndex) => (

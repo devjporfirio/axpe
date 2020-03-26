@@ -245,7 +245,7 @@ function DreamBuildingSingle({ type }) {
           )}
 
           <Header>
-            <h2>Conte com é o imóvel <strong>dos seus sonhos</strong></h2>
+            <h2>Como é o imóvel <strong>dos seus sonhos</strong></h2>
           </Header>
 
           <Form ref={refForm} action={getUrlFromType()} method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onSubmit={handleSubmit}>
@@ -269,7 +269,7 @@ function DreamBuildingSingle({ type }) {
             <input type="hidden" name="Currency" value={values.Currency} />
 
             <FormGroupContainer>
-              <h2>Qual o tipo do imóvel? <strong>Pode marcar quantas opções quiser, mas pelo menos uma é obrigatória.</strong></h2>
+              <h2>Que tipo de imóvel você procura? <strong>Marque quantas opções você quiser.</strong></h2>
               <FormList>
                 {optionsTypes.map((type, typeIndex) => (
                   <FormListItem key={`formlistitem-type-${typeIndex}-${type.value}`}>
@@ -339,12 +339,12 @@ function DreamBuildingSingle({ type }) {
             </FormGroupContainer>
 
             <FormGroupContainer>
-              <h2>Conte pra gente sobre o imóvel que busca? <strong>Selecione apenas uma opção</strong></h2>
+              <h2>Conte mais detalhes sobre o que está buscando <strong>Selecione apenas uma opção</strong></h2>
             </FormGroupContainer>
 
             <FormCols>
               <FormCol layout="half">
-                <h3>Quanto você está planejando investir?</h3>
+                <h3>Qual o valor que você quer investir?</h3>
                 <FormGroup>
                   <FormElements
                     type="currency"
@@ -363,7 +363,7 @@ function DreamBuildingSingle({ type }) {
                 </FormGroup>
               </FormCol>
               <FormCol layout="bedrooms">
-                <h3>Quantos quartos?</h3>
+                <h3>Número de quartos?</h3>
                 <FormGroup>
                   <FormElements
                     name="Number"
@@ -423,7 +423,7 @@ function DreamBuildingSingle({ type }) {
 
             <FormCols>
               <FormCol layout="half">
-                <h3>Conte para gente o que não pode faltar no imóvel</h3>
+                <h3>O que não pode faltar no imóvel?</h3>
                 <FormGroup>
                   <FormElements
                     name="MultiLine2"
@@ -435,7 +435,7 @@ function DreamBuildingSingle({ type }) {
                 </FormGroup>
               </FormCol>
               <FormCol layout="half" last={true}>
-                <h3>E o que você não gosta ou não quer em um imóvel?</h3>
+                <h3>E o que você não quer, de jeito nenhum?</h3>
                 <FormGroup>
                   <FormElements
                     name="MultiLine1"

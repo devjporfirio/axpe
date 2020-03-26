@@ -25,7 +25,7 @@ function NewsletterSuccess() {
           <h2>Quase pronto!</h2>
         </SuccessColumn>
         <SuccessColumn>
-          <p>Só mais um passo: precisamos apenas confirmar seu cadastro. Por favor, clique no link que acabamos de enviar para você por email.</p>
+          <p>Agora é só olhar sua caixa de e-mail e clicar no link que acabamos de enviar.</p>
         </SuccessColumn>
       </Success>
     </Modal>

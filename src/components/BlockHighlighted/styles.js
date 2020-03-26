@@ -210,12 +210,12 @@ const NotFound = css`
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
-  span:nth-child(2) {
+  /* span:nth-child(2) {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.black};
-  }
-  span:nth-child(3) {
+  } */
+  span:nth-child(2) {
     color: ${({ theme }) => theme.colors.orange};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.black};

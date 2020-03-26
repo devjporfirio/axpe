@@ -23,11 +23,11 @@ function LoginRegisterSuccessModal() {
     <Modal active={modalLoginRegisterSuccess} onClose={closeModal} themeColor="green">
       <Success size="big">
         <SuccessColumn>
-          <h2><strong>Tudo pronto!</strong><br/> Nunca mais você precisará preencher esses campos</h2>
+          <h2>Seu login <strong>já está criado.</strong></h2>
         </SuccessColumn>
         <SuccessColumn>
-          <p>Agora você pode salvar seus favoritos, criar alertas e falar com a gente sempre que quiser.</p>
-          <Button href="/minha-conta" as="/minha-conta">Ver perfil</Button>
+          <p>Agora é só criar sua lista de favoritos.</p>
+          <Button href="/minha-conta" as="/minha-conta">Quero ver meu perfil</Button>
         </SuccessColumn>
       </Success>
     </Modal>

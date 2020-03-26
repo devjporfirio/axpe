@@ -387,7 +387,7 @@ function Register({ locals, categories, countries }) {
             </FormRow>
 
             <FormGroup>
-              <h2>Qual o endereço?</h2>
+              <h2>Onde fica?</h2>
               <FormGroupAddress>
                 <FormElements
                   name="SingleLine"
@@ -441,7 +441,7 @@ function Register({ locals, categories, countries }) {
             </FormGroup>
 
             <FormGroup>
-              <h2>Características do imóvel</h2>
+              <h2>Como é o seu imóvel</h2>
               <FormGroupFlex>
                 <FormElements
                   type="number"
@@ -482,7 +482,7 @@ function Register({ locals, categories, countries }) {
 
             <FormRow>
               <FormGroup>
-                <h2>O imóvel está vago?</h2>
+                <h2>Já está vago?</h2>
                 <FormGroupFlex>
                   <FormElements
                     name="SingleLine12"
@@ -508,7 +508,7 @@ function Register({ locals, categories, countries }) {
               </FormGroup>
 
               {/* <FormGroup>
-                <h2>Com quem ficam as chaves?</h2>
+                <h2>As chaves ficam com quem?</h2>
                 <FormElements
                   name="managerKey"
                   label="Nome"
@@ -528,7 +528,7 @@ function Register({ locals, categories, countries }) {
                   <FormElements
                     type="currency"
                     name="Currency_copy"
-                    label="Qual o valor de venda que gostaria?"
+                    label="Qual o valor de venda pedido?"
                     placeholder="R$"
                     onChange={event => {
                       const currency = event.target.value;
@@ -546,7 +546,7 @@ function Register({ locals, categories, countries }) {
                   <FormElements
                     type="currency"
                     name="Currency1"
-                    label="Qual o valor de aluguel que gostaria?"
+                    label="Qual o valor de aluguel pedido?"
                     placeholder="R$"
                     message={
                       values.SingleLine5 !== 'Residencial'
@@ -584,7 +584,7 @@ function Register({ locals, categories, countries }) {
                       <FormElements
                         type="currency"
                         name="Currency2"
-                        label="Qual o valor do condomínio"
+                        label="Valor do condomínio"
                         placeholder="R$"
                         onChange={event => {
                           const currency = event.target.value;
@@ -603,7 +603,7 @@ function Register({ locals, categories, countries }) {
 
             <FormRow>
               <FormGroup>
-                <h2>O que o seu imóvel tem de melhor?</h2>
+                <h2>O que há de melhor em seu imóvel? Capricha.</h2>
                 <FormElements
                   type="area"
                   name="MultiLine2"
@@ -616,7 +616,7 @@ function Register({ locals, categories, countries }) {
               </FormGroup>
 
               <FormGroup>
-                <h2>Há algum ponto problemático no imóvel?</h2>
+                <h2>O que há de problema?</h2>
                 <FormElements
                   type="area"
                   name="MultiLine1"
@@ -633,9 +633,7 @@ function Register({ locals, categories, countries }) {
               <h2>FOTOS</h2>
               <FormGroupPhotos>
                 <Description>
-                  Por favor, envie algumas fotos que podem ser tiradas com o seu
-                  celular. Elas nos ajudarão a planejar a sessão de fotos que
-                  faremos no seu imóvel.
+                  Hora de enviar as fotos do seu imóvel. Pode ser do celular mesmo, é só para gente ter uma ideia e planejar a sessão com o fotógrafo.
                 </Description>
 
                 <FormElements

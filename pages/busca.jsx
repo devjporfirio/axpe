@@ -120,7 +120,7 @@ function Search({ total, totalPages, data, locals }) {
     const getTotalFormated = total => {
       total = total > 10 ? 10 : total;
 
-      const text = total > 1 ? `imóveis` : `imóvel`;
+      const text = total > 1 ? `opções` : `opção`;
       let result = `${total} ${text}`;
 
       if(total < 10) {
@@ -136,7 +136,7 @@ function Search({ total, totalPages, data, locals }) {
       const newPriceStart = priceEnd + 1;
       const newPriceEnd = priceEnd + percent;
 
-      await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> em uma faixa de valor um pouco maior`, {
+      await getBuildingsSuggestion(`Encontramos mais <strong>{{showTotal}}</strong>, mas o valor passou um pouco. Pode ser?`, {
         ...query,
         price_start: newPriceStart,
         price_end: newPriceEnd
@@ -161,7 +161,7 @@ function Search({ total, totalPages, data, locals }) {
           ...query,
           local: localsSelected.join(',')
         };
-        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, mas em bairros próximos`, query2);
+        await getBuildingsSuggestion(`Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, mas em bairros vizinhos, tudo bem?`, query2);
       }
     }
 
@@ -173,7 +173,7 @@ function Search({ total, totalPages, data, locals }) {
       query.finality === 'venda' &&
       query.use === 'RESIDENCIAL' &&
       !reference) {
-        const finalText = query.ready_release === 'pronto' ? 'mas ainda em construção' : 'mas pronto para morar';
+        const finalText = query.ready_release === 'pronto' ? 'mas não estão prontos. Pode esperar?' : 'mas pronto para morar';
         const query2 = query.ready_release === 'pronto' ? {
           ...query,
           ready_release: 'lancamento'
@@ -181,7 +181,7 @@ function Search({ total, totalPages, data, locals }) {
           ...query,
           ready_release: 'pronto'
         };
-        await getBuildingsSuggestion(`Encontramos <strong>{{showTotal}}</strong> parecidos com o que você quer, ${finalText}`, query2);
+        await getBuildingsSuggestion(`Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, ${finalText}`, query2);
       }
 
     setSuggestions(results);
@@ -242,7 +242,7 @@ function Search({ total, totalPages, data, locals }) {
             <Wrapper>
               {total ? (
                 <Header>
-                  <h3>Encontramos <strong>{total} imóveis</strong> do jeitinho que pediu</h3>
+                  <h3>Encontramos <strong>{total} imóveis</strong> para sua busca</h3>
                   <HeaderCombo>
                     <button type="button">
                       <strong>Ordenar por:</strong>

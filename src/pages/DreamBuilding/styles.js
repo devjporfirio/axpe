@@ -106,12 +106,19 @@ export const ListButton = styled.a`
 
   ${media.greaterThan('large')`
     &:hover {
-      &:before {
-        /* ${({ theme }) => theme.hide}; */
-      }
-
       &:after {
         ${({ theme }) => theme.show};
+      }
+
+      div[class*='ListText'] {
+        h3 {
+          transform: translateY(-20px);
+        }
+
+        p {
+          transform: translateY(0);
+          ${({ theme }) => theme.show};
+        }
       }
     }
   `}
@@ -132,10 +139,28 @@ export const ListText = styled.div`
   text-align: center;
   padding: 0 5px 30px 5px;
   color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
   h3 {
     margin-bottom: 10px;
     font: 24px/30px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    transition: all 300ms ease;
+  }
+
+  p {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    transform: translateY(20px);
+    transition: all 300ms ease;
+
+    ${media.greaterThan('large')`
+      display: block;
+      ${({ theme }) => theme.hide};
+    `}
   }
 `;

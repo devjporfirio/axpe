@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 // components
 import Modal from 'components/Modals';
-import Button from 'components/Button';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -31,16 +30,10 @@ function RegisterSuccess() {
     >
       <Success>
         <SuccessColumn>
-          <h2>
-            <span>O primeiro passo</span>
-            <br /> foi dado!
-          </h2>
+          <h2>Recebemos&nbsp;o seu&nbsp;<span>cadastro</span></h2>
         </SuccessColumn>
         <SuccessColumn>
-          <p>Aguarde nosso contato para agendar uma visita ao seu imóvel.</p>
-          <Button type="button" onClick={() => closeModal('/cadastrar')}>
-            Cadastrar outro
-          </Button>
+          <p>Aguarde nosso contato para agendarmos uma visita ao seu imóvel.</p>
         </SuccessColumn>
       </Success>
     </Modal>

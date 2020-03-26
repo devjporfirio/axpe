@@ -92,7 +92,7 @@ function Favorites() {
           <Body>
             <Amount>
               <Title>
-                Você tem <strong>{buildings.length} imóveis</strong> favoritos
+                Você curtiu <strong>{buildings.length} imóveis</strong>
               </Title>
               <ButtonShare onClick={() => setShareActive(true)}>
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />

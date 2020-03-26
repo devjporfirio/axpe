@@ -81,7 +81,7 @@ function Around({ cep, text }) {
       <Pin src={PinDesktopIconSVG} mq="desktop" alt="" />
       <Pin src={PinWhiteIconSVG} mq="mobile" alt="" />
 
-      <Text item={{ title: 'Ao seu redor', text }} />
+      <Text item={{ title: 'O que há por perto', text }} />
     </Container>
   );
 }

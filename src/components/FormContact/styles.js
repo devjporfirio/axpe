@@ -15,9 +15,11 @@ export const Body = styled.div`
 `;
 
 export const BlockForm = styled.div`
+  padding-top: 30px;
+
   ${media.greaterThan('medium')`
     width: 50%;
-    padding: 30px;
+    padding: 60px 30px 30px 30px;
   `}
 
   ${media.greaterThan('large')`

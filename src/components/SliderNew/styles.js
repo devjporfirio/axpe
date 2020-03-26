@@ -29,6 +29,10 @@ export const Container = styled.div`
     `}
   }
 
+  .slick-track {
+    min-width: 100%;
+  }
+
   .slick-arrow {
     display: flex;
     align-items: center;
