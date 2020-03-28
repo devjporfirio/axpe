@@ -4,6 +4,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from 'services';
 
+// helpers
+import { getErrorMessage } from 'helpers/errors';
+
 // components
 import FormElements from 'components/FormElements';
 
@@ -13,9 +16,8 @@ import { Form, ButtonSave } from 'pages/MyAccount/Profile/styles';
 import { Container, Note } from './styles';
 
 const formSchema = Yup.object().shape({
-  passwordConf: Yup.string().required(),
   passwordNew: Yup.string().required(),
-  passwordNewConfirmation: Yup.string()
+  passwordConf: Yup.string()
     .oneOf([ Yup.ref('passwordNew') ])
     .required()
 });
@@ -37,9 +39,8 @@ function PasswordNew({ active, onClose, hash }) {
   } = useFormik({
     initialValues: {
       hash,
-      passwordConf: '',
       passwordNew: '',
-      passwordNewConfirmation: ''
+      passwordConf: ''
     },
     validationSchema: formSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -57,7 +58,9 @@ function PasswordNew({ active, onClose, hash }) {
           onClose();
         }, 3000);
       } else {
-        setErrorMessage(response.msg);
+        const msg = getErrorMessage(response.error);
+
+        setErrorMessage(msg);
 
         setTimeout(() => {
           setErrorMessage(null);
@@ -74,17 +77,6 @@ function PasswordNew({ active, onClose, hash }) {
           <h2>Crie uma nova senha</h2>
           <FormElements
             type="password"
-            name="passwordConf"
-            label="Senha atual"
-            placeholder="Senha atual"
-            onChange={handleChange}
-            error={touched.passwordConf && errors.passwordConf}
-            value={values.passwordConf}
-            onBlur={handleBlur}
-            useEye
-          />
-          <FormElements
-            type="password"
             name="passwordNew"
             label="Nova senha"
             placeholder="Nova senha"
@@ -96,12 +88,12 @@ function PasswordNew({ active, onClose, hash }) {
           />
           <FormElements
             type="password"
-            name="passwordNewConfirmation"
+            name="passwordConf"
             label="Confirmar senha"
             placeholder="Confirmar senha"
             onChange={handleChange}
-            error={touched.passwordNewConfirmation && errors.passwordNewConfirmation}
-            value={values.passwordNewConfirmation}
+            error={touched.passwordConf && errors.passwordConf}
+            value={values.passwordConf}
             onBlur={handleBlur}
             useEye
           />
