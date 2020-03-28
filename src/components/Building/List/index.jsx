@@ -238,7 +238,7 @@ function BuildingList({
         <>
           <SliderContainer useBtSchedule={useBtSchedule}>
             <SliderNew
-              type="buildingListGallery"
+              type="gallery"
               arrowsColor="greenDark"
               settings={gallerySettings}
             >

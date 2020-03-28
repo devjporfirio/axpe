@@ -48,9 +48,9 @@ function HowWeLove({ reasons }) {
 
   useEffect(() => {
     setData(reasons);
-  }, [ reasons ])
+  }, [ reasons ]);
 
-  return type === 'array' || (type === 'html' && html) && data ? (
+  return (type === 'array' && data) || (type === 'html' && html && data) ? (
     <Container>
       <Title>
         <span>Por que </span>

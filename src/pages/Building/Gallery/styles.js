@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import Modal from './Modal';
+
+// components
+import GalleryHeaderbar from './GalleryHeaderbar';
 
 export const Container = styled.div`
   margin: auto;
   max-width: 974px;
 
-  .slick-slide {
+  & > .slick-slider .slick-slide {
     width: calc(100vw - 500px);
     max-width: 780px;
   }
 `;
 
-export const Tour360 = styled(Modal)`
+export const Tour360 = styled(GalleryHeaderbar)`
   height: 100vh;
   top: 0;
   background-color: ${({ theme }) => theme.colors.greenDark};
@@ -35,6 +37,33 @@ export const Image = styled.img`
 
   ${media.greaterThan('medium')`
     height: 525px;
+  `}
+`;
+
+export const SliderButton = styled.button`
+  position: relative;
+  cursor: pointer;
+
+  ${media.greaterThan('large')`
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.6));
+      transition: all 300ms ease;
+      z-index: 2;
+      ${({ theme }) => theme.hide};
+    }
+
+    &:hover {
+      &:before {
+        ${({ theme }) => theme.show};
+      }
+    }
   `}
 `;
 

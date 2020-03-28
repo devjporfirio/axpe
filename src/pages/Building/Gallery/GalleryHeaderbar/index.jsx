@@ -3,8 +3,8 @@ import React from 'react';
 // styles
 import { Container, ButtonClose, Header } from './styles';
 
-function Modal({
-  closeModal = () => {},
+function GalleryHeaderbar({
+  close = () => {},
   children,
   className,
   category,
@@ -16,7 +16,7 @@ function Modal({
       <Header type="modal" title={category} subtitle={local} />
       <ButtonClose
         planta={planta}
-        onClick={closeModal}
+        onClick={close}
       >
         <span>Fechar</span>
         <i></i>
@@ -27,4 +27,4 @@ function Modal({
   );
 }
 
-export default Modal;
+export default GalleryHeaderbar;

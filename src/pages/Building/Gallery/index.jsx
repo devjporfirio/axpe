@@ -11,7 +11,14 @@ import I360 from 'assets/icons/360';
 import IGrid from 'assets/icons/grid';
 
 // styles
-import { Container, Tour360, Image, Button360, SizeGallery } from './styles';
+import {
+  Container,
+  Tour360,
+  Image,
+  SliderButton,
+  Button360,
+  SizeGallery
+} from './styles';
 
 function Gallery({
   items,
@@ -41,9 +48,9 @@ function Gallery({
 
       {showTour && (
         <Tour360
+          close={() => setShowTour(false)}
           category={category}
           local={local}
-          closeModal={() => setShowTour(false)}
         >
           <iframe title="tour360" src={linkTour} frameBorder="0"></iframe>
         </Tour360>
@@ -62,7 +69,7 @@ function Gallery({
             settings: {
               centerMode: false,
               variableWidth: false,
-              initialSlide: -1
+              initialSlide: 2
             }
           }
         ]}
@@ -70,16 +77,18 @@ function Gallery({
         {items &&
           items.length > 0 &&
           items.map((item, index) => (
-            <Image
+            <SliderButton
+              type="button"
               onClick={() => {
                 if (showClickImage) {
                   setImageSelected(index);
                   setShowGalleryFull(true);
                 }
               }}
-              key={`building-gallery-image-${index}`}
-              src={item.src}
-            />
+              key={`building-gallery-btn-${index}`}
+            >
+              <Image src={item.src} alt="" />
+            </SliderButton>
           ))}
       </Slider>
 
@@ -101,7 +110,7 @@ function Gallery({
 
       {showGalleryFull && (
         <GalleryFull
-          goTo={imageSelected}
+          initialSlide={imageSelected}
           items={items}
           onClose={() => setShowGalleryFull(false)}
           category={category}

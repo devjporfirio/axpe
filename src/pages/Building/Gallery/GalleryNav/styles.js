@@ -3,9 +3,9 @@ import media from 'styled-media-query';
 
 // components
 import Slider from 'components/Slider';
-import Modal from '../Modal';
+import GalleryHeaderbar from '../GalleryHeaderbar';
 
-export const Container = styled(Modal)`
+export const Container = styled(GalleryHeaderbar)`
   top: 0;
   background-color: ${props =>
     props.planta ? props.theme.colors.greyLight : props.theme.colors.white};
@@ -13,20 +13,21 @@ export const Container = styled(Modal)`
   span {
     color: ${({ theme }) => theme.colors.greenDark};
   }
-  i::after,
-  i::before {
-    background: ${({ theme }) => theme.colors.greenDark};
+
+  i {
+    &:after,
+    &:before {
+      background: ${({ theme }) => theme.colors.greenDark};
+    }
   }
 
   ${media.greaterThan('medium')`
     background-color: ${({ theme }) => theme.colors.greenDark};
   `}
 
-  ${props =>
-    props.planta &&
-    css`
-      overflow: scroll;
-    `}
+  ${props => props.planta && css`
+    overflow: scroll;
+  `}
 `;
 
 export const Body = styled.div`
@@ -40,7 +41,7 @@ export const Body = styled.div`
 `;
 
 export const BodySlider = styled.div`
-  display:flex !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   height: 100vw;

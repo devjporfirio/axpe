@@ -1,18 +1,21 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Headerbar from 'components/Headerbar';
 
 export const Header = styled(Headerbar)`
-  ${media.greaterThan('640px')`
+  ${media.greaterThan('medium')`
     display: none;
   `}
 `;
 
 export const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: calc(100vh - 67px);
-  position: fixed;
-  left: 0;
   z-index: 110;
   overflow: hidden;
   height: 100vh;
@@ -55,14 +58,10 @@ export const ButtonClose = styled.button`
     }
   }
 
-  ${media.greaterThan('640px')`
-    top: 5px;
-    margin: 30px 78px 20px auto;
+  ${media.greaterThan('medium')`
     display: flex;
     align-items: center;
     background: none;
-    font: 14px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     width: auto;
 
     span {
@@ -79,8 +78,9 @@ export const ButtonClose = styled.button`
     }
 
     ${props => props.planta && css`
-      margin-right: 0;
+      top: 5px;
       right: 15px;
+      margin: 30px 0 20px auto;
 
       span {
         display: none;
@@ -97,6 +97,24 @@ export const ButtonClose = styled.button`
         }
       }
     `}
+
+    ${props => !props.planta && css`
+      top: 5%;
+      right: 10%;
+      margin: 0;
+      font: 14px 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+      transform: translateY(-50%);
+
+      i {
+        margin-left: 5px;
+
+        &:before,
+        &:after {
+          width: 2px;
+        }
+      }
+    `}
   `}
 
   ${media.greaterThan('1130px')`
@@ -104,12 +122,6 @@ export const ButtonClose = styled.button`
       right: auto;
       left: 50%;
       transform: translateX(515px);
-    `}
-  `}
-
-  ${media.greaterThan('1281px')`
-    ${props => !props.planta && css`
-      right: 8%;
     `}
   `}
 `;

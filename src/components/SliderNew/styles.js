@@ -81,7 +81,7 @@ export const Container = styled.div`
 
   ${props => props.type === 'normal' && ContainerNormal}
   ${props => props.type === 'full' && ContainerFull}
-  ${props => props.type === 'buildingListGallery' && ContainerBuildingListGallery}
+  ${props => props.type === 'gallery' && ContainerGallery}
 `;
 
 const ContainerNormal = css`
@@ -144,7 +144,7 @@ const ContainerFull = css`
   }
 `;
 
-const ContainerBuildingListGallery = css`
+const ContainerGallery = css`
   .slick-arrow {
     top: 50%;
     background: rgba(255, 255, 255, 0.5);

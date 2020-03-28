@@ -26,7 +26,7 @@ function GalleryNav({
 
   return (
     <Container
-      closeModal={onClose}
+      close={onClose}
       category={category}
       local={local}
       planta={planta}

@@ -1,14 +1,29 @@
 import React from 'react';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+// import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
-import { Container, Images, Slide } from './styles';
+// styles
+import {
+  Container,
+  Images,
+  Slide
+} from './styles';
 
-export default function GalleryFull({ goTo, onClose, items, category, local }) {
+export default function GalleryFull({ initialSlide, onClose, items, category, local }) {
   return (
-    <Container category={category} local={local} closeModal={onClose}>
+    <Container category={category} local={local} close={onClose}>
       <Images
-        propsArrow={{ position: 'outside', backgroundColor: 'white' }}
-        initialSlide={goTo}
+        type="gallery"
+        arrowsColor="greenDark"
+        settings={{
+          dots: false,
+          infinite: true,
+          speed: 800,
+          lazyLoad: true,
+          initialSlide: initialSlide,
+          autoplay: false,
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }}
       >
         {items &&
           items.length > 0 &&
@@ -17,11 +32,12 @@ export default function GalleryFull({ goTo, onClose, items, category, local }) {
               case 'imagem':
                 return (
                   <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
-                    <TransformWrapper>
+                    <img alt="Foto do Imóvel" src={item.src} />
+                    {/* <TransformWrapper>
                       <TransformComponent>
                         <img alt="Foto do Imóvel" src={item.src} />
                       </TransformComponent>
-                    </TransformWrapper>
+                    </TransformWrapper> */}
                   </Slide>
                 );
               case 'video':

@@ -80,4 +80,4 @@ function SliderNew({
   )
 }
 
-export default SliderNew
+export default SliderNew;
