@@ -37,7 +37,7 @@ function SliderNew({
   }
 
   useEffect(() => {
-    if(ref.current) {
+    if(ref.current && ref.current.innerSlider) {
       const $list = ref.current.innerSlider.list;
 
       if(!$list) return false;
