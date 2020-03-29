@@ -194,6 +194,7 @@ export const Text = styled.div`
 
     strong {
       color: ${({ theme }) => theme.colors.greenLight};
+      font-weight: ${({ theme }) => theme.fontsWeight.bold};
     }
   }
 

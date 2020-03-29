@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // assets
@@ -62,68 +62,126 @@ export const Header = styled.header`
       line-height: 50px;
     }
   `}
+
+  ${media.greaterThan('medium')`
+    margin-bottom: 30px;
+  `}
 `;
 
-export const HeaderCombo = styled.div`
+export const HeaderOrder = styled.div`
   margin-bottom: 30px;
   position: relative;
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    font: 13px 'Raleway';
-    text-transform: uppercase;
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-    color: ${({ theme }) => theme.colors.green};
-    text-align: center;
-    border: 2px solid ${({ theme }) => theme.colors.green};
-    border-radius: 4px;
-
-    span {
-      margin-left: 10px;
-      font-weight: ${({ theme }) => theme.fontsWeight.regular};
-    }
-
-    &:after {
-      content: '';
-      display: block;
-      width: 13px;
-      height: 13px;
-      margin-left: 10px;
-      background: url(${ArrowIconSVG}) no-repeat;
-      background-size: contain;
-      transform: rotate(90deg);
-    }
-  }
-
-  select {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    z-index: 2;
-    opacity: 0;
-  }
+  z-index: 2;
 
   ${media.greaterThan('medium')`
     margin-left: auto;
     margin-bottom: 0;
-
-    button {
-      padding: 0 15px;
-      border: 0;
-      height: auto;
-      line-height: 15px;
-    }
   `}
 `;
+
+export const HeaderOrderButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font: 13px 'Raleway';
+  text-transform: uppercase;
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  color: ${({ theme }) => theme.colors.green};
+  text-align: center;
+  border: 2px solid ${({ theme }) => theme.colors.green};
+  border-radius: 4px;
+
+  span {
+    margin-left: 10px;
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: 13px;
+    height: 13px;
+    margin-left: 10px;
+    background: url(${ArrowIconSVG}) no-repeat;
+    background-size: contain;
+    transform: rotate(90deg);
+    transition: all 300ms ease;
+  }
+
+  ${media.greaterThan('medium')`
+    padding: 0 15px;
+    border: 0;
+    height: auto;
+    line-height: 15px;
+  `}
+
+  ${media.greaterThan('large')`
+    ${props => props.active && css`
+      &:after {
+        transform: rotate(270deg);
+      }
+    `}
+  `}
+`;
+
+export const HeaderOrderSelect = styled.select`
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 2;
+  opacity: 0;
+
+  ${media.greaterThan('large')`
+    display: none;
+  `}
+`;
+
+export const HeaderOrderList = styled.div`
+  display: none;
+
+  ${media.greaterThan('large')`
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    padding: 10px 10px;
+    background: ${({ theme }) => theme.colors.white};
+    border-radius: 6px;
+    ${({ theme }) => theme.hide};
+    transition: all 300ms ease;
+
+    ${props => props.active && css`
+      top: 20px;
+      ${({ theme }) => theme.show};
+    `}
+  `}
+`;
+
+export const HeaderOrderListButton = styled.button`
+  display: block;
+  width: 100%;
+  padding: 5px 5px 5px 0;
+  text-align: left;
+  font: ${({ theme }) => theme.fontsWeight.regular} 13px 'Raleway';
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.green};
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.greyLight};
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.black};
+  }
+`;
+
 
 export const ButtonBack = styled.button`
   display: none;

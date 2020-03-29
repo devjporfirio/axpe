@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import SVG from 'react-inlinesvg';
@@ -27,7 +27,11 @@ import ArrowIconSVG from 'assets/icons/arrow';
 import {
   Container,
   Header,
-  HeaderCombo,
+  HeaderOrder,
+  HeaderOrderButton,
+  HeaderOrderSelect,
+  HeaderOrderList,
+  HeaderOrderListButton,
   Wrapper,
   ButtonBack,
   Buildings,
@@ -49,13 +53,18 @@ function Search({ total, totalPages, data, locals }) {
     { label: 'Maior Preço', value: 'biggest_price' }
   ];
 
+  const orderTiming = useRef(false);
+  const [ orderByComboActive, setOrderByComboActive ] = useState(false);
   const [ orderBy, setOrderBy ] = useState(order ? order : orderOptions[0].value);
   const [ page, setPage ] = useState(+query.page || 1);
   const [ buildings, setBuildings ] = useState(null);
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ suggestions, setSuggestions ] = useState(null);
-  const orderBySelected = orderOptions.filter(orderItem => orderItem.value == orderBy);
+
+  const getOrderBySelected = useCallback(() => {
+    return orderOptions.filter(orderItem => orderItem.value == orderBy);
+  }, [ orderBy ]);
 
   const getSourceText = useCallback(() => {
     if(source && source === 'sao-paulo') {
@@ -79,8 +88,7 @@ function Search({ total, totalPages, data, locals }) {
     dispatch(setMain({ searchFormActive: !searchFormActive }))
   }, [ searchFormActive ]);
 
-  const handleOrderBy = useCallback((event) => {
-    const newOrder = event.target.value;
+  const handleOrderBy = useCallback((newOrder) => {
     const params = getParamsFromObject({
       ...query,
       order: newOrder
@@ -243,19 +251,49 @@ function Search({ total, totalPages, data, locals }) {
               {total ? (
                 <Header>
                   <h3>Encontramos <strong>{total} imóveis</strong> para sua busca</h3>
-                  <HeaderCombo>
-                    <button type="button">
+                  <HeaderOrder
+                    onMouseEnter={() => clearTimeout(orderTiming.current)}
+                    onMouseLeave={() => {
+                      orderTiming.current = setTimeout(() => {
+                        setOrderByComboActive(false)
+                      }, 300)
+                    }}
+                  >
+                    <HeaderOrderButton
+                      type="button"
+                      active={orderByComboActive}
+                      onClick={() => setOrderByComboActive(!orderByComboActive)}
+                    >
                       <strong>Ordenar por:</strong>
-                      {orderBySelected.length ? (
-                        <span>{orderBySelected[0].label}</span>
+                      {getOrderBySelected().length ? (
+                        <span>{getOrderBySelected()[0].label}</span>
                       ) : null}
-                    </button>
-                    <select name="orderBy" value={orderBy} onChange={handleOrderBy} onBlur={handleOrderBy}>
+                    </HeaderOrderButton>
+                    <HeaderOrderSelect
+                      name="orderBy"
+                      value={orderBy}
+                      onChange={(event) => handleOrderBy(event.target.value)}
+                      onBlur={(event) => handleOrderBy(event.target.value)}
+                    >
                       {orderOptions.map((orderItem, orderItemIndex) => (
                         <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
                       ))}
-                    </select>
-                  </HeaderCombo>
+                    </HeaderOrderSelect>
+                    <HeaderOrderList active={orderByComboActive}>
+                      {orderOptions.map((orderItem, orderItemIndex) => (
+                        <HeaderOrderListButton
+                          type="button"
+                          key={`orderby-listitem-${orderItemIndex}`}
+                          onClick={() => {
+                            setOrderBy(orderItem.value);
+                            handleOrderBy(orderItem.value);
+                          }}
+                        >
+                          {orderItem.label}
+                        </HeaderOrderListButton>
+                      ))}
+                    </HeaderOrderList>
+                  </HeaderOrder>
                 </Header>
               ) : null}
 
