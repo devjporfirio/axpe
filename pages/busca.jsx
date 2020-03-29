@@ -235,6 +235,7 @@ function Search({ total, totalPages, data, locals }) {
     <>
       <Head>
         <title>{`Busca - ${SeoData.title}`}</title>
+        <meta name="robots" content="noindex,follow" />
       </Head>
       <Container>
         {dataLoaded ?
