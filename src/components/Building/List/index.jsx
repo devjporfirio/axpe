@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
-import Link from 'next/link';
 import Api from 'services';
 
 // components
@@ -10,7 +9,8 @@ import Inactive from 'components/Inactive';
 import SliderNew from 'components/SliderNew';
 
 // helpers
-import { formatCurrency } from 'helpers/utils';
+import { Link } from 'helpers/routes';
+import { formatCurrency, getBuildingUrl } from 'helpers/utils';
 import checkFavorite from 'helpers/checkFavorite';
 
 // actions
@@ -244,17 +244,13 @@ function BuildingList({
             >
               {gallery &&
                 gallery.length > 0 &&
-                gallery.map((item, itemIndex) => {
+                gallery.map((galleryItem, galleryItemIndex) => {
                   return (
-                    item.tipo === 'imagem' && (
-                      <SliderItem key={`item-gallery-${reference}-${itemIndex}`}>
-                        <Link
-                          href={`/building/[reference]`}
-                          as={`/building/${reference}`}
-                          passHref
-                        >
+                    galleryItem.tipo === 'imagem' && (
+                      <SliderItem key={`item-gallery-${reference}-${galleryItemIndex}`}>
+                        <Link route={getBuildingUrl(item)} passHref>
                           <LinkTag>
-                            <img src={item.src} alt={`Axpe ${category} - ${reference}`} />
+                            <img src={galleryItem.src} alt={`Axpe ${category} - ${reference}`} />
                           </LinkTag>
                         </Link>
                       </SliderItem>
@@ -273,7 +269,7 @@ function BuildingList({
                 Remover
               </RemoveButton>
             )}
-            <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
+            <Link route={getBuildingUrl(item)} passHref>
               <LinkTag>
                 <CatLocGroup>
                   <Category>
@@ -297,7 +293,7 @@ function BuildingList({
             </Link>
 
             <ValuesFavGroup>
-              <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
+              <Link route={getBuildingUrl(item)} passHref>
                 <LinkTag>
                   <div>
                     {(!!values.sell || !!values.release) && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
@@ -332,7 +328,7 @@ function BuildingList({
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </FavoriteButton>
             </ValuesFavGroup>
-            <Link href={`/building/[reference]`} as={`/building/${reference}`} passHref>
+            <Link route={getBuildingUrl(item)} passHref>
               <LinkTag>
                 <div>
                   <CaracteristicsGroup>

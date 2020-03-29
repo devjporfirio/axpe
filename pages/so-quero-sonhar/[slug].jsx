@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Slider from 'react-slick';
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Api from 'services';
 
@@ -9,6 +8,7 @@ import Api from 'services';
 import DataJSON from 'pages/Dream/data.json';
 
 // helpers
+import { Link } from 'helpers/routes';
 import SeoData from 'helpers/seo';
 
 // components
@@ -108,7 +108,7 @@ function DreamDetail({ buildings }) {
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
               <article className="item" key={`dream-slider-item-${itemIndex}`}>
-                <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
+                <Link route={`/so-quero-sonhar/${item.slug}`} passHref>
                   <FooterListItemLink style={{ backgroundImage: `url(/static/dream/cover-${item.slug}.jpg)` }}>
                     <h3>{item.title}</h3>
                     <p>{item.subtitle}</p>

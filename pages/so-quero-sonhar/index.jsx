@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 
 // data
 import DataJSON from 'pages/Dream/data.json';
@@ -9,6 +8,7 @@ import DataJSON from 'pages/Dream/data.json';
 import BlockHighlighted from 'components/BlockHighlighted';
 
 // helpers
+import { Link } from 'helpers/routes';
 import SeoData from 'helpers/seo';
 
 // styles
@@ -46,7 +46,7 @@ function Dream() {
             <List>
               {data.map((item, itemIndex) => (
                 <li key={`dream-list-item-${itemIndex}`}>
-                  <Link href={`/so-quero-sonhar/[slug]`} as={`/so-quero-sonhar/${item.slug}`} passHref>
+                  <Link route={`/so-quero-sonhar/${item.slug}`} passHref>
                     <ListButton>
                       <ListText>
                         <h3>{item.title}</h3>

@@ -1,5 +1,6 @@
 const dev = process.env.NODE_ENV !== 'production';
 
+const routes = require('./src/helpers/routes');
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -8,7 +9,8 @@ const axios = require('axios');
 const config = require(`./config/${process.env.NODE_ENV}.json`);
 
 const nextApp = next({ dev });
-const nextHandler = nextApp.getRequestHandler();
+const nextHandler = routes.getRequestHandler(nextApp);
+// const nextHandler = nextApp.getRequestHandler();
 const port = process.env.PORT || 3000;
 
 const getNotifications = async userId => {

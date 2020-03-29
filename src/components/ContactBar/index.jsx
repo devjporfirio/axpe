@@ -154,18 +154,35 @@ function ContactBar() {
 
   useEffect(() => {
     if (user.logged && user.me && currentBuilding) {
-      const areaUseful = currentBuilding.infos.areaUseful;
+      const areaUseful =
+        currentBuilding.infos && currentBuilding.infos.areaUseful
+          ? currentBuilding.infos.areaUseful
+          : null;
       const paramsObj = {
         reference: currentBuilding.reference,
         category: currentBuilding.category,
         type: currentBuilding.type,
         source: currentBuilding.source,
-        region: currentBuilding.address.region,
-        local: currentBuilding.address.local,
+        region:
+          currentBuilding.address && currentBuilding.address.region
+            ? currentBuilding.address.region
+            : null,
+        local:
+          currentBuilding.address && currentBuilding.address.local
+            ? currentBuilding.address.local
+            : null,
         areaUseful: !isNaN(areaUseful) ? parseInt(areaUseful) : areaUseful,
-        bedrooms: currentBuilding.infos.bedrooms,
-        parking: currentBuilding.infos.parking,
-        value: currentBuilding.values.sell ? currentBuilding.values.sell : currentBuilding.values.rent,
+        bedrooms:
+          currentBuilding.infos && currentBuilding.infos.bedrooms
+            ? currentBuilding.infos.bedrooms
+            : null,
+        parking:
+          currentBuilding.infos && currentBuilding.infos.parking
+            ? currentBuilding.infos.parking
+            : null,
+        value: currentBuilding.values.sell
+          ? currentBuilding.values.sell
+          : currentBuilding.values.rent,
         userFirstName: user.me.name,
         userLastName: user.me.lastName,
         userPhone: user.me.phone,
@@ -196,16 +213,18 @@ function ContactBar() {
               matchesTotal++;
             }
 
-            if(!searchFunnel || !searchFunnel.finality) {
-              if ((iframe.finality === 'venda' && currentBuilding.values.sell) || (iframe.finality === 'aluguel' && currentBuilding.values.rent)) {
+            if (!searchFunnel || !searchFunnel.finality) {
+              if (
+                (iframe.finality === 'venda' && currentBuilding.values.sell) ||
+                (iframe.finality === 'aluguel' && currentBuilding.values.rent)
+              ) {
                 matchesTotal++;
               } else {
                 matchesTotal--;
               }
             }
 
-
-            if (iframe.use && iframe.use === currentBuilding.infos.use) {
+            if (iframe.use && currentBuilding.infos && iframe.use === currentBuilding.infos.use) {
               matchesTotal++;
             }
 
@@ -229,7 +248,7 @@ function ContactBar() {
       setIframeUrl(null);
     }
 
-    setIsBuilding(router.route === '/building/[reference]' ? true : false);
+    setIsBuilding(router.route === '/imovel' ? true : false);
   }, [ router.route, user.logged, user.me, currentBuilding ]);
 
   useEffect(() => {
@@ -278,62 +297,62 @@ function ContactBar() {
                 title={router.asPath}
               ></Iframe>
             ) : (
-              <>
-                <Header isBuilding={isBuilding}>
-                  <ButtonClose
-                    type="button"
-                    onClick={toggleShow}
-                    isBuilding={isBuilding}
-                  >
-                    Fechar
+                <>
+                  <Header isBuilding={isBuilding}>
+                    <ButtonClose
+                      type="button"
+                      onClick={toggleShow}
+                      isBuilding={isBuilding}
+                    >
+                      Fechar
                   </ButtonClose>
-                  <h3>
-                    <strong>Pergunte</strong>, peça um imóvel ou reclame. Pode
+                    <h3>
+                      <strong>Pergunte</strong>, peça um imóvel ou reclame. Pode
                     elogiar também.
                   </h3>
-                </Header>
-                <Column>
-                  <p>Você pode também falar diretamente conosco:</p>
-                  <List>
-                    <li>
-                      <ListLink
-                        href="https://api.whatsapp.com/send?phone=5511999998888"
-                        target="_blank"
-                      >
-                        <i>
-                          <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-                        </i>
-                        <span>
-                          Whatsapp:
+                  </Header>
+                  <Column>
+                    <p>Você pode também falar diretamente conosco:</p>
+                    <List>
+                      <li>
+                        <ListLink
+                          href="https://api.whatsapp.com/send?phone=5511999998888"
+                          target="_blank"
+                        >
+                          <i>
+                            <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
+                          </i>
+                          <span>
+                            Whatsapp:
                           <br />
-                          <strong>(11) 99999-8888</strong>
-                        </span>
-                      </ListLink>
-                    </li>
-                    <li>
-                      <ListLink href="tel:+5511999998889" target="_blank">
-                        <i>
-                          <SVG src={PhoneIconSVG} uniquifyIDs={true} />
-                        </i>
-                        <span>
-                          Telefone:
+                            <strong>(11) 99999-8888</strong>
+                          </span>
+                        </ListLink>
+                      </li>
+                      <li>
+                        <ListLink href="tel:+5511999998889" target="_blank">
+                          <i>
+                            <SVG src={PhoneIconSVG} uniquifyIDs={true} />
+                          </i>
+                          <span>
+                            Telefone:
                           <br />
-                          <strong>(11) 99999-8888</strong>
-                        </span>
-                      </ListLink>
-                    </li>
-                    <li>
-                      <ListButton type="button">
-                        <i>
-                          <SVG src={ChatIconSVG} uniquifyIDs={true} />
-                        </i>
-                        <span className="big">Chat</span>
-                      </ListButton>
-                    </li>
-                  </List>
-                </Column>
-              </>
-            )}
+                            <strong>(11) 99999-8888</strong>
+                          </span>
+                        </ListLink>
+                      </li>
+                      <li>
+                        <ListButton type="button">
+                          <i>
+                            <SVG src={ChatIconSVG} uniquifyIDs={true} />
+                          </i>
+                          <span className="big">Chat</span>
+                        </ListButton>
+                      </li>
+                    </List>
+                  </Column>
+                </>
+              )}
           </Wrapper>
         </Container>
       )}

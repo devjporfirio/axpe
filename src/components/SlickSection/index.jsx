@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// helpers
+import { getBuildingUrl } from 'helpers/utils';
+
 // components
 import Section from 'components/Section';
 
@@ -157,14 +160,12 @@ function SlickSection({
               <ItemLink
                 type={type}
                 {...item.link}
-                href={item.link.url}
+                route={item.link.url}
               />
             ) : (
               <ItemLink
                 type={type}
-                href={`/building/${
-                  item.building ? item.building.slug : item.slug
-                }`}
+                route={getBuildingUrl(item.building ? item.building : item)}
               />
             )}
 

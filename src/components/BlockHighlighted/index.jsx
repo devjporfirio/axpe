@@ -14,7 +14,7 @@ const ContactHome = () => (
       <p>
         Conte o que está buscando e deixe com a gente.
       </p>
-      <Link href="/imovel-dos-sonhos" passHref fullWidth={true}>
+      <Link route="/imovel-dos-sonhos" passHref fullWidth={true}>
         Conte aqui
       </Link>
     </div>
@@ -46,7 +46,7 @@ const ContactWork = () => (
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
         tudo a ver com você?
       </p>
-      <Link href="/trabalhe-conosco">Trabalhe Conosco</Link>
+      <Link route="/trabalhe-conosco">Trabalhe Conosco</Link>
     </div>
   </>
 );
@@ -83,7 +83,7 @@ const NotFound = ({ query }) => {
           </p>
         ) : null}
 
-        <Link href="/imovel-dos-sonhos" passHref fullWidth={true}>
+        <Link route="/imovel-dos-sonhos" passHref fullWidth={true}>
           Conte aqui
         </Link>
       </div>
@@ -126,7 +126,7 @@ const Landing = () => (
         <br />
         Onde pode construir um refúgio, uma vida. Mas isso é só o começo.
       </p>
-      <Link href="/contato" target="_blank">
+      <Link route="/contato" target="_blank">
         Entre em contato
       </Link>
     </div>
@@ -146,7 +146,7 @@ const Dream = () => (
         o imóvel dos seus sonhos <br/>
         e vamos encontrá-lo para você
       </p>
-      <Link href="/imovel-dos-sonhos" target="_blank">
+      <Link route="/imovel-dos-sonhos" target="_blank">
         Fale conosco
       </Link>
     </HighlightedH4>
@@ -177,7 +177,7 @@ const RegisterPropertyTransform = () => (
         Conte para a gente como é o imóvel dos seus sonho e valos encontrá-lo
         para você
       </p>
-      <Link href="/contato">Fale Conosco</Link>
+      <Link route="/contato">Fale Conosco</Link>
     </div>
   </>
 );

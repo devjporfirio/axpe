@@ -4,7 +4,12 @@ import React from 'react';
 import Slider from 'components/Slider';
 
 // styles
-import { Container, GroupText, Title, Text } from './styles';
+import {
+  Container,
+  GroupText,
+  Title,
+  Text
+} from './styles';
 
 function SlickText({ items }) {
   return (
@@ -23,9 +28,7 @@ function SlickText({ items }) {
               item.gallery.map((media, mediaIndex) => {
                 return media.mediaType === 'imagem' ? (
                   <div key={`item-gallery-${mediaType}-${mediaIndex}`}>
-                    {/* <Link href="/building/[reference]" as={`/building/${slug}`}> */}
-                      <img src={media.image} alt="Imóvel" />
-                    {/* </Link> */}
+                    <img src={media.image} alt="Imóvel" />
                   </div>
                 ) : media.mediaType === 'video' ? (
                   <iframe

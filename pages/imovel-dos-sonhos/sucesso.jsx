@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'helpers/routes';
 
 // styles
 import {
@@ -15,7 +15,7 @@ function DreamBuildingSuccess() {
         <p>Foi! Agora é com a gente.</p>
         <p>Em breve, entraremos em contato.</p>
 
-        <Link href="/">
+        <Link route="/" passHref>
           <Button>
             &lt; Voltar à home
           </Button>

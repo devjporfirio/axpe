@@ -65,7 +65,7 @@ export const Wrapper = styled.section`
   }
 `;
 
-export const Button = styled.section`
+export const Button = styled.a`
   display: inline-block;
   margin-top: 30px;
   font: 14px 'Raleway';

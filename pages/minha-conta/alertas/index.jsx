@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
-import Link from 'next/link';
 import Head from 'next/head';
 import Api from 'services';
 
 // helpers
+import { Link } from 'helpers/routes';
 import SeoData from 'helpers/seo';
 import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 
@@ -112,14 +112,14 @@ function Alerts() {
             {alerts &&
               alerts.map((alert, alertIndex) => (
                 <Item key={`alert-item-${alertIndex}`}>
-                  <Link href={`alertas/busca${getParams(alert)}`} passHref>
-                    <a href={`alertas/busca${getParams(alert)}`}>
+                  <Link route={`alertas/busca${getParams(alert)}`} passHref>
+                    <a>
                       <Gradient />
                       <ItemImage background={alert.use} />
                     </a>
                   </Link>
                   <AmountRemoveGroup>
-                    <Link href={`alertas/busca${getParams(alert)}`} passHref>
+                    <Link route={`alertas/busca${getParams(alert)}`} passHref>
                       <Amount>
                         <strong>{alert.total_buildings}</strong> imóveis
                       </Amount>
@@ -133,8 +133,8 @@ function Alerts() {
                       excluir
                     </ButtonRemove>
                   </AmountRemoveGroup>
-                  <Link href={`alertas/busca${getParams(alert)}`} passHref>
-                    <a href={`alertas/busca${getParams(alert)}`}>
+                  <Link route={`alertas/busca${getParams(alert)}`} passHref>
+                    <a>
                       <ItemInfo>
                         <SourceUse>
                           <span>{alert.source}</span>

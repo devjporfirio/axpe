@@ -136,11 +136,17 @@ function Building({ property }) {
 }
 
 Building.getInitialProps = async ({ query }) => {
-  const reference = query.reference;
+  const slug = query.slug ? query.slug.split('-') : false;
+  let reference = null;
+
+  if(slug) {
+    reference = slug[slug.length - 1];
+  }
+
   const response = await Api.Building.getPage(reference);
 
   return {
-    reference: query.reference,
+    reference: reference,
     property: response.building
   };
 };

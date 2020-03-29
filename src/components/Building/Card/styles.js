@@ -11,7 +11,7 @@ export const Container = styled.article`
   `}
 `;
 
-export const LinkFake = styled.a`
+export const LinkTag = styled.a`
   color: ${({ theme }) => theme.colors.greenDark};
 
   ${media.greaterThan('large')`

@@ -1,17 +1,17 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'helpers/routes';
 
 // styles
 import { ButtonContainer, ButtonLinkContainer } from './styles';
 
 function Button(props) {
   const {
-    as,
     className,
     children,
     color = 'orange',
     disabled,
     href = '',
+    route = '',
     size = 'normal',
     target,
     type,
@@ -34,7 +34,7 @@ function Button(props) {
       {children}
     </ButtonLinkContainer>
   ) : (
-    <Link href={href} as={as} passHref>
+    <Link route={route} passHref>
       <ButtonLinkContainer
         className={className}
         color={color}

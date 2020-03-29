@@ -2,7 +2,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 
 // helpers
-import { formatCurrency } from 'helpers/utils';
+import { formatCurrency, getBuildingUrl } from 'helpers/utils';
 
 // components
 import Button from 'components/Button';
@@ -70,10 +70,8 @@ function sectionDestaqueTextBullets(item) {
 }
 
 function sectionMultiInfos(item, labelTitle, type, useButtom) {
-  const { category, values, infos, reference, slug, address } =
-    item && item.building && Object.keys(item.building).length > 0
-      ? item.building
-      : item;
+  const buildingObj = item && item.building && Object.keys(item.building).length > 0 ? item.building : item;
+  const { category, values, infos, reference, address } = buildingObj;
 
   const sell =
     values && Object.keys(values).length > 0 && values.sell
@@ -123,9 +121,10 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
 
         <Reference type={type}>Ref {reference}</Reference>
       </GroupInfo>
+
       {(useButtom || type === 'slickGrid' || type === 'slickLeft') && (
         <LinkContainer type={type}>
-          <Button href="/building/[reference]" as={`/building/${slug}`}>
+          <Button route={getBuildingUrl(buildingObj)}>
             Saiba mais
           </Button>
         </LinkContainer>

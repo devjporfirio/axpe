@@ -1,6 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
 import SVG from 'react-inlinesvg';
+
+// helpers
+import { Link } from 'helpers/routes';
 
 // assets
 import FacebookIconSVG from 'assets/icons/facebook';
@@ -37,14 +39,14 @@ function Footer() {
           Todos os direitos reservados. AxPe. CRECI 19111J{' '}
           <span>
             |{' '}
-            <Link href="/mapa-do-site" passHref>
-              <a href="/mapa-do-site">Mapa do site</a>
+            <Link route="/mapa-do-site" passHref>
+              <a>Mapa do site</a>
             </Link>
           </span>
         </Copy>
         <Links>
-          <Link href="/mapa-do-site" passHref>
-            <a href="/mapa-do-site">Mapa do site</a>
+          <Link route="/mapa-do-site" passHref>
+            <a>Mapa do site</a>
           </Link>
           <span>|</span>
           <FutureBrand>

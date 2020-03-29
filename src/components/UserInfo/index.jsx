@@ -1,7 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
 import SVG from 'react-inlinesvg';
 import { useSelector, useDispatch } from 'react-redux';
+
+// helpers
+import { Link } from 'helpers/routes';
 
 // store
 import { setMain } from 'store/modules/main/actions';
@@ -34,7 +36,7 @@ function UserInfo({ asInclude, layout }) {
         </p>
         <p>
           Se não for você{' '}
-          <Link href="/logout" passHref>
+          <Link route="/logout" passHref>
             <LinkLogout onClick={handleLogoff}>clique aqui</LinkLogout>
           </Link>
         </p>

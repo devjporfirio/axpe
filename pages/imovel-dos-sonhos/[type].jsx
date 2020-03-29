@@ -2,12 +2,12 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useFormik } from 'formik';
 import Api from 'services';
 import * as Yup from 'yup';
 
 // helpers
+import { Link } from 'helpers/routes';
 import SeoData from 'helpers/seo';
 
 // actions
@@ -230,10 +230,8 @@ function DreamBuildingSingle({ type }) {
 
           {breadcrumb.length > 0 && (
             <Breadcrumb>
-              <Link href="/imovel-dos-sonhos" passHref>
-                <a href="/imovel-dos-sonhos">
-                  {breadcrumb[0] === 'sp' ? 'São Paulo' : breadcrumb[0]}
-                </a>
+              <Link route="/imovel-dos-sonhos" passHref>
+                {breadcrumb[0] === 'sp' ? 'São Paulo' : breadcrumb[0]}
               </Link>
               {breadcrumb[1] ? (
                 <>

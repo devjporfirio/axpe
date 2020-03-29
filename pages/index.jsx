@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Head from 'next/head';
 import Api from 'services';
 
@@ -9,6 +8,7 @@ import Api from 'services';
 import { setMain } from 'store/modules/main/actions';
 
 // helpers
+import { Link } from 'helpers/routes';
 import { shuffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
@@ -213,7 +213,7 @@ function Home({ hero, components }) {
                   </HeroLink>
                 )}
                 {item.link.target === 'self' && item.link.url && (
-                  <Link href={item.link.url} passHref>
+                  <Link route={item.link.url} passHref>
                     {renderHeroItem(item)}
                   </Link>
                 )}

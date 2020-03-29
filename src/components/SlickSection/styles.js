@@ -42,6 +42,8 @@ export const ItemLink = styled(Button)`
   `}
 `;
 
+export const LinkTag = styled.a``;
+
 const SlickLarge = media.greaterThan('medium')`
   .slick-track {
     max-height: 560px;

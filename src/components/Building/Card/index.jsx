@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import Link from 'next/link';
 import SVG from 'react-inlinesvg';
 
 // helpers
-import { formatCurrency } from 'helpers/utils';
+import { Link } from 'helpers/routes';
+import { formatCurrency, getBuildingUrl } from 'helpers/utils';
 
 // assets
 import EmojiIconSVG from 'assets/icons/emoji';
@@ -11,7 +11,7 @@ import EmojiIconSVG from 'assets/icons/emoji';
 // styles
 import {
   Container,
-  LinkFake,
+  LinkTag,
   Wrapper,
   Gallery,
   Image,
@@ -125,10 +125,10 @@ function BuildingCard({
   return (
     <Container layout={layout}>
       {status !== 'inactive' ? (
-        <Link href="/building/[reference]" as={`/building/${reference}`} passHref>
-          <LinkFake layout={layout}>
+        <Link route={getBuildingUrl(item)} passHref>
+          <LinkTag layout={layout}>
             {renderHTML()}
-          </LinkFake>
+          </LinkTag>
         </Link>
       ) : renderHTML()}
     </Container>

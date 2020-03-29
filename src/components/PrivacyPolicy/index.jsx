@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
-import Link from 'next/link';
+
+// helpers
+import { Link } from 'helpers/routes';
 
 // styles
 import {
@@ -44,7 +46,7 @@ function PrivacyPolicy({ onDemand, active, onClose }) {
           {onDemand ? (
             <ButtonClose type="button" onClick={handleClose}>Fechar</ButtonClose>
           ) : (
-            <Link href="/" passHref>
+            <Link route="/" passHref>
               <ButtonCloseLink>Fechar</ButtonCloseLink>
             </Link>
           )}

@@ -1,12 +1,12 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Link from 'next/link';
 import SVG from 'react-inlinesvg';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
 
 // helpers
+import { Link } from 'helpers/routes';
 import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
@@ -107,13 +107,13 @@ function Header() {
     <Container ref={refHeader}>
       <Wrapper>
         <AxpeLogo type="axpe">
-          <Link href="/" passHref>
+          <Link route="/" passHref>
             <LogoLink onClick={cancelToggle}>Axpe. Imóveis Especiais</LogoLink>
           </Link>
         </AxpeLogo>
 
         <ChristiesLogo type="christies">
-          <Link href="/sobre" passHref>
+          <Link route="/sobre" passHref>
             <LogoLink onClick={cancelToggle}>
               Christie's Real Estate São Paulo
             </LogoLink>
@@ -148,7 +148,7 @@ function Header() {
               </li>
               <li>
                 {logged ? (
-                  <Link href="/cadastrar" passHref>
+                  <Link route="/cadastrar" passHref>
                     <NavMainButton type="register" onClick={cancelToggle}>
                       <SVG src={HomeIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
@@ -162,7 +162,7 @@ function Header() {
                 )}
               </li>
               <li>
-                <Link href="/so-quero-sonhar" passHref>
+                <Link route="/so-quero-sonhar" passHref>
                   <NavMainButton type="dream" onClick={cancelToggle}>
                     <SVG src={CloudIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Só quero sonhar</NavMainButtonText>
@@ -175,14 +175,14 @@ function Header() {
           <NavSecondary>
             <ul>
               <li>
-                <Link href="/sobre" passHref>
+                <Link route="/sobre" passHref>
                   <NavSecondaryButton onClick={cancelToggle}>
                     Sobre a Axpe
                   </NavSecondaryButton>
                 </Link>
               </li>
               <li>
-                <Link href="/contato" passHref>
+                <Link route="/contato" passHref>
                   <NavSecondaryButton onClick={cancelToggle}>
                     Fale com a gente
                   </NavSecondaryButton>
@@ -190,7 +190,7 @@ function Header() {
               </li>
               <li>
                 {logged ? (
-                  <Link href="/minha-conta" passHref>
+                  <Link route="/minha-conta" passHref>
                     <NavSecondaryButton onClick={cancelToggle}>
                       Meu perfil
                       {notificationsAvailable ? (
@@ -208,7 +208,7 @@ function Header() {
               </li>
               <li>
               {logged ? (
-                  <Link href="/minha-conta/favoritos" passHref>
+                  <Link route="/minha-conta/favoritos" passHref>
                     <NavSecondaryButton onClick={cancelToggle}>
                       Meus favoritos
                     </NavSecondaryButton>
