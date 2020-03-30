@@ -125,7 +125,7 @@ function BuildingCard({
   return (
     <Container layout={layout}>
       {status !== 'inactive' ? (
-        <Link route={getBuildingUrl(item)} passHref>
+        <Link route={getBuildingUrl(itemData)} passHref>
           <LinkTag layout={layout}>
             {renderHTML()}
           </LinkTag>
