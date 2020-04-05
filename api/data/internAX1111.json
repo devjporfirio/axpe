@@ -9,9 +9,9 @@
     "content": null,
     "category": "Apartamento",
     "label": {
-      "is_exclusive": false,
-      "is_new": false,
-      "is_furnished": false
+      "isExclusive": false,
+      "isNew": false,
+      "isFurnished": false
     },
     "address": {
       "condominium": false,

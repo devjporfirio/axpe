@@ -8,17 +8,26 @@ export const Container = styled.article`
     ${props => props.layout === 'horizontal' && css`
       padding: 15px 10px;
     `}
+
+    ${props => props.layout === 'vertical' && css`
+      padding-top: 5px;
+      padding-bottom: 5px;
+    `}
   `}
 `;
 
 export const LinkTag = styled.a`
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
   color: ${({ theme }) => theme.colors.greenDark};
 
   ${media.greaterThan('large')`
+    transition: all 300ms ease;
+
     &:hover {
-      div[class*='Column'] {
-        opacity: 0.7;
-      }
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 
       div[class*='Gallery']:before {
         ${({ theme }) => theme.show};
@@ -29,8 +38,8 @@ export const LinkTag = styled.a`
 
 export const Wrapper = styled.div`
   position: relative;
-  overflow: hidden;
-  border-radius: 6px;
+  /* overflow: hidden;
+  border-radius: 6px; */
   background: ${({ theme }) => theme.colors.white};
 
   ${media.greaterThan('medium')`

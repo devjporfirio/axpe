@@ -48,6 +48,7 @@ const SlickLarge = media.greaterThan('medium')`
   .slick-track {
     max-height: 560px;
   }
+
   .slick-slide {
     display: flex;
     align-items: center;
@@ -64,6 +65,50 @@ const SlickLarge = media.greaterThan('medium')`
   }
 `;
 
+const SlickLeft = css`
+  ${media.greaterThan('medium')`
+    button[type='together'][class*='__Arrow'] {
+      left: 40px;
+
+      &:last-child {
+        left: 70px;
+      }
+    }
+  `}
+
+  ${media.greaterThan('large')`
+    button[type='together'][class*='__Arrow'] {
+      left: 90px;
+
+      &:last-child {
+        left: 120px;
+      }
+    }
+  `}
+`;
+
+const SlickGrid = css`
+  ${media.greaterThan('medium')`
+    button[type='together'][class*='__Arrow'] {
+      left: calc(60% + 40px);
+
+      &:last-child {
+        left: calc(60% + 70px);
+      }
+    }
+  `}
+
+  ${media.greaterThan('large')`
+    button[type='together'][class*='__Arrow'] {
+      left: calc(60% + 90px);
+
+      &:last-child {
+        left: calc(60% + 120px);
+      }
+    }
+  `}
+`;
+
 export const Container = styled(Slider)`
   ${props =>
     props.type !== 'slick' &&
@@ -73,6 +118,9 @@ export const Container = styled(Slider)`
 
   ${props =>
     props.type === 'slickLarge' && media.greaterThan('medium')`${SlickLarge}`}
+
+  ${props => props.type === 'slickLeft' && SlickLeft}
+  ${props => props.type === 'slickGrid' && SlickGrid}
 `;
 
 export const Slide = styled.div`
@@ -271,6 +319,8 @@ export const ImagesGrid = styled.div`
     display: flex;
     flex-direction: column;
     width: 60vw;
+    position: relative;
+    overflow: hidden;
 
     img {
       border: 3.5px solid ${({ theme }) => theme.colors.white};

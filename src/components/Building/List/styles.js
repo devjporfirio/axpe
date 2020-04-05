@@ -68,11 +68,11 @@ export const SliderContainer = styled.div`
 
   ${media.greaterThan('medium')`
     width: 60%;
-    height: ${props => (props.useBtSchedule ? '386px' : '365px')};
+    height: ${props => props.useBtSchedule ? '386px' : '365px'};
 
     iframe, img {
       width: 100%;
-      height: ${props => (props.useBtSchedule ? '386px' : '365px')};
+      height: ${props => props.useBtSchedule ? '386px' : '365px'};
     }
   `}
 `;

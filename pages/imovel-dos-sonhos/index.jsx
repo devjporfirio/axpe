@@ -81,7 +81,7 @@ function DreamBuilding() {
                     <h3>Praia e Campo</h3>
                     <p>Alugar ou Comprar</p>
                   </ListText>
-                  <ListImage src="/static/dream-building/praia-campo.jpg" alt="Praia e Campo" />
+                  <ListImage src="/static/dream-building/praia-e-campo.jpg" alt="Praia e Campo" />
                 </ListButton>
               </Link>
             </li>

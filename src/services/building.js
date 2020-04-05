@@ -73,7 +73,7 @@ export default {
       finality: property.infos ? property.infos.type : '',
       category: property.catergory,
       local: property.address ? property.address.local : '',
-      furniture: property.label ? property.label.is_furnished : '',
+      furniture: property.label ? property.label.isFurnished : '',
       type: property.type,
       price_start: property.values ? property.values.release : '',
       area_start: property.infos ? property.infos.areaUsefulStart : '',

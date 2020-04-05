@@ -22,9 +22,9 @@
       "condo": 0
     },
     "label": {
-      "is_new": true,
-      "is_exclusive": false,
-      "is_furnished": false
+      "isNew": true,
+      "isExclusive": false,
+      "isFurnished": false
     },
     "infos": {
       "use": "RESIDENCIAL",

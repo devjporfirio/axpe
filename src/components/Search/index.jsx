@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -64,6 +64,7 @@ function Search() {
   const [ filtersData, setFiltersData ] = useState(null);
   const [ filtersListToggle, setFiltersListToggle ] = useState(null);
   const [ tabActive, setTabActive ] = useState(null);
+  const [ seasons, setSeasons ] = useState([]);
 
   const readyReleases = [
     { label: 'Prontos', value: 'pronto' },
@@ -77,7 +78,7 @@ function Search() {
     { label: 'Internacional', value: 'internacional' }
   ];
 
-  const finalities = [
+  const getFinalities = useCallback(() => [
     {
       label: 'Comprar',
       value: 'venda',
@@ -91,9 +92,10 @@ function Search() {
     {
       label: 'Temporada',
       value: 'temporada',
-      sources: [ 'praia', 'campo', 'internacional' ]
+      // sources: [ 'praia', 'campo', 'internacional' ]
+      sources: seasons
     }
-  ];
+  ], [ seasons ]);
 
   const formik = useFormik({
     initialValues: {
@@ -338,9 +340,17 @@ function Search() {
     const getCategories = async () => {
       const response = await Api.Search.getCategories();
       setCategoriesData(response);
+      dispatch(setMain({ categories: response }));
     };
 
+    const getLocals = async () => {
+      const locals = await Api.Search.getLocals(true);
+      const newSeasons = Object.keys(locals.hasSeason).filter(season => locals.hasSeason[season]);
+      setSeasons(newSeasons)
+    }
+
     getCategories();
+    getLocals();
   }, []);
 
   return (
@@ -401,11 +411,10 @@ function Search() {
               )}
 
               {/* Comprar, Alugar */}
-              {(formik.values.source.value == 'sao-paulo' &&
-                formik.values.use) ||
-              formik.values.source.value != 'sao-paulo' ? (
+              {(formik.values.source.value == 'sao-paulo' && formik.values.use) ||
+                formik.values.source.value != 'sao-paulo' ? (
                 <FormButtonsFilterRow>
-                  {finalities.map((finality, finalityIndex) =>
+                  {getFinalities().map((finality, finalityIndex) =>
                     finality.sources.includes(formik.values.source.value) ? (
                       <FormButtonsFilterItemRadio
                         twoColumns={
@@ -804,7 +813,7 @@ function Search() {
               filtersData.bedrooms.length &&
               filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
                 <FormTabSlider>
-                  <FormTabSliderTitle>Dormitórios</FormTabSliderTitle>
+                  <FormTabSliderTitle>Quartos</FormTabSliderTitle>
                   <RangeSlider
                     data={filtersData.bedrooms}
                     sep="a"
@@ -822,7 +831,7 @@ function Search() {
               filtersData.parking[0] != filtersData.parking[1] ? (
                 <FormTabSlider>
                   <FormTabSliderTitle>
-                    Vagas de estacionamento
+                    Vagas
                   </FormTabSliderTitle>
                   <RangeSlider
                     data={filtersData.parking}

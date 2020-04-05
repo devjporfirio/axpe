@@ -11,9 +11,7 @@ export default function Select(props) {
         {props.items &&
           props.items.length > 0 &&
           props.items.map(i => (
-            <option key={`option-${i.value}`} value={i.value}>
-              {i.label}
-            </option>
+            <option key={`option-${i.value}`} value={i.value} dangerouslySetInnerHTML={{ __html: i.label }} />
           ))}
       </InputSelect>
       <SVG src={ArrowIconSVG} uniquifyIDs={true} />

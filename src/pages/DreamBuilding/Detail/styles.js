@@ -119,6 +119,10 @@ export const FormListItem = styled.li`
 
   label {
     min-height: 0 !important;
+
+    &[for="Radio1"] {
+      background: transparent;
+    }
   }
 
   span {
@@ -276,7 +280,7 @@ export const FormCol = styled.div`
   h3 {
     margin-bottom: 10px;
     text-transform: uppercase;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 18px;
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     letter-spacing: 1px;

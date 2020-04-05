@@ -2,23 +2,20 @@ import React from 'react';
 import { formatCurrency, checkPluralSingular } from 'helpers/utils';
 import { Price, InfoValue, PriceRelease } from './styles';
 
-export const Release = ({ release, type, currency }) => {
-  return (
-    !!release && (
-      <PriceRelease>
-        <p>
-          {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
-          {currency
-            ? formatCurrency.format(release).replace('R$', currency)
-            : formatCurrency.format(release)}
-        </p>
-      </PriceRelease>
-    )
+export const Release = ({ release, type, currency }) =>
+  !!release && (
+    <PriceRelease>
+      <p>
+        {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
+        {currency
+          ? formatCurrency.format(release).replace('R$', currency)
+          : formatCurrency.format(release)}
+      </p>
+    </PriceRelease>
   );
-};
 
-export const Rent = ({ rent, iptu, condo, currency }) =>
-  !!rent && (
+export const Rent = ({ valueOnlyConsults, rent, iptu, condo, currency }) =>
+  rent && !valueOnlyConsults ? (
     <Price>
       <p>Aluguel:</p>
       <p>{formatCurrency.format(rent)}</p>
@@ -32,10 +29,15 @@ export const Rent = ({ rent, iptu, condo, currency }) =>
       </p>
       <p>(Aluguel + IPTU + Cond.)</p>
     </Price>
+  ) : (
+    <Price className="price-wfull">
+      <p>Aluguel:</p>
+      <p>Valores sob consulta</p>
+    </Price>
   );
 
-export const Sell = ({ sell, iptu, condo, type, currency }) =>
-  !!sell && (
+export const Sell = ({ valueOnlyConsults, sell, iptu, condo, type, currency }) =>
+  sell && !valueOnlyConsults ? (
     <Price>
       <p>{type === 'pronto' ? 'Venda' : 'A partir de'}: </p>
       <p>
@@ -43,29 +45,44 @@ export const Sell = ({ sell, iptu, condo, type, currency }) =>
           ? formatCurrency.format(sell).replace('R$', currency)
           : formatCurrency.format(parseInt(rent + iptu + condo))}
       </p>
-      <p>
-        IPTU: 10x{' '}
-        {currency
-          ? formatCurrency.format(parseInt(iptu)).replace('R$', currency)
-          : formatCurrency.format(parseInt(rent + iptu + condo))}
-      </p>
-      <p>
-        Condominio:{' '}
-        {currency
-          ? formatCurrency.format(parseInt(condo)).replace('R$', currency)
-          : formatCurrency.format(parseInt(rent + iptu + condo))}
-      </p>
+      {iptu && (
+        <p>
+          IPTU: 10x{' '}
+          {currency
+            ? formatCurrency.format(parseInt(iptu)).replace('R$', currency)
+            : formatCurrency.format(parseInt(rent + iptu + condo))}
+        </p>
+      )}
+      {condo && (
+        <p>
+          Condominio:{' '}
+          {currency
+            ? formatCurrency.format(parseInt(condo)).replace('R$', currency)
+            : formatCurrency.format(parseInt(rent + iptu + condo))}
+        </p>
+      )}
+    </Price>
+  ) : (
+    <Price className="price-wfull">
+      <p>Venda:</p>
+      <p>Valores sob consulta</p>
     </Price>
   );
 
-export const Bedrooms = ({ bedrooms, suites }) => {
-  const wordBedroom = checkPluralSingular('Quarto', bedrooms);
+export const Bedrooms = ({ type, bedrooms, bedroomsStart, suites }) => {
+  const wordBedroom = checkPluralSingular('Quarto', !!bedrooms ? bedrooms : bedroomsStart);
   return (
-    !!bedrooms && (
+    !!bedrooms || (!!bedroomsStart && type === 'lancamento') && (
       <InfoValue>
-        <p>
-          {bedrooms} {!!suites && wordBedroom}
-        </p>
+        {!!bedrooms ? (
+          <p>
+            {bedrooms} {!!suites && wordBedroom}
+          </p>
+        ) : !!bedroomsStart && type === 'lancamento' ? (
+          <p>
+            {bedroomsStart} {!!suites && wordBedroom}
+          </p>
+        ) : null}
         {!suites ? (
           <p>{wordBedroom}</p>
         ) : (
@@ -90,11 +107,15 @@ export const BedroomsBetween = ({ start, end }) =>
     <Bedrooms bedrooms={start} />
   );
 
-export const Parking = ({ parking }) =>
-  !!parking && (
+export const Parking = ({ type, parking, parkingStart }) =>
+  !!parking || !!parkingStart && type === 'lancamento' && (
     <InfoValue>
-      <p>{parking}</p>
-      <p>{checkPluralSingular('Vaga', parking)}</p>
+      {!!parking ? (
+        <p>{parking}</p>
+      ) : !!parkingStart && type === 'lancamento' ? (
+        <p>{parkingStart}</p>
+      ) : null}
+      <p>{checkPluralSingular('Vaga', !!parking ? parking : parkingStart)}</p>
     </InfoValue>
   );
 
@@ -134,10 +155,14 @@ export const AreaTotal = ({ areaTotal }) =>
     </InfoValue>
   );
 
-export const AreaUseFul = ({ areaUseful }) =>
-  !!areaUseful && (
+export const AreaUseFul = ({ type, areaUseful, areaUsefulStart }) =>
+  !!areaUseful || (!!areaUsefulStart && type === 'lancamento') && (
     <InfoValue>
-      <p>{formatCurrency.format(parseInt(areaUseful)).replace('R$', '')}m²</p>
+      {!!areaUseful ? (
+        <p>{formatCurrency.format(parseInt(areaUseful)).replace('R$', '')}m²</p>
+      ) : !!areaUsefulStart && type === 'lancamento' ? (
+        <p>{formatCurrency.format(parseInt(areaUsefulStart)).replace('R$', '')}m²</p>
+      ) : null}
       <p>Área útil</p>
     </InfoValue>
   );

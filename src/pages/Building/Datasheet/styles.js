@@ -73,6 +73,10 @@ export const BlockThree = styled(Block)`
 
   div {
     flex-basis: 50%;
+
+    &.price-wfull {
+      flex-basis: 100%;
+    }
   }
 
   ${media.greaterThan('medium')`
@@ -115,7 +119,8 @@ export const Neighborhood = styled.p`
   ${media.greaterThan('medium')`
     font-size: 16px;
     line-height: 33px;
-    letter-spacing: 0.46px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
   `}
 `;
 
@@ -133,6 +138,7 @@ export const CategoryRelease = styled.p`
 
 export const Ref = styled.p`
   font-size: 14px;
+  white-space: nowrap;
 
   ${media.greaterThan('medium')`
     font-size: 12px;
@@ -156,10 +162,15 @@ export const Content = styled.p`
 `;
 
 export const Price = styled.div`
-  height: 82px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  height: 82px;
+
+  &.price-wfull {
+    height: 52px;
+    margin-top: 20px;
+  }
 
   p {
     &:nth-child(1) {

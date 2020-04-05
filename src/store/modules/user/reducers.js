@@ -1,10 +1,4 @@
-const initialState = {
-  logged: false,
-  access_token: '',
-  favorites: [],
-  me: {},
-  buildingsToLike: []
-};
+import initialState from './initialState';
 
 function user(state = initialState, action) {
   switch (action.type) {

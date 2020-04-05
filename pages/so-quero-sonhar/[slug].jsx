@@ -16,7 +16,12 @@ import BuildingList from 'components/Building/List';
 import BlockHighlighted from 'components/BlockHighlighted';
 
 // styles
-import { Container, Header, List, Footer, FooterListItemLink } from 'pages/Dream/Detail/styles';
+import { Container, Header, List, Footer } from 'pages/Dream/Detail/styles';
+import {
+  ListButton,
+  ListText,
+  ListImage
+} from 'pages/Dream/styles';
 
 // styles
 import {
@@ -107,12 +112,15 @@ function DreamDetail({ buildings }) {
           <h2>Sonhe também com:</h2>
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
-              <article className="item" key={`dream-slider-item-${itemIndex}`}>
+              <article key={`dreamsingle-list-item-${itemIndex}`}>
                 <Link route={`/so-quero-sonhar/${item.slug}`} passHref>
-                  <FooterListItemLink style={{ backgroundImage: `url(/static/dream/cover-${item.slug}.jpg)` }}>
-                    <h3>{item.title}</h3>
-                    <p>{item.subtitle}</p>
-                  </FooterListItemLink>
+                  <ListButton>
+                    <ListText>
+                      <h3>{item.title}</h3>
+                      <p>{item.subtitle}</p>
+                    </ListText>
+                    <ListImage src={`/static/dream/cover-${item.slug}.jpg`} alt={item.title} />
+                  </ListButton>
                 </Link>
               </article>
             ))}

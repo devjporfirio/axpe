@@ -1,8 +1,8 @@
 export default {
-  async getLocals() {
+  async getLocals(complete) {
     const response = await fetch(`${process.env.config.apiUrl}/building/locals`)
       .then(response => response.json())
-      .then(json => (json.data ? json.data : null));
+      .then(json => (complete ? json : json.data));
     return response;
   },
   async getCategories() {

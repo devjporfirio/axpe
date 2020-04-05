@@ -1,20 +1,4 @@
-const initialState = {
-  loaded: false,
-  currentBuilding: null,
-  headerHiding: false,
-  searchFormActive: false,
-  searchFunnel: null,
-  modalNewsletter: false,
-  modalNewsletterSuccess: false,
-  modalLogin: false,
-  modalLoginRegisterSuccess: false,
-  modalRegisterSuccess: false,
-  modalForgotPasswordSuccess: false,
-  modalContact: false,
-  modalContactSuccess: false,
-  modalContactMessage: '',
-  modalPasswordNew: false
-};
+import initialState from './initialState';
 
 function main(state = initialState, action) {
   switch (action.type) {

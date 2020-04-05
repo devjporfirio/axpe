@@ -1,12 +1,16 @@
 (function() {
-  const $form = document.querySelector('.form');
-  const pristine = new Pristine($form);
-  const search = location.search.replace('?', '').split('&');
-  const $buttons = document.querySelectorAll('.js-button-toggle');
-  const $inputsControl = $form.querySelectorAll('.form-group__control');
-  const $inputsMaskPhone = $form.querySelectorAll('.js-mask-phone');
-  const $message = $form.querySelector(`[data-element="message"]`);
-  let message = `Olá, gostaria de saber mais sobre o imóvel {reference} - {local}, com {areaUseful} m², {bedrooms} e {parking}.`;
+  var $form = document.querySelector('.form');
+  var pristine = new Pristine($form);
+  var search = location.search.replace('?', '').split('&');
+  var $buttons = document.querySelectorAll('.js-button-toggle');
+  var $inputsControl = $form.querySelectorAll('.form-group__control');
+  var $inputsMaskPhone = $form.querySelectorAll('.js-mask-phone');
+  var $message = $form.querySelector(`[data-element="message"]`);
+  var message = `Olá, gostaria de saber mais sobre o imóvel {reference} - {local}, com {areaUseful} m², {bedrooms} e {parking}.`;
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   $buttons.forEach($btn => {
     $btn.addEventListener('click', clickButton)
@@ -31,12 +35,12 @@
   $form.addEventListener('submit', formSubmit)
 
   search.forEach(item => {
-    const arr = item.split('=');
-    const name = decodeURI(arr[0]);
-    const value = decodeURI(arr[1]);
-    const $el = $form.querySelector(`[data-element="${name}"]`);
+    var arr = item.split('=');
+    var name = decodeURI(arr[0]);
+    var value = decodeURI(arr[1]);
+    var $el = $form.querySelector(`[data-element="${name}"]`);
 
-    if($el) {
+    if($el && name !== 'source') {
       $el.value = value;
     }
 
@@ -54,28 +58,37 @@
         message = message.replace('{areaUseful}', value);
         break;
       case 'bedrooms':
-        const textBedrooms = parseInt(value) == 1 ? `1 quarto` : `${value} quartos`;
+        var textBedrooms = parseInt(value) == 1 ? `1 quarto` : `${value} quartos`;
         message = message.replace('{bedrooms}', textBedrooms);
         break;
       case 'parking':
-        const textParking = parseInt(value) == 1 ? `1 vaga` : `${value} vagas`;
+        var textParking = parseInt(value) == 1 ? `1 vaga` : `${value} vagas`;
         message = message.replace('{parking}', textParking);
         break;
+      case 'source':
+        var newValue = capitalizeFirstLetter(value);
+        var $newInput = $form.querySelector(`[data-element="${name}"][value="${newValue}"]`)
+        if($newInput) {
+          $newInput.checked = true;
+        }
       default:
         break;
     }
   });
 
   if($message) {
+    message = message.replace(', com {areaUseful} m²', '');
+    message = message.replace(', {bedrooms}', '');
+    message = message.replace(' e {parking}', '');
     $message.value = message;
   }
 
   function clickButton(event) {
-    const $btn = event.currentTarget;
-    const hide = $btn.getAttribute('data-toggle-hide');
-    const show = $btn.getAttribute('data-toggle-show');
-    const $hide = hide ? document.querySelector(hide) : null;
-    const $show = show ? document.querySelector(show) : null;
+    var $btn = event.currentTarget;
+    var hide = $btn.getAttribute('data-toggle-hide');
+    var show = $btn.getAttribute('data-toggle-show');
+    var $hide = hide ? document.querySelector(hide) : null;
+    var $show = show ? document.querySelector(show) : null;
 
     if($hide) {
       $hide.classList.add('none');
@@ -87,8 +100,8 @@
   }
 
   function inputsControl(event) {
-    const $input = event.currentTarget;
-    const value = $input.value;
+    var $input = event.currentTarget;
+    var value = $input.value;
 
     if(value.length) {
       $input.classList.add('filled');

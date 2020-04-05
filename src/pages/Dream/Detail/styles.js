@@ -243,7 +243,7 @@ export const Footer = styled.footer`
       ${media.greaterThan('1024px')`
         margin-top: 35%;
       `}
-      
+
       ${media.greaterThan('large')`
         margin-top: 45%;
         top: 2.5rem;
@@ -258,11 +258,11 @@ export const Footer = styled.footer`
       font-family: 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.medium};
       position: relative;
- 
+
       ${media.greaterThan('medium')`
        font-size: .85rem;
      `}
- 
+
       ${media.greaterThan('large')`
          opacity: 0;
          top: 1.3rem;

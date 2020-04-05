@@ -145,7 +145,7 @@ function Home({ hero, components }) {
         if(responseBuildingsForYou && responseBuildingsForYou.buildings && responseBuildingsForYou.buildings.length) {
           setBuildingsForYou(responseBuildingsForYou.buildings);
         }
-      } else if (!user.logged) {
+      } else {
         const buildingsSeenCookie = CookieBuildingSeen.get();
 
         if(buildingsSeenCookie.length) {
@@ -158,12 +158,14 @@ function Home({ hero, components }) {
 
         if (!buildingsSeenCookie.length) return false;
 
-        const listBuildingsSeen = await Promise.all(
+        const listBuildingsSeenTemp = await Promise.all(
           buildingsSeenCookie.map(async b => {
             const building = await Api.Building.getPage(b);
             return building;
           })
         );
+
+        const listBuildingsSeen = listBuildingsSeenTemp.filter(item => item && item.building && item.building.reference)
 
         let listForYou = await Api.Building.getSimilar(
           listBuildingsSeen[0].building,

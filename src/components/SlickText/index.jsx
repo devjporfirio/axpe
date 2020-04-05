@@ -26,13 +26,14 @@ function SlickText({ items }) {
             {item.gallery &&
               item.gallery.length > 0 &&
               item.gallery.map((media, mediaIndex) => {
-                return media.mediaType === 'imagem' ? (
-                  <div key={`item-gallery-${mediaType}-${mediaIndex}`}>
+                return !media.mediaType || (media.mediaType !== 'imagem' && media.mediaType !== 'video') ?
+                  null :  media.mediaType === 'imagem' ? (
+                  <div key={`item-gallery-${media.mediaType}-${mediaIndex}`}>
                     <img src={media.image} alt="Imóvel" />
                   </div>
                 ) : media.mediaType === 'video' ? (
                   <iframe
-                    key={`item-gallery-${mediaType}-${mediaIndex}`}
+                    key={`item-gallery-${media.mediaType}-${mediaIndex}`}
                     title="video"
                     src={`https://www.youtube.com/embed/${media.src}`}
                     frameBorder="0"

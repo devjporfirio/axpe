@@ -13,6 +13,7 @@ import Contact from 'components/Contact';
 // styles
 import {
   Container,
+  Hero,
   Image,
   Gradient,
   Title,
@@ -38,13 +39,13 @@ function Landing({ slug, page }) {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-        <Gradient />
-        {Object.keys(images) && (
-          <>
+        {images.desktop || images.mobile ? (
+          <Hero>
+            <Gradient />
             <Image mq="desktop" src={images.desktop} />
             <Image mq="mobile" src={images.mobile} />
-          </>
-        )}
+          </Hero>
+        ) : null}
         <Title>{title}</Title>
         <hr />
         <GroupText>

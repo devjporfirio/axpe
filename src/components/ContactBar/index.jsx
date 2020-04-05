@@ -316,7 +316,7 @@ function ContactBar() {
                     <List>
                       <li>
                         <ListLink
-                          href="https://api.whatsapp.com/send?phone=5511999998888"
+                          href="https://api.whatsapp.com/send?phone=551130743600"
                           target="_blank"
                         >
                           <i>
@@ -325,19 +325,19 @@ function ContactBar() {
                           <span>
                             Whatsapp:
                           <br />
-                            <strong>(11) 99999-8888</strong>
+                            <strong>(11) 3074-3600</strong>
                           </span>
                         </ListLink>
                       </li>
                       <li>
-                        <ListLink href="tel:+5511999998889" target="_blank">
+                        <ListLink href="tel:+551130743600" target="_blank">
                           <i>
                             <SVG src={PhoneIconSVG} uniquifyIDs={true} />
                           </i>
                           <span>
                             Telefone:
                           <br />
-                            <strong>(11) 99999-8888</strong>
+                            <strong>(11) 3074-3600</strong>
                           </span>
                         </ListLink>
                       </li>
@@ -346,7 +346,7 @@ function ContactBar() {
                           <i>
                             <SVG src={ChatIconSVG} uniquifyIDs={true} />
                           </i>
-                          <span className="big">Chat</span>
+                          <span className="big">Fale pelo chat</span>
                         </ListButton>
                       </li>
                     </List>

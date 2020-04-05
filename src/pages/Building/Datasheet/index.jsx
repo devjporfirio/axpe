@@ -46,13 +46,13 @@ export default function Datasheet({ property }) {
             {type !== 'lancamento' && <hr />}
           </GroupInfo>
           <GroupTags>
-            {label && label.is_new && (
+            {label && label.isNew && (
               <Tag label={'Novidade'} icon="star" color="blueLight" />
             )}
-            {label && label.is_exclusive && (
+            {label && label.isExclusive && (
               <Tag label={'Só na Axpe'} icon="check" color="greenLight2" />
             )}
-            {label && label.is_furnished && (
+            {label && label.isFurnished && (
               <Tag label={'Mobiliado'} icon="sofa" color="yellowLight" />
             )}
           </GroupTags>
@@ -69,6 +69,7 @@ export default function Datasheet({ property }) {
 
             {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
               <Caracteristics.Sell
+                valueOnlyConsults={values.valueOnlyConsults}
                 sell={values.sell}
                 iptu={values.iptu}
                 condo={values.condo}
@@ -84,6 +85,7 @@ export default function Datasheet({ property }) {
 
             {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
               <Caracteristics.Rent
+                valueOnlyConsults={values.valueOnlyConsults}
                 rent={values.rent}
                 iptu={values.iptu}
                 condo={values.condo}
@@ -122,7 +124,7 @@ export default function Datasheet({ property }) {
             />
           )}
 
-          {category && category.search('Casa') < 0 &&
+          {category && (category.search('Casa') < 0 && category !== 'Apartamento' && category !== 'Cobertura') &&
             infos.use !== 'COMERCIAL' &&
             source !== 'praia' &&
             source !== 'campo' && (

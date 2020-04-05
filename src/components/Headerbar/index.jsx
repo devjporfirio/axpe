@@ -184,7 +184,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
                 {building.likes > 0 && building.likes}
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </ButtonLike>
-              <PhoneContact>11 3074-3600</PhoneContact>
+              <PhoneContact href="tel:+551130743600">11 3074-3600</PhoneContact>
             </Column>
           )}
         </Wrapper>

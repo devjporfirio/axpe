@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // components
 import BuildingCard from 'components/Building/Card';
@@ -20,10 +20,12 @@ function BuildingsPanel({
   data,
   type = 'normal'
 }) {
+  const [ items, setItems ] = useState([]);
+
   const settings = {
     vertical: {
       dots: false,
-      infinite: true,
+      infinite: false,
       lazyLoad: true,
       speed: 800,
       slidesToShow: 3,
@@ -65,7 +67,15 @@ function BuildingsPanel({
     },
   }
 
-  return (
+  useEffect(() => {
+    let newItems = data;
+    if(data.length < 3 && buildingLayout === 'horizontal') {
+      newItems = newItems.concat(data, data);
+    }
+    setItems(newItems);
+  }, [])
+
+  return items && items.length >= 1 && (
     <Container type={type}>
       <Wrapper type={type}>
         <Header headerBig={headerBig}>
@@ -78,14 +88,14 @@ function BuildingsPanel({
           )}
         </Header>
 
-        {data && data.length > 0 ? (
+        {items && items.length > 0 ? (
           <Items>
             <SliderNew
               type="normal"
               arrowsColor="greenDark"
               settings={settings[buildingLayout]}
             >
-              {data.map((building, buildingIndex) => (
+              {items.map((building, buildingIndex) => (
                 <BuildingCard
                   layout={buildingLayout}
                   item={building}

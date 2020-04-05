@@ -29,12 +29,14 @@ const TypeSlickLargeDesktop = css`
 const TypeSlickLeftDesktop = css`
   position: initial;
   background-color: #fff;
-  width: 310px;
+  width: 40%;
+  min-width: 40%;
   height: 100%;
-  margin: auto 100px;
+  margin: auto 0;
+  padding: 0 50px;
 
-  ${media.greaterThan('1440px')`
-    margin: auto;
+  ${media.greaterThan('large')`
+    padding: 0 100px;
   `}
 `;
 
@@ -61,6 +63,14 @@ const TypeSlickLeftMobile = css`
 const TypeSlickGridDesktop = css`
   position: initial;
   background-color: #fff;
+  width: 40%;
+  min-width: 40%;
+  margin: auto 0;
+  padding: 0 50px;
+
+  ${media.greaterThan('large')`
+    padding: 0 100px;
+  `}
 `;
 
 const TypeSlick = css`

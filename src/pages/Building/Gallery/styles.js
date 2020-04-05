@@ -6,6 +6,7 @@ import GalleryHeaderbar from './GalleryHeaderbar';
 
 export const Container = styled.div`
   margin: auto;
+  position: relative;
   max-width: 974px;
 
   & > .slick-slider .slick-slide {
@@ -68,17 +69,17 @@ export const SliderButton = styled.button`
 `;
 
 export const Button360 = styled.div`
+  position: absolute;
+  right: 20px;
   width: 53px;
   height: 53px;
-  background-color: ${({ theme }) => theme.colors.orange};
-  border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  position: absolute;
-  right: 20px;
   margin-top: 20px;
+  background-color: ${({ theme }) => theme.colors.orange};
+  border-radius: 100%;
 
   img {
     width: 32px;
@@ -94,6 +95,10 @@ export const Button360 = styled.div`
     img {
       width: 40px;
     }
+  `}
+
+  ${media.greaterThan('large')`
+    margin-left: calc(100% - 81px);
   `}
 `;
 

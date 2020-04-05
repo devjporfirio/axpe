@@ -38,6 +38,8 @@ export const Banner = styled.a`
 `;
 
 export const Hero = styled.div`
+  margin-bottom: 10px;
+
   .slick-slide.active {
     div[class*='HeroItemInfo'] {
       h2, p {

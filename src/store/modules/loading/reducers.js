@@ -1,4 +1,4 @@
-const initialState = { active: true, type: null };
+import initialState from './initialState';
 
 function loading(state = initialState, action) {
   switch (action.type) {

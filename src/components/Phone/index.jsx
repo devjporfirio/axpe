@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import IWhats from 'assets/icons/whats-white';
+import WhatsappIconSVG from 'assets/icons/whats-white';
 
 import { Container } from './styles';
 
-const FLAGS = {
-  tel: 'tel:+55',
-  whats: 'whatsapp://send&phone='
+const LINKS = {
+  tel: 'tel:+551130743600',
+  whats: 'https://api.whatsapp.com/send?phone=551130743600'
 };
 
 const NUMBERS = {
   tel: '(11) 3074-3600',
-  whats: '(11) 99037-3600'
+  whats: '(11) 3074-3600'
 };
 
 const ICONS = {
   tel: '',
-  whats: IWhats
+  whats: WhatsappIconSVG
 };
 
-export default function Phone({ flag = 'tel', className, showIcon }) {
+function Phone({ flag = 'tel', className, showIcon }) {
   return (
     <Container
       className={className}
-      href={`${FLAGS[flag]}${FLAGS[flag].replace(/\s/g, '').replace('-', '')}`}
+      href={LINKS[flag]}
     >
       {showIcon && <img src={ICONS[flag]} alt={flag} />}
       {NUMBERS[flag]}
@@ -35,3 +35,5 @@ export default function Phone({ flag = 'tel', className, showIcon }) {
 Phone.propTypes = {
   phone: PropTypes.string
 };
+
+export default Phone;

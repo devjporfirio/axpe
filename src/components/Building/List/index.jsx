@@ -114,10 +114,12 @@ function BuildingList({
     let items = [];
     const categoryText = category ? category : '';
 
-    if(infos.bedrooms) {
+    if(infos.bedrooms || infos.bedroomsStart && !infos.bedroomsEnd) {
       items.push(
         <Caracteristics.Bedrooms
+          type={type}
           bedrooms={infos.bedrooms}
+          bedroomsStart={infos.bedroomsStart}
           suites={infos.suites}
           key={`caracteristic-${reference}-${items.length}`}
         />
@@ -134,10 +136,12 @@ function BuildingList({
       );
     }
 
-    if(infos.parking) {
+    if(infos.parking || infos.parkingStart && !infos.parkingEnd) {
       items.push(
         <Caracteristics.Parking
+          type={type}
           parking={infos.parking}
+          parkingStart={infos.parkingStart}
           key={`caracteristic-${reference}-${items.length}`}
         />
       );
@@ -167,10 +171,12 @@ function BuildingList({
       );
     }
 
-    if(infos.areaUseful) {
+    if(infos.areaUseful || infos.areaUsefulStart) {
       items.push(
         <Caracteristics.AreaUseFul
+          type={type}
           areaUseful={infos.areaUseful}
+          areaUsefulStart={infos.areaUsefulStart}
           key={`caracteristic-${reference}-${items.length}`}
         />
       );

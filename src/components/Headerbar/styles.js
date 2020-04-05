@@ -334,7 +334,7 @@ export const ButtonMoreInformation = styled(Button)`
   `}
 `;
 
-export const PhoneContact = styled.p`
+export const PhoneContact = styled.a`
   font: 15px 'Raleway';
   color: ${({ theme }) => theme.colors.orange};
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
@@ -345,5 +345,9 @@ export const PhoneContact = styled.p`
 
   ${media.greaterThan('large')`
     margin-left: 10px;
+
+    &:hover {
+      opacity: 0.6;
+    }
   `}
 `;

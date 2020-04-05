@@ -17,34 +17,40 @@ export const Container = styled.div`
   `}
 `;
 
+export const Hero = styled.figure`
+  display: block;
+  position: relative;
+  width: 100%;
+`;
+
 export const Image = styled.img`
-  ${props =>
-    props.mq == 'mobile' && media.greaterThan('medium')`display: none;`};
-  ${props => props.mq == 'desktop' && media.lessThan('medium')`display: none;`};
   height: 275px;
   width: 100%;
-  object-fit: cover;
+
+  ${props => props.mq == 'mobile' && media.greaterThan('medium')`display: none;`};
+  ${props => props.mq == 'desktop' && media.lessThan('medium')`display: none;`};
+
+  ${media.lessThan('medium')`
+    object-fit: cover;
+  `}
 
   ${media.greaterThan('medium')`
-    height: 512px;
+    height: auto;
   `}
 `;
 
 export const Gradient = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.0001) 25.36%,
     #000000 97.86%
   );
-  height: 275px;
-  width: 100%;
-  position: absolute;
-
-  ${media.greaterThan('medium')`
-    width: calc(100% - 200px);
-    height: 512px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 25.36%, #000000 97.86%);
-  `}
 `;
 
 export const Title = styled.h1`

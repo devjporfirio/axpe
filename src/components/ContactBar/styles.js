@@ -213,7 +213,7 @@ const ListButtonStyle = css`
     color: ${({ theme }) => theme.colors.orange};
 
     &.big {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
 

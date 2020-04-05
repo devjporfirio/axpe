@@ -36,7 +36,7 @@ function Footer() {
           </SocialButton>
         </Socials>
         <Copy>
-          Todos os direitos reservados. AxPe. CRECI 19111J{' '}
+          Todos os direitos reservados. Axpe. CRECI 19111J{' '}
           <span>
             |{' '}
             <Link route="/mapa-do-site" passHref>

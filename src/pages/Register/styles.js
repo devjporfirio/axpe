@@ -33,6 +33,12 @@ export const FormRow = styled.div`
     label {
       margin-bottom: 0;
     }
+
+    h2 {
+      &.minheight {
+        min-height: 42px;
+      }
+    }
   `}
 `;
 
@@ -113,7 +119,7 @@ export const FormGroupAddress = styled.div`
   ${media.greaterThan('medium')`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     label {
       &:nth-child(1) {
@@ -122,6 +128,7 @@ export const FormGroupAddress = styled.div`
 
       &:nth-child(2) {
         flex-basis: 18%;
+        margin-left: 2%;
       }
 
       &:nth-child(3) {
@@ -130,10 +137,13 @@ export const FormGroupAddress = styled.div`
 
       &:nth-child(4) {
         width: 30%;
+        margin-left: 2%;
       }
 
-      &:nth-child(5) {
+      &:nth-child(5),
+      &[for='SingleLine7'] {
         width: 35%;
+        margin-left: 2%;
       }
     }
 

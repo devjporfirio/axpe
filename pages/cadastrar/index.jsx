@@ -41,7 +41,6 @@ import {
   GroupImage,
   Image,
   FormGroupFooter,
-  CheckLinkTerms,
   ButtonSubmit
 } from 'pages/Register/styles';
 
@@ -67,6 +66,7 @@ const registrySchema = Yup.object().shape({
   Number: Yup.string(),
   Number1: Yup.string().required(),
   SingleLine12: Yup.string().required(),
+  SingleLine13: Yup.string(),
   Currency: Yup.string(),
   Currency_copy: Yup.string(),
   Currency1: Yup.string(),
@@ -80,6 +80,8 @@ const registrySchema = Yup.object().shape({
   MultiLine1: Yup.string().required(),
   finalityVender: Yup.string().required(),
   finalityAluguel: Yup.string().required(),
+  SingleLine9: Yup.string(),
+  SingleLine10: Yup.string(),
   images: Yup.array(),
   terms: Yup.boolean().oneOf([ true ]).required()
 });
@@ -88,11 +90,57 @@ function Register({ locals, categories, countries }) {
   const dispatch = useDispatch();
   const refForm = useRef(null);
   const user = useSelector(state => state.user);
-  const [ keyLocals, setKeyLocals ] = useState('São Paulo');
+  // const [ keyLocals, setKeyLocals ] = useState('São Paulo');
+  const [ keyLocals ] = useState('São Paulo');
   const [ cats, setCats ] = useState([]);
   const [ localsByKey, setLocalsByKey ] = useState([
     { label: 'Selecione', value: '' }
   ]);
+
+  const optionsCountries = [
+    { label: 'Selecione uma opção', value: '' },
+    { label: '&Aacute;frica do Sul', value: '&Aacute;frica do Sul' },
+    { label: 'Argentina', value: 'Argentina' },
+    { label: '&Aacute;ustria', value: '&Aacute;ustria' },
+    { label: 'Austr&aacute;lia', value: 'Austr&aacute;lia' },
+    { label: 'Bahamas', value: 'Bahamas' },
+    { label: 'Barbados', value: 'Barbados' },
+    { label: 'Belize', value: 'Belize' },
+    { label: 'Bermuda', value: 'Bermuda' },
+    { label: 'Canad&aacute;', value: 'Canad&aacute;' },
+    { label: 'Chile', value: 'Chile' },
+    { label: 'Colombia', value: 'Colombia' },
+    { label: 'Costa Rica', value: 'Costa Rica' },
+    { label: 'Emirados &Aacute;rabes', value: 'Emirados &Aacute;rabes' },
+    { label: 'Esc&oacute;cia', value: 'Esc&oacute;cia' },
+    { label: 'Espanha', value: 'Espanha' },
+    { label: 'EUA', value: 'EUA' },
+    { label: 'Fiji', value: 'Fiji' },
+    { label: 'Fran&ccedil;a', value: 'Fran&ccedil;a' },
+    { label: 'Gr&eacute;cia', value: 'Gr&eacute;cia' },
+    { label: 'Holanda', value: 'Holanda' },
+    { label: 'Hong Kong', value: 'Hong Kong' },
+    { label: 'Ilhas Cayman', value: 'Ilhas Cayman' },
+    { label: 'Ilhas Turks e Caicos', value: 'Ilhas Turks e Caicos' },
+    { label: 'Ilhas Virgens', value: 'Ilhas Virgens' },
+    { label: 'Inglaterra', value: 'Inglaterra' },
+    { label: 'Irlanda', value: 'Irlanda' },
+    { label: 'It&aacute;lia', value: 'It&aacute;lia' },
+    { label: 'Maldivas', value: 'Maldivas' },
+    { label: 'Marrocos', value: 'Marrocos' },
+    { label: 'M&eacute;xico', value: 'M&eacute;xico' },
+    { label: 'M&ocirc;naco', value: 'M&ocirc;naco' },
+    { label: 'Nova Zel&acirc;ndia', value: 'Nova Zel&acirc;ndia' },
+    { label: 'Panam&aacute;', value: 'Panam&aacute;' },
+    { label: 'Porto Rico', value: 'Porto Rico' },
+    { label: 'Portugal', value: 'Portugal' },
+    { label: 'Rep&uacute;blica Dominicana', value: 'Rep&uacute;blica Dominicana' },
+    { label: 'Singapura', value: 'Singapura' },
+    { label: 'Su&eacute;cia', value: 'Su&eacute;cia' },
+    { label: 'Su&iacute;&ccedil;a', value: 'Su&iacute;&ccedil;a' },
+    { label: 'S&atilde;o Bartolomeu', value: 'S&atilde;o Bartolomeu' },
+    { label: 'Uruguai', value: 'Uruguai' },
+  ];
 
   const {
     handleSubmit,
@@ -114,7 +162,7 @@ function Register({ locals, categories, countries }) {
       utm_term: '',
       utm_content: '',
       Dropdown: 'Proprietário',
-      SingleLine6: 'Venda e Locação', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
+      SingleLine6: '', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
       DecisionBox: true,
       Radio: 'Novo Lead',
@@ -132,6 +180,7 @@ function Register({ locals, categories, countries }) {
       Number2: '', // Area util
       Number: '', // Quartos
       Number1: '', // Vagas
+      SingleLine13: '',
       SingleLine12: '', // Imóvel vago? Sim ou Não
       Currency_copy: '', // Valor de venda
       Currency: '', // Valor de venda
@@ -144,8 +193,10 @@ function Register({ locals, categories, countries }) {
       MultiLine: '', // Fotos urls
       MultiLine2: '', // O que o imóvel tem de melhor?
       MultiLine1: '', // O que não é tão bacana
-      finalityVender: true,
-      finalityAluguel: true,
+      SingleLine9: '', // Praia
+      SingleLine10: '', // Condominio
+      finalityVender: false,
+      finalityAluguel: false,
       images: [],
       terms: false
     },
@@ -373,10 +424,10 @@ function Register({ locals, categories, countries }) {
                     <FormElements
                       name="SingleLine8"
                       type="select"
-                      items={countries}
+                      items={optionsCountries}
                       onChange={e => {
                         handleChange(e);
-                        setKeyLocals(e.currentTarget.value);
+                        // setKeyLocals(e.currentTarget.value);
                       }}
                       error={touched.SingleLine8 && errors.SingleLine8}
                       onBlur={handleBlur}
@@ -416,27 +467,53 @@ function Register({ locals, categories, countries }) {
                   value={values.SingleLine3}
                   onBlur={handleBlur}
                 />
-                <FormElements
-                  name="SingleLine4"
-                  label="Cidade"
-                  placeholder="Cidade"
-                  onChange={handleChange}
-                  error={touched.SingleLine4 && errors.SingleLine4}
-                  value={values.SingleLine4}
-                  onBlur={handleBlur}
-                />
-                <FormElements
-                  name="SingleLine7"
-                  placeholder="Bairro"
-                  label="Bairro"
-                  type="select"
-                  items={localsByKey}
-                  message="* Por enquanto atuamos apenas nestes bairros"
-                  onChange={handleChange}
-                  error={touched.SingleLine7 && errors.SingleLine7}
-                  value={values.SingleLine7}
-                  onBlur={handleBlur}
-                />
+                {values.SingleLine5 === 'Internacional' && (
+                  <FormElements
+                    name="SingleLine4"
+                    label="Cidade"
+                    placeholder="Cidade"
+                    onChange={handleChange}
+                    error={touched.SingleLine4 && errors.SingleLine4}
+                    value={values.SingleLine4}
+                    onBlur={handleBlur}
+                  />
+                )}
+                {values.SingleLine5 === 'Praia' && (
+                  <FormElements
+                    name="SingleLine9"
+                    label="Praia"
+                    placeholder="Praia"
+                    onChange={handleChange}
+                    error={touched.SingleLine9 && errors.SingleLine9}
+                    value={values.SingleLine9}
+                    onBlur={handleBlur}
+                  />
+                )}
+                {values.SingleLine5 === 'Campo' && (
+                  <FormElements
+                    name="SingleLine10"
+                    label="Condomínio"
+                    placeholder="Condomínio"
+                    onChange={handleChange}
+                    error={touched.SingleLine10 && errors.SingleLine10}
+                    value={values.SingleLine10}
+                    onBlur={handleBlur}
+                  />
+                )}
+                {values.SingleLine5 !== 'Praia' && values.SingleLine5 !== 'Campo' && values.SingleLine5 !== 'Internacional' && (
+                  <FormElements
+                    name="SingleLine7"
+                    placeholder="Bairro"
+                    label="Bairro"
+                    type="select"
+                    items={localsByKey}
+                    message="* Por enquanto atuamos apenas nestes bairros"
+                    onChange={handleChange}
+                    error={touched.SingleLine7 && errors.SingleLine7}
+                    value={values.SingleLine7}
+                    onBlur={handleBlur}
+                  />
+                )}
               </FormGroupAddress>
             </FormGroup>
 
@@ -453,7 +530,7 @@ function Register({ locals, categories, countries }) {
                   value={values.Number2}
                   onBlur={handleBlur}
                 />
-                {values.SingleLine5 === 'Residencial' && (
+                {values.SingleLine5 !== 'Comercial' && (
                   <>
                     <FormElements
                       type="number"
@@ -507,18 +584,18 @@ function Register({ locals, categories, countries }) {
                 </FormGroupFlex>
               </FormGroup>
 
-              {/* <FormGroup>
+              <FormGroup>
                 <h2>As chaves ficam com quem?</h2>
                 <FormElements
-                  name="managerKey"
+                  name="SingleLine13"
                   label="Nome"
                   placeholder="Nome"
                   onChange={handleChange}
-                  error={touched.managerKey && errors.managerKey}
-                  value={values.managerKey}
+                  error={touched.SingleLine13 && errors.SingleLine13}
+                  value={values.SingleLine13}
                   onBlur={handleBlur}
                 />
-              </FormGroup> */}
+              </FormGroup>
             </FormRow>
 
             <FormGroup>
@@ -603,7 +680,7 @@ function Register({ locals, categories, countries }) {
 
             <FormRow>
               <FormGroup>
-                <h2>O que há de melhor em seu imóvel? Capricha.</h2>
+                <h2 className="minheight">O que há de melhor em seu imóvel? Capricha.</h2>
                 <FormElements
                   type="area"
                   name="MultiLine2"
@@ -616,7 +693,7 @@ function Register({ locals, categories, countries }) {
               </FormGroup>
 
               <FormGroup>
-                <h2>O que há de problema?</h2>
+                <h2 className="minheight">O que há de problema?</h2>
                 <FormElements
                   type="area"
                   name="MultiLine1"
@@ -666,7 +743,7 @@ function Register({ locals, categories, countries }) {
             </FormGroup>
 
             <FormGroupFooter>
-              <CheckLinkTerms
+              {/* <CheckLinkTerms
                 type="checkboxLink"
                 name="terms"
                 label="Concordo com o termo de autorização de comercialização de imóveis"
@@ -675,7 +752,7 @@ function Register({ locals, categories, countries }) {
                 value={values.terms}
                 checked={values.terms}
                 onBlur={handleBlur}
-              />
+              /> */}
 
               <UserInfo layout="register-property" />
 

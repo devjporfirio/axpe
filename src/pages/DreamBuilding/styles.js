@@ -100,7 +100,7 @@ export const ListButton = styled.a`
   }
 
   &:after {
-    background: linear-gradient(to bottom, transparent 50%, rgba(238, 105, 0, 0.6));
+    background: rgba(0, 0, 0, 0.6);
     ${({ theme }) => theme.hide};
   }
 
