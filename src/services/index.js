@@ -6,6 +6,7 @@ import Contact from './contact';
 import Landing from './landing';
 import Dream from './dream';
 import MyAccount from './myAccount';
+import SiteMap from './siteMap';
 
 const Api = {
   User,
@@ -15,7 +16,8 @@ const Api = {
   Contact,
   Landing,
   Dream,
-  MyAccount
+  MyAccount,
+  SiteMap
 };
 
 export default Api;
