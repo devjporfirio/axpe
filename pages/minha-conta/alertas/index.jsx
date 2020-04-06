@@ -105,7 +105,7 @@ function Alerts() {
         {alerts.length > 0 ? (
           <Body>
             <Title>
-              Você tem <strong>{alerts.length} alertas</strong> salvos
+              Você tem <strong>{alerts.length} {alerts.length == 1 ? 'alerta' : 'alertas'}</strong> salvos
             </Title>
             <Subtitle>Tem novidade do jeito que você pediu.</Subtitle>
 
