@@ -3,7 +3,7 @@ import SVG from 'react-inlinesvg';
 
 // helpers
 import { Link } from 'helpers/routes';
-import { formatCurrency, getBuildingUrl } from 'helpers/utils';
+import { formatCurrency } from 'helpers/utils';
 
 // assets
 import EmojiIconSVG from 'assets/icons/emoji';
@@ -125,7 +125,7 @@ function BuildingCard({
   return (
     <Container layout={layout}>
       {status !== 'inactive' ? (
-        <Link route={getBuildingUrl(itemData)} passHref>
+        <Link route={`/${itemData.slug}`} passHref>
           <LinkTag layout={layout}>
             {renderHTML()}
           </LinkTag>

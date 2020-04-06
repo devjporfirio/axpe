@@ -2,7 +2,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 
 // helpers
-import { formatCurrency, getBuildingUrl } from 'helpers/utils';
+import { formatCurrency } from 'helpers/utils';
 
 // components
 import Button from 'components/Button';
@@ -124,7 +124,7 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
 
       {(useButtom || type === 'slickGrid' || type === 'slickLeft') && (
         <LinkContainer type={type}>
-          <Button route={getBuildingUrl(buildingObj)}>
+          <Button route={`/${buildingObj.slug}`}>
             Saiba mais
           </Button>
         </LinkContainer>

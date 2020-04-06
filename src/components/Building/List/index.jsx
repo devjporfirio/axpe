@@ -10,7 +10,7 @@ import SliderNew from 'components/SliderNew';
 
 // helpers
 import { Link } from 'helpers/routes';
-import { formatCurrency, getBuildingUrl } from 'helpers/utils';
+import { formatCurrency } from 'helpers/utils';
 import checkFavorite from 'helpers/checkFavorite';
 
 // actions
@@ -254,7 +254,7 @@ function BuildingList({
                   return (
                     galleryItem.tipo === 'imagem' && (
                       <SliderItem key={`item-gallery-${reference}-${galleryItemIndex}`}>
-                        <Link route={getBuildingUrl(item)} passHref>
+                        <Link route={`/${item.slug}`} passHref>
                           <LinkTag>
                             <img src={galleryItem.src} alt={`Axpe ${category} - ${reference}`} />
                           </LinkTag>
@@ -275,7 +275,7 @@ function BuildingList({
                 Remover
               </RemoveButton>
             )}
-            <Link route={getBuildingUrl(item)} passHref>
+            <Link route={`/${item.slug}`} passHref>
               <LinkTag>
                 <CatLocGroup>
                   <Category>
@@ -299,7 +299,7 @@ function BuildingList({
             </Link>
 
             <ValuesFavGroup>
-              <Link route={getBuildingUrl(item)} passHref>
+              <Link route={`/${item.slug}`} passHref>
                 <LinkTag>
                   <div>
                     {(!!values.sell || !!values.release) && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
@@ -334,7 +334,7 @@ function BuildingList({
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </FavoriteButton>
             </ValuesFavGroup>
-            <Link route={getBuildingUrl(item)} passHref>
+            <Link route={`/${item.slug}`} passHref>
               <LinkTag>
                 <div>
                   <CaracteristicsGroup>

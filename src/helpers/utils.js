@@ -24,26 +24,6 @@ export const getParamsFromObject = (params) => {
   return encodeURI(paramsJoin);
 };
 
-export const getBuildingUrl = (obj) => {
-  let baseSlug = 'imovel';
-  const type = obj.type;
-
-  // /imovel/[tipo]-[comprar/alugar]-[bairro]-sp-[m²]-[referencia]
-  // /imovel/[tipo]-[comprar/alugar]-[cidade]-[país]-[m²]-[referencia]
-  // /lancamentos/[tipo]-[comprar/alugar]-[bairro]-sp-[referencia]
-  // /[praia/campo]/[tipo]-[comprar/alugar]-[cidade]-[m²]-[referencia]
-
-  if(obj.source === 'praia') {
-    baseSlug = 'praia';
-  } else if(obj.source === 'campo') {
-    baseSlug = 'campo';
-  } else if(type === 'lancamento') {
-    baseSlug = 'lancamentos';
-  }
-
-  return `/${baseSlug}/${obj.slug}`;
-}
-
 export const checkPluralSingular = (word, size) => {
   return size === 0 || size > 1 ? `${word}s` : word;
 };
