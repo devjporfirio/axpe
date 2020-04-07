@@ -4,6 +4,7 @@ import media from 'styled-media-query';
 import { SourceUse } from 'pages/MyAccount/Alerts/styles';
 
 export const Container = styled.div`
+  padding-bottom: 30px;
   background-color: ${({ theme }) => theme.colors.greyLight};
   min-height: 100vh;
 `;

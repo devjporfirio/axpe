@@ -21,7 +21,13 @@ import {
   Buildings
 } from 'pages/MyAccount/Alerts/Search/styles';
 
-function AlertsSeach({ building, params }) {
+function AlertsSearch({
+  response: {
+    total,
+    data
+  },
+  params
+}) {
   const user = useSelector(state => state.user);
 
   if (!user.logged) return <Container />;
@@ -50,12 +56,12 @@ function AlertsSeach({ building, params }) {
           </Subtitle>
 
           <Amount>
-            Encontramos <strong>{building.length} imóveis</strong> para a sua
+            Encontramos <strong>{total} imóveis</strong> para a sua
             busca
           </Amount>
 
           <Buildings>
-            {building.map((building, buildingIndex) => (
+            {data.map((building, buildingIndex) => (
               <BuildingList
                 item={building}
                 key={`building-searchitem-${building.reference}-${buildingIndex}`}
@@ -69,8 +75,9 @@ function AlertsSeach({ building, params }) {
   );
 }
 
-AlertsSeach.getInitialProps = async ({ query }) => {
+AlertsSearch.getInitialProps = async ({ query }) => {
   const valuesToNumber = [ 'values', 'areas', 'bedrooms', 'parking' ];
+
   valuesToNumber.forEach(key => {
     const obj = query[key];
     if (obj && obj.length) {
@@ -81,7 +88,8 @@ AlertsSeach.getInitialProps = async ({ query }) => {
   const response = await Api.Search.getBuildings(
     getParamsFromObject(query, true)
   );
-  return { building: response.data, params: query };
+
+  return { response, params: query };
 };
 
-export default AlertsSeach;
+export default AlertsSearch;

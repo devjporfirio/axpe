@@ -10,7 +10,6 @@ const config = require(`./config/${process.env.NODE_ENV}.json`);
 
 const nextApp = next({ dev });
 const nextHandler = routes.getRequestHandler(nextApp);
-// const nextHandler = nextApp.getRequestHandler();
 const port = process.env.PORT || 3000;
 
 const getNotifications = async userId => {

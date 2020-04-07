@@ -171,8 +171,7 @@ export const Description = styled.p`
   display: -webkit-box;
   max-width: 100%;
   height: 65px;
-  font: 16px 'Raleway';
-  line-height: 1;
+  font: 16px/18px 'Raleway';
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -235,7 +234,8 @@ export const CaracteristicsGroup = styled.div`
       height: 31px;
       flex: 0 50%;
     }
-    p{ 
+
+    p{
       font-size: 14px !important;
       line-height: 18px !important;
     }
@@ -261,19 +261,6 @@ export const ValuesFavGroup = styled.div`
   `}
 `;
 
-const FavoriteButtonActive = css`
-  svg path {
-    stroke: ${({ theme }) => theme.colors.orange};
-    fill: ${({ theme }) => theme.colors.orange};
-  }
-`;
-
-const FavoriteButtonHover = css`
-  svg path {
-    stroke: ${({ theme }) => theme.colors.orange};
-  }
-`;
-
 export const FavoriteButton = styled.button`
   width: 20px;
   transition: all 300ms ease;
@@ -291,10 +278,18 @@ export const FavoriteButton = styled.button`
     }
   }
 
-  ${props => props.active && FavoriteButtonActive}
+  ${props => props.active && css`
+    svg path {
+      stroke: ${({ theme }) => theme.colors.orange};
+      fill: ${({ theme }) => theme.colors.orange};
+    }
+  `}
+
   ${media.greaterThan('large')`
     &:hover {
-      ${FavoriteButtonHover}
+      svg path {
+        stroke: ${({ theme }) => theme.colors.orange};
+      }
     }
   `}
 `;

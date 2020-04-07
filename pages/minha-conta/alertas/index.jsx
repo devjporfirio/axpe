@@ -81,7 +81,7 @@ function Alerts() {
       source,
       finality,
       use,
-      types: categories && categories.length && categories.join(', '),
+      types: categories && categories.length && categories.join(','),
       local: locals && locals.length && locals.join(', '),
       price_start: values && values.length && values[0],
       price_end: values && values.length && values[1],
