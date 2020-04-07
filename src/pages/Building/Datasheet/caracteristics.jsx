@@ -72,7 +72,7 @@ export const Sell = ({ valueOnlyConsults, sell, iptu, condo, type, currency }) =
 export const Bedrooms = ({ type, bedrooms, bedroomsStart, suites }) => {
   const wordBedroom = checkPluralSingular('Quarto', !!bedrooms ? bedrooms : bedroomsStart);
   return (
-    !!bedrooms || (!!bedroomsStart && type === 'lancamento') && (
+    !!bedrooms || (!!bedroomsStart && type === 'lancamento') ? (
       <InfoValue>
         {!!bedrooms ? (
           <p>
@@ -91,7 +91,7 @@ export const Bedrooms = ({ type, bedrooms, bedroomsStart, suites }) => {
           </p>
         )}
       </InfoValue>
-    )
+    ) : null
   );
 };
 
@@ -108,7 +108,7 @@ export const BedroomsBetween = ({ start, end }) =>
   );
 
 export const Parking = ({ type, parking, parkingStart }) =>
-  !!parking || !!parkingStart && type === 'lancamento' && (
+  !!parking || !!parkingStart && type === 'lancamento' ? (
     <InfoValue>
       {!!parking ? (
         <p>{parking}</p>
@@ -117,7 +117,7 @@ export const Parking = ({ type, parking, parkingStart }) =>
       ) : null}
       <p>{checkPluralSingular('Vaga', !!parking ? parking : parkingStart)}</p>
     </InfoValue>
-  );
+  ) : null;
 
 export const ParkingBetween = ({ start, end }) =>
   !!start && !!end && end !== 9999 ? (
@@ -156,7 +156,7 @@ export const AreaTotal = ({ areaTotal }) =>
   );
 
 export const AreaUseFul = ({ type, areaUseful, areaUsefulStart }) =>
-  !!areaUseful || (!!areaUsefulStart && type === 'lancamento') && (
+  !!areaUseful || (!!areaUsefulStart && type === 'lancamento') ? (
     <InfoValue>
       {!!areaUseful ? (
         <p>{formatCurrency.format(parseInt(areaUseful)).replace('R$', '')}m²</p>
@@ -165,7 +165,7 @@ export const AreaUseFul = ({ type, areaUseful, areaUsefulStart }) =>
       ) : null}
       <p>Área útil</p>
     </InfoValue>
-  );
+  ) : null;
 
 export const AreaUseFulBetween = ({ start, end }) =>
   !!start && !!end && end !== 99999999 ? (
