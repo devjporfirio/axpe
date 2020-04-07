@@ -112,15 +112,11 @@ export const Image = styled.img`
   display: block;
   transition: all 300ms ease;
 
-  ${props =>
-    props.mq === 'mobile' &&
-    media.greaterThan('medium')`
+  ${props => props.mq === 'mobile' && media.greaterThan('medium')`
     display: none !important;
   `}
 
-  ${props =>
-    props.mq === 'desktop' &&
-    media.lessThan('medium')`
+  ${props => props.mq === 'desktop' && media.lessThan('medium')`
     display: none !important;
   `}
 `;

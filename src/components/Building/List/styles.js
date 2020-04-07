@@ -186,7 +186,7 @@ export const Description = styled.p`
   `};
 
   ${media.greaterThan('large')`
-    margin-top: 35px;
+    margin-top: 15px;
   `}
 `;
 
