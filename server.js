@@ -17,15 +17,19 @@ const getNotifications = async userId => {
 
   try {
     const items = await axios.get(`${config.apiUrl}/notifications/users`);
-    const results = items.data.filter(item => item.id === userId);
 
-    if (results && results.length) {
-      hasNotifications = true;
+    if(items && items.data && items.length) {
 
-      // TODO: Send push notifications by OneSignal
-      // items.forEach(item => {
-      //   console.log(item.idOneSignal)
-      // });
+      // TODO: send push notifications to all users on oneSignal
+      items.data.forEach(item => {
+        console.log(`notification.user.idOneSignal`, item.idOneSignal);
+        if(item.id === userId) {
+          hasNotifications = true; // TODO: change to 'profile' or 'favorites'
+        } else {
+          // send onesignal to others (or for all?)
+        }
+      })
+
     }
 
     return hasNotifications;

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import Api from 'services';
-import IoHelper from 'helpers/io';
+import SocketIoHelper from 'helpers/socketio';
 import OneSignalHelper from 'helpers/oneSignal';
 
 const cookieParams = {
@@ -12,7 +12,7 @@ const user = store => next => async action => {
   const userData = userDataCookie ? JSON.parse(userDataCookie) : {};
 
   const removeCookie = () => {
-    IoHelper.stop();
+    SocketIoHelper.stop();
     Cookies.remove('userData', cookieParams);
   }
 
@@ -68,7 +68,7 @@ const user = store => next => async action => {
 
       OneSignalHelper.watch(store);
 
-      IoHelper.watch({
+      SocketIoHelper.watch({
         accessToken: newUserData.access_token,
         userId: newUserData.id,
         store

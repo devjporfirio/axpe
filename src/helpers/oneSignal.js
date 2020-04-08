@@ -15,20 +15,36 @@ function start() {
 function watch(store) {
   OneSignal.push(function() {
     OneSignal.getUserId(userId => {
+      // console.log('OneSignal getUserId', userId)
       const user = store.getState().user;
       Api.MyAccount.updateIdOneSignal(user.access_token, userId);
     });
 
     // OneSignal.on('subscriptionChange', function(isSubscribed) {
-    //   console.log('The user subscription state is now: ', isSubscribed);
+    //   console.log('The user subscription state is now1: ', isSubscribed);
     //   console.log('STORE:', store.getState());
     // });
   });
 
+  OneSignal.push(function() {
+    OneSignal.getTags(function(tags) {
+      // console.log('OneSignal tags', tags);
+    });
+  });
+
   // OneSignal.on('subscriptionChange', function(isSubscribed) {
-  //   console.log('The user subscription state is now: ', isSubscribed);
+  //   console.log('The user subscription state is now2: ', isSubscribed);
   //   console.log('STORE:', store.getState());
   // });
+}
+
+function setTags(configs) {
+  function setTag(name, value) {
+    OneSignal.push([ 'sendTag', name, value ]);
+  }
+
+  setTag('notificationAlert', configs.notificationAlert ? 1 : 0);
+  setTag('notificationFavorite', configs.notificationFavorite ? 1 : 0);
 }
 
 async function getSubscriptionState() {
@@ -46,14 +62,20 @@ async function getSubscriptionState() {
   }
 }
 
-async function handleSubscription({ action }) {
+async function handleSubscription(configs) {
   const subscriptionState = await getSubscriptionState();
 
-  if ((subscriptionState.isPushEnabled || subscriptionState.isPushSupported) && !action) {
+  // console.log('OneSignal handleSubscription 1', configs);
+
+  if ((subscriptionState.isPushEnabled || subscriptionState.isPushSupported) && !configs.active) {
+    // console.log('OneSignal handleSubscription 2');
     OneSignal.setSubscription(false);
-  } else if (subscriptionState.isOptedOut && action) {
+  } else if (subscriptionState.isOptedOut && configs.active) {
+    // console.log('OneSignal handleSubscription 3');
     OneSignal.setSubscription(true);
-  } else if(!subscriptionState.isPushEnabled && action) {
+    setTags(configs);
+  } else if(!subscriptionState.isPushEnabled && configs.active) {
+    // console.log('OneSignal handleSubscription 4');
     OneSignal.registerForPushNotifications();
   } else {
     // console.log('handleSubscription 4');

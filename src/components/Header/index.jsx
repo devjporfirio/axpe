@@ -49,7 +49,14 @@ function Header() {
     modalNewsletter,
     modalLogin
   } = useSelector(state => state.main);
-  const { logged, me: { notificationsAvailable } } = useSelector(state => state.user);
+  const {
+    logged,
+    me: {
+      notificationsAvailable,
+      notificationAlert,
+      notificationFavorite
+    }
+  } = useSelector(state => state.user);
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
 
@@ -193,7 +200,7 @@ function Header() {
                   <Link route="/minha-conta" passHref>
                     <NavSecondaryButton onClick={cancelToggle}>
                       Meu perfil
-                      {notificationsAvailable ? (
+                      {notificationsAvailable && notificationsAvailable === 'profile' && notificationAlert ? (
                         <NavIconAlert>
                           <SVG src={AlertIconSVG} uniquifyIDs={true} />
                         </NavIconAlert>
@@ -216,6 +223,11 @@ function Header() {
                 ) : (
                   <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta/favoritos')}>
                     Meus favoritos
+                    {notificationsAvailable && notificationsAvailable === 'favorites' && notificationFavorite ? (
+                      <NavIconAlert>
+                        <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                      </NavIconAlert>
+                    ) : null}
                   </NavSecondaryButton>
                 )}
               </li>

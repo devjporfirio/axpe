@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import Router from 'next/router';
 
 // helpers
-// import OneSignalHelper from 'helpers/oneSignal';
+import OneSignalHelper from 'helpers/oneSignal';
 
 // actions
 import { setLoading } from 'store/modules/loading/actions';
@@ -54,7 +54,7 @@ function Main({ children }) {
       }
     });
 
-    // OneSignalHelper.start();
+    OneSignalHelper.start();
 
     dispatch(setLoading({ active: false }));
     dispatch(setUserByCookie());

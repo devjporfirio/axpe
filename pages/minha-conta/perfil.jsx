@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Head from 'next/head';
 // import SVG from 'react-inlinesvg';
-// import OneSignalHelper from 'helpers/oneSignal';
+import OneSignalHelper from 'helpers/oneSignal';
 import Api from 'services';
 import * as Yup from 'yup';
 
@@ -73,12 +73,15 @@ function Profile() {
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting }) => {
       const response = await Api.MyAccount.putMe(user.access_token, values);
+      const notificationsObject = getNotificationsObject(values.notificationAlert, values.notificationFavorite);
 
       setSubmitting(false);
 
       if (response.status) {
         dispatch(setUserMe(values));
         setSuccessMessage(true);
+
+        OneSignalHelper.handleSubscription(notificationsObject);
 
         setTimeout(() => {
           setSuccessMessage(null);
@@ -95,28 +98,14 @@ function Profile() {
     }
   });
 
-  const submitField = async ({ name, value }) => {
-    const data = {
-      [name]: value
-    };
-
-    await Api.MyAccount.putMe(user.access_token, data);
-
-    dispatch(setUserMe(data));
-  }
-
-  const handleNotificationAlert = useCallback(() => {
-    const value = values.notificationAlert === 1 ? 0 : 1;
-
-    setFieldValue('notificationAlert', value);
-
-    // OneSignalHelper.handleSubscription({
-    //   action: !!value,
-    //   user
-    // });
-
-    submitField({ name: 'notificationAlert', value });
-  }, [ user.logged, values.notificationAlert ])
+  const getNotificationsObject = useCallback((notificationAlert, notificationFavorite) => {
+    return {
+      active: notificationAlert === 1 || notificationFavorite === 1,
+      notificationAlert,
+      notificationFavorite,
+      user
+    }
+  }, [ user ])
 
   useEffect(() => {
     if (user.logged && user.me && user.me.name) {
@@ -203,7 +192,7 @@ function Profile() {
                     </>
                   }
                   checked={values.notificationAlert === 1}
-                  onChange={handleNotificationAlert}
+                  onChange={() => setFieldValue('notificationAlert', values.notificationAlert === 1 ? 0 : 1)}
                   error={touched.notificationAlert && errors.notificationAlert}
                   value={values.notificationAlert}
                   onBlur={handleBlur}
@@ -218,12 +207,7 @@ function Profile() {
                     </>
                   }
                   checked={values.notificationFavorite === 1}
-                  onChange={() =>
-                    setFieldValue(
-                      'notificationFavorite',
-                      values.notificationFavorite === 1 ? 0 : 1
-                    )
-                  }
+                  onChange={() => setFieldValue('notificationFavorite', values.notificationFavorite === 1 ? 0 : 1)}
                   error={
                     touched.notificationFavorite && errors.notificationFavorite
                   }
