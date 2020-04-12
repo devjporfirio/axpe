@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Head from 'next/head';
+import ScrollTo, { getElementScrollTop } from 'helpers/scrollTo';
+import useScrollPosition from 'helpers/scrollPosition';
 
 // helpers
 import SeoData from 'helpers/seo';
+
+// store
+import { setMain } from 'store/modules/main/actions';
 
 // styles
 import {
@@ -19,6 +25,80 @@ import {
 } from 'pages/About/styles';
 
 function About() {
+  const refEl = useRef(null);
+  const dispatch = useDispatch();
+  const scrollPosition = useScrollPosition();
+  const [ curIndexArea, setCurIndexArea ] = useState();
+
+  const clickNavButton = useCallback(event => {
+    event.preventDefault();
+
+    const area = event.currentTarget.getAttribute('href');
+    const hash = area.replace('/sobre', '');
+    const $target = document.querySelector(hash);
+
+    if($target) {
+      if(window.history && window.history.pushState) {
+        history.pushState('', '', `/sobre${hash}`)
+      }
+      ScrollTo($target, window.innerWidth < 1170 ? 45 : 100);
+    }
+
+    return false;
+  }, []);
+
+  function handleScrollPosition([ curTop, oldTop ]) {
+    const topDiff = window.innerWidth < 1170 ? 45 : 100
+    const startTop = window.innerWidth < 1170 ? 70 : 0;
+    const $btns = document.querySelectorAll('.about-nav a');
+    let tempCurArea = 0;
+
+    if (!refEl || !refEl.current) return false;
+
+    if($btns.length) {
+      $btns.forEach(($btn, btnIndex) => {
+        const href = $btn.getAttribute('href');
+
+        if(href.search('#') >= 0 && btnIndex) {
+          const $area = document.querySelector(href.replace('/sobre', ''));
+          const areaTop = getElementScrollTop($area);
+
+          if(curTop >= (areaTop - topDiff)) {
+            tempCurArea = btnIndex;
+          }
+        }
+      })
+
+      if(tempCurArea != curIndexArea) {
+        setCurIndexArea(tempCurArea);
+      }
+    }
+
+    if (!startTop) {
+      refEl.current.style.top = `0px`;
+      return false;
+    }
+
+    let top =
+      curTop > oldTop ? startTop - curTop : startTop;
+
+    if (top < 0) {
+      top = 0;
+    } else if (top > startTop) {
+      top = startTop;
+    }
+
+    refEl.current.style.top = `${top}px`;
+  }
+
+  useEffect(() => {
+    handleScrollPosition(scrollPosition);
+  }, scrollPosition);
+
+  useEffect(() => {
+    dispatch(setMain({ headerHiding: true }));
+  }, [ ]);
+
   return (
     <>
       <Head>
@@ -26,19 +106,35 @@ function About() {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-        <Nav>
-          <div>
+        <Nav className="about-nav">
+          <div ref={refEl}>
             <ul>
               <li>
-                <a href="#nosso-jeito" className="active">
+                <a
+                  href="/sobre#nosso-jeito"
+                  className={!curIndexArea ? 'active' : ''}
+                  onClick={clickNavButton}
+                >
                   Nosso jeito
                 </a>
               </li>
               <li>
-                <a href="#nossa-casa">Nossa casa</a>
+                <a
+                  href="/sobre#nossa-casa"
+                  className={curIndexArea === 1 ? 'active' : ''}
+                  onClick={clickNavButton}
+                >
+                  Nossa casa
+                </a>
               </li>
               <li>
-                <a href="#nosso-nome">Nosso nome</a>
+                <a
+                  href="/sobre#nosso-nome"
+                  className={curIndexArea === 2 ? 'active' : ''}
+                  onClick={clickNavButton}
+                >
+                  Nosso nome
+                </a>
               </li>
               <li>
                 <a href="https://www.christies.com" target="_blank">
@@ -253,7 +349,7 @@ function About() {
           </BlockCol>
         </Block>
 
-        <Block dataTemplate="2">
+        <Block id="nossa-casa" dataTemplate="2">
           <BlockCol dataType="text">
             <BlockTitle>
               Sua casa é um <strong>lugar sagrado.</strong>

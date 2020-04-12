@@ -15,7 +15,7 @@ export const Nav = styled.nav`
     overflow: inherit;
   `}
 
-  ${media.greaterThan('large')`
+  ${media.greaterThan('medium')`
     height: 80px;
   `}
 
@@ -29,6 +29,10 @@ export const Nav = styled.nav`
     background: ${({ theme }) => theme.colors.white};
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.4);
     z-index: 5;
+
+    ${media.greaterThan('medium')`
+
+    `}
 
     ${media.greaterThan('large')`
       top: 0;
@@ -60,7 +64,7 @@ export const Nav = styled.nav`
     font: ${({ theme }) => theme.fontsWeight.regular} 14px/44px 'Bitter';
     color: ${({ theme }) => theme.colors.green};
 
-    ${media.greaterThan('large')`
+    ${media.greaterThan('medium')`
       height: 60px;
       padding: 0 20px;
       line-height: 60px;
@@ -120,7 +124,7 @@ export const Hero = styled.div`
       background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
       z-index: 2;
 
-      ${media.greaterThan('large')`
+      ${media.greaterThan('medium')`
         background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
       `}
     }
@@ -156,7 +160,7 @@ export const Hero = styled.div`
     color: ${({ theme }) => theme.colors.white};
     letter-spacing: 2.5px;
 
-    ${media.greaterThan('large')`
+    ${media.greaterThan('medium')`
       bottom: 80px;
       font-size: 61px;
       letter-spacing: 3px;
@@ -176,7 +180,7 @@ export const Hero = styled.div`
   & > div {
     padding: 40px 30px;
 
-    ${media.greaterThan('large')`
+    ${media.greaterThan('medium')`
       padding: 60px 10%;
 
       h3 {
@@ -195,7 +199,7 @@ export const Title = styled.h3`
   font: ${({ theme }) => theme.fontsWeight.regular} 24px/28px 'Bitter';
   color: ${({ theme }) => theme.colors.greenDark};
 
-  ${media.greaterThan('large')`
+  ${media.greaterThan('medium')`
     font-size: 37px;
     line-height: 42px;
   `}
@@ -221,13 +225,17 @@ export const Block = styled.article`
   position: relative;
   margin-bottom: 60px;
 
-  ${media.lessThan('1169px')`
+  ${media.lessThan('767px')`
     display: flex;
     flex-direction: column-reverse;
     padding-top: 116px;
+
+    ${props => props.dataTemplate === '5_full' && css`
+        padding-top: 200px;
+    `}
   `}
 
-  ${media.greaterThan('large')`
+  ${media.greaterThan('medium')`
     display: flex;
     padding: 50px 10% 50px 0;
 
@@ -502,20 +510,20 @@ export const BlockTemplate5Full = css`
 `;
 
 export const BlockCol = styled.div`
-  ${media.lessThan('1169px')`
+  ${media.lessThan('767px')`
     ${props => props.dataType === 'text' && css`
       padding: 0 30px;
     `}
   `}
 
-  ${media.greaterThan('large')`
+  ${media.greaterThan('medium')`
     position: relative;
     z-index: 2;
   `}
 `;
 
 export const BlockTitle = styled(Title)`
-  ${media.lessThan('1169px')`
+  ${media.lessThan('767px')`
     position: absolute;
     top: 0;
     left: 0;
@@ -530,7 +538,7 @@ export const BlockTitle = styled(Title)`
 export const BlockImage = styled.figure`
   display: block;
 
-  ${media.lessThan('1169px')`
+  ${media.lessThan('767px')`
     margin-bottom: 40px;
   `}
 `;
