@@ -7,12 +7,12 @@ export default {
   },
 
   get() {
-    const buildings = Cookies.get('buildingsSeen');
+    const buildings = Cookies.get('ax_buildings_seen');
     return buildings ? JSON.parse(buildings) : [];
   },
 
   remove() {
-    Cookies.remove('buildingsSeen', this.cookieParams);
+    Cookies.remove('ax_buildings_seen', this.cookieParams);
   },
 
   set(reference, user) {
@@ -20,9 +20,9 @@ export default {
       this.saveByReference(user.access_token, reference);
     } else {
       const buildings = this.get();
-      if (!buildings.includes(reference)) {
+      if (!buildings.includes(reference) && buildings.length <= 10) {
         buildings.push(reference);
-        Cookies.set('buildingsSeen', JSON.stringify(buildings), this.cookieParams);
+        Cookies.set('ax_buildings_seen', JSON.stringify(buildings), this.cookieParams);
       }
     }
   },
