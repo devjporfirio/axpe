@@ -74,7 +74,7 @@ function LoginModal() {
     } else {
       setLoginType(null);
     }
-  }, [ modalLogin ])
+  }, [ modalLogin ]);
 
   return modalLogin ? (
     <Modal

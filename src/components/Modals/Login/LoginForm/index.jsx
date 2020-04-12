@@ -16,13 +16,9 @@ import Button from 'components/Button';
 import FormElements from 'components/FormElements';
 
 // styles
-import {
-  FormFeedback
-} from 'components/FormElements/styles';
+import { FormFeedback } from 'components/FormElements/styles';
 
-import {
-  LoginFormContainer
-} from 'components/Modals/Login/styles';
+import { LoginFormContainer } from 'components/Modals/Login/styles';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required(),
@@ -52,11 +48,25 @@ function LoginForm({ doAfterLogin }) {
       const response = await Api.User.postLogin(values);
 
       if (response.access_token) {
+        let redirectTo = null;
+
+        if(typeof modalLogin === 'function') {
+          modalLogin();
+        } else {
+          redirectTo = typeof modalLogin === 'string' ? modalLogin : `/minha-conta`;
+        }
+
         await doAfterLogin(response);
-        Router.push(typeof modalLogin === 'string' ? modalLogin : `/minha-conta`);
+
+        if(redirectTo) {
+          Router.push(
+            redirectTo
+          );
+        }
+
         dispatch(setMain({ modalLogin: false }));
         resetForm();
-      } else if(response.error) {
+      } else if (response.error) {
         const msg = getErrorMessage(response.error);
 
         setSubmitting(false);
@@ -97,7 +107,7 @@ function LoginForm({ doAfterLogin }) {
       </Button>
       {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
     </LoginFormContainer>
-  )
+  );
 }
 
 export default LoginForm;

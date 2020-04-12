@@ -146,11 +146,13 @@ function ContactBar() {
       setShow(false);
       dispatch(
         setMain({
-          modalLogin: router.asPath
+          modalLogin: () => {
+            setShow(true)
+          }
         })
       );
     }
-  }, [ show, isBuilding, user.logged ]);
+  }, [ show, isBuilding, user ]);
 
   useEffect(() => {
     if (user.logged && user.me && currentBuilding) {
@@ -277,7 +279,7 @@ function ContactBar() {
         }
       };
     }
-  }, [ refIframe, show ]);
+  }, [ refIframe, show, user ]);
 
   return (
     <>
