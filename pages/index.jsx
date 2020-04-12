@@ -41,7 +41,9 @@ const COMPONENT_SLICK = {
 function Home({ hero, components }) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { query: { action, hash } } = router;
+  const {
+    query: { action, hash }
+  } = router;
   const user = useSelector(state => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
@@ -99,8 +101,8 @@ function Home({ hero, components }) {
     }
   }, []);
 
-  const renderHeroItem = useCallback((item) => {
-    const hasContent = (item.title || item.content) ? true : false;
+  const renderHeroItem = useCallback(item => {
+    const hasContent = item.title || item.content ? true : false;
 
     return (
       <>
@@ -109,22 +111,18 @@ function Home({ hero, components }) {
           <HeroImage mq="desktop" src={item.images.desktop} alt={item.title} />
           {item.title || item.content ? (
             <HeroItemInfo>
-              {item && (
-                <h2>{item.title}</h2>
-              )}
-              {item.content && (
-                <p>{item.content}</p>
-              )}
+              {item && <h2>{item.title}</h2>}
+              {item.content && <p>{item.content}</p>}
             </HeroItemInfo>
           ) : null}
         </HeroItemWrapper>
       </>
-    )
+    );
   }, []);
 
   useEffect(() => {
     function checkActionParams() {
-      if(action) {
+      if (action) {
         dispatch(
           setMain({
             modalPasswordNew: true
@@ -135,55 +133,41 @@ function Home({ hero, components }) {
 
     async function loadBuildinsSeen() {
       if (user.logged) {
-        const responseBuildingsSeen = await Api.MyAccount.getViewed(user.access_token);
-        const responseBuildingsForYou = await Api.MyAccount.getForYou(user.access_token);
+        const responseBuildingsSeen = await Api.MyAccount.getViewed(
+          user.access_token
+        );
+        const responseBuildingsForYou = await Api.MyAccount.getForYou(
+          user.access_token
+        );
 
-        if(!responseBuildingsSeen.length) return false;
+        if (!responseBuildingsSeen.length) return false;
 
         setBuildingsSeen(responseBuildingsSeen);
 
-        if(responseBuildingsForYou && responseBuildingsForYou.buildings && responseBuildingsForYou.buildings.length) {
+        if (
+          responseBuildingsForYou &&
+          responseBuildingsForYou.buildings &&
+          responseBuildingsForYou.buildings.length
+        ) {
           setBuildingsForYou(responseBuildingsForYou.buildings);
         }
       } else {
         const buildingsSeenCookie = CookieBuildingSeen.get();
 
-        if(buildingsSeenCookie.length) {
-          for(let i = buildingsSeenCookie.length - 1; i >= 0; --i) {
-            if(!buildingsSeenCookie[i]) {
-              buildingsSeenCookie.splice(i, 1);
-            }
-          }
-        }
-
         if (!buildingsSeenCookie.length) return false;
 
-        const listBuildingsSeenTemp = await Promise.all(
-          buildingsSeenCookie.map(async b => {
-            const building = await Api.Building.getPage(b);
-            return building;
-          })
+        const listBuildingsSeen = await Api.Search.getBuildings(
+          `?reference=${buildingsSeenCookie.join(',')}`
         );
-
-        const listBuildingsSeen = listBuildingsSeenTemp.filter(item => item && item.building && item.building.reference)
-
-        let listForYou = await Api.Building.getSimilar(
-          listBuildingsSeen[0].building,
+        const listForYou = await Api.Building.getSimilar(
+          listBuildingsSeen.data[0],
           10
         );
 
-        listForYou =
-          listForYou &&
-          listForYou.data &&
-          listForYou.data.length > 0 &&
-          listForYou.data.map(l => ({
-            building: { ...l }
-          }));
+        setBuildingsSeen(listBuildingsSeen.data);
 
-        setBuildingsSeen(listBuildingsSeen);
-
-        if (listForYou && listForYou.length) {
-          setBuildingsForYou(listForYou);
+        if (listForYou && listForYou.total) {
+          setBuildingsForYou(listForYou.data);
         }
       }
     }
@@ -199,7 +183,6 @@ function Home({ hero, components }) {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-
         <Hero>
           <SliderNew
             type="full"
@@ -229,35 +212,41 @@ function Home({ hero, components }) {
           components.length > 0 &&
           components.map((c, cIndex) => {
             if (c.type === 'buildingsSeen') {
-              return buildingsSeen && buildingsSeen.length > 0 && (
-                <BuildingsPanel
-                  key={`buildingspanel-0-${c.type}-${cIndex}`}
-                  title="Imóveis que você viu"
-                  buildingLayout="horizontal"
-                  data={buildingsSeen}
-                />
+              return (
+                buildingsSeen &&
+                buildingsSeen.length > 0 && (
+                  <BuildingsPanel
+                    key={`buildingspanel-0-${c.type}-${cIndex}`}
+                    title="Imóveis que você viu"
+                    buildingLayout="horizontal"
+                    data={buildingsSeen}
+                  />
+                )
               );
             } else if (c.type === 'buildingsForYou') {
-              return buildingsForYou && buildingsForYou.length > 0 && (
-                <BuildingsPanel
-                  key={`panel-buildings-1-${c.type}-${cIndex}`}
-                  title="Indicados para você"
-                  subtitle="Selecionamos alguns imóveis que acabaram de chegar"
-                  buildingLayout="vertical"
-                  data={buildingsForYou}
-                />
+              return (
+                buildingsForYou &&
+                buildingsForYou.length > 0 && (
+                  <BuildingsPanel
+                    key={`panel-buildings-1-${c.type}-${cIndex}`}
+                    title="Indicados para você"
+                    subtitle="Selecionamos alguns imóveis que acabaram de chegar"
+                    buildingLayout="vertical"
+                    data={buildingsForYou}
+                  />
+                )
               );
             }
             return (
-              <Fragment key={`fragment-2-${c.type}-${cIndex}`}>{renderComponents(c.type, c)}</Fragment>
+              <Fragment key={`fragment-2-${c.type}-${cIndex}`}>
+                {renderComponents(c.type, c)}
+              </Fragment>
             );
           })}
 
         <Contact />
 
-        {action && action === 'senha-nova' && (
-          <PasswordNewModal hash={hash} />
-        )}
+        {action && action === 'senha-nova' && <PasswordNewModal hash={hash} />}
       </Container>
     </>
   );
