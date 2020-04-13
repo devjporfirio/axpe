@@ -14,10 +14,13 @@ function start() {
 
 function watch(store) {
   OneSignal.push(function() {
-    OneSignal.getUserId(userId => {
-      // console.log('OneSignal getUserId', userId)
+    OneSignal.getUserId(id => {
+      // console.log('OneSignal getUserId', id)
       const user = store.getState().user;
-      Api.MyAccount.updateIdOneSignal(user.access_token, userId);
+      Api.User.updateIdOneSignal(user.access_token, {
+        userId: user.id,
+        idOneSignal: id
+      });
     });
 
     // OneSignal.on('subscriptionChange', function(isSubscribed) {

@@ -196,21 +196,25 @@ function Header() {
                 </Link>
               </li>
               <li>
-                {logged ? (
-                  <Link route="/minha-conta" passHref>
-                    <NavSecondaryButton onClick={cancelToggle}>
-                      Meu perfil
-                      {notificationsAvailable && notificationsAvailable === 'profile' && notificationAlert ? (
-                        <NavIconAlert>
-                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                        </NavIconAlert>
-                      ) : null}
-                    </NavSecondaryButton>
-                  </Link>
-                ) : (
+                {!logged ? (
                   <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta')}>
                     Meu perfil
                   </NavSecondaryButton>
+                ) : notificationsAvailable && notificationsAvailable === 'alert' && notificationAlert ? (
+                  <Link route="/minha-conta/alertas" passHref>
+                    <NavSecondaryButton onClick={cancelToggle}>
+                      Meu perfil
+                      <NavIconAlert>
+                        <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                      </NavIconAlert>
+                    </NavSecondaryButton>
+                  </Link>
+                ) : (
+                  <Link route="/minha-conta" passHref>
+                    <NavSecondaryButton onClick={cancelToggle}>
+                      Meu perfil
+                    </NavSecondaryButton>
+                  </Link>
                 )}
               </li>
               <li>
@@ -223,7 +227,7 @@ function Header() {
                 ) : (
                   <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta/favoritos')}>
                     Meus favoritos
-                    {notificationsAvailable && notificationsAvailable === 'favorites' && notificationFavorite ? (
+                    {notificationsAvailable && notificationsAvailable === 'favorite' && notificationFavorite ? (
                       <NavIconAlert>
                         <SVG src={AlertIconSVG} uniquifyIDs={true} />
                       </NavIconAlert>
