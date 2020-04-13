@@ -39,8 +39,8 @@ const getNotifications = async userId => {
 
 io.on('connection', socket => {
   let timer;
-  const timing = 5000;
-  // const timing = 30000;
+  // const timing = 5000;
+  const timing = 30000;
 
   socket.on('notifications-init', userId => {
     if (timer) {
