@@ -56,7 +56,7 @@ function SliderNew({
         </svg>
       `;
 
-      if($buttonPrev) {
+      if($buttonPrev && $buttonPrev.tagName === 'BUTTON') {
         if(arrowsClassName) {
           $buttonPrev.classList.add(arrowsClassName);
         }
@@ -64,7 +64,7 @@ function SliderNew({
         $buttonPrev.innerHTML = renderSVG('prev');
       }
 
-      if($buttonNext) {
+      if($buttonNext && $buttonNext.tagName === 'BUTTON') {
         if(arrowsClassName) {
           $buttonNext.classList.add(arrowsClassName);
         }
