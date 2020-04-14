@@ -21,13 +21,11 @@ import {
   Inactive
 } from './styles';
 
-function BuildingCard({
-  layout = 'vertical',
-  item
-}) {
-  const itemData = item && item.building && Object.keys(item.building).length > 0
-    ? item.building
-    : item;
+function BuildingCard({ layout = 'vertical', gtmShowcase = '', item }) {
+  const itemData =
+    item && item.building && Object.keys(item.building).length > 0
+      ? item.building
+      : item;
 
   const { category, values, infos, reference, address, status } = itemData;
 
@@ -89,11 +87,17 @@ function BuildingCard({
             <p>
               <span>
                 {category}
-                {(item.type && item.type === 'lancamento') || (item.building && item.building.type === 'lancamento')
-                  ? infos && infos.areaUsefulStart && infos.areaUsefulEnd && infos.areaUsefulEnd !== 99999999
+                {(item.type && item.type === 'lancamento') ||
+                (item.building && item.building.type === 'lancamento')
+                  ? infos &&
+                    infos.areaUsefulStart &&
+                    infos.areaUsefulEnd &&
+                    infos.areaUsefulEnd !== 99999999
                     ? `, ${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
                     : null
-                  : `, ${infos && infos.areaTotal ? infos.areaTotal + ' m²' : null}`}
+                  : `, ${
+                      infos && infos.areaTotal ? infos.areaTotal + ' m²' : null
+                    }`}
               </span>
               {sell || release || rent ? (
                 <>
@@ -108,31 +112,42 @@ function BuildingCard({
                         : formatCurrency.format(release)}
                     </span>
                   ) : null}
-                  {rent ? <span>Aluguel: {formatCurrency.format(rent)}</span> : null}
+                  {rent ? (
+                    <span>Aluguel: {formatCurrency.format(rent)}</span>
+                  ) : null}
                 </>
               ) : null}
               <span className="ref">Ref {reference}</span>
             </p>
           </Text>
-          <ButtonContainer layout={layout}>
-            Saiba mais
-          </ButtonContainer>
+          <ButtonContainer layout={layout}>Saiba mais</ButtonContainer>
         </Column>
       </Wrapper>
-    )
+    );
   }, [ layout, itemData ]);
 
   return (
     <Container layout={layout}>
       {status !== 'inactive' ? (
         <Link route={`/${itemData.slug}`} passHref>
-          <LinkTag layout={layout}>
+          <LinkTag
+            layout={layout}
+            className={
+              gtmShowcase && gtmShowcase === 'Imóvel Recente'
+                ? 'holos-account-product'
+                : 'holos-home-product'
+            }
+            data-showcase={gtmShowcase}
+            data-product-id={itemData.reference}
+          >
             {renderHTML()}
           </LinkTag>
         </Link>
-      ) : renderHTML()}
+      ) : (
+        renderHTML()
+      )}
     </Container>
-  )
+  );
 }
 
 export default BuildingCard;

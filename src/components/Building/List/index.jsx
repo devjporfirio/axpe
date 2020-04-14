@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
@@ -48,7 +48,8 @@ function BuildingList({
   className,
   useBtRemove,
   useBtSchedule,
-  useInactive
+  useInactive,
+  page = ''
 }) {
   const {
     values,
@@ -62,6 +63,7 @@ function BuildingList({
     status
   } = item;
   const [ hasDeleted, setHasDeleted ] = useState(false);
+  const [ gtmObj, setGtmObj ] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const { searchFunnel } = useSelector(state => state.main);
@@ -75,10 +77,13 @@ function BuildingList({
     slidesToScroll: 1
   };
 
-  const handleButtonRemove = useCallback(async (ref, action) => {
-    await Api.MyAccount.postFavorite(user.access_token, ref, action);
-    setHasDeleted(!action);
-  }, [ user.logged ]);
+  const handleButtonRemove = useCallback(
+    async (ref, action) => {
+      await Api.MyAccount.postFavorite(user.access_token, ref, action);
+      setHasDeleted(!action);
+    },
+    [ user.logged ]
+  );
 
   const handleButtonFavorite = useCallback(() => {
     if (user.logged) {
@@ -114,7 +119,7 @@ function BuildingList({
     let items = [];
     const categoryText = category ? category : '';
 
-    if(infos.bedrooms || infos.bedroomsStart && !infos.bedroomsEnd) {
+    if (infos.bedrooms || (infos.bedroomsStart && !infos.bedroomsEnd)) {
       items.push(
         <Caracteristics.Bedrooms
           type={type}
@@ -126,7 +131,7 @@ function BuildingList({
       );
     }
 
-    if(infos.bedroomsStart && infos.bedroomsEnd) {
+    if (infos.bedroomsStart && infos.bedroomsEnd) {
       items.push(
         <Caracteristics.BedroomsBetween
           start={infos.bedroomsStart}
@@ -136,7 +141,7 @@ function BuildingList({
       );
     }
 
-    if(infos.parking || infos.parkingStart && !infos.parkingEnd) {
+    if (infos.parking || (infos.parkingStart && !infos.parkingEnd)) {
       items.push(
         <Caracteristics.Parking
           type={type}
@@ -147,7 +152,7 @@ function BuildingList({
       );
     }
 
-    if(infos.parkingStart && infos.parkingEnd) {
+    if (infos.parkingStart && infos.parkingEnd) {
       items.push(
         <Caracteristics.ParkingBetween
           start={infos.parkingStart}
@@ -157,7 +162,8 @@ function BuildingList({
       );
     }
 
-    if(infos.areaBuilding &&
+    if (
+      infos.areaBuilding &&
       infos.use !== 'COMERCIAL' &&
       categoryText !== 'Cobertura' &&
       categoryText !== 'Apartamento' &&
@@ -171,7 +177,7 @@ function BuildingList({
       );
     }
 
-    if(infos.areaUseful || infos.areaUsefulStart) {
+    if (infos.areaUseful || infos.areaUsefulStart) {
       items.push(
         <Caracteristics.AreaUseFul
           type={type}
@@ -182,7 +188,8 @@ function BuildingList({
       );
     }
 
-    if(infos.areaGround &&
+    if (
+      infos.areaGround &&
       infos.use !== 'COMERCIAL' &&
       categoryText !== 'Cobertura' &&
       categoryText !== 'Apartamento'
@@ -195,7 +202,8 @@ function BuildingList({
       );
     }
 
-    if(infos.areaUsefulStart &&
+    if (
+      infos.areaUsefulStart &&
       infos.areaUsefulEnd &&
       infos.use !== 'COMERCIAL' &&
       categoryText !== 'Cobertura' &&
@@ -211,7 +219,8 @@ function BuildingList({
       );
     }
 
-    if(infos &&
+    if (
+      infos &&
       infos.areaTotal &&
       infos.use !== 'COMERCIAL' &&
       source !== 'praia' &&
@@ -233,6 +242,28 @@ function BuildingList({
     return items;
   }, []);
 
+  useEffect(() => {
+    const obj = page
+      ? {
+          className: 'holos-search-product',
+          showcase: ''
+        }
+      : null;
+
+    if (page) {
+      if (page === 'search') {
+        obj.showcase = 'Busca';
+      } else if (page === 'search-dream') {
+        obj.showcase = 'Só Quero Sonhar';
+      } else if (page === 'favorites') {
+        obj.className = 'holos-account-product';
+        obj.showcase = 'Favoritos';
+      }
+    }
+
+    setGtmObj(obj);
+  }, [ page ]);
+
   return (
     <Container
       className={className}
@@ -246,6 +277,7 @@ function BuildingList({
             <SliderNew
               type="gallery"
               arrowsColor="greenDark"
+              arrowsClassName={gtmObj ? `${gtmObj.className}-image-arrow` : ''}
               settings={gallerySettings}
             >
               {gallery &&
@@ -253,10 +285,19 @@ function BuildingList({
                 gallery.map((galleryItem, galleryItemIndex) => {
                   return (
                     galleryItem.tipo === 'imagem' && (
-                      <SliderItem key={`item-gallery-${reference}-${galleryItemIndex}`}>
+                      <SliderItem
+                        key={`item-gallery-${reference}-${galleryItemIndex}`}
+                      >
                         <Link route={`/${item.slug}`} passHref>
-                          <LinkTag>
-                            <img src={galleryItem.src} alt={`Axpe ${category} - ${reference}`} />
+                          <LinkTag
+                            className={gtmObj ? gtmObj.className : ''}
+                            data-showcase={gtmObj ? gtmObj.showcase : ''}
+                            data-product-id={item.reference}
+                          >
+                            <img
+                              src={galleryItem.src}
+                              alt={`Axpe ${category} - ${reference}`}
+                            />
                           </LinkTag>
                         </Link>
                       </SliderItem>
@@ -271,12 +312,19 @@ function BuildingList({
                 color="greenDark"
                 type="button"
                 onClick={() => handleButtonRemove(reference, false)}
+                className={gtmObj ? `${gtmObj.className}-unfavorite` : ''}
+                data-showcase={gtmObj ? gtmObj.showcase : ''}
+                data-product-id={item.reference}
               >
                 Remover
               </RemoveButton>
             )}
             <Link route={`/${item.slug}`} passHref>
-              <LinkTag>
+              <LinkTag
+                className={gtmObj ? gtmObj.className : ''}
+                data-showcase={gtmObj ? gtmObj.showcase : ''}
+                data-product-id={item.reference}
+              >
                 <CatLocGroup>
                   <Category>
                     {type === 'lancamento'
@@ -287,7 +335,9 @@ function BuildingList({
                   </Category>
                   <div>
                     <div>
-                      {address && address.local && <Local>{address.local}</Local>}
+                      {address && address.local && (
+                        <Local>{address.local}</Local>
+                      )}
                       {type === 'lancamento' && (
                         <CategoryRelease>{category}</CategoryRelease>
                       )}
@@ -300,9 +350,16 @@ function BuildingList({
 
             <ValuesFavGroup>
               <Link route={`/${item.slug}`} passHref>
-                <LinkTag>
+                <LinkTag
+                  className={gtmObj ? gtmObj.className : ''}
+                  data-showcase={gtmObj ? gtmObj.showcase : ''}
+                  data-product-id={item.reference}
+                >
                   <div>
-                    {(!!values.sell || !!values.release) && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
+                    {(!!values.sell || !!values.release) &&
+                    (!searchFunnel ||
+                      !searchFunnel.finality ||
+                      searchFunnel.finality == 'venda') ? (
                       <Price>
                         {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                         {!!values.sell &&
@@ -315,7 +372,10 @@ function BuildingList({
                             .replace('R$', values.currency || 'R$')}
                       </Price>
                     ) : null}
-                    {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
+                    {!!values.rent &&
+                    (!searchFunnel ||
+                      !searchFunnel.finality ||
+                      searchFunnel.finality == 'aluguel') ? (
                       <Price>
                         Locação:{' '}
                         {formatCurrency
@@ -330,12 +390,25 @@ function BuildingList({
                 type="button"
                 active={isFavoriteBuilding}
                 onClick={handleButtonFavorite}
+                className={
+                  !gtmObj
+                    ? ''
+                    : isFavoriteBuilding
+                    ? `${gtmObj.className}-unfavorite`
+                    : `${gtmObj.className}-favorite`
+                }
+                data-showcase={gtmObj ? gtmObj.showcase : ''}
+                data-product-id={item.reference}
               >
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </FavoriteButton>
             </ValuesFavGroup>
             <Link route={`/${item.slug}`} passHref>
-              <LinkTag>
+              <LinkTag
+                className={gtmObj ? gtmObj.className : ''}
+                data-showcase={gtmObj ? gtmObj.showcase : ''}
+                data-product-id={item.reference}
+              >
                 <div>
                   <CaracteristicsGroup>
                     {getCaracteristics().map((item, itemIndex) => item)}
@@ -345,7 +418,13 @@ function BuildingList({
               </LinkTag>
             </Link>
             {useBtSchedule && (
-              <ScheduleButton type="button" onClick={handleBtSchedule}>
+              <ScheduleButton
+                type="button"
+                onClick={handleBtSchedule}
+                className={gtmObj ? `${gtmObj.className}-schedule` : ''}
+                data-showcase={gtmObj ? gtmObj.showcase : ''}
+                data-product-id={item.reference}
+              >
                 Agende uma visita
               </ScheduleButton>
             )}

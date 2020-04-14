@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import GTM from 'helpers/gtm';
 import Api from 'services';
 
 // helpers
@@ -61,12 +62,26 @@ function UpdatePass({ active, onClose, user }) {
         setSuccessMessage(true);
         resetForm();
 
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Alterar Senha',
+          formResult: 'Sucesso',
+          formMessage: ''
+        });
+
         setTimeout(() => {
           setSuccessMessage(false);
           onClose();
         }, 3000);
       } else {
         const msg = getErrorMessage(response.error);
+
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Alterar Senha',
+          formResult: 'Erro',
+          formMessage: msg
+        });
 
         setErrorMessage(msg);
         setSubmitting(false);
@@ -93,6 +108,9 @@ function UpdatePass({ active, onClose, user }) {
             error={touched.password && errors.password}
             value={values.password}
             onBlur={handleBlur}
+            className="holos-form-field"
+            data-label="Senha atual"
+            data-type="Alterar senha"
             useEye
           />
           <FormElements
@@ -104,6 +122,9 @@ function UpdatePass({ active, onClose, user }) {
             error={touched.passwordNew && errors.passwordNew}
             value={values.passwordNew}
             onBlur={handleBlur}
+            className="holos-form-field"
+            data-label="Nova senha"
+            data-type="Alterar senha"
             useEye
           />
           <FormElements
@@ -115,6 +136,9 @@ function UpdatePass({ active, onClose, user }) {
             error={touched.passwordConfirmation && errors.passwordConfirmation}
             value={values.passwordConfirmation}
             onBlur={handleBlur}
+            className="holos-form-field"
+            data-label="Confirmar senha"
+            data-type="Alterar senha"
             useEye
           />
         </FormGroup>
@@ -127,7 +151,12 @@ function UpdatePass({ active, onClose, user }) {
         {successMessage && <FormFeedback themeColor="greenLight">Senha alterada com sucesso!</FormFeedback>}
         {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
 
-        <ButtonSave disabled={isSubmitting} type="submit">
+        <ButtonSave
+          disabled={isSubmitting}
+          type="submit"
+          className="holos-form-submit"
+          data-type="Alterar Senha"
+        >
           Salvar
         </ButtonSave>
       </Form>

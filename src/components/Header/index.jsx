@@ -115,19 +115,19 @@ function Header() {
       <Wrapper>
         <AxpeLogo type="axpe">
           <Link route="/" passHref>
-            <LogoLink onClick={cancelToggle}>Axpe. Imóveis Especiais</LogoLink>
+            <LogoLink className="holos-logo" data-label="Axpe" onClick={cancelToggle}>Axpe. Imóveis Especiais</LogoLink>
           </Link>
         </AxpeLogo>
 
         <ChristiesLogo type="christies">
           <Link route="/sobre" passHref>
-            <LogoLink onClick={cancelToggle}>
+            <LogoLink className="holos-logo" data-label="Christies" onClick={cancelToggle}>
               Christie's Real Estate São Paulo
             </LogoLink>
           </Link>
         </ChristiesLogo>
 
-        <ButtonSearch type="button" onClick={toggleSearch}>
+        <ButtonSearch className="holos-menu-item" type="button" onClick={toggleSearch}>
           Buscar
         </ButtonSearch>
         <ButtonToggle
@@ -146,6 +146,7 @@ function Header() {
               <li>
                 <NavMainButtonSearch
                   type="button"
+                  className="holos-menu-item"
                   active={searchFormActive}
                   onClick={toggleSearch}
                 >
@@ -156,13 +157,13 @@ function Header() {
               <li>
                 {logged ? (
                   <Link route="/cadastrar" passHref>
-                    <NavMainButton type="register" onClick={cancelToggle}>
+                    <NavMainButton className="holos-menu-item" type="register" onClick={cancelToggle}>
                       <SVG src={HomeIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                     </NavMainButton>
                   </Link>
                 ) : (
-                  <NavMainButton type="register" onClick={() => openModalLogin('/cadastrar')}>
+                  <NavMainButton className="holos-menu-item" type="register" onClick={() => openModalLogin('/cadastrar')}>
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                   </NavMainButton>
@@ -170,7 +171,7 @@ function Header() {
               </li>
               <li>
                 <Link route="/so-quero-sonhar" passHref>
-                  <NavMainButton type="dream" onClick={cancelToggle}>
+                  <NavMainButton className="holos-menu-item" type="dream" onClick={cancelToggle}>
                     <SVG src={CloudIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Só quero sonhar</NavMainButtonText>
                   </NavMainButton>
@@ -183,26 +184,26 @@ function Header() {
             <ul>
               <li>
                 <Link route="/sobre" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>
+                  <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
                     Sobre a Axpe
                   </NavSecondaryButton>
                 </Link>
               </li>
               <li>
                 <Link route="/contato" passHref>
-                  <NavSecondaryButton onClick={cancelToggle}>
+                  <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
                     Fale com a gente
                   </NavSecondaryButton>
                 </Link>
               </li>
               <li>
                 {!logged ? (
-                  <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta')}>
+                  <NavSecondaryButton className="holos-menu-item" onClick={()=> openModalLogin('/minha-conta')}>
                     Meu perfil
                   </NavSecondaryButton>
                 ) : notificationsAvailable && notificationsAvailable === 'alert' && notificationAlert ? (
                   <Link route="/minha-conta/alertas" passHref>
-                    <NavSecondaryButton onClick={cancelToggle}>
+                    <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
                       Meu perfil
                       <NavIconAlert>
                         <SVG src={AlertIconSVG} uniquifyIDs={true} />
@@ -211,7 +212,7 @@ function Header() {
                   </Link>
                 ) : (
                   <Link route="/minha-conta" passHref>
-                    <NavSecondaryButton onClick={cancelToggle}>
+                    <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
                       Meu perfil
                     </NavSecondaryButton>
                   </Link>
@@ -220,12 +221,12 @@ function Header() {
               <li>
               {logged ? (
                   <Link route="/minha-conta/favoritos" passHref>
-                    <NavSecondaryButton onClick={cancelToggle}>
+                    <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
                       Meus favoritos
                     </NavSecondaryButton>
                   </Link>
                 ) : (
-                  <NavSecondaryButton onClick={()=> openModalLogin('/minha-conta/favoritos')}>
+                  <NavSecondaryButton className="holos-menu-item" onClick={()=> openModalLogin('/minha-conta/favoritos')}>
                     Meus favoritos
                     {notificationsAvailable && notificationsAvailable === 'favorite' && notificationFavorite ? (
                       <NavIconAlert>
@@ -240,6 +241,7 @@ function Header() {
 
           <Whatsapp>
             <WhatsappButton
+              className="holos-menu-item"
               href="https://api.whatsapp.com/send?phone=551130743600"
               target="_blank"
             >
@@ -249,11 +251,11 @@ function Header() {
           </Whatsapp>
 
           <Contact>
-            Fale com a gente <a href="tel:+551130743600">(11) 3074-3600</a>
+            Fale com a gente <a href="tel:+551130743600" className="holos-menu-item">(11) 3074-3600</a>
           </Contact>
 
           <Newsletter>
-            <NewsletterButton type="button" onClick={openModalNewsletter}>
+            <NewsletterButton className="holos-menu-item" type="button" onClick={openModalNewsletter}>
               Receba nossas <strong>novidades</strong>
             </NewsletterButton>
           </Newsletter>

@@ -25,13 +25,28 @@ function Footer() {
     <Container>
       <Wrapper>
         <Socials>
-          <SocialButton href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997" target="_blank">
+          <SocialButton
+            href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997"
+            target="_blank"
+            className="holos-footer-social-link"
+            data-label="Facebook"
+          >
             <SVG src={FacebookIconSVG} uniquifyIDs={true} />
           </SocialButton>
-          <SocialButton href="http://instagram.com/axpe_imoveis" target="_blank">
+          <SocialButton
+            href="http://instagram.com/axpe_imoveis"
+            target="_blank"
+            className="holos-footer-social-link"
+            data-label="Instagram"
+          >
             <SVG src={InstagramIconSVG} uniquifyIDs={true} />
           </SocialButton>
-          <SocialButton href="https://br.linkedin.com/company/axpe-im-veis" target="_blank">
+          <SocialButton
+            href="https://br.linkedin.com/company/axpe-im-veis"
+            target="_blank"
+            className="holos-footer-social-link"
+            data-label="Linkedin"
+          >
             <SVG src={LinkedinIconSVG} uniquifyIDs={true} />
           </SocialButton>
         </Socials>
@@ -40,18 +55,18 @@ function Footer() {
           <span>
             |{' '}
             <Link route="/mapa-do-site" passHref>
-              <a>Mapa do site</a>
+              <a className="holos-footer-link" data-label="Mapa do site">Mapa do site</a>
             </Link>
           </span>
         </Copy>
         <Links>
           <Link route="/mapa-do-site" passHref>
-            <a>Mapa do site</a>
+            <a className="holos-footer-link" data-label="Mapa do site">Mapa do site</a>
           </Link>
           <span>|</span>
           <FutureBrand>
             By{' '}
-            <a href="https://www.futurebrand.com" target="_blank">
+            <a href="https://www.futurebrand.com" target="_blank" className="holos-footer-link" data-label="Futurebrand">
               FutureBrand
             </a>
           </FutureBrand>

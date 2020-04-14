@@ -100,10 +100,24 @@ function LoginSocials({
   return (
     <Container>
       <p>Ou entre com:</p>
-      <ButtonSocial type="button" socialNetwork="facebook" onClick={doFacebookLogin}>
+      <ButtonSocial
+        type="button"
+        socialNetwork="facebook"
+        onClick={doFacebookLogin}
+        className="holos-form-social"
+        data-label="Facebook"
+        data-type="Login"
+      >
         <SVG src={FacebookRoundedIconSVG} uniquifyIDs={true} />
       </ButtonSocial>
-      <ButtonSocial type="button" socialNetwork="google" onClick={clickButtonGoogle}>
+      <ButtonSocial
+        type="button"
+        socialNetwork="google"
+        onClick={clickButtonGoogle}
+        className="holos-form-social"
+        data-label="Google"
+        data-type="Login"
+      >
         <SVG src={GoogleRoundedIconSVG} uniquifyIDs={true} />
         <div id="button-google-login" />
       </ButtonSocial>

@@ -94,7 +94,10 @@ function Favorites() {
               <Title>
                 Você curtiu <strong>{buildings.length} imóveis</strong>
               </Title>
-              <ButtonShare onClick={() => setShareActive(true)}>
+              <ButtonShare
+                onClick={() => setShareActive(true)}
+                className="holos-account-favorite-share"
+              >
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />
               </ButtonShare>
               {/* <GroupIcon>
@@ -115,6 +118,7 @@ function Favorites() {
                   useBtRemove
                   useBtSchedule
                   item={building}
+                  page="favorites"
                   key={`building-${buildingIndex}-${building.reference}`}
                 />
               ))}

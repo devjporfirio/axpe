@@ -32,7 +32,6 @@ const TYPE_FIELD = {
 };
 
 const Field = ({
-  className,
   type,
   component: Component,
   error,
@@ -45,7 +44,6 @@ const Field = ({
   return (
     <>
       <Label
-        className={className}
         type={type}
         htmlFor={props.name}
         themeColor={themeColor}
@@ -71,10 +69,9 @@ const Field = ({
   );
 };
 
-export default function FormElements({ className, type = 'text', ...props }) {
+export default function FormElements({ type = 'text', ...props }) {
   return (
     <Field
-      className={className}
       component={TYPE_FIELD[type]}
       type={type}
       {...props}

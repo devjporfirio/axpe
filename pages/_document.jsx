@@ -3,7 +3,8 @@ import { ServerStyleSheet } from 'styled-components';
 
 // layouts
 import HeaderStyles from 'layouts/vendors/headerStyles';
-import BodyScripts from 'layouts/vendors/bodyScripts';
+import BodyScriptsStart from 'layouts/vendors/bodyScriptsStart';
+import BodyScriptsEnd from 'layouts/vendors/bodyScriptsEnd';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -70,8 +71,9 @@ export default class MyDocument extends Document {
           <HeaderStyles />
         </Head>
         <body>
+          <BodyScriptsStart />
           <Main />
-          <BodyScripts />
+          <BodyScriptsEnd />
           <NextScript />
         </body>
       </Html>

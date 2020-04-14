@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Slider from 'react-slick';
 import { useRouter } from 'next/router'
 import Api from 'services';
+import GTM from 'helpers/gtm';
 
 // data
 import DataJSON from 'pages/Dream/data.json';
@@ -73,9 +74,15 @@ function DreamDetail({ buildings }) {
   useEffect(() => {
     function getData() {
       const results = DataJSON.data.filter(item => item.slug === slug);
+
       if(results.length) {
         setData(results[0]);
       }
+
+      GTM.dataLayerPush({
+        searchFilters: 'Só Quero Sonhar'
+      });
+
       setAllData(DataJSON.data);
     }
 
@@ -98,7 +105,11 @@ function DreamDetail({ buildings }) {
           <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
           <Buildings>
             {buildings && buildings.length > 0 ? buildings.map((building, buildingIndex) => (
-                <BuildingList item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                <BuildingList
+                  item={building}
+                  page="search-dream"
+                  key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                />
               )) : (
               <BuildingsNotFound>
                 <h6>Não encontramos o imóveis na categoria que você procura <span>:(</span></h6>

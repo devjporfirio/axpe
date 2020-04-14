@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import Api from 'services';
+import GTM from 'helpers/gtm';
 import * as Yup from 'yup';
 
 // helpers
@@ -97,6 +98,13 @@ function RegisterForm({ doAfterLogin }) {
       } else if(!response.status && response.error) {
         const msgs = response.error.map(err => getErrorMessage(err));
 
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Cadastro',
+          formResult: 'Erro',
+          formMessage: msgs.join(', ')
+        });
+
         setSubmitting(false);
         setErrorMessage(msgs.join(', '));
 
@@ -118,6 +126,9 @@ function RegisterForm({ doAfterLogin }) {
         error={touched.name && errors.name}
         value={values.name}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Nome"
+        data-type="Cadastro"
       />
       <FormElements
         type="text"
@@ -128,6 +139,9 @@ function RegisterForm({ doAfterLogin }) {
         error={touched.lastName && errors.lastName}
         value={values.lastName}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Sobrenome"
+        data-type="Cadastro"
       />
       <FormElements
         type="emailmask"
@@ -138,6 +152,9 @@ function RegisterForm({ doAfterLogin }) {
         error={touched.email && errors.email}
         value={values.email}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="E-mail"
+        data-type="Cadastro"
       />
       <FormElements
         type="password"
@@ -148,6 +165,9 @@ function RegisterForm({ doAfterLogin }) {
         error={touched.password && errors.password}
         value={values.password}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Senha"
+        data-type="Cadastro"
       />
       <FormElements
         type="password"
@@ -158,6 +178,9 @@ function RegisterForm({ doAfterLogin }) {
         error={touched.passwordConfirmation && errors.passwordConfirmation}
         value={values.passwordConfirmation}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Confirmar senha"
+        data-type="Cadastro"
       />
       <FormElements
         type="phone"
@@ -168,6 +191,9 @@ function RegisterForm({ doAfterLogin }) {
         error={touched.phone && errors.phone}
         value={values.phone}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Celular"
+        data-type="Cadastro"
       />
       <FormElements
         type="checkboxLink"
@@ -178,8 +204,17 @@ function RegisterForm({ doAfterLogin }) {
         value={values.terms}
         checked={values.terms}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Concordo com a política de privacidade da Axpe"
+        data-type="Cadastro"
       />
-      <Button type="submit" disabled={isSubmitting} fullWidth>
+      <Button
+        type="submit"
+        className="holos-form-submit"
+        data-type="Cadastro"
+        disabled={isSubmitting}
+        fullWidth
+      >
         Começar
       </Button>
       {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}

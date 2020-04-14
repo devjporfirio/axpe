@@ -33,29 +33,29 @@
       </div>
 
       <label class="form-group">
-        <input type="text" maxlength="255" name="Name_First" fieldType=7 class="form-group__control" required />
+        <input type="text" maxlength="255" name="Name_First" fieldType=7 class="form-group__control holos-form-field" data-label="Nome" data-type="Institucional - Contato" required />
         <span class="form-group__label">Nome</span>
       </label>
 
       <label class="form-group">
-        <input type="text" maxlength="255" name="Name_Last" fieldType=7 class="form-group__control" required />
+        <input type="text" maxlength="255" name="Name_Last" fieldType=7 class="form-group__control holos-form-field" data-label="Sobrenome" data-type="Institucional - Contato" required />
         <span class="form-group__label">Sobrenome</span>
       </label>
 
       <label class="form-group">
-        <input type="text" compname="PhoneNumber" name="PhoneNumber_countrycode" phoneFormat="1" isCountryCodeEnabled=false maxlength="20" value="" fieldType=11 id="international_PhoneNumber_countrycode" class="form-group__control js-mask-phone" />
+        <input type="text" compname="PhoneNumber" name="PhoneNumber_countrycode" phoneFormat="1" isCountryCodeEnabled=false maxlength="20" value="" fieldType=11 id="international_PhoneNumber_countrycode" class="form-group__control js-mask-phone holos-form-field" data-label="Celular" data-type="Institucional - Contato" />
         <span class="form-group__label">Celular</span>
       </label>
 
       <label class="form-group">
-        <input type="email" maxlength="255" name="Email" value="" fieldType=9 class="form-group__control" required />
+        <input type="email" maxlength="255" name="Email" value="" fieldType=9 class="form-group__control holos-form-field" data-label="E-mail" data-type="Institucional - Contato" required />
         <span class="form-group__label">Email</span>
       </label>
 
       <div class="form-group">
         <label>Como você conheceu a Axpe?</label>
         <div class="form-combo">
-          <select name="Dropdown5" required>
+          <select name="Dropdown5" class="holos-form-field" data-label="Como você conheceu a Axpe?" data-type="Produto - Contato" required>
             <option selected="true" value="">Selecione uma opção</option>
             <option value="Google&#x20;ou&#x20;outros">Google ou outros</option>
             <option value="Facebook">Facebook</option>
@@ -84,7 +84,9 @@
               name="Dropdown6"
               value="Não"
               required
-              class="js-button-toggle"
+              class="js-button-toggle holos-form-field"
+              data-label="Não"
+              data-type="Institucional - Contato"
               data-toggle-hide="[data-button-toggle='porquem']"
               required
             />
@@ -96,7 +98,9 @@
               name="Dropdown6"
               value="Sim"
               required
-              class="js-button-toggle"
+              class="js-button-toggle holos-form-field"
+              data-label="Sim"
+              data-type="Institucional - Contato"
               data-toggle-show="[data-button-toggle='porquem']"
               required
             />
@@ -112,11 +116,11 @@
 
       <div class="form-group">
         <label>Comentários</label>
-        <textarea name="MultiLine2" maxlength="65535" required></textarea>
+        <textarea name="MultiLine2" maxlength="65535" class="holos-form-field" data-label="Comentários" data-type="Institucional - Contato" required></textarea>
       </div>
 
       <div class="form-submit">
-        <button type="submit" class="form-submit__btn">Enviar</button>
+        <button type="submit" class="form-submit__btn holos-form-submit" data-type="Produto - Contato">Enviar</button>
       </div>
     </form>
 

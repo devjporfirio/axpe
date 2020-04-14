@@ -283,7 +283,7 @@ function ContactBar() {
 
   return (
     <>
-      <ButtonFloat type="button" onClick={toggleShow}>
+      <ButtonFloat className="holos-contact-float" type="button" onClick={toggleShow}>
         Abrir contato
         <SVG src={ChatIconSVG} uniquifyIDs={true} />
       </ButtonFloat>
@@ -305,6 +305,8 @@ function ContactBar() {
                       type="button"
                       onClick={toggleShow}
                       isBuilding={isBuilding}
+                      className="holos-modal-close"
+                      data-type={router.route === '/imovel' ? `Produto - Contato` : `Contato`}
                     >
                       Fechar
                   </ButtonClose>
@@ -320,6 +322,8 @@ function ContactBar() {
                         <ListLink
                           href="https://api.whatsapp.com/send?phone=551130743600"
                           target="_blank"
+                          className="holos-contact-float-item"
+                          data-label="Whatsapp"
                         >
                           <i>
                             <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
@@ -332,7 +336,12 @@ function ContactBar() {
                         </ListLink>
                       </li>
                       <li>
-                        <ListLink href="tel:+551130743600" target="_blank">
+                        <ListLink
+                          href="tel:+551130743600"
+                          target="_blank"
+                          className="holos-contact-float-item"
+                          data-label="Telefone"
+                        >
                           <i>
                             <SVG src={PhoneIconSVG} uniquifyIDs={true} />
                           </i>
@@ -344,7 +353,11 @@ function ContactBar() {
                         </ListLink>
                       </li>
                       <li>
-                        <ListButton type="button">
+                        <ListButton
+                          type="button"
+                          className="holos-contact-float-item"
+                          data-label="Chat"
+                        >
                           <i>
                             <SVG src={ChatIconSVG} uniquifyIDs={true} />
                           </i>

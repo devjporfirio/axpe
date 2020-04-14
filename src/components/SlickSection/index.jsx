@@ -163,6 +163,9 @@ function SlickSection({
               <ItemLink
                 type={type}
                 route={item.building ? `/${item.building.slug}` : `/${item.slug}`}
+                className="holos-home-product"
+                data-showcase="Carrossel de Produtos"
+                data-product-id={item.building ? `/${item.building.reference}` : `/${item.reference}`}
               />
             )}
 

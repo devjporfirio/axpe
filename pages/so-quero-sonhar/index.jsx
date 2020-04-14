@@ -47,7 +47,11 @@ function Dream() {
               {data.map((item, itemIndex) => (
                 <li key={`dream-list-item-${itemIndex}`}>
                   <Link route={`/so-quero-sonhar/${item.slug}`} passHref>
-                    <ListButton>
+                    <ListButton
+                      className="holos-search-category-button"
+                      data-showcase="Só Quero Sonhar"
+                      data-label={item.title}
+                    >
                       <ListText>
                         <h3>{item.title}</h3>
                         <p>{item.subtitle}</p>

@@ -22,8 +22,6 @@
     "erb": "html"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": false
+    "source.fixAll.eslint": true
   }
 }
-
-

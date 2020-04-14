@@ -14,6 +14,7 @@ function Modal({
   showButtonBack,
   onClickButtonBack,
   themeColor = 'default',
+  dataType = '',
   className
 }) {
   return (
@@ -28,11 +29,22 @@ function Modal({
         themeColor={themeColor}
       >
         {showButtonBack && (
-          <ButtonBack type="button" onClick={onClickButtonBack}>
+          <ButtonBack
+            type="button"
+            onClick={onClickButtonBack}
+            className="holos-modal-close"
+            data-type="Cadastro"
+          >
             <SVG src={ArrowSVG} uniquifyIDs={true} /> Fechar
           </ButtonBack>
         )}
-        <ButtonClose type="button" onClick={onClose} themeColor={themeColor}>
+        <ButtonClose
+          type="button"
+          className="holos-modal-close"
+          data-type={dataType}
+          onClick={onClose}
+          themeColor={themeColor}
+        >
           Fechar
         </ButtonClose>
         {children}

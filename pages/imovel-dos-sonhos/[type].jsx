@@ -375,6 +375,9 @@ function DreamBuildingSingle({ type }) {
                       }}
                       error={touched.Finality && errors.Finality}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="Para:"
+                      data-type="Imóvel dos Sonhos"
                     />
                   </FormGroup>
                 </FormCol>
@@ -391,6 +394,9 @@ function DreamBuildingSingle({ type }) {
                           error={touched.Radio1 && errors.Radio1}
                           value="Praia"
                           onBlur={handleBlur}
+                          className="holos-form-field"
+                          data-label="Praia"
+                          data-type="Imóvel dos Sonhos"
                         />
                       </FormListItem>
                       <FormListItem>
@@ -402,6 +408,9 @@ function DreamBuildingSingle({ type }) {
                           error={touched.Radio1 && errors.Radio1}
                           value="Campo"
                           onBlur={handleBlur}
+                          className="holos-form-field"
+                          data-label="Campo"
+                          data-type="Imóvel dos Sonhos"
                         />
                       </FormListItem>
                     </FormList>
@@ -422,6 +431,9 @@ function DreamBuildingSingle({ type }) {
                       onChange={handleChange}
                       error={touched.Dropdown3 && errors.Dropdown3}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="Qual o país de seu interesse?"
+                      data-type="Imóvel dos Sonhos"
                     />
                   </FormGroup>
                 </FormCol>
@@ -441,6 +453,9 @@ function DreamBuildingSingle({ type }) {
                       error={touched.MultipleChoice1 && errors.MultipleChoice1}
                       value={type.value}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label={type.label}
+                      data-type="Imóvel dos Sonhos"
                     />
                   </FormListItem>
                 ))}
@@ -472,6 +487,9 @@ function DreamBuildingSingle({ type }) {
                             error={touched.MultipleChoice && errors.MultipleChoice}
                             value={local.value}
                             onBlur={handleBlur}
+                            className="holos-form-field"
+                            data-label={local.label}
+                            data-type="Imóvel dos Sonhos"
                           />
                         </FormListItem>
                       ))}
@@ -493,6 +511,9 @@ function DreamBuildingSingle({ type }) {
                           error={touched.MultipleChoice && errors.MultipleChoice}
                           value={local.value}
                           onBlur={handleBlur}
+                          className="holos-form-field"
+                          data-label={local.label}
+                          data-type="Imóvel dos Sonhos"
                         />
                       </FormListItem>
                     ))}
@@ -517,6 +538,9 @@ function DreamBuildingSingle({ type }) {
                         onChange={handleChange}
                         error={touched.SingleLine2 && errors.SingleLine2}
                         onBlur={handleBlur}
+                        className="holos-form-field"
+                        data-label="Quais praias você consideraria?"
+                        data-type="Imóvel dos Sonhos"
                       />
                     </FormGroup>
                   </FormCol>
@@ -531,6 +555,9 @@ function DreamBuildingSingle({ type }) {
                         onChange={handleChange}
                         error={touched.SingleLine3 && errors.SingleLine3}
                         onBlur={handleBlur}
+                        className="holos-form-field"
+                        data-label="Quais condomínios de campo consideraria?"
+                        data-type="Imóvel dos Sonhos"
                       />
                     </FormGroup>
                   </FormCol>
@@ -555,6 +582,9 @@ function DreamBuildingSingle({ type }) {
                     error={touched.Currency_copy && errors.Currency_copy}
                     value={values.Currency_copy}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Qual o valor que você quer investir?"
+                    data-type="Imóvel dos Sonhos"
                   />
                 </FormGroup>
               </FormCol>
@@ -569,6 +599,9 @@ function DreamBuildingSingle({ type }) {
                       onChange={handleChange}
                       error={touched.Number && errors.Number}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="Número de quartos?"
+                      data-type="Imóvel dos Sonhos"
                     />
                   </FormGroup>
                 </FormCol>
@@ -583,6 +616,9 @@ function DreamBuildingSingle({ type }) {
                     onChange={handleChange}
                     error={touched.Number1 && errors.Number1}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Vagas de garagem?"
+                    data-type="Imóvel dos Sonhos"
                   />
                 </FormGroup>
               </FormCol>
@@ -601,6 +637,9 @@ function DreamBuildingSingle({ type }) {
                     error={touched.Number2 && errors.Number2}
                     value={values.Number2}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="De quanto espaço você precisa?"
+                    data-type="Imóvel dos Sonhos"
                   />
                 </FormGroup>
               </FormCol>
@@ -615,6 +654,9 @@ function DreamBuildingSingle({ type }) {
                       onChange={handleChange}
                       error={touched.Dropdown4 && errors.Dropdown4}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="E sobre a área de lazer?"
+                      data-type="Imóvel dos Sonhos"
                     />
                   </FormGroup>
                 </FormCol>
@@ -631,6 +673,9 @@ function DreamBuildingSingle({ type }) {
                     onChange={handleChange}
                     error={touched.MultiLine2 && errors.MultiLine2}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="O que não pode faltar no imóvel?"
+                    data-type="Imóvel dos Sonhos"
                   />
                 </FormGroup>
               </FormCol>
@@ -643,6 +688,9 @@ function DreamBuildingSingle({ type }) {
                     onChange={handleChange}
                     error={touched.MultiLine1 && errors.MultiLine1}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="E o que você não quer, de jeito nenhum?"
+                    data-type="Imóvel dos Sonhos"
                   />
                 </FormGroup>
               </FormCol>
@@ -659,6 +707,9 @@ function DreamBuildingSingle({ type }) {
                     onChange={handleChange}
                     error={touched.Dropdown5 && errors.Dropdown5}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Como você conheceu a Axpe?"
+                    data-type="Imóvel dos Sonhos"
                   />
                 </FormGroup>
               </FormCol>
@@ -667,7 +718,12 @@ function DreamBuildingSingle({ type }) {
             </FormCols>
 
             <ButtonSubmitContainer>
-              <Button disabled={isSubmitting} type="submit">
+              <Button
+                disabled={isSubmitting}
+                type="submit"
+                className="holos-form-submit"
+                data-type="Imóvel dos Sonhos"
+              >
                 Enviar
               </Button>
             </ButtonSubmitContainer>

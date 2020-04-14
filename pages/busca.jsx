@@ -4,6 +4,7 @@ import Head from 'next/head';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import Router, { useRouter } from 'next/router';
+import GTM from 'helpers/gtm';
 
 // store
 import { setMain } from 'store/modules/main/actions';
@@ -92,6 +93,10 @@ function Search({ total, totalPages, data, locals }) {
     const params = getParamsFromObject({
       ...query,
       order: newOrder
+    });
+
+    GTM.dataLayerPush({
+      searchFilters: Object.keys(query).map(key => key).join('|')
     });
 
     if(query.order !== newOrder) {
@@ -273,7 +278,15 @@ function Search({ total, totalPages, data, locals }) {
                     <HeaderOrderSelect
                       name="orderBy"
                       value={orderBy}
-                      onChange={(event) => handleOrderBy(event.target.value)}
+                      onChange={(event) => {
+                        handleOrderBy(event.target.value);
+
+                        GTM.dataLayerPush({
+                          event: 'Custom Field Change',
+                          fieldLabel: event.target.value,
+                          fieldForm: 'Busca'
+                        });
+                      }}
                       onBlur={(event) => handleOrderBy(event.target.value)}
                     >
                       {orderOptions.map((orderItem, orderItemIndex) => (
@@ -288,6 +301,12 @@ function Search({ total, totalPages, data, locals }) {
                           onClick={() => {
                             setOrderBy(orderItem.value);
                             handleOrderBy(orderItem.value);
+
+                            GTM.dataLayerPush({
+                              event: 'Custom Field Change',
+                              fieldLabel: orderItem.value,
+                              fieldForm: 'Busca'
+                            });
                           }}
                         >
                           {orderItem.label}
@@ -306,7 +325,11 @@ function Search({ total, totalPages, data, locals }) {
 
               <Buildings>
                 {total ? buildings.map((building, buildingIndex) => (
-                    <BuildingList item={building} key={`building-searchitem-${building.reference}-${buildingIndex}`} />
+                    <BuildingList
+                      item={building}
+                      page="search"
+                      key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                    />
                   )) : (
                   <BuildingsNotFound>
                     <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
@@ -316,7 +339,13 @@ function Search({ total, totalPages, data, locals }) {
 
                 {total && page < totalPages ? (
                   <BuildingsLoadMore>
-                    <Button type="button" onClick={loadMore} disabled={isLoading}>
+                    <Button
+                      type="button"
+                      onClick={loadMore}
+                      disabled={isLoading}
+                      className="holos-search-load-more"
+                      data-showcase="Busca"
+                    >
                       {isLoading ? 'Carregando...' : 'Carregar mais'}
                     </Button>
                   </BuildingsLoadMore>
@@ -327,6 +356,7 @@ function Search({ total, totalPages, data, locals }) {
             {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
               <BuildingsPanel
                 key={`suggestion-${index}`}
+                page="search"
                 headerBig={true}
                 title={suggestion.title}
                 buildingLayout="vertical"

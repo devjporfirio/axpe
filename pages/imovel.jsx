@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
+import GTM from 'helpers/gtm';
 import Api from 'services';
 
 // components
@@ -35,6 +36,14 @@ function Building({ property }) {
   const [ data, setData ] = useState([]);
 
   useEffect(() => {
+    const productSeals = [];
+
+    Object.keys(property.label).forEach(key => {
+      if(property.label[key]) {
+        productSeals.push(key);
+      }
+    })
+
     CookieBuildingSeen.set(property.reference, user);
 
     dispatch(setMain({ currentBuilding: property }));
@@ -49,6 +58,17 @@ function Building({ property }) {
 
       setSimilarBuildings(buildings);
     }
+
+    GTM.dataLayerPush({
+      productId: property.reference,
+      productValue: property.values.sell ? property.values.sell : property.values.rent,
+      productType: property.type,
+      productLocation: property.address.local,
+      productSeals: productSeals.join('|'),
+      productNumberOfBedrooms: property.infos.bedrooms,
+      productParkingSpace: property.infos.parking,
+      productArea: property.infos.areaUseful
+    })
 
     loadSimilarBuildings();
     setData(property);

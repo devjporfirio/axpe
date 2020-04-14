@@ -37,9 +37,9 @@ function About() {
     const hash = area.replace('/sobre', '');
     const $target = document.querySelector(hash);
 
-    if($target) {
-      if(window.history && window.history.pushState) {
-        history.pushState('', '', `/sobre${hash}`)
+    if ($target) {
+      if (window.history && window.history.pushState) {
+        history.pushState('', '', `/sobre${hash}`);
       }
       ScrollTo($target, window.innerWidth < 1170 ? 45 : 100);
     }
@@ -48,28 +48,28 @@ function About() {
   }, []);
 
   function handleScrollPosition([ curTop, oldTop ]) {
-    const topDiff = window.innerWidth < 1170 ? 45 : 100
+    const topDiff = window.innerWidth < 1170 ? 45 : 100;
     const startTop = window.innerWidth < 1170 ? 70 : 0;
     const $btns = document.querySelectorAll('.about-nav a');
     let tempCurArea = 0;
 
     if (!refEl || !refEl.current) return false;
 
-    if($btns.length) {
+    if ($btns.length) {
       $btns.forEach(($btn, btnIndex) => {
         const href = $btn.getAttribute('href');
 
-        if(href.search('#') >= 0 && btnIndex) {
+        if (href.search('#') >= 0 && btnIndex) {
           const $area = document.querySelector(href.replace('/sobre', ''));
           const areaTop = getElementScrollTop($area);
 
-          if(curTop >= (areaTop - topDiff)) {
+          if (curTop >= areaTop - topDiff) {
             tempCurArea = btnIndex;
           }
         }
-      })
+      });
 
-      if(tempCurArea != curIndexArea) {
+      if (tempCurArea != curIndexArea) {
         setCurIndexArea(tempCurArea);
       }
     }
@@ -79,8 +79,7 @@ function About() {
       return false;
     }
 
-    let top =
-      curTop > oldTop ? startTop - curTop : startTop;
+    let top = curTop > oldTop ? startTop - curTop : startTop;
 
     if (top < 0) {
       top = 0;
@@ -97,7 +96,7 @@ function About() {
 
   useEffect(() => {
     dispatch(setMain({ headerHiding: true }));
-  }, [ ]);
+  }, []);
 
   return (
     <>
@@ -112,7 +111,7 @@ function About() {
               <li>
                 <a
                   href="/sobre#nosso-jeito"
-                  className={!curIndexArea ? 'active' : ''}
+                  className={!curIndexArea ? 'holos-institutional-menu active' : 'holos-institutional-menu'}
                   onClick={clickNavButton}
                 >
                   Nosso jeito
@@ -121,7 +120,7 @@ function About() {
               <li>
                 <a
                   href="/sobre#nossa-casa"
-                  className={curIndexArea === 1 ? 'active' : ''}
+                  className={curIndexArea === 1 ? 'holos-institutional-menu active' : 'holos-institutional-menu'}
                   onClick={clickNavButton}
                 >
                   Nossa casa
@@ -130,7 +129,7 @@ function About() {
               <li>
                 <a
                   href="/sobre#nosso-nome"
-                  className={curIndexArea === 2 ? 'active' : ''}
+                  className={curIndexArea === 2 ? 'holos-institutional-menu active' : 'holos-institutional-menu'}
                   onClick={clickNavButton}
                 >
                   Nosso nome

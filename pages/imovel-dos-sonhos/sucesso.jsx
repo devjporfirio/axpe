@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'helpers/routes';
+import GTM from 'helpers/gtm';
 
 // styles
 import {
@@ -9,6 +10,15 @@ import {
 } from 'pages/DreamBuilding/Success/styles'
 
 function DreamBuildingSuccess() {
+  useEffect(() => {
+    GTM.dataLayerPush({
+      event: 'Form Response',
+      formType: 'Imóvel dos Sonhos',
+      formResult: 'Sucesso',
+      formMessage: '',
+    })
+  }, [ ]);
+
   return (
     <Container>
       <Wrapper>

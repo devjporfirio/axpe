@@ -100,6 +100,7 @@ function Viewed() {
                       key={`building-viewed-${building.reference}-${buildingIndex}`}
                       layout="vertical"
                       item={building}
+                      gtmShowcase="Imóvel Recente"
                     />
                   ))}
                 </SliderNew>

@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import GTM from 'helpers/gtm';
 
 // components
 import Modal from 'components/Modals';
@@ -16,10 +17,26 @@ function NewsletterSuccess() {
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalNewsletterSuccess: false }))
-  }, [ modalNewsletterSuccess ])
+  }, [ modalNewsletterSuccess ]);
+
+  useEffect(() => {
+    if(modalNewsletterSuccess) {
+      GTM.dataLayerPush({
+        event: 'Form Response',
+        formType: 'Newsletter',
+        formResult: 'Sucesso',
+        formMessage: ''
+      });
+    }
+  }, [ modalNewsletterSuccess ]);
 
   return modalNewsletterSuccess ? (
-    <Modal active={modalNewsletterSuccess} onClose={closeModal} themeColor="green">
+    <Modal
+      active={modalNewsletterSuccess}
+      onClose={closeModal}
+      themeColor="green"
+      dataType="Newsletter Sucesso"
+    >
       <Success>
         <SuccessColumn>
           <h2>Quase pronto!</h2>

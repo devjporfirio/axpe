@@ -33,12 +33,12 @@ function FormContact({ showHeader = true }) {
   const refIframe = useRef(null);
 
   useEffect(() => {
-    if(refIframe.current) {
+    if (refIframe.current) {
       refIframe.current.onload = function() {
         const $contents = this.contentDocument || this.contentWindow.document;
         const $success = $contents.querySelector('.success-detect');
 
-        if($success) {
+        if ($success) {
           dispatch(
             setMain({
               modalContactSuccess: true
@@ -46,9 +46,9 @@ function FormContact({ showHeader = true }) {
           );
           refIframe.current.setAttribute('src', '/forms/contato/index.html');
         }
-      }
+      };
     }
-  }, [ refIframe ])
+  }, [ refIframe ]);
 
   return (
     <>
@@ -59,11 +59,20 @@ function FormContact({ showHeader = true }) {
             <Numbers>
               <PhoneNumber>
                 <p>Se preferir ligue:</p>
-                <Tel flag="tel" />
+                <Tel
+                  flag="tel"
+                  className="holos-institutional-contact-phone"
+                  data-label="Telefone"
+                />
               </PhoneNumber>
               <PhoneNumber>
                 <p>Whatsapp:</p>
-                <Whats flag="whats" showIcon />
+                <Whats
+                  flag="whats"
+                  className="holos-institutional-contact-phone"
+                  data-label="Whatsapp"
+                  showIcon
+                />
               </PhoneNumber>
             </Numbers>
           </Header>
@@ -96,8 +105,8 @@ function FormContact({ showHeader = true }) {
                 <Balloon>
                   <h4>Nosso escritório</h4>
                   <p>
-                    Avenida Nove de Julho, 5017, 10° Andar. Jardim Paulista - São
-                    Paulo, SP
+                    Avenida Nove de Julho, 5017, 10° Andar. Jardim Paulista -
+                    São Paulo, SP
                   </p>
                   <a href="https://g.page/axpe_imoveis?share">Como chegar?</a>
                 </Balloon>

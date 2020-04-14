@@ -61,7 +61,11 @@ function NewsletterModal() {
   }, [ modalNewsletter ]);
 
   return modalNewsletter ? (
-    <Modal active={modalNewsletter} onClose={closeModal}>
+    <Modal
+      active={modalNewsletter}
+      onClose={closeModal}
+      dataType="Newsletter"
+    >
       <Texts>
         <Slider propsArrow={{ color: 'white' }}>
           <Text>
@@ -84,6 +88,9 @@ function NewsletterModal() {
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Nome"
+              data-type="Newsletter"
             />
           </FormGroup>
           <FormGroup>
@@ -96,6 +103,9 @@ function NewsletterModal() {
               value={values.lastname}
               onChange={handleChange}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Sobrenome"
+              data-type="Newsletter"
             />
           </FormGroup>
           <FormGroup>
@@ -108,9 +118,18 @@ function NewsletterModal() {
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="E-mail"
+              data-type="Newsletter"
             />
           </FormGroup>
-          <Button type="submit" disabled={isSubmitting} fullWidth={true}>Cadastre-se</Button>
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            fullWidth={true}
+            className="holos-form-submit"
+            data-type="Newsletter"
+          >Cadastre-se</Button>
         </FormContainer>
       </Column>
     </Modal>

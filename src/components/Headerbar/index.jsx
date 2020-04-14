@@ -152,7 +152,11 @@ function Headerbar({ className, type, title, subtitle, building }) {
     <>
       <Container type={type} className={className}>
         <Wrapper ref={refEl}>
-          <ButtonBack type="button" onClick={buttonBack}>
+          <ButtonBack
+            type="button"
+            onClick={buttonBack}
+            className="holos-product-back"
+          >
             <SVG src={ArrowIconSVG} /> Voltar
           </ButtonBack>
 
@@ -162,13 +166,26 @@ function Headerbar({ className, type, title, subtitle, building }) {
 
           {type === 'search' && (
             <Column>
-              <ButtonIcon type="button" active={alertCreated} onClick={createAlert}>
+              <ButtonIcon
+                type="button"
+                active={alertCreated}
+                onClick={createAlert}
+                className="holos-search-header-button"
+                data-showcase="Busca"
+                data-label="Criar alerta"
+              >
                 <SVG src={AlertIconSVG} uniquifyIDs={true} />
                 <ButtonAlertMessage active={alertCreated}>
                   {alertMessage}
                 </ButtonAlertMessage>
               </ButtonIcon>
-              <ButtonIcon type="button" onClick={toggleShare}>
+              <ButtonIcon
+                type="button"
+                onClick={toggleShare}
+                className="holos-search-header-button"
+                data-showcase="Busca"
+                data-label="Share"
+              >
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />
               </ButtonIcon>
             </Column>
@@ -180,6 +197,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <ButtonLike
                 onClick={handleButtonLike}
                 active={checkFavorite(building.reference)}
+                className="holos-product-favorite"
               >
                 {building.likes > 0 && building.likes}
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />

@@ -14,7 +14,13 @@ const ContactHome = () => (
       <p>
         Conte o que está buscando e deixe com a gente.
       </p>
-      <Link route="/imovel-dos-sonhos" passHref fullWidth={true}>
+      <Link
+        className="holos-footer-imovel-sonhos"
+        data-label="Conte aqui"
+        route="/imovel-dos-sonhos"
+        fullWidth={true}
+        passHref
+      >
         Conte aqui
       </Link>
     </div>
@@ -46,7 +52,13 @@ const ContactWork = () => (
         Nosso ambiente de trabalho é profissional, informal e divertido. Tem
         tudo a ver com você?
       </p>
-      <Link route="/trabalhe-conosco">Trabalhe Conosco</Link>
+      <Link
+        route="/trabalhe-conosco"
+        className="holos-institutional-cta-workwithus"
+        passHref
+      >
+        Trabalhe Conosco
+      </Link>
     </div>
   </>
 );

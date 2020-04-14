@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import Api from 'services';
+import GTM from 'helpers/gtm';
 import * as Yup from 'yup';
 
 // helpers
@@ -56,6 +57,13 @@ function LoginForm({ doAfterLogin }) {
           redirectTo = typeof modalLogin === 'string' ? modalLogin : `/minha-conta`;
         }
 
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Login',
+          formResult: 'Sucesso',
+          formMessage: ''
+        });
+
         await doAfterLogin(response);
 
         if(redirectTo) {
@@ -68,6 +76,13 @@ function LoginForm({ doAfterLogin }) {
         resetForm();
       } else if (response.error) {
         const msg = getErrorMessage(response.error);
+
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Login',
+          formResult: 'Erro',
+          formMessage: msg
+        });
 
         setSubmitting(false);
         setErrorMessage(msg);
@@ -90,6 +105,9 @@ function LoginForm({ doAfterLogin }) {
         error={touched.email && errors.email}
         value={values.email}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="E-mail"
+        data-type="Login"
       />
       <FormElements
         type="password"
@@ -100,9 +118,18 @@ function LoginForm({ doAfterLogin }) {
         error={touched.password && errors.password}
         value={values.password}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="Senha"
+        data-type="Login"
         useEye
       />
-      <Button disabled={isSubmitting} type="submit" fullWidth>
+      <Button
+        className="holos-form-submit"
+        data-type="Login"
+        disabled={isSubmitting}
+        type="submit"
+        fullWidth
+      >
         Entrar
       </Button>
       {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}

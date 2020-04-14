@@ -32,7 +32,11 @@ function DreamBuilding() {
           <List>
             <li>
               <Link route="/imovel-dos-sonhos/sao-paulo-comprar-residencial" passHref>
-                <ListButton>
+                <ListButton
+                  className="holos-search-category-button"
+                  data-showcase="Imóvel dos Sonhos"
+                  data-label="Residenciais - São Paulo"
+                >
                   <ListText>
                     <h3>Residenciais - São Paulo</h3>
                     <p>Prontos para morar</p>
@@ -43,7 +47,11 @@ function DreamBuilding() {
             </li>
             <li>
               <Link route="/imovel-dos-sonhos/sao-paulo-comprar-lancamentos" passHref>
-                <ListButton>
+                <ListButton
+                  className="holos-search-category-button"
+                  data-showcase="Imóvel dos Sonhos"
+                  data-label="Lançamentos - São Paulo"
+                >
                   <ListText>
                     <h3>Lançamentos - São Paulo</h3>
                     <p>Imóveis residenciais</p>
@@ -54,7 +62,11 @@ function DreamBuilding() {
             </li>
             <li>
               <Link route="/imovel-dos-sonhos/sao-paulo-alugar-residencial" passHref>
-                <ListButton>
+                <ListButton
+                  className="holos-search-category-button"
+                  data-showcase="Imóvel dos Sonhos"
+                  data-label="Locação - São Paulo"
+                >
                   <ListText>
                     <h3>Locação - São Paulo</h3>
                     <p>Imóveis residenciais</p>
@@ -65,7 +77,11 @@ function DreamBuilding() {
             </li>
             <li>
               <Link route="/imovel-dos-sonhos/sao-paulo-comerciais" passHref>
-                <ListButton>
+                <ListButton
+                  className="holos-search-category-button"
+                  data-showcase="Imóvel dos Sonhos"
+                  data-label="Comerciais - São Paulo"
+                >
                   <ListText>
                     <h3>Comerciais - São Paulo</h3>
                     <p>Alugar ou Comprar</p>
@@ -76,7 +92,11 @@ function DreamBuilding() {
             </li>
             <li>
               <Link route="/imovel-dos-sonhos/praia-campo" passHref>
-                <ListButton>
+                <ListButton
+                  className="holos-search-category-button"
+                  data-showcase="Imóvel dos Sonhos"
+                  data-label="Praia e Campo"
+                >
                   <ListText>
                     <h3>Praia e Campo</h3>
                     <p>Alugar ou Comprar</p>
@@ -87,7 +107,11 @@ function DreamBuilding() {
             </li>
             <li>
               <Link route="/imovel-dos-sonhos/internacional" passHref>
-                <ListButton>
+                <ListButton
+                  className="holos-search-category-button"
+                  data-showcase="Imóvel dos Sonhos"
+                  data-label="Internacional"
+                >
                   <ListText>
                     <h3>Internacional</h3>
                     <p>Comprar</p>
