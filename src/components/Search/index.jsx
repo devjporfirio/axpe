@@ -838,7 +838,7 @@ function Search() {
                   <RangeSlider
                     data={filtersData.area}
                     sep="a"
-                    step={1}
+                    step={10}
                     suffix=" m"
                     onChange={values => {
                       formik.setFieldValue('area_start', values[0]);

@@ -11,6 +11,10 @@ export const Text = styled.p`
   text-align: center;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   ${media.greaterThan('medium')`
     font-size: 13px;

@@ -5,15 +5,23 @@ import { formatCurrency } from 'helpers/utils';
 // styles
 import { Container, Text, Slider } from './styles'
 
-function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 100, onChange }) {
+function RangeSlider({
+  data,
+  type,
+  suffix = '',
+  prefix = '',
+  sep = '-',
+  step = 100,
+  onChange
+}) {
   const ref = useRef(null);
   const sliderApi = useRef(null);
   const [ values, setValues ] = useState(null);
 
   function saveValues(params) {
     setValues({
-      first: type == 'prices' ? formatCurrency.format(params[0]) : `${prefix}${params[0]}${suffix}`,
-      last: type == 'prices' ? formatCurrency.format(params[1]) : `${prefix}${params[1]}${suffix}`
+      first: type === 'prices' ? formatCurrency.format(params[0]) : `${prefix}${params[0]}${suffix}`,
+      last: type === 'prices' ? formatCurrency.format(params[1]) : `${prefix}${params[1]}${suffix}`
     })
   }
 
@@ -22,6 +30,19 @@ function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 1
 
     if(sliderApi.current) {
       sliderApi.current.destroy();
+    }
+
+    let range = {
+      'min': data[0],
+      'max': data[1]
+    };
+
+    if(type === 'prices') {
+      range = {
+        'min': data[0],
+        '30%': parseInt(data[1] * 25 / 100),
+        'max': data[1]
+      };
     }
 
     sliderApi.current = noUiSlider.create(ref.current, {
@@ -36,10 +57,7 @@ function RangeSlider({ data, type, suffix = '', prefix = '', sep = '-', step = 1
         }
       },
       step,
-      range: {
-        'min': data[0],
-        'max': data[1]
-      }
+      range
     });
 
     if(sliderApi.current) {
