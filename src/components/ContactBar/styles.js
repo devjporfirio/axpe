@@ -17,7 +17,7 @@ export const ButtonFloat = styled.button`
   z-index: 10;
 
   ${media.greaterThan('large')`
-    bottom: 100px;
+    bottom: 20px;
     transition: all 300ms ease;
 
     &:hover {
