@@ -4,7 +4,7 @@ import media from 'styled-media-query';
 export const Container = styled.section`
   background-color: ${({ theme }) => theme.colors.greyLight};
   padding-bottom: 20px;
-  min-height: 100vh;
+  min-height: calc(100vh - 79px);
 
   ${media.greaterThan('medium')`
     padding: 0 50px 50px;

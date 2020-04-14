@@ -39,9 +39,9 @@ export default function MyAccount({ children, className }) {
     };
   }, [ user ]);
 
-  if (!user.logged) return null;
-
-  return (
+  return !user || !user.logged ? (
+    <Container />
+  ) : (
     <Container className={className}>
       <Header>
         <h1>
