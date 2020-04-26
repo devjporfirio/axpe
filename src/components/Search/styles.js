@@ -12,9 +12,9 @@ export const Container = styled.section`
   display: block;
   width: 100%;
   height: 100%;
-  z-index: 105;
   background: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
+  z-index: -1;
 
   ${({ theme }) => theme.hide};
 
@@ -23,18 +23,21 @@ export const Container = styled.section`
   ${media.greaterThan('medium')`
     left: 0;
     background: rgba(38, 50, 56, 0.8);
-    z-index: 99;
   `};
 
   ${media.greaterThan('large')`
     left: 200px;
     width: calc(100% - 200px);
-    z-index: 99;
   `};
 `;
 
 export const ContainerActive = css`
   left: 0%;
+  z-index: 105;
+
+  ${media.greaterThan('medium')`
+    z-index: 99;
+  `};
 
   ${({ theme }) => theme.show};
 `;
@@ -760,6 +763,11 @@ export const FormButtonAlert = styled.button`
     opacity: 0.2;
     cursor: default;
   }
+
+  ${props => props.isLoading && css`
+    opacity: 0.2;
+    cursor: default;
+  `}
 
   ${media.greaterThan('medium')`
     font-size: 12px;

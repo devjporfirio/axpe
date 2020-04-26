@@ -34,7 +34,7 @@ import {
 
 function LoginModal() {
   const dispatch = useDispatch();
-  const { modalLogin } = useSelector(state => state.main);
+  const { modalLogin, modalLoginType } = useSelector(state => state.main);
   const [ loginType, setLoginType ] = useState(null);
   const [ showRegister, setShowRegister ] = useState(false);
   const [ showForgotPasswordForm, setShowForgotPasswordForm ] = useState(false);
@@ -69,8 +69,8 @@ function LoginModal() {
   }, [ showForgotPasswordForm ]);
 
   useEffect(() => {
-    if(modalLogin && typeof modalLogin === 'string' && modalLogin.search('favorite=true') >= 0) {
-      setLoginType('favorite');
+    if(modalLogin && modalLoginType) {
+      setLoginType(modalLoginType);
     } else {
       setLoginType(null);
     }
@@ -119,6 +119,21 @@ function LoginModal() {
               <TextWrapper>
                 <h2>
                   <strong>Namore</strong> seus favoritos quando quiser
+                </h2>
+                <p>
+                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso. Vamos começar?
+                </p>
+              </TextWrapper>
+            </Text>
+          </Slider>
+        )}
+
+        {loginType && loginType === 'alert' && (
+          <Slider propsArrow={{ color: 'white' }}>
+            <Text>
+              <TextWrapper>
+                <h2>
+                  <strong>Seja o primeiro</strong> a saber quando entrar um imóvel do jeito que você quer.
                 </h2>
                 <p>
                   Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso. Vamos começar?

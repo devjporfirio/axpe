@@ -60,6 +60,7 @@ function Search() {
   const { searchFormActive } = useSelector(state => state.main);
   const user = useSelector(state => state.user);
   const [ alertCreated, setAlertCreated ] = useState(false);
+  const [ alertCreating, setAlertCreating ] = useState(false);
   const [ alertMessage, setAlertMessage ] = useState(null);
   const [ categoriesData, setCategoriesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
@@ -243,13 +244,19 @@ function Search() {
     resetValuesOnChange();
   }
 
-  async function createAlert() {
-    if (user && user.logged) {
+  function createAlert() {
+    const doCreateAlert = async (accessToken) => {
+      if(alertCreating) return false;
+
+      setAlertCreating(true);
+
       const response = await Api.MyAccount.postAlert(
-        user.access_token,
+        accessToken ? accessToken : user.access_token,
         formik.values
       );
       const timeTohide = response.status ? 6000 : 4000;
+
+      setAlertCreating(false);
 
       if (response.status) {
         setAlertMessage(
@@ -260,7 +267,7 @@ function Search() {
         );
         setAlertCreated(true);
       } else {
-        setAlertMessage(<p>{response.msg}</p>);
+        setAlertMessage(<p>{response.error}</p>);
         setAlertCreated(true);
       }
 
@@ -268,8 +275,17 @@ function Search() {
         setAlertMessage(null);
         setAlertCreated(false);
       }, timeTohide);
+    }
+
+    if (user && user.logged) {
+      doCreateAlert();
     } else {
-      dispatch(setMain({ modalLogin: true }));
+      dispatch(setMain({
+        modalLoginType: 'alert',
+        modalLogin: (accessToken) => {
+          doCreateAlert(accessToken);
+        }
+      }));
     }
   }
 
@@ -641,6 +657,7 @@ function Search() {
               <FormButtonAlert
                 type="button"
                 active={alertCreated}
+                isLoading={alertCreating}
                 disabled={
                   !formik.isSubmitting &&
                   !filtersData &&
@@ -649,7 +666,7 @@ function Search() {
                 onClick={createAlert}
                 className="holos-create-alert"
               >
-                <SVG src={AlertIconSVG} uniquifyIDs={true} /> Criar alerta
+                <SVG src={AlertIconSVG} uniquifyIDs={true} /> {alertCreating ? `Criando alerta...` : `Criar alerta`}
               </FormButtonAlert>
             </FormAlert>
             <FormButtonClear
@@ -803,7 +820,7 @@ function Search() {
             <FormTabClose type="button" onClick={() => setTabActive(null)}>
               Fechar
             </FormTabClose>
-            <FormTabTitle>Locais</FormTabTitle>
+            <FormTabTitle>Mais filtros</FormTabTitle>
             <FormTabContent>
               {filtersData.prices &&
               filtersData.prices.length &&

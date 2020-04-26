@@ -203,6 +203,11 @@ export const ButtonIcon = styled.button`
       }
     `}
   }
+
+  ${props => props.isLoading && css`
+    opacity: 0.2;
+    cursor: default;
+  `}
 `;
 
 export const ButtonContact = styled(Button)`

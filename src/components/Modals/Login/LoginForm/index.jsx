@@ -49,14 +49,6 @@ function LoginForm({ doAfterLogin }) {
       const response = await Api.User.postLogin(values);
 
       if (response.access_token) {
-        let redirectTo = null;
-
-        if(typeof modalLogin === 'function') {
-          modalLogin();
-        } else {
-          redirectTo = typeof modalLogin === 'string' ? modalLogin : `/minha-conta`;
-        }
-
         GTM.dataLayerPush({
           event: 'Form Response',
           formType: 'Login',
@@ -66,13 +58,19 @@ function LoginForm({ doAfterLogin }) {
 
         await doAfterLogin(response);
 
-        if(redirectTo) {
+        if(typeof modalLogin === 'function') {
+          modalLogin(response.access_token);
+        } else if(typeof modalLogin === 'string') {
           Router.push(
-            redirectTo
+            modalLogin
           );
         }
 
-        dispatch(setMain({ modalLogin: false }));
+        dispatch(setMain({
+          modalLoginType: null,
+          modalLogin: false
+        }));
+
         resetForm();
       } else if (response.error) {
         const msg = getErrorMessage(response.error);

@@ -113,7 +113,7 @@ function Alerts() {
               alerts.map((alert, alertIndex) => (
                 <Item key={`alert-item-${alertIndex}`}>
                   <Link route={`alertas/busca${getParams(alert)}`} passHref>
-                    <a class="holos-account-alert">
+                    <a className="holos-account-alert">
                       <Gradient />
                       <ItemImage background={alert.use} />
                     </a>

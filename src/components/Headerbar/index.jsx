@@ -45,6 +45,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
   const { query } = router;
   const [ shareActive, setShareActive ] = useState(false);
   const [ alertCreated, setAlertCreated ] = useState(false);
+  const [ alertCreating, setAlertCreating ] = useState(false);
   const [ alertMessage, setAlertMessage ] = useState(null);
 
   const toggleShare = useCallback(() => {
@@ -106,15 +107,19 @@ function Headerbar({ className, type, title, subtitle, building }) {
     }
   }
 
-  async function createAlert() {
-    setAlertCreated(false);
+  function createAlert() {
+    const doCreateAlert = async (accessToken) => {
+      if(alertCreating) return false;
 
-    if (user && user.logged) {
+      setAlertCreating(true);
+
       const response = await Api.MyAccount.postAlert(
-        user.access_token,
+        accessToken ? accessToken : user.access_token,
         query
       );
       const timeTohide = response.status ? 6000 : 4000;
+
+      setAlertCreating(false);
 
       if (response.status) {
         setAlertMessage(
@@ -125,7 +130,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
         );
         setAlertCreated(true);
       } else {
-        setAlertMessage(<p>{response.msg}</p>);
+        setAlertMessage(<p>{response.error}</p>);
         setAlertCreated(true);
       }
 
@@ -133,8 +138,17 @@ function Headerbar({ className, type, title, subtitle, building }) {
         setAlertMessage(null);
         setAlertCreated(false);
       }, timeTohide);
+    }
+
+    if (user && user.logged) {
+      doCreateAlert();
     } else {
-      dispatch(setMain({ modalLogin: true }));
+      dispatch(setMain({
+        modalLoginType: 'alert',
+        modalLogin: (accessToken) => {
+          doCreateAlert(accessToken);
+        }
+      }));
     }
   }
 
@@ -169,7 +183,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <ButtonIcon
                 type="button"
                 active={alertCreated}
+                isLoading={alertCreating}
                 onClick={createAlert}
+                title="Criar alerta"
                 className="holos-search-header-button"
                 data-showcase="Busca"
                 data-label="Criar alerta"

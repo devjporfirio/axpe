@@ -92,8 +92,8 @@ function BuildingList({
       const modalLoginUrl = location.pathname + location.search;
       dispatch(
         setMain({
-          modalLogin:
-            modalLoginUrl.search(/[?]/gi) >= 0
+          modalLoginType: 'favorite',
+          modalLogin: modalLoginUrl.search(/[?]/gi) >= 0
               ? `${modalLoginUrl}&favorite=true`
               : `${modalLoginUrl}?favorite=true`
         })
@@ -311,7 +311,7 @@ function BuildingList({
               <RemoveButton
                 color="greenDark"
                 type="button"
-                onClick={() => handleButtonRemove(reference, false)}
+                onClick={() => handleButtonRemove(item.reference, false)}
                 className={gtmObj ? `${gtmObj.className}-unfavorite` : ''}
                 data-showcase={gtmObj ? gtmObj.showcase : ''}
                 data-product-id={item.reference}

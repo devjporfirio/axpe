@@ -85,6 +85,7 @@ function RegisterForm({ doAfterLogin }) {
         if(loginResponse.access_token) {
           dispatch(
             setMain({
+              modalLoginType: null,
               modalLogin: false,
               modalLoginRegisterSuccess: true
             })

@@ -8,6 +8,7 @@ const initialState = {
   modalNewsletter: false,
   modalNewsletterSuccess: false,
   modalLogin: false,
+  modalLoginType: null,
   modalLoginRegisterSuccess: false,
   modalRegisterSuccess: false,
   modalForgotPasswordSuccess: false,
