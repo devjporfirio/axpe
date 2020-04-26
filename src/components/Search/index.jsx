@@ -749,6 +749,11 @@ function Search() {
                 ))}
               </ul>
             </FormTabContent>
+            {formik.values.types.length > 0 ? (
+              <FormTabFooter>
+                <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
+              </FormTabFooter>
+            ) : null}
           </FormTab>
         ) : null}
 
@@ -925,6 +930,14 @@ function Search() {
                 </FormTabSlider>
               ) : null}
             </FormTabContent>
+            {(formik.values.price_start && formik.values.price_end) ||
+                  (formik.values.area_start && formik.values.area_end) ||
+                  (formik.values.bedroom_start && formik.values.bedroom_end) ||
+                  (formik.values.parking_start && formik.values.parking_end) ? (
+              <FormTabFooter>
+                <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
+              </FormTabFooter>
+            ) : null}
           </FormTab>
         ) : null}
       </Form>
