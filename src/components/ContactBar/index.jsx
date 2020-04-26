@@ -18,7 +18,7 @@ import ChatIconSVG from 'assets/icons/chat';
 import {
   Container,
   Wrapper,
-  ButtonFloat,
+  // ButtonFloat,
   Header,
   ButtonClose,
   Iframe,
@@ -283,10 +283,10 @@ function ContactBar() {
 
   return (
     <>
-      <ButtonFloat className="holos-contact-float" type="button" onClick={toggleShow}>
+      {/* <ButtonFloat className="holos-contact-float" type="button" onClick={toggleShow}>
         Abrir contato
         <SVG src={ChatIconSVG} uniquifyIDs={true} />
-      </ButtonFloat>
+      </ButtonFloat> */}
       {show && (
         <Container onClick={clickContainer}>
           <Wrapper onClick={clickWrapper}>
