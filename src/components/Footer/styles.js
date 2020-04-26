@@ -75,5 +75,7 @@ export const Links = styled.div`
 `;
 
 export const FutureBrand = styled.p`
-
+  ${media.greaterThan('large')`
+    padding-right: 90px;
+  `}
 `;

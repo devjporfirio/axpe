@@ -229,7 +229,9 @@ function Register({ locals, categories, countries }) {
         setFieldValue('PhoneNumber_countrycode', user.me.phone);
         setFieldValue('Email', user.me.email);
       } else {
-        dispatch(setMain({ modalLogin: true }));
+        dispatch(setMain({
+          modalLogin: '/cadastrar'
+        }));
       }
     }
 

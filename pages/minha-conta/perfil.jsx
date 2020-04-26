@@ -140,6 +140,9 @@ function Profile() {
                   error={touched.name && errors.name}
                   value={values.name}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Nome"
+                  data-type="Perfil"
                 />
                 <FormElements
                   name="lastName"
@@ -149,6 +152,9 @@ function Profile() {
                   error={touched.lastName && errors.lastName}
                   value={values.lastName}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Sobrenome"
+                  data-type="Perfil"
                 />
               </FormGroupElements>
               <FormGroupElements>
@@ -161,6 +167,9 @@ function Profile() {
                   error={touched.email && errors.email}
                   value={values.email}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="E-mail"
+                  data-type="Perfil"
                 />
                 <FormElements
                   type="phone"
@@ -171,11 +180,18 @@ function Profile() {
                   error={touched.phone && errors.phone}
                   value={values.phone}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Telefone"
+                  data-type="Perfil"
                 />
               </FormGroupElements>
             </FormGroup>
 
-            <ButtonPass type="button" onClick={() => setChangePass(true)}>
+            <ButtonPass
+              type="button"
+              onClick={() => setChangePass(true)}
+              className="holos-account-profile-change-pass"
+            >
               Alterar Senha
             </ButtonPass>
 
@@ -229,7 +245,12 @@ function Profile() {
             )}
             {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
 
-            <ButtonSave disabled={isSubmitting} type="submit">
+            <ButtonSave
+              disabled={isSubmitting}
+              type="submit"
+              className="holos-form-submit"
+              data-type="Perfil"
+            >
               Salvar
             </ButtonSave>
           </Form>

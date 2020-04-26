@@ -31,24 +31,24 @@ export default function MyAccount({ children, className }) {
     loadUser();
 
     return async () => {
-      if(user.me && user.me.notificationsAvailable) {
+      if (user.me && user.me.notificationsAvailable) {
         const data = { notificationsAvailable: 0 };
         await Api.MyAccount.putMe(user.access_token, data);
         dispatch(setUserMe(data));
       }
-    }
+    };
   }, [ user ]);
 
-  if(!user.logged) return null;
-
-  return (
+  return !user || !user.logged ? (
+    <Container />
+  ) : (
     <Container className={className}>
       <Header>
         <h1>
           Olá, <strong>{user.me.name}</strong>
         </h1>
         <Link route="/logout" passHref>
-          <LinkLogOff>Sair (logout)</LinkLogOff>
+          <LinkLogOff className="holos-account-menu">Sair (logout)</LinkLogOff>
         </Link>
       </Header>
 
@@ -56,22 +56,22 @@ export default function MyAccount({ children, className }) {
         <ul>
           <Li active={page === '/minha-conta'}>
             <Link route="/minha-conta" passHref>
-              Visualizados recentemente
+              <a className="holos-account-menu">Visualizados recentemente</a>
             </Link>
           </Li>
           <Li active={page === 'perfil'}>
             <Link route="/minha-conta/perfil" passHref>
-              Editar Perfil
+              <a className="holos-account-menu">Editar Perfil</a>
             </Link>
           </Li>
           <Li active={page === 'alertas'}>
             <Link route="/minha-conta/alertas" passHref>
-              Meus alertas
+              <a className="holos-account-menu">Meus alertas</a>
             </Link>
           </Li>
           <Li active={page === 'favoritos'}>
             <Link route="/minha-conta/favoritos" passHref>
-              Meus favoritos
+              <a className="holos-account-menu">Meus favoritos</a>
             </Link>
           </Li>
         </ul>

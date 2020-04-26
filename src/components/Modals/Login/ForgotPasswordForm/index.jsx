@@ -78,8 +78,17 @@ function ForgotPasswordForm() {
         error={touched.email && errors.email}
         value={values.email}
         onBlur={handleBlur}
+        className="holos-form-field"
+        data-label="E-mail"
+        data-type="Recuperar Senha"
       />
-      <Button disabled={isSubmitting} type="submit" fullWidth>
+      <Button
+        className="holos-form-submit"
+        data-type="Recuperar Senha"
+        disabled={isSubmitting}
+        type="submit"
+        fullWidth
+      >
         Enviar
       </Button>
       {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}

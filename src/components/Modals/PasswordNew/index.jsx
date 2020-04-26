@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import GTM from 'helpers/gtm';
 import Api from 'services';
 
 // helpers
@@ -53,12 +54,26 @@ function PasswordNew({ active, onClose, hash }) {
         dispatch(setUserMe(values));
         resetForm();
 
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Nova Senha',
+          formResult: 'Sucesso',
+          formMessage: ''
+        });
+
         setTimeout(() => {
           setSuccessMessage(false);
           onClose();
         }, 3000);
       } else {
         const msg = getErrorMessage(response.error);
+
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Nova Senha',
+          formResult: 'Erro',
+          formMessage: msg
+        });
 
         setErrorMessage(msg);
 
@@ -71,7 +86,11 @@ function PasswordNew({ active, onClose, hash }) {
   });
 
   return modalPasswordNew ? (
-    <Container active={modalPasswordNew} onClose={onClose}>
+    <Container
+      active={modalPasswordNew}
+      onClose={onClose}
+      dataType="Nova Senha"
+    >
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <h2>Crie uma nova senha</h2>
@@ -84,6 +103,9 @@ function PasswordNew({ active, onClose, hash }) {
             error={touched.passwordNew && errors.passwordNew}
             value={values.passwordNew}
             onBlur={handleBlur}
+            className="holos-form-field"
+            data-label="Nova senha"
+            data-type="Nova senha"
             useEye
           />
           <FormElements
@@ -95,6 +117,9 @@ function PasswordNew({ active, onClose, hash }) {
             error={touched.passwordConf && errors.passwordConf}
             value={values.passwordConf}
             onBlur={handleBlur}
+            className="holos-form-field"
+            data-label="Confirmar senha"
+            data-type="Confirmar senha"
             useEye
           />
         </FormGroup>
@@ -107,7 +132,12 @@ function PasswordNew({ active, onClose, hash }) {
         {successMessage && <FormFeedback>Senha alterada com sucesso!</FormFeedback>}
         {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
 
-        <ButtonSave disabled={isSubmitting} type="submit">
+        <ButtonSave
+          disabled={isSubmitting}
+          type="submit"
+          className="holos-form-submit"
+          data-type="Nova senha"
+        >
           Salvar
         </ButtonSave>
       </Form>

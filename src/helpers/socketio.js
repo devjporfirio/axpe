@@ -13,7 +13,7 @@ function watch({ accessToken, userId, store }) {
   async function handleNotifications(hasNotifications) {
     if (hasNotifications) {
       const data = {
-        notificationsAvailable: 'profile'
+        notificationsAvailable: hasNotifications
       };
 
       await Api.MyAccount.putMe(accessToken, data);

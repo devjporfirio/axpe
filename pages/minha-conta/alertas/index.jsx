@@ -113,7 +113,7 @@ function Alerts() {
               alerts.map((alert, alertIndex) => (
                 <Item key={`alert-item-${alertIndex}`}>
                   <Link route={`alertas/busca${getParams(alert)}`} passHref>
-                    <a>
+                    <a class="holos-account-alert">
                       <Gradient />
                       <ItemImage background={alert.use} />
                     </a>
@@ -128,6 +128,7 @@ function Alerts() {
                       type="button"
                       onClick={() => handleRemoveAlert(alert.id)}
                       disabled={removingItems}
+                      className="holos-account-alert-delete"
                     >
                       <SVG src={TrashIconSVG} uniquifyIDs={true} />
                       excluir

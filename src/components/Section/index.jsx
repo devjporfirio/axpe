@@ -124,7 +124,12 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
 
       {(useButtom || type === 'slickGrid' || type === 'slickLeft') && (
         <LinkContainer type={type}>
-          <Button route={`/${buildingObj.slug}`}>
+          <Button
+            route={`/${buildingObj.slug}`}
+            className="holos-home-product"
+            data-showcase="Carrossel de Produtos"
+            data-product-id={buildingObj.reference}
+          >
             Saiba mais
           </Button>
         </LinkContainer>

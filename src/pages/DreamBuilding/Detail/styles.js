@@ -9,6 +9,7 @@ import { FormGroup } from 'components/FormElements/styles';
 
 export const Container = styled.div`
   background: ${({ theme }) => theme.colors.greyLight};
+  min-height: calc(100vh - 79px);
 `;
 
 export const Wrapper = styled.div`

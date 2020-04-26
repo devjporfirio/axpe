@@ -69,6 +69,8 @@ function Home({ hero, components }) {
               href={component.link.url}
               target={component.link.external ? '_blank' : '_self'}
               mq="mobile"
+              className="holos-home-banner"
+              data-label=""
             >
               <img src={component.images.mobile} alt="" />
             </Banner>
@@ -76,6 +78,8 @@ function Home({ hero, components }) {
               href={component.link.url}
               target={component.link.external ? '_blank' : '_self'}
               mq="desktop"
+              className="holos-home-banner"
+              data-label=""
             >
               <img src={component.images.desktop} alt="" />
             </Banner>
@@ -188,6 +192,7 @@ function Home({ hero, components }) {
             type="full"
             arrowsColor="white"
             hasVerticalBar={true}
+            arrowsClassName="holos-home-hero-arrow"
             settings={heroSettings}
           >
             {hero.map((item, itemIndex) => (
@@ -217,6 +222,7 @@ function Home({ hero, components }) {
                 buildingsSeen.length > 0 && (
                   <BuildingsPanel
                     key={`buildingspanel-0-${c.type}-${cIndex}`}
+                    page="home"
                     title="Imóveis que você viu"
                     buildingLayout="horizontal"
                     data={buildingsSeen}
@@ -229,6 +235,7 @@ function Home({ hero, components }) {
                 buildingsForYou.length > 0 && (
                   <BuildingsPanel
                     key={`panel-buildings-1-${c.type}-${cIndex}`}
+                    page="home"
                     title="Indicados para você"
                     subtitle="Selecionamos alguns imóveis que acabaram de chegar"
                     buildingLayout="vertical"

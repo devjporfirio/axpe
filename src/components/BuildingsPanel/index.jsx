@@ -13,11 +13,12 @@ import {
 } from './styles';
 
 function BuildingsPanel({
+  data,
   title,
+  subtitle,
+  page = '',
   headerBig = false,
   buildingLayout = 'vertical',
-  subtitle,
-  data,
   type = 'normal'
 }) {
   const [ items, setItems ] = useState([]);
@@ -93,12 +94,14 @@ function BuildingsPanel({
             <SliderNew
               type="normal"
               arrowsColor="greenDark"
+              arrowsClassName={page ? `holos-${page}-product-slider-arrow` : ''}
               settings={settings[buildingLayout]}
             >
               {items.map((building, buildingIndex) => (
                 <BuildingCard
                   layout={buildingLayout}
                   item={building}
+                  gtmShowcase={title}
                   key={`building-searchitem-${building.reference}-${buildingIndex}`}
                 />
               ))}

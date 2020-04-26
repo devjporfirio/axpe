@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import GTM from 'helpers/gtm';
 
 // components
 import Modal from 'components/Modals';
@@ -17,6 +18,17 @@ function LoginRegisterSuccessModal() {
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalLoginRegisterSuccess: false }))
+  }, [ modalLoginRegisterSuccess ]);
+
+  useEffect(() => {
+    if(modalLoginRegisterSuccess) {
+      GTM.dataLayerPush({
+        event: 'Form Response',
+        formType: 'Cadastro',
+        formResult: 'Sucesso',
+        formMessage: ''
+      });
+    }
   }, [ modalLoginRegisterSuccess ]);
 
   return modalLoginRegisterSuccess ? (

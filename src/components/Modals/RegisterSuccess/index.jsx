@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import GTM from 'helpers/gtm';
 
 // components
 import Modal from 'components/Modals';
@@ -20,6 +21,17 @@ function RegisterSuccess() {
   const closeModal = useCallback((redirectUrl = '/') => {
     dispatch(setMain({ modalRegisterSuccess: false }));
     router.push(redirectUrl);
+  }, [ modalRegisterSuccess ]);
+
+  useEffect(() => {
+    if(modalRegisterSuccess) {
+      GTM.dataLayerPush({
+        event: 'Form Response',
+        formType: 'Cadastro',
+        formResult: 'Sucesso',
+        formMessage: ''
+      });
+    }
   }, [ modalRegisterSuccess ]);
 
   return modalRegisterSuccess ? (

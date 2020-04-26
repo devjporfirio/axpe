@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import { formatCurrency, getParamsFromObject } from 'helpers/utils';
+import GTM from 'helpers/gtm';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -376,7 +377,7 @@ function Search() {
               value={formik.values.source ? formik.values.source.label : ''}
               disabled={true}
             />
-            <ButtonSource type="button" onClick={() => setTabActive('sources')}>
+            <ButtonSource className="holos-search-menu-filter" data-label="Alterar localização" type="button" onClick={() => setTabActive('sources')}>
               Alterar localização
             </ButtonSource>
           </FormGroup>
@@ -399,6 +400,8 @@ function Search() {
                         value={use}
                         onChange={formik.handleChange}
                         checked={formik.values.use === use}
+                        className="holos-search-menu-item"
+                        data-label={use}
                       />
                       <span>
                         {use.toLowerCase() == 'residencial'
@@ -430,6 +433,8 @@ function Search() {
                           value={finality.value}
                           onChange={formik.handleChange}
                           checked={formik.values.finality === finality.value}
+                          className="holos-search-menu-item"
+                          data-label={finality.label}
                         />
                         <span>{finality.label}</span>
                       </FormButtonsFilterItemRadio>
@@ -455,6 +460,8 @@ function Search() {
                           value={item.value}
                           onChange={formik.handleChange}
                           checked={formik.values.ready_release === item.value}
+                          className="holos-search-menu-item"
+                          data-label={item.label}
                         />
                         <span>{item.label}</span>
                       </FormButtonsFilterItemRadio>
@@ -475,6 +482,8 @@ function Search() {
                         value="Sem mobília"
                         onChange={formik.handleChange}
                         checked={formik.values.furnished === 'Sem mobília'}
+                        className="holos-search-menu-item"
+                        data-label="Sem mobília"
                       />
                       <span>Sem mobília</span>
                     </FormButtonsFilterItemRadio>
@@ -485,6 +494,8 @@ function Search() {
                         value="Mobiliado"
                         onChange={formik.handleChange}
                         checked={formik.values.furnished === 'Mobiliado'}
+                        className="holos-search-menu-item"
+                        data-label="Mobiliado"
                       />
                       <span>Mobiliado</span>
                     </FormButtonsFilterItemRadio>
@@ -513,6 +524,8 @@ function Search() {
                   active={tabActive === 'types'}
                   filled={!!formik.values.types.length}
                   onClick={() => setTabActive('types')}
+                  className="holos-search-menu-filter"
+                  data-label="Tipo de imóvel"
                 >
                   <strong>Tipo de imóvel</strong>
                   {formik.values.types.length ? (
@@ -528,6 +541,8 @@ function Search() {
                   active={tabActive === 'locals'}
                   filled={!!formik.values.local.length}
                   onClick={() => setTabActive('locals')}
+                  className="holos-search-menu-filter"
+                  data-label="Selecione a localização"
                 >
                   <strong>Selecione a localização</strong>
                   {formik.values.local.length ? (
@@ -557,6 +572,8 @@ function Search() {
                     (formik.values.bedroom_start && formik.values.bedroom_end) ||
                     (formik.values.parking_start && formik.values.parking_end)}
                   onClick={() => setTabActive('filters')}
+                  className="holos-search-menu-filter"
+                  data-label="Mais filtros"
                 >
                   <strong>Mais filtros</strong>
                   {(formik.values.price_start && formik.values.price_end) ||
@@ -600,6 +617,8 @@ function Search() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleChange}
                 value={formik.values.reference}
+                className="holos-search-field"
+                data-label="buscar por referência"
               />
               <SVG src={SearchIconSVG} uniquifyIDs={true} />
             </FormGroup>
@@ -608,6 +627,7 @@ function Search() {
               disabled={
                 !formik.isSubmitting && !filtersData && !formik.values.reference
               }
+              className="holos-search-submit"
             >
               Buscar
             </FormButtonSubmit>
@@ -627,6 +647,7 @@ function Search() {
                   !formik.values.reference
                 }
                 onClick={createAlert}
+                className="holos-create-alert"
               >
                 <SVG src={AlertIconSVG} uniquifyIDs={true} /> Criar alerta
               </FormButtonAlert>
@@ -637,6 +658,7 @@ function Search() {
                 !formik.isSubmitting && !filtersData && !formik.values.reference
               }
               onClick={resetForm}
+              className="holos-clear-filter"
             >
               Limpar filtros
             </FormButtonClear>
@@ -668,6 +690,9 @@ function Search() {
                       setTabActive(null);
                       setSource(source);
                     }}
+                    className="holos-search-menu-item"
+                    data-label={source.label}
+                    data-type={'Alterar localização'}
                   >
                     {source.label}
                   </FormTabListItemButton>
@@ -697,6 +722,9 @@ function Search() {
                       type="button"
                       active={formik.values.types.includes(type)}
                       onClick={() => setArrayValue('types', type)}
+                      className="holos-search-menu-item"
+                      data-label={type}
+                      data-type={'Tipo de imóvel'}
                     >
                       {type}
                     </FormTabListItemButton>
@@ -741,6 +769,9 @@ function Search() {
                                 onClick={() =>
                                   setArrayValue('local', localItem)
                                 }
+                                className="holos-search-menu-item"
+                                data-label={localItem}
+                                data-type={'Selecione a localização'}
                               >
                                 {localItem}
                               </FormTabListItemButton>
@@ -786,6 +817,14 @@ function Search() {
                     onChange={values => {
                       formik.setFieldValue('price_start', values[0]);
                       formik.setFieldValue('price_end', values[1]);
+
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'Valor',
+                        fieldForm: 'Locais',
+                        fieldValMin: values[0],
+                        fieldValMax: values[1]
+                      });
                     }}
                   />
                 </FormTabSlider>
@@ -799,11 +838,19 @@ function Search() {
                   <RangeSlider
                     data={filtersData.area}
                     sep="a"
-                    step={1}
+                    step={10}
                     suffix=" m"
                     onChange={values => {
                       formik.setFieldValue('area_start', values[0]);
                       formik.setFieldValue('area_end', values[1]);
+
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'Área útil',
+                        fieldForm: 'Locais',
+                        fieldValMin: values[0],
+                        fieldValMax: values[1]
+                      });
                     }}
                   />
                 </FormTabSlider>
@@ -821,6 +868,14 @@ function Search() {
                     onChange={values => {
                       formik.setFieldValue('bedroom_start', values[0]);
                       formik.setFieldValue('bedroom_end', values[1]);
+
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'Quartos',
+                        fieldForm: 'Locais',
+                        fieldValMin: values[0],
+                        fieldValMax: values[1]
+                      });
                     }}
                   />
                 </FormTabSlider>
@@ -840,6 +895,14 @@ function Search() {
                     onChange={values => {
                       formik.setFieldValue('parking_start', values[0]);
                       formik.setFieldValue('parking_end', values[1]);
+
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'Vagas',
+                        fieldForm: 'Locais',
+                        fieldValMin: values[0],
+                        fieldValMax: values[1]
+                      });
                     }}
                   />
                 </FormTabSlider>

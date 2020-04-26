@@ -9,6 +9,7 @@ function SliderNew({
   arrowsColor = 'white',
   hasVerticalBar = false,
   type = 'full',
+  arrowsClassName = '',
   settings = {
     dots: false,
     infinite: false,
@@ -55,11 +56,19 @@ function SliderNew({
         </svg>
       `;
 
-      if($buttonPrev) {
+      if($buttonPrev && $buttonPrev.tagName === 'BUTTON') {
+        if(arrowsClassName) {
+          $buttonPrev.classList.add(arrowsClassName);
+        }
+        $buttonPrev.setAttribute('data-direction', 'anterior');
         $buttonPrev.innerHTML = renderSVG('prev');
       }
 
-      if($buttonNext) {
+      if($buttonNext && $buttonNext.tagName === 'BUTTON') {
+        if(arrowsClassName) {
+          $buttonNext.classList.add(arrowsClassName);
+        }
+        $buttonNext.setAttribute('data-direction', 'próximo');
         $buttonNext.innerHTML = renderSVG('next');
       }
 

@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import GTM from 'helpers/gtm';
 
 // components
 import Modal from 'components/Modals';
@@ -16,7 +17,18 @@ function ForgotPasswordSuccess() {
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalForgotPasswordSuccess: false }))
-  }, [ modalForgotPasswordSuccess ])
+  }, [ modalForgotPasswordSuccess ]);
+
+  useEffect(() => {
+    if(modalForgotPasswordSuccess) {
+      GTM.dataLayerPush({
+        event: 'Form Response',
+        formType: 'Recuperar Senha',
+        formResult: 'Sucesso',
+        formMessage: ''
+      });
+    }
+  }, [ modalForgotPasswordSuccess ]);
 
   return modalForgotPasswordSuccess ? (
     <Modal active={modalForgotPasswordSuccess} onClose={closeModal} themeColor="green">

@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import GTM from 'helpers/gtm';
 import Api from 'services';
 
 // components
@@ -97,7 +98,13 @@ function Work() {
       const resp = await Api.Contact.postWorkWithUs(values);
       setSubmitting(false);
       if (resp.status) {
-        alert(resp.status);
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Trabalhe conosco',
+          formResult: 'Sucesso',
+          formMessage: ''
+        });
+
         resetForm({});
       }
     }
@@ -124,6 +131,9 @@ function Work() {
                 error={touched.brokerExperience && errors.brokerExperience}
                 value={values.brokerExperience}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Não"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="brokerExperience"
@@ -136,6 +146,9 @@ function Work() {
                 error={touched.brokerExperience && errors.brokerExperience}
                 value={values.brokerExperience}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sim, em imobiliária"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="brokerExperience"
@@ -148,6 +161,9 @@ function Work() {
                 error={touched.brokerExperience && errors.brokerExperience}
                 value={values.brokerExperience}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sim, como autônomo"
+                data-type="Trabalhe Conosco"
               />
             </FormGroupBrokerExperience>
           </FormGroup>
@@ -164,6 +180,9 @@ function Work() {
                 error={touched.haveBelieved && errors.haveBelieved}
                 value={values.haveBelieved}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Possui CRECI? Não"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="haveBelieved"
@@ -174,6 +193,9 @@ function Work() {
                 error={touched.haveBelieved && errors.haveBelieved}
                 value={values.haveBelieved}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Possui CRECI? Sim"
+                data-type="Trabalhe Conosco"
               />
             </FormGroupYesNo>
           </FormGroup>
@@ -189,6 +211,9 @@ function Work() {
                 error={touched.name && errors.name}
                 value={values.name}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Nome"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="lastName"
@@ -198,6 +223,9 @@ function Work() {
                 error={touched.lastName && errors.lastName}
                 value={values.lastName}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sobrenome"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 type="cpf"
@@ -208,6 +236,9 @@ function Work() {
                 error={touched.cpf && errors.cpf}
                 value={values.cpf}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="CPF"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 type="emailmask"
@@ -218,6 +249,9 @@ function Work() {
                 error={touched.email && errors.email}
                 value={values.email}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="E-mail pessoal"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 type="phone"
@@ -228,6 +262,9 @@ function Work() {
                 error={touched.phone && errors.phone}
                 value={values.phone}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Telefone"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 type="phone"
@@ -238,6 +275,9 @@ function Work() {
                 error={touched.mobile && errors.mobile}
                 value={values.mobile}
                 onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Celular"
+                data-type="Trabalhe Conosco"
               />
             </FormGroupBasics>
           </FormGroup>
@@ -249,30 +289,45 @@ function Work() {
               label="Linkedin"
               placeholder="copie e cole o link do seu perfil aqui"
               onChange={handleChange}
+              className="holos-form-field"
+              data-label="Linkedin"
+              data-type="Trabalhe Conosco"
             />
             <FormElements
               name="facebook"
               label="Facebook"
               placeholder="copie e cole o link do seu perfil aqui"
               onChange={handleChange}
+              className="holos-form-field"
+              data-label="Facebook"
+              data-type="Trabalhe Conosco"
             />
             <FormElements
               name="instagram"
               label="Instagram"
               placeholder="copie e cole o link do seu perfil aqui"
               onChange={handleChange}
+              className="holos-form-field"
+              data-label="Instagram"
+              data-type="Trabalhe Conosco"
             />
             <FormElements
               name="twitter"
               label="Twitter"
               placeholder="copie e cole o link do seu perfil aqui"
               onChange={handleChange}
+              className="holos-form-field"
+              data-label="Twitter"
+              data-type="Trabalhe Conosco"
             />
             <FormElements
               name="anotherSocialNetwork"
               label="Outras"
               placeholder="copie e cole o link do seu perfil aqui"
               onChange={handleChange}
+              className="holos-form-field"
+              data-label="Outras"
+              data-type="Trabalhe Conosco"
             />
           </FormGroup>
 
@@ -284,24 +339,36 @@ function Work() {
                 label="Idioma"
                 placeholder="Idioma"
                 onChange={handleChange}
+                className="holos-form-field"
+                data-label="Idioma1"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="lang2"
                 label="Idioma"
                 placeholder="Idioma"
                 onChange={handleChange}
+                className="holos-form-field"
+                data-label="Idioma2"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="lang3"
                 label="Idioma"
                 placeholder="Idioma"
                 onChange={handleChange}
+                className="holos-form-field"
+                data-label="Idioma3"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="lang4"
                 label="Idioma"
                 placeholder="Idioma"
                 onChange={handleChange}
+                className="holos-form-field"
+                data-label="Idioma4"
+                data-type="Trabalhe Conosco"
               />
             </FormGroupLang>
           </FormGroup>
@@ -316,6 +383,9 @@ function Work() {
               error={touched.previousExperiences && errors.previousExperiences}
               value={values.previousExperiences}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Experiências anteriores na area comercial de empresas"
+              data-type="Trabalhe Conosco"
             />
           </FormGroup>
           <FormGroup>
@@ -328,6 +398,9 @@ function Work() {
               error={touched.reasonWorkAxpe && errors.reasonWorkAxpe}
               value={values.reasonWorkAxpe}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="por que gostaria de trabalhar conosco"
+              data-type="Trabalhe Conosco"
             />
           </FormGroup>
           <FormGroup>
@@ -339,6 +412,9 @@ function Work() {
                 label="Não"
                 checked={values.wasIndicated === false}
                 onChange={() => setFieldValue('wasIndicated', false)}
+                className="holos-form-field"
+                data-label="conhece alguém na axpe? não"
+                data-type="Trabalhe Conosco"
               />
               <FormElements
                 name="wasIndicated"
@@ -346,6 +422,9 @@ function Work() {
                 label="Sim"
                 checked={values.wasIndicated}
                 onChange={() => setFieldValue('wasIndicated', true)}
+                className="holos-form-field"
+                data-label="Conhece alguém na axpe? sim"
+                data-type="Trabalhe Conosco"
               />
             </FormGroupYesNo>
             {values.wasIndicated && (
@@ -354,6 +433,9 @@ function Work() {
                 placeholder="Quem?"
                 label="Quem?"
                 onChange={handleChange}
+                className="holos-form-field"
+                data-label="Conhece quem na axpe?"
+                data-type="Trabalhe Conosco"
               />
             )}
           </FormGroup>
@@ -367,8 +449,15 @@ function Work() {
               value={values.terms}
               checked={values.terms}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Concordo com a politica de privacidade da Axpe"
+              data-type="Trabalhe Conosco"
             />
-            <ButtonContainer disabled={isSubmitting} type="submit">
+            <ButtonContainer
+              disabled={isSubmitting}
+              type="submit"
+              className="holos-form-submit"
+            >
               Enviar
             </ButtonContainer>
           </FormGroupButton>

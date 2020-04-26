@@ -29,6 +29,8 @@ test/version_tmp
 build/
 .vagrant
 .sass-cache
+public/sw.js
+public/sw.js.map
 
 # YARD artifacts
 .yardoc

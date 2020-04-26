@@ -82,6 +82,7 @@ function LoginModal() {
       onClose={closeModal}
       showButtonBack={showRegister}
       onClickButtonBack={onClickButtonBack}
+      dataType={showForgotPasswordForm ? 'Recuperar Senha' : 'Login'}
     >
       <Texts>
         {!loginType && (
@@ -146,14 +147,24 @@ function LoginModal() {
                   <ForgotPasswordForm />
                 </>
               )}
-              <ForgotPassButton type="button" onClick={toggleForgotPassordForm}>
+              <ForgotPassButton
+                type="button"
+                onClick={toggleForgotPassordForm}
+                className="holos-form-link"
+                data-type={showForgotPasswordForm ? 'Recuperar Senha' : 'Login'}
+              >
                 {!showForgotPasswordForm ? 'Esqueceu sua senha?' : 'voltar para login'}
               </ForgotPassButton>
               <LoginSocials doAfterLogin={doAfterLogin} />
             </LoginRow>
             <LoginRow>
               <ColumnTitle>É sua primeira visita?</ColumnTitle>
-              <Button type="button" fullWidth={true} onClick={() => setShowRegister(true)}>
+              <Button
+                type="button"
+                className="holos-cta-register"
+                fullWidth={true}
+                onClick={() => setShowRegister(true)}
+              >
                 Quero me cadastrar
               </Button>
             </LoginRow>

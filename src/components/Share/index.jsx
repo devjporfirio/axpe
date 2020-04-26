@@ -36,50 +36,80 @@ function Share({ active, path, title, onClose }) {
       setTimeout(() => {
         setCopied(false);
       }, 4000);
-    })
+    });
   }
 
   useEffect(() => {
-    setUrl(`${process.env.config.siteUrl}${path}`)
+    setUrl(`${process.env.config.siteUrl}${path}`);
     attachClipboard();
-  }, [ active ])
+  }, [ active ]);
 
   return (
     <Container active={active} onClick={handleClose}>
       <Wrapper onClick={event => event.stopPropagation()}>
         <Header>
           <h6>Compartilhar</h6>
-          <button type="button" onClick={handleClose}>Fechar</button>
+          <button type="button" onClick={handleClose}>
+            Fechar
+          </button>
         </Header>
 
         <Socials>
-          <SocialsButton href={`https://api.whatsapp.com/send?text=${url}`} target="_blank">
+          <SocialsButton
+            href={`https://api.whatsapp.com/send?text=${url}`}
+            target="_blank"
+            className="holos-account-favorite-share-network"
+            data-label="Whatsapp"
+          >
             <SVG src={WhatsappRoundedIconSVG} uniquifyIDs={true} /> Whatsapp
           </SocialsButton>
-          <SocialsButton href={`http://www.facebook.com/sharer.php?u=${url}`} target="_blank">
+          <SocialsButton
+            href={`http://www.facebook.com/sharer.php?u=${url}`}
+            target="_blank"
+            className="holos-account-favorite-share-network"
+            data-label="Facebook"
+          >
             <SVG src={FacebookRoundedIconSVG} uniquifyIDs={true} /> Facebook
           </SocialsButton>
-          <SocialsButton href={`http://twitter.com/share?text=${title}&url=${url}`} target="_blank">
+          <SocialsButton
+            href={`http://twitter.com/share?text=${title}&url=${url}`}
+            target="_blank"
+            className="holos-account-favorite-share-network"
+            data-label="Twitter"
+          >
             <SVG src={TwitterRoundedIconSVG} uniquifyIDs={true} /> Twitter
           </SocialsButton>
-          <SocialsButton href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`} target="_blank">
+          <SocialsButton
+            href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`}
+            target="_blank"
+            className="holos-account-favorite-share-network"
+            data-label="Linkedin"
+          >
             <SVG src={LinkedinRoundedIconSVG} uniquifyIDs={true} /> Linkedin
           </SocialsButton>
         </Socials>
 
         <Copy copied={copied}>
           {url && <input type="text" id="url" name="url" defaultValue={url} />}
-          <button type="button" ref={copySubmitButton} data-clipboard-target="#url">{copied ? 'Copiado!' : `Copiar`}</button>
+          <button
+            type="button"
+            ref={copySubmitButton}
+            data-clipboard-target="#url"
+            className="holos-account-favorite-share-network"
+            data-label="Copiar Link"
+          >
+            {copied ? 'Copiado!' : `Copiar`}
+          </button>
         </Copy>
       </Wrapper>
     </Container>
-  )
+  );
 }
 
 Share.propTypes = {
   active: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
-}
+};
 
 export default Share;

@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import GTM from 'helpers/gtm';
 import Api from 'services';
 
 // components
@@ -86,6 +87,14 @@ export default function Contact() {
             modalContactMessage: ''
           })
         );
+
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Favorito - Agendar',
+          formResult: 'Sucesso',
+          formMessage: ''
+        });
+
         resetForm({});
       }
     }
@@ -97,6 +106,7 @@ export default function Contact() {
       onClose={closeModal}
       showButtonBack={showRegister}
       onClickButtonBack={onClickButtonBack}
+      dataType="Favorito - Agendar"
     >
       <Texts>
         <Text>
@@ -118,8 +128,17 @@ export default function Contact() {
               error={touched.message && errors.message}
               value={values.message}
               onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Quer mais informações sobre este imóvel?"
+              data-type="Favorito - Agendar"
             />
-            <Button disabled={isSubmitting} type="submit" fullWidth>
+            <Button
+              disabled={isSubmitting}
+              type="submit"
+              className="holos-form-submit"
+              data-type="Favorito - Agendar"
+              fullWidth
+            >
               Enviar
             </Button>
           </FormGroup>
