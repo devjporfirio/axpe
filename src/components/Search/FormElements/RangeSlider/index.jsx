@@ -40,7 +40,8 @@ function RangeSlider({
     if(type === 'prices') {
       range = {
         'min': data[0],
-        '30%': parseInt(data[1] * 25 / 100),
+        '30%': parseInt(data[1] * 35 / 100),
+        '70%': parseInt(data[1] * 60 / 100),
         'max': data[1]
       };
     }
