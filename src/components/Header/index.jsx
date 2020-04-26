@@ -163,7 +163,10 @@ function Header() {
                     </NavMainButton>
                   </Link>
                 ) : (
-                  <NavMainButton className="holos-menu-item" type="register" onClick={() => openModalLogin('/cadastrar')}>
+                  <NavMainButton className="holos-menu-item" type="register" onClick={() => {
+                    cancelToggle();
+                    openModalLogin('/cadastrar');
+                  }}>
                     <SVG src={HomeIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                   </NavMainButton>
@@ -198,7 +201,10 @@ function Header() {
               </li>
               <li>
                 {!logged ? (
-                  <NavSecondaryButton className="holos-menu-item" onClick={()=> openModalLogin('/minha-conta')}>
+                  <NavSecondaryButton className="holos-menu-item" onClick={() => {
+                    cancelToggle();
+                    openModalLogin('/minha-conta');
+                  }}>
                     Meu perfil
                   </NavSecondaryButton>
                 ) : notificationsAvailable && notificationsAvailable === 'alert' && notificationAlert ? (
@@ -226,7 +232,10 @@ function Header() {
                     </NavSecondaryButton>
                   </Link>
                 ) : (
-                  <NavSecondaryButton className="holos-menu-item" onClick={()=> openModalLogin('/minha-conta/favoritos')}>
+                  <NavSecondaryButton className="holos-menu-item" onClick={() => {
+                    cancelToggle();
+                    openModalLogin('/minha-conta/favoritos');
+                  }}>
                     Meus favoritos
                     {notificationsAvailable && notificationsAvailable === 'favorite' && notificationFavorite ? (
                       <NavIconAlert>
