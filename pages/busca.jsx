@@ -357,7 +357,7 @@ function Search({ total, totalPages, data, locals }) {
                       className="holos-search-load-more"
                       data-showcase="Busca"
                     >
-                      {isLoading ? 'Carregando...' : 'Carregar mais '+page}
+                      {isLoading ? 'Carregando...' : 'Carregar mais'}
                     </Button>
                   </BuildingsLoadMore>
                 ) : null}
