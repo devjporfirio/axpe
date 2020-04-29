@@ -55,6 +55,7 @@ function Search({ total, totalPages, data, locals }) {
   ];
 
   const orderTiming = useRef(false);
+  const [ loadNewPage, setLoadNewPage ] = useState(false);
   const [ orderByComboActive, setOrderByComboActive ] = useState(false);
   const [ orderBy, setOrderBy ] = useState(order ? order : orderOptions[0].value);
   const [ page, setPage ] = useState(+query.page || 1);
@@ -72,7 +73,7 @@ function Search({ total, totalPages, data, locals }) {
       return 'São Paulo';
     }
     return source;
-  }, [ source ])
+  }, [ source ]);
 
   const getFinalityText = useCallback(() => {
     switch(finality) {
@@ -112,14 +113,23 @@ function Search({ total, totalPages, data, locals }) {
   }, [ buildings ]);
 
   const loadMore = useCallback(() => {
-    setPage(page + 1);
+    const newPage = page + 1;
+    const params = getParamsFromObject({ ...query, page: newPage });
+
+    router.push(`/busca${params}`, undefined, { shallow: true });
+
+    setPage(newPage);
+    setLoadNewPage(true);
   }, [ page ]);
 
   const getBuildingsSuggestions = useCallback(async () => {
     const results = [];
 
     const getBuildingsSuggestion = async (title, newQuery) => {
-      const params = getParamsFromObject(newQuery);
+      const params = getParamsFromObject({
+        ...newQuery,
+        page: 1
+      });
       const response = await Api.Search.getBuildings(params);
 
       if(response.data && response.data.length) {
@@ -211,7 +221,7 @@ function Search({ total, totalPages, data, locals }) {
 
   useEffect(() => {
     setNewData(data, true);
-    setPage(1);
+    setPage(+query.page || 1);
     getBuildingsSuggestions();
 
     if(!dataLoaded) {
@@ -223,18 +233,19 @@ function Search({ total, totalPages, data, locals }) {
     const getDataByPage = async () => {
       const params = getParamsFromObject({
         ...query,
-        page: page
+        page
       });
       const response = await Api.Search.getBuildings(params);
 
       setNewData(response.data);
+      setLoadNewPage(false);
     }
 
-    if(page > 1) {
+    if(loadNewPage) {
       setIsLoading(true);
       getDataByPage();
     }
-  }, [ page ]);
+  }, [ loadNewPage ]);
 
   return (
     <>
@@ -346,7 +357,7 @@ function Search({ total, totalPages, data, locals }) {
                       className="holos-search-load-more"
                       data-showcase="Busca"
                     >
-                      {isLoading ? 'Carregando...' : 'Carregar mais'}
+                      {isLoading ? 'Carregando...' : 'Carregar mais '+page}
                     </Button>
                   </BuildingsLoadMore>
                 ) : null}
@@ -374,7 +385,12 @@ function Search({ total, totalPages, data, locals }) {
 }
 
 Search.getInitialProps = async ({ query }) => {
-  const params = getParamsFromObject(query, true);
+  const params = getParamsFromObject({
+    ...query,
+    page: 1,
+    limit: query.page ? +query.page * 10 : 10
+  }, true);
+
   const locals = await Api.Search.getLocals();
   const response = await Api.Search.getBuildings(params);
 
