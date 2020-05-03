@@ -8,6 +8,12 @@ export const Header = styled(Headerbar)`
   ${media.greaterThan('medium')`
     display: none;
   `}
+
+  ${css`
+    @media (orientation: landscape) and (max-width: 767px) {
+      display: none;
+    }
+  `}
 `;
 
 export const Container = styled.div`
@@ -47,6 +53,12 @@ export const ButtonClose = styled.button`
       width: 1px;
       height: 15px;
       background: ${({ theme }) => theme.colors.green};
+
+      ${css`
+        @media (orientation: landscape) and (max-width: 767px) {
+          background: ${({ theme }) => theme.colors.white};
+        }
+      `}
     }
 
     &:before {

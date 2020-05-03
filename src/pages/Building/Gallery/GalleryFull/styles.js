@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // components
@@ -69,6 +69,20 @@ export const Slide = styled.div`
   display: table-cell !important;
   vertical-align: middle;
 
+  ${css`
+    @media (orientation: landscape) and (max-width: 767px) {
+      height: 100vh;
+    }
+  `}
+
+  ${media.greaterThan('medium')`
+    height: calc(100vh - 150px);
+  `}
+
+  .react-transform-component {
+    margin: auto;
+  }
+
   img {
     margin: auto;
     width: auto;
@@ -78,8 +92,4 @@ export const Slide = styled.div`
   iframe {
     width: 100%;
   }
-
-  ${media.greaterThan('medium')`
-    height: calc(100vh - 150px);
-  `}
 `;

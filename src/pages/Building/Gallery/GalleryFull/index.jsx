@@ -1,5 +1,5 @@
 import React from 'react';
-// import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 // styles
 import {
@@ -32,12 +32,12 @@ export default function GalleryFull({ initialSlide, onClose, items, category, lo
               case 'imagem':
                 return (
                   <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
-                    <img alt="Foto do Imóvel" src={item.src} />
-                    {/* <TransformWrapper>
+                    {/* <img alt="Foto do Imóvel" src={item.src} /> */}
+                    <TransformWrapper>
                       <TransformComponent>
                         <img alt="Foto do Imóvel" src={item.src} />
                       </TransformComponent>
-                    </TransformWrapper> */}
+                    </TransformWrapper>
                   </Slide>
                 );
               case 'video':

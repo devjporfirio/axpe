@@ -20,7 +20,6 @@ function GalleryNav({
   planta = false,
   reference
 }) {
-  // const [nav1, setNav1] = useState(null);
   const [ plantaSelect, setPlantaSelect ] = useState(0);
   const slider1 = React.createRef();
 
