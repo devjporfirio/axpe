@@ -46,6 +46,26 @@ function Search({ total, totalPages, data, locals }) {
   const { query, query: { source, finality, reference, order } } = router;
   const { searchFormActive } = useSelector(state => state.main);
 
+  const keysToHumanNames = {
+    source: 'Localização',
+    finality: 'Para',
+    use: 'Tipo',
+    ready_release: '',
+    furnished: 'Mobiliado',
+    types: 'Tipo do imóvel',
+    local: 'Bairros/Cidades',
+    price_start: 'Preço inicial',
+    price_end: 'Preço final',
+    area_start: 'Area inicial',
+    area_end: 'Area final',
+    bedroom_start: 'Quartos inicial',
+    bedroom_end: 'Quartos final',
+    parking_start: 'Número de vagas no estacionamento inicial',
+    parking_end: 'Número de vagas no estacionamento final',
+    reference: 'Referência',
+    order: 'Ordernar por'
+  };
+
   const orderOptions = [
     { label: 'Mais Recentes', value: 'latest' },
     { label: 'Menor área útil', value: 'lowest_area' },
@@ -63,6 +83,35 @@ function Search({ total, totalPages, data, locals }) {
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ suggestions, setSuggestions ] = useState(null);
+
+  const setDataInitialGTM = useCallback(() => {
+    GTM.dataLayerPush({
+      searchFilters: Object.keys(query).map(key => {
+        let value = query[key];
+
+        if(key === 'ready_release') {
+          if(query[key] === 'pronto') {
+            return `Pronto para morar`;
+          } else {
+            return `Lançamento`;
+          }
+        } else if(key === 'source') {
+          if(value === 'sao-paulo') {
+            value = 'São Paulo';
+          } else {
+            value = value[0].toUpperCase() + value.slice(1)
+          }
+        } else if(key === 'order') {
+          const results = orderOptions.filter(item => item.value === value);
+          if(results) {
+            value = results[0].label
+          }
+        }
+
+        return `${keysToHumanNames[key]}: ${value}`;
+      }).join(' | ')
+    });
+  }, [ query ]);
 
   const getOrderBySelected = useCallback(() => {
     return orderOptions.filter(orderItem => orderItem.value == orderBy);
@@ -94,10 +143,6 @@ function Search({ total, totalPages, data, locals }) {
     const params = getParamsFromObject({
       ...query,
       order: newOrder
-    });
-
-    GTM.dataLayerPush({
-      searchFilters: Object.keys(query).map(key => key).join('|')
     });
 
     if(query.order !== newOrder) {
@@ -212,6 +257,10 @@ function Search({ total, totalPages, data, locals }) {
 
 
   useEffect(() => {
+    setDataInitialGTM();
+  }, [ query ]);
+
+  useEffect(() => {
     dispatch(setMain({
       searchFunnel: {
         finality: query.finality,
@@ -292,11 +341,17 @@ function Search({ total, totalPages, data, locals }) {
                       onChange={(event) => {
                         handleOrderBy(event.target.value);
 
-                        GTM.dataLayerPush({
-                          event: 'Custom Field Change',
-                          fieldLabel: event.target.value,
-                          fieldForm: 'Busca'
-                        });
+                        const results = orderOptions.filter(item => item.value === event.target.value);
+
+                        if(results.length) {
+                          GTM.dataLayerPush({
+                            event: 'Custom Field Change',
+                            fieldLabel: 'Ordernar Por',
+                            fieldForm: 'Busca',
+                            fieldValMin: '',
+                            fieldValMax: results[0].label,
+                          });
+                        }
                       }}
                       onBlur={(event) => handleOrderBy(event.target.value)}
                     >
@@ -315,8 +370,10 @@ function Search({ total, totalPages, data, locals }) {
 
                             GTM.dataLayerPush({
                               event: 'Custom Field Change',
-                              fieldLabel: orderItem.value,
-                              fieldForm: 'Busca'
+                              fieldLabel: 'Ordernar Por',
+                              fieldForm: 'Busca',
+                              fieldValMin: '',
+                              fieldValMax: orderItem.label
                             });
                           }}
                         >
@@ -339,6 +396,7 @@ function Search({ total, totalPages, data, locals }) {
                     <BuildingList
                       item={building}
                       page="search"
+                      positionIndex={buildingIndex + 1}
                       key={`building-searchitem-${building.reference}-${buildingIndex}`}
                     />
                   )) : (

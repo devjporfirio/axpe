@@ -8,6 +8,7 @@ import Api from 'services';
 import * as Yup from 'yup';
 
 // helpers
+import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
 import { getErrorMessage } from 'helpers/errors';
 
@@ -208,7 +209,16 @@ function Profile() {
                     </>
                   }
                   checked={values.notificationAlert === 1}
-                  onChange={() => setFieldValue('notificationAlert', values.notificationAlert === 1 ? 0 : 1)}
+                  onChange={() => {
+                    setFieldValue('notificationAlert', values.notificationAlert === 1 ? 0 : 1)
+                    GTM.dataLayerPush({
+                      event: 'Custom Field Change',
+                      fieldLabel: 'Meus Alertas - Novos imóveis adicionados',
+                      fieldForm: 'Perfil',
+                      fieldValMin: '',
+                      fieldValMax: values.notificationAlert === 1 ? 'Não' : 'Sim'
+                    });
+                  }}
                   error={touched.notificationAlert && errors.notificationAlert}
                   value={values.notificationAlert}
                   onBlur={handleBlur}
@@ -223,7 +233,16 @@ function Profile() {
                     </>
                   }
                   checked={values.notificationFavorite === 1}
-                  onChange={() => setFieldValue('notificationFavorite', values.notificationFavorite === 1 ? 0 : 1)}
+                  onChange={() => {
+                    setFieldValue('notificationFavorite', values.notificationFavorite === 1 ? 0 : 1)
+                    GTM.dataLayerPush({
+                      event: 'Custom Field Change',
+                      fieldLabel: 'Favoritos - Informações atualizadas',
+                      fieldForm: 'Perfil',
+                      fieldValMin: '',
+                      fieldValMax: values.notificationFavorite === 1 ? 'Não' : 'Sim'
+                    });
+                  }}
                   error={
                     touched.notificationFavorite && errors.notificationFavorite
                   }

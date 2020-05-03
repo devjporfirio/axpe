@@ -74,7 +74,7 @@ function UpdatePass({ active, onClose, user }) {
           onClose();
         }, 3000);
       } else {
-        const msg = getErrorMessage(response.error);
+        const msg = getErrorMessage(response.msg);
 
         GTM.dataLayerPush({
           event: 'Form Response',

@@ -102,6 +102,10 @@ export const FormGroupAlerts = styled.div`
     max-width: 777px;
     width: 100%;
 
+    label {
+      background-color: transparent;
+    }
+
     input {
       width:21px;
       height: 21px;

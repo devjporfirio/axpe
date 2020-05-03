@@ -40,6 +40,7 @@ function Button(props) {
         color={color}
         size={size}
         fullWidth={fullWidth}
+        {...props}
       >
         {children}
       </ButtonLinkContainer>

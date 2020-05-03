@@ -10,6 +10,7 @@ import FormElements from 'components/FormElements';
 import { FormGroup, FormGroupYesNo } from 'components/FormElements/styles';
 
 // helpers
+import { getErrorMessage } from 'helpers/errors';
 import SeoData from 'helpers/seo';
 
 // styles
@@ -106,6 +107,15 @@ function Work() {
         });
 
         resetForm({});
+      } else {
+        const msg = getErrorMessage(response.msg);
+
+        GTM.dataLayerPush({
+          event: 'Form Response',
+          formType: 'Trabalhe conosco',
+          formResult: 'Erro',
+          formMessage: msg
+        });
       }
     }
   });
@@ -457,6 +467,7 @@ function Work() {
               disabled={isSubmitting}
               type="submit"
               className="holos-form-submit"
+              data-type="Trabalhe Conosco"
             >
               Enviar
             </ButtonContainer>

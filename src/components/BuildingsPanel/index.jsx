@@ -74,7 +74,7 @@ function BuildingsPanel({
       newItems = newItems.concat(data, data);
     }
     setItems(newItems);
-  }, [])
+  }, []);
 
   return items && items.length >= 1 && (
     <Container type={type}>
@@ -102,6 +102,7 @@ function BuildingsPanel({
                   layout={buildingLayout}
                   item={building}
                   gtmShowcase={title}
+                  positionIndex={buildingIndex + 1}
                   key={`building-searchitem-${building.reference}-${buildingIndex}`}
                 />
               ))}

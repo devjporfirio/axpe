@@ -27,7 +27,7 @@ function RegisterSuccess() {
     if(modalRegisterSuccess) {
       GTM.dataLayerPush({
         event: 'Form Response',
-        formType: 'Cadastro',
+        formType: 'Cadastrar Imóvel',
         formResult: 'Sucesso',
         formMessage: ''
       });

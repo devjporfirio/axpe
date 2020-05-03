@@ -82,20 +82,20 @@ export default function Contact() {
       if (response.status) {
         dispatch(
           setMain({
-            modalNewsletterSuccess: true,
+            modalBuildingContactSuccess: true,
             modalContact: false,
             modalContactMessage: ''
           })
         );
 
+        resetForm({});
+      } else {
         GTM.dataLayerPush({
           event: 'Form Response',
           formType: 'Favorito - Agendar',
-          formResult: 'Sucesso',
+          formResult: 'Erro',
           formMessage: ''
         });
-
-        resetForm({});
       }
     }
   });

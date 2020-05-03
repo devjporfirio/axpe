@@ -39,7 +39,7 @@ function LoginRegisterSuccessModal() {
         </SuccessColumn>
         <SuccessColumn>
           <p>Agora é só criar sua lista de favoritos.</p>
-          <Button href="/minha-conta" as="/minha-conta">Quero ver meu perfil</Button>
+          <Button route="/minha-conta" className="holos-cta-profile">Quero ver meu perfil</Button>
         </SuccessColumn>
       </Success>
     </Modal>

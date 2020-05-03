@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,6 +7,9 @@ import Api from 'services';
 
 // helpers
 import { getErrorMessage } from 'helpers/errors';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // components
 import FormElements from 'components/FormElements';
@@ -23,11 +26,15 @@ const formSchema = Yup.object().shape({
     .required()
 });
 
-function PasswordNew({ active, onClose, hash }) {
+function PasswordNew({ hash }) {
   const dispatch = useDispatch();
   const { modalPasswordNew } = useSelector(state => state.main);
   const [ successMessage, setSuccessMessage ] = useState(null);
   const [ errorMessage, setErrorMessage ] = useState(null);
+
+  const closeModal = useCallback(() => {
+    dispatch(setMain({ modalPasswordNew: false }))
+  }, [ modalPasswordNew ]);
 
   const {
     handleSubmit,
@@ -88,7 +95,7 @@ function PasswordNew({ active, onClose, hash }) {
   return modalPasswordNew ? (
     <Container
       active={modalPasswordNew}
-      onClose={onClose}
+      onClose={closeModal}
       dataType="Nova Senha"
     >
       <Form onSubmit={handleSubmit}>

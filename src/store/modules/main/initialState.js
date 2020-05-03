@@ -7,6 +7,7 @@ const initialState = {
   categories: null,
   modalNewsletter: false,
   modalNewsletterSuccess: false,
+  modalBuildingContactSuccess: false,
   modalLogin: false,
   modalLoginType: null,
   modalLoginRegisterSuccess: false,

@@ -120,9 +120,11 @@ function Alerts() {
                   </Link>
                   <AmountRemoveGroup>
                     <Link route={`alertas/busca${getParams(alert)}`} passHref>
-                      <Amount>
-                        <strong>{alert.total_buildings}</strong> imóveis
-                      </Amount>
+                      <a className="holos-account-alert">
+                        <Amount>
+                          <strong>{alert.total_buildings}</strong> imóveis
+                        </Amount>
+                      </a>
                     </Link>
                     <ButtonRemove
                       type="button"
@@ -135,7 +137,7 @@ function Alerts() {
                     </ButtonRemove>
                   </AmountRemoveGroup>
                   <Link route={`alertas/busca${getParams(alert)}`} passHref>
-                    <a>
+                    <a className="holos-account-alert">
                       <ItemInfo>
                         <SourceUse>
                           <span>{alert.source}</span>

@@ -23,18 +23,14 @@ import {
   Text,
   TextWrapper,
   Column,
-  ColumnTitle
+  ColumnTitle,
 } from 'components/Modals/styles';
 
-import {
-  LoginContainer,
-  LoginRow,
-  ForgotPassButton
-} from './styles';
+import { LoginContainer, LoginRow, ForgotPassButton } from './styles';
 
 function LoginModal() {
   const dispatch = useDispatch();
-  const { modalLogin, modalLoginType } = useSelector(state => state.main);
+  const { modalLogin, modalLoginType } = useSelector((state) => state.main);
   const [ loginType, setLoginType ] = useState(null);
   const [ showRegister, setShowRegister ] = useState(false);
   const [ showForgotPasswordForm, setShowForgotPasswordForm ] = useState(false);
@@ -47,9 +43,9 @@ function LoginModal() {
     setShowRegister(false);
   }, []);
 
-  const doAfterLogin = useCallback(async response => {
+  const doAfterLogin = useCallback(async (response) => {
     const tokenTime = new Date().getTime();
-    const tokenMaxTime = tokenTime + (3600 * 1000);
+    const tokenMaxTime = tokenTime + 3600 * 1000;
 
     dispatch(
       setUser({
@@ -57,7 +53,7 @@ function LoginModal() {
         access_token: response.access_token,
         id: response.id,
         tokenTime,
-        tokenMaxTime
+        tokenMaxTime,
       })
     );
 
@@ -69,7 +65,7 @@ function LoginModal() {
   }, [ showForgotPasswordForm ]);
 
   useEffect(() => {
-    if(modalLogin && modalLoginType) {
+    if (modalLogin && modalLoginType) {
       setLoginType(modalLoginType);
     } else {
       setLoginType(null);
@@ -82,7 +78,13 @@ function LoginModal() {
       onClose={closeModal}
       showButtonBack={showRegister}
       onClickButtonBack={onClickButtonBack}
-      dataType={showForgotPasswordForm ? 'Recuperar Senha' : 'Login'}
+      dataType={
+        showForgotPasswordForm
+          ? 'Recuperar Senha'
+          : showRegister
+          ? 'Cadastro'
+          : 'Login'
+      }
     >
       <Texts>
         {!loginType && (
@@ -90,10 +92,13 @@ function LoginModal() {
             <Text>
               <TextWrapper>
                 <h2>
-                  Imóveis bacanas atraem <strong>clientes bacanas.</strong> <span>E vice-versa.</span>
+                  Imóveis bacanas atraem <strong>clientes bacanas.</strong>{' '}
+                  <span>E vice-versa.</span>
                 </h2>
                 <p>
-                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso.<br/>
+                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e
+                  você nunca mais terá que fazer isso.
+                  <br />
                   Vamos começar?
                 </p>
               </TextWrapper>
@@ -121,7 +126,8 @@ function LoginModal() {
                   <strong>Namore</strong> seus favoritos quando quiser
                 </h2>
                 <p>
-                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso. Vamos começar?
+                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e
+                  você nunca mais terá que fazer isso. Vamos começar?
                 </p>
               </TextWrapper>
             </Text>
@@ -133,10 +139,12 @@ function LoginModal() {
             <Text>
               <TextWrapper>
                 <h2>
-                  <strong>Seja o primeiro</strong> a saber quando entrar um imóvel do jeito que você quer.
+                  <strong>Seja o primeiro</strong> a saber quando entrar um
+                  imóvel do jeito que você quer.
                 </h2>
                 <p>
-                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e você nunca mais terá que fazer isso. Vamos começar?
+                  Crie o seu login. É rapidinho, leva menos de 10 segundos, e
+                  você nunca mais terá que fazer isso. Vamos começar?
                 </p>
               </TextWrapper>
             </Text>
@@ -168,7 +176,9 @@ function LoginModal() {
                 className="holos-form-link"
                 data-type={showForgotPasswordForm ? 'Recuperar Senha' : 'Login'}
               >
-                {!showForgotPasswordForm ? 'Esqueceu sua senha?' : 'voltar para login'}
+                {!showForgotPasswordForm
+                  ? 'Esqueceu sua senha?'
+                  : 'voltar para login'}
               </ForgotPassButton>
               <LoginSocials doAfterLogin={doAfterLogin} />
             </LoginRow>
@@ -188,7 +198,9 @@ function LoginModal() {
         {showRegister && (
           <LoginContainer type="register">
             <ColumnTitle>
-              {loginType && loginType === 'favorite' ? 'Crie seu login e comece a favoritar.' : 'Crie sua conta'}
+              {loginType && loginType === 'favorite'
+                ? 'Crie seu login e comece a favoritar.'
+                : 'Crie sua conta'}
             </ColumnTitle>
             <RegisterForm doAfterLogin={doAfterLogin} />
           </LoginContainer>

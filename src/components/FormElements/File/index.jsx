@@ -6,13 +6,12 @@ export default function File(props) {
 
   return (
     <>
-      <Input
-        type="file"
-        ref={inputFile}
-        accept="image/*"
-        {...props}
-      />
-      <ButtonFile type="button" onClick={() => inputFile.current.click()}>
+      <Input type="file" ref={inputFile} accept="image/*" {...props} />
+      <ButtonFile
+        type="button"
+        onClick={() => inputFile.current.click()}
+        className="holos-register-realty-select-photos"
+      >
         Selecionar fotos
       </ButtonFile>
     </>

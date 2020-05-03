@@ -49,6 +49,7 @@ function BuildingList({
   useBtRemove,
   useBtSchedule,
   useInactive,
+  positionIndex = 1,
   page = ''
 }) {
   const {
@@ -255,6 +256,8 @@ function BuildingList({
         obj.showcase = 'Busca';
       } else if (page === 'search-dream') {
         obj.showcase = 'Só Quero Sonhar';
+      } else if (page === 'building') {
+        obj.showcase = 'Imóvel Recomendado';
       } else if (page === 'favorites') {
         obj.className = 'holos-account-product';
         obj.showcase = 'Favoritos';
@@ -293,6 +296,7 @@ function BuildingList({
                             className={gtmObj ? gtmObj.className : ''}
                             data-showcase={gtmObj ? gtmObj.showcase : ''}
                             data-product-id={item.reference}
+                            data-position={positionIndex}
                           >
                             <img
                               src={galleryItem.src}
@@ -315,6 +319,7 @@ function BuildingList({
                 className={gtmObj ? `${gtmObj.className}-unfavorite` : ''}
                 data-showcase={gtmObj ? gtmObj.showcase : ''}
                 data-product-id={item.reference}
+                data-position={positionIndex}
               >
                 Remover
               </RemoveButton>
@@ -324,6 +329,7 @@ function BuildingList({
                 className={gtmObj ? gtmObj.className : ''}
                 data-showcase={gtmObj ? gtmObj.showcase : ''}
                 data-product-id={item.reference}
+                data-position={positionIndex}
               >
                 <CatLocGroup>
                   <Category>
@@ -354,6 +360,7 @@ function BuildingList({
                   className={gtmObj ? gtmObj.className : ''}
                   data-showcase={gtmObj ? gtmObj.showcase : ''}
                   data-product-id={item.reference}
+                  data-position={positionIndex}
                 >
                   <div>
                     {(!!values.sell || !!values.release) &&
@@ -399,6 +406,7 @@ function BuildingList({
                 }
                 data-showcase={gtmObj ? gtmObj.showcase : ''}
                 data-product-id={item.reference}
+                data-position={positionIndex}
               >
                 <SVG src={LikeIconSVG} uniquifyIDs={true} />
               </FavoriteButton>
@@ -408,6 +416,7 @@ function BuildingList({
                 className={gtmObj ? gtmObj.className : ''}
                 data-showcase={gtmObj ? gtmObj.showcase : ''}
                 data-product-id={item.reference}
+                data-position={positionIndex}
               >
                 <div>
                   <CaracteristicsGroup>
@@ -424,6 +433,7 @@ function BuildingList({
                 className={gtmObj ? `${gtmObj.className}-schedule` : ''}
                 data-showcase={gtmObj ? gtmObj.showcase : ''}
                 data-product-id={item.reference}
+                data-position={positionIndex}
               >
                 Agende uma visita
               </ScheduleButton>

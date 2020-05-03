@@ -101,6 +101,7 @@ function Viewed() {
                       layout="vertical"
                       item={building}
                       gtmShowcase="Imóvel Recente"
+                      positionIndex={buildingIndex + 1}
                     />
                   ))}
                 </SliderNew>

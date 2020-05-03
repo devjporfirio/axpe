@@ -108,6 +108,7 @@ function DreamDetail({ buildings }) {
                 <BuildingList
                   item={building}
                   page="search-dream"
+                  positionIndex={buildingIndex + 1}
                   key={`building-searchitem-${building.reference}-${buildingIndex}`}
                 />
               )) : (

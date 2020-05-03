@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
+import Head from 'next/head';
+
+// helpers
 import { Link } from 'helpers/routes';
 import GTM from 'helpers/gtm';
+import SeoData from 'helpers/seo';
 
 // styles
 import {
@@ -20,6 +24,11 @@ function DreamBuildingSuccess() {
   }, [ ]);
 
   return (
+    <>
+    <Head>
+      <title>{`Imóvel dos sonhos - ${SeoData.title}`}</title>
+      <meta name="description" content={SeoData.description} />
+    </Head>
     <Container>
       <Wrapper>
         <p>Foi! Agora é com a gente.</p>
@@ -32,6 +41,7 @@ function DreamBuildingSuccess() {
         </Link>
       </Wrapper>
     </Container>
+    </>
   )
 }
 

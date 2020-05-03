@@ -119,6 +119,7 @@ function Favorites() {
                   useBtSchedule
                   item={building}
                   page="favorites"
+                  positionIndex={buildingIndex + 1}
                   key={`building-${buildingIndex}-${building.reference}`}
                 />
               ))}

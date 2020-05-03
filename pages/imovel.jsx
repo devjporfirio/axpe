@@ -141,6 +141,8 @@ function Building({ property }) {
                 <BuildingList
                   layout="horizontal"
                   item={building}
+                  page="building"
+                  positionIndex={buildingIndex + 1}
                   key={`building-searchitem-${building.reference}-${buildingIndex}`}
                 />
               ))}

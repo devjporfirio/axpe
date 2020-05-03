@@ -64,6 +64,8 @@ function AlertsSearch({
             {data.map((building, buildingIndex) => (
               <BuildingList
                 item={building}
+                page="search"
+                positionIndex={buildingIndex + 1}
                 key={`building-searchitem-${building.reference}-${buildingIndex}`}
                 useInactive
               />

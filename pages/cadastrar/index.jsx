@@ -13,6 +13,7 @@ import Contact from 'components/Contact';
 import UserInfo from 'components/UserInfo';
 
 // helpers
+import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
 
 // actions
@@ -41,7 +42,7 @@ import {
   GroupImage,
   Image,
   FormGroupFooter,
-  ButtonSubmit
+  ButtonSubmit,
 } from 'pages/Register/styles';
 
 const registrySchema = Yup.object().shape({
@@ -83,18 +84,20 @@ const registrySchema = Yup.object().shape({
   SingleLine9: Yup.string(),
   SingleLine10: Yup.string(),
   images: Yup.array(),
-  terms: Yup.boolean().oneOf([ true ]).required()
+  terms: Yup.boolean()
+    .oneOf([ true ])
+    .required(),
 });
 
 function Register({ locals, categories, countries }) {
   const dispatch = useDispatch();
   const refForm = useRef(null);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   // const [ keyLocals, setKeyLocals ] = useState('São Paulo');
   const [ keyLocals ] = useState('São Paulo');
   const [ cats, setCats ] = useState([]);
   const [ localsByKey, setLocalsByKey ] = useState([
-    { label: 'Selecione', value: '' }
+    { label: 'Selecione', value: '' },
   ]);
 
   const optionsCountries = [
@@ -134,7 +137,10 @@ function Register({ locals, categories, countries }) {
     { label: 'Panam&aacute;', value: 'Panam&aacute;' },
     { label: 'Porto Rico', value: 'Porto Rico' },
     { label: 'Portugal', value: 'Portugal' },
-    { label: 'Rep&uacute;blica Dominicana', value: 'Rep&uacute;blica Dominicana' },
+    {
+      label: 'Rep&uacute;blica Dominicana',
+      value: 'Rep&uacute;blica Dominicana',
+    },
     { label: 'Singapura', value: 'Singapura' },
     { label: 'Su&eacute;cia', value: 'Su&eacute;cia' },
     { label: 'Su&iacute;&ccedil;a', value: 'Su&iacute;&ccedil;a' },
@@ -150,7 +156,7 @@ function Register({ locals, categories, countries }) {
     values,
     touched,
     errors,
-    setFieldValue
+    setFieldValue,
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
@@ -198,27 +204,37 @@ function Register({ locals, categories, countries }) {
       finalityVender: false,
       finalityAluguel: false,
       images: [],
-      terms: false
+      terms: false,
     },
     validationSchema: registrySchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
-      const response = await Api.User.postRegisterProperty(
-        user.access_token,
-        { files: values.images }
-      );
+      const response = await Api.User.postRegisterProperty(user.access_token, {
+        files: values.images,
+      });
 
-      if(response.status) {
+      if (response.status) {
         setFieldValue('MultiLine', response.imgs.join(', '));
       }
 
       setTimeout(() => {
         refForm.current.submit();
       }, 500);
-    }
+    },
   });
+
+  const changeType = useCallback((field, value) => {
+    setFieldValue(field, value);
+    GTM.dataLayerPush({
+      event: 'Custom Field Change',
+      fieldLabel: 'Qual o perfil do imóvel que deseja cadastrar?',
+      fieldForm: 'Cadastrar Imóvel',
+      fieldValMin: '',
+      fieldValMax: value,
+    });
+  }, []);
 
   useEffect(() => {
     async function loadMe() {
@@ -229,9 +245,11 @@ function Register({ locals, categories, countries }) {
         setFieldValue('PhoneNumber_countrycode', user.me.phone);
         setFieldValue('Email', user.me.email);
       } else {
-        dispatch(setMain({
-          modalLogin: '/cadastrar'
-        }));
+        dispatch(
+          setMain({
+            modalLogin: '/cadastrar',
+          })
+        );
       }
     }
 
@@ -241,21 +259,23 @@ function Register({ locals, categories, countries }) {
   useEffect(() => {
     const key = keyLocals || 'São Paulo';
     const newLocals = [{ label: 'Selecione', value: '' }].concat(
-      locals[key].map(y => ({ label: y.local, value: y.local }))
+      locals[key].map((y) => ({ label: y.local, value: y.local }))
     );
 
     setLocalsByKey(newLocals);
   }, [ keyLocals ]);
 
   useEffect(() => {
-    let newCats = categories &&
-    Object.keys(categories).length > 0 && values.SingleLine5 ? categories[values.SingleLine5.toUpperCase()] : null;
+    let newCats =
+      categories && Object.keys(categories).length > 0 && values.SingleLine5
+        ? categories[values.SingleLine5.toUpperCase()]
+        : null;
 
-    if(newCats) {
+    if (newCats) {
       newCats = [{ label: 'Selecione', value: '' }].concat(
-        categories[values.SingleLine5.toUpperCase()].map(x => ({
+        categories[values.SingleLine5.toUpperCase()].map((x) => ({
           label: x,
-          value: x
+          value: x,
         }))
       );
     }
@@ -263,22 +283,25 @@ function Register({ locals, categories, countries }) {
     setCats(newCats);
   }, [ categories, values ]);
 
-  const handleRemoveImage = useCallback(position => {
-    const newList = [ ...values.images ];
+  const handleRemoveImage = useCallback(
+    (position) => {
+      const newList = [ ...values.images ];
 
-    newList.splice(position, 1);
+      newList.splice(position, 1);
 
-    setFieldValue('images', newList);
-  }, [ values ]);
+      setFieldValue('images', newList);
+    },
+    [ values ]
+  );
 
   const setFinality = useCallback((sell, rent) => {
     let result = '';
 
-    if(sell && rent) {
+    if (sell && rent) {
       result = 'Venda e Locação';
-    } else if(sell) {
+    } else if (sell) {
       result = 'Apenas Venda';
-    } else if(rent) {
+    } else if (rent) {
       result = 'Apenas Locação';
     }
 
@@ -294,22 +317,53 @@ function Register({ locals, categories, countries }) {
       <Container>
         <BlockHighlighted type="registerProperty" />
         <Body>
-          <Form ref={refForm} action="https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onSubmit={handleSubmit}>
-            <input type="hidden" name="zf_referrer_name" value={values.zf_referrer_name} />
-            <input type="hidden" name="zf_redirect_url" value={values.zf_redirect_url} />
+          <Form
+            ref={refForm}
+            action="https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit"
+            method="POST"
+            accept-charset="UTF-8"
+            enctype="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="hidden"
+              name="zf_referrer_name"
+              value={values.zf_referrer_name}
+            />
+            <input
+              type="hidden"
+              name="zf_redirect_url"
+              value={values.zf_redirect_url}
+            />
             <input type="hidden" name="zc_gad" value={values.zc_gad} />
             <input type="hidden" name="utm_source" value={values.utm_source} />
             <input type="hidden" name="utm_medium" value={values.utm_medium} />
-            <input type="hidden" name="utm_campaign" value={values.utm_campaign} />
+            <input
+              type="hidden"
+              name="utm_campaign"
+              value={values.utm_campaign}
+            />
             <input type="hidden" name="utm_term" value={values.utm_term} />
-            <input type="hidden" name="utm_content" value={values.utm_content} />
+            <input
+              type="hidden"
+              name="utm_content"
+              value={values.utm_content}
+            />
             <input type="hidden" name="Name_First" value={values.Name_First} />
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
-            <input type="hidden" name="PhoneNumber_countrycode" value={values.PhoneNumber_countrycode} />
+            <input
+              type="hidden"
+              name="PhoneNumber_countrycode"
+              value={values.PhoneNumber_countrycode}
+            />
             <input type="hidden" name="Email" value={values.Email} />
             <input type="hidden" name="Radio" value={values.Radio} />
             <input type="hidden" name="Dropdown" value={values.Dropdown} />
-            <input type="hidden" name="SingleLine6" value={values.SingleLine6} />
+            <input
+              type="hidden"
+              name="SingleLine6"
+              value={values.SingleLine6}
+            />
             <input type="checkbox" name="DecisionBox" checked={true} />
             <input type="hidden" name="Currency" value={values.Currency} />
             <input type="hidden" name="Currency1" value={values.Currency1} />
@@ -327,7 +381,7 @@ function Register({ locals, categories, countries }) {
                   size="big"
                   value="Residencial"
                   checked={values.SingleLine5 === 'Residencial'}
-                  onChange={() => setFieldValue('SingleLine5', 'Residencial')}
+                  onChange={() => changeType('SingleLine5', 'Residencial')}
                   error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
@@ -337,7 +391,7 @@ function Register({ locals, categories, countries }) {
                   size="big"
                   value="Comercial"
                   checked={values.SingleLine5 === 'Comercial'}
-                  onChange={() => setFieldValue('SingleLine5', 'Comercial')}
+                  onChange={() => changeType('SingleLine5', 'Comercial')}
                   error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
@@ -347,7 +401,7 @@ function Register({ locals, categories, countries }) {
                   size="big"
                   value="Praia"
                   checked={values.SingleLine5 === 'Praia'}
-                  onChange={() => setFieldValue('SingleLine5', 'Praia')}
+                  onChange={() => changeType('SingleLine5', 'Praia')}
                   error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
@@ -357,7 +411,7 @@ function Register({ locals, categories, countries }) {
                   size="big"
                   value="Campo"
                   checked={values.SingleLine5 === 'Campo'}
-                  onChange={() => setFieldValue('SingleLine5', 'Campo')}
+                  onChange={() => changeType('SingleLine5', 'Campo')}
                   error={touched.SingleLine5 && errors.SingleLine5}
                 />
                 <FormElements
@@ -367,7 +421,7 @@ function Register({ locals, categories, countries }) {
                   size="big"
                   value="Internacional"
                   checked={values.SingleLine5 === 'Internacional'}
-                  onChange={() => setFieldValue('SingleLine5', 'Internacional')}
+                  onChange={() => changeType('SingleLine5', 'Internacional')}
                   error={touched.SingleLine5 && errors.SingleLine5}
                 />
               </FormGroupFlex>
@@ -383,7 +437,17 @@ function Register({ locals, categories, countries }) {
                     label="Vender"
                     onChange={() => {
                       setFieldValue('finalityVender', !values.finalityVender);
-                      setFinality(!values.finalityVender, values.finalityAluguel);
+                      setFinality(
+                        !values.finalityVender,
+                        values.finalityAluguel
+                      );
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'O que você deseja?',
+                        fieldForm: 'Cadastrar Imóvel',
+                        fieldValMin: '',
+                        fieldValMax: 'Vender',
+                      });
                     }}
                     error={touched.finalityVender && errors.finalityVender}
                     value={values.finalityVender}
@@ -396,7 +460,17 @@ function Register({ locals, categories, countries }) {
                     label="Alugar"
                     onChange={() => {
                       setFieldValue('finalityAluguel', !values.finalityAluguel);
-                      setFinality(values.finalityVender, !values.finalityAluguel);
+                      setFinality(
+                        values.finalityVender,
+                        !values.finalityAluguel
+                      );
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'O que você deseja?',
+                        fieldForm: 'Cadastrar Imóvel',
+                        fieldValMin: '',
+                        fieldValMax: 'Alugar',
+                      });
                     }}
                     error={touched.finalityAluguel && errors.finalityAluguel}
                     value={values.finalityAluguel}
@@ -427,7 +501,7 @@ function Register({ locals, categories, countries }) {
                       name="SingleLine8"
                       type="select"
                       items={optionsCountries}
-                      onChange={e => {
+                      onChange={(e) => {
                         handleChange(e);
                         // setKeyLocals(e.currentTarget.value);
                       }}
@@ -450,6 +524,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.SingleLine && errors.SingleLine}
                   value={values.SingleLine}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Rua"
+                  data-type="Cadastrar Imóvel"
                 />
                 <FormElements
                   name="SingleLine2"
@@ -459,6 +536,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.SingleLine2 && errors.SingleLine2}
                   value={values.SingleLine2}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Número"
+                  data-type="Cadastrar Imóvel"
                 />
                 <FormElements
                   name="SingleLine3"
@@ -468,6 +548,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.SingleLine3 && errors.SingleLine3}
                   value={values.SingleLine3}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Complemento"
+                  data-type="Cadastrar Imóvel"
                 />
                 {values.SingleLine5 === 'Internacional' && (
                   <FormElements
@@ -478,6 +561,9 @@ function Register({ locals, categories, countries }) {
                     error={touched.SingleLine4 && errors.SingleLine4}
                     value={values.SingleLine4}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Cidade"
+                    data-type="Cadastrar Imóvel"
                   />
                 )}
                 {values.SingleLine5 === 'Praia' && (
@@ -489,6 +575,9 @@ function Register({ locals, categories, countries }) {
                     error={touched.SingleLine9 && errors.SingleLine9}
                     value={values.SingleLine9}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Praia"
+                    data-type="Cadastrar Imóvel"
                   />
                 )}
                 {values.SingleLine5 === 'Campo' && (
@@ -500,22 +589,30 @@ function Register({ locals, categories, countries }) {
                     error={touched.SingleLine10 && errors.SingleLine10}
                     value={values.SingleLine10}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Condomínio"
+                    data-type="Cadastrar Imóvel"
                   />
                 )}
-                {values.SingleLine5 !== 'Praia' && values.SingleLine5 !== 'Campo' && values.SingleLine5 !== 'Internacional' && (
-                  <FormElements
-                    name="SingleLine7"
-                    placeholder="Bairro"
-                    label="Bairro"
-                    type="select"
-                    items={localsByKey}
-                    message="* Por enquanto atuamos apenas nestes bairros"
-                    onChange={handleChange}
-                    error={touched.SingleLine7 && errors.SingleLine7}
-                    value={values.SingleLine7}
-                    onBlur={handleBlur}
-                  />
-                )}
+                {values.SingleLine5 !== 'Praia' &&
+                  values.SingleLine5 !== 'Campo' &&
+                  values.SingleLine5 !== 'Internacional' && (
+                    <FormElements
+                      name="SingleLine7"
+                      placeholder="Bairro"
+                      label="Bairro"
+                      type="select"
+                      items={localsByKey}
+                      message="* Por enquanto atuamos apenas nestes bairros"
+                      onChange={handleChange}
+                      error={touched.SingleLine7 && errors.SingleLine7}
+                      value={values.SingleLine7}
+                      onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="Bairro"
+                      data-type="Cadastrar Imóvel"
+                    />
+                  )}
               </FormGroupAddress>
             </FormGroup>
 
@@ -531,6 +628,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.Number2 && errors.Number2}
                   value={values.Number2}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Área útil (m²)"
+                  data-type="Cadastrar Imóvel"
                 />
                 {values.SingleLine5 !== 'Comercial' && (
                   <>
@@ -543,6 +643,9 @@ function Register({ locals, categories, countries }) {
                       error={touched.Number && errors.Number}
                       value={values.Number}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="Dormitórios"
+                      data-type="Cadastrar Imóvel"
                     />
                   </>
                 )}
@@ -555,6 +658,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.Number1 && errors.Number1}
                   value={values.Number1}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="Vagas de garagem"
+                  data-type="Cadastrar Imóvel"
                 />
               </FormGroupFlex>
             </FormGroup>
@@ -570,7 +676,16 @@ function Register({ locals, categories, countries }) {
                     size="big"
                     value="Não"
                     checked={values.SingleLine12 === 'Não'}
-                    onChange={() => setFieldValue('SingleLine12', 'Não')}
+                    onChange={() => {
+                      setFieldValue('SingleLine12', 'Não');
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'Já está vago?',
+                        fieldForm: 'Cadastrar Imóvel',
+                        fieldValMin: '',
+                        fieldValMax: 'Não',
+                      });
+                    }}
                     error={touched.SingleLine12 && errors.SingleLine12}
                   />
                   <FormElements
@@ -580,7 +695,16 @@ function Register({ locals, categories, countries }) {
                     size="big"
                     value="Sim"
                     checked={values.SingleLine12 === 'Sim'}
-                    onChange={() => setFieldValue('SingleLine12', 'Sim')}
+                    onChange={() => {
+                      setFieldValue('SingleLine12', 'Sim');
+                      GTM.dataLayerPush({
+                        event: 'Custom Field Change',
+                        fieldLabel: 'Já está vago?',
+                        fieldForm: 'Cadastrar Imóvel',
+                        fieldValMin: '',
+                        fieldValMax: 'Sim',
+                      });
+                    }}
                     error={touched.SingleLine12 && errors.SingleLine12}
                   />
                 </FormGroupFlex>
@@ -596,6 +720,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.SingleLine13 && errors.SingleLine13}
                   value={values.SingleLine13}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="As chaves ficam com quem?"
+                  data-type="Cadastrar Imóvel"
                 />
               </FormGroup>
             </FormRow>
@@ -609,15 +736,21 @@ function Register({ locals, categories, countries }) {
                     name="Currency_copy"
                     label="Qual o valor de venda pedido?"
                     placeholder="R$"
-                    onChange={event => {
+                    onChange={(event) => {
                       const currency = event.target.value;
-                      setFieldValue('Currency_copy', currency)
-                      setFieldValue('Currency', currency.replace('R$', '').replace(/[.]/g, ''))
+                      setFieldValue('Currency_copy', currency);
+                      setFieldValue(
+                        'Currency',
+                        currency.replace('R$', '').replace(/[.]/g, '')
+                      );
                     }}
                     message="(Incluindo 6% de comissão)"
                     error={touched.Currency_copy && errors.Currency_copy}
                     value={values.Currency_copy}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Qual o valor de venda pedido?"
+                    data-type="Cadastrar Imóvel"
                   />
                 )}
 
@@ -632,14 +765,20 @@ function Register({ locals, categories, countries }) {
                         ? 'Incluindo comissão (primeiro aluguel)'
                         : ''
                     }
-                    onChange={event => {
+                    onChange={(event) => {
                       const currency = event.target.value;
-                      setFieldValue('Currency1_copy', currency)
-                      setFieldValue('Currency1', currency.replace('R$', '').replace(/[.]/g, ''))
+                      setFieldValue('Currency1_copy', currency);
+                      setFieldValue(
+                        'Currency1',
+                        currency.replace('R$', '').replace(/[.]/g, '')
+                      );
                     }}
                     error={touched.Currency1 && errors.Currency1}
                     value={values.Currency1}
                     onBlur={handleBlur}
+                    className="holos-form-field"
+                    data-label="Qual o valor de aluguel pedido?"
+                    data-type="Cadastrar Imóvel"
                   />
                 )}
 
@@ -650,14 +789,20 @@ function Register({ locals, categories, countries }) {
                       name="Currency3"
                       label="Valor mensal de IPTU"
                       placeholder="R$"
-                      onChange={event => {
+                      onChange={(event) => {
                         const currency = event.target.value;
-                        setFieldValue('Currency3_copy', currency)
-                        setFieldValue('Currency3', currency.replace('R$', '').replace(/[.]/g, ''))
+                        setFieldValue('Currency3_copy', currency);
+                        setFieldValue(
+                          'Currency3',
+                          currency.replace('R$', '').replace(/[.]/g, '')
+                        );
                       }}
                       error={touched.Currency3 && errors.Currency3}
                       value={values.Currency3}
                       onBlur={handleBlur}
+                      className="holos-form-field"
+                      data-label="Valor mensal de IPTU"
+                      data-type="Cadastrar Imóvel"
                     />
                     {values.SingleLine11 !== 'Casa' && (
                       <FormElements
@@ -665,14 +810,20 @@ function Register({ locals, categories, countries }) {
                         name="Currency2"
                         label="Valor do condomínio"
                         placeholder="R$"
-                        onChange={event => {
+                        onChange={(event) => {
                           const currency = event.target.value;
-                          setFieldValue('Currency2_copy', currency)
-                          setFieldValue('Currency2', currency.replace('R$', '').replace(/[.]/g, ''))
+                          setFieldValue('Currency2_copy', currency);
+                          setFieldValue(
+                            'Currency2',
+                            currency.replace('R$', '').replace(/[.]/g, '')
+                          );
                         }}
                         error={touched.Currency2 && errors.Currency2}
                         value={values.Currency2}
                         onBlur={handleBlur}
+                        className="holos-form-field"
+                        data-label="Valor do condomínio"
+                        data-type="Cadastrar Imóvel"
                       />
                     )}
                   </FormGroupValuesSub>
@@ -682,7 +833,9 @@ function Register({ locals, categories, countries }) {
 
             <FormRow>
               <FormGroup>
-                <h2 className="minheight">O que há de melhor em seu imóvel? Capricha.</h2>
+                <h2 className="minheight">
+                  O que há de melhor em seu imóvel? Capricha.
+                </h2>
                 <FormElements
                   type="area"
                   name="MultiLine2"
@@ -691,6 +844,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.MultiLine2 && errors.MultiLine2}
                   value={values.MultiLine2}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="O que há de melhor em seu imóvel? Capricha."
+                  data-type="Cadastrar Imóvel"
                 />
               </FormGroup>
 
@@ -704,6 +860,9 @@ function Register({ locals, categories, countries }) {
                   error={touched.MultiLine1 && errors.MultiLine1}
                   value={values.MultiLine1}
                   onBlur={handleBlur}
+                  className="holos-form-field"
+                  data-label="O que há de problema?"
+                  data-type="Cadastrar Imóvel"
                 />
               </FormGroup>
             </FormRow>
@@ -712,15 +871,24 @@ function Register({ locals, categories, countries }) {
               <h2>FOTOS</h2>
               <FormGroupPhotos>
                 <Description>
-                  Hora de enviar as fotos do seu imóvel. Pode ser do celular mesmo, é só para gente ter uma ideia e planejar a sessão com o fotógrafo.
+                  Hora de enviar as fotos do seu imóvel. Pode ser do celular
+                  mesmo, é só para gente ter uma ideia e planejar a sessão com o
+                  fotógrafo.
                 </Description>
 
                 <FormElements
                   type="file"
                   multiple
-                  onChange={e => {
+                  onChange={(e) => {
                     const imagesArr = [ ...values.images, ...e.target.files ];
                     setFieldValue('images', imagesArr);
+                    GTM.dataLayerPush({
+                      event: 'Custom Field Change',
+                      fieldLabel: 'Fotos',
+                      fieldForm: 'Cadastrar Imóvel',
+                      fieldValMin: '',
+                      fieldValMax: imagesArr.map((img) => img.name).join(', '),
+                    });
                   }}
                 ></FormElements>
               </FormGroupPhotos>
@@ -758,7 +926,12 @@ function Register({ locals, categories, countries }) {
 
               <UserInfo layout="register-property" />
 
-              <ButtonSubmit disabled={isSubmitting} type="submit">
+              <ButtonSubmit
+                disabled={isSubmitting}
+                type="submit"
+                className="holos-form-submit"
+                data-type="Cadastrar Imóvel"
+              >
                 Enviar
               </ButtonSubmit>
             </FormGroupFooter>
@@ -777,12 +950,14 @@ Register.getInitialProps = async ({ query }) => {
   const itemBase = { label: 'Selecione', value: '' };
 
   const newContries = [ itemBase ];
-  Object.keys(countries.locals).map(x => newContries.push({ label: x, value: x }));
+  Object.keys(countries.locals).map((x) =>
+    newContries.push({ label: x, value: x })
+  );
 
   return {
     locals: locals,
     countries: newContries,
-    categories
+    categories,
   };
 };
 

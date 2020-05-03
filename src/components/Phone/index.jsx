@@ -20,11 +20,12 @@ const ICONS = {
   whats: WhatsappIconSVG
 };
 
-function Phone({ flag = 'tel', className, showIcon }) {
+function Phone({ flag = 'tel', className, showIcon, ...props }) {
   return (
     <Container
       className={className}
       href={LINKS[flag]}
+      {...props}
     >
       {showIcon && <img src={ICONS[flag]} alt={flag} />}
       {NUMBERS[flag]}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import SVG from 'react-inlinesvg';
 
 // helpers
@@ -18,10 +18,16 @@ import {
   Column,
   Text,
   ButtonContainer,
-  Inactive
+  Inactive,
 } from './styles';
 
-function BuildingCard({ layout = 'vertical', gtmShowcase = '', item }) {
+function BuildingCard({
+  layout = 'vertical',
+  gtmShowcase = '',
+  positionIndex = 1,
+  item,
+}) {
+  const [ gtmObj, setGtmObj ] = useState(null);
   const itemData =
     item && item.building && Object.keys(item.building).length > 0
       ? item.building
@@ -126,19 +132,46 @@ function BuildingCard({ layout = 'vertical', gtmShowcase = '', item }) {
     );
   }, [ layout, itemData ]);
 
+  useEffect(() => {
+    const obj = gtmShowcase
+      ? {
+          className: 'holos-home-product',
+          showcase: gtmShowcase,
+          productId: itemData.reference
+        }
+      : null;
+
+    if (gtmShowcase) {
+      if(gtmShowcase === 'Imóvel Recente') {
+        obj.className = 'holos-account-product';
+      } else if(gtmShowcase.search('pronto para morar') >= 0) {
+        obj.className = 'holos-search-product';
+        obj.showcase = 'Imóveis Prontos';
+      } else if(gtmShowcase.search('não estão prontos') >= 0) {
+        obj.className = 'holos-search-product';
+        obj.showcase = 'Imóveis Lançamentos';
+      } else if(gtmShowcase.search('bairros vizinhos') >= 0) {
+        obj.className = 'holos-search-product';
+        obj.showcase = 'Imóveis Bairros Vizinhos';
+      } else if(gtmShowcase.search('valor passou um pouco') >= 0) {
+        obj.className = 'holos-search-product';
+        obj.showcase = 'Imóveis Preço Acima';
+      }
+    }
+
+    setGtmObj(obj);
+  }, [ gtmShowcase ]);
+
   return (
     <Container layout={layout}>
       {status !== 'inactive' ? (
         <Link route={`/${itemData.slug}`} passHref>
           <LinkTag
             layout={layout}
-            className={
-              gtmShowcase && gtmShowcase === 'Imóvel Recente'
-                ? 'holos-account-product'
-                : 'holos-home-product'
-            }
-            data-showcase={gtmShowcase}
-            data-product-id={itemData.reference}
+            className={gtmObj ? gtmObj.className : ''}
+            data-showcase={gtmObj ? gtmObj.showcase : ''}
+            data-product-id={gtmObj ? gtmObj.productId : ''}
+            data-position={positionIndex}
           >
             {renderHTML()}
           </LinkTag>
