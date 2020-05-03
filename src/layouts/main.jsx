@@ -39,11 +39,11 @@ function Main({ children }) {
 
   useEffect(() => {
     // scroll issue related here https://github.com/zeit/next.js/issues/3303
-    // const cachedPageHeight = []
-    // const html = document.querySelector('html')
+    const cachedPageHeight = [];
+    const html = document.querySelector('html');
 
     Router.events.on('routeChangeStart', (a) => {
-      // cachedPageHeight.push(document.documentElement.offsetHeight);
+      cachedPageHeight.push(document.documentElement.offsetHeight);
       dispatch(setMain({
         searchFormActive: false,
         headerHiding: false,
@@ -53,14 +53,17 @@ function Main({ children }) {
     });
 
     Router.events.on('routeChangeComplete', () => {
-      // html.style.height = 'initial'
+      html.style.height = 'initial'
       dispatch(setLoading({ active: false }));
+      if(location && location.pathname.search('busca') < 0) {
+        window.scrollTo(0, 0);
+      }
     });
 
-    // Router.beforePopState(() => {
-    //   html.style.height = `${cachedPageHeight.pop()}px`;
-    //   return true
-    // })
+    Router.beforePopState(() => {
+      html.style.height = `${cachedPageHeight.pop()}px`;
+      return true
+    })
 
     OneSignalHelper.start();
 

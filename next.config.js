@@ -10,7 +10,6 @@ module.exports = withPWA(
     withFonts({
       pwa: {
         dest: 'public',
-        sw: '/sw.js',
       },
       webpack(config, options) {
         config.module.rules.push({
