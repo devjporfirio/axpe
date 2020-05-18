@@ -204,21 +204,20 @@ const ContactWork = css`
 `;
 
 const NotFound = css`
-  width: 300px;
-  span:nth-child(1) {
-    color: ${({ theme }) => theme.colors.white};
-    font-family: 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  }
-  /* span:nth-child(2) {
-    color: ${({ theme }) => theme.colors.greenLight};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.black};
-  } */
-  span:nth-child(2) {
-    color: ${({ theme }) => theme.colors.orange};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.black};
+  max-width: 300px;
+
+  span {
+    &:nth-child(1) {
+      color: ${({ theme }) => theme.colors.white};
+      font-family: 'Bitter';
+      font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    }
+
+    &:nth-child(2) {
+      color: ${({ theme }) => theme.colors.orange};
+      font-family: 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.black};
+    }
   }
 `;
 

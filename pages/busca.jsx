@@ -4,6 +4,7 @@ import Head from 'next/head';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import Router, { useRouter } from 'next/router';
+import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
 import GTM from 'helpers/gtm';
 
 // store
@@ -45,6 +46,7 @@ function Search({ total, totalPages, data, locals }) {
   const dispatch = useDispatch();
   const { query, query: { source, finality, reference, order } } = router;
   const { searchFormActive } = useSelector(state => state.main);
+  const checkLoadMoreOnScroll = useCheckLoadMoreOnScroll();
 
   const keysToHumanNames = {
     source: 'Localização',
@@ -255,7 +257,6 @@ function Search({ total, totalPages, data, locals }) {
     setSuggestions(results);
   }, [ total, reference ]);
 
-
   useEffect(() => {
     setDataInitialGTM();
   }, [ query ]);
@@ -291,10 +292,16 @@ function Search({ total, totalPages, data, locals }) {
     }
 
     if(loadNewPage) {
-      setIsLoading(true);
       getDataByPage();
     }
   }, [ loadNewPage ]);
+
+  useEffect(() => {
+    if(total && page < totalPages && checkLoadMoreOnScroll && !isLoading) {
+      setIsLoading(true);
+      loadMore();
+    }
+  }, [ checkLoadMoreOnScroll ]);
 
   return (
     <>
@@ -410,7 +417,7 @@ function Search({ total, totalPages, data, locals }) {
                   <BuildingsLoadMore>
                     <Button
                       type="button"
-                      onClick={loadMore}
+                      // onClick={loadMore}
                       disabled={isLoading}
                       className="holos-search-load-more"
                       data-showcase="Busca"
