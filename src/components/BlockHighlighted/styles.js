@@ -121,21 +121,25 @@ export const Container = styled.div`
 `;
 
 const ContactHome = css`
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
+
   span {
     color: ${({ theme }) => theme.colors.greenLight};
     font-family: 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.black};
+
+    &:nth-child(3) {
+      color: ${({ theme }) => theme.colors.orange};
+      font-family: 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.black};
+    }
   }
+
   strong span {
     color: ${({ theme }) => theme.colors.white};
     font-family: 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
-  }
-  span:nth-child(3) {
-    color: ${({ theme }) => theme.colors.orange};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.black};
   }
 `;
 
@@ -204,6 +208,7 @@ const ContactWork = css`
 `;
 
 const NotFound = css`
+  width: 100%;
   max-width: 300px;
 
   span {
@@ -281,7 +286,9 @@ const Landing = css`
 `;
 
 const RegisterProperty = css`
-  width: 316px;
+  width: 100%;
+  max-width: 316px;
+
   span {
     color: ${({ theme }) => theme.colors.white};
     font: 22px/27px 'Bitter';
@@ -300,7 +307,7 @@ const RegisterProperty = css`
   }
 
   ${media.greaterThan('medium')`
-    width: 497px;
+    max-width: 497px;
     margin: 0;
 
     span {

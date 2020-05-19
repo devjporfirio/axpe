@@ -458,6 +458,7 @@ export const FormTabButtonBack = styled.button`
   font-size: 0;
   background: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
+  z-index: 2;
 
   ${media.greaterThan('medium')`
     display: none;

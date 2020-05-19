@@ -688,11 +688,11 @@ function Search() {
           active={tabActive === 'sources'}
           onClick={event => event.stopPropagation()}
         >
+          <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+            <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+          </FormTabButtonBack>
           <SimpleBar style={{ maxHeight: '100%' }}>
             <FormTabWrapper>
-              <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-              </FormTabButtonBack>
               <FormTabClose type="button" onClick={() => setTabActive(null)}>
                 Fechar
               </FormTabClose>
@@ -730,11 +730,11 @@ function Search() {
             active={tabActive === 'types'}
             onClick={event => event.stopPropagation()}
           >
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            </FormTabButtonBack>
             <SimpleBar style={{ maxHeight: '100%' }}>
               <FormTabWrapper>
-                <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-                </FormTabButtonBack>
                 <FormTabClose type="button" onClick={() => setTabActive(null)}>
                   Fechar
                 </FormTabClose>
@@ -772,11 +772,11 @@ function Search() {
             active={tabActive === 'locals'}
             onClick={event => event.stopPropagation()}
           >
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            </FormTabButtonBack>
             <SimpleBar style={{ maxHeight: '100%' }}>
               <FormTabWrapper>
-                <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-                </FormTabButtonBack>
                 <FormTabClose type="button" onClick={() => setTabActive(null)}>
                   Fechar
                 </FormTabClose>
@@ -833,11 +833,11 @@ function Search() {
             active={tabActive === 'filters'}
             onClick={event => event.stopPropagation()}
           >
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            </FormTabButtonBack>
             <SimpleBar style={{ maxHeight: '100%' }}>
               <FormTabWrapper>
-                <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-                </FormTabButtonBack>
                 <FormTabClose type="button" onClick={() => setTabActive(null)}>
                   Fechar
                 </FormTabClose>
