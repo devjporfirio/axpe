@@ -383,14 +383,13 @@ export const FormTab = styled.div`
   left: 100%;
   width: 100%;
   height: 100vh;
-  padding: 50px 30px 0 80px;
-  overflow: hidden;
-  overflow-y: auto;
+  /* overflow: hidden;
+  overflow-y: auto; */
   z-index: 5;
   background: ${({ theme }) => theme.colors.white};
   transition: all 300ms ease;
 
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     width: 10px;
   }
 
@@ -402,11 +401,10 @@ export const FormTab = styled.div`
 
   &::-webkit-scrollbar-track {
     background: ${({ theme }) => theme.colors.greyLight};
-  }
+  } */
 
   ${media.greaterThan('medium')`
     left: 0;
-    padding: 150px 30px 30px;
     width: 250px;
     z-index: 3;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
@@ -414,11 +412,21 @@ export const FormTab = styled.div`
     ${({ theme }) => theme.hide}
   `}
 
+  ${props => props.active && FormTabActive}
+`;
+
+export const FormTabWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 50px 30px 0 80px;
+
+  ${media.greaterThan('medium')`
+    padding: 150px 30px 30px;
+  `}
+
   ${media.greaterThan('large')`
     padding-top: 80px;
   `}
-
-  ${props => props.active && FormTabActive}
 `;
 
 export const FormTabActive = css`

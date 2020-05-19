@@ -30,6 +30,7 @@ import ContactBar from 'components/ContactBar';
 // styles
 import GlobalStyle from './globalStyle';
 import noUiSliderCSS from './vendors/noUiSlider';
+import simplebarCSS from './vendors/simplebar';
 import ThemeStyle from './themeStyle';
 import {
   Wrapper
@@ -75,7 +76,7 @@ function Main({ children }) {
   return (
     <ThemeProvider theme={ThemeStyle}>
       <>
-        <GlobalStyle vendorsStyle={[ noUiSliderCSS ]} />
+        <GlobalStyle vendorsStyle={[ noUiSliderCSS, simplebarCSS ]} />
         <Loading />
         <Header />
         <Search />

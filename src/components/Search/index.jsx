@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
+import SimpleBar from 'simplebar-react';
 import Api from 'services';
 import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 import GTM from 'helpers/gtm';
@@ -43,6 +44,7 @@ import {
   FormButtonAlert,
   FormButtonClear,
   FormTab,
+  FormTabWrapper,
   FormTabButtonBack,
   FormTabClose,
   FormTabTitle,
@@ -686,37 +688,41 @@ function Search() {
           active={tabActive === 'sources'}
           onClick={event => event.stopPropagation()}
         >
-          <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-            <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-          </FormTabButtonBack>
-          <FormTabClose type="button" onClick={() => setTabActive(null)}>
-            Fechar
-          </FormTabClose>
-          <FormTabTitle>Bairros</FormTabTitle>
-          <FormTabContent>
-            <ul>
-              {sources.map((source, sourceIndex) => (
-                <li key={`local-${sourceIndex}`}>
-                  <FormTabListItemButton
-                    type="button"
-                    active={
-                      formik.values.source &&
-                      formik.values.source.value === source.value
-                    }
-                    onClick={() => {
-                      setTabActive(null);
-                      setSource(source);
-                    }}
-                    className="holos-search-menu-item"
-                    data-label={source.label}
-                    data-type={'Alterar localização'}
-                  >
-                    {source.label}
-                  </FormTabListItemButton>
-                </li>
-              ))}
-            </ul>
-          </FormTabContent>
+          <SimpleBar style={{ maxHeight: '100%' }}>
+            <FormTabWrapper>
+              <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+                <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+              </FormTabButtonBack>
+              <FormTabClose type="button" onClick={() => setTabActive(null)}>
+                Fechar
+              </FormTabClose>
+              <FormTabTitle>Bairros</FormTabTitle>
+              <FormTabContent>
+                <ul>
+                  {sources.map((source, sourceIndex) => (
+                    <li key={`local-${sourceIndex}`}>
+                      <FormTabListItemButton
+                        type="button"
+                        active={
+                          formik.values.source &&
+                          formik.values.source.value === source.value
+                        }
+                        onClick={() => {
+                          setTabActive(null);
+                          setSource(source);
+                        }}
+                        className="holos-search-menu-item"
+                        data-label={source.label}
+                        data-type={'Alterar localização'}
+                      >
+                        {source.label}
+                      </FormTabListItemButton>
+                    </li>
+                  ))}
+                </ul>
+              </FormTabContent>
+            </FormTabWrapper>
+          </SimpleBar>
         </FormTab>
 
         {filtersData && filtersData.types && filtersData.types.length ? (
@@ -724,36 +730,40 @@ function Search() {
             active={tabActive === 'types'}
             onClick={event => event.stopPropagation()}
           >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </FormTabButtonBack>
-            <FormTabClose type="button" onClick={() => setTabActive(null)}>
-              Fechar
-            </FormTabClose>
-            <FormTabTitle>Tipo de imóvel</FormTabTitle>
-            <FormTabContent>
-              <ul>
-                {filtersData.types.map((type, typeIndex) => (
-                  <li key={`type-${type}-${typeIndex}`}>
-                    <FormTabListItemButton
-                      type="button"
-                      active={formik.values.types.includes(type)}
-                      onClick={() => setArrayValue('types', type)}
-                      className="holos-search-menu-item"
-                      data-label={type}
-                      data-type={'Tipo de imóvel'}
-                    >
-                      {type}
-                    </FormTabListItemButton>
-                  </li>
-                ))}
-              </ul>
-            </FormTabContent>
-            {formik.values.types.length > 0 ? (
-              <FormTabFooter>
-                <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
-              </FormTabFooter>
-            ) : null}
+            <SimpleBar style={{ maxHeight: '100%' }}>
+              <FormTabWrapper>
+                <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+                </FormTabButtonBack>
+                <FormTabClose type="button" onClick={() => setTabActive(null)}>
+                  Fechar
+                </FormTabClose>
+                <FormTabTitle>Tipo de imóvel</FormTabTitle>
+                <FormTabContent>
+                  <ul>
+                    {filtersData.types.map((type, typeIndex) => (
+                      <li key={`type-${type}-${typeIndex}`}>
+                        <FormTabListItemButton
+                          type="button"
+                          active={formik.values.types.includes(type)}
+                          onClick={() => setArrayValue('types', type)}
+                          className="holos-search-menu-item"
+                          data-label={type}
+                          data-type={'Tipo de imóvel'}
+                        >
+                          {type}
+                        </FormTabListItemButton>
+                      </li>
+                    ))}
+                  </ul>
+                </FormTabContent>
+                {formik.values.types.length > 0 ? (
+                  <FormTabFooter>
+                    <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
+                  </FormTabFooter>
+                ) : null}
+              </FormTabWrapper>
+            </SimpleBar>
           </FormTab>
         ) : null}
 
@@ -762,55 +772,59 @@ function Search() {
             active={tabActive === 'locals'}
             onClick={event => event.stopPropagation()}
           >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </FormTabButtonBack>
-            <FormTabClose type="button" onClick={() => setTabActive(null)}>
-              Fechar
-            </FormTabClose>
-            <FormTabTitle>{formik.values.source.value === 'sao-paulo' ? 'Bairros' : 'Locais'}</FormTabTitle>
-            <FormTabContent hasFooter={true}>
-              <ul>
-                {Object.keys(filtersData.locals).map((local, localIndex) => (
-                  <li key={`local-${local}-${localIndex}`}>
-                    {formik.values.source.value !== 'sao-paulo' && (
-                      <FormTabListItemTitle active={filtersListToggle[local]} onClick={() => handleFiltersListToggle(local)}>
-                        {local == 'SP' ? 'São Paulo' : local}
-                      </FormTabListItemTitle>
-                    )}
-                    {filtersData.locals[local].length && !filtersListToggle[local] ? (
-                      <ul>
-                        {filtersData.locals[local].map(
-                          (localItem, localItemIndex) => (
-                            <li
-                              key={`localitem-${localItem}-${localItemIndex}`}
-                            >
-                              <FormTabListItemButton
-                                type="button"
-                                active={formik.values.local.includes(localItem)}
-                                onClick={() =>
-                                  setArrayValue('local', localItem)
-                                }
-                                className="holos-search-menu-item"
-                                data-label={localItem}
-                                data-type={'Selecione a localização'}
-                              >
-                                {localItem}
-                              </FormTabListItemButton>
-                            </li>
-                          )
+            <SimpleBar style={{ maxHeight: '100%' }}>
+              <FormTabWrapper>
+                <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+                </FormTabButtonBack>
+                <FormTabClose type="button" onClick={() => setTabActive(null)}>
+                  Fechar
+                </FormTabClose>
+                <FormTabTitle>{formik.values.source.value === 'sao-paulo' ? 'Bairros' : 'Locais'}</FormTabTitle>
+                <FormTabContent hasFooter={true}>
+                  <ul>
+                    {Object.keys(filtersData.locals).map((local, localIndex) => (
+                      <li key={`local-${local}-${localIndex}`}>
+                        {formik.values.source.value !== 'sao-paulo' && (
+                          <FormTabListItemTitle active={filtersListToggle[local]} onClick={() => handleFiltersListToggle(local)}>
+                            {local == 'SP' ? 'São Paulo' : local}
+                          </FormTabListItemTitle>
                         )}
-                      </ul>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            </FormTabContent>
-            {formik.values.local.length > 0 ? (
-              <FormTabFooter>
-                <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
-              </FormTabFooter>
-            ) : null}
+                        {filtersData.locals[local].length && !filtersListToggle[local] ? (
+                          <ul>
+                            {filtersData.locals[local].map(
+                              (localItem, localItemIndex) => (
+                                <li
+                                  key={`localitem-${localItem}-${localItemIndex}`}
+                                >
+                                  <FormTabListItemButton
+                                    type="button"
+                                    active={formik.values.local.includes(localItem)}
+                                    onClick={() =>
+                                      setArrayValue('local', localItem)
+                                    }
+                                    className="holos-search-menu-item"
+                                    data-label={localItem}
+                                    data-type={'Selecione a localização'}
+                                  >
+                                    {localItem}
+                                  </FormTabListItemButton>
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        ) : null}
+                      </li>
+                    ))}
+                  </ul>
+                </FormTabContent>
+                {formik.values.local.length > 0 ? (
+                  <FormTabFooter>
+                    <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
+                  </FormTabFooter>
+                ) : null}
+              </FormTabWrapper>
+            </SimpleBar>
           </FormTab>
         ) : null}
 
@@ -819,127 +833,132 @@ function Search() {
             active={tabActive === 'filters'}
             onClick={event => event.stopPropagation()}
           >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </FormTabButtonBack>
-            <FormTabClose type="button" onClick={() => setTabActive(null)}>
-              Fechar
-            </FormTabClose>
-            <FormTabTitle>Mais filtros</FormTabTitle>
-            <FormTabContent>
-              {filtersData.prices &&
-              filtersData.prices.length &&
-              filtersData.prices[0] != filtersData.prices[1] ? (
-                <FormTabSlider>
-                  <FormTabSliderTitle>Valor</FormTabSliderTitle>
-                  <RangeSlider
-                    type="prices"
-                    data={filtersData.prices}
-                    prefix="R$ "
-                    onChange={values => {
-                      formik.setFieldValue('price_start', values[0]);
-                      formik.setFieldValue('price_end', values[1]);
+            <SimpleBar style={{ maxHeight: '100%' }}>
+              <FormTabWrapper>
+                <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+                </FormTabButtonBack>
+                <FormTabClose type="button" onClick={() => setTabActive(null)}>
+                  Fechar
+                </FormTabClose>
+                <FormTabTitle>Mais filtros</FormTabTitle>
+                <FormTabContent>
+                  {filtersData.prices &&
+                  filtersData.prices.length &&
+                  filtersData.prices[0] != filtersData.prices[1] ? (
+                    <FormTabSlider>
+                      <FormTabSliderTitle>Valor</FormTabSliderTitle>
+                      <RangeSlider
+                        type="prices"
+                        data={filtersData.prices}
+                        prefix="R$ "
+                        onChange={values => {
+                          formik.setFieldValue('price_start', values[0]);
+                          formik.setFieldValue('price_end', values[1]);
 
-                      GTM.dataLayerPush({
-                        event: 'Custom Field Change',
-                        fieldLabel: 'Valor',
-                        fieldForm: 'Locais',
-                        fieldValMin: values[0],
-                        fieldValMax: values[1]
-                      });
-                    }}
-                  />
-                </FormTabSlider>
-              ) : null}
+                          GTM.dataLayerPush({
+                            event: 'Custom Field Change',
+                            fieldLabel: 'Valor',
+                            fieldForm: 'Locais',
+                            fieldValMin: values[0],
+                            fieldValMax: values[1]
+                          });
+                        }}
+                      />
+                    </FormTabSlider>
+                  ) : null}
 
-              {filtersData.area &&
-              filtersData.area.length &&
-              filtersData.area[0] != filtersData.area[1] ? (
-                <FormTabSlider>
-                  <FormTabSliderTitle>Área útil</FormTabSliderTitle>
-                  <RangeSlider
-                    data={filtersData.area}
-                    sep="a"
-                    step={10}
-                    suffix=" m"
-                    onChange={values => {
-                      formik.setFieldValue('area_start', values[0]);
-                      formik.setFieldValue('area_end', values[1]);
+                  {filtersData.area &&
+                  filtersData.area.length &&
+                  filtersData.area[0] != filtersData.area[1] ? (
+                    <FormTabSlider>
+                      <FormTabSliderTitle>Área útil</FormTabSliderTitle>
+                      <RangeSlider
+                        data={filtersData.area}
+                        sep="a"
+                        step={10}
+                        suffix=" m"
+                        onChange={values => {
+                          formik.setFieldValue('area_start', values[0]);
+                          formik.setFieldValue('area_end', values[1]);
 
-                      GTM.dataLayerPush({
-                        event: 'Custom Field Change',
-                        fieldLabel: 'Área útil',
-                        fieldForm: 'Locais',
-                        fieldValMin: values[0],
-                        fieldValMax: values[1]
-                      });
-                    }}
-                  />
-                </FormTabSlider>
-              ) : null}
+                          GTM.dataLayerPush({
+                            event: 'Custom Field Change',
+                            fieldLabel: 'Área útil',
+                            fieldForm: 'Locais',
+                            fieldValMin: values[0],
+                            fieldValMax: values[1]
+                          });
+                        }}
+                      />
+                    </FormTabSlider>
+                  ) : null}
 
-              {filtersData.bedrooms &&
-              filtersData.bedrooms.length &&
-              filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
-                <FormTabSlider>
-                  <FormTabSliderTitle>Quartos</FormTabSliderTitle>
-                  <RangeSlider
-                    data={filtersData.bedrooms}
-                    sep="a"
-                    step={1}
-                    onChange={values => {
-                      formik.setFieldValue('bedroom_start', values[0]);
-                      formik.setFieldValue('bedroom_end', values[1]);
+                  {filtersData.bedrooms &&
+                  filtersData.bedrooms.length &&
+                  filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
+                    <FormTabSlider>
+                      <FormTabSliderTitle>Quartos</FormTabSliderTitle>
+                      <RangeSlider
+                        data={filtersData.bedrooms}
+                        sep="a"
+                        step={1}
+                        onChange={values => {
+                          formik.setFieldValue('bedroom_start', values[0]);
+                          formik.setFieldValue('bedroom_end', values[1]);
 
-                      GTM.dataLayerPush({
-                        event: 'Custom Field Change',
-                        fieldLabel: 'Quartos',
-                        fieldForm: 'Locais',
-                        fieldValMin: values[0],
-                        fieldValMax: values[1]
-                      });
-                    }}
-                  />
-                </FormTabSlider>
-              ) : null}
+                          GTM.dataLayerPush({
+                            event: 'Custom Field Change',
+                            fieldLabel: 'Quartos',
+                            fieldForm: 'Locais',
+                            fieldValMin: values[0],
+                            fieldValMax: values[1]
+                          });
+                        }}
+                      />
+                    </FormTabSlider>
+                  ) : null}
 
-              {filtersData.parking &&
-              filtersData.parking.length &&
-              filtersData.parking[0] != filtersData.parking[1] ? (
-                <FormTabSlider>
-                  <FormTabSliderTitle>
-                    Vagas
-                  </FormTabSliderTitle>
-                  <RangeSlider
-                    data={filtersData.parking}
-                    sep="a"
-                    step={1}
-                    onChange={values => {
-                      formik.setFieldValue('parking_start', values[0]);
-                      formik.setFieldValue('parking_end', values[1]);
+                  {filtersData.parking &&
+                  filtersData.parking.length &&
+                  filtersData.parking[0] != filtersData.parking[1] ? (
+                    <FormTabSlider>
+                      <FormTabSliderTitle>
+                        Vagas
+                      </FormTabSliderTitle>
+                      <RangeSlider
+                        data={filtersData.parking}
+                        sep="a"
+                        step={1}
+                        onChange={values => {
+                          formik.setFieldValue('parking_start', values[0]);
+                          formik.setFieldValue('parking_end', values[1]);
 
-                      GTM.dataLayerPush({
-                        event: 'Custom Field Change',
-                        fieldLabel: 'Vagas',
-                        fieldForm: 'Locais',
-                        fieldValMin: values[0],
-                        fieldValMax: values[1]
-                      });
-                    }}
-                  />
-                </FormTabSlider>
-              ) : null}
-            </FormTabContent>
-            {(formik.values.price_start && formik.values.price_end) ||
-                  (formik.values.area_start && formik.values.area_end) ||
-                  (formik.values.bedroom_start && formik.values.bedroom_end) ||
-                  (formik.values.parking_start && formik.values.parking_end) ? (
-              <FormTabFooter>
-                <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
-              </FormTabFooter>
-            ) : null}
+                          GTM.dataLayerPush({
+                            event: 'Custom Field Change',
+                            fieldLabel: 'Vagas',
+                            fieldForm: 'Locais',
+                            fieldValMin: values[0],
+                            fieldValMax: values[1]
+                          });
+                        }}
+                      />
+                    </FormTabSlider>
+                  ) : null}
+                </FormTabContent>
+                {(formik.values.price_start && formik.values.price_end) ||
+                      (formik.values.area_start && formik.values.area_end) ||
+                      (formik.values.bedroom_start && formik.values.bedroom_end) ||
+                      (formik.values.parking_start && formik.values.parking_end) ? (
+                  <FormTabFooter>
+                    <Button type="button" fullWidth={true} onClick={() => setTabActive(null)}>Aplicar filtro</Button>
+                  </FormTabFooter>
+                ) : null}
+              </FormTabWrapper>
+            </SimpleBar>
           </FormTab>
         ) : null}
+
       </Form>
     </Container>
   );
