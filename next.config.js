@@ -5,6 +5,12 @@ const withFonts = require('next-fonts');
 const withCSS = require('@zeit/next-css');
 const envConfig = require(`./config/${process.env.NODE_ENV}.json`);
 
+const POLYFILL_NOMODULE = resolve(
+  __dirname,
+  'polyfills',
+  'polyfill-nomodule.js'
+);
+
 module.exports = withPWA(
   withCSS(
     withFonts({
@@ -18,13 +24,13 @@ module.exports = withPWA(
             loader: 'url-loader',
             options: {
               limit: 100000,
-              name: '[name].[ext]'
-            }
-          }
+              name: '[name].[ext]',
+            },
+          },
         });
         config.plugins.push(
           new webpack.DefinePlugin({
-            'process.env.config': JSON.stringify(envConfig)
+            'process.env.config': JSON.stringify(envConfig),
           })
         );
         config.resolve = {
@@ -38,7 +44,7 @@ module.exports = withPWA(
             '.jpg',
             '.png',
             '.pdf',
-            '.zip'
+            '.zip',
           ],
           alias: {
             ...(config.resolve.alias || {}),
@@ -49,11 +55,20 @@ module.exports = withPWA(
             layouts: resolve(__dirname, './src/layouts'),
             pages: resolve(__dirname, './src/pages'),
             services: resolve(__dirname, './src/services'),
-            store: resolve(__dirname, './src/store')
+            store: resolve(__dirname, './src/store'),
+          },
+        };
+        const originalEntry = options.entry;
+        options.entry = async () => {
+          const entries = await originalEntry();
+
+          if (entries['static/runtime/polyfills.js']) {
+            entries['static/runtime/polyfills.js'] = [ POLYFILL_NOMODULE ];
           }
+          return entries;
         };
         return config;
-      }
+      },
     })
   )
 );
