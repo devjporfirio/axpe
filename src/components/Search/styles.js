@@ -46,8 +46,8 @@ export const Form = styled.form`
   display: flex;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  overflow-y: auto;
+  /* overflow: hidden;
+  overflow-y: auto; */
 
   ${media.greaterThan('medium')`
     overflow: visible;
@@ -58,22 +58,16 @@ export const Form = styled.form`
 export const FormWrapper = styled.div`
   position: relative;
   width: 100%;
-  padding: 30px;
-  padding-bottom: 0;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
 
   ${media.greaterThan('medium')`
     position: absolute;
     top: 0;
     width: 360px;
     height: 100vh;
-    padding: 100px 30px 0 30px;
     background: ${({ theme }) => theme.colors.green};
     transform: translateX(-100%);
-    overflow: hidden;
-    overflow-y: auto;
+    /* overflow: hidden;
+    overflow-y: auto; */
     z-index: 5;
     transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
     cursor: default;
@@ -82,6 +76,19 @@ export const FormWrapper = styled.div`
       transform: translateX(0%);
       transition-duration: 300ms;
     `}
+  `};
+`;
+
+export const FormWrapperBox = styled.div`
+  width: 100%;
+  position: relative;
+  padding: 30px 30px 0 30px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  ${media.greaterThan('medium')`
+    padding: 100px 30px 0 30px;
   `};
 
   ${media.greaterThan('large')`
@@ -383,25 +390,9 @@ export const FormTab = styled.div`
   left: 100%;
   width: 100%;
   height: 100vh;
-  /* overflow: hidden;
-  overflow-y: auto; */
   z-index: 5;
   background: ${({ theme }) => theme.colors.white};
   transition: all 300ms ease;
-
-  /* &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background: ${({ theme }) => theme.colors.grey};
-  }
-
-  &::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.colors.greyLight};
-  } */
 
   ${media.greaterThan('medium')`
     left: 0;
