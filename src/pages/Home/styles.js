@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
+// components
+import { ButtonStyle } from 'components/Button/styles';
+
 export const Container = styled.section`
   .buildingsSeen + .buildingsForYou {
     padding-top: 0;
@@ -42,7 +45,7 @@ export const Hero = styled.div`
 
   .slick-slide.active {
     div[class*='HeroItemInfo'] {
-      h2, p {
+      h2, p, span {
         transition-duration: 500ms;
         transform: translateX(0);
         ${({ theme }) => theme.show};
@@ -54,6 +57,10 @@ export const Hero = styled.div`
 
       p {
         transition-delay: 400ms;
+      }
+
+      span {
+        transition-delay: 600ms;
       }
     }
 
@@ -125,7 +132,7 @@ export const HeroItemInfo = styled.div`
     padding: 0 100px;
   `}
 
-  h2, p {
+  h2, p, span {
     transform: translateX(50px);
     transition: all 300ms 500ms ease;
     ${({ theme }) => theme.hide};
@@ -158,5 +165,13 @@ export const HeroItemInfo = styled.div`
     max-width: 240px;
     font: 18px/25px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
+
+    & + span {
+      margin-top: 25px;
+    }
+  }
+
+  span {
+    ${ButtonStyle}
   }
 `;

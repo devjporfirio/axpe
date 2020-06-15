@@ -117,6 +117,7 @@ function Home({ hero, components }) {
             <HeroItemInfo>
               {item && <h2>{item.title}</h2>}
               {item.content && <p>{item.content}</p>}
+              {item.link.url && <span>Saiba mais</span>}
             </HeroItemInfo>
           ) : null}
         </HeroItemWrapper>
