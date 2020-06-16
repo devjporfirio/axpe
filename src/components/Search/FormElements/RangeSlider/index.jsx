@@ -3,7 +3,7 @@ import noUiSlider from 'nouislider';
 import { formatCurrency } from 'helpers/utils';
 
 // styles
-import { Container, Text, Slider } from './styles'
+import { Container, Text, Slider } from './styles';
 
 function RangeSlider({
   data,
@@ -12,7 +12,7 @@ function RangeSlider({
   prefix = '',
   sep = '-',
   step = 100,
-  onChange
+  onChange,
 }) {
   const ref = useRef(null);
   const sliderApi = useRef(null);
@@ -20,29 +20,40 @@ function RangeSlider({
 
   function saveValues(params) {
     setValues({
-      first: type === 'prices' ? formatCurrency.format(params[0]) : `${prefix}${params[0]}${suffix}`,
-      last: type === 'prices' ? formatCurrency.format(params[1]) : `${prefix}${params[1]}${suffix}`
-    })
+      first:
+        type === 'prices'
+          ? formatCurrency.format(params[0])
+          : `${prefix}${params[0]}${suffix}`,
+      last:
+        type === 'prices'
+          ? formatCurrency.format(params[1])
+          : `${prefix}${params[1]}${suffix}`,
+    });
   }
 
   function renderSlider() {
-    if(!data) return false;
+    if (!data) return false;
 
-    if(sliderApi.current) {
+    if (sliderApi.current) {
       sliderApi.current.destroy();
     }
 
     let range = {
-      'min': data[0],
-      'max': data[1]
+      min: data[0],
+      max: data[1],
     };
 
-    if(type === 'prices') {
+    let firstHalf = parseInt((data[1] * 5) / 100);
+
+    if(firstHalf >= 1000000) {
+      firstHalf = 1000000;
+    }
+
+    if (type === 'prices') {
       range = {
-        'min': data[0],
-        '30%': parseInt(data[1] * 35 / 100),
-        '70%': parseInt(data[1] * 60 / 100),
-        'max': data[1]
+        min: data[0],
+        '50%': firstHalf,
+        max: data[1],
       };
     }
 
@@ -55,33 +66,29 @@ function RangeSlider({
         },
         from: function(value) {
           return parseInt(value.replace(',-', ''));
-        }
+        },
       },
       step,
-      range
+      range,
     });
 
-    if(sliderApi.current) {
+    if (sliderApi.current) {
       sliderApi.current.on('update', saveValues);
-      sliderApi.current.on('end', params => onChange([ params[0], params[1] ]))
+      sliderApi.current.on('end', (params) => onChange([ params[0], params[1] ]));
     }
   }
 
   useEffect(() => {
     saveValues(data);
     renderSlider();
-  }, [ data ])
+  }, [ data ]);
 
   return (
     <Container>
-      {values ? (
-        <Text>
-          {`${values.first} ${sep} ${values.last}`}
-        </Text>
-      ) : null}
+      {values ? <Text>{`${values.first} ${sep} ${values.last}`}</Text> : null}
       <Slider ref={ref}></Slider>
     </Container>
-  )
+  );
 }
 
-export default RangeSlider
+export default RangeSlider;
