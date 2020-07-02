@@ -226,19 +226,45 @@ function DreamBuildingSingle({ type }) {
   }, [ type ])
 
   useEffect(() => {
-    if(main.categories) {
-      const items = [];
+    const items = [];
+    let params = null;
 
-      Object.keys(main.categories).map(cat => {
-        main.categories[cat].forEach(item => {
+    const getFilters = async () => {
+      const response = await Api.Search.getFilters(params);
+      if(response && response.types && response.types.length) {
+        response.types.forEach(item => {
           items.push({
             label: item,
             value: item
           });
-        })
-      })
+        });
+        setOptionsTypes(items);
+      }
+    }
 
-      setOptionsTypes(items);
+    switch(type) {
+      case 'sao-paulo-comprar-residencial':
+        params = `?source=sao-paulo&finality=venda&use=RESIDENCIAL&ready_release=pronto`
+        break;
+      case 'sao-paulo-comprar-lancamentos':
+        params = `?source=sao-paulo&finality=venda&use=RESIDENCIAL&ready_release=lancamento`
+        break;
+      case 'sao-paulo-alugar-residencial':
+        params = `?source=sao-paulo&finality=aluguel&use=RESIDENCIAL`
+        break;
+      case 'sao-paulo-comerciais':
+        params = `?source=sao-paulo&finality=aluguel&use=COMERCIAL`
+        break;
+      case 'praia-campo':
+        params = `?source=praia&finality=aluguel`
+        break;
+      case 'internacional':
+        params = `?source=internacional&finality=venda`
+        break;
+    }
+
+    if(main.categories && params) {
+      getFilters();
     }
   }, [ main.categories ])
 
@@ -389,7 +415,7 @@ function DreamBuildingSingle({ type }) {
                   {type === 'praia-campo' && (
                     <FormCol layout="half" last={true}>
                       <h3>Praia ou campo?</h3>
-                      <FormList>
+                      <FormList styleType="praiacampo">
                         <FormListItem>
                           <FormElements
                             name="Radio1"

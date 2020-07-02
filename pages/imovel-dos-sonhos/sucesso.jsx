@@ -31,7 +31,7 @@ function DreamBuildingSuccess() {
     </Head>
     <Container>
       <Wrapper>
-        <p>Foi! Agora é com a gente.</p>
+        <h2>Foi! Agora é com a gente.</h2>
         <p>Em breve, entraremos em contato.</p>
 
         <Link route="/" passHref>

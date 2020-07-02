@@ -104,6 +104,10 @@ export const FormList = styled.ul`
   ${media.greaterThan('medium')`
     display: flex;
     flex-wrap: wrap;
+
+    ${props => props.styleType === 'praiacampo' && css`
+      margin-top: 20px;
+    `}
   `}
 `;
 

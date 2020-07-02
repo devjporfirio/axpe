@@ -220,7 +220,7 @@ function Home({ hero, components }) {
             if (c.type === 'buildingsSeen') {
               return (
                 buildingsSeen &&
-                buildingsSeen.length > 0 && (
+                buildingsSeen.length ? (
                   <BuildingsPanel
                     key={`buildingspanel-0-${c.type}-${cIndex}`}
                     page="home"
@@ -228,12 +228,12 @@ function Home({ hero, components }) {
                     buildingLayout="horizontal"
                     data={buildingsSeen}
                   />
-                )
+                ) : null
               );
             } else if (c.type === 'buildingsForYou') {
               return (
                 buildingsForYou &&
-                buildingsForYou.length > 0 && (
+                buildingsForYou.length ? (
                   <BuildingsPanel
                     key={`panel-buildings-1-${c.type}-${cIndex}`}
                     page="home"
@@ -242,7 +242,7 @@ function Home({ hero, components }) {
                     buildingLayout="vertical"
                     data={buildingsForYou}
                   />
-                )
+                ) : null
               );
             }
             return (

@@ -146,6 +146,8 @@ function Search() {
 
       setTabActive(null);
 
+      window.scrollTo(0, 0);
+
       router.push(`/busca${params}`);
     },
   });
@@ -931,7 +933,7 @@ function Search() {
                         data={filtersData.area}
                         sep="a"
                         step={10}
-                        suffix=" m"
+                        suffix=" m²"
                         onChange={(values) => {
                           formik.setFieldValue('area_start', values[0]);
                           formik.setFieldValue('area_end', values[1]);

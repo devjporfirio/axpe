@@ -30,7 +30,7 @@ export const Wrapper = styled.section`
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
 
     ${media.greaterThan('medium')`
-      margin-bottom: 60px;
+      margin-bottom: 30px;
     `}
 
     ${media.greaterThan('large')`
@@ -54,8 +54,7 @@ export const Wrapper = styled.section`
 
   p {
     max-width: 540px;
-    font-size: 22px;
-    line-height: 26px;
+    font: 22px/26px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
 
     ${media.greaterThan('large')`

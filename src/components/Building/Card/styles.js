@@ -82,10 +82,6 @@ export const Gallery = styled.div`
   ${media.greaterThan('medium')`
     height: 200px;
 
-    ${props => props.layout === 'vertical' && css`
-      border-radius: 6px;
-    `}
-
     ${props => props.layout === 'horizontal' && css`
       width: 65%;
       height: 260px;

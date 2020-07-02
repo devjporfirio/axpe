@@ -45,8 +45,8 @@ function RangeSlider({
 
     let firstHalf = parseInt((data[1] * 5) / 100);
 
-    if(firstHalf >= 1000000) {
-      firstHalf = 1000000;
+    if(firstHalf >= 2000000) {
+      firstHalf = 2000000;
     }
 
     if (type === 'prices') {

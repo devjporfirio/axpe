@@ -50,7 +50,7 @@ export const Header = styled.header`
 
     ${media.greaterThan('large')`
       font-size: 40px;
-      line-height: 40px;
+      line-height: 48px;
     `}
 
     strong {
@@ -87,4 +87,17 @@ export const Header = styled.header`
 export const Items = styled.div`
   position: relative;
   width: 100%;
+
+  ${media.greaterThan('medium')`
+    &[data-quantity="1"] {
+      .slick-list {
+        max-height: 292px;
+      }
+    }
+
+    .slick-list {
+      max-height: 584px;
+
+    }
+  `}
 `;
