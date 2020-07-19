@@ -25,7 +25,7 @@ import {
   Column,
   List,
   ListLink,
-  ListButton
+  // ListButton
 } from './styles';
 
 function ContactBar() {
@@ -352,7 +352,7 @@ function ContactBar() {
                           </span>
                         </ListLink>
                       </li>
-                      <li>
+                      {/* <li>
                         <ListButton
                           type="button"
                           className="holos-contact-float-item"
@@ -363,7 +363,7 @@ function ContactBar() {
                           </i>
                           <span className="big">Fale pelo chat</span>
                         </ListButton>
-                      </li>
+                      </li> */}
                     </List>
                   </Column>
                 </>

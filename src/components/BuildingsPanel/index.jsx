@@ -76,7 +76,7 @@ function BuildingsPanel({
   //   setItems(newItems);
   // }, []);
 
-  return data && data.length >= 1 && (
+  return data && data.length >= 1 ? (
     <Container type={type}>
       <Wrapper type={type}>
         <Header headerBig={headerBig}>
@@ -111,7 +111,7 @@ function BuildingsPanel({
         ) : null}
       </Wrapper>
     </Container>
-  )
+  ) : null
 }
 
 export default BuildingsPanel;
