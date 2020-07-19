@@ -4,9 +4,14 @@ function useCheckLoadMoreOnScroll() {
   const [ isActive, setIsActive ] = useState(false);
 
   function handleScroll() {
-    const tempIsActive = ((window.innerHeight * 2) + window.scrollY) >= document.body.offsetHeight;
+    const elementFooter = document.querySelector('.load-more-button');
+    if (elementFooter) {
+      const elementFooterTop = elementFooter.offsetTop;
+      const tempIsActive =
+        ((window.innerHeight * 2) + window.scrollY) >= elementFooterTop;
 
-    setIsActive(tempIsActive);
+      setIsActive(tempIsActive);
+    }
   }
 
   useEffect(() => {

@@ -10,6 +10,7 @@ import { getErrorMessage } from 'helpers/errors';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
+import { setUserMe } from 'store/modules/user/actions';
 
 // components
 import FormElements from 'components/FormElements';
@@ -70,7 +71,7 @@ function PasswordNew({ hash }) {
 
         setTimeout(() => {
           setSuccessMessage(false);
-          onClose();
+          closeModal();
         }, 3000);
       } else {
         const msg = getErrorMessage(response.error);

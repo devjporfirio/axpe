@@ -4,7 +4,6 @@ import Head from 'next/head';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import Router, { useRouter } from 'next/router';
-import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
 import GTM from 'helpers/gtm';
 
 // store
@@ -19,6 +18,7 @@ import Contact from 'components/Contact';
 import BuildingsPanel from 'components/BuildingsPanel';
 
 // helpers
+import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
 import { getParamsFromObject } from 'helpers/utils'
 import SeoData from 'helpers/seo';
 
@@ -419,7 +419,7 @@ function Search({ total, totalPages, data, locals }) {
                       type="button"
                       // onClick={loadMore}
                       disabled={isLoading}
-                      className="holos-search-load-more"
+                      className="holos-search-load-more load-more-button"
                       data-showcase="Busca"
                     >
                       {isLoading ? 'Carregando...' : 'Carregar mais'}
