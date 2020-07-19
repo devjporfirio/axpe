@@ -115,7 +115,7 @@ function Alerts() {
                   <Link route={`alertas/busca${getParams(alert)}`} passHref>
                     <a className="holos-account-alert">
                       <Gradient />
-                      <ItemImage background={alert.use} />
+                      <ItemImage background={alert.use ? alert.use.toLowerCase() : null} />
                     </a>
                   </Link>
                   <AmountRemoveGroup>

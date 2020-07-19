@@ -81,7 +81,7 @@ function Landing({ slug, page }) {
                   <Module key={`landing-component-${index}`}>
                     <TitleModule>
                       <strong>
-                        {comp.total_buildings} {comp.info.title}
+                        {comp.info.title}
                       </strong>{' '}
                       {comp.info.subtitle}
                     </TitleModule>

@@ -40,7 +40,7 @@ function Around({ cep, text }) {
     }
 
     loadOverviewPolyline();
-  }, []);
+  }, [ cep ]);
 
   return (
     <Container>

@@ -135,11 +135,6 @@ function About() {
                   Nosso nome
                 </a>
               </li>
-              <li>
-                <a href="https://www.christies.com" target="_blank">
-                  Christie’s International Real Estate
-                </a>
-              </li>
             </ul>
           </div>
         </Nav>

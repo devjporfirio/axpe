@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // components
 import BuildingCard from 'components/Building/Card';
@@ -21,7 +21,7 @@ function BuildingsPanel({
   buildingLayout = 'vertical',
   type = 'normal'
 }) {
-  const [ items, setItems ] = useState([]);
+  // const [ items, setItems ] = useState([]);
 
   const settings = {
     vertical: {
@@ -50,7 +50,7 @@ function BuildingsPanel({
     },
     horizontal: {
       dots: false,
-      infinite: true,
+      infinite: false,
       vertical: true,
       speed: 800,
       slidesToShow: 2,
@@ -68,15 +68,15 @@ function BuildingsPanel({
     },
   }
 
-  useEffect(() => {
-    let newItems = data;
-    if(data.length < 3 && buildingLayout === 'horizontal') {
-      newItems = newItems.concat(data, data);
-    }
-    setItems(newItems);
-  }, []);
+  // useEffect(() => {
+  //   let newItems = data;
+  //   if(data.length < 3 && buildingLayout === 'horizontal') {
+  //     newItems = newItems.concat(data, data);
+  //   }
+  //   setItems(newItems);
+  // }, []);
 
-  return items && items.length >= 1 && (
+  return data && data.length >= 1 ? (
     <Container type={type}>
       <Wrapper type={type}>
         <Header headerBig={headerBig}>
@@ -89,15 +89,15 @@ function BuildingsPanel({
           )}
         </Header>
 
-        {items && items.length > 0 ? (
-          <Items>
+        {data && data.length > 0 ? (
+          <Items data-quantity={data.length}>
             <SliderNew
               type="normal"
               arrowsColor="greenDark"
               arrowsClassName={page ? `holos-${page}-product-slider-arrow` : ''}
               settings={settings[buildingLayout]}
             >
-              {items.map((building, buildingIndex) => (
+              {data.map((building, buildingIndex) => (
                 <BuildingCard
                   layout={buildingLayout}
                   item={building}
@@ -111,7 +111,7 @@ function BuildingsPanel({
         ) : null}
       </Wrapper>
     </Container>
-  )
+  ) : null
 }
 
 export default BuildingsPanel;

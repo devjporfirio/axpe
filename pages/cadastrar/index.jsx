@@ -15,6 +15,7 @@ import UserInfo from 'components/UserInfo';
 // helpers
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
+import { getParamsFromObject } from 'helpers/utils';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -84,9 +85,9 @@ const registrySchema = Yup.object().shape({
   SingleLine9: Yup.string(),
   SingleLine10: Yup.string(),
   images: Yup.array(),
-  terms: Yup.boolean()
-    .oneOf([ true ])
-    .required(),
+  // terms: Yup.boolean()
+  //   .oneOf([ true ])
+  //   .required(),
 });
 
 function Register({ locals, categories, countries }) {
@@ -236,6 +237,38 @@ function Register({ locals, categories, countries }) {
     });
   }, []);
 
+  const updateLocals = useCallback(async () => {
+    const source =
+      values.SingleLine5 === 'Residencial' || values.SingleLine5 === 'Comercial'
+        ? 'sao-paulo'
+        : values.SingleLine5.toLowerCase();
+    const currentLocal = source === 'sao-paulo' ? 'São Paulo' : values.SingleLine5;
+    const use =
+      source === 'sao-paulo' ? values.SingleLine5.toUpperCase() : null;
+    let finality = null;
+
+    if (values.finalityVender && !values.finalityAluguel) {
+      finality = 'venda';
+    } else if (!values.finalityVender && values.finalityAluguel) {
+      finality = 'aluguel';
+    }
+
+    const params = {
+      source,
+      finality,
+      use,
+    };
+
+    const response = await Api.Search.getFilters(getParamsFromObject(params));
+
+    if(response.locals[currentLocal]) {
+      const newLocals = [{ label: 'Selecione', value: '' }].concat(
+        response.locals[currentLocal].map((y) => ({ label: y, value: y }))
+      );
+      setLocalsByKey(newLocals);
+    }
+  }, [ values ]);
+
   useEffect(() => {
     async function loadMe() {
       if (user && user.logged) {
@@ -257,13 +290,22 @@ function Register({ locals, categories, countries }) {
   }, [ user ]);
 
   useEffect(() => {
-    const key = keyLocals || 'São Paulo';
-    const newLocals = [{ label: 'Selecione', value: '' }].concat(
-      locals[key].map((y) => ({ label: y.local, value: y.local }))
-    );
+    // console.log('update locals', values.SingleLine5);
+    // console.log('locals', locals);
 
-    setLocalsByKey(newLocals);
-  }, [ keyLocals ]);
+    // const key = keyLocals || 'São Paulo';
+
+    updateLocals();
+
+    // console.log('localsByKey', newLocals);
+
+    // setLocalsByKey(newLocals);
+  }, [
+    keyLocals,
+    values.SingleLine5,
+    values.finalityVender,
+    values.finalityAluguel,
+  ]);
 
   useEffect(() => {
     let newCats =

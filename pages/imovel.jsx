@@ -38,11 +38,13 @@ function Building({ property }) {
   useEffect(() => {
     const productSeals = [];
 
-    Object.keys(property.label).forEach(key => {
-      if(property.label[key]) {
-        productSeals.push(key);
-      }
-    })
+    if(property.label) {
+      Object.keys(property.label).forEach(key => {
+        if(property.label[key]) {
+          productSeals.push(key);
+        }
+      })
+    }
 
     CookieBuildingSeen.set(property.reference, user);
 

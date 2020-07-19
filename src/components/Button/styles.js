@@ -8,7 +8,8 @@ export const ButtonStyle = css`
   font: 15px/45px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-align: center;
-  background-color: ${props => props.theme.colors[props.color]};
+  background-color: ${(props) =>
+    !props.color ? props.theme.colors.orange : props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
   text-transform: uppercase;
   padding: 0 25px;
@@ -19,7 +20,7 @@ export const ButtonStyle = css`
     cursor: default;
   }
 
-  ${props =>
+  ${(props) =>
     props.fullWidth &&
     css`
       width: 100%;
@@ -31,8 +32,8 @@ export const ButtonStyle = css`
     }
   `}
 
-  ${props => props.size === 'small' && ButtonSmall}
-  ${props => props.color === 'orange' && ButtonOrange}
+  ${(props) => props.size === 'small' && ButtonSmall}
+  ${(props) => props.color === 'orange' && ButtonOrange}
 `;
 
 export const ButtonSmall = css`

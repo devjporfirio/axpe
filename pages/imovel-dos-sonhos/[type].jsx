@@ -37,7 +37,7 @@ import {
   FormListItem,
   FormCols,
   FormCol,
-  ButtonSubmitContainer
+  ButtonSubmitContainer,
 } from 'pages/DreamBuilding/Detail/styles';
 
 import { FormGroup } from 'components/FormElements/styles';
@@ -63,14 +63,14 @@ const formSchema = Yup.object().shape({
 function DreamBuildingSingle({ type }) {
   const dispatch = useDispatch();
   const refForm = useRef(null);
-  const { user, main } = useSelector(state => state);
+  const { user, main } = useSelector((state) => state);
   const [ breadcrumb, setBreadcrumb ] = useState([]);
   const [ localsModal, setLocalsModal ] = useState(false);
   const [ optionsTypes, setOptionsTypes ] = useState([]);
   const [ finality, setFinality ] = useState(null);
 
   const getUrlFromType = useCallback(() => {
-    switch(type) {
+    switch (type) {
       case 'sao-paulo-comprar-residencial':
         return 'https://forms.zohopublic.com/axpeimoveis1/form/SITEVDRESRevendaSP/formperma/KNn-rBLBBrxdN7e3LS9gbDIJClRxjHZvIrN7IF0Nz6s/htmlRecords/submit';
       case 'sao-paulo-comprar-lancamentos':
@@ -78,13 +78,13 @@ function DreamBuildingSingle({ type }) {
       case 'sao-paulo-alugar-residencial':
         return 'https://forms.zohopublic.com/axpeimoveis1/form/SITELOCACAOSOPAULORESIDENCIAL/formperma/IlFKkt1LoSKeOYzNY1cfgoSiVLdCez3nuMFXIfyFtrY/htmlRecords/submit';
       case 'sao-paulo-comerciais':
-        if(finality === 'aluguel') {
+        if (finality === 'aluguel') {
           return 'https://forms.zohopublic.com/axpeimoveis1/form/SITELOCACAOSOPAULOCOMERCIAL/formperma/m9PkbVPJBwxV7g3YdnIQ_2j-45cg68aQAa76EGqsgm8/htmlRecords/submit';
         } else {
           return 'https://forms.zohopublic.com/axpeimoveis1/form/SITEVENDASOPAULOCOMERCIALPRONTOS/formperma/z-i_cZutLy-GyMKQGLPUj8jq-sSBHV0RALlWJ8U_s5I/htmlRecords/submit';
         }
       case 'praia-campo':
-        if(finality === 'aluguel') {
+        if (finality === 'aluguel') {
           return 'https://forms.zohopublic.com/axpeimoveis1/form/SITELOCACAOPRAIAECAMPORESIDENCIAL/formperma/gb5ZAdxYx4dZw5eqlWcdchnjM03sQAB0wpYYJlWWQc8/htmlRecords/submit';
         } else {
           return 'https://forms.zohopublic.com/axpeimoveis1/form/SITEVDRESRevendaLZ/formperma/9AXrHTXXrrDYcjS_uQJtjEUrvWl0T6spA8UnV7EfDUw/htmlRecords/submit';
@@ -95,7 +95,7 @@ function DreamBuildingSingle({ type }) {
   }, [ type, finality ]);
 
   const getBreadcrumb = useCallback(() => {
-    switch(type) {
+    switch (type) {
       case 'sao-paulo-comprar-residencial':
         return [ 'sp', 'Residencial / Comprar' ];
       case 'sao-paulo-comprar-lancamentos':
@@ -111,12 +111,21 @@ function DreamBuildingSingle({ type }) {
     }
   }, [ type ]);
 
-  const optionsDropdownNumbers = [ ...Array(11).keys() ].map(i => ({ label: i, value: i }));
+  const optionsDropdownNumbers = [ ...Array(11).keys() ].map((i) => ({
+    label: i,
+    value: i,
+  }));
   const optionsLeisure = [
     { label: 'Selecione uma opção', value: '' },
     { label: 'De preferência, sem lazer', value: 'De preferência, sem lazer' },
-    { label: 'O básico: piscina e academia', value: 'O básico: piscina e academia' },
-    { label: 'Completo: tudo que podem me oferecer', value: 'Completo: tudo que podem me oferecer' }
+    {
+      label: 'O básico: piscina e academia',
+      value: 'O básico: piscina e academia',
+    },
+    {
+      label: 'Completo: tudo que podem me oferecer',
+      value: 'Completo: tudo que podem me oferecer',
+    },
   ];
   const optionsLocals = [
     { label: 'Aclimação', value: 'Aclimação' },
@@ -150,7 +159,7 @@ function DreamBuildingSingle({ type }) {
     { label: 'Vila Madalena', value: 'Vila Madalena' },
     { label: 'Vila Mariana', value: 'Vila Mariana' },
     { label: 'Vila Nova Conceição', value: 'Vila Nova Conceição' },
-    { label: 'Vila Olímpia', value: 'Vila Olímpia' }
+    { label: 'Vila Olímpia', value: 'Vila Olímpia' },
   ];
   const optionsDropdown5 = [
     { label: 'Selecione uma opção', value: '' },
@@ -158,22 +167,35 @@ function DreamBuildingSingle({ type }) {
     { label: 'Facebook', value: 'Facebook' },
     { label: 'E-mail Publicitário', value: 'E-mail&#x20;Publicit&aacute;rio' },
     { label: 'Instagram', value: 'Instagram' },
-    { label: 'Indicação de amigos e família', value: 'Indica&ccedil;&atilde;o&#x20;de&#x20;amigos&#x20;e&#x20;fam&iacute;lia' },
+    {
+      label: 'Indicação de amigos e família',
+      value:
+        'Indica&ccedil;&atilde;o&#x20;de&#x20;amigos&#x20;e&#x20;fam&iacute;lia',
+    },
     { label: 'Placa na rua', value: 'Placa&#x20;na&#x20;rua' },
-    { label: 'Anúncio na imprensa', value: 'An&uacute;ncio&#x20;na&#x20;imprensa' },
-    { label: 'Matérias em jornais e revistas', value: 'Mat&eacute;rias&#x20;em&#x20;jornais&#x20;e&#x20;revistas' },
-    { label: 'Outros sites e blogs', value: 'Outros&#x20;sites&#x20;e&#x20;blogs' },
+    {
+      label: 'Anúncio na imprensa',
+      value: 'An&uacute;ncio&#x20;na&#x20;imprensa',
+    },
+    {
+      label: 'Matérias em jornais e revistas',
+      value: 'Mat&eacute;rias&#x20;em&#x20;jornais&#x20;e&#x20;revistas',
+    },
+    {
+      label: 'Outros sites e blogs',
+      value: 'Outros&#x20;sites&#x20;e&#x20;blogs',
+    },
     { label: 'Eventos da Axpe', value: 'Eventos&#x20;da&#x20;Axpe' },
     { label: 'Linkedin', value: 'Linkedin' },
     { label: 'Christie\'s', value: 'Christie&#x27;s' },
     { label: 'Viva Real', value: 'Viva&#x20;Real' },
-    { label: 'Zap Im&oacute;veis', value: 'Zap&#x20;Im&oacute;veis' }
+    { label: 'Zap Im&oacute;veis', value: 'Zap&#x20;Im&oacute;veis' },
   ];
 
   const optionsFinalities = [
     { label: 'Selecione uma opção', value: '' },
     { label: 'Comprar', value: 'venda' },
-    { label: 'Alugar', value: 'aluguel' }
+    { label: 'Alugar', value: 'aluguel' },
   ];
 
   const optionsCountries = [
@@ -213,7 +235,10 @@ function DreamBuildingSingle({ type }) {
     { label: 'Panam&aacute;', value: 'Panam&aacute;' },
     { label: 'Porto Rico', value: 'Porto Rico' },
     { label: 'Portugal', value: 'Portugal' },
-    { label: 'Rep&uacute;blica Dominicana', value: 'Rep&uacute;blica Dominicana' },
+    {
+      label: 'Rep&uacute;blica Dominicana',
+      value: 'Rep&uacute;blica Dominicana',
+    },
     { label: 'Singapura', value: 'Singapura' },
     { label: 'Su&eacute;cia', value: 'Su&eacute;cia' },
     { label: 'Su&iacute;&ccedil;a', value: 'Su&iacute;&ccedil;a' },
@@ -221,44 +246,45 @@ function DreamBuildingSingle({ type }) {
     { label: 'Uruguai', value: 'Uruguai' },
   ];
 
-  useEffect(() => {
-    setBreadcrumb(getBreadcrumb());
-  }, [ type ])
-
-  useEffect(() => {
-    if(main.categories) {
-      const items = [];
-
-      Object.keys(main.categories).map(cat => {
-        main.categories[cat].forEach(item => {
-          items.push({
-            label: item,
-            value: item
-          });
-        })
-      })
-
-      setOptionsTypes(items);
-    }
-  }, [ main.categories ])
-
-  useEffect(() => {
-    async function loadMe() {
-      if (user && user.logged) {
-        dispatch(setMain({ modalLogin: false }));
-        setFieldValue('Name_First', user.me.name);
-        setFieldValue('Name_Last', user.me.lastName);
-        setFieldValue('PhoneNumber_countrycode', user.me.phone);
-        setFieldValue('Email', user.me.email);
-      } else {
-        dispatch(setMain({
-          modalLogin: `/imovel-dos-sonhos/${type}`
-        }));
-      }
-    }
-
-    loadMe();
-  }, [ user ]);
+  const optionsTypesData = {
+    'sao-paulo-comprar-residencial': [
+      'Apartamento',
+      'Casa',
+      'Casa de Vila',
+      'Casa em Condomínio',
+      'Cobertura',
+      'Loft',
+      'Terreno',
+    ],
+    'sao-paulo-alugar-residencial': [
+      'Apartamento',
+      'Casa',
+      'Casa de Vila',
+      'Casa em Condomínio',
+      'Cobertura',
+      'Loft',
+      'Terreno',
+    ],
+    'sao-paulo-comprar-lancamentos': [
+      'Apartamento',
+      'Cobertura',
+      'Loft',
+      'Casa em Condomínio',
+    ],
+    'sao-paulo-comerciais': [
+      'Casa Comercial',
+      'Conjunto',
+      'Galpão',
+      'Laje',
+      'Loft',
+      'Loja',
+      'Terreno',
+      'Prédio Monousuário',
+    ],
+    campo: [ 'Casa', 'Casa em Condomínio', 'Terreno' ],
+    praia: [ 'Casa', 'Casa em Condomínio', 'Terreno' ],
+    internacional: [ 'Apartamento', 'Casa', 'Vinhedo' ],
+  };
 
   const {
     handleSubmit,
@@ -268,7 +294,7 @@ function DreamBuildingSingle({ type }) {
     values,
     touched,
     errors,
-    setFieldValue
+    setFieldValue,
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
@@ -291,7 +317,10 @@ function DreamBuildingSingle({ type }) {
       MultipleChoice1: [],
       MultipleChoice: [],
       locals: [],
-      Finality: type === 'sao-paulo-comerciais' || type === 'praia-campo' ? '' : 'vazio',
+      Finality:
+        type === 'sao-paulo-comerciais' || type === 'praia-campo'
+          ? ''
+          : 'vazio',
       Number: '',
       Number1: '',
       Number2: '',
@@ -310,8 +339,83 @@ function DreamBuildingSingle({ type }) {
       setTimeout(() => {
         refForm.current.submit();
       }, 1000);
-    }
+    },
   });
+
+  useEffect(() => {
+    setBreadcrumb(getBreadcrumb());
+  }, [ type ]);
+
+  useEffect(() => {
+    let params = null;
+
+    const setFilters = async () => {
+      const newOptionsTypes = [];
+      let selectedOptionsTypes = optionsTypesData[type];
+
+      if (type === 'praia-campo' && values.Radio1) {
+        selectedOptionsTypes = optionsTypesData[values.Radio1.toLowerCase()];
+      }
+
+      if (selectedOptionsTypes) {
+        selectedOptionsTypes.forEach((item) => {
+          newOptionsTypes.push({
+            label: item,
+            value: item,
+          });
+        });
+        setOptionsTypes(newOptionsTypes);
+      }
+    };
+
+    switch (type) {
+      case 'sao-paulo-comprar-residencial':
+        params = `?source=sao-paulo&finality=venda&use=RESIDENCIAL&ready_release=pronto`;
+        break;
+      case 'sao-paulo-comprar-lancamentos':
+        params = `?source=sao-paulo&finality=venda&use=RESIDENCIAL&ready_release=lancamento`;
+        break;
+      case 'sao-paulo-alugar-residencial':
+        params = `?source=sao-paulo&finality=aluguel&use=RESIDENCIAL`;
+        break;
+      case 'sao-paulo-comerciais':
+        params =
+          finality === 'aluguel'
+            ? `?source=sao-paulo&finality=aluguel&use=COMERCIAL`
+            : `?source=sao-paulo&finality=venda&use=COMERCIAL`;
+        break;
+      case 'praia-campo':
+        params = `?source=praia&finality=aluguel`;
+        break;
+      case 'internacional':
+        params = `?source=internacional&finality=venda`;
+        break;
+    }
+
+    if (main.categories && params) {
+      setFilters();
+    }
+  }, [ main.categories, finality, values.Radio1 ]);
+
+  useEffect(() => {
+    async function loadMe() {
+      if (user && user.logged) {
+        dispatch(setMain({ modalLogin: false }));
+        setFieldValue('Name_First', user.me.name);
+        setFieldValue('Name_Last', user.me.lastName);
+        setFieldValue('PhoneNumber_countrycode', user.me.phone);
+        setFieldValue('Email', user.me.email);
+      } else {
+        dispatch(
+          setMain({
+            modalLogin: `/imovel-dos-sonhos/${type}`,
+          })
+        );
+      }
+    }
+
+    loadMe();
+  }, [ user ]);
 
   return (
     <>
@@ -324,7 +428,6 @@ function DreamBuildingSingle({ type }) {
       ) : (
         <Container>
           <Wrapper>
-
             {breadcrumb.length > 0 && (
               <Breadcrumb>
                 <Link route="/imovel-dos-sonhos" passHref>
@@ -340,31 +443,72 @@ function DreamBuildingSingle({ type }) {
             )}
 
             <Header>
-              <h2>Como é o imóvel <strong>dos seus sonhos</strong></h2>
+              <h2>
+                Como é o imóvel <strong>dos seus sonhos</strong>
+              </h2>
             </Header>
 
-            <Form ref={refForm} action={getUrlFromType()} method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onSubmit={handleSubmit}>
-              <input type="hidden" name="zf_referrer_name" value={values.zf_referrer_name} />
-              <input type="hidden" name="zf_redirect_url" value={values.zf_redirect_url} />
+            <Form
+              ref={refForm}
+              action={getUrlFromType()}
+              method="POST"
+              accept-charset="UTF-8"
+              enctype="multipart/form-data"
+              onSubmit={handleSubmit}
+            >
+              <input
+                type="hidden"
+                name="zf_referrer_name"
+                value={values.zf_referrer_name}
+              />
+              <input
+                type="hidden"
+                name="zf_redirect_url"
+                value={values.zf_redirect_url}
+              />
               <input type="hidden" name="zc_gad" value={values.zc_gad} />
-              <input type="hidden" name="utm_source" value={values.utm_source} />
-              <input type="hidden" name="utm_medium" value={values.utm_medium} />
-              <input type="hidden" name="utm_campaign" value={values.utm_campaign} />
+              <input
+                type="hidden"
+                name="utm_source"
+                value={values.utm_source}
+              />
+              <input
+                type="hidden"
+                name="utm_medium"
+                value={values.utm_medium}
+              />
+              <input
+                type="hidden"
+                name="utm_campaign"
+                value={values.utm_campaign}
+              />
               <input type="hidden" name="utm_term" value={values.utm_term} />
-              <input type="hidden" name="utm_content" value={values.utm_content} />
+              <input
+                type="hidden"
+                name="utm_content"
+                value={values.utm_content}
+              />
               <input type="hidden" name="Dropdown" value={values.Dropdown} />
               <input type="hidden" name="Dropdown1" value={values.Dropdown1} />
               <input type="hidden" name="Dropdown2" value={values.Dropdown2} />
-              <input type="checkbox" checked={true} name="DecisionBox"/>
+              <input type="checkbox" checked={true} name="DecisionBox" />
               <input type="radio" name="Radio" value={values.Radio} checked />
-              <input type="hidden" name="Name_First" value={values.Name_First} />
+              <input
+                type="hidden"
+                name="Name_First"
+                value={values.Name_First}
+              />
               <input type="hidden" name="Name_Last" value={values.Name_Last} />
-              <input type="hidden" name="PhoneNumber_countrycode" value={values.PhoneNumber_countrycode} />
+              <input
+                type="hidden"
+                name="PhoneNumber_countrycode"
+                value={values.PhoneNumber_countrycode}
+              />
               <input type="hidden" name="Email" value={values.Email} />
               <input type="hidden" name="Currency" value={values.Currency} />
               <input type="hidden" name="Radio1" value={values.Radio1} />
 
-              {type === 'sao-paulo-comerciais' || type === 'praia-campo' && (
+              {type === 'sao-paulo-comerciais' || type === 'praia-campo' ? (
                 <FormCols>
                   <FormCol>
                     <h3>Para:</h3>
@@ -389,7 +533,7 @@ function DreamBuildingSingle({ type }) {
                   {type === 'praia-campo' && (
                     <FormCol layout="half" last={true}>
                       <h3>Praia ou campo?</h3>
-                      <FormList>
+                      <FormList styleType="praiacampo">
                         <FormListItem>
                           <FormElements
                             name="Radio1"
@@ -422,7 +566,7 @@ function DreamBuildingSingle({ type }) {
                     </FormCol>
                   )}
                 </FormCols>
-              )}
+              ) : null}
 
               {type === 'internacional' && (
                 <FormCols>
@@ -445,34 +589,54 @@ function DreamBuildingSingle({ type }) {
                 </FormCols>
               )}
 
-              <FormGroupContainer>
-                <h2>Que tipo de imóvel você procura? <strong>Marque quantas opções você quiser.</strong></h2>
-                <FormList>
-                  {optionsTypes.length >= 1 && optionsTypes.map((type, typeIndex) => (
-                    <FormListItem key={`formlistitem-type-${typeIndex}-${type.value}`}>
-                      <FormElements
-                        name="MultipleChoice1"
-                        type="checkbox"
-                        label={type.label}
-                        onChange={handleChange}
-                        error={touched.MultipleChoice1 && errors.MultipleChoice1}
-                        value={type.value}
-                        onBlur={handleBlur}
-                        className="holos-form-field"
-                        data-label={type.label}
-                        data-type="Imóvel dos Sonhos"
-                      />
-                    </FormListItem>
-                  ))}
-                </FormList>
-              </FormGroupContainer>
+              {optionsTypes.length >= 1 ? (
+                <FormGroupContainer>
+                  <h2>
+                    Que tipo de imóvel você procura?{' '}
+                    <strong>Marque quantas opções você quiser.</strong>
+                  </h2>
+                  <FormList>
+                    {optionsTypes.length >= 1 &&
+                      optionsTypes.map((type, typeIndex) => (
+                        <FormListItem
+                          key={`formlistitem-type-${typeIndex}-${type.value}`}
+                        >
+                          <FormElements
+                            name="MultipleChoice1"
+                            type="checkbox"
+                            label={type.label}
+                            onChange={handleChange}
+                            error={
+                              touched.MultipleChoice1 && errors.MultipleChoice1
+                            }
+                            value={type.value}
+                            onBlur={handleBlur}
+                            className="holos-form-field"
+                            data-label={type.label}
+                            data-type="Imóvel dos Sonhos"
+                          />
+                        </FormListItem>
+                      ))}
+                  </FormList>
+                </FormGroupContainer>
+              ) : null}
 
               {type !== 'praia-campo' && (
                 <>
-                  <ButtonLocals type="button" onClick={() => setLocalsModal(true)}>Aonde você deseja? <strong>Selecione um ou mais bairros</strong></ButtonLocals>
+                  <ButtonLocals
+                    type="button"
+                    onClick={() => setLocalsModal(true)}
+                  >
+                    Aonde você deseja?{' '}
+                    <strong>Selecione um ou mais bairros</strong>
+                  </ButtonLocals>
 
                   <LocalsModal active={localsModal}>
-                    <LocalsModalClose type="button" onClick={() => setLocalsModal(false)} active={localsModal}>
+                    <LocalsModalClose
+                      type="button"
+                      onClick={() => setLocalsModal(false)}
+                      active={localsModal}
+                    >
                       <SVG src={ArrowIconSVG} uniquifyIDs={true} />
                     </LocalsModalClose>
                     <LocalsModalHeader>
@@ -482,14 +646,20 @@ function DreamBuildingSingle({ type }) {
                     <LocalsModalList>
                       <FormList>
                         {optionsLocals.map((local, localIndex) => (
-                          <FormListItem key={`formlistitem-type-${localIndex}-${local.value}`}>
+                          <FormListItem
+                            key={`formlistitem-type-${localIndex}-${local.value}`}
+                          >
                             <FormElements
                               name="MultipleChoice"
                               type="checkbox"
                               label={local.label}
                               onChange={handleChange}
-                              checked={values.MultipleChoice.includes(local.value)}
-                              error={touched.MultipleChoice && errors.MultipleChoice}
+                              checked={values.MultipleChoice.includes(
+                                local.value
+                              )}
+                              error={
+                                touched.MultipleChoice && errors.MultipleChoice
+                              }
                               value={local.value}
                               onBlur={handleBlur}
                               className="holos-form-field"
@@ -503,17 +673,26 @@ function DreamBuildingSingle({ type }) {
                   </LocalsModal>
 
                   <FormGroupContainer mq="desktop">
-                    <h2>Aonde você deseja? <strong>Selecione um ou mais bairros</strong></h2>
+                    <h2>
+                      Aonde você deseja?{' '}
+                      <strong>Selecione um ou mais bairros</strong>
+                    </h2>
                     <FormList>
                       {optionsLocals.map((local, localIndex) => (
-                        <FormListItem key={`formlistitem-type-${localIndex}-${local.value}`}>
+                        <FormListItem
+                          key={`formlistitem-type-${localIndex}-${local.value}`}
+                        >
                           <FormElements
                             name="MultipleChoice"
                             type="checkbox"
                             label={local.label}
                             onChange={handleChange}
-                            checked={values.MultipleChoice.includes(local.value)}
-                            error={touched.MultipleChoice && errors.MultipleChoice}
+                            checked={values.MultipleChoice.includes(
+                              local.value
+                            )}
+                            error={
+                              touched.MultipleChoice && errors.MultipleChoice
+                            }
                             value={local.value}
                             onBlur={handleBlur}
                             className="holos-form-field"
@@ -528,7 +707,10 @@ function DreamBuildingSingle({ type }) {
               )}
 
               <FormGroupContainer>
-                <h2>Conte mais detalhes sobre o que está buscando <strong>Selecione apenas uma opção</strong></h2>
+                <h2>
+                  Conte mais detalhes sobre o que está buscando{' '}
+                  <strong>Selecione apenas uma opção</strong>
+                </h2>
               </FormGroupContainer>
 
               {type === 'praia-campo' && (
@@ -579,10 +761,13 @@ function DreamBuildingSingle({ type }) {
                       name="Currency_copy"
                       label="Valor em R$"
                       placeholder="Valor em R$"
-                      onChange={event => {
+                      onChange={(event) => {
                         const currency = event.target.value;
-                        setFieldValue('Currency_copy', currency)
-                        setFieldValue('Currency', currency.replace('R$', '').replace(/[.]/g, ''))
+                        setFieldValue('Currency_copy', currency);
+                        setFieldValue(
+                          'Currency',
+                          currency.replace('R$', '').replace(/[.]/g, '')
+                        );
                       }}
                       error={touched.Currency_copy && errors.Currency_copy}
                       value={values.Currency_copy}
@@ -718,8 +903,7 @@ function DreamBuildingSingle({ type }) {
                     />
                   </FormGroup>
                 </FormCol>
-                <FormCol layout="half" last={true}>
-                </FormCol>
+                <FormCol layout="half" last={true}></FormCol>
               </FormCols>
 
               <ButtonSubmitContainer>
@@ -732,14 +916,12 @@ function DreamBuildingSingle({ type }) {
                   Enviar
                 </Button>
               </ButtonSubmitContainer>
-
             </Form>
-
           </Wrapper>
         </Container>
       )}
     </>
-  )
+  );
 }
 
 DreamBuildingSingle.getInitialProps = async ({ query }) => {
@@ -749,13 +931,15 @@ DreamBuildingSingle.getInitialProps = async ({ query }) => {
   const itemBase = { label: 'Selecione', value: '' };
 
   const newContries = [ itemBase ];
-  Object.keys(countries.locals).map(x => newContries.push({ label: x, value: x }));
+  Object.keys(countries.locals).map((x) =>
+    newContries.push({ label: x, value: x })
+  );
 
   return {
     locals: locals,
     countries: newContries,
     categories,
-    type: query.type
+    type: query.type,
   };
 };
 

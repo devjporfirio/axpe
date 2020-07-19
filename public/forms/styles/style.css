@@ -129,6 +129,10 @@
   margin-bottom: 10px;
 }
 
+.moreinfo-list-item:last-child {
+  display: none;
+}
+
 .moreinfo-btn {
   position: relative;
   display: -webkit-box;

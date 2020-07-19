@@ -45,22 +45,22 @@ export const Sell = ({ valueOnlyConsults, sell, iptu, condo, type, currency }) =
           ? formatCurrency.format(sell).replace('R$', currency)
           : formatCurrency.format(parseInt(rent + iptu + condo))}
       </p>
-      {iptu && (
+      {iptu ? (
         <p>
           IPTU: 10x{' '}
           {currency
             ? formatCurrency.format(parseInt(iptu)).replace('R$', currency)
             : formatCurrency.format(parseInt(rent + iptu + condo))}
         </p>
-      )}
-      {condo && (
+      ) : null}
+      {condo ? (
         <p>
           Condominio:{' '}
           {currency
             ? formatCurrency.format(parseInt(condo)).replace('R$', currency)
             : formatCurrency.format(parseInt(rent + iptu + condo))}
         </p>
-      )}
+      ) : null}
     </Price>
   ) : (
     <Price className="price-wfull">

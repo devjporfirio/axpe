@@ -40,7 +40,7 @@ import {
   RemoveButton,
   ScheduleButton,
   UndoButton,
-  MessageSuccess
+  MessageSuccess,
 } from './styles';
 
 function BuildingList({
@@ -50,7 +50,7 @@ function BuildingList({
   useBtSchedule,
   useInactive,
   positionIndex = 1,
-  page = ''
+  page = '',
 }) {
   const {
     values,
@@ -61,13 +61,13 @@ function BuildingList({
     type,
     reference,
     source,
-    status
+    status,
   } = item;
   const [ hasDeleted, setHasDeleted ] = useState(false);
   const [ gtmObj, setGtmObj ] = useState(null);
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
-  const { searchFunnel } = useSelector(state => state.main);
+  const user = useSelector((state) => state.user);
+  const { searchFunnel } = useSelector((state) => state.main);
   const isFavoriteBuilding = checkFavorite(reference);
   const gallerySettings = {
     dots: false,
@@ -75,7 +75,7 @@ function BuildingList({
     lazyLoad: true,
     speed: 800,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
 
   const handleButtonRemove = useCallback(
@@ -94,9 +94,10 @@ function BuildingList({
       dispatch(
         setMain({
           modalLoginType: 'favorite',
-          modalLogin: modalLoginUrl.search(/[?]/gi) >= 0
+          modalLogin:
+            modalLoginUrl.search(/[?]/gi) >= 0
               ? `${modalLoginUrl}&favorite=true`
-              : `${modalLoginUrl}?favorite=true`
+              : `${modalLoginUrl}?favorite=true`,
         })
       );
       dispatch(setUserBuildingToLike(reference));
@@ -111,7 +112,7 @@ function BuildingList({
           address.local ? `${address.local}, ` : ''
         } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
           infos.bedrooms ? `${infos.bedrooms} quartos` : ''
-        } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`
+        } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`,
       })
     );
   }, []);
@@ -247,7 +248,7 @@ function BuildingList({
     const obj = page
       ? {
           className: 'holos-search-product',
-          showcase: ''
+          showcase: '',
         }
       : null;
 
@@ -364,6 +365,7 @@ function BuildingList({
                 >
                   <div>
                     {(!!values.sell || !!values.release) &&
+                    !values.valueOnlyConsults &&
                     (!searchFunnel ||
                       !searchFunnel.finality ||
                       searchFunnel.finality == 'venda') ? (
@@ -378,8 +380,11 @@ function BuildingList({
                             .format(parseInt(values.release))
                             .replace('R$', values.currency || 'R$')}
                       </Price>
+                    ) : !!values.sell && values.valueOnlyConsults ? (
+                      <Price>Valores sob consulta</Price>
                     ) : null}
                     {!!values.rent &&
+                    !values.valueOnlyConsults &&
                     (!searchFunnel ||
                       !searchFunnel.finality ||
                       searchFunnel.finality == 'aluguel') ? (
@@ -389,6 +394,8 @@ function BuildingList({
                           .format(parseInt(values.rent))
                           .replace('R$', values.currency || 'R$')}
                       </Price>
+                    ) : !!values.rent && values.valueOnlyConsults ? (
+                      <Price>Valores sob consulta</Price>
                     ) : null}
                   </div>
                 </LinkTag>
