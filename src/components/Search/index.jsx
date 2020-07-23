@@ -543,8 +543,7 @@ function Search() {
                 formik.values.finality === 'venda' &&
                 formik.values.ready_release) ||
                 (formik.values.source.value == 'sao-paulo' &&
-                  formik.values.finality === 'aluguel' &&
-                  formik.values.furnished) ||
+                  formik.values.finality === 'aluguel') ||
                 (formik.values.source.value == 'sao-paulo' &&
                   formik.values.use === 'COMERCIAL' &&
                   formik.values.finality) ||
