@@ -59,7 +59,8 @@ export const Title = styled.h1`
   font: 24px/37px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   color: ${({ theme }) => theme.colors.greenDark};
-  margin: 24px auto 15px auto;
+  margin: 0 auto 15px auto;
+  padding-top: 24px;
 
   ${media.greaterThan('medium')`
     font-weight: ${({ theme }) => theme.fontsWeight.bold};

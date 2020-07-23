@@ -45,13 +45,26 @@ export const Reasons = styled(Slider)`
   width: 100%;
   margin: auto;
 
+  ${media.greaterThan('medium')`
+    width: 90%;
+    height: 302px;
+  `}
+
   & > button {
     &:first-of-type {
       left: 5px;
+
+      ${media.greaterThan('medium')`
+        left: -30px;
+      `}
     }
 
     &:last-of-type {
       right: 5px;
+
+      ${media.greaterThan('medium')`
+        right: -30px;
+      `}
     }
   }
 
@@ -66,6 +79,12 @@ export const Reasons = styled(Slider)`
     height: 270px;
     padding: 30px 15px;
 
+    ${media.greaterThan('medium')`
+      width: 160px;
+      height: 300px;
+      padding: 14.02px 27.03px;
+    `}
+
     &:before {
       content: '';
       display: block;
@@ -78,6 +97,10 @@ export const Reasons = styled(Slider)`
       background-color: ${({ theme }) => theme.colors.greyLight};
       z-index: 1;
       transform: translateX(-50%);
+
+      ${media.greaterThan('medium')`
+        width: calc(100% - 20px);
+      `}
     }
 
     h3,
@@ -95,25 +118,17 @@ export const Reasons = styled(Slider)`
       height: 40px;
       display: flex;
       align-items: flex-end;
+
+      ${media.greaterThan('medium')`
+        height: 60px;
+      `}
     }
 
     p {
       color: ${({ theme }) => theme.colors.greenDark};
       font: 16px/19px 'Raleway';
-    }
 
-    ${media.greaterThan('medium')`
-      width: 160px;
-      padding: 14.02px 27.03px;
-
-      &:before {
-        width: calc(100% - 20px);
-      }
-
-      h3, p {
-        width: 100%;
-      }
-      p {
+      ${media.greaterThan('medium')`
         display: block;
         display: -webkit-box;
         height: 171px;
@@ -121,22 +136,7 @@ export const Reasons = styled(Slider)`
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
-    `}
-  }
-
-  ${media.greaterThan('medium')`
-    width: 90%;
-    height: 272px;
-
-    & > button {
-      &:first-of-type {
-        left: -30px;
-      }
-
-      &:last-of-type {
-        right: -30px;
-      }
+      `}
     }
-  `}
+  }
 `;
