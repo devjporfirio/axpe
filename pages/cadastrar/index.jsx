@@ -290,16 +290,7 @@ function Register({ locals, categories, countries }) {
   }, [ user ]);
 
   useEffect(() => {
-    // console.log('update locals', values.SingleLine5);
-    // console.log('locals', locals);
-
-    // const key = keyLocals || 'São Paulo';
-
     updateLocals();
-
-    // console.log('localsByKey', newLocals);
-
-    // setLocalsByKey(newLocals);
   }, [
     keyLocals,
     values.SingleLine5,
