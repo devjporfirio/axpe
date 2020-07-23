@@ -212,9 +212,9 @@ function Search() {
       params.push(`types=${formik.values.types.join(',')}`);
     }
 
-    if (formik.values.local.length) {
-      params.push(`local=${formik.values.local.join(',')}`);
-    }
+    // if (formik.values.local.length) {
+    //   params.push(`local=${formik.values.local.join(',')}`);
+    // }
 
     return `?${params.join('&')}`;
   }
@@ -344,8 +344,6 @@ function Search() {
       Object.keys(response.locals).forEach((local) => {
         filtersListToggle[local] = false;
       });
-
-      formik.setFieldValue('local', []);
 
       setFiltersListToggle(filtersListToggle);
       setFiltersData(response);
