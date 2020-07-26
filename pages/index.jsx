@@ -8,7 +8,6 @@ import Api from 'services';
 import { setMain } from 'store/modules/main/actions';
 
 // helpers
-import { Link } from 'helpers/routes';
 import { shuffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
@@ -198,15 +197,10 @@ function Home({ hero, components }) {
           >
             {hero.map((item, itemIndex) => (
               <HeroItem key={`hero-item-${itemIndex}`}>
-                {item.link.target === 'blank' && item.link.url && (
-                  <HeroLink href={item.link.url} target="_blank">
+                {item.link && item.link.url && (item.link.target === 'blank' || item.link.target === 'self') && (
+                  <HeroLink href={item.link.url} target={`_${item.link.target}`}>
                     {renderHeroItem(item)}
                   </HeroLink>
-                )}
-                {item.link.target === 'self' && item.link.url && (
-                  <Link route={item.link.url} passHref>
-                    {renderHeroItem(item)}
-                  </Link>
                 )}
                 {!item.link || !item.link.url ? renderHeroItem(item) : null}
               </HeroItem>
