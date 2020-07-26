@@ -183,6 +183,7 @@ function BuildingList({
       items.push(
         <Caracteristics.AreaUseFul
           type={type}
+          category={categoryText}
           areaUseful={infos.areaUseful}
           areaUsefulStart={infos.areaUsefulStart}
           key={`caracteristic-${reference}-${items.length}`}
