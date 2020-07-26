@@ -364,6 +364,9 @@ function BuildingList({
                   data-position={positionIndex}
                 >
                   <div>
+                    {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                      <Price>Valores sob consulta</Price>
+                    ) : null}
                     {(!!values.sell || !!values.release) &&
                     !values.valueOnlyConsults &&
                     (!searchFunnel ||

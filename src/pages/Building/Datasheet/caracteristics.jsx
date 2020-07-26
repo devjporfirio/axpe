@@ -14,6 +14,13 @@ export const Release = ({ release, type, currency }) =>
     </PriceRelease>
   );
 
+export const OnlyConsults = () =>
+  (
+    <Price>
+      <p>Valores sob consulta</p>
+    </Price>
+  );
+
 export const Rent = ({ valueOnlyConsults, rent, iptu, condo, currency }) =>
   rent && !valueOnlyConsults ? (
     <Price>
