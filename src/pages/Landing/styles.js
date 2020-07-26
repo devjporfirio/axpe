@@ -76,14 +76,11 @@ export const GroupText = styled.article`
   text-align: center;
 `;
 
-export const Text = styled.p`
+export const TextContainer = styled.div`
   display: block;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
   padding: 30px;
-  font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  font: 18px/21px 'Raleway';
-  text-align: left;
 
   ${props =>
     !props.transparent &&
@@ -121,12 +118,21 @@ export const Text = styled.p`
     width: 100%;
     max-width: 620px;
     margin: 0 auto 40px auto;
-    text-align: center;
-    line-height: 25px;
 
-    &:after{
+    &:after {
       background: none;
     }
+  `}
+`;
+
+export const Text = styled.p`
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  font: 18px/21px 'Raleway';
+  text-align: left;
+
+  ${media.greaterThan('medium')`
+    text-align: center;
+    line-height: 25px;
   `}
 `;
 
