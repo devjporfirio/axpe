@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SVG from 'react-inlinesvg';
+import SimpleBar from 'simplebar-react';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -37,7 +38,7 @@ import {
   WhatsappButton,
   Contact,
   Newsletter,
-  NewsletterButton
+  NewsletterButton,
 } from './styles';
 
 function Header() {
@@ -47,16 +48,13 @@ function Header() {
     headerHiding,
     searchFormActive,
     modalNewsletter,
-    modalLogin
-  } = useSelector(state => state.main);
+    modalLogin,
+  } = useSelector((state) => state.main);
   const {
     logged,
-    me: {
-      notificationsAvailable,
-      notificationAlert,
-      notificationFavorite
-    }
-  } = useSelector(state => state.user);
+    me: { notificationsAvailable, notificationAlert, notificationFavorite },
+  } = useSelector((state) => state.user);
+  const scrollBarRef = useRef();
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
 
@@ -98,9 +96,12 @@ function Header() {
     dispatch(setMain({ modalNewsletter: true }));
   }, [ modalNewsletter ]);
 
-  const openModalLogin = useCallback((redirectTo) => {
-    dispatch(setMain({ modalLogin: redirectTo }));
-  }, [ modalLogin ]);
+  const openModalLogin = useCallback(
+    (redirectTo) => {
+      dispatch(setMain({ modalLogin: redirectTo }));
+    },
+    [ modalLogin ]
+  );
 
   function cancelToggle() {
     setNavToggle(false);
@@ -110,166 +111,232 @@ function Header() {
     handleScrollPosition(scrollPosition);
   }, [ scrollPosition ]);
 
+  useEffect(() => {
+    if(scrollBarRef.current && window.innerWidth < 1170) {
+      scrollBarRef.current.unMount();
+    }
+  }, []);
+
   return (
     <Container ref={refHeader}>
-      <Wrapper>
-        <AxpeLogo type="axpe">
-          <Link route="/" passHref>
-            <LogoLink className="holos-logo" data-label="Axpe" onClick={cancelToggle}>Axpe. Imóveis Especiais</LogoLink>
-          </Link>
-        </AxpeLogo>
+      <SimpleBar style={{ maxHeight: '100%' }} ref={scrollBarRef}>
+        <Wrapper>
+          <AxpeLogo type="axpe">
+            <Link route="/" passHref>
+              <LogoLink
+                className="holos-logo"
+                data-label="Axpe"
+                onClick={cancelToggle}
+              >
+                Axpe. Imóveis Especiais
+              </LogoLink>
+            </Link>
+          </AxpeLogo>
 
-        <ChristiesLogo type="christies">
-          <Link route="/sobre" passHref>
-            <LogoLink className="holos-logo" data-label="Christies" onClick={cancelToggle}>
-              Christie's Real Estate São Paulo
-            </LogoLink>
-          </Link>
-        </ChristiesLogo>
+          <ChristiesLogo type="christies">
+            <Link route="/sobre" passHref>
+              <LogoLink
+                className="holos-logo"
+                data-label="Christies"
+                onClick={cancelToggle}
+              >
+                Christie's Real Estate São Paulo
+              </LogoLink>
+            </Link>
+          </ChristiesLogo>
 
-        <ButtonSearch className="holos-menu-item" type="button" onClick={toggleSearch}>
-          Buscar
-        </ButtonSearch>
-        <ButtonToggle
-          type="button"
-          onClick={handleToggle}
-          navToggle={navToggle}
-        >
-          <i></i>
-          <i></i>
-          <i></i>
-        </ButtonToggle>
+          <ButtonSearch
+            className="holos-menu-item"
+            type="button"
+            onClick={toggleSearch}
+          >
+            Buscar
+          </ButtonSearch>
+          <ButtonToggle
+            type="button"
+            onClick={handleToggle}
+            navToggle={navToggle}
+          >
+            <i></i>
+            <i></i>
+            <i></i>
+          </ButtonToggle>
 
-        <Box navToggle={navToggle}>
-          <NavMain>
-            <ul>
-              <li>
-                <NavMainButtonSearch
-                  type="button"
-                  className="holos-menu-item"
-                  active={searchFormActive}
-                  onClick={toggleSearch}
-                >
-                  <SVG src={SearchIconSVG} uniquifyIDs={true} />
-                  <NavMainButtonText>Buscar imóvel</NavMainButtonText>
-                </NavMainButtonSearch>
-              </li>
-              <li>
-                {logged ? (
-                  <Link route="/cadastrar" passHref>
-                    <NavMainButton className="holos-menu-item" type="register" onClick={cancelToggle}>
+          <Box navToggle={navToggle}>
+            <NavMain>
+              <ul>
+                <li>
+                  <NavMainButtonSearch
+                    type="button"
+                    className="holos-menu-item"
+                    active={searchFormActive}
+                    onClick={toggleSearch}
+                  >
+                    <SVG src={SearchIconSVG} uniquifyIDs={true} />
+                    <NavMainButtonText>Buscar imóvel</NavMainButtonText>
+                  </NavMainButtonSearch>
+                </li>
+                <li>
+                  {logged ? (
+                    <Link route="/cadastrar" passHref>
+                      <NavMainButton
+                        className="holos-menu-item"
+                        type="register"
+                        onClick={cancelToggle}
+                      >
+                        <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                        <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                      </NavMainButton>
+                    </Link>
+                  ) : (
+                    <NavMainButton
+                      className="holos-menu-item"
+                      type="register"
+                      onClick={() => {
+                        cancelToggle();
+                        openModalLogin('/cadastrar');
+                      }}
+                    >
                       <SVG src={HomeIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                     </NavMainButton>
+                  )}
+                </li>
+                <li>
+                  <Link route="/so-quero-sonhar" passHref>
+                    <NavMainButton
+                      className="holos-menu-item"
+                      type="dream"
+                      onClick={cancelToggle}
+                    >
+                      <SVG src={CloudIconSVG} uniquifyIDs={true} />
+                      <NavMainButtonText>Só quero sonhar</NavMainButtonText>
+                    </NavMainButton>
                   </Link>
-                ) : (
-                  <NavMainButton className="holos-menu-item" type="register" onClick={() => {
-                    cancelToggle();
-                    openModalLogin('/cadastrar');
-                  }}>
-                    <SVG src={HomeIconSVG} uniquifyIDs={true} />
-                    <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
-                  </NavMainButton>
-                )}
-              </li>
-              <li>
-                <Link route="/so-quero-sonhar" passHref>
-                  <NavMainButton className="holos-menu-item" type="dream" onClick={cancelToggle}>
-                    <SVG src={CloudIconSVG} uniquifyIDs={true} />
-                    <NavMainButtonText>Só quero sonhar</NavMainButtonText>
-                  </NavMainButton>
-                </Link>
-              </li>
-            </ul>
-          </NavMain>
+                </li>
+              </ul>
+            </NavMain>
 
-          <NavSecondary>
-            <ul>
-              <li>
-                <Link route="/sobre" passHref>
-                  <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
-                    Sobre a Axpe
-                  </NavSecondaryButton>
-                </Link>
-              </li>
-              <li>
-                <Link route="/contato" passHref>
-                  <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
-                    Fale com a gente
-                  </NavSecondaryButton>
-                </Link>
-              </li>
-              <li>
-                {!logged ? (
-                  <NavSecondaryButton className="holos-menu-item" onClick={() => {
-                    cancelToggle();
-                    openModalLogin('/minha-conta');
-                  }}>
-                    Meu perfil
-                  </NavSecondaryButton>
-                ) : notificationsAvailable && notificationsAvailable === 'alert' && notificationAlert ? (
-                  <Link route="/minha-conta/alertas" passHref>
-                    <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
-                      Meu perfil
-                      <NavIconAlert>
-                        <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                      </NavIconAlert>
+            <NavSecondary>
+              <ul>
+                <li>
+                  <Link route="/sobre" passHref>
+                    <NavSecondaryButton
+                      className="holos-menu-item"
+                      onClick={cancelToggle}
+                    >
+                      Sobre a Axpe
                     </NavSecondaryButton>
                   </Link>
-                ) : (
-                  <Link route="/minha-conta" passHref>
-                    <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
-                      Meu perfil
+                </li>
+                <li>
+                  <Link route="/contato" passHref>
+                    <NavSecondaryButton
+                      className="holos-menu-item"
+                      onClick={cancelToggle}
+                    >
+                      Fale com a gente
                     </NavSecondaryButton>
                   </Link>
-                )}
-              </li>
-              <li>
-              {logged ? (
-                  <Link route="/minha-conta/favoritos" passHref>
-                    <NavSecondaryButton className="holos-menu-item" onClick={cancelToggle}>
+                </li>
+                <li>
+                  {!logged ? (
+                    <NavSecondaryButton
+                      className="holos-menu-item"
+                      onClick={() => {
+                        cancelToggle();
+                        openModalLogin('/minha-conta');
+                      }}
+                    >
+                      Meu perfil
+                    </NavSecondaryButton>
+                  ) : notificationsAvailable &&
+                    notificationsAvailable === 'alert' &&
+                    notificationAlert ? (
+                    <Link route="/minha-conta/alertas" passHref>
+                      <NavSecondaryButton
+                        className="holos-menu-item"
+                        onClick={cancelToggle}
+                      >
+                        Meu perfil
+                        <NavIconAlert>
+                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                        </NavIconAlert>
+                      </NavSecondaryButton>
+                    </Link>
+                  ) : (
+                    <Link route="/minha-conta" passHref>
+                      <NavSecondaryButton
+                        className="holos-menu-item"
+                        onClick={cancelToggle}
+                      >
+                        Meu perfil
+                      </NavSecondaryButton>
+                    </Link>
+                  )}
+                </li>
+                <li>
+                  {logged ? (
+                    <Link route="/minha-conta/favoritos" passHref>
+                      <NavSecondaryButton
+                        className="holos-menu-item"
+                        onClick={cancelToggle}
+                      >
+                        Meus favoritos
+                      </NavSecondaryButton>
+                    </Link>
+                  ) : (
+                    <NavSecondaryButton
+                      className="holos-menu-item"
+                      onClick={() => {
+                        cancelToggle();
+                        openModalLogin('/minha-conta/favoritos');
+                      }}
+                    >
                       Meus favoritos
+                      {notificationsAvailable &&
+                      notificationsAvailable === 'favorite' &&
+                      notificationFavorite ? (
+                        <NavIconAlert>
+                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
+                        </NavIconAlert>
+                      ) : null}
                     </NavSecondaryButton>
-                  </Link>
-                ) : (
-                  <NavSecondaryButton className="holos-menu-item" onClick={() => {
-                    cancelToggle();
-                    openModalLogin('/minha-conta/favoritos');
-                  }}>
-                    Meus favoritos
-                    {notificationsAvailable && notificationsAvailable === 'favorite' && notificationFavorite ? (
-                      <NavIconAlert>
-                        <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                      </NavIconAlert>
-                    ) : null}
-                  </NavSecondaryButton>
-                )}
-              </li>
-            </ul>
-          </NavSecondary>
+                  )}
+                </li>
+              </ul>
+            </NavSecondary>
 
-          <Whatsapp>
-            <WhatsappButton
-              className="holos-menu-item"
-              href="https://api.whatsapp.com/send?phone=551130743600"
-              target="_blank"
-            >
-              <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-              WhatsApp
-            </WhatsappButton>
-          </Whatsapp>
+            <Whatsapp>
+              <WhatsappButton
+                className="holos-menu-item"
+                href="https://api.whatsapp.com/send?phone=551130743600"
+                target="_blank"
+              >
+                <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
+                WhatsApp
+              </WhatsappButton>
+            </Whatsapp>
 
-          <Contact>
-            Fale com a gente <a href="tel:+551130743600" className="holos-menu-item">(11) 3074-3600</a>
-          </Contact>
+            <Contact>
+              Fale com a gente{' '}
+              <a href="tel:+551130743600" className="holos-menu-item">
+                (11) 3074-3600
+              </a>
+            </Contact>
 
-          <Newsletter>
-            <NewsletterButton className="holos-menu-item" type="button" onClick={openModalNewsletter}>
-              Receba nossas <strong>novidades</strong>
-            </NewsletterButton>
-          </Newsletter>
-        </Box>
-      </Wrapper>
+            <Newsletter>
+              <NewsletterButton
+                className="holos-menu-item"
+                type="button"
+                onClick={openModalNewsletter}
+              >
+                Receba nossas <strong>novidades</strong>
+              </NewsletterButton>
+            </Newsletter>
+          </Box>
+        </Wrapper>
+      </SimpleBar>
     </Container>
   );
 }
