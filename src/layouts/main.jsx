@@ -69,6 +69,11 @@ function Main({ children }) {
 
     OneSignalHelper.start();
 
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      alert('exibir botão para adicionar app na home!')
+    });
+
     dispatch(setLoading({ active: false }));
     dispatch(setUserByCookie());
   }, []);
