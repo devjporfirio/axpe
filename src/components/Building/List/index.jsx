@@ -185,7 +185,7 @@ function BuildingList({
           type={type}
           category={categoryText}
           areaUseful={infos.areaUseful}
-          areaUsefulStart={infos.areaUsefulStart}
+          // areaUsefulStart={infos.areaUsefulStart}
           key={`caracteristic-${reference}-${items.length}`}
         />
       );
@@ -209,8 +209,8 @@ function BuildingList({
       infos.areaUsefulStart &&
       infos.areaUsefulEnd &&
       infos.use !== 'COMERCIAL' &&
-      categoryText !== 'Cobertura' &&
-      categoryText !== 'Apartamento' &&
+      // categoryText !== 'Cobertura' &&
+      // categoryText !== 'Apartamento' &&
       categoryText.search('Casa') < 0
     ) {
       items.push(
