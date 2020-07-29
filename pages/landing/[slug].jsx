@@ -31,7 +31,7 @@ import {
 
 function Landing({ slug, page }) {
   const textEl = useRef();
-  const [ transparent, setTranspatent ] = useState(false);
+  const [ transparent, setTransparent ] = useState(false);
   const { images, imagesBanner, title, text, componentes } = page;
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function Landing({ slug, page }) {
             <Text ref={textEl}>{text}</Text>
           </TextContainer>
           {!transparent && (
-            <SeeMore type="button" onClick={() => setTranspatent(true)}>
+            <SeeMore type="button" onClick={() => setTransparent(true)}>
               Veja Mais
             </SeeMore>
           )}

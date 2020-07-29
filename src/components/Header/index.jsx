@@ -310,7 +310,7 @@ function Header() {
             <Whatsapp>
               <WhatsappButton
                 className="holos-menu-item"
-                href="https://api.whatsapp.com/send?phone=551130743600"
+                href="https://wa.me/551130743600"
                 target="_blank"
               >
                 <SVG src={WhatsappIconSVG} uniquifyIDs={true} />

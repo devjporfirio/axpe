@@ -1,20 +1,21 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 
+// helpers
+import useResize from 'helpers/resize';
+
 // styles
-import {
-  Container,
-  Title,
-  Reasons
-} from './styles';
+import { Container, Title, Reasons } from './styles';
 
 function HowWeLove({ reasons }) {
+  const refReasons = useRef();
+  const resizeWidth = useResize();
   const [ html, setHtml ] = useState(null);
   const [ type, setType ] = useState(null);
   const [ data, setData ] = useState(null);
 
   const filterHtml = useCallback(() => {
-    if(!data) return null;
+    if (!data) return null;
 
     const response = data.title
       .replace('<div class="building-lovely-items">', '')
@@ -47,11 +48,36 @@ function HowWeLove({ reasons }) {
   }, [ data ]);
 
   useEffect(() => {
+    function resetAllItems($items) {
+      $items.forEach(($item) => {
+        $item.style.height = 'auto';
+      });
+    }
+
+    if (refReasons.current) {
+      const $items = refReasons.current.querySelectorAll(
+        '.building-lovely-item'
+      );
+      let maxHeight = 0;
+
+      resetAllItems($items);
+
+      $items.forEach(($item) => {
+        maxHeight = Math.max($item.offsetHeight, maxHeight);
+      });
+
+      $items.forEach(($item) => {
+        $item.style.height = `${maxHeight}px`;
+      });
+    }
+  }, [ resizeWidth ]);
+
+  useEffect(() => {
     setData(reasons);
   }, [ reasons ]);
 
   return (type === 'array' && data) || (type === 'html' && html && data) ? (
-    <Container>
+    <Container ref={refReasons}>
       <Title>
         <span>Por que </span>
         <span>curtimos </span>
@@ -66,26 +92,27 @@ function HowWeLove({ reasons }) {
           {
             breakpoint: 1024,
             settings: {
-              slidesToShow: 3
-            }
+              slidesToShow: 3,
+            },
           },
           {
             breakpoint: 768,
             settings: {
-              slidesToShow: 2
-            }
+              slidesToShow: 2,
+            },
           },
           {
             breakpoint: 639,
             settings: {
-              slidesToShow: 1
-            }
-          }
+              slidesToShow: 1,
+            },
+          },
         ]}
       >
         {type === 'html' && html}
         {type === 'array' &&
-          data && data.length > 0 &&
+          data &&
+          data.length > 0 &&
           data.map((reason, index) => (
             <article className="building-lovely-item" key={index}>
               <h3>{reason.title}</h3>

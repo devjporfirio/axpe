@@ -47,7 +47,7 @@ export const Reasons = styled(Slider)`
 
   ${media.greaterThan('medium')`
     width: 90%;
-    height: 302px;
+    /* height: 352px; */
   `}
 
   & > button {
@@ -76,12 +76,13 @@ export const Reasons = styled(Slider)`
     flex-direction: column;
     width: 100%;
     max-width: 260px;
-    height: 270px;
+    /* height: 270px; */
     padding: 30px 15px;
 
     ${media.greaterThan('medium')`
       width: 160px;
-      height: 300px;
+      /* height: 350px; */
+      height: auto;
       padding: 14.02px 27.03px;
     `}
 
@@ -129,13 +130,13 @@ export const Reasons = styled(Slider)`
       font: 16px/19px 'Raleway';
 
       ${media.greaterThan('medium')`
-        display: block;
+        /* display: block;
         display: -webkit-box;
-        height: 171px;
-        -webkit-line-clamp: 9;
+        height: 240px;
+        -webkit-line-clamp: 12;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis; */
       `}
     }
   }
