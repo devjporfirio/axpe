@@ -46,14 +46,18 @@ function Favorites() {
   useEffect(() => {
     async function loadBuildings() {
       if (user && user.logged && user.favorites && user.favorites.length) {
-        const buildings = await Promise.all(
-          user.favorites.map(async reference => {
+        const userFavorites = user.favorites.filter(fav => fav ? true : false);
+
+        let tempBuildings = await Promise.all(
+          userFavorites.map(async reference => {
             const response = await Api.Building.getPage(reference);
             return response.building;
           })
         );
 
-        setBuildings(buildings);
+        tempBuildings = tempBuildings.filter(item => item ? true : false);
+
+        setBuildings(tempBuildings);
       } else {
         setBuildings([]);
       }
