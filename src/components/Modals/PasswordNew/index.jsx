@@ -69,6 +69,8 @@ function PasswordNew({ hash }) {
           formMessage: ''
         });
 
+        setSuccessMessage(true);
+
         setTimeout(() => {
           setSuccessMessage(false);
           closeModal();
