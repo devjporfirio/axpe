@@ -129,7 +129,7 @@ function ContactBar() {
   const clickContainer = useCallback(
     (event) => {
       const type = event.target.getAttribute('data-type');
-      if(type && type == 'container') {
+      if (type && type == 'container') {
         event.preventDefault();
         toggleShow();
       }
@@ -154,10 +154,11 @@ function ContactBar() {
 
   useEffect(() => {
     if (user.logged && user.me && currentBuilding) {
-      const areaUseful =
-        currentBuilding.infos && currentBuilding.infos.areaUseful
-          ? currentBuilding.infos.areaUseful
-          : null;
+      const areaUseful = !currentBuilding.infos
+        ? null
+        : currentBuilding.infos.areaUseful
+        ? currentBuilding.infos.areaUseful
+        : currentBuilding.infos.areaUsefulStart;
       const paramsObj = {
         reference: currentBuilding.reference,
         category: currentBuilding.category,
@@ -172,17 +173,21 @@ function ContactBar() {
             ? currentBuilding.address.local
             : null,
         areaUseful: !isNaN(areaUseful) ? parseInt(areaUseful) : areaUseful,
-        bedrooms:
-          currentBuilding.infos && currentBuilding.infos.bedrooms
-            ? currentBuilding.infos.bedrooms
-            : null,
-        parking:
-          currentBuilding.infos && currentBuilding.infos.parking
-            ? currentBuilding.infos.parking
-            : null,
+        bedrooms: !currentBuilding.infos
+          ? null
+          : currentBuilding.infos.bedrooms
+          ? currentBuilding.infos.bedrooms
+          : currentBuilding.infos.bedroomsStart,
+        parking: !currentBuilding.infos
+          ? null
+          : currentBuilding.infos.parking
+          ? currentBuilding.infos.parking
+          : currentBuilding.infos.parkingStart,
         value: currentBuilding.values.sell
           ? currentBuilding.values.sell
-          : currentBuilding.values.rent,
+          : currentBuilding.values.rent
+          ? currentBuilding.values.rent
+          : currentBuilding.values.release,
         userFirstName: user.me.name,
         userLastName: user.me.lastName,
         userPhone: user.me.phone,
