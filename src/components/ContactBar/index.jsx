@@ -154,6 +154,7 @@ function ContactBar() {
 
   useEffect(() => {
     if (user.logged && user.me && currentBuilding) {
+      let params = null;
       const areaUseful = !currentBuilding.infos
         ? null
         : currentBuilding.infos.areaUseful
@@ -183,18 +184,13 @@ function ContactBar() {
           : currentBuilding.infos.parking
           ? currentBuilding.infos.parking
           : currentBuilding.infos.parkingStart,
-        value: currentBuilding.values.sell
-          ? currentBuilding.values.sell
-          : currentBuilding.values.rent
-          ? currentBuilding.values.rent
-          : currentBuilding.values.release,
+        value: null,
         userFirstName: user.me.name,
         userLastName: user.me.lastName,
         userPhone: user.me.phone,
         userEmail: user.me.email,
         redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
       };
-      const params = getParamsFromObject(paramsObj);
       let iframeSelected = null;
       let iframesPreSelected = iframes;
       const matches = [];
@@ -251,6 +247,15 @@ function ContactBar() {
         );
 
         if (iframeSelected) {
+          if(iframeSelected.src.search('locacao') >= 0) {
+            paramsObj.value = currentBuilding.values.rent;
+          } else if(iframeSelected.src.search('lancamento') >= 0) {
+            paramsObj.value = currentBuilding.values.release;
+          } else {
+            paramsObj.value = currentBuilding.values.sell;
+          }
+
+          params = getParamsFromObject(paramsObj);
           setIframeUrl(`${iframeSelected.src}${params}`);
         }
       }
