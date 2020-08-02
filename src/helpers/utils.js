@@ -9,6 +9,16 @@ export const formatCurrency = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 0
 });
 
+export const formatCurrencyToText = (currency) => {
+  let newCurrency = currency || 'R$';
+  if(currency === 'EUR') {
+    newCurrency = '€';
+  } else if(currency === 'USD') {
+    newCurrency = 'US$';
+  }
+  return newCurrency;
+}
+
 export const getParamsFromObject = (params) => {
   const initial = '?';
   const sep = '&';

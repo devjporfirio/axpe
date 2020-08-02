@@ -10,7 +10,7 @@ import SliderNew from 'components/SliderNew';
 
 // helpers
 import { Link } from 'helpers/routes';
-import { formatCurrency } from 'helpers/utils';
+import { formatCurrency, formatCurrencyToText } from 'helpers/utils';
 import checkFavorite from 'helpers/checkFavorite';
 
 // actions
@@ -375,11 +375,11 @@ function BuildingList({
                         {!!values.sell &&
                           formatCurrency
                             .format(parseInt(values.sell))
-                            .replace('R$', values.currency || 'R$')}
+                            .replace('R$', formatCurrencyToText(values.currency))}
                         {!!values.release &&
                           formatCurrency
                             .format(parseInt(values.release))
-                            .replace('R$', values.currency || 'R$')}
+                            .replace('R$', formatCurrencyToText(values.currency))}
                       </Price>
                     ) : !!values.sell && values.valueOnlyConsults ? (
                       <Price>Valores sob consulta</Price>
@@ -393,7 +393,7 @@ function BuildingList({
                         Locação:{' '}
                         {formatCurrency
                           .format(parseInt(values.rent))
-                          .replace('R$', values.currency || 'R$')}
+                          .replace('R$', formatCurrencyToText(values.currency))}
                       </Price>
                     ) : !!values.rent && values.valueOnlyConsults ? (
                       <Price>Valores sob consulta</Price>
