@@ -179,7 +179,7 @@ export const AreaUseFul = ({ category, type, areaUseful, areaUsefulStart }) =>
           {formatCurrency.format(parseInt(areaUsefulStart)).replace('R$', '')}m²
         </p>
       ) : null}
-      <p>{category && category === 'Casa' ? `Área construída` : `Área útil`}</p>
+      <p>{category && category.search('Casa') >= 0 ? `Área construída` : `Área útil`}</p>
     </InfoValue>
   ) : null;
 
