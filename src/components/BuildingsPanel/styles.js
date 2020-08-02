@@ -89,15 +89,16 @@ export const Items = styled.div`
   width: 100%;
 
   ${media.greaterThan('medium')`
-    &[data-quantity="1"] {
-      .slick-list {
-        max-height: 292px;
+    ${props => props.layout && props.layout === 'vertical' && css`
+      &[data-quantity="1"] {
+        .slick-list {
+          max-height: 292px;
+        }
       }
-    }
 
-    .slick-list {
-      max-height: 584px;
-
-    }
+      .slick-list {
+        max-height: 584px;
+      }
+    `}
   `}
 `;

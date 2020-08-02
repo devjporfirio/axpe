@@ -80,7 +80,7 @@ function BuildingsPanel({
         </Header>
 
         {data && data.length > 0 ? (
-          <Items data-quantity={data.length}>
+          <Items data-layout={buildingLayout} data-quantity={data.length}>
             <SliderNew
               type="normal"
               arrowsColor="greenDark"
