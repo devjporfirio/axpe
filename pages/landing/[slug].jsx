@@ -22,7 +22,6 @@ import {
   Text,
   SeeMore,
   Banner,
-  Link,
   Module,
   TitleModule,
   TextModule,
@@ -112,13 +111,6 @@ function Landing({ slug, page }) {
             <Banner>
               <Image mq="desktop" src={imagesBanner.desktop} />
               <Image mq="mobile" src={imagesBanner.mobile} />
-
-              <Link
-                href={imagesBanner.link.url}
-                target={imagesBanner.link.external ? '_blank' : '_self'}
-              >
-                Saiba Mais
-              </Link>
             </Banner>
           )}
 

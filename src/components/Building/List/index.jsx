@@ -68,7 +68,7 @@ function BuildingList({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { searchFunnel } = useSelector((state) => state.main);
-  const isFavoriteBuilding = checkFavorite(reference);
+  const isFavoriteBuilding = checkFavorite(user, reference);
   const gallerySettings = {
     dots: false,
     infinite: true,

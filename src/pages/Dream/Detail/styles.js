@@ -105,15 +105,15 @@ export const List = styled.main`
 `;
 
 export const Footer = styled.footer`
-  padding: 10vmin 5vmin;
+  padding: 0 50px 50px 50px;
   text-align: left;
 
   ${media.greaterThan('medium')`
-    padding: 7vmin 5vmin;
+    padding-bottom: 70px;
   `}
 
   ${media.greaterThan('large')`
-    padding: 80px 130px;
+    padding: 0 130px 80px 130px;
   `}
 
   h2 {

@@ -222,6 +222,7 @@ export const InputSelect = styled.select`
   width: 100%;
   appearance: none;
   z-index: 2;
+  cursor: pointer;
 
   & + svg {
     transform: rotate(90deg);

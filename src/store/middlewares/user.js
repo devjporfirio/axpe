@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import Api from 'services';
+import checkFavorite from 'helpers/checkFavorite';
 import SocketIoHelper from 'helpers/socketio';
 import OneSignalHelper from 'helpers/oneSignal';
 
@@ -16,15 +17,10 @@ const user = store => next => async action => {
     Cookies.remove('userData', cookieParams);
   }
 
-  const checkFavorite = (reference) => {
-    const building = store.getState().user.favorites.find(x => x === reference);
-    return !!building;
-  }
-
   const sendBuildingsToLike = async (accessToken, buildings) => {
     await Promise.all(
       buildings.map(async building => {
-        const isFavoriteBuilding = checkFavorite(building);
+        const isFavoriteBuilding = checkFavorite(store.getState().user, building);
         const response = await Api.MyAccount.postFavorite(
           accessToken,
           building,

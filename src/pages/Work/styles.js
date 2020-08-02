@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Button from 'components/Button';
 
 export const Container = styled.section`
@@ -18,13 +20,14 @@ export const Form = styled.form`
 
   ${media.greaterThan('medium')`
     padding: 50px 0 0 0;
-     
+
     h1 {
       font-size: 40px;
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
     }
 
-    label[type='phone'], label[for='whoIndicated'] {
+    label[type='phone'],
+    label[for='whoIndicated'] {
       max-width: 282px;
     }
 
@@ -46,6 +49,7 @@ export const FormGroupButton = styled.div`
     margin-left: 112px;
     padding: 50px 0;
     flex-direction: row;
+    margin: 0;
 
     span {
       max-width: 250px;

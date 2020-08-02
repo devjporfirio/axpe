@@ -24,6 +24,7 @@ import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 import ForgotPasswordSuccess from 'components/Modals/ForgotPasswordSuccess';
 import BuildingContactSuccess from 'components/Modals/BuildingContactSuccess';
 import ContactSuccess from 'components/Modals/ContactSuccess';
+import WorkWithUsSuccess from 'components/Modals/WorkWithUsSuccess';
 import ContactModal from 'components/Modals/Contact';
 import ContactBar from 'components/ContactBar';
 
@@ -97,6 +98,7 @@ function Main({ children }) {
         <ForgotPasswordSuccess />
         <BuildingContactSuccess />
         <ContactSuccess />
+        <WorkWithUsSuccess />
         <ContactModal />
         <ContactBar />
         <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>

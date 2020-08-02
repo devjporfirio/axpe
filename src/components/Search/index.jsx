@@ -133,6 +133,24 @@ function Search() {
           data[key] = values[key].value;
         } else if (key === 'furnished' && values[key]) {
           data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
+        } else if (key == 'price_start' && values['finality']) {
+          if (
+            (values['finality'] == 'venda' && values[key] <= 700000) ||
+            (values['finality'] == 'aluguel' && values[key] <= 5000)
+          ) {
+            data[key] = 0;
+          } else {
+            data[key] = values[key];
+          }
+        } else if (key == 'price_end' && values['finality']) {
+          if (
+            (values['finality'] == 'venda' && values[key] >= 20000000) ||
+            (values['finality'] == 'aluguel' && values[key] >= 30000)
+          ) {
+            data[key] = 999000000;
+          } else {
+            data[key] = values[key];
+          }
         } else if (Array.isArray(values[key]) && values[key].length) {
           data[key] = values[key].join(',');
         } else if (!Array.isArray(values[key]) && values[key]) {
@@ -452,7 +470,9 @@ function Search() {
                   formik.values.source.value != 'sao-paulo' ? (
                     <FormButtonsFilterRow>
                       {getFinalities().map((finality, finalityIndex) =>
-                        finality.sources.includes(formik.values.source.value) ? (
+                        finality.sources.includes(
+                          formik.values.source.value
+                        ) ? (
                           <FormButtonsFilterItemRadio
                             twoColumns={
                               formik.values.source.value == 'sao-paulo'
@@ -466,7 +486,9 @@ function Search() {
                               name="finality"
                               value={finality.value}
                               onChange={formik.handleChange}
-                              checked={formik.values.finality === finality.value}
+                              checked={
+                                formik.values.finality === finality.value
+                              }
                               className="holos-search-menu-item"
                               data-label={finality.label}
                             />
@@ -492,7 +514,9 @@ function Search() {
                               name="ready_release"
                               value={item.value}
                               onChange={formik.handleChange}
-                              checked={formik.values.ready_release === item.value}
+                              checked={
+                                formik.values.ready_release === item.value
+                              }
                               className="holos-search-menu-item"
                               data-label={item.label}
                             />
@@ -600,11 +624,13 @@ function Search() {
                       type="button"
                       active={tabActive === 'filters'}
                       filled={
-                        (formik.values.price_start && formik.values.price_end) ||
+                        (formik.values.price_start &&
+                          formik.values.price_end) ||
                         (formik.values.area_start && formik.values.area_end) ||
                         (formik.values.bedroom_start &&
                           formik.values.bedroom_end) ||
-                        (formik.values.parking_start && formik.values.parking_end)
+                        (formik.values.parking_start &&
+                          formik.values.parking_end)
                       }
                       onClick={() => setTabActive('filters')}
                       className="holos-search-menu-filter"
@@ -619,9 +645,9 @@ function Search() {
                         formik.values.parking_end) ? (
                         <span>
                           {formik.values.price_start && formik.values.price_end
-                            ? `Valor R$ ${formatCurrency.format(
+                            ? `Valor ${formatCurrency.format(
                                 formik.values.price_start
-                              )} a R$ ${formatCurrency.format(
+                              )} a ${formatCurrency.format(
                                 formik.values.price_end
                               )}, `
                             : null}
@@ -708,7 +734,6 @@ function Search() {
                   Limpar filtros
                 </FormButtonClear>
               </FormFooter>
-
             </FormWrapperBox>
           </SimpleBar>
         </FormWrapper>
@@ -904,6 +929,7 @@ function Search() {
                       <RangeSlider
                         type="prices"
                         data={filtersData.prices}
+                        finality={formik.values.finality}
                         prefix="R$ "
                         onChange={(values) => {
                           formik.setFieldValue('price_start', values[0]);

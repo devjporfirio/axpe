@@ -212,7 +212,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <Text>Ref {building.reference}</Text>
               <ButtonLike
                 onClick={handleButtonLike}
-                active={checkFavorite(building.reference)}
+                active={checkFavorite(user, building.reference)}
                 className="holos-product-favorite"
               >
                 {building.likes > 0 && building.likes}

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Button from 'components/Button';
 import SlickSection from 'components/SlickSection';
 

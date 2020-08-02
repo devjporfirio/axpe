@@ -77,38 +77,40 @@ function Viewed() {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-        <Header>
-          <Title>
-            Refresque a memória.
-          </Title>
-          <Subtitle>Imóveis que você viu recentemente.</Subtitle>
-        </Header>
 
         {Object.keys(group).length > 0 ? (
-          Object.keys(group).map((item, itemIndex) => (
+          <>
+            <Header>
+              <Title>
+                Refresque a memória.
+              </Title>
+              <Subtitle>Imóveis que você viu recentemente.</Subtitle>
+            </Header>
+            {Object.keys(group).map((item, itemIndex) => (
 
-            <Fragment key={`row-viewed-${itemIndex}`}>
-              <Items>
-                <ItemsTitle>{item}</ItemsTitle>
-                <SliderNew
-                  type="normal"
-                  arrowsColor="greenDark"
-                  settings={settings}
-                >
-                  {group[item].map((building, buildingIndex) => (
-                    <BuildingCard
-                      key={`building-viewed-${building.reference}-${buildingIndex}`}
-                      layout="vertical"
-                      item={building}
-                      gtmShowcase="Imóvel Recente"
-                      positionIndex={buildingIndex + 1}
-                    />
-                  ))}
-                </SliderNew>
-              </Items>
-              {Object.keys(group).length - 1 > itemIndex && <hr />}
-            </Fragment>
-          ))
+              <Fragment key={`row-viewed-${itemIndex}`}>
+                <Items>
+                  <ItemsTitle>{item}</ItemsTitle>
+                  <SliderNew
+                    type="normal"
+                    arrowsColor="greenDark"
+                    settings={settings}
+                  >
+                    {group[item].map((building, buildingIndex) => (
+                      <BuildingCard
+                        key={`building-viewed-${building.reference}-${buildingIndex}`}
+                        layout="vertical"
+                        item={building}
+                        gtmShowcase="Imóvel Recente"
+                        positionIndex={buildingIndex + 1}
+                      />
+                    ))}
+                  </SliderNew>
+                </Items>
+                {Object.keys(group).length - 1 > itemIndex && <hr />}
+              </Fragment>
+            ))}
+          </>
         ) : (
           <Empty
             title="Você ainda não visualizou nenhum imóvel"

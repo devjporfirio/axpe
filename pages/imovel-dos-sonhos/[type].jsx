@@ -299,7 +299,7 @@ function DreamBuildingSingle({ type }) {
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
-      zf_redirect_url: `http://homolog.axpe.com.br/imovel-dos-sonhos/sucesso`,
+      zf_redirect_url: `${process.env.config.siteUrl}/imovel-dos-sonhos/sucesso`,
       zc_gad: '',
       utm_source: '',
       utm_medium: '',

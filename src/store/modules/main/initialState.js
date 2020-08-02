@@ -16,7 +16,8 @@ const initialState = {
   modalContact: false,
   modalContactSuccess: false,
   modalContactMessage: '',
-  modalPasswordNew: false
+  modalPasswordNew: false,
+  modalWorkWithUsSuccess: false
 };
 
 export default initialState;

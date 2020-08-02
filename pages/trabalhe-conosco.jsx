@@ -1,15 +1,19 @@
 import React from 'react';
 import Head from 'next/head';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import GTM from 'helpers/gtm';
 import Api from 'services';
+
+// actions
+import { setMain } from 'store/modules/main/actions';
 
 // components
 import FormElements from 'components/FormElements';
 import { FormGroup, FormGroupYesNo } from 'components/FormElements/styles';
 
 // helpers
+import GTM from 'helpers/gtm';
 import { getErrorMessage } from 'helpers/errors';
 import SeoData from 'helpers/seo';
 
@@ -21,44 +25,47 @@ import {
   FormGroupBrokerExperience,
   ButtonContainer,
   FormGroupBasics,
-  FormGroupLang
+  FormGroupLang,
 } from 'pages/Work/styles';
 
-function Work() {
-  const linkPolitics = <a href="/politica-de-privacidade">política de privacidade</a>;
+const workSchema = Yup.object().shape({
+  brokerExperience: Yup.string().required(),
+  haveBelieved: Yup.string().required(),
+  name: Yup.string()
+    .min(2)
+    .required(),
+  lastName: Yup.string()
+    .min(2)
+    .required(),
+  cpf: Yup.string().required(),
+  email: Yup.string()
+    .email()
+    .required(),
+  phone: Yup.string().required(),
+  mobile: Yup.string().required(),
+  linkedin: Yup.string(),
+  facebook: Yup.string(),
+  instagram: Yup.string(),
+  twitter: Yup.string(),
+  anotherSocialNetwork: Yup.string(),
+  lang1: Yup.string(),
+  lang2: Yup.string(),
+  lang3: Yup.string(),
+  lang4: Yup.string(),
+  previousExperiences: Yup.string().required(),
+  reasonWorkAxpe: Yup.string().required(),
+  wasIndicated: Yup.boolean(),
+  whoIndicated: Yup.string(),
+  terms: Yup.boolean()
+    .oneOf([ true ])
+    .required(),
+});
 
-  const workSchema = Yup.object().shape({
-    brokerExperience: Yup.string().required(),
-    haveBelieved: Yup.string().required(),
-    name: Yup.string()
-      .min(2)
-      .required(),
-    lastName: Yup.string()
-      .min(2)
-      .required(),
-    cpf: Yup.string().required(),
-    email: Yup.string()
-      .email()
-      .required(),
-    phone: Yup.string().required(),
-    mobile: Yup.string().required(),
-    linkedin: Yup.string(),
-    facebook: Yup.string(),
-    instagram: Yup.string(),
-    twitter: Yup.string(),
-    anotherSocialNetwork: Yup.string(),
-    lang1: Yup.string(),
-    lang2: Yup.string(),
-    lang3: Yup.string(),
-    lang4: Yup.string(),
-    previousExperiences: Yup.string().required(),
-    reasonWorkAxpe: Yup.string().required(),
-    wasIndicated: Yup.boolean(),
-    whoIndicated: Yup.string(),
-    terms: Yup.boolean()
-      .oneOf([ true ])
-      .required()
-  });
+function Work() {
+  const dispatch = useDispatch();
+  const linkPolitics = (
+    <a href="/politica-de-privacidade">política de privacidade</a>
+  );
 
   const {
     handleSubmit,
@@ -68,7 +75,7 @@ function Work() {
     values,
     touched,
     errors,
-    setFieldValue
+    setFieldValue,
   } = useFormik({
     initialValues: {
       brokerExperience: '',
@@ -92,19 +99,20 @@ function Work() {
       reasonWorkAxpe: '',
       wasIndicated: '',
       whoIndicated: '',
-      terms: false
+      terms: false,
     },
     validationSchema: workSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const resp = await Api.Contact.postWorkWithUs(values);
+      const response = await Api.Contact.postWorkWithUs(values);
+
       setSubmitting(false);
-      if (resp.status) {
-        GTM.dataLayerPush({
-          event: 'Form Response',
-          formType: 'Trabalhe conosco',
-          formResult: 'Sucesso',
-          formMessage: ''
-        });
+
+      if (response.status) {
+        dispatch(
+          setMain({
+            modalWorkWithUsSuccess: true,
+          })
+        );
 
         resetForm({});
       } else {
@@ -114,10 +122,10 @@ function Work() {
           event: 'Form Response',
           formType: 'Trabalhe conosco',
           formResult: 'Erro',
-          formMessage: msg
+          formMessage: msg,
         });
       }
-    }
+    },
   });
 
   return (

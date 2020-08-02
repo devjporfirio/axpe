@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-// components
-import Slider from 'components/Slider';
-
 export const Container = styled.div`
   width: 100vw;
   padding-bottom: 36px;
@@ -41,18 +38,20 @@ export const Title = styled.h2`
   `}
 `;
 
-export const Reasons = styled(Slider)`
+export const Reasons = styled.div`
   width: 100%;
   margin: auto;
+  position: relative;
+  overflow: hidden;
 
   ${media.greaterThan('medium')`
     width: 90%;
     /* height: 352px; */
   `}
 
-  & > button {
+  .slick-slider > button {
     &:first-of-type {
-      left: 5px;
+      left: -5px;
 
       ${media.greaterThan('medium')`
         left: -30px;
@@ -60,7 +59,7 @@ export const Reasons = styled(Slider)`
     }
 
     &:last-of-type {
-      right: 5px;
+      right: -5px;
 
       ${media.greaterThan('medium')`
         right: -30px;

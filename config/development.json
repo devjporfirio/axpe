@@ -1,7 +1,7 @@
 {
   "env": "development",
   "siteUrl": "http://0.0.0.0:3000",
-  "apiUrl": "http://futurebrand.com.br/projetos/axpe/painel/api",
+  "apiUrl": "http://3.215.21.38/api",
   "googleApiKey": "AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto",
   "googleClientId": "901672099745-oq0frigilvcba217e2n8l5sj01njt134.apps.googleusercontent.com"
 }

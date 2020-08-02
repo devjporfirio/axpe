@@ -25,7 +25,7 @@ import {
   Balloon,
   Pin,
   Circle,
-  Rec
+  Rec,
 } from './styles';
 
 function FormContact({ showHeader = true }) {
@@ -41,7 +41,7 @@ function FormContact({ showHeader = true }) {
         if ($success) {
           dispatch(
             setMain({
-              modalContactSuccess: true
+              modalContactSuccess: true,
             })
           );
           refIframe.current.setAttribute('src', '/forms/contato/index.html');
@@ -82,7 +82,7 @@ function FormContact({ showHeader = true }) {
             <IframeContainer>
               <Iframe
                 ref={refIframe}
-                src="/forms/contato/index.html"
+                src={`/forms/contato/index.html?redirectUrl=${process.env.config.siteUrl}/forms/contato/sucesso.html`}
                 border="none"
                 frameBorder="0"
                 title="Contato"
@@ -93,11 +93,11 @@ function FormContact({ showHeader = true }) {
           <Mapa>
             <GoogleMapReact
               bootstrapURLKeys={{
-                key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto'
+                key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto',
               }}
               defaultCenter={{
                 lat: -23.578524,
-                lng: -46.67418
+                lng: -46.67418,
               }}
               defaultZoom={18}
             >
@@ -105,8 +105,8 @@ function FormContact({ showHeader = true }) {
                 <Balloon>
                   <h4>Nosso escritório</h4>
                   <p>
-                    Avenida Nove de Julho, 5017, 10° Andar. Jardim Paulista -
-                    São Paulo, SP
+                    Avenida Nove de Julho, 5017, 10° Andar.Jardim Paulista - São
+                    Paulo, SP
                   </p>
                   <a href="https://g.page/axpe_imoveis?share">Como chegar?</a>
                 </Balloon>
