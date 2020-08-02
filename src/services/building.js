@@ -20,11 +20,13 @@ export default {
       .then(data => data);
     return result;
   },
-  async getGeocode(cep) {
+  async getGeocode(local, cep) {
+    if(!local || !cep) return null;
+
     const googleApiKey = process.env.config.googleApiKey;
 
     let result = await fetch(
-      `${baseMaps}/geocode/json?address=${cep}&key=${googleApiKey}`
+      `${baseMaps}/geocode/json?address=${local} ${cep}&key=${googleApiKey}`
     )
       .then(response => response.json())
       .then(data => data);
@@ -40,10 +42,10 @@ export default {
         x.types.includes('route')
       );
       const addressSub = result.results[0].address_components.find(x =>
-        x.types.includes('sublocality_level_1')
+        x.types.includes('sublocality_level_1') || x.types.includes('locality')
       );
       const addressAdm = result.results[0].address_components.find(x =>
-        x.types.includes('administrative_area_level_2')
+        x.types.includes('administrative_area_level_1') || x.types.includes('administrative_area_level_2')
       );
 
       if (addressRoute && addressSub && addressAdm) {

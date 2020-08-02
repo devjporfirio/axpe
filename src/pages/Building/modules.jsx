@@ -72,6 +72,7 @@ function Modules({ property }) {
       case 'vizinhanca':
         return (
           <Around
+            local={property.address.local}
             cep={component.data.cep}
             text={component.data.texto || component.data.text}
           />

@@ -10,7 +10,7 @@ import PinWhiteIconSVG from 'assets/icons/pin-white';
 // styles
 import { Container, Mapa, Pin, Text } from './styles';
 
-function Around({ cep, text }) {
+function Around({ local, cep, text }) {
   const [ overvirePoly, setOverviewPoly ] = useState('');
   const [ zipCode, setZipCode ] = useState('');
   const [ lat, setLat ] = useState('');
@@ -23,7 +23,7 @@ function Around({ cep, text }) {
 
   useEffect(() => {
     async function loadOverviewPolyline() {
-      const geocode = await Api.Building.getGeocode(zipCode.replace('-', ''));
+      const geocode = await Api.Building.getGeocode(local, zipCode.replace('-', ''));
 
       if (zipCode && geocode && geocode.geometry && geocode.geometry.bounds) {
         const directions = await Api.Building.getDirections(
