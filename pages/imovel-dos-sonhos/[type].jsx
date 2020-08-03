@@ -269,7 +269,7 @@ function DreamBuildingSingle({ type }) {
     'sao-paulo-comprar-lancamentos': [
       'Apartamento',
       'Cobertura',
-      'Loft',
+      // 'Loft',
       'Casa em Condomínio',
     ],
     'sao-paulo-comerciais': [
