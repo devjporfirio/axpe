@@ -1,60 +1,39 @@
-import React, { useCallback } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 
 // components
 import Modal from 'components/Modals';
 import Slider from 'components/Slider';
-import Button from 'components/Button';
-import FormElements from 'components/FormElements';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
 
 // styles
 import { Texts, Text, TextWrapper, Column, ColumnTitle } from 'components/Modals/styles';
-import { FormGroup } from 'components/FormElements/styles';
-import { FormContainer } from './styles';
-
-const newsletterSchema = Yup.object().shape({
-  name: Yup.string().min(2).required(),
-  lastname: Yup.string().min(2).required(),
-  email: Yup.string().email().required()
-});
+import { FormContainer, Iframe } from './styles';
 
 function NewsletterModal() {
   const dispatch = useDispatch();
+  const refIframe = useRef(null);
   const { modalNewsletter } = useSelector(state => state.main);
 
-  const {
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting,
-    values,
-    touched,
-    errors
-  } = useFormik({
-    initialValues: {
-      name: '',
-      lastname: '',
-      email: '',
-    },
-    validationSchema: newsletterSchema,
-    onSubmit: async (values, { setSubmitting }) => {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          setSubmitting(false);
-          dispatch(setMain({
-            modalNewsletter: false,
-            modalNewsletterSuccess: true
-          }));
-          resolve();
-        }, 3000);
-      });
+  useEffect(() => {
+    if (refIframe.current) {
+      refIframe.current.onload = function() {
+        const $contents = this.contentDocument || this.contentWindow.document;
+        const $success = $contents.querySelector('.success-detect');
+
+        if ($success) {
+          dispatch(
+            setMain({
+              modalContactSuccess: true,
+            })
+          );
+          refIframe.current.setAttribute('src', '/forms/newsletter/index.html');
+        }
+      };
     }
-  });
+  }, [ refIframe ]);
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalNewsletter: false }))
@@ -76,60 +55,15 @@ function NewsletterModal() {
         </Slider>
       </Texts>
       <Column>
-        <FormContainer onSubmit={handleSubmit}>
+        <FormContainer>
           <ColumnTitle>Por favor, preencha seus dados e fique por dentro do que acontece na Axpe.</ColumnTitle>
-          <FormGroup>
-            <FormElements
-              name="name"
-              label="Nome"
-              placeholder="Nome"
-              themeColor="dark"
-              error={touched.name && errors.name}
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="holos-form-field"
-              data-label="Nome"
-              data-type="Newsletter"
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormElements
-              name="lastname"
-              label="Sobrenome"
-              placeholder="Sobrenome"
-              themeColor="dark"
-              error={touched.lastname && errors.lastname}
-              value={values.lastname}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="holos-form-field"
-              data-label="Sobrenome"
-              data-type="Newsletter"
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormElements
-              name="email"
-              label="E-mail"
-              placeholder="E-mail"
-              themeColor="dark"
-              error={touched.email && errors.email}
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="holos-form-field"
-              data-label="E-mail"
-              data-type="Newsletter"
-            />
-          </FormGroup>
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            fullWidth={true}
-            className="holos-form-submit"
-            data-type="Newsletter"
-          >Cadastre-se</Button>
+          <Iframe
+            ref={refIframe}
+            src={`/forms/newsletter/index.html?redirectUrl=${process.env.config.siteUrl}/forms/newsletter/sucesso.html`}
+            border="none"
+            frameBorder="0"
+            title="Newsletter"
+          ></Iframe>
         </FormContainer>
       </Column>
     </Modal>
