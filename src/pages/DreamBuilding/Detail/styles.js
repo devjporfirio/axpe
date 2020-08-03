@@ -124,6 +124,7 @@ export const FormListItem = styled.li`
 
   label {
     min-height: 0 !important;
+    cursor: pointer;
 
     &[for="Radio1"] {
       background: transparent;

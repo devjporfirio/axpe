@@ -62,12 +62,15 @@ export const Label = styled.label`
 
       span {
         position: initial;
-        /* top: 5px !important; */
 
         a, button {
           text-decoration: underline;
           color: ${({ theme }) => theme.colors.orange};
         }
+      }
+
+      input {
+        cursor: pointer;
       }
     `}
 

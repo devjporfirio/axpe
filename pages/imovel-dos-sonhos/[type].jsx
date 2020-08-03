@@ -604,6 +604,7 @@ function DreamBuildingSingle({ type }) {
                           key={`formlistitem-type-${typeIndex}-${type.value}`}
                         >
                           <FormElements
+                            id={`MultipleChoice1_${typeIndex}`}
                             name="MultipleChoice1"
                             type="checkbox"
                             label={type.label}
