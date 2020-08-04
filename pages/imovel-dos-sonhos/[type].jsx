@@ -42,24 +42,6 @@ import {
 
 import { FormGroup } from 'components/FormElements/styles';
 
-const formSchema = Yup.object().shape({
-  MultipleChoice1: Yup.array(),
-  MultipleChoice: Yup.array(),
-  Number: Yup.string(),
-  Number1: Yup.string().required(),
-  Number2: Yup.string().required(),
-  Finality: Yup.string(),
-  Currency: Yup.string().required(),
-  Currency_copy: Yup.string().required(),
-  Dropdown4: Yup.string(),
-  Dropdown5: Yup.string().required(),
-  MultiLine1: Yup.string().required(),
-  MultiLine2: Yup.string().required(),
-  Radio1: Yup.string(),
-  SingleLine2: Yup.string(),
-  SingleLine3: Yup.string(),
-  Dropdown3: Yup.string(),
-});
 
 function DreamBuildingSingle({ type }) {
   const dispatch = useDispatch();
@@ -68,7 +50,27 @@ function DreamBuildingSingle({ type }) {
   const [ breadcrumb, setBreadcrumb ] = useState([]);
   const [ localsModal, setLocalsModal ] = useState(false);
   const [ optionsTypes, setOptionsTypes ] = useState([]);
+  const [ valueDropdown2, setValueDropdown2 ] = useState(null);
   const [ finality, setFinality ] = useState(null);
+
+  const formSchema = Yup.object().shape({
+    MultipleChoice1: Yup.array(),
+    MultipleChoice: Yup.array(),
+    Number: Yup.string(),
+    Number1: type !== 'internacional' ? Yup.string().required() : Yup.string(),
+    Number2: Yup.string().required(),
+    Finality: Yup.string(),
+    Currency: Yup.string().required(),
+    Currency_copy: Yup.string().required(),
+    Dropdown4: Yup.string(),
+    Dropdown5: Yup.string().required(),
+    MultiLine1: Yup.string().required(),
+    MultiLine2: Yup.string().required(),
+    Radio1: Yup.string(),
+    SingleLine2: Yup.string(),
+    SingleLine3: Yup.string(),
+    Dropdown3: Yup.string(),
+  });
 
   const getUrlFromType = useCallback(() => {
     switch (type) {
@@ -254,7 +256,6 @@ function DreamBuildingSingle({ type }) {
       'Casa de Vila',
       'Casa em Condomínio',
       'Cobertura',
-      'Loft',
       'Terreno',
     ],
     'sao-paulo-alugar-residencial': [
@@ -263,13 +264,11 @@ function DreamBuildingSingle({ type }) {
       'Casa de Vila',
       'Casa em Condomínio',
       'Cobertura',
-      'Loft',
       'Terreno',
     ],
     'sao-paulo-comprar-lancamentos': [
       'Apartamento',
       'Cobertura',
-      // 'Loft',
       'Casa em Condomínio',
     ],
     'sao-paulo-comerciais': [
@@ -277,7 +276,6 @@ function DreamBuildingSingle({ type }) {
       'Conjunto',
       'Galpão',
       'Laje',
-      'Loft',
       'Loja',
       'Terreno',
       'Prédio Monousuário',
@@ -308,7 +306,7 @@ function DreamBuildingSingle({ type }) {
       utm_content: '',
       Dropdown: 'Interessado',
       Dropdown1: 'VD-RES Revenda',
-      Dropdown2: 'VD-RES Revenda SP',
+      Dropdown2: valueDropdown2,
       DecisionBox: true,
       Radio: 'Novo Lead',
       Name_First: user.me.name,
@@ -398,6 +396,34 @@ function DreamBuildingSingle({ type }) {
       setFilters();
     }
   }, [ main.categories, finality, values.Radio1 ]);
+
+  useEffect(() => {
+    let tempValueDropdown2 = null;
+
+    switch(type) {
+      case 'internacional':
+        tempValueDropdown2 = 'VD-RES Revenda IN';
+        break;
+      case 'sao-paulo-comprar-lancamentos':
+        tempValueDropdown2 = 'VD-RES Lançamento SP';
+        break;
+      case 'sao-paulo-alugar-residencial':
+        tempValueDropdown2 = 'LC-RES Longa SP';
+        break;
+      case 'sao-paulo-comerciais':
+        tempValueDropdown2 = finality === 'aluguel' ? 'LC-COM Longa SP' : 'VD-COM Revenda SP';
+        break;
+      case 'praia-campo':
+        tempValueDropdown2 = finality === 'aluguel' ? 'LC-RES Longa PC' : 'VD-RES Revenda PC';
+        break;
+      default:
+        tempValueDropdown2 = 'VD-RES Revenda SP';
+        break;
+    }
+
+    setValueDropdown2(tempValueDropdown2);
+    setFieldValue('Dropdown2', tempValueDropdown2);
+  }, [ finality ]);
 
   useEffect(() => {
     async function loadMe() {
@@ -539,6 +565,7 @@ function DreamBuildingSingle({ type }) {
                         <FormListItem>
                           <FormElements
                             name="Radio1"
+                            id="Radio1-praia"
                             type="radio"
                             label="Praia"
                             onChange={handleChange}
@@ -553,6 +580,7 @@ function DreamBuildingSingle({ type }) {
                         <FormListItem>
                           <FormElements
                             name="Radio1"
+                            id="Radio1-campo"
                             type="radio"
                             label="Campo"
                             onChange={handleChange}
@@ -624,7 +652,7 @@ function DreamBuildingSingle({ type }) {
                 </FormGroupContainer>
               ) : null}
 
-              {type !== 'praia-campo' && (
+              {type !== 'praia-campo' && type !== 'internacional' && (
                 <>
                   <ButtonLocals
                     type="button"
@@ -707,6 +735,30 @@ function DreamBuildingSingle({ type }) {
                     </FormList>
                   </FormGroupContainer>
                 </>
+              )}
+
+              {type === 'internacional' && (
+                <FormGroupContainer>
+                  <h2>
+                    Aonde você deseja?
+                  </h2>
+                  <FormCol layout="half">
+                    <FormGroup>
+                      <FormElements
+                        name="SingleLine2"
+                        label="Quais as cidades de interesse"
+                        placeholder="&nbsp;"
+                        onChange={handleChange}
+                        error={touched.SingleLine2 && errors.SingleLine2}
+                        value={values.SingleLine2}
+                        onBlur={handleBlur}
+                        className="holos-form-field"
+                        data-label="De quanto espaço você precisa?"
+                        data-type="Imóvel dos Sonhos"
+                      />
+                    </FormGroup>
+                  </FormCol>
+                </FormGroupContainer>
               )}
 
               <FormGroupContainer>
@@ -799,22 +851,24 @@ function DreamBuildingSingle({ type }) {
                     </FormGroup>
                   </FormCol>
                 )}
-                <FormCol layout="parking" last={true}>
-                  <h3>Vagas de garagem?</h3>
-                  <FormGroup>
-                    <FormElements
-                      name="Number1"
-                      type="select"
-                      items={optionsDropdownNumbers}
-                      onChange={handleChange}
-                      error={touched.Number1 && errors.Number1}
-                      onBlur={handleBlur}
-                      className="holos-form-field"
-                      data-label="Vagas de garagem?"
-                      data-type="Imóvel dos Sonhos"
-                    />
-                  </FormGroup>
-                </FormCol>
+                {type !== 'internacional' && (
+                  <FormCol layout="parking" last={true}>
+                    <h3>Vagas de garagem?</h3>
+                    <FormGroup>
+                      <FormElements
+                        name="Number1"
+                        type="select"
+                        items={optionsDropdownNumbers}
+                        onChange={handleChange}
+                        error={touched.Number1 && errors.Number1}
+                        onBlur={handleBlur}
+                        className="holos-form-field"
+                        data-label="Vagas de garagem?"
+                        data-type="Imóvel dos Sonhos"
+                      />
+                    </FormGroup>
+                  </FormCol>
+                )}
               </FormCols>
 
               <FormCols>
@@ -836,7 +890,7 @@ function DreamBuildingSingle({ type }) {
                     />
                   </FormGroup>
                 </FormCol>
-                {type !== 'sao-paulo-comerciais' && (
+                {type !== 'sao-paulo-comerciais' && type !== 'internacional' && (
                   <FormCol layout="half" last={true}>
                     <h3>E sobre a área de lazer?</h3>
                     <FormGroup>

@@ -58,14 +58,14 @@ const workSchema = Yup.object().shape({
   whoIndicated: Yup.string(),
   terms: Yup.boolean()
     .oneOf([ true ])
-    .required(),
+    // .required(),
 });
 
 function Work() {
   const dispatch = useDispatch();
-  const linkPolitics = (
-    <a href="/politica-de-privacidade">política de privacidade</a>
-  );
+  // const linkPolitics = (
+  //   <a href="/politica-de-privacidade">política de privacidade</a>
+  // );
 
   const {
     handleSubmit,
@@ -99,7 +99,7 @@ function Work() {
       reasonWorkAxpe: '',
       wasIndicated: '',
       whoIndicated: '',
-      terms: false,
+      terms: true,
     },
     validationSchema: workSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -458,7 +458,7 @@ function Work() {
             )}
           </FormGroup>
           <FormGroupButton>
-            <FormElements
+            {/* <FormElements
               type="checkboxLink"
               name="terms"
               label={<>Concordo com a {linkPolitics} da Axpe.</>}
@@ -470,7 +470,7 @@ function Work() {
               className="holos-form-field"
               data-label="Concordo com a politica de privacidade da Axpe"
               data-type="Trabalhe Conosco"
-            />
+            /> */}
             <ButtonContainer
               disabled={isSubmitting}
               type="submit"

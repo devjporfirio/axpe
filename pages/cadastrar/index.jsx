@@ -15,7 +15,6 @@ import UserInfo from 'components/UserInfo';
 // helpers
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
-import { getParamsFromObject } from 'helpers/utils';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -94,12 +93,66 @@ function Register({ locals, categories, countries }) {
   const dispatch = useDispatch();
   const refForm = useRef(null);
   const user = useSelector((state) => state.user);
-  // const [ keyLocals, setKeyLocals ] = useState('São Paulo');
-  const [ keyLocals ] = useState('São Paulo');
   const [ cats, setCats ] = useState([]);
-  const [ localsByKey, setLocalsByKey ] = useState([
+
+  const optionsLocals = [
     { label: 'Selecione', value: '' },
-  ]);
+    { label: 'Aclimação', value: 'Aclimação' },
+    { label: 'Alto da Lapa', value: 'Alto da Lapa' },
+    { label: 'Alto de Pinheiros', value: 'Alto de Pinheiros' },
+    { label: 'Bela Vista', value: 'Bela Vista' },
+    { label: 'Brooklin Novo', value: 'Brooklin Novo' },
+    { label: 'Campo Belo', value: 'Campo Belo' },
+    { label: 'Centro', value: 'Centro' },
+    { label: 'Cidade Jardim', value: 'Cidade Jardim' },
+    { label: 'Consolação', value: 'Consolação' },
+    { label: 'Higienópolis', value: 'Higienópolis' },
+    { label: 'Ibirapuera', value: 'Ibirapuera' },
+    { label: 'Itaim Bibi', value: 'Itaim Bibi' },
+    { label: 'Jardim América', value: 'Jardim América' },
+    { label: 'Jardim Europa', value: 'Jardim Europa' },
+    { label: 'Jardim Guedala', value: 'Jardim Guedala' },
+    { label: 'Jardim Paulista', value: 'Jardim Paulista' },
+    { label: 'Jardim Paulistano', value: 'Jardim Paulistano' },
+    { label: 'Jardins', value: 'Jardins' },
+    { label: 'Moema', value: 'Moema' },
+    { label: 'Pacaembu', value: 'Pacaembu' },
+    { label: 'Paraíso', value: 'Paraíso' },
+    { label: 'Perdizes', value: 'Perdizes' },
+    { label: 'Pinheiros', value: 'Pinheiros' },
+    { label: 'Pompeia', value: 'Pompeia' },
+    { label: 'Real Parque', value: 'Real Parque' },
+    { label: 'Santa Cecília', value: 'Santa Cecília' },
+    { label: 'Sumaré', value: 'Sumaré' },
+    { label: 'Vila Beatriz', value: 'Vila Beatriz' },
+    { label: 'Vila Madalena', value: 'Vila Madalena' },
+    { label: 'Vila Mariana', value: 'Vila Mariana' },
+    { label: 'Vila Nova Conceição', value: 'Vila Nova Conceição' },
+    { label: 'Vila Olímpia', value: 'Vila Olímpia' },
+  ];
+
+  const optionsTypesData = {
+    residencial: [
+      'Apartamento',
+      'Casa',
+      'Casa de Vila',
+      'Casa em Condomínio',
+      'Cobertura',
+      'Terreno',
+    ],
+    comercial: [
+      'Casa Comercial',
+      'Conjunto',
+      'Galpão',
+      'Laje',
+      'Loja',
+      'Terreno',
+      'Prédio Monousuário',
+    ],
+    praia: [ 'Casa', 'Casa em Condomínio', 'Terreno' ],
+    campo: [ 'Casa', 'Casa em Condomínio', 'Terreno' ],
+    internacional: [ 'Apartamento', 'Casa', 'Vinhedo' ],
+  };
 
   const optionsCountries = [
     { label: 'Selecione uma opção', value: '' },
@@ -237,38 +290,6 @@ function Register({ locals, categories, countries }) {
     });
   }, []);
 
-  const updateLocals = useCallback(async () => {
-    const source =
-      values.SingleLine5 === 'Residencial' || values.SingleLine5 === 'Comercial'
-        ? 'sao-paulo'
-        : values.SingleLine5.toLowerCase();
-    const currentLocal = source === 'sao-paulo' ? 'São Paulo' : values.SingleLine5;
-    const use =
-      source === 'sao-paulo' ? values.SingleLine5.toUpperCase() : null;
-    let finality = null;
-
-    if (values.finalityVender && !values.finalityAluguel) {
-      finality = 'venda';
-    } else if (!values.finalityVender && values.finalityAluguel) {
-      finality = 'aluguel';
-    }
-
-    const params = {
-      source,
-      finality,
-      use,
-    };
-
-    const response = await Api.Search.getFilters(getParamsFromObject(params));
-
-    if(response.locals[currentLocal]) {
-      const newLocals = [{ label: 'Selecione', value: '' }].concat(
-        response.locals[currentLocal].map((y) => ({ label: y, value: y }))
-      );
-      setLocalsByKey(newLocals);
-    }
-  }, [ values ]);
-
   useEffect(() => {
     async function loadMe() {
       if (user && user.logged) {
@@ -290,23 +311,11 @@ function Register({ locals, categories, countries }) {
   }, [ user ]);
 
   useEffect(() => {
-    updateLocals();
-  }, [
-    keyLocals,
-    values.SingleLine5,
-    values.finalityVender,
-    values.finalityAluguel,
-  ]);
+    let newCats = optionsTypesData[values.SingleLine5.toLowerCase()];
 
-  useEffect(() => {
-    let newCats =
-      categories && Object.keys(categories).length > 0 && values.SingleLine5
-        ? categories[values.SingleLine5.toUpperCase()]
-        : null;
-
-    if (newCats) {
+    if (values.SingleLine5 && newCats) {
       newCats = [{ label: 'Selecione', value: '' }].concat(
-        categories[values.SingleLine5.toUpperCase()].map((x) => ({
+        newCats.map((x) => ({
           label: x,
           value: x,
         }))
@@ -314,7 +323,7 @@ function Register({ locals, categories, countries }) {
     }
 
     setCats(newCats);
-  }, [ categories, values ]);
+  }, [ values ]);
 
   const handleRemoveImage = useCallback(
     (position) => {
@@ -536,7 +545,7 @@ function Register({ locals, categories, countries }) {
                       items={optionsCountries}
                       onChange={(e) => {
                         handleChange(e);
-                        // setKeyLocals(e.currentTarget.value);
+                        setFieldValue('SingleLine8', e.currentTarget.value)
                       }}
                       error={touched.SingleLine8 && errors.SingleLine8}
                       onBlur={handleBlur}
@@ -613,7 +622,10 @@ function Register({ locals, categories, countries }) {
                     data-type="Cadastrar Imóvel"
                   />
                 )}
-                {values.SingleLine5 === 'Campo' && (
+
+                {values.SingleLine11 === 'Apartamento' ||
+                values.SingleLine11 === 'Casa em Condomínio' ||
+                values.SingleLine11 === 'Cobertura' ? (
                   <FormElements
                     name="SingleLine10"
                     label="Condomínio"
@@ -626,7 +638,8 @@ function Register({ locals, categories, countries }) {
                     data-label="Condomínio"
                     data-type="Cadastrar Imóvel"
                   />
-                )}
+                ) : null}
+
                 {values.SingleLine5 !== 'Praia' &&
                   values.SingleLine5 !== 'Campo' &&
                   values.SingleLine5 !== 'Internacional' && (
@@ -635,7 +648,7 @@ function Register({ locals, categories, countries }) {
                       placeholder="Bairro"
                       label="Bairro"
                       type="select"
-                      items={localsByKey}
+                      items={optionsLocals}
                       message="* Por enquanto atuamos apenas nestes bairros"
                       onChange={handleChange}
                       error={touched.SingleLine7 && errors.SingleLine7}
@@ -978,7 +991,7 @@ function Register({ locals, categories, countries }) {
 
 Register.getInitialProps = async ({ query }) => {
   const locals = await Api.Search.getLocals();
-  const categories = await Api.Search.getCategories();
+  // const categories = await Api.Search.getCategories();
   const countries = await Api.Search.getFilters('?source=internacional');
   const itemBase = { label: 'Selecione', value: '' };
 
@@ -990,7 +1003,7 @@ Register.getInitialProps = async ({ query }) => {
   return {
     locals: locals,
     countries: newContries,
-    categories,
+    // categories,
   };
 };
 

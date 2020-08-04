@@ -76,6 +76,15 @@ export const Label = styled.label`
 
 
   ${props =>
+    props.type === 'radio' &&
+    css`
+      input {
+        cursor: pointer;
+      }
+    `}
+
+
+  ${props =>
     props.type === 'checkboxLink' &&
     css`
       span {
