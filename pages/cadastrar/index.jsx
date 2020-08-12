@@ -61,7 +61,7 @@ const registrySchema = Yup.object().shape({
   SingleLine2: Yup.string().required(),
   SingleLine3: Yup.string(),
   SingleLine4: Yup.string(),
-  SingleLine7: Yup.string().required(),
+  SingleLine7: Yup.string(),
   SingleLine8: Yup.string(),
   Number2: Yup.string().required(),
   Number: Yup.string(),
@@ -214,7 +214,7 @@ function Register({ locals, categories, countries }) {
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
-      zf_redirect_url: 'http://homolog.axpe.com.br/cadastrar/sucesso',
+      zf_redirect_url: 'https://axpe.com.br/cadastrar/sucesso',
       zc_gad: '',
       utm_source: '',
       utm_medium: '',
@@ -623,23 +623,6 @@ function Register({ locals, categories, countries }) {
                   />
                 )}
 
-                {values.SingleLine11 === 'Apartamento' ||
-                values.SingleLine11 === 'Casa em Condomínio' ||
-                values.SingleLine11 === 'Cobertura' ? (
-                  <FormElements
-                    name="SingleLine10"
-                    label="Condomínio"
-                    placeholder="Condomínio"
-                    onChange={handleChange}
-                    error={touched.SingleLine10 && errors.SingleLine10}
-                    value={values.SingleLine10}
-                    onBlur={handleBlur}
-                    className="holos-form-field"
-                    data-label="Condomínio"
-                    data-type="Cadastrar Imóvel"
-                  />
-                ) : null}
-
                 {values.SingleLine5 !== 'Praia' &&
                   values.SingleLine5 !== 'Campo' &&
                   values.SingleLine5 !== 'Internacional' && (
@@ -850,7 +833,9 @@ function Register({ locals, categories, countries }) {
                       data-label="Valor mensal de IPTU"
                       data-type="Cadastrar Imóvel"
                     />
-                    {values.SingleLine11 !== 'Casa' && (
+                    {values.SingleLine11 === 'Apartamento' ||
+                    values.SingleLine11 === 'Casa em Condomínio' ||
+                    values.SingleLine11 === 'Cobertura' ? (
                       <FormElements
                         type="currency"
                         name="Currency2"
@@ -871,7 +856,7 @@ function Register({ locals, categories, countries }) {
                         data-label="Valor do condomínio"
                         data-type="Cadastrar Imóvel"
                       />
-                    )}
+                    ) : null}
                   </FormGroupValuesSub>
                 )}
               </FormGroupValues>

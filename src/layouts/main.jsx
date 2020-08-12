@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import Router from 'next/router';
 
 // helpers
-import OneSignalHelper from 'helpers/oneSignal';
+// import OneSignalHelper from 'helpers/oneSignal';
 
 // actions
 import { setLoading } from 'store/modules/loading/actions';
@@ -68,12 +68,12 @@ function Main({ children }) {
       return true
     })
 
-    OneSignalHelper.start();
+    // OneSignalHelper.start();
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      alert('exibir botão para adicionar app na home!')
-    });
+    // window.addEventListener('beforeinstallprompt', (e) => {
+    //   e.preventDefault();
+    //   console.log('exibir botão para adicionar app na home!')
+    // });
 
     dispatch(setLoading({ active: false }));
     dispatch(setUserByCookie());

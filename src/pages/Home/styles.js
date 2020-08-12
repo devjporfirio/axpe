@@ -140,11 +140,12 @@ export const HeroItemInfo = styled.div`
 
   h2 {
     max-width: 400px;
-    font: 38px/40px 'Bitter';
+    font: 32px/34px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
 
     ${media.greaterThan('medium')`
       font-size: 41px;
+      line-height: 40px;
     `}
 
     &:after {

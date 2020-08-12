@@ -64,7 +64,7 @@ function Share({ active, path, title, onClose }) {
             <SVG src={WhatsappRoundedIconSVG} uniquifyIDs={true} /> Whatsapp
           </SocialsButton>
           <SocialsButton
-            href={`http://www.facebook.com/sharer.php?u=${url}`}
+            href={`https://www.facebook.com/sharer.php?u=${url}`}
             target="_blank"
             className="holos-account-favorite-share-network"
             data-label="Facebook"
@@ -72,7 +72,7 @@ function Share({ active, path, title, onClose }) {
             <SVG src={FacebookRoundedIconSVG} uniquifyIDs={true} /> Facebook
           </SocialsButton>
           <SocialsButton
-            href={`http://twitter.com/share?text=${title}&url=${url}`}
+            href={`https://twitter.com/share?text=${title}&url=${url}`}
             target="_blank"
             className="holos-account-favorite-share-network"
             data-label="Twitter"

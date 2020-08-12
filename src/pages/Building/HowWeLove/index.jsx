@@ -19,7 +19,7 @@ function HowWeLove({ reasons }) {
   const [ settings, setSettings ] = useState({
     dots: false,
     infinite: false,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
       {
@@ -73,7 +73,7 @@ function HowWeLove({ reasons }) {
       setHtml(tempHtml);
     }
 
-    if (total > 5) total = 5;
+    if (total > 4) total = 4;
 
     setSettings({
       ...settings,
@@ -113,7 +113,7 @@ function HowWeLove({ reasons }) {
   return (type === 'array' && data) || (type === 'html' && html && data) ? (
     <Container ref={refReasons}>
       <Title>
-        <span>Por que </span>
+        <span>Porque </span>
         <span>curtimos </span>
         <span>esse imóvel</span>
       </Title>

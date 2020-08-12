@@ -186,9 +186,10 @@ function ContactBar() {
           : currentBuilding.infos.parkingStart,
         value: null,
         userFirstName: user.me.name,
-        userLastName: user.me.lastName,
+        userLastName: user.me.lastName || 'semnome',
         userPhone: user.me.phone,
         userEmail: user.me.email,
+        url: location.href,
         redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
       };
       let iframeSelected = null;

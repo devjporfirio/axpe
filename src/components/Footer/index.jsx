@@ -34,7 +34,7 @@ function Footer() {
             <SVG src={FacebookIconSVG} uniquifyIDs={true} />
           </SocialButton>
           <SocialButton
-            href="http://instagram.com/axpe_imoveis"
+            href="https://instagram.com/axpe_imoveis"
             target="_blank"
             className="holos-footer-social-link"
             data-label="Instagram"

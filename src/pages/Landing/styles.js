@@ -213,10 +213,12 @@ export const SlideSmall = styled(SlickSection)`
 export const Banner = styled.div`
   position: relative;
   padding: 0 30px 30px;
+  overflow: hidden;
 
   img {
     width: 100%;
     height: auto;
+    border-radius: 6px;
   }
 
   ${media.greaterThan('medium')`

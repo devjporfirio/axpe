@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import Api from 'services';
 import checkFavorite from 'helpers/checkFavorite';
 import SocketIoHelper from 'helpers/socketio';
-import OneSignalHelper from 'helpers/oneSignal';
+// import OneSignalHelper from 'helpers/oneSignal';
 
 const cookieParams = {
   expires: 15
@@ -62,7 +62,7 @@ const user = store => next => async action => {
       updateMe(newUserData.access_token);
       updateFavorites(newUserData.access_token);
 
-      OneSignalHelper.watch(store);
+      // OneSignalHelper.watch(store);
 
       SocketIoHelper.watch({
         accessToken: newUserData.access_token,

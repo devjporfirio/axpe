@@ -7,6 +7,7 @@
   var $btnWhatsApp = document.querySelector('.moreinfo-btn--whatsapp');
   var $inputsMaskPhone = $form.querySelectorAll('.js-mask-phone');
   var $message = $form.querySelector(`[data-element="message"]`);
+  var pageUrl = null;
   var message = `Olá, gostaria de saber mais sobre o imóvel {reference} - {local}, com {areaUseful} m², {bedrooms} e {parking}.`;
 
   function capitalizeFirstLetter(string) {
@@ -72,6 +73,10 @@
         if($newInput) {
           $newInput.checked = true;
         }
+        break;
+      case 'url':
+        pageUrl = value;
+        break;
       default:
         break;
     }
@@ -85,7 +90,7 @@
     $message.value = message;
 
     if($btnWhatsApp) {
-      $btnWhatsApp.setAttribute('href', `${$btnWhatsApp.getAttribute('href')}?text=${message}`)
+      $btnWhatsApp.setAttribute('href', pageUrl ? `${$btnWhatsApp.getAttribute('href')}?text=${message} - ${pageUrl}` : `${$btnWhatsApp.getAttribute('href')}?text=${message}`)
     }
   }
 

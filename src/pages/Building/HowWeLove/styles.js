@@ -3,13 +3,14 @@ import media from 'styled-media-query';
 
 export const Container = styled.div`
   width: 100vw;
-  padding-bottom: 36px;
+  padding-bottom: 40px;
   background-color: #91a8ab;
 
   ${media.greaterThan('medium')`
     width: 100%;
     max-width: 974px;
     margin: auto;
+    padding-bottom: 50px;
     border-radius: 6px;
   `}
 `;
@@ -31,7 +32,7 @@ export const Title = styled.h2`
   }
 
   ${media.greaterThan('medium')`
-    padding: 45.6px 0 53.94px 88px;
+    padding: 45px 0 53px 88px;
     line-height: 48px;
     width: 342px;
     height: 248.2px;
@@ -111,16 +112,16 @@ export const Reasons = styled.div`
     }
 
     h3 {
-      margin-bottom: 23.28px;
+      margin-bottom: 15px;
       color: ${({ theme }) => theme.colors.orange};
       font: 18px/20px 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
       height: 40px;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
 
       ${media.greaterThan('medium')`
-        height: 60px;
+        height: 50px;
       `}
     }
 

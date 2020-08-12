@@ -1,7 +1,7 @@
 {
   "env": "production",
-  "siteUrl": "http://18.204.255.177",
-  "apiUrl": "http://3.215.21.38/api",
+  "siteUrl": "https://axpe.com.br",
+  "apiUrl": "https://admin.axpe.com.br/api",
   "googleApiKey": "AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto",
   "googleClientId": "901672099745-oq0frigilvcba217e2n8l5sj01njt134.apps.googleusercontent.com"
 }
