@@ -47,7 +47,7 @@ export const Reasons = styled.div`
 
   ${media.greaterThan('medium')`
     width: 90%;
-    /* height: 352px; */
+    overflow: visible;
   `}
 
   .slick-slider > button {
