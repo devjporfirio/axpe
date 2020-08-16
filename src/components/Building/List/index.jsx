@@ -105,16 +105,21 @@ function BuildingList({
   }, [ user.logged ]);
 
   const handleBtSchedule = useCallback(() => {
-    dispatch(
-      setMain({
-        modalContact: true,
-        modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${reference} - ${
-          address.local ? `${address.local}, ` : ''
-        } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
-          infos.bedrooms ? `${infos.bedrooms} quartos` : ''
-        } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`,
-      })
-    );
+    // dispatch(
+    //   setMain({
+    //     modalContact: true,
+    //     modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${reference} - ${
+    //       address.local ? `${address.local}, ` : ''
+    //     } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
+    //       infos.bedrooms ? `${infos.bedrooms} quartos` : ''
+    //     } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`,
+    //   })
+    // );
+    dispatch(setMain({
+      currentBuilding: item,
+      contactBarActive: true,
+      contactBarForced: true
+    }));
   }, []);
 
   const getCaracteristics = useCallback(() => {

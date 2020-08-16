@@ -32,10 +32,14 @@ function ContactBar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const refIframe = useRef(null);
-  const { currentBuilding, searchFunnel } = useSelector((state) => state.main);
+  const {
+    currentBuilding,
+    contactBarActive,
+    contactBarForced,
+    searchFunnel,
+  } = useSelector((state) => state.main);
   const user = useSelector((state) => state.user);
   const [ isBuilding, setIsBuilding ] = useState(false);
-  const [ show, setShow ] = useState(false);
   const [ iframeUrl, setIframeUrl ] = useState(null);
   const iframes = [
     {
@@ -134,23 +138,34 @@ function ContactBar() {
         toggleShow();
       }
     },
-    [ show ]
+    [ contactBarActive ]
   );
 
   const toggleShow = useCallback(() => {
     if (!isBuilding || (isBuilding && user.logged)) {
-      setShow(!show);
-    } else {
-      setShow(false);
       dispatch(
         setMain({
+          contactBarActive: !contactBarActive,
+          contactBarForced: false,
+        })
+      );
+    } else {
+      dispatch(
+        setMain({
+          contactBarActive: false,
+          contactBarForced: false,
           modalLogin: () => {
-            setShow(true);
+            dispatch(
+              setMain({
+                contactBarActive: true,
+                contactBarForced: false,
+              })
+            );
           },
         })
       );
     }
-  }, [ show, isBuilding, user ]);
+  }, [ contactBarActive, isBuilding, user ]);
 
   useEffect(() => {
     if (user.logged && user.me && currentBuilding) {
@@ -248,9 +263,9 @@ function ContactBar() {
         );
 
         if (iframeSelected) {
-          if(iframeSelected.src.search('locacao') >= 0) {
+          if (iframeSelected.src.search('locacao') >= 0) {
             paramsObj.value = currentBuilding.values.rent;
-          } else if(iframeSelected.src.search('lancamento') >= 0) {
+          } else if (iframeSelected.src.search('lancamento') >= 0) {
             paramsObj.value = currentBuilding.values.release;
           } else {
             paramsObj.value = currentBuilding.values.sell;
@@ -264,14 +279,17 @@ function ContactBar() {
       setIframeUrl(null);
     }
 
-    setIsBuilding(router.route === '/imovel' ? true : false);
-  }, [ router.route, user.logged, user.me, currentBuilding ]);
+    setIsBuilding(
+      router.route === '/imovel' || (contactBarActive && contactBarForced)
+        ? true
+        : false
+    );
+  }, [ router.route, user.logged, user.me, contactBarActive, currentBuilding ]);
 
   useEffect(() => {
-    if (refIframe.current) {
+    if (refIframe.current && iframeUrl) {
       refIframe.current.onload = function() {
         const $contents = this.contentDocument || this.contentWindow.document;
-
         const $btnClose = $contents.querySelector('.header__close');
         const $btnLogout = $contents.querySelector('.userinfo__btn');
 
@@ -296,7 +314,7 @@ function ContactBar() {
         }
       };
     }
-  }, [ refIframe, show, user ]);
+  }, [ refIframe.current, iframeUrl, contactBarActive, user ]);
 
   return (
     <>
@@ -308,7 +326,7 @@ function ContactBar() {
         Abrir contato
         <SVG src={ChatIconSVG} uniquifyIDs={true} />
       </ButtonFloat>
-      {show && (
+      {contactBarActive && (
         <Container onClick={clickContainer} data-type="container">
           <Wrapper>
             {isBuilding && iframeUrl ? (

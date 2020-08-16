@@ -5,6 +5,8 @@ const initialState = {
   searchFormActive: false,
   searchFunnel: null,
   categories: null,
+  contactBarActive: false,
+  contactBarForced: false,
   modalNewsletter: false,
   modalNewsletterSuccess: false,
   modalBuildingContactSuccess: false,
