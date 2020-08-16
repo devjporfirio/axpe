@@ -622,6 +622,17 @@ function Register({ locals, categories, countries }) {
                     data-type="Cadastrar Imóvel"
                   />
                 )}
+                {values.SingleLine11 === 'Casa em Condomínio' && (
+                  <FormElements
+                    name="SingleLine10"
+                    label="Condomínio"
+                    placeholder="Condomínio"
+                    onChange={handleChange}
+                    error={touched.SingleLine10 && errors.SingleLine10}
+                    value={values.SingleLine10}
+                    onBlur={handleBlur}
+                  />
+                )}
 
                 {values.SingleLine5 !== 'Praia' &&
                   values.SingleLine5 !== 'Campo' &&
