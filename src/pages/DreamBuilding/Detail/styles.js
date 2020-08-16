@@ -259,6 +259,10 @@ export const FormCols = styled.div`
 export const FormCol = styled.div`
   margin-bottom: 25px;
 
+  ${props => props.noMarginBottom && css`
+    margin-bottom: 0;
+  `}
+
   ${media.greaterThan('medium')`
     width: 48%;
 

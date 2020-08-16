@@ -538,7 +538,7 @@ function DreamBuildingSingle({ type }) {
 
               {type === 'sao-paulo-comerciais' || type === 'praia-campo' ? (
                 <FormCols>
-                  <FormCol>
+                  <FormCol noMarginBottom={type === 'sao-paulo-comerciais'}>
                     <h3>Para:</h3>
                     <FormGroup>
                       <FormElements
