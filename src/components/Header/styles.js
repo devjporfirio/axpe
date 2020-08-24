@@ -21,8 +21,32 @@ export const Container = styled.header`
     font-weight: ${({ theme }) => theme.fontsWeight.light};
   }
 
-  ${media.lessThan('1023px')`
+  div[data-simplebar] {
+    width: 100%;
+  }
+
+  ${media.lessThan('large')`
     transition: all 50ms ease;
+
+    div[data-simplebar] {
+      height: 70px;
+    }
+
+    .simplebar-height-auto-observer-wrapper,
+    .simplebar-placeholder,
+    .simplebar-track {
+      display: none !important;
+    }
+
+    .simplebar-offset {
+      position: relative;
+      width: 100%;
+    }
+
+    .simplebar-mask,
+    .simplebar-content-wrapper {
+      overflow: visible !important;
+    }
   `}
 
   ${media.greaterThan('large')`
@@ -36,8 +60,8 @@ export const Container = styled.header`
   ${css`
     @media (min-width: 768px) and (max-height: 580px) {
       display: block;
-      overflow: hidden;
-      overflow-y: auto;
+      /* overflow: hidden;
+      overflow-y: auto; */
     }
   `}
 `;
@@ -49,6 +73,10 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   padding: 0 30px;
+
+  ${media.lessThan('large')`
+    height: 70px;
+  `}
 
   ${media.greaterThan('large')`
     flex-wrap: wrap;

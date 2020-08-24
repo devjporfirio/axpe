@@ -21,8 +21,6 @@ function BuildingsPanel({
   buildingLayout = 'vertical',
   type = 'normal'
 }) {
-  // const [ items, setItems ] = useState([]);
-
   const settings = {
     vertical: {
       dots: false,
@@ -68,14 +66,6 @@ function BuildingsPanel({
     },
   }
 
-  // useEffect(() => {
-  //   let newItems = data;
-  //   if(data.length < 3 && buildingLayout === 'horizontal') {
-  //     newItems = newItems.concat(data, data);
-  //   }
-  //   setItems(newItems);
-  // }, []);
-
   return data && data.length >= 1 ? (
     <Container type={type}>
       <Wrapper type={type}>
@@ -90,7 +80,7 @@ function BuildingsPanel({
         </Header>
 
         {data && data.length > 0 ? (
-          <Items data-quantity={data.length}>
+          <Items data-layout={buildingLayout} data-quantity={data.length}>
             <SliderNew
               type="normal"
               arrowsColor="greenDark"

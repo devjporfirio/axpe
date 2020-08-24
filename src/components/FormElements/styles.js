@@ -62,12 +62,24 @@ export const Label = styled.label`
 
       span {
         position: initial;
-        /* top: 5px !important; */
 
         a, button {
           text-decoration: underline;
           color: ${({ theme }) => theme.colors.orange};
         }
+      }
+
+      input {
+        cursor: pointer;
+      }
+    `}
+
+
+  ${props =>
+    props.type === 'radio' &&
+    css`
+      input {
+        cursor: pointer;
       }
     `}
 
@@ -221,6 +233,8 @@ export const InputSelect = styled.select`
   top: 0;
   width: 100%;
   appearance: none;
+  z-index: 2;
+  cursor: pointer;
 
   & + svg {
     transform: rotate(90deg);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Api from 'services';
 
@@ -18,19 +18,30 @@ import {
   Gradient,
   Title,
   GroupText,
+  TextContainer,
   Text,
   SeeMore,
   Banner,
-  Link,
   Module,
   TitleModule,
   TextModule,
-  SlideSmall
+  SlideSmall,
 } from 'pages/Landing/styles';
 
 function Landing({ slug, page }) {
-  const [ transparent, setTranspatent ] = useState(false);
+  const textEl = useRef();
+  const [ transparent, setTransparent ] = useState(false);
   const { images, imagesBanner, title, text, componentes } = page;
+
+  useEffect(() => {
+    if (
+      window.innerWidth < 768 &&
+      textEl.current &&
+      textEl.current.offsetHeight < 160
+    ) {
+      setTransparent(true);
+    }
+  }, []);
 
   return slug ? (
     <>
@@ -49,9 +60,11 @@ function Landing({ slug, page }) {
         <Title>{title}</Title>
         <hr />
         <GroupText>
-          <Text transparent={transparent}>{text}</Text>
+          <TextContainer transparent={transparent}>
+            <Text ref={textEl}>{text}</Text>
+          </TextContainer>
           {!transparent && (
-            <SeeMore type="button" onClick={() => setTranspatent(true)}>
+            <SeeMore type="button" onClick={() => setTransparent(true)}>
               Veja Mais
             </SeeMore>
           )}
@@ -71,8 +84,11 @@ function Landing({ slug, page }) {
 
                     {comp.buildings &&
                       comp.buildings.length > 0 &&
-                      comp.buildings.map(building => (
-                        <BuildingList item={building} key={building.reference} />
+                      comp.buildings.map((building) => (
+                        <BuildingList
+                          item={building}
+                          key={building.reference}
+                        />
                       ))}
                   </Module>
                 );
@@ -80,10 +96,7 @@ function Landing({ slug, page }) {
                 return (
                   <Module key={`landing-component-${index}`}>
                     <TitleModule>
-                      <strong>
-                        {comp.info.title}
-                      </strong>{' '}
-                      {comp.info.subtitle}
+                      <strong>{comp.info.title}</strong> {comp.info.subtitle}
                     </TitleModule>
                     <TextModule>{comp.info.text}</TextModule>
                     <SlideSmall type="slickSmall" items={comp.buildings} />
@@ -92,20 +105,12 @@ function Landing({ slug, page }) {
             }
           })}
 
-        {
-          Object.keys(imagesBanner).length > 0 &&
+        {Object.keys(imagesBanner).length > 0 &&
           imagesBanner.desktop &&
           imagesBanner.mobile && (
             <Banner>
               <Image mq="desktop" src={imagesBanner.desktop} />
               <Image mq="mobile" src={imagesBanner.mobile} />
-
-              <Link
-                href={imagesBanner.link.url}
-                target={imagesBanner.link.external ? '_blank' : '_self'}
-              >
-                Saiba Mais
-              </Link>
             </Banner>
           )}
 
@@ -122,7 +127,7 @@ Landing.getInitialProps = async ({ query }) => {
 
   return {
     slug,
-    page: response
+    page: response,
   };
 };
 

@@ -8,6 +8,7 @@ import { Container, Text, Slider } from './styles';
 function RangeSlider({
   data,
   type,
+  finality,
   suffix = '',
   prefix = '',
   sep = '-',
@@ -19,15 +20,43 @@ function RangeSlider({
   const [ values, setValues ] = useState(null);
 
   function saveValues(params) {
+    let start = params[0];
+    let end = params[1];
+
+    if (type == 'prices') {
+      if (finality === 'venda') {
+        if (start <= 700000) {
+          start = `< ${formatCurrency.format(700000)}`;
+        } else {
+          start = formatCurrency.format(start);
+        }
+
+        if (end >= 20000000) {
+          end = `${formatCurrency.format(20000000)} >`;
+        } else {
+          end = formatCurrency.format(end);
+        }
+      } else {
+        if (start <= 5000) {
+          start = `< ${formatCurrency.format(5000)}`;
+        } else {
+          start = formatCurrency.format(start);
+        }
+
+        if (end >= 30000) {
+          end = `${formatCurrency.format(30000)} >`;
+        } else {
+          end = formatCurrency.format(end);
+        }
+      }
+    } else {
+      start = `${prefix}${start}${suffix}`;
+      end = `${prefix}${end}${suffix}`;
+    }
+
     setValues({
-      first:
-        type === 'prices'
-          ? formatCurrency.format(params[0])
-          : `${prefix}${params[0]}${suffix}`,
-      last:
-        type === 'prices'
-          ? formatCurrency.format(params[1])
-          : `${prefix}${params[1]}${suffix}`,
+      first: start,
+      last: end,
     });
   }
 
@@ -43,18 +72,25 @@ function RangeSlider({
       max: data[1],
     };
 
-    let firstHalf = parseInt((data[1] * 5) / 100);
-
-    if(firstHalf >= 2000000) {
-      firstHalf = 2000000;
-    }
-
     if (type === 'prices') {
-      range = {
-        min: data[0],
-        '50%': firstHalf,
-        max: data[1],
-      };
+      if (finality === 'venda') {
+        range = {
+          min: [ 700000, 100000 ],
+          '20%': [ 1000000, 200000 ],
+          '40%': [ 3000000, 500000 ],
+          '60%': [ 5000000, 1000000 ],
+          '80%': [ 10000000, 2000000 ],
+          max: 20000000,
+        };
+      } else {
+        range = {
+          min: [ 5000, 200 ],
+          '25%': [ 6000, 500 ],
+          '50%': [ 10000, 1000 ],
+          '75%': [ 20000, 5000 ],
+          max: 30000,
+        };
+      }
     }
 
     sliderApi.current = noUiSlider.create(ref.current, {

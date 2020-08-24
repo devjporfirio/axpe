@@ -10,7 +10,7 @@ import SliderNew from 'components/SliderNew';
 
 // helpers
 import { Link } from 'helpers/routes';
-import { formatCurrency } from 'helpers/utils';
+import { formatCurrency, formatCurrencyToText } from 'helpers/utils';
 import checkFavorite from 'helpers/checkFavorite';
 
 // actions
@@ -68,7 +68,7 @@ function BuildingList({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { searchFunnel } = useSelector((state) => state.main);
-  const isFavoriteBuilding = checkFavorite(reference);
+  const isFavoriteBuilding = checkFavorite(user, reference);
   const gallerySettings = {
     dots: false,
     infinite: true,
@@ -105,16 +105,21 @@ function BuildingList({
   }, [ user.logged ]);
 
   const handleBtSchedule = useCallback(() => {
-    dispatch(
-      setMain({
-        modalContact: true,
-        modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${reference} - ${
-          address.local ? `${address.local}, ` : ''
-        } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
-          infos.bedrooms ? `${infos.bedrooms} quartos` : ''
-        } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`,
-      })
-    );
+    // dispatch(
+    //   setMain({
+    //     modalContact: true,
+    //     modalContactMessage: `Olá, gostaria de saber mais sobre o imóvel ${reference} - ${
+    //       address.local ? `${address.local}, ` : ''
+    //     } ${infos.areaTotal ? `com ${infos.areaTotal} m²,` : ''} ${
+    //       infos.bedrooms ? `${infos.bedrooms} quartos` : ''
+    //     } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`,
+    //   })
+    // );
+    dispatch(setMain({
+      currentBuilding: item,
+      contactBarActive: true,
+      contactBarForced: true
+    }));
   }, []);
 
   const getCaracteristics = useCallback(() => {
@@ -183,8 +188,8 @@ function BuildingList({
       items.push(
         <Caracteristics.AreaUseFul
           type={type}
+          category={categoryText}
           areaUseful={infos.areaUseful}
-          areaUsefulStart={infos.areaUsefulStart}
           key={`caracteristic-${reference}-${items.length}`}
         />
       );
@@ -208,8 +213,6 @@ function BuildingList({
       infos.areaUsefulStart &&
       infos.areaUsefulEnd &&
       infos.use !== 'COMERCIAL' &&
-      categoryText !== 'Cobertura' &&
-      categoryText !== 'Apartamento' &&
       categoryText.search('Casa') < 0
     ) {
       items.push(
@@ -364,6 +367,9 @@ function BuildingList({
                   data-position={positionIndex}
                 >
                   <div>
+                    {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                      <Price>Valores sob consulta</Price>
+                    ) : null}
                     {(!!values.sell || !!values.release) &&
                     !values.valueOnlyConsults &&
                     (!searchFunnel ||
@@ -374,11 +380,11 @@ function BuildingList({
                         {!!values.sell &&
                           formatCurrency
                             .format(parseInt(values.sell))
-                            .replace('R$', values.currency || 'R$')}
+                            .replace('R$', formatCurrencyToText(values.currency))}
                         {!!values.release &&
                           formatCurrency
                             .format(parseInt(values.release))
-                            .replace('R$', values.currency || 'R$')}
+                            .replace('R$', formatCurrencyToText(values.currency))}
                       </Price>
                     ) : !!values.sell && values.valueOnlyConsults ? (
                       <Price>Valores sob consulta</Price>
@@ -392,7 +398,7 @@ function BuildingList({
                         Locação:{' '}
                         {formatCurrency
                           .format(parseInt(values.rent))
-                          .replace('R$', values.currency || 'R$')}
+                          .replace('R$', formatCurrencyToText(values.currency))}
                       </Price>
                     ) : !!values.rent && values.valueOnlyConsults ? (
                       <Price>Valores sob consulta</Price>

@@ -67,6 +67,10 @@ export default function Datasheet({ property }) {
         <BlockThree type={property.type}>
           <PriceGroup>
 
+            {!values.sell && !values.rent && values.valueOnlyConsults ? (
+              <Caracteristics.OnlyConsults />
+            ) : null}
+
             {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
               <Caracteristics.Sell
                 valueOnlyConsults={values.valueOnlyConsults}

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+
+// components
 import Button from 'components/Button';
 import SlickSection from 'components/SlickSection';
 
@@ -59,7 +61,8 @@ export const Title = styled.h1`
   font: 24px/37px 'Bitter';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   color: ${({ theme }) => theme.colors.greenDark};
-  margin: 24px auto 15px auto;
+  margin: 0 auto 15px auto;
+  padding-top: 24px;
 
   ${media.greaterThan('medium')`
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -75,14 +78,11 @@ export const GroupText = styled.article`
   text-align: center;
 `;
 
-export const Text = styled.p`
+export const TextContainer = styled.div`
   display: block;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
   padding: 30px;
-  font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  font: 18px/21px 'Raleway';
-  text-align: left;
 
   ${props =>
     !props.transparent &&
@@ -120,12 +120,21 @@ export const Text = styled.p`
     width: 100%;
     max-width: 620px;
     margin: 0 auto 40px auto;
-    text-align: center;
-    line-height: 25px;
 
-    &:after{
+    &:after {
       background: none;
     }
+  `}
+`;
+
+export const Text = styled.p`
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  font: 18px/21px 'Raleway';
+  text-align: left;
+
+  ${media.greaterThan('medium')`
+    text-align: center;
+    line-height: 25px;
   `}
 `;
 
@@ -204,10 +213,12 @@ export const SlideSmall = styled(SlickSection)`
 export const Banner = styled.div`
   position: relative;
   padding: 0 30px 30px;
+  overflow: hidden;
 
   img {
     width: 100%;
     height: auto;
+    border-radius: 6px;
   }
 
   ${media.greaterThan('medium')`

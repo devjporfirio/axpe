@@ -119,6 +119,9 @@ export const Column = styled.div`
   position: absolute;
   top: 50%;
   right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   transform: translateY(-50%);
 
   ${media.greaterThan('large')`
@@ -126,9 +129,6 @@ export const Column = styled.div`
     top: auto;
     right: auto;
     margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
     transform: none;
   `}
 `;
@@ -168,31 +168,31 @@ export const ButtonIcon = styled.button`
     }
   }
 
-  &:nth-child(1) {
-    svg {
-      width: 22px;
-      height: 22px;
-
-      path {
-        fill: ${({ theme }) => theme.colors.green};
-      }
-    }
-
-    ${media.greaterThan('large')`
-      &:hover {
-       svg path {
-        fill: ${({ theme }) => theme.colors.orange};
-       }
-      }
-    `}
-  }
-
-  &:nth-child(2) {
-    margin-left: 15px;
+  &.btn-alert {
+    margin-right: 15px;
 
     svg {
       width: 20px;
       height: 24px;
+    }
+
+    path {
+      fill: ${({ theme }) => theme.colors.green};
+    }
+
+    ${media.greaterThan('large')`
+      &:hover {
+        svg path {
+          fill: ${({ theme }) => theme.colors.orange};
+        }
+      }
+    `}
+  }
+
+  &.btn-share {
+    svg {
+      width: 22px;
+      height: 22px;
     }
 
     ${media.greaterThan('large')`
@@ -263,6 +263,10 @@ export const Text = styled.p`
   ${media.lessThan('1169px')`
     display: none;
   `}
+
+  ${media.greaterThan('large')`
+    margin-left: 20px;
+  `}
 `;
 
 const ButtonLikeActive = css`
@@ -281,6 +285,7 @@ const ButtonLikeHover = css`
 export const ButtonLike = styled.button`
   display: flex;
   align-items: center;
+  margin-left: 15px;
   font: 14px 'Raleway';
   transition: all 300ms ease;
 
@@ -290,7 +295,6 @@ export const ButtonLike = styled.button`
 
   svg {
     display: block;
-    margin-left: 5px;
     width: 27px;
     height: 25px;
 
@@ -303,10 +307,6 @@ export const ButtonLike = styled.button`
 
   ${media.lessThan('1169px')`
     font-size: 0;
-
-    svg {
-      margin-left: 0;
-    }
   `}
 
   ${media.greaterThan('large')`

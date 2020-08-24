@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Head from 'next/head';
 // import SVG from 'react-inlinesvg';
-import OneSignalHelper from 'helpers/oneSignal';
+// import OneSignalHelper from 'helpers/oneSignal';
 import Api from 'services';
 import * as Yup from 'yup';
 
@@ -74,7 +74,7 @@ function Profile() {
     validationSchema: profileSchema,
     onSubmit: async (values, { setSubmitting }) => {
       const response = await Api.MyAccount.putMe(user.access_token, values);
-      const notificationsObject = getNotificationsObject(values.notificationAlert, values.notificationFavorite);
+      // const notificationsObject = getNotificationsObject(values.notificationAlert, values.notificationFavorite);
 
       setSubmitting(false);
 
@@ -82,7 +82,7 @@ function Profile() {
         dispatch(setUserMe(values));
         setSuccessMessage(true);
 
-        OneSignalHelper.handleSubscription(notificationsObject);
+        // OneSignalHelper.handleSubscription(notificationsObject);
 
         setTimeout(() => {
           setSuccessMessage(null);
@@ -99,14 +99,14 @@ function Profile() {
     }
   });
 
-  const getNotificationsObject = useCallback((notificationAlert, notificationFavorite) => {
-    return {
-      active: notificationAlert === 1 || notificationFavorite === 1,
-      notificationAlert,
-      notificationFavorite,
-      user
-    }
-  }, [ user ])
+  // const getNotificationsObject = useCallback((notificationAlert, notificationFavorite) => {
+  //   return {
+  //     active: notificationAlert === 1 || notificationFavorite === 1,
+  //     notificationAlert,
+  //     notificationFavorite,
+  //     user
+  //   }
+  // }, [ user ])
 
   useEffect(() => {
     if (user.logged && user.me && user.me.name) {

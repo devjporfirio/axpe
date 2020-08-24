@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import Router from 'next/router';
 
 // helpers
-import OneSignalHelper from 'helpers/oneSignal';
+// import OneSignalHelper from 'helpers/oneSignal';
 
 // actions
 import { setLoading } from 'store/modules/loading/actions';
@@ -24,6 +24,7 @@ import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 import ForgotPasswordSuccess from 'components/Modals/ForgotPasswordSuccess';
 import BuildingContactSuccess from 'components/Modals/BuildingContactSuccess';
 import ContactSuccess from 'components/Modals/ContactSuccess';
+import WorkWithUsSuccess from 'components/Modals/WorkWithUsSuccess';
 import ContactModal from 'components/Modals/Contact';
 import ContactBar from 'components/ContactBar';
 
@@ -67,7 +68,12 @@ function Main({ children }) {
       return true
     })
 
-    OneSignalHelper.start();
+    // OneSignalHelper.start();
+
+    // window.addEventListener('beforeinstallprompt', (e) => {
+    //   e.preventDefault();
+    //   console.log('exibir botão para adicionar app na home!')
+    // });
 
     dispatch(setLoading({ active: false }));
     dispatch(setUserByCookie());
@@ -92,6 +98,7 @@ function Main({ children }) {
         <ForgotPasswordSuccess />
         <BuildingContactSuccess />
         <ContactSuccess />
+        <WorkWithUsSuccess />
         <ContactModal />
         <ContactBar />
         <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>

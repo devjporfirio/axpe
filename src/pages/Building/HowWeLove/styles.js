@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-// components
-import Slider from 'components/Slider';
-
 export const Container = styled.div`
   width: 100vw;
-  padding-bottom: 36px;
+  padding-bottom: 40px;
   background-color: #91a8ab;
 
   ${media.greaterThan('medium')`
     width: 100%;
     max-width: 974px;
     margin: auto;
+    padding-bottom: 50px;
     border-radius: 6px;
   `}
 `;
@@ -34,24 +32,39 @@ export const Title = styled.h2`
   }
 
   ${media.greaterThan('medium')`
-    padding: 45.6px 0 53.94px 88px;
+    padding: 45px 0 53px 88px;
     line-height: 48px;
     width: 342px;
     height: 248.2px;
   `}
 `;
 
-export const Reasons = styled(Slider)`
+export const Reasons = styled.div`
   width: 100%;
   margin: auto;
+  position: relative;
+  overflow: hidden;
 
-  & > button {
+  ${media.greaterThan('medium')`
+    width: 90%;
+    overflow: visible;
+  `}
+
+  .slick-slider > button {
     &:first-of-type {
-      left: 5px;
+      left: -5px;
+
+      ${media.greaterThan('medium')`
+        left: -30px;
+      `}
     }
 
     &:last-of-type {
-      right: 5px;
+      right: -5px;
+
+      ${media.greaterThan('medium')`
+        right: -30px;
+      `}
     }
   }
 
@@ -63,8 +76,15 @@ export const Reasons = styled(Slider)`
     flex-direction: column;
     width: 100%;
     max-width: 260px;
-    height: 270px;
+    /* height: 270px; */
     padding: 30px 15px;
+
+    ${media.greaterThan('medium')`
+      width: 160px;
+      /* height: 350px; */
+      height: auto;
+      padding: 14.02px 27.03px;
+    `}
 
     &:before {
       content: '';
@@ -78,6 +98,10 @@ export const Reasons = styled(Slider)`
       background-color: ${({ theme }) => theme.colors.greyLight};
       z-index: 1;
       transform: translateX(-50%);
+
+      ${media.greaterThan('medium')`
+        width: calc(100% - 20px);
+      `}
     }
 
     h3,
@@ -88,55 +112,32 @@ export const Reasons = styled(Slider)`
     }
 
     h3 {
-      margin-bottom: 23.28px;
+      margin-bottom: 15px;
       color: ${({ theme }) => theme.colors.orange};
       font: 18px/20px 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.bold};
       height: 40px;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
+
+      ${media.greaterThan('medium')`
+        height: 50px;
+      `}
     }
 
     p {
       color: ${({ theme }) => theme.colors.greenDark};
       font: 16px/19px 'Raleway';
-    }
 
-    ${media.greaterThan('medium')`
-      width: 160px;
-      padding: 14.02px 27.03px;
-
-      &:before {
-        width: calc(100% - 20px);
-      }
-
-      h3, p {
-        width: 100%;
-      }
-      p {
-        display: block;
+      ${media.greaterThan('medium')`
+        /* display: block;
         display: -webkit-box;
-        height: 171px;
-        -webkit-line-clamp: 9;
+        height: 240px;
+        -webkit-line-clamp: 12;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    `}
-  }
-
-  ${media.greaterThan('medium')`
-    width: 90%;
-    height: 272px;
-
-    & > button {
-      &:first-of-type {
-        left: -30px;
-      }
-
-      &:last-of-type {
-        right: -30px;
-      }
+        text-overflow: ellipsis; */
+      `}
     }
-  `}
+  }
 `;

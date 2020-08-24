@@ -5,6 +5,8 @@ const initialState = {
   searchFormActive: false,
   searchFunnel: null,
   categories: null,
+  contactBarActive: false,
+  contactBarForced: false,
   modalNewsletter: false,
   modalNewsletterSuccess: false,
   modalBuildingContactSuccess: false,
@@ -16,7 +18,8 @@ const initialState = {
   modalContact: false,
   modalContactSuccess: false,
   modalContactMessage: '',
-  modalPasswordNew: false
+  modalPasswordNew: false,
+  modalWorkWithUsSuccess: false
 };
 
 export default initialState;

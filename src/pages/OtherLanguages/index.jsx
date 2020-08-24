@@ -66,7 +66,7 @@ function OtherLanguages({ language }) {
               <p>{LANGUAGE_TEXT[language].phoneLabel}</p>
               <p>(11) 3037-3600</p>
             </Contact>
-            <Contact href="https://api.whatsapp.com/send?phone=5511990373600">
+            <Contact href="https://wa.me/5511990373600">
               <p>Whatsapp:</p>
               <p>
                 <SVG src={WhatsappIconSVG} uniquifyIDs={true} />

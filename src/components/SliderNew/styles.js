@@ -110,14 +110,17 @@ const ContainerNormal = css`
 const ContainerFull = css`
   .slick-arrow {
     bottom: 30px;
-    left: 20px;
 
     ${media.greaterThan('large')`
       bottom: 60px;
     `}
 
     &.slick-prev {
+      left: auto;
+      right: 70px;
+
       ${media.greaterThan('medium')`
+        right: auto;
         left: 95px;
       `}
 
@@ -129,9 +132,10 @@ const ContainerFull = css`
     }
 
     &.slick-next {
-      left: 60px;
+      right: 20px;
 
       ${media.greaterThan('medium')`
+        right: auto;
         left: 140px;
       `}
 

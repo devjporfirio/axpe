@@ -26,11 +26,11 @@ import {
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required(),
+  lastName: Yup.string().required(),
   email: Yup.string().email().required(),
   password: Yup.string().required(),
   passwordConfirmation: Yup.string().required(),
-  phone: Yup.string(),
-  terms: Yup.boolean().oneOf([ true ]).required()
+  phone: Yup.string()
 });
 
 function RegisterForm({ doAfterLogin }) {
@@ -52,8 +52,7 @@ function RegisterForm({ doAfterLogin }) {
       email: '',
       password: '',
       passwordConfirmation: '',
-      phone: '',
-      terms: false
+      phone: ''
     },
     validate: values => {
       const errors = {};
@@ -194,19 +193,6 @@ function RegisterForm({ doAfterLogin }) {
         onBlur={handleBlur}
         className="holos-form-field"
         data-label="Celular"
-        data-type="Cadastro"
-      />
-      <FormElements
-        type="checkboxLink"
-        name="terms"
-        label="Concordo com a política de privacidade da Axpe"
-        onChange={handleChange}
-        error={touched.terms && errors.terms}
-        value={values.terms}
-        checked={values.terms}
-        onBlur={handleBlur}
-        className="holos-form-field"
-        data-label="Concordo com a política de privacidade da Axpe"
         data-type="Cadastro"
       />
       <Button

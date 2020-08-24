@@ -45,7 +45,7 @@ const Field = ({
     <>
       <Label
         type={type}
-        htmlFor={props.name}
+        htmlFor={props.id ? props.id : props.name}
         themeColor={themeColor}
         error={error}
       >

@@ -7,7 +7,7 @@ import { Container } from './styles';
 
 const LINKS = {
   tel: 'tel:+551130743600',
-  whats: 'https://api.whatsapp.com/send?phone=551130743600'
+  whats: 'https://wa.me/551130743600'
 };
 
 const NUMBERS = {
