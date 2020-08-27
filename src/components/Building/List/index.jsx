@@ -208,12 +208,12 @@ function BuildingList({
         />
       );
     }
-
-    if (
-      infos.areaUsefulStart &&
-      infos.areaUsefulEnd &&
-      infos.use !== 'COMERCIAL' &&
-      categoryText.search('Casa') < 0
+    
+    if(
+      infos &&
+      (infos.areaUsefulStart || infos.areaUsefulEnd) &&
+      ((category && categoryText.search('Casa') < 0) || infos.areaUseful !== '') &&
+      infos.use !== 'COMERCIAL'
     ) {
       items.push(
         <Caracteristics.AreaUseFulBetween
