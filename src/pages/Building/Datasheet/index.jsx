@@ -121,7 +121,7 @@ export default function Datasheet({ property }) {
             <Caracteristics.AreaGround areaGround={infos.areaGround} />
           )}
 
-          {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
+          {((category && category.search('Casa') < 0) || infos.areaUseful !== '') && infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaUseFulBetween
               start={infos.areaUsefulStart}
               end={infos.areaUsefulEnd}
