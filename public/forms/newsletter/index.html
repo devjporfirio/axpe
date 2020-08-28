@@ -23,6 +23,8 @@
         document.querySelector('input[name="FIRSTNAME"]').classList.remove('filled');
         document.querySelector('input[name="LASTNAME"]').classList.remove('filled');
         document.querySelector('input[name="CONTACT_EMAIL"]').classList.remove('filled');
+
+        window.location = document.querySelector('input[name="zf_redirect_url"]').value;
       }, 500)
     };
   </script>
@@ -52,7 +54,8 @@
         </div>
       </div>
 
-      <form class="form" method="POST" id="zcampaignOptinForm" action="https://axfq.maillist-manage.com/weboptin.zc" target="_zcSignup">
+      <form class="form" method="POST" id="zcampaignOptinForm" action="https://axfq.maillist-manage.com/weboptin.zc">
+        <input type="hidden" name="zf_redirect_url" value="" data-element="redirectUrl">
         <input type="hidden" id="fieldBorder" value="rgb(222, 222, 222)">
         <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW" onload="">
         <input type="hidden" name="viewFrom" id="viewFrom" value="URL_ACTION">

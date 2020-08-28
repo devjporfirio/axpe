@@ -29,11 +29,13 @@ function NewsletterModal() {
               modalContactSuccess: true,
             })
           );
+
           refIframe.current.setAttribute('src', '/forms/newsletter/index.html');
+          
         }
       };
     }
-  }, [ refIframe ]);
+  });
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalNewsletter: false }))
