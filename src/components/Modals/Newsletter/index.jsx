@@ -29,9 +29,7 @@ function NewsletterModal() {
               modalContactSuccess: true,
             })
           );
-
           refIframe.current.setAttribute('src', '/forms/newsletter/index.html');
-          
         }
       };
     }
