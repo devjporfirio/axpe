@@ -329,14 +329,4 @@ export const LinkContainer = styled.div`
   & > a {
     width: 100%;
   }
-
-  ${media.greaterThan('medium')`
-    & > a {
-      width: auto;
-    }
-
-    ${props => props.type === 'slickLarge' && css`
-      display: none;
-    `}
-  `}
 `;
