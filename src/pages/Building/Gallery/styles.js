@@ -41,6 +41,22 @@ export const Image = styled.img`
   `}
 `;
 
+export const PlayButton = styled.img`
+  position: absolute;
+  max-width: 30%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+  opacity: 0.8;
+  transition: transform .15s;
+
+  &:hover {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+`;
+
 export const SliderButton = styled.button`
   position: relative;
   cursor: pointer;

@@ -68,7 +68,7 @@ function GalleryNav({
                   ) : item.video ? (
                     <iframe
                       title="video"
-                      src={`https://www.youtube.com/embed/${item.video}`}
+                      src={`https://www.youtube.com/embed/${item.video}?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1`}
                       frameBorder="0"
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

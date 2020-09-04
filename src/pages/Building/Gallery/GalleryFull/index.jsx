@@ -8,7 +8,56 @@ import {
   Slide
 } from './styles';
 
-export default function GalleryFull({ initialSlide, onClose, items, category, local }) {
+function callPlayer(iframe, func, args) {
+  if (iframe.src.indexOf('youtube.com/embed') !== -1) {
+      iframe.contentWindow.postMessage( JSON.stringify({
+          'event': 'command',
+          'func': func,
+          'args': args || []
+      } ), '*');
+  }
+}
+
+function toggleVideo() {
+  setTimeout(function(){
+
+    const slideIframe = document.querySelector('.slick-slider .slick-current iframe');
+    if(slideIframe !== null) {
+
+      setTimeout(function(){
+        if(slideIframe.classList.contains('is-loaded')) {
+          callPlayer(slideIframe, 'playVideo');
+        } else {
+          slideIframe.addEventListener('load', () => {
+            setTimeout(function(){
+              callPlayer(slideIframe, 'playVideo');
+              slideIframe.classList.add('is-loaded');
+            });
+          });
+        }
+      }, 250);
+      
+    } else {
+      
+      const sliderIframes = document.querySelectorAll('.slick-slider .slick-slide:not(slick-current) iframe');
+      if(document.querySelector('.slick-slider iframe') !== null) {
+        [].forEach.call(sliderIframes, function(iframe) {
+          callPlayer(iframe, 'stopVideo');
+        });
+      }
+
+    }
+  }, 200);
+}
+
+export default function GalleryFull({
+  initialSlide,
+  onClose,
+  items,
+  category,
+  local
+}) {
+
   return (
     <Container category={category} local={local} close={onClose}>
       <Images
@@ -22,7 +71,9 @@ export default function GalleryFull({ initialSlide, onClose, items, category, lo
           initialSlide: initialSlide,
           autoplay: false,
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          beforeChange: (current, next) => { toggleVideo() },
+          onInit: () => { toggleVideo() }
         }}
       >
         {items &&
@@ -45,7 +96,7 @@ export default function GalleryFull({ initialSlide, onClose, items, category, lo
                   <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
                     <iframe
                       title="video"
-                      src={`https://www.youtube.com/embed/${item.video}`}
+                      src={`https://www.youtube.com/embed/${item.video}?iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1`}
                       frameBorder="0"
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

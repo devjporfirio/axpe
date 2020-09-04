@@ -9,12 +9,14 @@ import GalleryFull from './GalleryFull';
 // assets
 import I360 from 'assets/icons/360';
 import IGrid from 'assets/icons/grid';
+import PlayIcon from 'assets/icons/play-button';
 
 // styles
 import {
   Container,
   Tour360,
   Image,
+  PlayButton,
   SliderButton,
   Button360,
   SizeGallery
@@ -87,9 +89,14 @@ function Gallery({
               }}
               key={`building-gallery-btn-${index}`}
             >
-              <Image src={item.src} alt="" />
-            </SliderButton>
-          ))}
+            
+            {item.tipo == 'video' && (
+              <PlayButton class="play-button" src={PlayIcon} alt="Assistir vídeo" />
+            )}
+
+            <Image src={item.src} alt="" />
+          </SliderButton>
+            ))}
       </Slider>
 
       {showSizeGallery && (
