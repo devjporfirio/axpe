@@ -108,7 +108,7 @@ function Landing({ slug, page }) {
         {Object.keys(imagesBanner).length > 0 &&
           imagesBanner.desktop &&
           imagesBanner.mobile && (
-            <Banner>
+            <Banner href={imagesBanner.link.url} target={(imagesBanner.link.external || imagesBanner.link.target !== 'self') ? '_blank' : '_self'}>
               <Image mq="desktop" src={imagesBanner.desktop} />
               <Image mq="mobile" src={imagesBanner.mobile} />
             </Banner>

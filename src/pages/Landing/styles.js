@@ -210,7 +210,7 @@ export const SlideSmall = styled(SlickSection)`
   `}
 `;
 
-export const Banner = styled.div`
+export const Banner = styled.a`
   position: relative;
   padding: 0 30px 30px;
   overflow: hidden;
