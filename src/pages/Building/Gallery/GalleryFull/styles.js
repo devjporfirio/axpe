@@ -80,14 +80,16 @@ export const Slide = styled.div`
   `}
 
   .react-transform-component {
-    margin: auto;
+    margin: 0px;
+    width: 100%;
     overflow: unset;
-  }
 
-  img {
-    margin: auto;
-    width: auto;
-    height: auto;
+    img {
+      margin: auto;
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   iframe {
