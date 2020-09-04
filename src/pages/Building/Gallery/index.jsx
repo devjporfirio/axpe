@@ -38,7 +38,7 @@ function Gallery({
   const [ showGalleryFull, setShowGalleryFull ] = useState(false);
   const [ imageSelected, setImageSelected ] = useState(null);
   const [ showTour, setShowTour ] = useState('');
-  const linkTour = `https://www.banibconecta.com/site/tour/axpe-imoveis-especiais/${reference}/autostart`;
+  const linkTour = (tour360) ? tour360 : `https://www.banibconecta.com/site/tour/axpe-imoveis-especiais/${reference}/autostart`;
 
   return (
     <Container className={className}>
