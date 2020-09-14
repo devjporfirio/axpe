@@ -6,7 +6,7 @@ export const Release = ({ release, type, currency }) =>
   !!release && (
     <PriceRelease>
       <p>
-        {type === 'pronto' ? 'Venda' : 'A partir de'}:{' '}
+        {type === 'pronto' ? 'Venda' : 'A partir de'}{' '}
         {currency
           ? formatCurrency.format(release).replace('R$', formatCurrencyToText(currency))
           : formatCurrency.format(release)}
@@ -52,7 +52,7 @@ export const Sell = ({
 }) =>
   sell && !valueOnlyConsults ? (
     <Price>
-      <p>{type === 'pronto' ? 'Venda' : 'A partir de'}: </p>
+      <p>{type === 'pronto' ? 'Venda' : 'A partir de'} </p>
       <p>
         {currency
           ? formatCurrency.format(sell).replace('R$', formatCurrencyToText(currency))

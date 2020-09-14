@@ -215,7 +215,7 @@ export const PriceRelease = styled.div`
     padding-bottom: 29px;
 
     p {
-      font-size: 26px;
+      font-size: 24px;
     }
   `}
 `;
