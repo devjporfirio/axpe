@@ -16,7 +16,7 @@ export const Container = styled(GalleryHeaderbar)`
   }
 
   iframe {
-    height: calc(100vh - 105px);
+    height: calc((100vw / 16) * 9);
   }
 
   ${media.greaterThan('medium')`
@@ -80,8 +80,7 @@ export const Slide = styled.div`
   `}
 
   .react-transform-component {
-    margin: 0px;
-    width: 100%;
+    margin: 0px auto;
     overflow: unset;
 
     img {
@@ -94,5 +93,12 @@ export const Slide = styled.div`
 
   iframe {
     width: 100%;
+
+    ${media.greaterThan('medium')` 
+
+      display: block;
+      margin: 0 auto;
+      width: calc((80vh / 9) * 16);
+    `}
   }
 `;
