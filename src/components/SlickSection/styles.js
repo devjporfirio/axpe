@@ -4,6 +4,7 @@ import Slider from 'components/Slider';
 import Button from 'components/Button';
 
 export const ItemLink = styled(Button)`
+  display: block !important;
   position: absolute;
   background-color: transparent !important;
   z-index: 9;

@@ -270,16 +270,12 @@ export const Container = styled.section`
     props.type === 'destaque-texto-bullets' && TypeDestaqueTextoBullets}
 
   ${media.lessThan('medium')`
-    ${props => props.type !== 'slick' && TypeSlickLeftMobile}
-    ${props => props.type === 'slickGrid' && css`
-      margin: 15px auto;
-    `}
 
     ${props =>
       [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
       `
       width: 100%;
-      padding: 20px 8%;
+      padding: 35px 8% 20px;
       height: 240px;
       border-radius: 0 0 6px 6px;
     `}
