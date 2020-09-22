@@ -271,6 +271,11 @@ export const Container = styled.section`
 
   ${media.lessThan('medium')`
 
+    ${props => props.type !== 'slick' && TypeSlickLeftMobile}
+    ${props => props.type === 'slickGrid' && css`
+      margin: 15px auto;
+    `}
+
     ${props =>
       [ 'slickLarge', 'slickSmall' ].includes(props.type) &&
       `
