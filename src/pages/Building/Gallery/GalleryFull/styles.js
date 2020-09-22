@@ -68,6 +68,7 @@ export const Slide = styled.div`
   width: 100vw !important;
   display: table-cell !important;
   vertical-align: middle;
+  overflow: hidden;
 
   ${css`
     @media (orientation: landscape) and (max-width: 767px) {

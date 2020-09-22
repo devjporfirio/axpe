@@ -70,8 +70,7 @@ function Gallery({
             breakpoint: 769,
             settings: {
               centerMode: false,
-              variableWidth: false,
-              initialSlide: 2
+              variableWidth: false
             }
           }
         ]}
