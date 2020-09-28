@@ -214,7 +214,7 @@ function Register({ locals, categories, countries }) {
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
-      zf_redirect_url: 'https://axpe.com.br/cadastrar/sucesso',
+      zf_redirect_url: 'https://www.axpe.com.br/cadastrar/sucesso',
       zc_gad: '',
       utm_source: '',
       utm_medium: '',

@@ -2,7 +2,7 @@ import React from 'react';
 import Api from 'services';
 
 const renderXml = ({ buildings, landings }) => {
-  const siteUrl = `https://axpe.com.br`;
+  const siteUrl = `https://www.axpe.com.br`;
   const pages = [
     `<url><loc>${siteUrl}/sobre</loc><priority>0.80</priority></url>`,
     `<url><loc>${siteUrl}/contato</loc><priority>0.80</priority></url>`,
