@@ -181,6 +181,10 @@ export const Price = styled.div`
       font-size: 22px;
       line-height: 26px;
       font-weight: 600;
+
+      ${media.lessThan('small')`
+        font-size: 19px;
+      `}
     }
 
     &:nth-child(3) {
