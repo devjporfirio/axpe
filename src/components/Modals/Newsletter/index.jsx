@@ -59,7 +59,7 @@ function NewsletterModal() {
           <ColumnTitle>Por favor, preencha seus dados e fique por dentro do que acontece na Axpe.</ColumnTitle>
           <Iframe
             ref={refIframe}
-            src={`/forms/newsletter/index.html?redirectUrl=${process.env.config.siteUrl}/forms/newsletter/sucesso.html`}
+            src={`${process.env.config.siteUrl}/forms/newsletter/index.html?redirectUrl=${process.env.config.siteUrl}/forms/newsletter/sucesso.html`}
             border="none"
             frameBorder="0"
             title="Newsletter"
