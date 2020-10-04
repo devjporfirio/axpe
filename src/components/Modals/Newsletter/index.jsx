@@ -26,10 +26,17 @@ function NewsletterModal() {
         if ($success) {
           dispatch(
             setMain({
-              modalContactSuccess: true,
+              modalNewsletterSuccess: true
             })
           );
+          
           refIframe.current.setAttribute('src', '/forms/newsletter/index.html');
+
+          dispatch(
+            setMain({
+              modalNewsletter: false
+            })
+          );
         }
       };
     }
