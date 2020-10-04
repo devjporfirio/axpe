@@ -118,14 +118,13 @@ function Building({ property }) {
 
         <Alert>
           <p>
-            Todas as informações aqui contidas, incluindo preço, metragem
-            quadrada e valores são aproximadas e não garantidas, devendo ser
-            confirmadas pessoalmente pelos interessados.
+            As informações acima, incluindo preço, áreas e valores,
+            podem não ser exatas e devem ser confirmadas com o corretor.
           </p>
 
           <p>
             No caso de imóveis em lançamento, as imagens são meramente
-            ilustrativas e os valores estão sujeitos a alteração de tabela.
+            ilustrativas e os valores estão sujeitos a alterações de tabelas.
           </p>
         </Alert>
 
