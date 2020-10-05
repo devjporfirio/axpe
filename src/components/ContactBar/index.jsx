@@ -302,9 +302,6 @@ function ContactBar() {
               refIframe.current
             ) {
               refIframe.current.setAttribute('src', iframeUrl);
-              setTimeout(() => {
-                Router.back();
-              }, 500);
             }
           });
         }

@@ -60,7 +60,13 @@ function Headerbar({ className, type, title, subtitle, building }) {
     if (type === 'search') {
       toggleSearch();
     } else {
-      Router.back();
+
+      const previousUrl = window.location.href;
+      setInterval(() => {
+        if(previousUrl === window.location.href)
+          Router ? Router.back() : window.history.back();
+      }, 50);
+
     }
   }
 
