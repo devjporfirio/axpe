@@ -128,35 +128,43 @@ function Search() {
     onSubmit: (values) => {
       const data = {};
 
-      Object.keys(values).forEach((key) => {
-        if (key == 'source' && values[key].value) {
-          data[key] = values[key].value;
-        } else if (key === 'furnished' && values[key]) {
-          data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
-        } else if (key == 'price_start' && values['finality']) {
-          if (
-            (values['finality'] == 'venda' && values[key] <= 700000) ||
-            (values['finality'] == 'aluguel' && values[key] <= 5000)
-          ) {
-            data[key] = 0;
-          } else {
+      if(typeof values.reference !== 'undefined' && values.reference && values.reference.length > 0) {
+        
+        data['reference'] = values.reference;
+
+      } else {
+
+        Object.keys(values).forEach((key) => {
+          if (key == 'source' && values[key].value) {
+            data[key] = values[key].value;
+          } else if (key === 'furnished' && values[key]) {
+            data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
+          } else if (key == 'price_start' && values['finality']) {
+            if (
+              (values['finality'] == 'venda' && values[key] <= 700000) ||
+              (values['finality'] == 'aluguel' && values[key] <= 5000)
+            ) {
+              data[key] = 0;
+            } else {
+              data[key] = values[key];
+            }
+          } else if (key == 'price_end' && values['finality']) {
+            if (
+              (values['finality'] == 'venda' && values[key] >= 20000000) ||
+              (values['finality'] == 'aluguel' && values[key] >= 30000)
+            ) {
+              data[key] = 999000000;
+            } else {
+              data[key] = values[key];
+            }
+          } else if (Array.isArray(values[key]) && values[key].length) {
+            data[key] = values[key].join(',');
+          } else if (!Array.isArray(values[key]) && values[key]) {
             data[key] = values[key];
           }
-        } else if (key == 'price_end' && values['finality']) {
-          if (
-            (values['finality'] == 'venda' && values[key] >= 20000000) ||
-            (values['finality'] == 'aluguel' && values[key] >= 30000)
-          ) {
-            data[key] = 999000000;
-          } else {
-            data[key] = values[key];
-          }
-        } else if (Array.isArray(values[key]) && values[key].length) {
-          data[key] = values[key].join(',');
-        } else if (!Array.isArray(values[key]) && values[key]) {
-          data[key] = values[key];
-        }
-      });
+        });
+
+      }
 
       const params = getParamsFromObject(data);
 
