@@ -85,8 +85,10 @@ function Building({ property }) {
   return data && Object.keys(data).length ? (
     <>
       <Head>
-        <title>{SeoData.title}</title>
-        <meta name="description" content={SeoData.description} />
+        <title>
+          {data.category} {data.address.local} {data.address.state} com {(data.infos.areaUsefulStart) ? data.infos.areaUsefulStart : data.infos.areaBuilding}m² e {(data.infos.bedroomsStart) ? data.infos.bedroomsStart : data.infos.bedrooms } dormitórios {SeoData.shortTitle}
+        </title>
+        <meta name="description" content={`Venha conhecer este ${data.category} em ${data.address.local}, ${data.address.state}/${data.address.country} com ${(data.infos.areaUsefulStart) ? data.infos.areaUsefulStart : data.infos.areaBuilding}m², ${(data.infos.bedroomsStart) ? data.infos.bedroomsStart : data.infos.bedrooms } dormitórios e ${(data.infos.parkingStart) ? data.infos.parkingStart : data.infos.parking } vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`} />
       </Head>
       <Container>
         <Headerbar

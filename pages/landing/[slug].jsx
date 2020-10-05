@@ -46,8 +46,8 @@ function Landing({ slug, page }) {
   return slug ? (
     <>
       <Head>
-        <title>{`${title} - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} />
+        <title>{title} {SeoData.shortTitle}</title>
+        <meta name="description" content={`${title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`} />
       </Head>
       <Container>
         {images.desktop || images.mobile ? (

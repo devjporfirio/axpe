@@ -92,8 +92,8 @@ function DreamDetail({ buildings }) {
   return data ? (
     <>
       <Head>
-        <title>{`${data.title} | So quero sonhar - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} />
+        <title>Imóveis {data.title} para se inspirar {SeoData.shortTitle}</title>
+        <meta name="description" content={`Venha conhecer esta seleção dos melhores imóveis ${data.title} para você se inspirar na hora de comprar ou alugar seu imóvel. Confira!`} />
       </Head>
       <Container>
         <Header>
