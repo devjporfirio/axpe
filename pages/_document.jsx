@@ -33,6 +33,12 @@ export default class MyDocument extends Document {
   }
 
   render() {
+
+    const metaData = (this.props.__NEXT_DATA__.props && this.props.__NEXT_DATA__.props.initialProps.pageProps.meta) ? this.props.__NEXT_DATA__.props.initialProps.pageProps.meta : null;
+    const metaTitle = (metaData && metaData.title) ? metaData.title : null;
+    const metaDescription = (metaData && metaData.description) ? metaData.description : null;
+    const metaImage = (metaData && metaData.image) ? metaData.image : null;
+
     return (
       <Html>
         <Head>
@@ -49,6 +55,31 @@ export default class MyDocument extends Document {
           <link rel='shortcut icon' href='/favicon/favicon.ico' />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff"></meta>
+
+          {metaTitle && (
+            <>
+              <title>{metaTitle}</title>
+              <meta property='og:title' content={metaTitle} />
+            </>
+          )}
+
+          {metaDescription && (
+            <>
+              <meta name="description" content={metaDescription} />
+              <meta property='og:description' content={metaDescription} />
+            </>
+          )}
+
+          {metaImage && (
+            <meta property='og:image' content={metaImage} />
+          )}
+
+          {metaTitle && metaDescription && (
+            <>
+              <meta property='og:type' content='website' />
+              <meta property='og:site_name' content='Axpe' />
+            </>
+          )}
 
           {/*
 

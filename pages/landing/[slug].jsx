@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
 import Api from 'services';
 
 // helpers
@@ -45,10 +44,6 @@ function Landing({ slug, page }) {
 
   return slug ? (
     <>
-      <Head>
-        <title>{title} {SeoData.shortTitle}</title>
-        <meta name="description" content={`${title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`} />
-      </Head>
       <Container>
         {images.desktop || images.mobile ? (
           <Hero>
@@ -125,9 +120,20 @@ Landing.getInitialProps = async ({ query }) => {
   const slug = query.slug;
   const response = await Api.Landing.getPage(slug);
 
+  const pageTitle = `${response.title} ${SeoData.shortTitle}`;
+  const pageDesc = `${response.title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`;
+
+  // const backupBanner =
+  const pageBanner = (response.images.desktop) ? response.images.desktop : null;
+
   return {
     slug,
     page: response,
+    meta: {
+      title: pageTitle,
+      description: pageDesc,
+      image: pageBanner
+    }
   };
 };
 

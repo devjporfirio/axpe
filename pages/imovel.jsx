@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Head from 'next/head';
 import GTM from 'helpers/gtm';
 import Api from 'services';
 
@@ -84,12 +83,6 @@ function Building({ property }) {
 
   return data && Object.keys(data).length ? (
     <>
-      <Head>
-        <title>
-          {data.category} {data.address.local} {data.address.state} com {(data.infos.areaUsefulStart) ? data.infos.areaUsefulStart : data.infos.areaBuilding}m² e {(data.infos.bedroomsStart) ? data.infos.bedroomsStart : data.infos.bedrooms } dormitórios {SeoData.shortTitle}
-        </title>
-        <meta name="description" content={`Venha conhecer este ${data.category} em ${data.address.local}, ${data.address.state}/${data.address.country} com ${(data.infos.areaUsefulStart) ? data.infos.areaUsefulStart : data.infos.areaBuilding}m², ${(data.infos.bedroomsStart) ? data.infos.bedroomsStart : data.infos.bedrooms } dormitórios e ${(data.infos.parkingStart) ? data.infos.parkingStart : data.infos.parking } vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`} />
-      </Head>
       <Container>
         <Headerbar
           type="building"
@@ -170,9 +163,24 @@ Building.getInitialProps = async ({ query }) => {
 
   const response = await Api.Building.getPage(reference);
 
+  const buildingLocationTitle = (response.building.address) ? (response.building.address.local && response.building.address.state) ? response.building.address.local + ' ' + response.building.address.state : '' : '';
+  const buildingLocation = (response.building.address) ? (response.building.address.local && response.building.address.country) ? 'em ' + response.building.address.local + ', ' + response.building.address.state + '/' + response.building.address.country : '' : '';
+  const buildingArea = (response.building.infos) ? ((response.building.infos.areaUsefulStart) ? response.building.infos.areaUsefulStart : ((response.building.infos.areaUseful) ? response.building.infos.areaUseful : response.building.infos.areaBuilding)) : 0;
+  const buildingBedrooms = (response.building.infos) ? (response.building.infos.bedroomsStart) ? response.building.infos.bedroomsStart : response.building.infos.bedrooms : 0;
+  const buildingPark = (response.building.infos) ? (response.building.infos.parkingStart) ? response.building.infos.parkingStart : response.building.infos.parking : 0;
+
+  const pageTitle = `${response.building.category} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
+  const pageDesc = `Venha conhecer este ${response.building.category} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
+  const pageBanner = `${(response.building.gallery) ? response.building.gallery[0].src : ''}`;
+
   return {
     reference: reference,
-    property: response.building
+    property: response.building,
+    meta: {
+      title: pageTitle,
+      description: pageDesc,
+      image: pageBanner
+    }
   };
 };
 

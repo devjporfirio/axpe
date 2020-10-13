@@ -146,9 +146,21 @@ function DreamDetail({ buildings }) {
 
 DreamDetail.getInitialProps = async ({ query }) => {
   const response = await Api.Dream.getPage(query.slug);
+
+  const pageDetails = DataJSON.data.filter(item => item.slug === query.slug)[0];
+
+  const pageTitle = `${pageDetails.title} ${SeoData.shortTitle}`;
+  const pageDesc = `${pageDetails.title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`;
+  const pageBanner = (response.data[0].imageFeatured && response.data[0].imageFeatured.desktop) ? response.data[0].imageFeatured.desktop : null;
+
   return {
     total: response.total,
-    buildings: response.data
+    buildings: response.data,
+    meta: {
+      title: pageTitle,
+      description: pageDesc,
+      image: pageBanner
+    }
   };
 }
 
