@@ -336,6 +336,10 @@ function DreamBuildingSingle({ type }) {
     },
     validationSchema: formSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      if(values.MultipleChoice && typeof values.MultipleChoice !== 'undefined') {
+        const selectedLocations = values.MultipleChoice.join(', ');
+        setFieldValue('SingleLine2', selectedLocations);
+      }
       setTimeout(() => {
         refForm.current.submit();
       }, 1000);
@@ -535,6 +539,10 @@ function DreamBuildingSingle({ type }) {
               <input type="hidden" name="Email" value={values.Email} />
               <input type="hidden" name="Currency" value={values.Currency} />
               <input type="hidden" name="Radio1" value={values.Radio1} />
+
+              {type !== 'praia-campo' && type !== 'internacional' && (
+                <input type="hidden" name="SingleLine2" value={values.SingleLine2} />
+              )}
 
               {type === 'sao-paulo-comerciais' || type === 'praia-campo' ? (
                 <FormCols>
