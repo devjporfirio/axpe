@@ -34,6 +34,7 @@ export default class MyDocument extends Document {
 
   render() {
 
+    // SEO Metadata
     const metaData = (this.props.__NEXT_DATA__.props && this.props.__NEXT_DATA__.props.initialProps.pageProps.meta) ? this.props.__NEXT_DATA__.props.initialProps.pageProps.meta : null;
     const metaTitle = (metaData && metaData.title) ? metaData.title : null;
     const metaDescription = (metaData && metaData.description) ? metaData.description : null;
