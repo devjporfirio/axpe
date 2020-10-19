@@ -169,8 +169,10 @@ Building.getInitialProps = async ({ query }) => {
   const buildingBedrooms = (response.building.infos) ? (response.building.infos.bedroomsStart) ? response.building.infos.bedroomsStart : response.building.infos.bedrooms : 0;
   const buildingPark = (response.building.infos) ? (response.building.infos.parkingStart) ? response.building.infos.parkingStart : response.building.infos.parking : 0;
 
+  const pageDescPrefix = ([ 'Apartamento', 'Apartamento Internacional', 'Conjunto', 'Galpão', 'Prédio' ].includes(response.building.category)) ? 'Venha conhecer este' : 'Venha conhecer esta';
+
   const pageTitle = `${response.building.category} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
-  const pageDesc = `Venha conhecer este ${response.building.category} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
+  const pageDesc = `${pageDescPrefix} ${response.building.category.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
   const pageBanner = `${(response.building.gallery) ? response.building.gallery[0].src : ''}`;
 
   return {

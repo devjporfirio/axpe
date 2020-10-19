@@ -149,8 +149,8 @@ DreamDetail.getInitialProps = async ({ query }) => {
 
   const pageDetails = DataJSON.data.filter(item => item.slug === query.slug)[0];
 
-  const pageTitle = `${pageDetails.title} ${SeoData.shortTitle}`;
-  const pageDesc = `${pageDetails.title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`;
+  const pageTitle = `Imóveis ${pageDetails.title} para se inspirar ${SeoData.shortTitle}`;
+  const pageDesc = `Venha conhecer esta seleção dos melhores imóveis ${pageDetails.title} para você se inspirar na hora de comprar ou alugar seu imóvel. Confira!`;
   const pageBanner = (response.data[0].imageFeatured && response.data[0].imageFeatured.desktop) ? response.data[0].imageFeatured.desktop : null;
 
   return {
