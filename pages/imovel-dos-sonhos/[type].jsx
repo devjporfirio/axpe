@@ -689,6 +689,7 @@ function DreamBuildingSingle({ type }) {
                             key={`formlistitem-type-${localIndex}-${local.value}`}
                           >
                             <FormElements
+                              id={`MultipleChoice_${localIndex}`}
                               name="MultipleChoice"
                               type="checkbox"
                               label={local.label}
@@ -722,6 +723,7 @@ function DreamBuildingSingle({ type }) {
                           key={`formlistitem-type-${localIndex}-${local.value}`}
                         >
                           <FormElements
+                            id={`MultipleChoice_${localIndex}`}
                             name="MultipleChoice"
                             type="checkbox"
                             label={local.label}
