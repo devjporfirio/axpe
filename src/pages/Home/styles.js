@@ -6,12 +6,14 @@ import { ButtonStyle } from 'components/Button/styles';
 
 export const Container = styled.section`
   .buildingsSeen + .buildingsForYou {
-    padding-top: 0;
-    margin-top: -35px;
+    > div {
+      padding-top: 0;
+    }
   }
   .buildingsForYou + .buildingsSeen {
-    padding-top: 0;
-    margin-top: -35px;
+    > div {
+      padding-top: 0;
+    }
   }
 `;
 

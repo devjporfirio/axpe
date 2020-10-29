@@ -16,6 +16,7 @@ function BuildingsPanel({
   data,
   title,
   subtitle,
+  itemClass,
   page = '',
   headerBig = false,
   buildingLayout = 'vertical',
@@ -67,7 +68,7 @@ function BuildingsPanel({
   }
 
   return data && data.length >= 1 ? (
-    <Container type={type}>
+    <Container type={type} className={itemClass}>
       <Wrapper type={type}>
         <Header headerBig={headerBig}>
           {title && (

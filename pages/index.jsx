@@ -216,6 +216,7 @@ function Home({ hero, components }) {
                 buildingsSeen &&
                 buildingsSeen.length ? (
                   <BuildingsPanel
+                    itemClass="buildingsSeen"
                     key={`buildingspanel-0-${c.type}-${cIndex}`}
                     page="home"
                     title="Imóveis que você viu"
@@ -229,6 +230,7 @@ function Home({ hero, components }) {
                 buildingsForYou &&
                 buildingsForYou.length ? (
                   <BuildingsPanel
+                    itemClass="buildingsForYou"
                     key={`panel-buildings-1-${c.type}-${cIndex}`}
                     page="home"
                     title="Indicados para você"
