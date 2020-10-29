@@ -162,6 +162,7 @@ export const ButtonIcon = styled.button`
 
   svg {
     display: block;
+    margin-left: 5px;
 
     path {
       transition: all 300ms ease;
