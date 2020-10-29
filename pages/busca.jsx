@@ -38,10 +38,13 @@ import {
   ButtonBack,
   Buildings,
   BuildingsNotFound,
+  SearchBanner,
+  Infos,
+  Image,
   BuildingsLoadMore
 } from 'pages/Search/styles'
 
-function Search({ total, totalPages, data, locals }) {
+function Search({ total, totalPages, data, banner, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { query, query: { source, finality, reference, order } } = router;
@@ -157,6 +160,7 @@ function Search({ total, totalPages, data, locals }) {
     const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
     setBuildings(newBuildings);
     setIsLoading(false);
+
   }, [ buildings ]);
 
   const loadMore = useCallback(() => {
@@ -400,17 +404,41 @@ function Search({ total, totalPages, data, locals }) {
 
               <Buildings>
                 {total ? buildings.map((building, buildingIndex) => (
-                    <BuildingList
-                      item={building}
-                      page="search"
-                      positionIndex={buildingIndex + 1}
-                      key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                    />
+                    <>
+                      <BuildingList
+                        item={building}
+                        page="search"
+                        positionIndex={buildingIndex + 1}
+                        key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                      />
+
+                      {banner && buildingIndex == 2 && total >= 5 && (
+                        <SearchBanner>
+                          <Infos>
+                            <h4>{banner.title}</h4>
+                            <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
+                          </Infos>
+                          {banner.imageDesktop && <Image mq="desktop" src={banner.imageDesktop} />}
+                          {banner.imageMobile && <Image mq="mobile" src={banner.imageMobile} />}
+                        </SearchBanner>
+                      )}
+                    </>
                   )) : (
                   <BuildingsNotFound>
                     <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
                     <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
                   </BuildingsNotFound>
+                )}
+
+                {banner && total < 5 && (
+                  <SearchBanner>
+                    <Infos>
+                      <h4>{banner.title}</h4>
+                      <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
+                    </Infos>
+                    {banner.imageDesktop && <Image mq="desktop" src={banner.imageDesktop} />}
+                    {banner.imageMobile && <Image mq="mobile" src={banner.imageMobile} />}
+                  </SearchBanner>
                 )}
 
                 {total && page < totalPages ? (
@@ -453,7 +481,7 @@ Search.getInitialProps = async ({ query }) => {
   const params = getParamsFromObject({
     ...query,
     page: 1,
-    limit: query.page ? +query.page * 10 : 10
+    limit: query.page ? +query.page * 10 : 10,
   }, true);
 
   const locals = await Api.Search.getLocals();

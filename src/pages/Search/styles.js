@@ -261,6 +261,162 @@ export const BuildingsNotFound = styled.div`
   `}
 `;
 
+export const SearchBanner = styled.div`
+  position: relative;
+  background-color: ${({ theme }) => theme.colors.white};
+  max-width: calc(100vw - 32px);
+  margin: ${props =>
+    props.useBtSchedule ? 'auto auto 33px auto' : 'auto auto 20px auto'};
+  overflow: hidden;
+  border-radius: 6px;
+
+  ${props =>
+    props.hasDeleted &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 30px;
+    `}
+
+  p, h4 {
+    color: ${({ theme }) => theme.colors.greenDark};
+  }
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+    height: ${props =>
+      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+
+    ${props =>
+      props.hasDeleted
+        ? css`
+            justify-content: flex-start;
+            flex-direction: row;
+            align-items: center;
+          `
+        : css`
+            justify-content: space-between;
+            flex-direction: row-reverse;
+          `}
+  `}
+
+  ${media.greaterThan('large')`
+    transition: all 300ms ease;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+  `}
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.8));
+    z-index: 2;
+
+    ${media.greaterThan('medium')`
+      background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.4));
+    `}
+`;
+
+export const Infos = styled.div`
+  display: block;
+  z-index: 5;
+  position: relative;
+  padding: 15px 20px;
+  width: 85%;
+  height: 376px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+    height: 525px;
+    padding: 30px;
+    margin: auto;
+  `}
+
+  ${media.greaterThan('1280px')`
+    ${props =>
+      props.releaseDelivery
+        ? css`
+            height: calc(100% - 35px);
+            margin: 0;
+            padding: 0 40px;
+          `
+        : css`
+            padding: 30px 40px 30px 40px;
+          `}
+  `}
+
+  h4 {
+    font: 30px/35px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    color: ${({ theme }) => theme.colors.white};
+    margin-bottom: 15px;
+
+    strong {
+      color: ${({ theme }) => theme.colors.orange};
+    }
+  }
+
+  ${media.greaterThan('medium')`
+    h4 {
+      width: 60%;
+      font-size: 40px;
+      line-height: 50px;
+      margin-bottom: 30px;
+    }
+  `}
+
+  a {
+    display: inline-block;
+    height: 45px;
+    border-radius: 4px;
+    font: 15px/44px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    text-align: center;
+    background-color: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.white};
+    text-transform: uppercase;
+    padding: 0 25px;
+    transition: all 300ms ease;
+  }
+  
+  
+`;
+
+export const Image = styled.img`
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  object-fit: cover;
+  border-top: none;
+  border-bottom: none;
+  width: 100%;
+  height: 100%;
+
+  ${props => props.mq === 'mobile' && media.greaterThan('medium')`
+    display: none !important;
+  `}
+
+  ${props => props.mq === 'desktop' && media.lessThan('medium')`
+    display: none !important;
+  `}
+`;
+
 export const BuildingsLoadMore = styled.div`
   display: flex;
   justify-content: center;
