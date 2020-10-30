@@ -3,6 +3,9 @@ import App from 'next/app';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 
+// helpers
+import CookieUtmParams from 'helpers/cookieUtmParams';
+
 // layout
 import Main from 'layouts/main';
 
@@ -13,6 +16,11 @@ import 'isomorphic-unfetch';
 import 'promise-polyfill/lib/polyfill';
 
 class MyApp extends App {
+
+  componentDidMount() {
+    CookieUtmParams.set(location.search);
+  }
+
   render() {
     const { Component, pageProps, store } = this.props;
 
