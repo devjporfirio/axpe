@@ -376,7 +376,17 @@ function Search() {
     };
 
     if (formik.values.finality) {
-      getFilters();
+
+      if(formik.values.finality == 'venda') {
+        if(formik.values.ready_release) {
+          getFilters();
+        } else {
+          setFiltersData(null);
+        }
+      } else {
+        getFilters();
+      }
+
     }
   }, [
     formik.values.source.value,
