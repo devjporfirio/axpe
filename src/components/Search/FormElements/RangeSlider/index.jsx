@@ -54,6 +54,24 @@ function RangeSlider({
       end = `${prefix}${end}${suffix}`;
     }
 
+    if (type == 'area') {
+
+      const startVal = parseInt(start);
+      const endVal = parseInt(end);
+
+      if (startVal <= 50) {
+        start = `< 50${suffix}`;
+      } else {
+        start = `${prefix}${Math.ceil(startVal/5)*5}${suffix}`;
+      }
+
+      if (endVal >= 500) {
+        end = `500${suffix} >`;
+      } else {
+        end = `${prefix}${Math.ceil(endVal/5)*5}${suffix}`;
+      }
+    }
+
     setValues({
       first: start,
       last: end,
@@ -72,25 +90,33 @@ function RangeSlider({
       max: data[1],
     };
 
-    if (type === 'prices') {
-      if (finality === 'venda') {
+    switch(type) {
+      case 'prices':
+        if (finality === 'venda') {
+          range = {
+            min: [ 700000, 100000 ],
+            '20%': [ 1000000, 200000 ],
+            '40%': [ 3000000, 500000 ],
+            '60%': [ 5000000, 1000000 ],
+            '80%': [ 10000000, 2000000 ],
+            max: 20000000,
+          };
+        } else {
+          range = {
+            min: [ 5000, 200 ],
+            '25%': [ 6000, 500 ],
+            '50%': [ 10000, 1000 ],
+            '75%': [ 20000, 5000 ],
+            max: 30000,
+          };
+        }
+        break;
+      case 'area':
         range = {
-          min: [ 700000, 100000 ],
-          '20%': [ 1000000, 200000 ],
-          '40%': [ 3000000, 500000 ],
-          '60%': [ 5000000, 1000000 ],
-          '80%': [ 10000000, 2000000 ],
-          max: 20000000,
+          min: 50,
+          max: 500
         };
-      } else {
-        range = {
-          min: [ 5000, 200 ],
-          '25%': [ 6000, 500 ],
-          '50%': [ 10000, 1000 ],
-          '75%': [ 20000, 5000 ],
-          max: 30000,
-        };
-      }
+        break;
     }
 
     sliderApi.current = noUiSlider.create(ref.current, {

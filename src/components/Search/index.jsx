@@ -961,9 +961,10 @@ function Search() {
                     <FormTabSlider>
                       <FormTabSliderTitle>Área útil</FormTabSliderTitle>
                       <RangeSlider
+                        type="area"
                         data={filtersData.area}
                         sep="a"
-                        step={10}
+                        step={50}
                         suffix=" m²"
                         onChange={(values) => {
                           formik.setFieldValue('area_start', values[0]);
