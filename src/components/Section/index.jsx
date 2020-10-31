@@ -117,7 +117,9 @@ function sectionMultiInfos(item, labelTitle, type, useButtom) {
             ) : null}
             {rent ? <span>Aluguel: {formatCurrency.format(rent)}</span> : null}
           </Infos>
-        ) : null}
+        ) : (
+          <span>Valores sob consulta</span>
+        )}
 
         <Reference type={type}>Ref {reference}</Reference>
       </GroupInfo>
