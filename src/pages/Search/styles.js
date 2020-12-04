@@ -335,14 +335,14 @@ export const Infos = styled.div`
   position: relative;
   padding: 15px 20px;
   width: 85%;
-  height: 376px;
+  height: 525px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   ${media.greaterThan('medium')`
     width: 100%;
-    height: 525px;
+    height: 376px;
     padding: 30px;
     margin: auto;
   `}
