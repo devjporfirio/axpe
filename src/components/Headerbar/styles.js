@@ -298,6 +298,7 @@ export const ButtonLike = styled.button`
     display: block;
     width: 27px;
     height: 25px;
+    margin-left: 5px;
 
     path {
       transition: all 300ms ease;
