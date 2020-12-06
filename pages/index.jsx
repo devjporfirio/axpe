@@ -46,6 +46,7 @@ function Home({ hero, components }) {
   const user = useSelector(state => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
+  const [ heroItems, setHeroItems ] = useState([]);
 
   const heroSettings = {
     dots: false,
@@ -104,6 +105,16 @@ function Home({ hero, components }) {
     }
   }, []);
 
+  const randomizeHeroItems = useCallback(() => {
+
+    if(Object.keys(heroItems).length === 0) {
+      setHeroItems(shuffle(hero));
+    }
+
+    return heroItems;
+    
+  });
+
   const renderHeroItem = useCallback(item => {
     const hasContent = item.title || item.content ? true : false;
 
@@ -125,6 +136,7 @@ function Home({ hero, components }) {
   }, []);
 
   useEffect(() => {
+
     function checkActionParams() {
       if (action) {
         dispatch(
@@ -195,7 +207,7 @@ function Home({ hero, components }) {
             arrowsClassName="holos-home-hero-arrow"
             settings={heroSettings}
           >
-            {hero.map((item, itemIndex) => (
+            {randomizeHeroItems().map((item, itemIndex) => (
               <HeroItem key={`hero-item-${itemIndex}`}>
                 {item.link && item.link.url && (item.link.target === 'blank' || item.link.target === 'self') && (
                   <HeroLink href={item.link.url} target={`_${item.link.target}`}>
