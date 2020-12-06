@@ -125,7 +125,7 @@ function Search() {
       reference: '',
     },
 
-    onSubmit: (values) => {
+    onSubmit: (values, { setSubmitting }) => {
       const data = {};
 
       if(typeof values.reference !== 'undefined' && values.reference && values.reference.length > 0) {
@@ -171,6 +171,7 @@ function Search() {
       formik.setFieldValue('reference', '');
 
       setTabActive(null);
+      setSubmitting(false);
 
       window.scrollTo(0, 0);
 
@@ -378,7 +379,7 @@ function Search() {
     if (formik.values.finality) {
 
       if(formik.values.finality == 'venda') {
-        if(formik.values.ready_release) {
+        if((formik.values.ready_release || formik.values.use == 'COMERCIAL')) {
           getFilters();
         } else {
           setFiltersData(null);
