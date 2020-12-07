@@ -16,8 +16,17 @@ export const Text = styled.p`
   -ms-user-select: none;
   user-select: none;
 
+  span {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
   ${media.greaterThan('medium')`
     font-size: 13px;
+
+    span {
+      font-size: 10px;
+    }
   `};
 `;
 

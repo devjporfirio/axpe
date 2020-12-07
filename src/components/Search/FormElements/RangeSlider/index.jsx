@@ -54,6 +54,9 @@ function RangeSlider({
       end = `${prefix}${end}${suffix}`;
     }
 
+    start = start.replace('R$', '<span>R$</span>');
+    end = end.replace('R$', '<span>R$</span>');
+
     if (type == 'area') {
 
       const startVal = parseInt(start);
@@ -145,9 +148,11 @@ function RangeSlider({
     renderSlider();
   }, [ data ]);
 
+  const innerTextHTML = (values) ? `${values.first} ${sep} ${values.last}` : null;
+
   return (
     <Container>
-      {values ? <Text>{`${values.first} ${sep} ${values.last}`}</Text> : null}
+      {values ? <Text dangerouslySetInnerHTML={{ __html: innerTextHTML }}></Text> : null}
       <Slider ref={ref}></Slider>
     </Container>
   );
