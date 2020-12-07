@@ -378,7 +378,7 @@ function Search() {
 
     if (formik.values.finality) {
 
-      if(formik.values.finality == 'venda') {
+      if(formik.values.finality == 'venda' && formik.values.source.value == 'sao-paulo') {
         if((formik.values.ready_release || formik.values.use == 'COMERCIAL')) {
           getFilters();
         } else {
