@@ -141,7 +141,7 @@ function Search() {
             data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
           } else if (key == 'price_start' && values['finality']) {
             if (
-              (values['finality'] == 'venda' && values[key] <= 700000) ||
+              (values['finality'] == 'venda' && values[key] <= 800000) ||
               (values['finality'] == 'aluguel' && values[key] <= 5000)
             ) {
               data[key] = 0;
