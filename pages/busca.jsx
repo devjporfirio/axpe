@@ -230,6 +230,13 @@ function Search({ total, totalPages, data, banner, locals }) {
         })
       });
 
+      // Avoids duplicating the main query
+      localsSelected.forEach((local, idx) => {
+        if(localsArr.includes(local)) {
+          delete localsSelected[idx];
+        }
+      });
+
       if(localsSelected.length) {
         const query2 = {
           ...query,
