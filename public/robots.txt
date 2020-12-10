@@ -7,3 +7,4 @@ Disallow: /import_root
 Disallow: /import_log
 Disallow: /emails
 Disallow: /forms
+Disallow: /sitemap.xml
