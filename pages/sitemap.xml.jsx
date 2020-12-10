@@ -1,16 +1,25 @@
 import React from 'react';
 import Api from 'services';
 
+import DreamPages from 'pages/Dream/data.json';
+
 const renderXml = ({ buildings, landings }) => {
   const siteUrl = `https://www.axpe.com.br`;
   const pages = [
     `<url><loc>${siteUrl}/sobre</loc><priority>0.80</priority></url>`,
     `<url><loc>${siteUrl}/contato</loc><priority>0.80</priority></url>`,
+    `<url><loc>${siteUrl}/so-quero-sonhar</loc><priority>0.60</priority></url>`,
   ];
 
   if(landings && landings.length) {
     landings.forEach(item => {
-      pages.push(`<url><loc>${siteUrl}/${item.slug}</loc><priority>0.60</priority></url>`);
+      pages.push(`<url><loc>${siteUrl}/landing/${item.slug}</loc><priority>0.60</priority></url>`);
+    })
+  }
+
+  if(DreamPages['data'] && DreamPages['data'].length) {
+    DreamPages['data'].forEach(item => {
+      pages.push(`<url><loc>${siteUrl}/so-quero-sonhar/${item.slug}</loc><priority>0.60</priority></url>`);
     })
   }
 
