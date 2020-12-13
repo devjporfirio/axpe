@@ -14,8 +14,6 @@ import { setMain } from 'store/modules/main/actions';
 // components
 import Button from 'components/Button';
 import Input from 'components/Search/FormElements/Input';
-import InputSource from 'components/Search/FormElements/InputSource';
-import ButtonSource from 'components/Search/FormElements/ButtonSource';
 import RangeSlider from 'components/Search/FormElements/RangeSlider';
 
 // assets
@@ -53,6 +51,8 @@ import {
   FormTabFooter,
   FormTabListItemTitle,
   FormTabListItemButton,
+  FormTabListContainer,
+  FormTabListItemContainer,
   FormTabSlider,
   FormTabSliderTitle,
 } from './styles';
@@ -434,23 +434,40 @@ function Search() {
               </FormHeader>
 
               <FormGroup>
-                <InputSource
-                  type="text"
-                  name="source"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleChange}
-                  value={formik.values.source ? formik.values.source.label : ''}
-                  disabled={true}
-                />
-                <ButtonSource
-                  className="holos-search-menu-filter"
-                  data-label="Alterar localização"
-                  type="button"
-                  onClick={() => setTabActive('sources')}
-                >
-                  Alterar localização
-                </ButtonSource>
+                <FormTabListContainer isEmpty={formik.values.source}>
+                  {sources.map((source, sourceIndex) => (
+                    <FormTabListItemContainer
+                      key={`local-${sourceIndex}`}
+                      active={
+                        formik.values.source &&
+                        formik.values.source.value === source.value
+                      }
+                    >
+                      <FormTabListItemButton
+                        type="button"
+                        format="icon"
+                        active={
+                          formik.values.source &&
+                          formik.values.source.value === source.value
+                        }
+                        onClick={() => {
+                          setSource(source);
+                        }}
+                        className="holos-search-menu-item"
+                        data-label={source.label}
+                        data-type={'Alterar localização'}
+                      >
+                        <span>
+                          <img src={require(`assets/icons/sources-${source.value}.svg`)} alt={source.label} />
+                        </span>
+                        {source.label}
+                      </FormTabListItemButton>
+                    </FormTabListItemContainer>
+                  ))}
+                </FormTabListContainer>
               </FormGroup>
+
+
 
               {formik.values.source.value ? (
                 <FormButtonsFilter>
@@ -756,47 +773,6 @@ function Search() {
             </FormWrapperBox>
           </SimpleBar>
         </FormWrapper>
-
-        <FormTab
-          active={tabActive === 'sources'}
-          onClick={(event) => event.stopPropagation()}
-        >
-          <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-            <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-          </FormTabButtonBack>
-          <SimpleBar style={{ maxHeight: '100%' }}>
-            <FormTabWrapper>
-              <FormTabClose type="button" onClick={() => setTabActive(null)}>
-                Fechar
-              </FormTabClose>
-              <FormTabTitle>Bairros</FormTabTitle>
-              <FormTabContent>
-                <ul>
-                  {sources.map((source, sourceIndex) => (
-                    <li key={`local-${sourceIndex}`}>
-                      <FormTabListItemButton
-                        type="button"
-                        active={
-                          formik.values.source &&
-                          formik.values.source.value === source.value
-                        }
-                        onClick={() => {
-                          setTabActive(null);
-                          setSource(source);
-                        }}
-                        className="holos-search-menu-item"
-                        data-label={source.label}
-                        data-type={'Alterar localização'}
-                      >
-                        {source.label}
-                      </FormTabListItemButton>
-                    </li>
-                  ))}
-                </ul>
-              </FormTabContent>
-            </FormTabWrapper>
-          </SimpleBar>
-        </FormTab>
 
         {filtersData && filtersData.types && filtersData.types.length ? (
           <FormTab

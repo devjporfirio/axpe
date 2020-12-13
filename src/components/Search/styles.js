@@ -600,7 +600,35 @@ export const FormTabListItemButton = styled.button`
   color: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
 
+  ${props => props.format && css`
+    span {
+      display: block;
+      border-radius: 60px;
+      padding: 14px 0;
+      margin: 0 auto 10px;
+      background-color: white;
+      width: 60px;
+
+      img {
+        height: 32px;
+        width: 75%;
+        margin: 0 auto;
+      }
+    }
+
+    &:before {
+      display: none !important;
+    }
+
+    font: 15px 'Raleway';
+    text-align: center;
+    padding: 0px;
+    color: white;
+
+  `}
+
   ${props => props.active && FormTabListItemButtonActive}
+  ${props => props.active && css`font-weight: 700;`}
 
   &:before {
     content: '';
@@ -644,6 +672,24 @@ export const FormTabSlider = styled.div`
   & > div {
     touch-action: none;
   }
+`;
+
+export const FormTabListContainer = styled.ul`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const FormTabListItemContainer = styled.li`
+  flex: 1;
+  text-align: center;
+  opacity: 0.5;
+  transition: opacity .2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  ${props => props.active && css`opacity: 1;`}
 `;
 
 export const FormTabSliderTitle = styled.h4`
