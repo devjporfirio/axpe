@@ -427,7 +427,7 @@ function Search() {
           <SimpleBar style={{ maxHeight: '100%' }}>
             <FormWrapperBox>
               <FormHeader>
-                <FormHeaderTitle>Quero um imóvel</FormHeaderTitle>
+                <FormHeaderTitle>Onde você procura um imóvel?</FormHeaderTitle>
                 <FormClose type="button" onClick={closeSearch}>
                   Fechar
                 </FormClose>

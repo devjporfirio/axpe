@@ -137,6 +137,7 @@ export const FormHeader = styled.header`
 `;
 
 export const FormHeaderTitle = styled.h2`
+  max-width: 90%;
   margin-bottom: 20px;
   font: 22px 'Raleway';
   text-transform: uppercase;
@@ -145,6 +146,7 @@ export const FormHeaderTitle = styled.h2`
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
   ${media.greaterThan('medium')`
+    max-width: 70%;
     font-size: 16px;
   `}
 `;
