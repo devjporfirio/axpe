@@ -7,22 +7,51 @@ export const ButtonFloat = styled.button`
   justify-content: center;
   position: fixed;
   bottom: 25px;
-  right: 25px;
-  width: 70px;
-  height: 70px;
-  font-size: 0;
+  width: 245px;
+  height: 50px;
   background: ${({ theme }) => theme.colors.orange};
-  border-radius: 50%;
+  border-radius: 36px;
   border: 2px solid ${({ theme }) => theme.colors.white};
   z-index: 10;
 
+  right: 50%;
+  transform: translateX(50%);
+
+  span {
+    display: none;
+  }
+
+  div {
+
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 20px;
+
+    span {
+      font-size: 13px;
+    }
+
+  }
+
   ${media.greaterThan('large')`
+    right: 25px;
     bottom: 20px;
+    transform: unset;
     transition: all 300ms ease;
 
     &:hover {
       transform: scale(1.05);
       transition-duration: 200ms;
+    }
+
+    div {
+
+      span {
+        display: block;
+      }
+
     }
   `}
 
