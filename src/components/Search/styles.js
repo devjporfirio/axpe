@@ -691,7 +691,13 @@ export const FormTabListItemContainer = styled.li`
     opacity: 1;
   }
 
-  ${props => props.active && css`opacity: 1;`}
+  ${props => props.active && css`
+    opacity: 1;
+
+    img {
+      filter: invert(51%) sepia(65%) saturate(4688%) hue-rotate(9deg) brightness(99%) contrast(105%);
+    }
+  `}
 `;
 
 export const FormTabSliderTitle = styled.h4`
