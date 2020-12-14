@@ -50,7 +50,7 @@ export default function Datasheet({ property }) {
               <Tag label={'Novidade'} icon="star" color="blueLight" />
             )}
             {label && label.isExclusive && (
-              <Tag label={'Só na Axpe'} icon="check" color="greenLight2" />
+              <Tag label={'Exclusividade'} icon="check" color="orange" />
             )}
             {label && label.isFurnished && (
               <Tag label={'Mobiliado'} icon="sofa" color="yellowLight" />

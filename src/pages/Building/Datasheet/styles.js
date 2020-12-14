@@ -149,7 +149,7 @@ export const Ref = styled.p`
 `;
 
 export const GroupTags = styled.div`
-  width: 144px;
+  /*width: 144px;*/
   margin-top: 27px;
 
   div + div {

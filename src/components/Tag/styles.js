@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   background-color: ${props => props.theme.colors[props.color]};
@@ -17,4 +17,12 @@ export const Container = styled.div`
     width: 19px;
     margin-right: 10px;
   }
+
+  ${props => props.color && props.color == 'orange' && css`
+    color: white;
+
+    img {
+      filter: invert(48%) sepia(90%) saturate(3049%) hue-rotate(4deg) brightness(75%) contrast(100%);
+    }
+  `}
 `;
