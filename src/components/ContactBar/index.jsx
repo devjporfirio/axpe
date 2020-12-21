@@ -176,9 +176,9 @@ function ContactBar() {
         ? currentBuilding.infos.areaUseful
         : currentBuilding.infos.areaUsefulStart;
       const paramsObj = {
+        type: currentBuilding.type,
         reference: currentBuilding.reference,
         category: currentBuilding.category,
-        type: currentBuilding.type,
         source: currentBuilding.source,
         region:
           currentBuilding.address && currentBuilding.address.region
@@ -289,28 +289,34 @@ function ContactBar() {
   useEffect(() => {
     if (refIframe.current && iframeUrl) {
       refIframe.current.onload = function() {
-        const $contents = this.contentDocument || this.contentWindow.document;
-        const $btnClose = $contents.querySelector('.header__close');
-        const $btnLogout = $contents.querySelector('.userinfo__btn');
+        const $iframe = this.contentWindow || this.contentDocument;
 
-        if ($btnClose) {
-          $btnClose.addEventListener('click', (event) => {
-            toggleShow();
+        if($iframe.document) {
+          const $contents = $iframe.document;
 
-            if (
-              $btnClose.classList.contains('js-reset-iframe-url') &&
-              refIframe.current
-            ) {
-              refIframe.current.setAttribute('src', iframeUrl);
-            }
-          });
-        }
+          const $btnClose = $contents.querySelector('.header__close');
+          const $btnLogout = $contents.querySelector('.userinfo__btn');
+  
+          if ($btnClose) {
+            $btnClose.addEventListener('click', (event) => {
+              toggleShow();
+  
+              if (
+                $btnClose.classList.contains('js-reset-iframe-url') &&
+                refIframe.current
+              ) {
+                refIframe.current.setAttribute('src', iframeUrl);
+              }
+            });
+          }
+  
+          if ($btnLogout) {
+            $btnLogout.addEventListener('click', (event) => {
+              toggleShow();
+              Router.push('/logout');
+            });
+          }
 
-        if ($btnLogout) {
-          $btnLogout.addEventListener('click', (event) => {
-            toggleShow();
-            Router.push('/logout');
-          });
         }
       };
     }
