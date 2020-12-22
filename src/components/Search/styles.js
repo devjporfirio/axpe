@@ -597,13 +597,14 @@ export const FormTabListItemButton = styled.button`
   display: block;
   width: 100%;
   padding-right: 30px;
+  margin-bottom: 30px;
   text-align: left;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
 
   ${props => props.format && css`
-    span {
+    .icon {
       display: block;
       border-radius: 60px;
       padding: 14px 0;
@@ -618,11 +619,19 @@ export const FormTabListItemButton = styled.button`
       }
     }
 
+    .label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      white-space: nowrap;
+    }
+
     &:before {
       display: none !important;
     }
 
-    font: 15px 'Raleway';
+    font: 14px 'Raleway';
     text-align: center;
     padding: 0px;
     color: white;
