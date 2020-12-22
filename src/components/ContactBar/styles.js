@@ -1,5 +1,33 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import media from 'styled-media-query';
+
+const animateBalloonLeft = keyframes`
+  0% { transform: scale(1); }
+  2.5% { transform: scale(1.1); }
+  12.5% { transform: scale(1.1); }
+  15% { transform: scale(1); }
+`
+
+const animateBalloonRight = keyframes`
+  0% { transform: scale(1); }
+  2.5% { transform: scale(1.1); }
+  47.5% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+`
+
+const animateBalloonDot = keyframes`
+  0% { transform: translateY(0px); }
+  3.5% { transform: translateY(-3px); }
+  7% { transform: translateY(0.25px); }
+  10.5% { transform: translateY(-0.75px); }
+  13% { transform: translateY(0px); }
+
+  18% { transform: translateY(0px); }
+  21.5% { transform: translateY(-3px); }
+  25% { transform: translateY(0.25px); }
+  28.5% { transform: translateY(-0.75px); }
+  31% { transform: translateY(0px); }
+`
 
 export const ButtonFloat = styled.button`
   display: flex;
@@ -59,6 +87,45 @@ export const ButtonFloat = styled.button`
     display: block;
     width: 30px;
     height: 30px;
+
+    .hollow-bg {
+      fill: ${({ theme }) => theme.colors.orange};
+    }
+
+    .left-balloon {
+      transform-origin: bottom left;
+      animation: ${animateBalloonLeft} 8s 6.25s;
+      animation-iteration-count:infinite;
+    }
+
+    .right-balloon {
+      transform-origin: center;
+      animation: ${animateBalloonRight} 8s 0s;
+      animation-iteration-count:infinite;
+    }
+
+    .chat-dots {
+
+      .chat-dot {
+        transform-origin: center;
+        animation-name: ${animateBalloonDot};
+        animation-duration: 8s;
+        animation-iteration-count:infinite;
+  
+        &:first-child {
+          animation-delay: 1s;
+        }
+  
+        &:nth-child(2) {
+          animation-delay: 1.0625s;
+        }
+  
+        &:nth-child(3) {
+          animation-delay: 1.125s;
+        }
+      }
+
+    }
   }
 `;
 
