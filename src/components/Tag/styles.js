@@ -18,11 +18,7 @@ export const Container = styled.div`
     margin-right: 10px;
   }
 
-  ${props => props.color && props.color == 'orange' && css`
+  ${props => props.color && (props.color == 'orange' || props.color == 'greenLight') && css`
     color: white;
-
-    img {
-      filter: invert(48%) sepia(90%) saturate(3049%) hue-rotate(4deg) brightness(75%) contrast(100%);
-    }
   `}
 `;

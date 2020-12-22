@@ -53,7 +53,7 @@ export default function Datasheet({ property }) {
               <Tag label={'Exclusividade'} icon="check" color="orange" />
             )}
             {label && label.isFurnished && (
-              <Tag label={'Mobiliado'} icon="sofa" color="yellowLight" />
+              <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
             )}
           </GroupTags>
         </BlockOne>
