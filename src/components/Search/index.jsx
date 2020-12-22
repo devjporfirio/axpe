@@ -457,10 +457,10 @@ function Search() {
                         data-label={source.label}
                         data-type={'Alterar localização'}
                       >
-                        <span class="icon">
+                        <span className="icon">
                           <img src={require(`assets/icons/sources-${source.value}.svg`)} alt={source.label} />
                         </span>
-                        <span class="label">{source.label}</span>
+                        <span className="label">{source.label}</span>
                       </FormTabListItemButton>
                     </FormTabListItemContainer>
                   ))}
