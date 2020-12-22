@@ -330,7 +330,7 @@ function ContactBar() {
         type="button"
         onClick={toggleShow}
       >
-        <SVG src={ChatIconSVG} uniquifyIDs={true} />
+        <SVG src={ChatIconSVG} />
         {isBuilding ? (
           <div>
             <span>Quer saber mais?</span>
