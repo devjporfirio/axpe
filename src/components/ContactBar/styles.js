@@ -19,14 +19,14 @@ const animateBalloonDot = keyframes`
   0% { transform: translateY(0px); }
   3.5% { transform: translateY(-3px); }
   7% { transform: translateY(0.25px); }
-  10.5% { transform: translateY(-0.75px); }
-  13% { transform: translateY(0px); }
+  9.5% { transform: translateY(-0.75px); }
+  11% { transform: translateY(0px); }
 
   18% { transform: translateY(0px); }
   21.5% { transform: translateY(-3px); }
   25% { transform: translateY(0.25px); }
-  28.5% { transform: translateY(-0.75px); }
-  31% { transform: translateY(0px); }
+  27.5% { transform: translateY(-0.75px); }
+  29% { transform: translateY(0px); }
 `
 
 export const ButtonFloat = styled.button`
@@ -66,6 +66,7 @@ export const ButtonFloat = styled.button`
   ${media.greaterThan('large')`
     right: 25px;
     bottom: 20px;
+    width: 256px;
     transform: unset;
     transition: all 300ms ease;
 

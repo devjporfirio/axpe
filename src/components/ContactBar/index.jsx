@@ -331,10 +331,16 @@ function ContactBar() {
         onClick={toggleShow}
       >
         <SVG src={ChatIconSVG} uniquifyIDs={true} />
-        <div>
-          <span>Precisa de ajuda?</span>
-          Fale com a gente
-        </div>
+        {isBuilding ? (
+          <div>
+            <span>Quer saber mais?</span>
+            Fale com um corretor.
+          </div>
+        ) : (
+          <div>
+            Fale com a gente
+          </div>
+        )}
       </ButtonFloat>
       {contactBarActive && (
         <Container onClick={clickContainer} data-type="container">
