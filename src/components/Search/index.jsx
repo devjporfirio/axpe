@@ -372,6 +372,11 @@ function Search() {
         filtersListToggle[local] = false;
       });
 
+      // Avoids type list being shrunk when locations are updated
+      if(filtersData && filtersData.types) {
+        response.types = filtersData.types;
+      }
+
       setFiltersListToggle(filtersListToggle);
       setFiltersData(response);
     };
@@ -389,11 +394,12 @@ function Search() {
       }
 
     }
+
   }, [
     formik.values.source.value,
     formik.values.use,
     formik.values.finality,
-    formik.values.type,
+    JSON.stringify(formik.values.types),
     formik.values.ready_release,
     formik.values.furnished,
   ]);
