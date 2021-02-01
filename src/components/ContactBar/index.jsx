@@ -11,6 +11,8 @@ import { getParamsFromObject } from 'helpers/utils';
 
 // assets
 import WhatsappIconSVG from 'assets/icons/whats-white-trans';
+import HomeIconSVG from 'assets/icons/contact-home';
+import BuildingFileSVG from 'assets/icons/building-file';
 import PhoneIconSVG from 'assets/icons/phone';
 import ChatIconSVG from 'assets/icons/chat';
 
@@ -411,6 +413,40 @@ function ContactBar() {
                         </span>
                       </ListLink>
                     </li>
+                    {!isBuilding && (
+                      <>
+                        <li>
+                          <ListLink
+                            href="/imovel-dos-sonhos"
+                            className="holos-contact-float-item highlight"
+                            data-label="Pedir um imóvel"
+                          >
+                            <i>
+                              <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                            </i>
+                            <span>
+                              Quero <strong>pedir</strong> <br />
+                              um imóvel
+                            </span>
+                          </ListLink>
+                        </li>
+                        <li>
+                          <ListLink
+                            href="/cadastrar"
+                            className="holos-contact-float-item highlight"
+                            data-label="Cadastrar imóvel"
+                          >
+                            <i>
+                              <SVG src={BuildingFileSVG} uniquifyIDs={true} className="no-fill"  />
+                            </i>
+                            <span>
+                              Quero <strong>cadastrar</strong> <br />
+                              um imóvel
+                            </span>
+                          </ListLink>
+                        </li>
+                      </>
+                    )}
                     {/* <li>
                         <ListButton
                           type="button"

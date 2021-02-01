@@ -314,6 +314,24 @@ const ListButtonStyle = css`
     }
   }
 
+  &.highlight {
+
+    span {
+      font-size: 20px;
+      line-height: 24px;
+  
+      strong {
+        font-weight: 800;
+      }
+    }
+
+    .no-fill {
+      path, circle {
+        fill: none;
+      }
+    }
+  }
+
   strong {
     font-size: 20px;
     line-height: 24px;
