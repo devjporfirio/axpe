@@ -404,6 +404,15 @@ function Search() {
     formik.values.furnished,
   ]);
 
+  // Reset locations on building type definition
+  useEffect(() => {
+
+    if (formik.values.types) {
+      formik.values.local = [];
+    }
+
+  }, [ JSON.stringify(formik.values.types) ]);
+
   useEffect(() => {
     const getCategories = async () => {
       const response = await Api.Search.getCategories();
