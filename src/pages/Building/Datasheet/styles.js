@@ -224,6 +224,17 @@ export const PriceRelease = styled.div`
   `}
 `;
 
+export const BuildingLabel = styled.div`
+    position: absolute;
+    top: 0px;
+    left: 20px;
+
+    ${media.greaterThan('medium')`
+      left: unset;
+      right: 20px;
+    `}
+`;
+
 export const InfoValue = styled.div`
   height: 82px;
   display: flex;

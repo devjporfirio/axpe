@@ -57,6 +57,7 @@ function BuildingList({
     gallery,
     address,
     infos = {},
+    label,
     category,
     type,
     reference,
@@ -125,6 +126,15 @@ function BuildingList({
   const getCaracteristics = useCallback(() => {
     let items = [];
     const categoryText = category ? category : '';
+
+    if(label && Object.keys(label).length > 0) {
+      items.push(
+        <Caracteristics.BuildingLabels
+          labels={label}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
 
     if (infos.bedrooms || (infos.bedroomsStart && !infos.bedroomsEnd)) {
       items.push(

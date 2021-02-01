@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatCurrency, formatCurrencyToText, checkPluralSingular } from 'helpers/utils';
-import { Price, InfoValue, PriceRelease } from './styles';
+import { Price, InfoValue, PriceRelease, BuildingLabel, GroupTags } from './styles';
+import Tag from 'components/Tag';
 
 export const Release = ({ release, type, currency }) =>
   !!release && (
@@ -194,4 +195,19 @@ export const AreaUseFulBetween = ({ start, end }) =>
     </InfoValue>
   ) : (
     <AreaUseFul areaUseful={start} />
+  );
+
+export const BuildingLabels = ({ labels }) =>
+  !!labels && (
+    <BuildingLabel>
+      <GroupTags>
+        {labels && labels.isExclusive ? (
+          <Tag label={'Exclusividade'} icon="check" color="orange" />
+        ) : labels.isNew ? (
+          <Tag label={'Novidade'} icon="star" color="blueLight" />
+        ) : labels.isFurnished ? (
+          <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+        ) : null}
+      </GroupTags>
+    </BuildingLabel>
   );
