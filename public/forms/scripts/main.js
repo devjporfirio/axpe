@@ -8,6 +8,7 @@
   var $inputsMaskPhone = $form.querySelectorAll('.js-mask-phone');
   var $message = $form.querySelector(`[data-element="message"]`);
   var pageUrl = null;
+  var isFavorites = false;
   var message = `Olá, gostaria de saber mais sobre o imóvel {reference} - {local}, com {areaUseful} m², {bedrooms} e {parking}.`;
 
   function capitalizeFirstLetter(string) {
@@ -76,6 +77,50 @@
         break;
       case 'url':
         pageUrl = value;
+        isFavorites = pageUrl.includes('favoritos');
+
+        if(isFavorites) {
+
+          // Change title 
+          let titleElement = document.querySelector('header h3');
+          titleElement.innerHTML = 'Agende uma visita';
+
+          // Custom message behaviour for favorites screen
+          message = message.replace('Olá, gostaria de saber mais sobre o imóvel', 'Olá, gostaria de visitar o imóvel');
+          let originalMessage = message;
+          let messageSuffix   = ' (adicionar dias e horários disponíveis)';
+
+          message += messageSuffix;
+
+          // Remove message suffix when focusing in 
+          $form.querySelector('[data-element="message"]')
+            .addEventListener('click', function(event) {
+
+              var targetElement = event.target || event.srcElement;
+              var targetValue   = targetElement.value;
+              if( targetValue.includes(messageSuffix) ) {
+                event.preventDefault();
+                targetElement.value = targetValue.replace(messageSuffix, ' ');
+                moveCaretToEnd(targetElement);
+              }
+
+            });
+
+          // Add message back in if no chages were made to the text
+          $form.querySelector('[data-element="message"]')
+            .addEventListener('blur', function(event){
+
+              var targetElement = event.target || event.srcElement;
+              var targetValue   = targetElement.value;
+              if( targetValue == `${originalMessage} `) {
+                let defaultMessage = (targetValue + messageSuffix).replace('  ', ' ');
+                targetElement.value = defaultMessage;
+              }
+
+            });
+            
+        }
+        
         break;
       default:
         break;
@@ -129,6 +174,16 @@
     if(valid) {
       this.submit();
     }
+  }
+
+  function moveCaretToEnd(element) {
+
+    let elValue = element.value;
+
+    element.focus();
+    element.value = '';
+    element.value = elValue;
+
   }
 
   function getCookie(cname) {
