@@ -47,22 +47,26 @@ export const Hero = styled.div`
 
   .slick-slide.active {
     div[class*='HeroItemInfo'] {
-      h2, p, span {
+      div, h2, p, span {
         transition-duration: 500ms;
         transform: translateX(0);
         ${({ theme }) => theme.show};
       }
 
-      h2 {
+      div {
         transition-delay: 200ms;
       }
 
-      p {
+      h2 {
         transition-delay: 400ms;
       }
 
-      span {
+      p {
         transition-delay: 600ms;
+      }
+
+      span {
+        transition-delay: 800ms;
       }
     }
 
@@ -145,7 +149,7 @@ export const HeroItemInfo = styled.div`
     }
   }
 
-  h2, p, span {
+  div, h2, p, span {
     transform: translateX(50px);
     transition: all 300ms 500ms ease;
     ${({ theme }) => theme.hide};
