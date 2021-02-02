@@ -134,6 +134,17 @@ export const HeroItemInfo = styled.div`
     padding: 0 100px;
   `}
 
+  div {
+    display: inline-block;
+    line-height: 35px;
+    margin-bottom: 20px;
+
+    img {
+      display: inline-block;
+      vertical-align: text-top;
+    }
+  }
+
   h2, p, span {
     transform: translateX(50px);
     transition: all 300ms 500ms ease;

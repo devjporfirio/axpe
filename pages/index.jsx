@@ -19,6 +19,7 @@ import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
 import SliderNew from 'components/SliderNew';
 import Contact from 'components/Contact';
+import Tag from 'components/Tag';
 
 // styles
 import {
@@ -125,6 +126,13 @@ function Home({ hero, components }) {
           <HeroImage mq="desktop" src={item.images.desktop} alt={item.title} />
           {item.title || item.content ? (
             <HeroItemInfo>
+              {item.label && item.label == "isExclusive" ? (
+                <Tag label={'Exclusividade'} icon="check" color="orange" />
+              ) : item.label == "isNew" ? (
+                <Tag label={'Novidade'} icon="star" color="blueLight" />
+              ) : item.label == "isFurnished" ? (
+                <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+              ) : null}
               {item && <h2>{item.title}</h2>}
               {item.content && <p>{item.content}</p>}
               {item.link.url && <span>Saiba mais</span>}
