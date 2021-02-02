@@ -338,7 +338,7 @@ function DreamBuildingSingle({ type }) {
     validationSchema: formSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       if(values.MultipleChoice && typeof values.MultipleChoice !== 'undefined') {
-        const selectedLocations = values.MultipleChoice.join(', ');
+        const selectedLocations = ( typeof values.MultipleChoice === 'string' ) ? values.MultipleChoice : values.MultipleChoice.join(', ');
         setFieldValue('SingleLine2', selectedLocations);
       }
       setTimeout(() => {
