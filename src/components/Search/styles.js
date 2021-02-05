@@ -597,11 +597,14 @@ export const FormTabListItemButton = styled.button`
   display: block;
   width: 100%;
   padding-right: 30px;
-  margin-bottom: 30px;
   text-align: left;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
+
+  &.location-button {
+    margin-bottom: 30px;
+  }
 
   ${props => props.format && css`
     .icon {
