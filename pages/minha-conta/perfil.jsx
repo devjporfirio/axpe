@@ -171,6 +171,7 @@ function Profile() {
                   className="holos-form-field"
                   data-label="E-mail"
                   data-type="Perfil"
+                  readOnly
                 />
                 <FormElements
                   type="phone"
