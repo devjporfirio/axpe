@@ -115,7 +115,21 @@ export const FormListItem = styled.li`
   line-height: 0;
 
   ${media.greaterThan('medium')`
-    width: 25%;
+    width: auto;
+    padding-right: 60px;
+
+    input {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    input ~ span {
+      display: inline-block;
+      vertical-align: middle;
+      position: unset;
+      top: unset;
+      transform: unset;
+    }
   `}
 
   input {
