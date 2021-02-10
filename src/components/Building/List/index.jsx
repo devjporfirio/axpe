@@ -5,6 +5,7 @@ import Api from 'services';
 
 // components
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
+import RemoveFavoriteModal from 'components/Modals/RemoveFavorite';
 import Inactive from 'components/Inactive';
 import SliderNew from 'components/SliderNew';
 
@@ -68,6 +69,9 @@ function BuildingList({
   const [ gtmObj, setGtmObj ] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [ removeFavorite, setRemoveFavorite ] = useState(false);
+  const [ favoriteToRemove, setFavoriteToRemove ] = useState(false);
+  const [ removeAction, setRemoveAction ] = useState(false);
   const { searchFunnel } = useSelector((state) => state.main);
   const isFavoriteBuilding = checkFavorite(user, reference);
   const gallerySettings = {
@@ -79,17 +83,24 @@ function BuildingList({
     slidesToScroll: 1,
   };
 
-  const handleButtonRemove = useCallback(
-    async (ref, action) => {
+  const handleButtonRemove = useCallback(async (ref, action) => {
+    if(action == true) {
       await Api.MyAccount.postFavorite(user.access_token, ref, action);
       setHasDeleted(!action);
-    },
-    [ user.logged ]
-  );
+    } else {
+      setFavoriteToRemove(ref);
+      setRemoveAction(action);
+      setRemoveFavorite(true);
+    }
+  }, [ user.logged ]);
 
-  const handleButtonFavorite = useCallback(() => {
+  const handleButtonFavorite = useCallback((isFavoriteBuilding) => () => {
     if (user.logged) {
-      dispatch(setUserBuildingToLike(reference));
+      if(isFavoriteBuilding) {
+        handleButtonRemove(reference, false);
+      } else {
+        dispatch(setUserBuildingToLike(reference));
+      }
     } else {
       const modalLoginUrl = location.pathname + location.search;
       dispatch(
@@ -419,7 +430,7 @@ function BuildingList({
               <FavoriteButton
                 type="button"
                 active={isFavoriteBuilding}
-                onClick={handleButtonFavorite}
+                onClick={handleButtonFavorite(isFavoriteBuilding)}
                 className={
                   !gtmObj
                     ? ''
@@ -483,7 +494,24 @@ function BuildingList({
           </UndoButton>
         </>
       )}
-    </Container>
+      <RemoveFavoriteModal
+        active={removeFavorite}
+        buildingRef={favoriteToRemove}
+        action={removeAction}
+        onClose={(isDeleted = false) => {
+
+          if(isDeleted){
+            setHasDeleted(true);
+          }
+
+          setRemoveFavorite(false);
+          setFavoriteToRemove(false);
+          setRemoveAction(false);
+
+        }}
+        user={user}
+      />
+      </Container>
   );
 }
 
