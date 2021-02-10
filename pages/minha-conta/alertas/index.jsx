@@ -11,6 +11,7 @@ import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 
 // components
 import Empty from 'pages/MyAccount/Empty';
+import RemoveAlertModal from 'components/Modals/RemoveAlert';
 
 // styles
 import { Title } from 'pages/MyAccount/styles';
@@ -36,7 +37,8 @@ function Alerts() {
   const user = useSelector(state => state.user);
   const [ loaded, setLoaded ] = useState(false);
   const [ alerts, setAlerts ] = useState([]);
-  const [ removingItems, setRemovingItems ] = useState(false);
+  const [ removeAlert, setRemoveAlert ] = useState(false);
+  const [ alertToRemove, setAlertToRemove ] = useState(false);
 
   useEffect(() => {
     async function loadAlerts() {
@@ -51,20 +53,12 @@ function Alerts() {
     loadAlerts();
   }, [ user.logged ]);
 
-  const handleRemoveAlert = async id => {
-    setRemovingItems(true);
+  const handleRemoveAlert = id => {
 
-    const responseRemove = await Api.MyAccount.deleteAlert(
-      user.access_token,
-      id
-    );
-
-    setRemovingItems(false);
-
-    if (responseRemove.status) {
-      const alertsList = await Api.MyAccount.getAlerts(user.access_token);
-      setAlerts(alertsList.alerts);
-    }
+    // Open Modal
+    setAlertToRemove(id);
+    setRemoveAlert(true);
+    
   };
 
   const getParams = ({
@@ -232,6 +226,22 @@ function Alerts() {
             subtitle="Crie seu primeiro alerta e seja o primeiro a saber quando entrarem imóveis do jeito que você está buscando."
           />
         )}
+
+        <RemoveAlertModal
+          active={removeAlert}
+          alertRef={alertToRemove}
+          onClose={async (status = false) => {
+
+            if(status){
+              const alertsList = await Api.MyAccount.getAlerts(user.access_token);
+              setAlerts(alertsList.alerts);
+            }
+
+            setRemoveAlert(false);
+
+          }}
+          user={user}
+        />
       </Container>
     </>
   );
