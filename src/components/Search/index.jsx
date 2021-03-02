@@ -360,13 +360,6 @@ function Search() {
       const filtersListToggle = {};
       const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
 
-      // Merge "São Paulo" and SP together
-      if(response.locals && response.locals['São Paulo'] && response.locals['SP']) {
-        const additionalSpList = response.locals['SP'];
-        response.locals['São Paulo'].push(additionalSpList);
-        delete response.locals['SP'];
-      }
-
       // make sure that all data are Number
       valuesStringToNumber.forEach((key) => {
         const obj = response[key];
