@@ -343,7 +343,7 @@ function About() {
           </BlockCol>
         </Block>
 
-        <Block id="nossa-casa" dataTemplate="2">
+        <Block dataTemplate="2">
           <BlockCol dataType="text">
             <BlockTitle>
               Sua casa é um <strong>lugar sagrado.</strong>
@@ -438,7 +438,7 @@ function About() {
           </BlockCol>
         </Block>
 
-        <Block dataTemplate="5_diff">
+        <Block id="nossa-casa" dataTemplate="5_diff">
           <BlockCol dataType="text">
             <BlockTitle>
               <strong>Nosso escritório é uma delícia.</strong> A vista é linda,
