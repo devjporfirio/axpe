@@ -75,6 +75,8 @@ function Modules({ property }) {
             local={property.address.local}
             cep={component.data.cep}
             text={component.data.texto || component.data.text}
+            latitude={component.data.latitude}
+            longitude={component.data.longitude}
           />
         );
       default:

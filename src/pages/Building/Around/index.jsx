@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Api from 'services';
 import mapOptions from './mapOptions';
+import { getBoundsFromLatLng } from '../../../helpers/maps';
 
 // assets
 import PinDesktopIconSVG from 'assets/icons/pin-desktop';
@@ -10,7 +11,7 @@ import PinWhiteIconSVG from 'assets/icons/pin-white';
 // styles
 import { Container, Mapa, Pin, Text } from './styles';
 
-function Around({ local, cep, text }) {
+function Around({ local, cep, text, latitude, longitude }) {
   const [ overvirePoly, setOverviewPoly ] = useState('');
   const [ zipCode, setZipCode ] = useState('');
   const [ lat, setLat ] = useState('');
@@ -23,17 +24,17 @@ function Around({ local, cep, text }) {
 
   useEffect(() => {
     async function loadOverviewPolyline() {
-      const geocode = await Api.Building.getGeocode(local, zipCode.replace('-', ''));
+      const bounds = getBoundsFromLatLng(latitude, longitude, 0.3);
 
-      if (zipCode && geocode && geocode.geometry && geocode.geometry.bounds) {
+      if (zipCode && bounds && bounds.northeast && bounds.southwest) {
         const directions = await Api.Building.getDirections(
-          geocode.geometry.bounds.northeast,
-          geocode.geometry.bounds.southwest
+          bounds.northeast,
+          bounds.southwest
         );
 
         setIsEnabled(true);
-        setLat(geocode.geometry.location.lat);
-        setLng(geocode.geometry.location.lng);
+        setLat(latitude);
+        setLng(longitude);
 
         if (directions && directions.routes && directions.routes.length > 0) {
           setOverviewPoly(directions.routes[0].overview_polyline.points);
