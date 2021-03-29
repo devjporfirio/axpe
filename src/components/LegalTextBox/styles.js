@@ -134,11 +134,43 @@ export const Text = styled.div`
     background: ${({ theme }) => theme.colors.greyLight};
   }
 
-  p, li {
+  h2 {
+    font: 24px/30px 'Raleway';
+    margin-bottom: 20px;
+  }
+
+  p {
     font: 16px/24px 'Raleway';
 
     &:not(:last-child) {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+    }
+  }
+
+  ul {
+    font: 16px/24px 'Raleway';
+    margin-bottom: 20px;
+  }
+
+  li {
+    position: relative;
+    padding-left: 25px;
+    list-style-type: circle;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    &::before {
+      width: 5px;
+      height: 5px;
+      content: "";
+      display: block;
+      border-radius: 50%;
+      background-color: #000;
+      position: absolute;
+      top: 7px;
+      left: 10px;
     }
   }
 `;
