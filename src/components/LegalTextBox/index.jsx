@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
+import React from 'react';
+import { useRouter } from 'next/router';
 
 // helpers
 import { Link } from 'helpers/routes';
@@ -17,26 +17,13 @@ import {
 
 function LegalTextBox({ title, content, onDemand, active, onClose }) {
   const router = useRouter();
-  const [ oldUrl, setOldUrl ] = useState(null);
 
   function handleClose() {
     if(typeof onClose === 'function') {
+      router.back();
       onClose();
     }
   }
-
-  useEffect(() => {
-    if(active) {
-      router.push(Router.pathname, '/politica-de-privacidade', {
-        shallow: true
-      });
-      setOldUrl(Router.pathname);
-    } else if(oldUrl) {
-      router.push(oldUrl, oldUrl, {
-        shallow: true
-      });
-    }
-  }, [ active ]);
 
   return ((onDemand && active) || !onDemand) ? (
     <Container>

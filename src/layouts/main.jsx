@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import { useRouter } from 'next/router'
 import Router from 'next/router';
 
 // helpers
@@ -27,6 +28,8 @@ import ContactSuccess from 'components/Modals/ContactSuccess';
 import WorkWithUsSuccess from 'components/Modals/WorkWithUsSuccess';
 import ContactModal from 'components/Modals/Contact';
 import ContactBar from 'components/ContactBar';
+import TermsOfUse from 'components/TermsOfUse';
+import PrivacyPolicy from 'components/PrivacyPolicy';
 
 // styles
 import GlobalStyle from './globalStyle';
@@ -39,6 +42,7 @@ import {
 
 function Main({ children }) {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     // scroll issue related here https://github.com/zeit/next.js/issues/3303
@@ -101,6 +105,8 @@ function Main({ children }) {
         <WorkWithUsSuccess />
         <ContactModal />
         <ContactBar />
+        <PrivacyPolicy onDemand active={router.query.modal && router.query.modal === 'politica-de-privacidade'} />
+        <TermsOfUse onDemand active={router.query.modal && router.query.modal === 'termos-de-uso'} />
         <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>
       </>
     </ThemeProvider>

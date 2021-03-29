@@ -147,6 +147,11 @@ export const Text = styled.div`
     }
   }
 
+  a {
+    color: ${({ theme }) => theme.colors.greenDark};
+    text-decoration: underline;
+  }
+
   ul {
     font: 16px/24px 'Raleway';
     margin-bottom: 20px;

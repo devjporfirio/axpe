@@ -16,13 +16,13 @@ function PrivacyPolicy({ onDemand, active, onClose }) {
       }
       content={
         <>
-          <p>A presente Política de Privacidade se aplica a todas as mídias controladas pela Axpe Negócios Imobiliários Ltda. (“Axpe”), incluindo o website www.axpe.com.br, e a todos os websites e aplicativos onde esta Política estiver publicada (“mídias digitais”).</p>
+          <p>A presente Política de Privacidade se aplica a todas as mídias controladas pela Axpe Negócios Imobiliários Ltda. (“Axpe”), incluindo o website <a href="http://www.axpe.com.br" target="_blank">www.axpe.com.br</a>, e a todos os websites e aplicativos onde esta Política estiver publicada (“mídias digitais”).</p>
           <p>Ao utilizar mídias controladas pela Axpe, você concorda com os termos e condições desta Política de Privacidade e com o tratamento de Dados Pessoais conforme abaixo especificado. Se você não concordar com os termos e condições desta Política de Privacidade, por favor, não use as mídias controladas pela Axpe.</p>
           <p>Nossas mídias podem conter links para websites ou mídias de terceiros, aos quais não se aplica a presente Política de Privacidade e pelos quais a Axpe não se responsabiliza.</p>
 
           <h2>Encarregado de Dados</h2>
           <p>O Encarregado de Dados da Axpe é Dannemann Siemsen Advogados associados.</p>
-          <p>Nosso(a) Encarregado(a) de Dados pode ser contatado(a) por meio do endereço de e-mail dpo@axpe.com.br ou do endereço postal Avenida Nove de Julho, 5017 – 10 andar, Jardim Paulista, São Paulo/SP, CEP: 01407-200.</p>
+          <p>Nosso(a) Encarregado(a) de Dados pode ser contatado(a) por meio do endereço de e-mail <a href="mailto:dpo@axpe.com.br" target="_blank">dpo@axpe.com.br</a> ou do endereço postal Avenida Nove de Julho, 5017 – 10 andar, Jardim Paulista, São Paulo/SP, CEP: 01407-200.</p>
 
           <h2>Quais informações coletamos e de que forma?</h2>
           <p>Ao interagir com as mídias controladas pela Axpe, você nos fornece Dados Pessoais que possibilitam a realização de nossas atividades. A recusa em fornecer seus Dados Pessoais pode impactar a sua experiência em nossas mídias e inviabilizar a prestação de nossos serviços.</p>
@@ -76,12 +76,12 @@ function PrivacyPolicy({ onDemand, active, onClose }) {
 
           <h2>Utilização para fins de publicidade</h2>
           <p>A Axpe apenas realizará o tratamento de seus Dados Pessoais para fins de publicidade ou pesquisa de mercado com o seu consentimento, que será solicitado no momento da coleta dos Dados Pessoais, ou com base em legítimo interesse, quando houver relação comercial anterior entre o titular dos dados e a Axpe.</p>
-          <p>Caso o tratamento de seus Dados Pessoais seja realizado com base em seu consentimento, você poderá revogá-lo a qualquer tempo, por meio do endereço de e-mail dpo@axpe.com.br. Por favor, note que a revogação do consentimento é efetiva apenas no futuro, não afetando o tratamento de Dados Pessoais realizado antes da revogação. Igualmente, você poderá se opor à utilização dos seus dados pessoais baseada em legítimo interesse, manifestando a opção opt-out (descadastrar) disponibilizada em todas as comunicações publicitárias da Axpe. </p>
+          <p>Caso o tratamento de seus Dados Pessoais seja realizado com base em seu consentimento, você poderá revogá-lo a qualquer tempo, por meio do endereço de e-mail <a href="mailto:dpo@axpe.com.br" target="_blank">dpo@axpe.com.br</a>. Por favor, note que a revogação do consentimento é efetiva apenas no futuro, não afetando o tratamento de Dados Pessoais realizado antes da revogação. Igualmente, você poderá se opor à utilização dos seus dados pessoais baseada em legítimo interesse, manifestando a opção opt-out (descadastrar) disponibilizada em todas as comunicações publicitárias da Axpe. </p>
 
           <h2>Dados Pessoais de crianças abaixo de 12 anos</h2>
           <p>Os serviços da Axpe não são voltados para pessoas abaixo de 12 anos. Se você tem menos de 12 anos, por favor, não tente se registrar nas mídias controladas pela Axpe ou nos enviar qualquer informação, inclusive Dados Pessoais.</p>
           <p>A coleta de Dados Pessoais de crianças abaixo de 12 anos somente ocorrerá quando o tratamento dos Dados Pessoais for necessário à execução de atividades cujas finalidades estejam previstas na presente Política de Privacidade e estará sujeita às regras da presente Política de Privacidade.</p>
-          <p>Nas situações em que for necessário coletar Dados Pessoais de crianças abaixo de 12 anos, a coleta e o tratamento estarão condicionados à obtenção de consentimento de pelo menos um dos pais ou do responsável legal. O consentimento será fornecido para uma finalidade específica e poderá ser revogado a qualquer tempo, por meio do endereço de e-mail dpo@axpe.com.br.</p>
+          <p>Nas situações em que for necessário coletar Dados Pessoais de crianças abaixo de 12 anos, a coleta e o tratamento estarão condicionados à obtenção de consentimento de pelo menos um dos pais ou do responsável legal. O consentimento será fornecido para uma finalidade específica e poderá ser revogado a qualquer tempo, por meio do endereço de e-mail <a href="mailto:dpo@axpe.com.br" target="_blank">dpo@axpe.com.br</a>.</p>
           <p>Aqui estão alguns exemplos de situações em que podemos coletar Dados Pessoais de crianças abaixo de 12 anos nas mídias controladas pela Axpe:</p>
           <ul>
             <li>Ao incluir um dependente no plano de saúde, o colaborador responsável poderá consentir com a coleta de Dados Pessoais como nome e data de nascimento.</li>
@@ -112,19 +112,19 @@ function PrivacyPolicy({ onDemand, active, onClose }) {
           <p>A Axpe adota medidas técnicas e administrativas razoáveis para garantir que seus Dados Pessoais não sejam armazenados por mais tempo que o necessário para atingir as finalidades descritas nesta Política de Privacidade ou por mais tempo que o permitido legalmente.</p>
           <p>Os Dados Pessoais fornecidos por clientes ou potenciais clientes para cadastro em mídias digitais controladas pela Axpe serão armazenados enquanto seu cadastro permanecer ativo.</p>
           <p>Se você for prestador de serviços ou colaborador da Axpe, seus Dados Pessoais serão armazenados enquanto a relação comercial e/ou trabalhista permanecer em vigor. Ao término do contrato de trabalho ou do contrato de prestação de serviços, seus Dados Pessoais serão armazenados durante o tempo exigido pela legislação aplicável.</p>
-          <p>Se você tiver se candidatado a uma vaga de emprego na Axpe e não tiver sido selecionado, seus Dados Pessoais poderão ser armazenados por até 6 (seis) meses após o término do processo seletivo do qual você participou, para fins de participação em novos processos seletivos. Se não concordar com o armazenamento de seus Dados Pessoais para esta finalidade, você pode nos informar por meio do endereço de e-mail dpo@axpe.com.br.</p>
+          <p>Se você tiver se candidatado a uma vaga de emprego na Axpe e não tiver sido selecionado, seus Dados Pessoais poderão ser armazenados por até 6 (seis) meses após o término do processo seletivo do qual você participou, para fins de participação em novos processos seletivos. Se não concordar com o armazenamento de seus Dados Pessoais para esta finalidade, você pode nos informar por meio do endereço de e-mail <a href="mailto:dpo@axpe.com.br" target="_blank">dpo@axpe.com.br</a>.</p>
 
           <h2>Quais direitos eu possuo com relação aos meus Dados Pessoais?</h2>
           <p>Como titular de dados, você possui o direito de requerer a qualquer momento (i) a confirmação da existência de tratamento; (ii) o acesso aos dados; (iii) a correção ou atualização de dados; (iv) eliminação de dados após atingida a finalidade da coleta; (v) a portabilidade de dados a outro fornecedor de serviço ou produto; (vi) a eliminação de dados tratados com base em seu consentimento; (vii) informação acerca do compartilhamento de seus dados com terceiros; (viii) informação sobre a possibilidade de não fornecer consentimento e sobre as consequências da negativa; (ix) a revogação do consentimento; (x) revisão de decisões automatizadas que afetem seus interesses.</p>
           <p>Além disso, você possui o direito de se opor ao tratamento de seus Dados Pessoais caso entenda que este tratamento seja feito de forma irregular.</p>
-          <p>Você pode exercer seus direitos por meio do endereço de e-mail dpo@axpe.com.br.</p>
+          <p>Você pode exercer seus direitos por meio do endereço de e-mail <a href="mailto:dpo@axpe.com.br" target="_blank">dpo@axpe.com.br</a>.</p>
           <p>Você possui, ainda, o direito de apresentar uma reclamação perante a Autoridade Nacional de Proteção de Dados (ANPD).</p>
 
           <h2>Alterações nesta Política de Privacidade</h2>
           <p>A Axpe se reserva o direito de alterar esta Política de Privacidade de tempos em tempos, a seu exclusivo critério. Quando isso ocorrer, a data da última atualização na parte superior desta Política de Privacidade também será revista.</p>
 
           <h2>Informações adicionais</h2>
-          <p>Se você tiver qualquer dúvida sobre esta Política de Privacidade ou sobre a forma como seus Dados Pessoais são utilizados pela Axpe, entre em contato conosco por meio do endereço de e-mail dpo@axpe.com.br.</p>
+          <p>Se você tiver qualquer dúvida sobre esta Política de Privacidade ou sobre a forma como seus Dados Pessoais são utilizados pela Axpe, entre em contato conosco por meio do endereço de e-mail <a href="mailto:dpo@axpe.com.br" target="_blank">dpo@axpe.com.br</a>.</p>
         </>
       }
     />
