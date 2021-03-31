@@ -115,21 +115,20 @@ export const FormListItem = styled.li`
   line-height: 0;
 
   ${media.greaterThan('medium')`
-    width: auto;
+    width: 25%;
+    /* width: auto;
     padding-right: 60px;
-
     input {
       display: inline-block;
       vertical-align: middle;
     }
-
     input ~ span {
-      display: inline-block;
-      vertical-align: middle;
-      position: unset;
       top: unset;
+      display: inline-block;
+      position: unset;
       transform: unset;
-    }
+      vertical-align: middle;
+    } */
   `}
 
   input {
@@ -148,6 +147,24 @@ export const FormListItem = styled.li`
   span {
     top: 50% !important;
   }
+`;
+
+export const FormListItemStatic = styled(FormListItem)`
+  ${media.greaterThan('medium')`
+    width: auto;
+    padding-right: 60px;
+    input {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    input ~ span {
+      top: unset;
+      display: inline-block;
+      position: unset;
+      transform: unset;
+      vertical-align: middle;
+    }
+  `}
 `;
 
 export const ButtonLocals = styled.button`

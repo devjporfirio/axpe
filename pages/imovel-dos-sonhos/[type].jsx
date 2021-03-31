@@ -36,6 +36,7 @@ import {
   FormGroupContainer,
   FormList,
   FormListItem,
+  FormListItemStatic,
   FormCols,
   FormCol,
   ButtonSubmitContainer,
@@ -653,7 +654,7 @@ function DreamBuildingSingle({ type }) {
                   <FormList>
                     {optionsTypes.length >= 1 &&
                       optionsTypes.map((type, typeIndex) => (
-                        <FormListItem
+                        <FormListItemStatic
                           key={`formlistitem-type-${typeIndex}-${type.value}`}
                         >
                           <FormElements
@@ -671,7 +672,7 @@ function DreamBuildingSingle({ type }) {
                             data-label={type.label}
                             data-type="Imóvel dos Sonhos"
                           />
-                        </FormListItem>
+                        </FormListItemStatic>
                       ))}
                   </FormList>
                 </FormGroupContainer>
