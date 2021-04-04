@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Api from 'services';
 import mapOptions from './mapOptions';
 import { getBoundsFromLatLng } from '../../../helpers/maps';
 
@@ -12,10 +11,8 @@ import PinWhiteIconSVG from 'assets/icons/pin-white';
 import { Container, Mapa, Pin, Text } from './styles';
 
 function Around({ local, cep, text, latitude, longitude }) {
-  const [ overvirePoly, setOverviewPoly ] = useState('');
+  const [ bounds, setBounds ] = useState('');
   const [ zipCode, setZipCode ] = useState('');
-  const [ lat, setLat ] = useState('');
-  const [ lng, setLng ] = useState('');
   const [ isEnabled, setIsEnabled ] = useState(false);
 
   useEffect(() => {
@@ -23,31 +20,11 @@ function Around({ local, cep, text, latitude, longitude }) {
   }, [ cep ]);
 
   useEffect(() => {
-    async function loadOverviewPolyline() {
-      const bounds = getBoundsFromLatLng(latitude, longitude, 0.3);
-
-      if (zipCode && bounds && bounds.northeast && bounds.southwest) {
-        const directions = await Api.Building.getDirections(
-          bounds.northeast,
-          bounds.southwest
-        );
-
-        setIsEnabled(true);
-        setLat(latitude);
-        setLng(longitude);
-
-        if (directions && directions.routes && directions.routes.length > 0) {
-          setOverviewPoly(directions.routes[0].overview_polyline.points);
-        }
-      } else {
-        setIsEnabled(false);
-      }
-    }
-
-    loadOverviewPolyline();
+    setBounds(getBoundsFromLatLng(latitude, longitude, 0.3));
+    setIsEnabled(true);
   }, [ zipCode ]);
 
-  return !!overvirePoly &&
+  return !!bounds &&
     !!process.env.config.googleApiKey &&
     cep === zipCode &&
     isEnabled ? (
@@ -70,23 +47,39 @@ function Around({ local, cep, text, latitude, longitude }) {
               }, 1000);
             }
 
+            function drawPolyline(poly) {
+              const polyline = new google.maps.Polyline({
+                path: google.maps.geometry.encoding.decodePath(poly),
+                geodesic: true,
+                strokeColor: '#EE6900',
+                strokeOpacity: 1.0,
+                strokeDasharray: 300,
+                strokeWeight: 8,
+              });
+  
+              animateLine(polyline);
+              polyline.setMap(google.map);
+            }
+
             google.map.setCenter({
-              lat,
-              lng
+              lat: latitude,
+              lng: longitude,
             });
 
-            const polyline = new google.maps.Polyline({
-              path: google.maps.geometry.encoding.decodePath(overvirePoly),
-              geodesic: true,
-              strokeColor: '#EE6900',
-              strokeOpacity: 1.0,
-              strokeDasharray: 300,
-              strokeWeight: 8,
+            // get directions
+            const directionsService = new google.maps.DirectionsService();
+            const directionsData = {
+              origin: bounds.southwest,
+              destination: bounds.northeast,
+              travelMode: 'DRIVING',
+            }
+            directionsService.route(directionsData, (result, status) => {
+              if (status == 'OK') {
+                if (result && result.routes && result.routes.length > 0) {
+                  drawPolyline(result.routes[0].overview_polyline);
+                }
+              }
             });
-
-            animateLine(polyline);
-
-            polyline.setMap(google.map);
           }}
         ></GoogleMapReact>
       </Mapa>
