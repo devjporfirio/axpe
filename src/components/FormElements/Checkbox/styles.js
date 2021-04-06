@@ -5,7 +5,7 @@ import media from 'styled-media-query';
 import CheckedIconSVG from 'assets/icons/checked';
 
 const SizeBig = css`
-  width: calc(100% - 4px);
+  width: calc(100% - 5px);
   height: 50px;
 
   & + span {

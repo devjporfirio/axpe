@@ -123,7 +123,7 @@ function Alerts() {
                     <ButtonRemove
                       type="button"
                       onClick={() => handleRemoveAlert(alert.id)}
-                      disabled={removingItems}
+                      // disabled={removingItems}
                       className="holos-account-alert-delete"
                     >
                       <SVG src={TrashIconSVG} uniquifyIDs={true} />
