@@ -25,6 +25,7 @@ function SliderNew({
   const afterChange = () => {
     setTimeout(() => {
       const $list = ref.current.innerSlider.list;
+      const $track = $list.querySelector('.slick-track');
       const $items = $list.querySelectorAll('.slick-slide');
 
       $items.forEach($item => {
@@ -34,6 +35,13 @@ function SliderNew({
           $item.classList.remove('active');
         }
       });
+
+      setTimeout(() => {
+        if ($track && $track.style && settings.slidesToShow >= $items.length) {
+          $track.style.height = "";
+        }
+      }, 400);
+
     }, 100);
   }
 
