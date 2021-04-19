@@ -80,10 +80,9 @@ function Landing({ slug, page }) {
                     {comp.buildings &&
                       comp.buildings.length > 0 &&
                       comp.buildings.map((building) => (
-                        <BuildingList
-                          item={building}
-                          key={building.reference}
-                        />
+                        building && building.status === 'active'
+                          ? <BuildingList key={building.reference} item={building} />
+                          : null
                       ))}
                   </Module>
                 );
@@ -123,7 +122,6 @@ Landing.getInitialProps = async ({ query }) => {
   const pageTitle = `${response.title} ${SeoData.shortTitle}`;
   const pageDesc = `${response.title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`;
 
-  // const backupBanner =
   const pageBanner = (response.images.desktop) ? response.images.desktop : null;
 
   return {
