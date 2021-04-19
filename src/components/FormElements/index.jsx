@@ -52,6 +52,7 @@ const Field = ({
         <Component type={type} {...props}></Component>
         {!!label && (
           <Span
+            className={"type-" + type}
             onClick={
               [ 'checkbox', 'checkboxLink', 'radio' ].includes(type)
                 ? props.onChange
