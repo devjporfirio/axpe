@@ -8,7 +8,7 @@ import Button from 'components/Button';
 import ForgotPasswordForm from 'components/Modals/Login/ForgotPasswordForm';
 import LoginForm from 'components/Modals/Login/LoginForm';
 import RegisterForm from 'components/Modals/Login/RegisterForm';
-// import LoginSocials from 'components/Modals/Login/LoginSocials';
+import LoginSocials from 'components/Modals/Login/LoginSocials';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -180,7 +180,7 @@ function LoginModal() {
                   ? 'Esqueceu sua senha?'
                   : 'voltar para login'}
               </ForgotPassButton>
-              {/* <LoginSocials doAfterLogin={doAfterLogin} /> */}
+              <LoginSocials doAfterLogin={doAfterLogin} />
             </LoginRow>
             <LoginRow>
               <ColumnTitle>É sua primeira visita?</ColumnTitle>
