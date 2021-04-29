@@ -61,8 +61,8 @@ function LoginSocials({
   }, [ window.clicked ]);
 
   const doGoogleLogin = useCallback(async (googleResponse) => {
-    if(googleResponse && googleResponse.uc && !googleResponse.error && window.clicked) {
-      dispatch(setLoading({   active: true }));
+    if(googleResponse && googleResponse.qc && !googleResponse.error && window.clicked) {
+      dispatch(setLoading({ active: true }));
       const token = googleResponse.getAuthResponse().id_token;
 
       const response = await Api.User.postLoginGoogle({
