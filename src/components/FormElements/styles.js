@@ -123,11 +123,10 @@ export const Span = styled.span`
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   color: ${({ theme }) => theme.colors.green};
   padding-left: 12px;
-  &.type-radio,
-  &.type-checkbox {
+  ${({ size }) => size === 'big' && `
     width: calc(100% - 5px);
     margin-left: 5px;
-  }
+  `}
 `;
 
 export const Message = styled.p`
