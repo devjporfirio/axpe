@@ -68,7 +68,7 @@ function Building({ property }) {
       productSeals: productSeals.join('|'),
       productNumberOfBedrooms: property.infos.bedrooms,
       productParkingSpace: property.infos.parking,
-      productArea: property.infos.areaUseful
+      productArea: property.infos.areaTotal
     })
 
     loadSimilarBuildings();
@@ -165,7 +165,7 @@ Building.getInitialProps = async ({ query }) => {
 
   const buildingLocationTitle = (response.building.address) ? (response.building.address.local && response.building.address.state) ? response.building.address.local + ' ' + response.building.address.state : '' : '';
   const buildingLocation = (response.building.address) ? (response.building.address.local && response.building.address.country) ? 'em ' + response.building.address.local + ', ' + response.building.address.state + '/' + response.building.address.country : '' : '';
-  const buildingArea = (response.building.infos) ? ((response.building.infos.areaUsefulStart) ? response.building.infos.areaUsefulStart : ((response.building.infos.areaUseful) ? response.building.infos.areaUseful : response.building.infos.areaBuilding)) : 0;
+  const buildingArea = (response.building.infos) ? ((response.building.infos.areaUsefulStart) ? response.building.infos.areaUsefulStart : ((response.building.infos.areaTotal) ? response.building.infos.areaTotal : response.building.infos.areaBuilding)) : 0;
   const buildingBedrooms = (response.building.infos) ? (response.building.infos.bedroomsStart) ? response.building.infos.bedroomsStart : response.building.infos.bedrooms : 0;
   const buildingPark = (response.building.infos) ? (response.building.infos.parkingStart) ? response.building.infos.parkingStart : response.building.infos.parking : 0;
 

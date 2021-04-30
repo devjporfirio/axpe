@@ -205,12 +205,12 @@ function BuildingList({
       );
     }
 
-    if (infos.areaUseful || infos.areaUsefulStart) {
+    if(infos.areaTotal) {
       items.push(
         <Caracteristics.AreaUseFul
           type={type}
           category={categoryText}
-          areaUseful={infos.areaUseful}
+          areaUseful={infos.areaTotal}
           key={`caracteristic-${reference}-${items.length}`}
         />
       );

@@ -115,7 +115,7 @@ export default function Datasheet({ property }) {
             <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
           )}
 
-          <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
+          <Caracteristics.AreaUseFul areaUseful={infos.areaTotal} />
 
           {infos.use !== 'COMERCIAL' && (
             <Caracteristics.AreaGround areaGround={infos.areaGround} />

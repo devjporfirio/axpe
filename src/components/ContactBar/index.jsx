@@ -174,8 +174,8 @@ function ContactBar() {
       let params = null;
       const areaUseful = !currentBuilding.infos
         ? null
-        : currentBuilding.infos.areaUseful
-        ? currentBuilding.infos.areaUseful
+        : currentBuilding.infos.areaTotal
+        ? currentBuilding.infos.areaTotal
         : currentBuilding.infos.areaUsefulStart;
       const paramsObj = {
         type: currentBuilding.type,
