@@ -112,7 +112,7 @@ export default {
   }) {
     shouldRenewToken();
     const result = await fetch(
-      `${process.env.config.apiUrl}/auth/one_signal_id`,
+      `${process.env.config.apiUrl}/auth/set-one-signal-id`,
       {
         method: 'POST',
         body: JSON.stringify({
