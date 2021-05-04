@@ -26,7 +26,7 @@ function RemoveAlertModal({ active, alertRef, onClose, user }) {
       
       onClose(responseRemove.status);
 
-  }, [ user.logged ]);
+  }, [ user.logged, alertRef ]);
 
   return (
     <Container active={active} onClose={onClose}>
