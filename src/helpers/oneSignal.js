@@ -18,8 +18,7 @@ function watch(store) {
       // console.log('OneSignal getUserId', id)
       const user = store.getState().user;
       Api.User.updateIdOneSignal(user.access_token, {
-        userId: user.id,
-        idOneSignal: id
+        one_signal_id: id
       });
     });
 

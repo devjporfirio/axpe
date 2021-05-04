@@ -108,17 +108,16 @@ export default {
     return result;
   },
   async updateIdOneSignal(token, {
-    userId,
     idOneSignal
   }) {
     shouldRenewToken();
     const result = await fetch(
-      `${process.env.config.apiUrl}/notifications/users/${userId}/${idOneSignal}`,
+      `${process.env.config.apiUrl}/auth/one_signal_id`,
       {
-        method: 'GET',
-        // body: JSON.stringify({
-        //   idOneSignal
-        // }),
+        method: 'POST',
+        body: JSON.stringify({
+          one_signal_id: idOneSignal
+        }),
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`

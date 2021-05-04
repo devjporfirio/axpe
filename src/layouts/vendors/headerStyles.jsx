@@ -32,8 +32,8 @@ function HeaderStyles() {
         `}
       </Script>
 
-      {/* <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-      <script>var OneSignal = OneSignal || [];</script> */}
+      <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+      <script>var OneSignal = OneSignal || [];</script>
       <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=geometry`}></script>
     </>
   )
