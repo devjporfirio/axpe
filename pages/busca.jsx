@@ -443,7 +443,9 @@ function Search({ total, totalPages, data, banner, locals }) {
                   <SearchBanner>
                     <Infos>
                       <h4>{banner.title}</h4>
-                      <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
+                      <div>
+                        <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
+                      </div>
                     </Infos>
                     {banner.imageDesktop && <Image mq="desktop" src={banner.imageDesktop} />}
                     {banner.imageMobile && <Image mq="mobile" src={banner.imageMobile} />}
