@@ -27,6 +27,7 @@ function Around({ local, cep, text, latitude, longitude }) {
   return !!bounds &&
     !!process.env.config.googleApiKey &&
     cep === zipCode &&
+    (latitude !== 0 && longitude !== 0) &&
     isEnabled ? (
     <Container>
       <Mapa>
