@@ -343,6 +343,7 @@ function About() {
           </BlockCol>
         </Block>
 
+        {/*
         <Block dataTemplate="2">
           <BlockCol dataType="text">
             <BlockTitle>
@@ -437,6 +438,7 @@ function About() {
             </BlockImage>
           </BlockCol>
         </Block>
+        */}
 
         <Block id="nossa-casa" dataTemplate="5_diff">
           <BlockCol dataType="text">
