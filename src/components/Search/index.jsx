@@ -80,7 +80,7 @@ function Search() {
     { label: 'São Paulo', value: 'sao-paulo' },
     { label: 'Praia', value: 'praia' },
     { label: 'Campo', value: 'campo' },
-    { label: 'Internacional', value: 'internacional' },
+    { label: 'Exterior', value: 'internacional' },
   ];
 
   const getFinalities = useCallback(
