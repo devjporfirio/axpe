@@ -68,7 +68,7 @@ function Building({ property }) {
       productSeals: productSeals.join('|'),
       productNumberOfBedrooms: property.infos.bedrooms,
       productParkingSpace: property.infos.parking,
-      productArea: property.infos.areaTotal
+      productArea: property.infos.areaTotal ? property.infos.areaTotal : property.infos.areaUseful
     })
 
     loadSimilarBuildings();

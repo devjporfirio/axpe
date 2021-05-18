@@ -102,7 +102,8 @@ function BuildingCard({
                     ? `, ${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
                     : null
                   : `, ${
-                      infos && infos.areaTotal ? infos.areaTotal + ' m²' : null
+                      infos && infos.areaTotal ? infos.areaTotal + ' m²' :
+                      infos && infos.areaUseful ? infos.areaUseful + ' m²' : null
                     }`}
               </span>
               {sell || release || rent ? (
