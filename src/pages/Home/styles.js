@@ -165,7 +165,7 @@ export const HeroItemInfo = styled.div`
       line-height: 40px;
     `}
 
-    &:after {
+    &.with-separator:after {
       content: '';
       display: block;
       width: 55px;
