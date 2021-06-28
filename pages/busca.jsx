@@ -422,7 +422,9 @@ function Search({ total, totalPages, data, banner, locals }) {
                       {banner && buildingIndex == 2 && total >= 5 && (
                         <SearchBanner>
                           <Infos>
-                            <h4>{banner.title}</h4>
+                            {banner.title && (
+                              <h4>{banner.title}</h4>
+                            )}
                             {banner.button_link && banner.button_label && (
                               <div>
                                 <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
@@ -444,7 +446,9 @@ function Search({ total, totalPages, data, banner, locals }) {
                 {banner && total < 5 && (
                   <SearchBanner>
                     <Infos>
-                      <h4>{banner.title}</h4>
+                      {banner.title && (
+                        <h4>{banner.title}</h4>
+                      )}
                       {banner.button_link && banner.button_label && (
                         <div>
                           <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
