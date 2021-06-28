@@ -20,10 +20,11 @@ const theme = {
     green: '#3F5A5E',
     green2: '#2CB743',
     greenDark: '#37474F',
+    greenDarker: '#263238',
     greenBorder: '#374E52',
     greenLight2: '#89D4AA',
     blueLight: '#77D0DD',
-    yellowLight: '#FFDBA8'
+    yellowLight: '#FFDBA8',
   },
 
   fontsWeight: {
