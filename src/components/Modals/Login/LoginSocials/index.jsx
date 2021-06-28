@@ -61,7 +61,8 @@ function LoginSocials({
   }, [ window.clicked ]);
 
   const doGoogleLogin = useCallback(async (googleResponse) => {
-    if(googleResponse && googleResponse.qc && !googleResponse.error && window.clicked) {
+
+    if(googleResponse && googleResponse.mc && !googleResponse.error && window.clicked) {
       dispatch(setLoading({ active: true }));
       const token = googleResponse.getAuthResponse().id_token;
 
@@ -74,6 +75,7 @@ function LoginSocials({
       } else {
         dispatch(setLoading({ active: false }));
       }
+    } else {
     }
 
     window.clicked = false;
