@@ -43,16 +43,16 @@ export const Image = styled.img`
 
 export const PlayButton = styled.img`
   position: absolute;
-  max-width: 15%;
+  max-width: 18%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-  opacity: 0.8;
+  opacity: 1;
   transition: transform .15s;
 
   ${media.greaterThan('large')`
-    max-width: 7.5%;
+    max-width: 13.5%;
   `}
 
   &:hover {
