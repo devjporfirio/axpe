@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
 // components
 import Modal from 'components/Modals';
@@ -37,6 +38,7 @@ function LoginModal() {
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalLogin: false }));
+    Cookies.remove('isNewBuildingModal', { expires: 2 });
   }, [ modalLogin ]);
 
   const onClickButtonBack = useCallback(() => {

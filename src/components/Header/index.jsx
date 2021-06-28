@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 import SVG from 'react-inlinesvg';
 import SimpleBar from 'simplebar-react';
 
@@ -195,6 +196,7 @@ function Header() {
                       onClick={() => {
                         cancelToggle();
                         openModalLogin('/cadastrar');
+                        Cookies.set('isNewBuildingModal', true, { expires: 2 });
                       }}
                     >
                       <SVG src={HomeIconSVG} uniquifyIDs={true} />

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 import GTM from 'helpers/gtm';
 
 // components
@@ -15,6 +16,7 @@ import { Success, SuccessColumn } from 'components/Modals/styles';
 function LoginRegisterSuccessModal() {
   const dispatch = useDispatch();
   const { modalLoginRegisterSuccess } = useSelector(state => state.main);
+  const isBuildingModal = ('true' == Cookies.get('isNewBuildingModal'));
 
   const closeModal = useCallback(() => {
     dispatch(setMain({ modalLoginRegisterSuccess: false }))
@@ -34,13 +36,28 @@ function LoginRegisterSuccessModal() {
   return modalLoginRegisterSuccess ? (
     <Modal active={modalLoginRegisterSuccess} onClose={closeModal} themeColor="green">
       <Success size="big">
-        <SuccessColumn>
-          <h2>Seu login <strong>já está criado.</strong></h2>
-        </SuccessColumn>
-        <SuccessColumn>
-          <p>Agora é só criar sua lista de favoritos.</p>
-          <Button route="/minha-conta" className="holos-cta-profile">Quero ver meu perfil</Button>
-        </SuccessColumn>
+        {!isBuildingModal ? (
+            <>
+              <SuccessColumn>
+                <h2>Seu login <strong>já está criado.</strong></h2>
+              </SuccessColumn>
+              <SuccessColumn>
+                <p>Agora é só criar sua lista de favoritos.</p>
+                <Button route="/minha-conta" className="holos-cta-profile">Quero ver meu perfil</Button>
+              </SuccessColumn>
+            </>
+          ) : (
+            <>
+              <SuccessColumn>
+                <h2>Seu login <strong>já está criado.</strong></h2>
+              </SuccessColumn>
+              <SuccessColumn>
+                <p>Agora é só cadastrar o seu imóvel.</p>
+                <Button route="/cadastrar" className="holos-cta-profile">Cadastrar</Button>
+              </SuccessColumn>
+            </>
+          )
+        }
       </Success>
     </Modal>
   ) : null;
