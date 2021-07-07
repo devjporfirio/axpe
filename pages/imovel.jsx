@@ -14,6 +14,7 @@ import Modules from 'pages/Building/modules';
 // helpers
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 import SeoData from 'helpers/seo';
+import { checkChristiesLogo } from 'helpers/checkChristiesLogo';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
@@ -58,6 +59,7 @@ function Building({ property }) {
         similar.data.filter(x => x.reference !== property.reference);
 
       setSimilarBuildings(buildings);
+      checkChristiesLogo(property, buildings);
     }
 
     GTM.dataLayerPush({

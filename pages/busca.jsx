@@ -19,6 +19,7 @@ import BuildingsPanel from 'components/BuildingsPanel';
 
 // helpers
 import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
+import { checkChristiesLogo } from 'helpers/checkChristiesLogo';
 import { getParamsFromObject } from 'helpers/utils'
 import SeoData from 'helpers/seo';
 
@@ -288,6 +289,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     if(!dataLoaded) {
       setDataLoaded(true);
     }
+
   }, [ total, order, reference ]);
 
   useEffect(() => {
@@ -305,6 +307,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     if(loadNewPage) {
       getDataByPage();
     }
+
   }, [ loadNewPage ]);
 
   useEffect(() => {
@@ -313,6 +316,10 @@ function Search({ total, totalPages, data, banner, locals }) {
       loadMore();
     }
   }, [ checkLoadMoreOnScroll ]);
+
+  useEffect(() => {
+    checkChristiesLogo(buildings, suggestions);
+  }, [ query, buildings, suggestions ]);
 
   return (
     <>
