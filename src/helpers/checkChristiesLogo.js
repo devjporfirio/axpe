@@ -11,7 +11,7 @@ export const checkChristiesLogo = (data, suggestions = false) => {
 		}
 
 		// Single building
-		if(isActive && data.hasOwnProperty('address')) {
+		if(isActive && data && data.hasOwnProperty('address')) {
 			isActive = !noChristiesLocations.includes(data.address.local);
 		}
 
@@ -30,8 +30,11 @@ export const checkChristiesLogo = (data, suggestions = false) => {
 
 		// Avoids initialising function before DOM is available
 		if(typeof window !== 'undefined') {
-
 			const christiesLogo = document.querySelector('.christies-logo');
+
+			if (!christiesLogo) {
+				return false;
+			}
 		
 			if(isActive) {
 				christiesLogo.style.display = 'initial';
