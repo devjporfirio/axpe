@@ -137,7 +137,7 @@ function Header() {
           <ChristiesLogo type="christies">
             <Link route="/sobre" passHref>
               <LogoLink
-                className="holos-logo"
+                className="holos-logo christies-logo"
                 data-label="Christies"
                 onClick={cancelToggle}
               >
