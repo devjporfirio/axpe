@@ -134,10 +134,10 @@ function Header() {
             </Link>
           </AxpeLogo>
 
-          <ChristiesLogo type="christies">
+          <ChristiesLogo type="christies" className="christies-logo">
             <Link route="/sobre" passHref>
               <LogoLink
-                className="holos-logo christies-logo"
+                className="holos-logo"
                 data-label="Christies"
                 onClick={cancelToggle}
               >

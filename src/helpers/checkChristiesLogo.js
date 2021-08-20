@@ -6,7 +6,7 @@ export const checkChristiesLogo = (data, suggestions = false) => {
 
 		// Search results
 		if(data && data instanceof Object && data.length > 0) {
-			const noChristies = data.filter(x => x.address.local && noChristiesLocations.includes(x.address.local));
+			const noChristies = data.filter(x => x.hasOwnProperty('address') && x.address.local && noChristiesLocations.includes(x.address.local));
 			isActive = noChristies.length > 0 ? false : true;
 		}
 
@@ -23,7 +23,7 @@ export const checkChristiesLogo = (data, suggestions = false) => {
 			} else {
 				suggestionBuildings = suggestions;
 			}
-			const noChristiesSuggestions = suggestionBuildings.filter(x => x.address.local && noChristiesLocations.includes(x.address.local));
+			const noChristiesSuggestions = suggestionBuildings.filter(x => x.hasOwnProperty('address') && x.address.local && noChristiesLocations.includes(x.address.local));
 			isActive = noChristiesSuggestions.length > 0 ? false : true
 		}
 		
