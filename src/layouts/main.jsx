@@ -35,6 +35,7 @@ import PrivacyPolicy from 'components/PrivacyPolicy';
 import GlobalStyle from './globalStyle';
 import noUiSliderCSS from './vendors/noUiSlider';
 import simplebarCSS from './vendors/simplebar';
+import tailwindCSS from './vendors/tailwind';
 import ThemeStyle from './themeStyle';
 import {
   Wrapper
@@ -86,7 +87,7 @@ function Main({ children }) {
   return (
     <ThemeProvider theme={ThemeStyle}>
       <>
-        <GlobalStyle vendorsStyle={[ noUiSliderCSS, simplebarCSS ]} />
+        <GlobalStyle vendorsStyle={[ noUiSliderCSS, simplebarCSS, tailwindCSS ]} />
         <Loading />
         <Header />
         <Search />
