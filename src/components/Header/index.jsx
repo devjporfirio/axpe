@@ -113,7 +113,7 @@ function Header() {
   }, [ scrollPosition ]);
 
   useEffect(() => {
-    if(scrollBarRef.current && window.innerWidth < 1170) {
+    if (scrollBarRef.current && window.innerWidth < 1170) {
       scrollBarRef.current.unMount();
     }
   }, []);
@@ -231,7 +231,16 @@ function Header() {
                     </NavSecondaryButton>
                   </Link>
                 </li>
-                <li>
+                <li className="large:hidden">
+                  <NavSecondaryButton
+                    className="holos-menu-item"
+                    onClick={cancelToggle}
+                    href="https://wa.me/551130743600"
+                  >
+                    Fale com a gente
+                  </NavSecondaryButton>
+                </li>
+                <li className="hidden large:block">
                   <Link route="/contato" passHref>
                     <NavSecondaryButton
                       className="holos-menu-item"
