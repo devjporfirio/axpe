@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import Router from 'next/router';
 
 // helpers
@@ -37,9 +37,7 @@ import noUiSliderCSS from './vendors/noUiSlider';
 import simplebarCSS from './vendors/simplebar';
 import tailwindCSS from './vendors/tailwind';
 import ThemeStyle from './themeStyle';
-import {
-  Wrapper
-} from './styles';
+import { Wrapper } from './styles';
 
 function Main({ children }) {
   const dispatch = useDispatch();
@@ -52,26 +50,28 @@ function Main({ children }) {
 
     Router.events.on('routeChangeStart', (a) => {
       cachedPageHeight.push(document.documentElement.offsetHeight);
-      dispatch(setMain({
-        searchFormActive: false,
-        headerHiding: false,
-        modalLoginRegisterSuccess: false
-      }));
+      dispatch(
+        setMain({
+          searchFormActive: false,
+          headerHiding: false,
+          modalLoginRegisterSuccess: false,
+        })
+      );
       dispatch(setLoading({ active: true }));
     });
 
     Router.events.on('routeChangeComplete', () => {
-      html.style.height = 'initial'
+      html.style.height = 'initial';
       dispatch(setLoading({ active: false }));
-      if(location && location.pathname.search('busca') < 0) {
+      if (location && location.pathname.search('busca') < 0) {
         window.scrollTo(0, 0);
       }
     });
 
     Router.beforePopState(() => {
       html.style.height = `${cachedPageHeight.pop()}px`;
-      return true
-    })
+      return true;
+    });
 
     // OneSignalHelper.start();
 
@@ -87,7 +87,9 @@ function Main({ children }) {
   return (
     <ThemeProvider theme={ThemeStyle}>
       <>
-        <GlobalStyle vendorsStyle={[ noUiSliderCSS, simplebarCSS, tailwindCSS ]} />
+        <GlobalStyle
+          vendorsStyle={[ noUiSliderCSS, simplebarCSS, tailwindCSS ]}
+        />
         <Loading />
         <Header />
         <Search />
@@ -106,9 +108,21 @@ function Main({ children }) {
         <WorkWithUsSuccess />
         <ContactModal />
         <ContactBar />
-        <PrivacyPolicy onDemand active={router.query.modal && router.query.modal === 'politica-de-privacidade'} />
-        <TermsOfUse onDemand active={router.query.modal && router.query.modal === 'termos-de-uso'} />
-        <div className="onesignal-customlink-container" style={{ display: 'none' }}></div>
+        <PrivacyPolicy
+          onDemand
+          active={
+            router.query.modal &&
+            router.query.modal === 'politica-de-privacidade'
+          }
+        />
+        <TermsOfUse
+          onDemand
+          active={router.query.modal && router.query.modal === 'termos-de-uso'}
+        />
+        <div
+          className="onesignal-customlink-container"
+          style={{ display: 'none' }}
+        ></div>
       </>
     </ThemeProvider>
   );

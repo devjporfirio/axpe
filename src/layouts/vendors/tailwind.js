@@ -17,6 +17,9 @@ const createTailwindClasses = () => {
         .${breakpoint}\\:block {
           display: block;
         }
+        .${breakpoint}\\:flex {
+          display: flex;
+        }
       `}
     `;
   }
@@ -33,6 +36,10 @@ export default css`
 
   .block {
     display: block;
+  }
+
+  .flex {
+    display: flex;
   }
 
   ${createTailwindClasses()}
