@@ -231,16 +231,7 @@ function Header() {
                     </NavSecondaryButton>
                   </Link>
                 </li>
-                <li className="large:hidden">
-                  <NavSecondaryButton
-                    className="holos-menu-item"
-                    onClick={cancelToggle}
-                    href="https://wa.me/551130743600"
-                  >
-                    Fale com a gente
-                  </NavSecondaryButton>
-                </li>
-                <li className="hidden large:block">
+                <li>
                   <Link route="/contato" passHref>
                     <NavSecondaryButton
                       className="holos-menu-item"
