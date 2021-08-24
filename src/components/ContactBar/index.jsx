@@ -20,6 +20,7 @@ import ChatIconSVG from 'assets/icons/chat';
 import {
   Container,
   Wrapper,
+  LinkFloat,
   ButtonFloat,
   Header,
   ButtonClose,
@@ -327,8 +328,26 @@ function ContactBar() {
 
   return (
     <>
+      <LinkFloat
+        href="https://wa.me/551130743600"
+        className="holos-contact-float flex large:hidden"
+        target="_blank"
+      >
+        <SVG src={ChatIconSVG} />
+        {isBuilding ? (
+          <div>
+            <span>Quer saber mais?</span>
+            Fale com um corretor.
+          </div>
+        ) : (
+          <div>
+            Fale com a gente
+          </div>
+        )}
+      </LinkFloat>
+
       <ButtonFloat
-        className="holos-contact-float"
+        className="holos-contact-float hidden large:flex"
         type="button"
         onClick={toggleShow}
       >
@@ -344,6 +363,7 @@ function ContactBar() {
           </div>
         )}
       </ButtonFloat>
+
       {contactBarActive && (
         <Container onClick={clickContainer} data-type="container">
           <Wrapper>
