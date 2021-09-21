@@ -31,21 +31,21 @@ import {
   HeroLink,
   HeroImage,
   HeroItemWrapper,
-  HeroItemInfo
+  HeroItemInfo,
 } from 'pages/Home/styles';
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
-  buildingsGrid: 'slickGrid'
+  buildingsGrid: 'slickGrid',
 };
 
 function Home({ hero, components }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
-    query: { action, hash }
+    query: { action, hash },
   } = router;
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
   const [ heroItems, setHeroItems ] = useState([]);
@@ -59,7 +59,7 @@ function Home({ hero, components }) {
     autoplay: true,
     autoplaySpeed: 5000,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
 
   const renderComponents = useCallback((type, component) => {
@@ -104,22 +104,20 @@ function Home({ hero, components }) {
         );
       case 'gallery':
         return <GalleryCarousel {...component} />;
-        case 'contact':
+      case 'contact':
         return <BlockHighlighted type="contactHome" />;
     }
   }, []);
 
   const randomizeHeroItems = useCallback(() => {
-
-    if(Object.keys(heroItems).length === 0) {
+    if (Object.keys(heroItems).length === 0) {
       setHeroItems(shuffle(hero));
     }
 
     return heroItems;
-    
   });
 
-  const renderHeroItem = useCallback(item => {
+  const renderHeroItem = useCallback((item) => {
     const hasContent = item.title || item.content ? true : false;
 
     return (
@@ -136,7 +134,11 @@ function Home({ hero, components }) {
               ) : item.label == 'isFurnished' ? (
                 <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
               ) : null}
-              {item && item.title && <h2 className={item.title && item.content && 'with-separator'}>{item.title}</h2>}
+              {item && item.title && (
+                <h2 className={item.title && item.content && 'with-separator'}>
+                  {item.title}
+                </h2>
+              )}
               {item.content && <p>{item.content}</p>}
               {item.link.url && <span>Saiba mais</span>}
             </HeroItemInfo>
@@ -147,12 +149,11 @@ function Home({ hero, components }) {
   }, []);
 
   useEffect(() => {
-
     function checkActionParams() {
       if (action) {
         dispatch(
           setMain({
-            modalPasswordNew: true
+            modalPasswordNew: true,
           })
         );
       }
@@ -220,11 +221,17 @@ function Home({ hero, components }) {
           >
             {randomizeHeroItems().map((item, itemIndex) => (
               <HeroItem key={`hero-item-${itemIndex}`}>
-                {item.link && item.link.url && (item.link.target === 'blank' || item.link.target === 'self') && (
-                  <HeroLink href={item.link.url} target={`_${item.link.target}`}>
-                    {renderHeroItem(item)}
-                  </HeroLink>
-                )}
+                {item.link &&
+                  item.link.url &&
+                  (item.link.target === 'blank' ||
+                    item.link.target === 'self') && (
+                    <HeroLink
+                      href={item.link.url}
+                      target={`_${item.link.target}`}
+                    >
+                      {renderHeroItem(item)}
+                    </HeroLink>
+                  )}
                 {!item.link || !item.link.url ? renderHeroItem(item) : null}
               </HeroItem>
             ))}
@@ -235,34 +242,28 @@ function Home({ hero, components }) {
           components.length > 0 &&
           components.map((c, cIndex) => {
             if (c.type === 'buildingsSeen') {
-              return (
-                buildingsSeen &&
-                buildingsSeen.length ? (
-                  <BuildingsPanel
-                    itemClass="buildingsSeen"
-                    key={`buildingspanel-0-${c.type}-${cIndex}`}
-                    page="home"
-                    title="Imóveis que você viu"
-                    buildingLayout="horizontal"
-                    data={buildingsSeen}
-                  />
-                ) : null
-              );
+              return buildingsSeen && buildingsSeen.length ? (
+                <BuildingsPanel
+                  itemClass="buildingsSeen"
+                  key={`buildingspanel-0-${c.type}-${cIndex}`}
+                  page="home"
+                  title="Imóveis que você viu"
+                  buildingLayout="horizontal"
+                  data={buildingsSeen}
+                />
+              ) : null;
             } else if (c.type === 'buildingsForYou') {
-              return (
-                buildingsForYou &&
-                buildingsForYou.length ? (
-                  <BuildingsPanel
-                    itemClass="buildingsForYou"
-                    key={`panel-buildings-1-${c.type}-${cIndex}`}
-                    page="home"
-                    title="Indicados para você"
-                    subtitle="Selecionamos alguns imóveis que acabaram de chegar"
-                    buildingLayout="vertical"
-                    data={buildingsForYou}
-                  />
-                ) : null
-              );
+              return buildingsForYou && buildingsForYou.length ? (
+                <BuildingsPanel
+                  itemClass="buildingsForYou"
+                  key={`panel-buildings-1-${c.type}-${cIndex}`}
+                  page="home"
+                  title="Indicados para você"
+                  subtitle="Selecionamos alguns imóveis que acabaram de chegar"
+                  buildingLayout="vertical"
+                  data={buildingsForYou}
+                />
+              ) : null;
             }
             return (
               <Fragment key={`fragment-2-${c.type}-${cIndex}`}>
