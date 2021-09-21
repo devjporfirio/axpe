@@ -10,6 +10,7 @@ function SliderNew({
   hasVerticalBar = false,
   type = 'full',
   arrowsClassName = '',
+  onChange,
   settings = {
     dots: false,
     infinite: false,
@@ -17,8 +18,8 @@ function SliderNew({
     autoplay: true,
     autoplaySpeed: 3000,
     slidesToShow: 1,
-    slidesToScroll: 1
-  }
+    slidesToScroll: 1,
+  },
 }) {
   const ref = useRef(null);
 
@@ -28,8 +29,8 @@ function SliderNew({
       const $track = $list.querySelector('.slick-track');
       const $items = $list.querySelectorAll('.slick-slide');
 
-      $items.forEach($item => {
-        if($item.classList.contains('slick-active')) {
+      $items.forEach(($item) => {
+        if ($item.classList.contains('slick-active')) {
           $item.classList.add('active');
         } else {
           $item.classList.remove('active');
@@ -38,18 +39,21 @@ function SliderNew({
 
       setTimeout(() => {
         if ($track && $track.style && settings.slidesToShow >= $items.length) {
-          $track.style.height = "";
+          $track.style.height = '';
         }
       }, 400);
-
     }, 100);
-  }
+
+    if (typeof onChange === 'function') {
+      onChange(ref.current.innerSlider.state.currentSlide);
+    }
+  };
 
   useEffect(() => {
-    if(ref.current && ref.current.innerSlider) {
+    if (ref.current && ref.current.innerSlider) {
       const $list = ref.current.innerSlider.list;
 
-      if(!$list) return false;
+      if (!$list) return false;
 
       const $buttonPrev = $list.previousSibling;
       const $buttonNext = $list.nextSibling;
@@ -64,16 +68,16 @@ function SliderNew({
         </svg>
       `;
 
-      if($buttonPrev && $buttonPrev.tagName === 'BUTTON') {
-        if(arrowsClassName) {
+      if ($buttonPrev && $buttonPrev.tagName === 'BUTTON') {
+        if (arrowsClassName) {
           $buttonPrev.classList.add(arrowsClassName);
         }
         $buttonPrev.setAttribute('data-direction', 'anterior');
         $buttonPrev.innerHTML = renderSVG('prev');
       }
 
-      if($buttonNext && $buttonNext.tagName === 'BUTTON') {
-        if(arrowsClassName) {
+      if ($buttonNext && $buttonNext.tagName === 'BUTTON') {
+        if (arrowsClassName) {
           $buttonNext.classList.add(arrowsClassName);
         }
         $buttonNext.setAttribute('data-direction', 'próximo');
@@ -90,11 +94,16 @@ function SliderNew({
       arrowsColor={arrowsColor}
       hasVerticalBar={hasVerticalBar}
     >
-      <Slider {...settings} afterChange={afterChange} ref={ref}>
+      <Slider
+        {...settings}
+        afterChange={afterChange}
+        beforeChange={onChange}
+        ref={ref}
+      >
         {children}
       </Slider>
     </Container>
-  )
+  );
 }
 
 export default SliderNew;

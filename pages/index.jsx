@@ -18,6 +18,7 @@ import SlickSection from 'components/SlickSection';
 import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
 import SliderNew from 'components/SliderNew';
+import GalleryCarousel from 'components/GalleryCarousel';
 import Contact from 'components/Contact';
 import Tag from 'components/Tag';
 
@@ -101,7 +102,9 @@ function Home({ hero, components }) {
             />
           )
         );
-      case 'contact':
+      case 'gallery':
+        return <GalleryCarousel {...component} />;
+        case 'contact':
         return <BlockHighlighted type="contactHome" />;
     }
   }, []);
