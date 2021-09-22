@@ -20,7 +20,7 @@ import BuildingsPanel from 'components/BuildingsPanel';
 // helpers
 import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
 import { checkChristiesLogo } from 'helpers/checkChristiesLogo';
-import { getParamsFromObject } from 'helpers/utils'
+import { getParamsFromObject } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 
 // assets
@@ -41,15 +41,19 @@ import {
   BuildingsNotFound,
   SearchBanner,
   Infos,
+  ImageContainer,
   Image,
-  BuildingsLoadMore
-} from 'pages/Search/styles'
+  BuildingsLoadMore,
+} from 'pages/Search/styles';
 
 function Search({ total, totalPages, data, banner, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { query, query: { source, finality, reference, order } } = router;
-  const { searchFormActive } = useSelector(state => state.main);
+  const {
+    query,
+    query: { source, finality, reference, order },
+  } = router;
+  const { searchFormActive } = useSelector((state) => state.main);
   const checkLoadMoreOnScroll = useCheckLoadMoreOnScroll();
 
   const keysToHumanNames = {
@@ -69,7 +73,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     parking_start: 'Número de vagas no estacionamento inicial',
     parking_end: 'Número de vagas no estacionamento final',
     reference: 'Referência',
-    order: 'Ordernar por'
+    order: 'Ordernar por',
   };
 
   const orderOptions = [
@@ -77,7 +81,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     { label: 'Menor área útil', value: 'lowest_area' },
     { label: 'Maior área útil', value: 'biggest_area' },
     { label: 'Menor Preço', value: 'lowest_price' },
-    { label: 'Maior Preço', value: 'biggest_price' }
+    { label: 'Maior Preço', value: 'biggest_price' },
   ];
 
   const orderTiming = useRef(false);
@@ -92,46 +96,48 @@ function Search({ total, totalPages, data, banner, locals }) {
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
-      searchFilters: Object.keys(query).map(key => {
-        let value = query[key];
+      searchFilters: Object.keys(query)
+        .map((key) => {
+          let value = query[key];
 
-        if(key === 'ready_release') {
-          if(query[key] === 'pronto') {
-            return `Pronto para morar`;
-          } else {
-            return `Lançamento`;
+          if (key === 'ready_release') {
+            if (query[key] === 'pronto') {
+              return `Pronto para morar`;
+            } else {
+              return `Lançamento`;
+            }
+          } else if (key === 'source') {
+            if (value === 'sao-paulo') {
+              value = 'São Paulo';
+            } else {
+              value = value[0].toUpperCase() + value.slice(1);
+            }
+          } else if (key === 'order') {
+            const results = orderOptions.filter((item) => item.value === value);
+            if (results) {
+              value = results[0].label;
+            }
           }
-        } else if(key === 'source') {
-          if(value === 'sao-paulo') {
-            value = 'São Paulo';
-          } else {
-            value = value[0].toUpperCase() + value.slice(1)
-          }
-        } else if(key === 'order') {
-          const results = orderOptions.filter(item => item.value === value);
-          if(results) {
-            value = results[0].label
-          }
-        }
 
-        return `${keysToHumanNames[key]}: ${value}`;
-      }).join(' | ')
+          return `${keysToHumanNames[key]}: ${value}`;
+        })
+        .join(' | '),
     });
   }, [ query ]);
 
   const getOrderBySelected = useCallback(() => {
-    return orderOptions.filter(orderItem => orderItem.value == orderBy);
+    return orderOptions.filter((orderItem) => orderItem.value == orderBy);
   }, [ orderBy ]);
 
   const getSourceText = useCallback(() => {
-    if(source && source === 'sao-paulo') {
+    if (source && source === 'sao-paulo') {
       return 'São Paulo';
     }
     return source;
   }, [ source ]);
 
   const getFinalityText = useCallback(() => {
-    switch(finality) {
+    switch (finality) {
       case 'venda':
         return 'comprar';
       case 'aluguel':
@@ -142,27 +148,35 @@ function Search({ total, totalPages, data, banner, locals }) {
   }, [ finality ]);
 
   const toggleSearch = useCallback(() => {
-    dispatch(setMain({ searchFormActive: !searchFormActive }))
+    dispatch(setMain({ searchFormActive: !searchFormActive }));
   }, [ searchFormActive ]);
 
-  const handleOrderBy = useCallback((newOrder) => {
-    const params = getParamsFromObject({
-      ...query,
-      order: newOrder
-    });
+  const handleOrderBy = useCallback(
+    (newOrder) => {
+      const params = getParamsFromObject({
+        ...query,
+        order: newOrder,
+      });
 
-    if(query.order !== newOrder) {
-      setOrderBy(newOrder);
-      Router.push(`/busca${params}`);
-    }
-  }, [ query ]);
+      if (query.order !== newOrder) {
+        setOrderBy(newOrder);
+        Router.push(`/busca${params}`);
+      }
+    },
+    [ query ]
+  );
 
-  const setNewData = useCallback((newData, first) => {
-    const newBuildings = buildings && buildings.length && !first ? [ ...buildings, ...newData ] : [ ...newData ];
-    setBuildings(newBuildings);
-    setIsLoading(false);
-
-  }, [ buildings ]);
+  const setNewData = useCallback(
+    (newData, first) => {
+      const newBuildings =
+        buildings && buildings.length && !first
+          ? [ ...buildings, ...newData ]
+          : [ ...newData ];
+      setBuildings(newBuildings);
+      setIsLoading(false);
+    },
+    [ buildings ]
+  );
 
   const loadMore = useCallback(() => {
     const newPage = page + 1;
@@ -180,91 +194,115 @@ function Search({ total, totalPages, data, banner, locals }) {
     const getBuildingsSuggestion = async (title, newQuery) => {
       const params = getParamsFromObject({
         ...newQuery,
-        page: 1
+        page: 1,
       });
       const response = await Api.Search.getBuildings(params);
 
-      if(response.data && response.data.length) {
+      if (response.data && response.data.length) {
         results.push({
-          title: title.replace('{{showTotal}}', getTotalFormated(response.total)),
-          items: response.data
+          title: title.replace(
+            '{{showTotal}}',
+            getTotalFormated(response.total)
+          ),
+          items: response.data,
         });
       }
-    }
+    };
 
-    const getTotalFormated = total => {
+    const getTotalFormated = (total) => {
       total = total > 10 ? 10 : total;
 
       const text = total > 1 ? `opções` : `opção`;
       let result = `${total} ${text}`;
 
-      if(total < 10) {
+      if (total < 10) {
         result = `0${total} ${text}`;
       }
 
       return result;
-    }
+    };
 
-    if(query.price_start && query.price_end && !reference) {
+    if (query.price_start && query.price_end && !reference) {
       const priceEnd = +query.price_end;
-      const percent = priceEnd * 20 / 100;
+      const percent = (priceEnd * 20) / 100;
       const newPriceStart = priceEnd + 1;
       const newPriceEnd = priceEnd + percent;
 
-      await getBuildingsSuggestion(`Encontramos mais <strong>{{showTotal}}</strong>, mas o valor passou um pouco. Pode ser?`, {
-        ...query,
-        price_start: newPriceStart,
-        price_end: newPriceEnd
-      });
+      await getBuildingsSuggestion(
+        `Encontramos mais <strong>{{showTotal}}</strong>, mas o valor passou um pouco. Pode ser?`,
+        {
+          ...query,
+          price_start: newPriceStart,
+          price_end: newPriceEnd,
+        }
+      );
     }
 
-    if(query.source && query.local && locals && !reference) {
+    if (query.source && query.local && locals && !reference) {
       const localsArr = query.local.split(',');
 
       let localsSelected = [];
 
-      Object.keys(locals).forEach(local => {
-        locals[local].forEach(item => {
-          if(localsArr.indexOf(item.local) >= 0 && item.related && item.related.length) {
+      Object.keys(locals).forEach((local) => {
+        locals[local].forEach((item) => {
+          if (
+            localsArr.indexOf(item.local) >= 0 &&
+            item.related &&
+            item.related.length
+          ) {
             localsSelected = [ ...localsSelected, ...item.related ];
           }
-        })
+        });
       });
 
       // Avoids duplicating the main query
       localsSelected.forEach((local, idx) => {
-        if(localsArr.includes(local)) {
+        if (localsArr.includes(local)) {
           delete localsSelected[idx];
         }
       });
 
-      if(localsSelected.length) {
+      if (localsSelected.length) {
         const query2 = {
           ...query,
-          local: localsSelected.join(',')
+          local: localsSelected.join(','),
         };
-        await getBuildingsSuggestion(`Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, mas em bairros vizinhos, tudo bem?`, query2);
+        await getBuildingsSuggestion(
+          `Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, mas em bairros vizinhos, tudo bem?`,
+          query2
+        );
       }
     }
 
-    if(query.source &&
+    if (
+      query.source &&
       query.finality &&
       query.use &&
       query.ready_release &&
       query.source === 'sao-paulo' &&
       query.finality === 'venda' &&
       query.use === 'RESIDENCIAL' &&
-      !reference) {
-        const finalText = query.ready_release === 'pronto' ? 'mas não estão prontos. Pode esperar?' : 'mas pronto para morar';
-        const query2 = query.ready_release === 'pronto' ? {
-          ...query,
-          ready_release: 'lancamento'
-        } : {
-          ...query,
-          ready_release: 'pronto'
-        };
-        await getBuildingsSuggestion(`Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, ${finalText}`, query2);
-      }
+      !reference
+    ) {
+      const finalText =
+        query.ready_release === 'pronto'
+          ? 'mas não estão prontos. Pode esperar?'
+          : 'mas pronto para morar';
+      const query2 =
+        query.ready_release === 'pronto'
+          ? {
+              ...query,
+              ready_release: 'lancamento',
+            }
+          : {
+              ...query,
+              ready_release: 'pronto',
+            };
+      await getBuildingsSuggestion(
+        `Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, ${finalText}`,
+        query2
+      );
+    }
 
     setSuggestions(results);
   }, [ total, reference ]);
@@ -274,11 +312,13 @@ function Search({ total, totalPages, data, banner, locals }) {
   }, [ query ]);
 
   useEffect(() => {
-    dispatch(setMain({
-      searchFunnel: {
-        finality: query.finality,
-      }
-    }))
+    dispatch(
+      setMain({
+        searchFunnel: {
+          finality: query.finality,
+        },
+      })
+    );
   }, [ query.finality ]);
 
   useEffect(() => {
@@ -286,32 +326,30 @@ function Search({ total, totalPages, data, banner, locals }) {
     setPage(+query.page || 1);
     getBuildingsSuggestions();
 
-    if(!dataLoaded) {
+    if (!dataLoaded) {
       setDataLoaded(true);
     }
-
   }, [ total, order, reference ]);
 
   useEffect(() => {
     const getDataByPage = async () => {
       const params = getParamsFromObject({
         ...query,
-        page
+        page,
       });
       const response = await Api.Search.getBuildings(params);
 
       setNewData(response.data);
       setLoadNewPage(false);
-    }
+    };
 
-    if(loadNewPage) {
+    if (loadNewPage) {
       getDataByPage();
     }
-
   }, [ loadNewPage ]);
 
   useEffect(() => {
-    if(total && page < totalPages && checkLoadMoreOnScroll && !isLoading) {
+    if (total && page < totalPages && checkLoadMoreOnScroll && !isLoading) {
       setIsLoading(true);
       loadMore();
     }
@@ -328,26 +366,30 @@ function Search({ total, totalPages, data, banner, locals }) {
         <meta name="robots" content="noindex,follow" />
       </Head>
       <Container>
-        {dataLoaded ?
+        {dataLoaded ? (
           <>
             {total ? (
               <Headerbar
                 type="search"
                 title={source && !reference && getSourceText()}
-                subtitle={finality && !reference && `Imóveis para ${getFinalityText()}`}
+                subtitle={
+                  finality && !reference && `Imóveis para ${getFinalityText()}`
+                }
               />
             ) : null}
 
             <Wrapper>
               {total ? (
                 <Header>
-                  <h3>Encontramos <strong>{total} imóveis</strong> para sua busca</h3>
+                  <h3>
+                    Encontramos <strong>{total} imóveis</strong> para sua busca
+                  </h3>
                   <HeaderOrder
                     onMouseEnter={() => clearTimeout(orderTiming.current)}
                     onMouseLeave={() => {
                       orderTiming.current = setTimeout(() => {
-                        setOrderByComboActive(false)
-                      }, 300)
+                        setOrderByComboActive(false);
+                      }, 300);
                     }}
                   >
                     <HeaderOrderButton
@@ -366,9 +408,11 @@ function Search({ total, totalPages, data, banner, locals }) {
                       onChange={(event) => {
                         handleOrderBy(event.target.value);
 
-                        const results = orderOptions.filter(item => item.value === event.target.value);
+                        const results = orderOptions.filter(
+                          (item) => item.value === event.target.value
+                        );
 
-                        if(results.length) {
+                        if (results.length) {
                           GTM.dataLayerPush({
                             event: 'Custom Field Change',
                             fieldLabel: 'Ordernar Por',
@@ -381,7 +425,12 @@ function Search({ total, totalPages, data, banner, locals }) {
                       onBlur={(event) => handleOrderBy(event.target.value)}
                     >
                       {orderOptions.map((orderItem, orderItemIndex) => (
-                        <option value={orderItem.value} key={`orderby-item-${orderItemIndex}`}>{orderItem.label}</option>
+                        <option
+                          value={orderItem.value}
+                          key={`orderby-item-${orderItemIndex}`}
+                        >
+                          {orderItem.label}
+                        </option>
                       ))}
                     </HeaderOrderSelect>
                     <HeaderOrderList active={orderByComboActive}>
@@ -398,7 +447,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                               fieldLabel: 'Ordernar Por',
                               fieldForm: 'Busca',
                               fieldValMin: '',
-                              fieldValMax: orderItem.label
+                              fieldValMax: orderItem.label,
                             });
                           }}
                         >
@@ -417,7 +466,8 @@ function Search({ total, totalPages, data, banner, locals }) {
               ) : null}
 
               <Buildings>
-                {total ? buildings.map((building, buildingIndex) => (
+                {total ? (
+                  buildings.map((building, buildingIndex) => (
                     <>
                       <BuildingList
                         item={building}
@@ -428,42 +478,111 @@ function Search({ total, totalPages, data, banner, locals }) {
 
                       {banner && buildingIndex == 2 && total >= 5 && (
                         <SearchBanner>
-                          <Infos>
-                            {banner.title && (
+                          {banner.title && (
+                            <Infos>
                               <h4>{banner.title}</h4>
-                            )}
-                            {banner.button_link && banner.button_label && (
-                              <div>
-                                <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
-                              </div>
-                            )}
-                          </Infos>
-                          {banner.imageDesktop && <Image mq="desktop" src={banner.imageDesktop} />}
-                          {banner.imageMobile && <Image mq="mobile" src={banner.imageMobile} />}
+                              {banner.button_link && banner.button_label && (
+                                <div>
+                                  <a
+                                    href={banner.button_link}
+                                    target={banner.button_target}
+                                  >
+                                    {banner.button_label}
+                                  </a>
+                                </div>
+                              )}
+                            </Infos>
+                          )}
+                          {!banner.title &&
+                          banner.button_link &&
+                          banner.button_label ? (
+                            <a
+                              href={banner.button_link}
+                              target={banner.button_target}
+                            >
+                              <ImageContainer>
+                                {banner.imageDesktop && (
+                                  <Image
+                                    mq="desktop"
+                                    src={banner.imageDesktop}
+                                  />
+                                )}
+                                {banner.imageMobile && (
+                                  <Image mq="mobile" src={banner.imageMobile} />
+                                )}
+                              </ImageContainer>
+                            </a>
+                          ) : (
+                            <ImageContainer>
+                              {banner.imageDesktop && (
+                                <Image mq="desktop" src={banner.imageDesktop} />
+                              )}
+                              {banner.imageMobile && (
+                                <Image mq="mobile" src={banner.imageMobile} />
+                              )}
+                            </ImageContainer>
+                          )}
                         </SearchBanner>
                       )}
                     </>
-                  )) : (
+                  ))
+                ) : (
                   <BuildingsNotFound>
-                    <h6>Não encontramos o imóvel que você procura <span>:(</span></h6>
-                    <p>Tente fazer uma <button type="button" onClick={toggleSearch}>nova busca!</button></p>
+                    <h6>
+                      Não encontramos o imóvel que você procura <span>:(</span>
+                    </h6>
+                    <p>
+                      Tente fazer uma{' '}
+                      <button type="button" onClick={toggleSearch}>
+                        nova busca!
+                      </button>
+                    </p>
                   </BuildingsNotFound>
                 )}
 
                 {banner && total < 5 && (
                   <SearchBanner>
-                    <Infos>
-                      {banner.title && (
+                    {banner.title && (
+                      <Infos>
                         <h4>{banner.title}</h4>
-                      )}
-                      {banner.button_link && banner.button_label && (
-                        <div>
-                          <a href={banner.button_link} target={banner.button_target}>{banner.button_label}</a>
-                        </div>
-                      )}
-                    </Infos>
-                    {banner.imageDesktop && <Image mq="desktop" src={banner.imageDesktop} />}
-                    {banner.imageMobile && <Image mq="mobile" src={banner.imageMobile} />}
+                        {banner.button_link && banner.button_label && (
+                          <div>
+                            <a
+                              href={banner.button_link}
+                              target={banner.button_target}
+                            >
+                              {banner.button_label}
+                            </a>
+                          </div>
+                        )}
+                      </Infos>
+                    )}
+                    {!banner.title &&
+                    banner.button_link &&
+                    banner.button_label ? (
+                      <a
+                        href={banner.button_link}
+                        target={banner.button_target}
+                      >
+                        <ImageContainer>
+                          {banner.imageDesktop && (
+                            <Image mq="desktop" src={banner.imageDesktop} />
+                          )}
+                          {banner.imageMobile && (
+                            <Image mq="mobile" src={banner.imageMobile} />
+                          )}
+                        </ImageContainer>
+                      </a>
+                    ) : (
+                      <ImageContainer>
+                        {banner.imageDesktop && (
+                          <Image mq="desktop" src={banner.imageDesktop} />
+                        )}
+                        {banner.imageMobile && (
+                          <Image mq="mobile" src={banner.imageMobile} />
+                        )}
+                      </ImageContainer>
+                    )}
                   </SearchBanner>
                 )}
 
@@ -483,40 +602,45 @@ function Search({ total, totalPages, data, banner, locals }) {
               </Buildings>
             </Wrapper>
 
-            {suggestions && suggestions.length > 0 && suggestions.map((suggestion, index) => (
-              <BuildingsPanel
-                key={`suggestion-${index}`}
-                page="search"
-                headerBig={true}
-                title={suggestion.title}
-                buildingLayout="vertical"
-                data={suggestion.items}
-              />
-            ))}
+            {suggestions &&
+              suggestions.length > 0 &&
+              suggestions.map((suggestion, index) => (
+                <BuildingsPanel
+                  key={`suggestion-${index}`}
+                  page="search"
+                  headerBig={true}
+                  title={suggestion.title}
+                  buildingLayout="vertical"
+                  data={suggestion.items}
+                />
+              ))}
 
             <BlockHighlighted type="notfound" query={query} />
             <Contact />
           </>
-        : null}
+        ) : null}
       </Container>
     </>
-  )
+  );
 }
 
 Search.getInitialProps = async ({ query }) => {
-  const params = getParamsFromObject({
-    ...query,
-    page: 1,
-    limit: query.page ? +query.page * 10 : 10,
-  }, true);
+  const params = getParamsFromObject(
+    {
+      ...query,
+      page: 1,
+      limit: query.page ? +query.page * 10 : 10,
+    },
+    true
+  );
 
   const locals = await Api.Search.getLocals();
   const response = await Api.Search.getBuildings(params);
 
   return {
     ...response,
-    locals
+    locals,
   };
-}
+};
 
 export default Search;
