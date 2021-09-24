@@ -268,6 +268,8 @@ export const SearchBanner = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};
   max-width: calc(100vw - 32px);
+  height: ${(props) =>
+      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
   margin: ${(props) =>
     props.useBtSchedule ? 'auto auto 33px auto' : 'auto auto 20px auto'};
   overflow: hidden;
@@ -289,8 +291,6 @@ export const SearchBanner = styled.div`
 
   ${media.greaterThan('medium')`
     width: 100%;
-    height: ${(props) =>
-      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;

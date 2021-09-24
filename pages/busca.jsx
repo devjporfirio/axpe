@@ -494,8 +494,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                             </Infos>
                           )}
                           {!banner.title &&
-                          banner.button_link &&
-                          banner.button_label ? (
+                          banner.button_link ? (
                             <a
                               href={banner.button_link}
                               target={banner.button_target}
@@ -558,8 +557,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                       </Infos>
                     )}
                     {!banner.title &&
-                    banner.button_link &&
-                    banner.button_label ? (
+                    banner.button_link ? (
                       <a
                         href={banner.button_link}
                         target={banner.button_target}
