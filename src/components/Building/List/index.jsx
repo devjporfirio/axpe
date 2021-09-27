@@ -1,25 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SVG from 'react-inlinesvg';
-import Api from 'services';
 
 // components
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
-import RemoveFavoriteModal from 'components/Modals/RemoveFavorite';
 import Inactive from 'components/Inactive';
 import SliderNew from 'components/SliderNew';
 
 // helpers
 import { Link } from 'helpers/routes';
 import { formatCurrency, formatCurrencyToText } from 'helpers/utils';
-import checkFavorite from 'helpers/checkFavorite';
 
 // actions
 import { setMain } from 'store/modules/main/actions';
-import { setUserBuildingToLike } from 'store/modules/user/actions';
-
-// images
-import LikeIconSVG from 'assets/icons/like';
 
 import {
   Container,
@@ -31,23 +23,17 @@ import {
   CategoryRelease,
   Local,
   Reference,
-  FavoriteButton,
   CaracteristicsGroup,
   ValuesFavGroup,
   CatLocGroup,
   Price,
   Description,
-  // ReleaseDelivery,
-  RemoveButton,
   ScheduleButton,
-  UndoButton,
-  MessageSuccess,
 } from './styles';
 
 function BuildingList({
   item,
   className,
-  useBtRemove,
   useBtSchedule,
   useInactive,
   positionIndex = 1,
@@ -65,15 +51,9 @@ function BuildingList({
     source,
     status,
   } = item;
-  const [ hasDeleted, setHasDeleted ] = useState(false);
   const [ gtmObj, setGtmObj ] = useState(null);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const [ removeFavorite, setRemoveFavorite ] = useState(false);
-  const [ favoriteToRemove, setFavoriteToRemove ] = useState(false);
-  const [ removeAction, setRemoveAction ] = useState(false);
   const { searchFunnel } = useSelector((state) => state.main);
-  const isFavoriteBuilding = checkFavorite(user, reference);
   const gallerySettings = {
     dots: false,
     infinite: true,
@@ -82,39 +62,6 @@ function BuildingList({
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
-  const handleButtonRemove = useCallback(async (ref, action) => {
-    if(action == true) {
-      await Api.MyAccount.postFavorite(user.access_token, ref, action);
-      setHasDeleted(!action);
-    } else {
-      setFavoriteToRemove(ref);
-      setRemoveAction(action);
-      setRemoveFavorite(true);
-    }
-  }, [ user.logged ]);
-
-  const handleButtonFavorite = useCallback((isFavoriteBuilding) => () => {
-    if (user.logged) {
-      if(isFavoriteBuilding) {
-        handleButtonRemove(reference, false);
-      } else {
-        dispatch(setUserBuildingToLike(reference));
-      }
-    } else {
-      const modalLoginUrl = location.pathname + location.search;
-      dispatch(
-        setMain({
-          modalLoginType: 'favorite',
-          modalLogin:
-            modalLoginUrl.search(/[?]/gi) >= 0
-              ? `${modalLoginUrl}&favorite=true`
-              : `${modalLoginUrl}?favorite=true`,
-        })
-      );
-      dispatch(setUserBuildingToLike(reference));
-    }
-  }, [ user.logged ]);
 
   const handleBtSchedule = useCallback(() => {
     // dispatch(
@@ -127,18 +74,20 @@ function BuildingList({
     //     } ${infos.parking ? `e ${infos.parking} vagas` : ''}.`,
     //   })
     // );
-    dispatch(setMain({
-      currentBuilding: item,
-      contactBarActive: true,
-      contactBarForced: true
-    }));
+    dispatch(
+      setMain({
+        currentBuilding: item,
+        contactBarActive: true,
+        contactBarForced: true,
+      })
+    );
   }, []);
 
   const getCaracteristics = useCallback(() => {
     let items = [];
     const categoryText = category ? category : '';
 
-    if(label && Object.keys(label).length > 0) {
+    if (label && Object.keys(label).length > 0) {
       items.push(
         <Caracteristics.BuildingLabels
           labels={label}
@@ -205,7 +154,7 @@ function BuildingList({
       );
     }
 
-    if(infos.areaTotal) {
+    if (infos.areaTotal) {
       items.push(
         <Caracteristics.AreaUseFul
           type={type}
@@ -229,11 +178,12 @@ function BuildingList({
         />
       );
     }
-    
-    if(
+
+    if (
       infos &&
       (infos.areaUsefulStart || infos.areaUsefulEnd) &&
-      ((category && categoryText.search('Casa') < 0) || infos.areaUseful !== '') &&
+      ((category && categoryText.search('Casa') < 0) ||
+        infos.areaUseful !== '') &&
       infos.use !== 'COMERCIAL'
     ) {
       items.push(
@@ -293,187 +243,149 @@ function BuildingList({
   }, [ page ]);
 
   return (
-    <Container
-      className={className}
-      useBtSchedule={useBtSchedule}
-      hasDeleted={hasDeleted}
-    >
+    <Container className={className} useBtSchedule={useBtSchedule}>
       {useInactive && status === 'inactive' && <Inactive />}
-      {!hasDeleted ? (
-        <>
-          <SliderContainer useBtSchedule={useBtSchedule}>
-            <SliderNew
-              type="gallery"
-              arrowsColor="greenDark"
-              arrowsClassName={gtmObj ? `${gtmObj.className}-image-arrow` : ''}
-              settings={gallerySettings}
-            >
-              {gallery &&
-                gallery.length > 0 &&
-                gallery.map((galleryItem, galleryItemIndex) => {
-                  return (
-                    galleryItem.tipo === 'imagem' && (
-                      <SliderItem
-                        key={`item-gallery-${reference}-${galleryItemIndex}`}
+      <SliderContainer useBtSchedule={useBtSchedule}>
+        <SliderNew
+          type="gallery"
+          arrowsColor="greenDark"
+          arrowsClassName={gtmObj ? `${gtmObj.className}-image-arrow` : ''}
+          settings={gallerySettings}
+        >
+          {gallery &&
+            gallery.length > 0 &&
+            gallery.map((galleryItem, galleryItemIndex) => {
+              return (
+                galleryItem.tipo === 'imagem' && (
+                  <SliderItem
+                    key={`item-gallery-${reference}-${galleryItemIndex}`}
+                  >
+                    <Link route={`/${item.slug}`} passHref>
+                      <LinkTag
+                        className={gtmObj ? gtmObj.className : ''}
+                        data-showcase={gtmObj ? gtmObj.showcase : ''}
+                        data-product-id={item.reference}
+                        data-position={positionIndex}
                       >
-                        <Link route={`/${item.slug}`} passHref>
-                          <LinkTag
-                            className={gtmObj ? gtmObj.className : ''}
-                            data-showcase={gtmObj ? gtmObj.showcase : ''}
-                            data-product-id={item.reference}
-                            data-position={positionIndex}
-                          >
-                            <img
-                              src={galleryItem.src}
-                              alt={`Axpe ${category} - ${reference}`}
-                            />
-                          </LinkTag>
-                        </Link>
-                      </SliderItem>
-                    )
-                  );
-                })}
-            </SliderNew>
-          </SliderContainer>
-          <Infos releaseDelivery={infos.releaseDelivery}>
-            {useBtRemove && (
-              <RemoveButton
-                color="greenDark"
-                type="button"
-                onClick={() => handleButtonRemove(item.reference, false)}
-                className={gtmObj ? `${gtmObj.className}-unfavorite` : ''}
-                data-showcase={gtmObj ? gtmObj.showcase : ''}
-                data-product-id={item.reference}
-                data-position={positionIndex}
-              >
-                Remover
-              </RemoveButton>
-            )}
-            <Link route={`/${item.slug}`} passHref>
-              <LinkTag
-                className={gtmObj ? gtmObj.className : ''}
-                data-showcase={gtmObj ? gtmObj.showcase : ''}
-                data-product-id={item.reference}
-                data-position={positionIndex}
-              >
-                <CatLocGroup>
-                  <Category>
-                    {type === 'lancamento'
-                      ? infos.releaseStatus === 'Pronto'
-                        ? 'Pronto para morar'
-                        : infos.releaseStatus
-                      : category || 'Pronto para morar'}
-                  </Category>
-                  <div>
-                    <div>
-                      {address && address.local && (
-                        <Local>{address.local}</Local>
-                      )}
-                      {type === 'lancamento' && (
-                        <CategoryRelease>{category}</CategoryRelease>
-                      )}
-                    </div>
-                    <Reference>Ref {item.reference}</Reference>
-                  </div>
-                </CatLocGroup>
-              </LinkTag>
-            </Link>
-
-            <ValuesFavGroup>
-              <Link route={`/${item.slug}`} passHref>
-                <LinkTag
-                  className={gtmObj ? gtmObj.className : ''}
-                  data-showcase={gtmObj ? gtmObj.showcase : ''}
-                  data-product-id={item.reference}
-                  data-position={positionIndex}
-                >
-                  <div>
-                    {!values.sell && !values.rent && values.valueOnlyConsults ? (
-                      <Price>Valores sob consulta</Price>
-                    ) : null}
-                    {(!!values.sell || !!values.release) &&
-                    !values.valueOnlyConsults &&
-                    (!searchFunnel ||
-                      !searchFunnel.finality ||
-                      searchFunnel.finality == 'venda') ? (
-                      <Price>
-                        {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
-                        {!!values.sell &&
-                          formatCurrency
-                            .format(parseInt(values.sell))
-                            .replace('R$', formatCurrencyToText(values.currency))}
-                        {!!values.release &&
-                          formatCurrency
-                            .format(parseInt(values.release))
-                            .replace('R$', formatCurrencyToText(values.currency))}
-                      </Price>
-                    ) : !!values.sell && values.valueOnlyConsults ? (
-                      <Price>Valores sob consulta</Price>
-                    ) : null}
-                    {!!values.rent &&
-                    !values.valueOnlyConsults &&
-                    (!searchFunnel ||
-                      !searchFunnel.finality ||
-                      searchFunnel.finality == 'aluguel') ? (
-                      <Price>
-                        Locação:{' '}
-                        {formatCurrency
-                          .format(parseInt(values.rent))
-                          .replace('R$', formatCurrencyToText(values.currency))}
-                      </Price>
-                    ) : !!values.rent && values.valueOnlyConsults ? (
-                      <Price>Valores sob consulta</Price>
-                    ) : null}
-                  </div>
-                </LinkTag>
-              </Link>
-              <FavoriteButton
-                type="button"
-                active={isFavoriteBuilding}
-                onClick={handleButtonFavorite(isFavoriteBuilding)}
-                className={
-                  !gtmObj
-                    ? ''
-                    : isFavoriteBuilding
-                    ? `${gtmObj.className}-unfavorite`
-                    : `${gtmObj.className}-favorite`
-                }
-                data-showcase={gtmObj ? gtmObj.showcase : ''}
-                data-product-id={item.reference}
-                data-position={positionIndex}
-              >
-                <SVG src={LikeIconSVG} uniquifyIDs={true} />
-              </FavoriteButton>
-            </ValuesFavGroup>
-            <Link route={`/${item.slug}`} passHref>
-              <LinkTag
-                className={gtmObj ? gtmObj.className : ''}
-                data-showcase={gtmObj ? gtmObj.showcase : ''}
-                data-product-id={item.reference}
-                data-position={positionIndex}
-              >
+                        <img
+                          src={galleryItem.src}
+                          alt={`Axpe ${category} - ${reference}`}
+                        />
+                      </LinkTag>
+                    </Link>
+                  </SliderItem>
+                )
+              );
+            })}
+        </SliderNew>
+      </SliderContainer>
+      <Infos releaseDelivery={infos.releaseDelivery}>
+        <Link route={`/${item.slug}`} passHref>
+          <LinkTag
+            className={gtmObj ? gtmObj.className : ''}
+            data-showcase={gtmObj ? gtmObj.showcase : ''}
+            data-product-id={item.reference}
+            data-position={positionIndex}
+          >
+            <CatLocGroup>
+              <Category>
+                {type === 'lancamento'
+                  ? infos.releaseStatus === 'Pronto'
+                    ? 'Pronto para morar'
+                    : infos.releaseStatus
+                  : category || 'Pronto para morar'}
+              </Category>
+              <div>
                 <div>
-                  <CaracteristicsGroup>
-                    {getCaracteristics().map((item, itemIndex) => item)}
-                  </CaracteristicsGroup>
-                  <Description>{infos.internalDescription}</Description>
+                  {address && address.local && <Local>{address.local}</Local>}
+                  {type === 'lancamento' && (
+                    <CategoryRelease>{category}</CategoryRelease>
+                  )}
                 </div>
-              </LinkTag>
-            </Link>
-            {useBtSchedule && (
-              <ScheduleButton
-                type="button"
-                onClick={handleBtSchedule}
-                className={gtmObj ? `${gtmObj.className}-schedule` : ''}
-                data-showcase={gtmObj ? gtmObj.showcase : ''}
-                data-product-id={item.reference}
-                data-position={positionIndex}
-              >
-                Agende uma visita
-              </ScheduleButton>
-            )}
-          </Infos>
-          {/* {type === 'lancamento' && infos.releaseDelivery && (
+                <Reference>Ref {item.reference}</Reference>
+              </div>
+            </CatLocGroup>
+          </LinkTag>
+        </Link>
+
+        <ValuesFavGroup>
+          <Link route={`/${item.slug}`} passHref>
+            <LinkTag
+              className={gtmObj ? gtmObj.className : ''}
+              data-showcase={gtmObj ? gtmObj.showcase : ''}
+              data-product-id={item.reference}
+              data-position={positionIndex}
+            >
+              <div>
+                {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                  <Price>Valores sob consulta</Price>
+                ) : null}
+                {(!!values.sell || !!values.release) &&
+                !values.valueOnlyConsults &&
+                (!searchFunnel ||
+                  !searchFunnel.finality ||
+                  searchFunnel.finality == 'venda') ? (
+                  <Price>
+                    {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
+                    {!!values.sell &&
+                      formatCurrency
+                        .format(parseInt(values.sell))
+                        .replace('R$', formatCurrencyToText(values.currency))}
+                    {!!values.release &&
+                      formatCurrency
+                        .format(parseInt(values.release))
+                        .replace('R$', formatCurrencyToText(values.currency))}
+                  </Price>
+                ) : !!values.sell && values.valueOnlyConsults ? (
+                  <Price>Valores sob consulta</Price>
+                ) : null}
+                {!!values.rent &&
+                !values.valueOnlyConsults &&
+                (!searchFunnel ||
+                  !searchFunnel.finality ||
+                  searchFunnel.finality == 'aluguel') ? (
+                  <Price>
+                    Locação:{' '}
+                    {formatCurrency
+                      .format(parseInt(values.rent))
+                      .replace('R$', formatCurrencyToText(values.currency))}
+                  </Price>
+                ) : !!values.rent && values.valueOnlyConsults ? (
+                  <Price>Valores sob consulta</Price>
+                ) : null}
+              </div>
+            </LinkTag>
+          </Link>
+        </ValuesFavGroup>
+        <Link route={`/${item.slug}`} passHref>
+          <LinkTag
+            className={gtmObj ? gtmObj.className : ''}
+            data-showcase={gtmObj ? gtmObj.showcase : ''}
+            data-product-id={item.reference}
+            data-position={positionIndex}
+          >
+            <div>
+              <CaracteristicsGroup>
+                {getCaracteristics().map((item, itemIndex) => item)}
+              </CaracteristicsGroup>
+              <Description>{infos.internalDescription}</Description>
+            </div>
+          </LinkTag>
+        </Link>
+        {useBtSchedule && (
+          <ScheduleButton
+            type="button"
+            onClick={handleBtSchedule}
+            className={gtmObj ? `${gtmObj.className}-schedule` : ''}
+            data-showcase={gtmObj ? gtmObj.showcase : ''}
+            data-product-id={item.reference}
+            data-position={positionIndex}
+          >
+            Agende uma visita
+          </ScheduleButton>
+        )}
+      </Infos>
+      {/* {type === 'lancamento' && infos.releaseDelivery && (
             <ReleaseDelivery useBtSchedule={useBtSchedule}>
               {infos.releaseStatus === 'Pronto'
                 ? 'Entregue em '
@@ -481,37 +393,7 @@ function BuildingList({
               <span>{infos.releaseDelivery}</span>
             </ReleaseDelivery>
           )} */}
-        </>
-      ) : (
-        <>
-          <MessageSuccess>Imóvel favorito removido com sucesso</MessageSuccess>
-          <UndoButton
-            color="greenDark"
-            type="button"
-            onClick={() => handleButtonRemove(reference, true)}
-          >
-            Desfazer
-          </UndoButton>
-        </>
-      )}
-      <RemoveFavoriteModal
-        active={removeFavorite}
-        buildingRef={favoriteToRemove}
-        action={removeAction}
-        onClose={(isDeleted = false) => {
-
-          if(isDeleted){
-            setHasDeleted(true);
-          }
-
-          setRemoveFavorite(false);
-          setFavoriteToRemove(false);
-          setRemoveAction(false);
-
-        }}
-        user={user}
-      />
-      </Container>
+    </Container>
   );
 }
 

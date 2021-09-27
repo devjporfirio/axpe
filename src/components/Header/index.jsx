@@ -15,8 +15,10 @@ import useScrollPosition from 'helpers/scrollPosition';
 import SearchIconSVG from 'assets/icons/search';
 import HomeIconSVG from 'assets/icons/home';
 import CloudIconSVG from 'assets/icons/cloud';
+import FacebookIconSVG from 'assets/icons/facebook';
+import InstagramIconSVG from 'assets/icons/instagram';
+import LinkedinIconSVG from 'assets/icons/linkedin';
 import WhatsappIconSVG from 'assets/icons/whatsapp';
-import AlertIconSVG from 'assets/icons/alert';
 
 // styles
 import {
@@ -34,9 +36,10 @@ import {
   NavMainButtonText,
   NavSecondary,
   NavSecondaryButton,
-  NavIconAlert,
   Whatsapp,
   WhatsappButton,
+  Socials,
+  SocialButton,
   Contact,
   Newsletter,
   NewsletterButton,
@@ -51,10 +54,6 @@ function Header() {
     modalNewsletter,
     modalLogin,
   } = useSelector((state) => state.main);
-  const {
-    logged,
-    me: { notificationsAvailable, notificationAlert, notificationFavorite },
-  } = useSelector((state) => state.user);
   const scrollBarRef = useRef();
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
@@ -178,31 +177,18 @@ function Header() {
                   </NavMainButtonSearch>
                 </li>
                 <li>
-                  {logged ? (
-                    <Link route="/cadastrar" passHref>
-                      <NavMainButton
-                        className="holos-menu-item"
-                        type="register"
-                        onClick={cancelToggle}
-                      >
-                        <SVG src={HomeIconSVG} uniquifyIDs={true} />
-                        <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
-                      </NavMainButton>
-                    </Link>
-                  ) : (
-                    <NavMainButton
-                      className="holos-menu-item"
-                      type="register"
-                      onClick={() => {
-                        cancelToggle();
-                        openModalLogin('/cadastrar');
-                        Cookies.set('isNewBuildingModal', true, { expires: 2 });
-                      }}
-                    >
-                      <SVG src={HomeIconSVG} uniquifyIDs={true} />
-                      <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
-                    </NavMainButton>
-                  )}
+                  <NavMainButton
+                    className="holos-menu-item"
+                    type="register"
+                    onClick={() => {
+                      cancelToggle();
+                      openModalLogin('/cadastrar');
+                      Cookies.set('isNewBuildingModal', true, { expires: 2 });
+                    }}
+                  >
+                    <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                    <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                  </NavMainButton>
                 </li>
                 <li>
                   <Link route="/so-quero-sonhar" passHref>
@@ -219,18 +205,19 @@ function Header() {
               </ul>
             </NavMain>
 
+            <Whatsapp>
+              <WhatsappButton
+                className="holos-menu-item"
+                href="https://wa.me/551130743600"
+                target="_blank"
+              >
+                <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
+                Entre em contato pelo Whatsapp
+              </WhatsappButton>
+            </Whatsapp>
+
             <NavSecondary>
               <ul>
-                <li>
-                  <Link route="/sobre" passHref>
-                    <NavSecondaryButton
-                      className="holos-menu-item"
-                      onClick={cancelToggle}
-                    >
-                      Sobre a Axpe
-                    </NavSecondaryButton>
-                  </Link>
-                </li>
                 <li>
                   <Link route="/contato" passHref>
                     <NavSecondaryButton
@@ -242,83 +229,44 @@ function Header() {
                   </Link>
                 </li>
                 <li>
-                  {!logged ? (
+                  <Link route="/sobre" passHref>
                     <NavSecondaryButton
                       className="holos-menu-item"
-                      onClick={() => {
-                        cancelToggle();
-                        openModalLogin('/minha-conta');
-                      }}
+                      onClick={cancelToggle}
                     >
-                      Meu perfil
+                      Sobre a Axpe
                     </NavSecondaryButton>
-                  ) : notificationsAvailable &&
-                    notificationsAvailable === 'alert' &&
-                    notificationAlert ? (
-                    <Link route="/minha-conta/alertas" passHref>
-                      <NavSecondaryButton
-                        className="holos-menu-item"
-                        onClick={cancelToggle}
-                      >
-                        Meu perfil
-                        <NavIconAlert>
-                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                        </NavIconAlert>
-                      </NavSecondaryButton>
-                    </Link>
-                  ) : (
-                    <Link route="/minha-conta" passHref>
-                      <NavSecondaryButton
-                        className="holos-menu-item"
-                        onClick={cancelToggle}
-                      >
-                        Meu perfil
-                      </NavSecondaryButton>
-                    </Link>
-                  )}
-                </li>
-                <li>
-                  {logged ? (
-                    <Link route="/minha-conta/favoritos" passHref>
-                      <NavSecondaryButton
-                        className="holos-menu-item"
-                        onClick={cancelToggle}
-                      >
-                        Meus favoritos
-                      </NavSecondaryButton>
-                    </Link>
-                  ) : (
-                    <NavSecondaryButton
-                      className="holos-menu-item"
-                      onClick={() => {
-                        cancelToggle();
-                        openModalLogin('/minha-conta/favoritos');
-                      }}
-                    >
-                      Meus favoritos
-                      {notificationsAvailable &&
-                      notificationsAvailable === 'favorite' &&
-                      notificationFavorite ? (
-                        <NavIconAlert>
-                          <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                        </NavIconAlert>
-                      ) : null}
-                    </NavSecondaryButton>
-                  )}
+                  </Link>
                 </li>
               </ul>
             </NavSecondary>
 
-            <Whatsapp>
-              <WhatsappButton
-                className="holos-menu-item"
-                href="https://wa.me/551130743600"
+            <Socials>
+              <SocialButton
+                href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997"
                 target="_blank"
+                className="holos-footer-social-link"
+                data-label="Facebook"
               >
-                <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-                WhatsApp
-              </WhatsappButton>
-            </Whatsapp>
+                <SVG src={FacebookIconSVG} uniquifyIDs={true} />
+              </SocialButton>
+              <SocialButton
+                href="https://instagram.com/axpe_imoveis"
+                target="_blank"
+                className="holos-footer-social-link"
+                data-label="Instagram"
+              >
+                <SVG src={InstagramIconSVG} uniquifyIDs={true} />
+              </SocialButton>
+              <SocialButton
+                href="https://br.linkedin.com/company/axpe-im-veis"
+                target="_blank"
+                className="holos-footer-social-link"
+                data-label="Linkedin"
+              >
+                <SVG src={LinkedinIconSVG} uniquifyIDs={true} />
+              </SocialButton>
+            </Socials>
 
             <Contact>
               Fale com a gente{' '}

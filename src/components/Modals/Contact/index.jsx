@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,7 +9,6 @@ import Api from 'services';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
-import UserInfo from 'components/UserInfo';
 
 // store
 import { setMain } from 'store/modules/main/actions';
@@ -27,10 +26,9 @@ import {
 
 export default function Contact() {
   const dispatch = useDispatch();
-  const { modalContact, modalContactMessage } = useSelector(
+  const { modalContact } = useSelector(
     state => state.main
   );
-  const user = useSelector(state => state.user);
   const [ showRegister, setShowRegister ] = useState(false);
 
   const closeModal = useCallback(() => {
@@ -47,14 +45,7 @@ export default function Contact() {
       .required()
   });
 
-  useEffect(() => {
-    if (user.logged) {
-      setFieldValue('message', modalContactMessage);
-    }
-  }, [ modalContact ]);
-
   const {
-    setFieldValue,
     handleSubmit,
     handleChange,
     handleBlur,
@@ -70,10 +61,10 @@ export default function Contact() {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.Contact.postContact({
         message: values.message,
-        name: user.me.name,
-        lastName: user.me.lastName,
-        phone: user.me.phone,
-        email: user.me.email,
+        name: 'NAME',
+        lastName: 'LASTNAME',
+        phone: 'PHONE',
+        email: 'EMAIL',
         subject: 'Mais informações'
       });
 
@@ -143,7 +134,6 @@ export default function Contact() {
             </Button>
           </FormGroup>
         </Form>
-        <UserInfo asInclude={true} />
       </Column>
     </Modal>
   ) : null;

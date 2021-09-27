@@ -1,7 +1,7 @@
 import { createLogger } from 'redux-logger';
 
 const logger = createLogger({
-  collapsed: true
+  collapsed: true,
 });
 
 export default logger;

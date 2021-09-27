@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import GTM from 'helpers/gtm';
 import Api from 'services';
 
@@ -26,27 +26,26 @@ import {
   Alert,
   SimilarBuildings,
   SimilarBuildingsHeader,
-  SimilarBuildingsList
+  SimilarBuildingsList,
 } from 'pages/Building/styles';
 
 function Building({ property }) {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
   const [ data, setData ] = useState([]);
 
   useEffect(() => {
     const productSeals = [];
 
-    if(property.label) {
-      Object.keys(property.label).forEach(key => {
-        if(property.label[key]) {
+    if (property.label) {
+      Object.keys(property.label).forEach((key) => {
+        if (property.label[key]) {
           productSeals.push(key);
         }
-      })
+      });
     }
 
-    CookieBuildingSeen.set(property.reference, user);
+    CookieBuildingSeen.set(property.reference);
 
     dispatch(setMain({ currentBuilding: property }));
 
@@ -56,7 +55,7 @@ function Building({ property }) {
         similar &&
         similar.data &&
         similar.data.length > 0 &&
-        similar.data.filter(x => x.reference !== property.reference);
+        similar.data.filter((x) => x.reference !== property.reference);
 
       setSimilarBuildings(buildings);
       checkChristiesLogo(property, buildings);
@@ -64,14 +63,18 @@ function Building({ property }) {
 
     GTM.dataLayerPush({
       productId: property.reference,
-      productValue: property.values.sell ? property.values.sell : property.values.rent,
+      productValue: property.values.sell
+        ? property.values.sell
+        : property.values.rent,
       productType: property.type,
       productLocation: property.address.local,
       productSeals: productSeals.join('|'),
       productNumberOfBedrooms: property.infos.bedrooms,
       productParkingSpace: property.infos.parking,
-      productArea: property.infos.areaTotal ? property.infos.areaTotal : property.infos.areaUseful
-    })
+      productArea: property.infos.areaTotal
+        ? property.infos.areaTotal
+        : property.infos.areaUseful,
+    });
 
     loadSimilarBuildings();
     setData(property);
@@ -80,7 +83,7 @@ function Building({ property }) {
   useEffect(() => {
     return () => {
       dispatch(setMain({ currentBuilding: null }));
-    }
+    };
   }, []);
 
   return data && Object.keys(data).length ? (
@@ -97,7 +100,7 @@ function Building({ property }) {
             local: data.address.local,
             area: data.infos.areaBuilding,
             bedrooms: data.infos.bedrooms,
-            parking: data.infos.parking
+            parking: data.infos.parking,
           }}
         />
 
@@ -115,8 +118,8 @@ function Building({ property }) {
 
         <Alert>
           <p>
-            As informações acima, incluindo preço, áreas e valores,
-            podem não ser exatas e devem ser confirmadas com o corretor.
+            As informações acima, incluindo preço, áreas e valores, podem não
+            ser exatas e devem ser confirmadas com o corretor.
           </p>
 
           <p>
@@ -125,9 +128,7 @@ function Building({ property }) {
           </p>
         </Alert>
 
-        {Object.keys(data.components).length > 0 && (
-          <Modules property={data} />
-        )}
+        {Object.keys(data.components).length > 0 && <Modules property={data} />}
 
         {similarBuildings && similarBuildings.length > 0 && (
           <SimilarBuildings>
@@ -159,23 +160,60 @@ Building.getInitialProps = async ({ query }) => {
   const slug = query.slug ? query.slug.split('-') : false;
   let reference = null;
 
-  if(slug) {
+  if (slug) {
     reference = slug[slug.length - 1];
   }
 
   const response = await Api.Building.getPage(reference);
 
-  const buildingLocationTitle = (response.building.address) ? (response.building.address.local && response.building.address.state) ? response.building.address.local + ' ' + response.building.address.state : '' : '';
-  const buildingLocation = (response.building.address) ? (response.building.address.local && response.building.address.country) ? 'em ' + response.building.address.local + ', ' + response.building.address.state + '/' + response.building.address.country : '' : '';
-  const buildingArea = (response.building.infos) ? ((response.building.infos.areaUsefulStart) ? response.building.infos.areaUsefulStart : ((response.building.infos.areaTotal) ? response.building.infos.areaTotal : response.building.infos.areaBuilding)) : 0;
-  const buildingBedrooms = (response.building.infos) ? (response.building.infos.bedroomsStart) ? response.building.infos.bedroomsStart : response.building.infos.bedrooms : 0;
-  const buildingPark = (response.building.infos) ? (response.building.infos.parkingStart) ? response.building.infos.parkingStart : response.building.infos.parking : 0;
+  const buildingLocationTitle = response.building.address
+    ? response.building.address.local && response.building.address.state
+      ? response.building.address.local + ' ' + response.building.address.state
+      : ''
+    : '';
+  const buildingLocation = response.building.address
+    ? response.building.address.local && response.building.address.country
+      ? 'em ' +
+        response.building.address.local +
+        ', ' +
+        response.building.address.state +
+        '/' +
+        response.building.address.country
+      : ''
+    : '';
+  const buildingArea = response.building.infos
+    ? response.building.infos.areaUsefulStart
+      ? response.building.infos.areaUsefulStart
+      : response.building.infos.areaTotal
+      ? response.building.infos.areaTotal
+      : response.building.infos.areaBuilding
+    : 0;
+  const buildingBedrooms = response.building.infos
+    ? response.building.infos.bedroomsStart
+      ? response.building.infos.bedroomsStart
+      : response.building.infos.bedrooms
+    : 0;
+  const buildingPark = response.building.infos
+    ? response.building.infos.parkingStart
+      ? response.building.infos.parkingStart
+      : response.building.infos.parking
+    : 0;
 
-  const pageDescPrefix = ([ 'Apartamento', 'Apartamento Internacional', 'Conjunto', 'Galpão', 'Prédio' ].includes(response.building.category)) ? 'Venha conhecer este' : 'Venha conhecer esta';
+  const pageDescPrefix = [
+    'Apartamento',
+    'Apartamento Internacional',
+    'Conjunto',
+    'Galpão',
+    'Prédio',
+  ].includes(response.building.category)
+    ? 'Venha conhecer este'
+    : 'Venha conhecer esta';
 
   const pageTitle = `${response.building.category} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
   const pageDesc = `${pageDescPrefix} ${response.building.category.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
-  const pageBanner = `${(response.building.gallery) ? response.building.gallery[0].src : ''}`;
+  const pageBanner = `${
+    response.building.gallery ? response.building.gallery[0].src : ''
+  }`;
 
   return {
     reference: reference,
@@ -183,8 +221,8 @@ Building.getInitialProps = async ({ query }) => {
     meta: {
       title: pageTitle,
       description: pageDesc,
-      image: pageBanner
-    }
+      image: pageBanner,
+    },
   };
 };
 

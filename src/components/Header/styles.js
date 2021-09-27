@@ -180,21 +180,23 @@ export const ButtonToggle = styled.button`
       top: 16px;
     }
 
-    ${props => props.navToggle && css`
-      &:nth-child(1) {
-        top: 8px;
-        transform: rotate(45deg);
-      }
+    ${(props) =>
+      props.navToggle &&
+      css`
+        &:nth-child(1) {
+          top: 8px;
+          transform: rotate(45deg);
+        }
 
-      &:nth-child(2) {
-        width: 0%;
-      }
+        &:nth-child(2) {
+          width: 0%;
+        }
 
-      &:nth-child(3) {
-        top: 8px;
-        transform: rotate(-45deg);
-      }
-    `}
+        &:nth-child(3) {
+          top: 8px;
+          transform: rotate(-45deg);
+        }
+      `}
   }
 `;
 
@@ -209,7 +211,7 @@ export const Box = styled.div`
   overflow-y: auto;
   background: ${({ theme }) => theme.colors.white};
 
-  ${props => (props.navToggle ? `display: block;` : `display: none;`)}
+  ${(props) => (props.navToggle ? `display: block;` : `display: none;`)}
 
   ${media.greaterThan('large')`
     display: block;
@@ -281,7 +283,7 @@ export const NavMainButtonSearch = styled.button`
     }
   `}
 
-  ${props => props.active && NavMainButtonSearchActive}
+  ${(props) => props.active && NavMainButtonSearchActive}
 `;
 
 export const NavMainButtonSearchActive = css`
@@ -310,13 +312,16 @@ export const NavMainButton = styled.a`
     left: 0;
     transform: translateY(-50%);
 
-    ${props => props.type == 'register' ? css`
-      width: 22px;
-      height: 18px;
-    ` : css`
-      width: 24px;
-      height: 16px;
-    `}
+    ${(props) =>
+      props.type == 'register'
+        ? css`
+            width: 22px;
+            height: 18px;
+          `
+        : css`
+            width: 24px;
+            height: 16px;
+          `}
   }
 
   ${media.greaterThan('large')`
@@ -377,6 +382,7 @@ export const NavSecondaryButton = styled.a`
 
   ${media.greaterThan('large')`
     font-size: 14px;
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
   `}
 `;
 
@@ -389,7 +395,7 @@ export const NavIconAlert = styled.i`
   left: 120px;
   width: 29px;
   height: 29px;
-  background: ${({ theme })=> theme.colors.orange};
+  background: ${({ theme }) => theme.colors.orange};
   transform: translateY(-50%);
   border-radius: 50%;
 
@@ -410,7 +416,7 @@ export const NavIconAlert = styled.i`
     `}
 
     path {
-      fill: ${({ theme })=> theme.colors.white};
+      fill: ${({ theme }) => theme.colors.white};
     }
   }
 `;
@@ -464,7 +470,7 @@ export const NavLangsButton = styled.a`
     ${({ theme }) => theme.hide};
   }
 
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
       &:after {
@@ -475,10 +481,6 @@ export const NavLangsButton = styled.a`
 
 export const Whatsapp = styled.div`
   margin-bottom: 30px;
-
-  ${media.greaterThan('large')`
-    margin-bottom: 19px;
-  `}
 `;
 
 export const WhatsappButton = styled.a`
@@ -500,13 +502,32 @@ export const WhatsappButton = styled.a`
     width: 29px;
     min-width: 29px;
     height: 30px;
-    margin-right: 10px;
+    margin-right: 6px;
 
     ${media.greaterThan('large')`
       width: 16px;
       min-width: 16px;
       height: 17px;
     `}
+  }
+`;
+
+export const Socials = styled.div`
+  display: none;
+
+  ${media.greaterThan('large')`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+  `}
+`;
+
+export const SocialButton = styled.a`
+  text-decoration: none;
+
+  &:not(:last-child) {
+    margin-right: 10px;
   }
 `;
 
@@ -520,6 +541,7 @@ export const Contact = styled.p`
   background: ${({ theme }) => theme.colors.greyLight};
 
   ${media.greaterThan('large')`
+    display: none;
     padding: 0;
     margin-bottom: 15px;
     background: transparent;
@@ -578,7 +600,8 @@ export const NewsletterButton = styled.button`
   color: ${({ theme }) => theme.colors.green};
 
   ${media.greaterThan('large')`
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 18px;
     text-align: left;
   `}
 
@@ -595,54 +618,6 @@ export const Footer = styled.footer`
 
   ${media.greaterThan('large')`
     display: block;
-  `}
-`;
-
-export const Socials = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ${media.greaterThan('large')`
-    justify-content: flex-start;
-  `}
-`;
-
-export const SocialsButton = styled.button`
-  display: block;
-  margin: 0 12px;
-
-  ${media.greaterThan('large')`
-    margin: 0 8px 0 0;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  `}
-
-  svg {
-    display: block;
-  }
-
-  ${props => props.type == 'facebook' && css`
-    svg {
-      width: 8px;
-      height: 16px;
-    }
-  `}
-
-  ${props => props.type == 'instagram' && css`
-    svg {
-      width: 15px;
-      height: 15px;
-    }
-  `}
-
-  ${props => props.type == 'linkedin' && css`
-    svg {
-      width: 14px;
-      height: 14px;
-    }
   `}
 `;
 

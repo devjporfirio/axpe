@@ -10,7 +10,6 @@ import * as Yup from 'yup';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
-import UserInfo from 'components/UserInfo';
 
 // helpers
 import GTM from 'helpers/gtm';
@@ -293,39 +292,30 @@ function Register({ locals, categories, countries }) {
 
   useEffect(() => {
     async function loadMe() {
-      if (user && user.logged) {
-        dispatch(setMain({ modalLogin: false }));
-        setFieldValue('Name_First', user.me.name);
-        setFieldValue('Name_Last', user.me.lastName);
-        setFieldValue('PhoneNumber_countrycode', user.me.phone);
-        setFieldValue('Email', user.me.email);
-      } else {
-        dispatch(
-          setMain({
-            modalLogin: '/cadastrar',
-          })
-        );
-      }
+      dispatch(
+        setMain({
+          modalLogin: '/cadastrar',
+        })
+      );
 
       const utmParams = CookieUtmParams.get();
-      if(utmParams.utm_source)
+      if (utmParams.utm_source)
         setFieldValue('utm_source', utmParams.utm_source);
 
-      if(utmParams.utm_medium)
+      if (utmParams.utm_medium)
         setFieldValue('utm_medium', utmParams.utm_medium);
 
-      if(utmParams.utm_campaign)
+      if (utmParams.utm_campaign)
         setFieldValue('utm_campaign', utmParams.utm_campaign);
 
-      if(utmParams.utm_term)
-        setFieldValue('utm_term', utmParams.utm_term);
+      if (utmParams.utm_term) setFieldValue('utm_term', utmParams.utm_term);
 
-      if(utmParams.utm_content)
+      if (utmParams.utm_content)
         setFieldValue('utm_content', utmParams.utm_content);
     }
 
     loadMe();
-  }, [ user ]);
+  }, []);
 
   useEffect(() => {
     let newCats = optionsTypesData[values.SingleLine5.toLowerCase()];
@@ -562,7 +552,7 @@ function Register({ locals, categories, countries }) {
                       items={optionsCountries}
                       onChange={(e) => {
                         handleChange(e);
-                        setFieldValue('SingleLine8', e.currentTarget.value)
+                        setFieldValue('SingleLine8', e.currentTarget.value);
                       }}
                       error={touched.SingleLine8 && errors.SingleLine8}
                       onBlur={handleBlur}
@@ -982,8 +972,6 @@ function Register({ locals, categories, countries }) {
                 checked={values.terms}
                 onBlur={handleBlur}
               /> */}
-
-              <UserInfo layout="register-property" />
 
               <ButtonSubmit
                 disabled={isSubmitting}
