@@ -119,11 +119,13 @@ export const HeaderOrderButton = styled.button`
   `}
 
   ${media.greaterThan('large')`
-    ${props => props.active && css`
-      &:after {
-        transform: rotate(270deg);
-      }
-    `}
+    ${(props) =>
+      props.active &&
+      css`
+        &:after {
+          transform: rotate(270deg);
+        }
+      `}
   `}
 `;
 
@@ -157,10 +159,12 @@ export const HeaderOrderList = styled.div`
     ${({ theme }) => theme.hide};
     transition: all 300ms ease;
 
-    ${props => props.active && css`
-      top: 20px;
-      ${({ theme }) => theme.show};
-    `}
+    ${(props) =>
+      props.active &&
+      css`
+        top: 20px;
+        ${({ theme }) => theme.show};
+      `}
   `}
 `;
 
@@ -181,7 +185,6 @@ export const HeaderOrderListButton = styled.button`
     color: ${({ theme }) => theme.colors.black};
   }
 `;
-
 
 export const ButtonBack = styled.button`
   display: none;
@@ -265,12 +268,14 @@ export const SearchBanner = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};
   max-width: calc(100vw - 32px);
-  margin: ${props =>
+  height: ${(props) =>
+      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
+  margin: ${(props) =>
     props.useBtSchedule ? 'auto auto 33px auto' : 'auto auto 20px auto'};
   overflow: hidden;
   border-radius: 6px;
 
-  ${props =>
+  ${(props) =>
     props.hasDeleted &&
     css`
       display: flex;
@@ -286,13 +291,11 @@ export const SearchBanner = styled.div`
 
   ${media.greaterThan('medium')`
     width: 100%;
-    height: ${props =>
-      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
 
-    ${props =>
+    ${(props) =>
       props.hasDeleted
         ? css`
             justify-content: flex-start;
@@ -312,21 +315,6 @@ export const SearchBanner = styled.div`
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     }
   `}
-
-  &:before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.8));
-    z-index: 2;
-
-    ${media.greaterThan('medium')`
-      background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.4));
-    `}
 `;
 
 export const Infos = styled.div`
@@ -348,7 +336,7 @@ export const Infos = styled.div`
   `}
 
   ${media.greaterThan('1280px')`
-    ${props =>
+    ${(props) =>
       props.releaseDelivery
         ? css`
             height: calc(100% - 35px);
@@ -393,14 +381,40 @@ export const Infos = styled.div`
     padding: 0 25px;
     transition: all 300ms ease;
   }
-  
-  
 `;
 
-export const Image = styled.img`
+export const ImageContainer = styled.div`
   position: absolute;
   left: 0px;
   top: 0px;
+  width: 100%;
+  height: 100%;
+
+  & > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.8));
+    z-index: 2;
+
+    ${media.greaterThan('medium')`
+      background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.4));
+    `}
+  }
+`;
+
+export const Image = styled.img`
+  display: block;
   z-index: 1;
   object-fit: cover;
   border-top: none;
@@ -408,11 +422,15 @@ export const Image = styled.img`
   width: 100%;
   height: 100%;
 
-  ${props => props.mq === 'mobile' && media.greaterThan('medium')`
+  ${(props) =>
+    props.mq === 'mobile' &&
+    media.greaterThan('medium')`
     display: none !important;
   `}
 
-  ${props => props.mq === 'desktop' && media.lessThan('medium')`
+  ${(props) =>
+    props.mq === 'desktop' &&
+    media.lessThan('medium')`
     display: none !important;
   `}
 `;

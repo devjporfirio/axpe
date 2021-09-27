@@ -113,7 +113,7 @@ function Header() {
   }, [ scrollPosition ]);
 
   useEffect(() => {
-    if(scrollBarRef.current && window.innerWidth < 1170) {
+    if (scrollBarRef.current && window.innerWidth < 1170) {
       scrollBarRef.current.unMount();
     }
   }, []);

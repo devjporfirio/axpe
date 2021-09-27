@@ -6,14 +6,14 @@ const animateBalloonLeft = keyframes`
   2.5% { transform: scale(1.1); }
   12.5% { transform: scale(1.1); }
   15% { transform: scale(1); }
-`
+`;
 
 const animateBalloonRight = keyframes`
   0% { transform: scale(1); }
   2.5% { transform: scale(1.1); }
   47.5% { transform: scale(1.1); }
   50% { transform: scale(1); }
-`
+`;
 
 const animateBalloonDot = keyframes`
   0% { transform: translateY(0px); }
@@ -27,10 +27,9 @@ const animateBalloonDot = keyframes`
   25% { transform: translateY(0.25px); }
   27.5% { transform: translateY(-0.75px); }
   29% { transform: translateY(0px); }
-`
+`;
 
-export const ButtonFloat = styled.button`
-  display: flex;
+export const ButtonStyle = css`
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -40,9 +39,8 @@ export const ButtonFloat = styled.button`
   background: ${({ theme }) => theme.colors.orange};
   border-radius: 36px;
   border: 2px solid ${({ theme }) => theme.colors.white};
-  z-index: 10;
-
   right: 50%;
+  z-index: 10;
   transform: translateX(50%);
 
   span {
@@ -50,17 +48,15 @@ export const ButtonFloat = styled.button`
   }
 
   div {
-
-    color: white;
     font-weight: 600;
     font-size: 16px;
     text-align: left;
     margin-left: 20px;
+    color: white;
 
     span {
       font-size: 13px;
     }
-
   }
 
   ${media.greaterThan('large')`
@@ -75,12 +71,8 @@ export const ButtonFloat = styled.button`
       transition-duration: 200ms;
     }
 
-    div {
-
-      span {
-        display: block;
-      }
-
+    div span {
+      display: block;
     }
   `}
 
@@ -96,38 +88,44 @@ export const ButtonFloat = styled.button`
     .left-balloon {
       transform-origin: bottom left;
       animation: ${animateBalloonLeft} 8s 6.25s;
-      animation-iteration-count:infinite;
+      animation-iteration-count: infinite;
     }
 
     .right-balloon {
       transform-origin: center;
       animation: ${animateBalloonRight} 8s 0s;
-      animation-iteration-count:infinite;
+      animation-iteration-count: infinite;
     }
 
     .chat-dots {
-
       .chat-dot {
         transform-origin: center;
         animation-name: ${animateBalloonDot};
         animation-duration: 8s;
-        animation-iteration-count:infinite;
-  
+        animation-iteration-count: infinite;
+
         &:first-child {
           animation-delay: 1s;
         }
-  
+
         &:nth-child(2) {
           animation-delay: 1.0625s;
         }
-  
+
         &:nth-child(3) {
           animation-delay: 1.125s;
         }
       }
-
     }
   }
+`;
+
+export const LinkFloat = styled.a`
+  ${ButtonStyle}
+`;
+
+export const ButtonFloat = styled.button`
+  ${ButtonStyle}
 `;
 
 export const Container = styled.div`
@@ -182,16 +180,18 @@ export const Header = styled.header`
     }
   }
 
-  ${props => props.isBuilding && css`
-    background: ${({ theme }) => theme.colors.white};
+  ${(props) =>
+    props.isBuilding &&
+    css`
+      background: ${({ theme }) => theme.colors.white};
 
-    h3 {
-      max-width: 210px;
-      font-size: 18px;
-      line-height: 21px;
-      color: ${({ theme }) => theme.colors.greenDark};
-    }
-  `}
+      h3 {
+        max-width: 210px;
+        font-size: 18px;
+        line-height: 21px;
+        color: ${({ theme }) => theme.colors.greenDark};
+      }
+    `}
 `;
 
 export const ButtonClose = styled.button`
@@ -215,9 +215,11 @@ export const ButtonClose = styled.button`
     border-radius: 3px;
     background: ${({ theme }) => theme.colors.white};
 
-    ${props => props.isBuilding && css`
-      background: ${({ theme }) => theme.colors.greenDark};
-    `}
+    ${(props) =>
+      props.isBuilding &&
+      css`
+        background: ${({ theme }) => theme.colors.greenDark};
+      `}
   }
 
   &:before {
@@ -315,18 +317,18 @@ const ListButtonStyle = css`
   }
 
   &.highlight {
-
     span {
       font-size: 20px;
       line-height: 24px;
-  
+
       strong {
         font-weight: 800;
       }
     }
 
     .no-fill {
-      path, circle {
+      path,
+      circle {
         fill: none;
       }
     }
