@@ -970,7 +970,7 @@ function DreamBuildingSingle({ type }) {
             </FormCols>
 
             <FormCols>
-              <FormCol layout="">
+              <FormCol layout="half">
                 <h3>Dados pessoais</h3>
               </FormCol>
               <FormCol layout="half" last={true}></FormCol>

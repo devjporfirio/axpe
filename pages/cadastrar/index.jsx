@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
@@ -15,9 +14,6 @@ import Contact from 'components/Contact';
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
 
 // images
 import CloseIconSVG from 'assets/icons/close-white';
@@ -55,7 +51,9 @@ const registrySchema = Yup.object().shape({
   Name_First: Yup.string().required(),
   Name_Last: Yup.string().required(),
   PhoneNumber_countrycode: Yup.string(),
-  Email: Yup.string().required(),
+  Email: Yup.string()
+    .email()
+    .required(),
   SingleLine11: Yup.string(),
   SingleLine: Yup.string().required(),
   SingleLine2: Yup.string().required(),
@@ -90,9 +88,7 @@ const registrySchema = Yup.object().shape({
 });
 
 function Register({ locals, categories, countries }) {
-  const dispatch = useDispatch();
   const refForm = useRef(null);
-  const user = useSelector((state) => state.user);
   const [ cats, setCats ] = useState([]);
 
   const optionsLocals = [
@@ -226,10 +222,10 @@ function Register({ locals, categories, countries }) {
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
       DecisionBox: true,
       Radio: 'Novo Lead',
-      Name_First: user.me.name,
-      Name_Last: user.me.lastName,
-      PhoneNumber_countrycode: user.me.phone,
-      Email: user.me.email,
+      Name_First: '',
+      Name_Last: '',
+      PhoneNumber_countrycode: '',
+      Email: '',
       SingleLine11: '', // Tipo do Imóvel - Apartamento, Casa, Cobertura, Conjunto, etc
       SingleLine: '', // Endereço
       SingleLine2: '', // Número
@@ -261,13 +257,16 @@ function Register({ locals, categories, countries }) {
       terms: false,
     },
     validationSchema: registrySchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
+    onSubmit: async (values) => {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
-      const response = await Api.User.postRegisterProperty(user.access_token, {
-        files: values.images,
-      });
+      const response = await Api.User.postRegisterProperty(
+        'USER_ACCESS_TOKEN',
+        {
+          files: values.images,
+        }
+      );
 
       if (response.status) {
         setFieldValue('MultiLine', response.imgs.join(', '));
@@ -292,13 +291,8 @@ function Register({ locals, categories, countries }) {
 
   useEffect(() => {
     async function loadMe() {
-      dispatch(
-        setMain({
-          modalLogin: '/cadastrar',
-        })
-      );
-
       const utmParams = CookieUtmParams.get();
+
       if (utmParams.utm_source)
         setFieldValue('utm_source', utmParams.utm_source);
 
@@ -960,6 +954,61 @@ function Register({ locals, categories, countries }) {
                   })}
               </GroupImages>
             </FormGroup>
+
+            <FormGroup>
+              <h2>Dados pessoais</h2>
+            </FormGroup>
+            <FormGroupFlex layout="userdata">
+              <FormElements
+                name="Name_First"
+                label="Nome"
+                placeholder="Nome"
+                onChange={handleChange}
+                error={touched.Name_First && errors.Name_First}
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Nome"
+                data-type="Imóvel dos Sonhos"
+              />
+              <FormElements
+                name="Name_Last"
+                label="Sobrenome"
+                placeholder="Sobrenome"
+                onChange={handleChange}
+                error={touched.Name_Last && errors.Name_Last}
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sobrenome"
+                data-type="Imóvel dos Sonhos"
+              />
+              <FormElements
+                name="Email"
+                type="email"
+                label="Email"
+                placeholder="Email"
+                onChange={handleChange}
+                error={touched.Email && errors.Email}
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sobrenome"
+                data-type="Imóvel dos Sonhos"
+              />
+              <FormElements
+                name="PhoneNumber_countrycode"
+                type="phone"
+                label="Telefone ou Celular"
+                placeholder="Telefone ou Celular"
+                onChange={handleChange}
+                error={
+                  touched.PhoneNumber_countrycode &&
+                  errors.PhoneNumber_countrycode
+                }
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Telefone ou Celular"
+                data-type="Imóvel dos Sonhos"
+              />
+            </FormGroupFlex>
 
             <FormGroupFooter>
               {/* <CheckLinkTerms
