@@ -357,6 +357,8 @@ function Search({ total, totalPages, data, banner, locals }) {
 
   useEffect(() => {
     checkChristiesLogo(buildings, suggestions);
+
+    return () => checkChristiesLogo();
   }, [ query, buildings, suggestions ]);
 
   return (
@@ -493,8 +495,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                               )}
                             </Infos>
                           )}
-                          {!banner.title &&
-                          banner.button_link ? (
+                          {!banner.title && banner.button_link ? (
                             <a
                               href={banner.button_link}
                               target={banner.button_target}
@@ -556,8 +557,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         )}
                       </Infos>
                     )}
-                    {!banner.title &&
-                    banner.button_link ? (
+                    {!banner.title && banner.button_link ? (
                       <a
                         href={banner.button_link}
                         target={banner.button_target}
