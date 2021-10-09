@@ -27,6 +27,10 @@ function GalleryCarousel({ items }) {
     setCarouselCurrentSlideIndex(index);
   };
 
+  if (!items || !items.length) {
+    return null
+  }
+
   return (
     <Container>
       <Images>
