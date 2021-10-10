@@ -165,13 +165,22 @@ const Dream = () => (
   </>
 );
 
-const RegisterProperty = ({ propertyType }) => (
+const RegisterProperty = () => (
   <HighlightedH1 type="registerProperty">
     <strong>
       <span>Cadastre seu imóvel.</span>
     </strong>
     <br />
     <span> Com certeza tem alguém procurando por ele</span>
+    <hr />
+  </HighlightedH1>
+);
+
+const VisitedBuildings = () => (
+  <HighlightedH1 type="visitedBuildings">
+    <strong>
+      <span>Imóveis que visitei</span>
+    </strong>
     <hr />
   </HighlightedH1>
 );
@@ -218,6 +227,7 @@ export default function BlockHighlighted({ type, href, onClick, query, ...props 
       {type === 'registerProperty' && <RegisterProperty {...props} />}
       {type === 'registerPropertyWhite' && <RegisterPropertyWhite />}
       {type === 'registerPropertyTransform' && <RegisterPropertyTransform />}
+      {type === 'visitedBuildings' && <VisitedBuildings />}
     </Container>
   );
 }

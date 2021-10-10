@@ -7,7 +7,14 @@ export default {
 
   get() {
     const buildings = Cookies.get('ax_buildings_seen');
-    return buildings ? JSON.parse(buildings) : [];
+
+    if (!buildings) {
+      return [];
+    }
+
+    const results = JSON.parse(buildings);
+
+    return [ ...results ].reverse();
   },
 
   remove() {

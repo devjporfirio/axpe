@@ -65,6 +65,31 @@ const ContainerRegisterPropertyWhite = css`
   `}
 `;
 
+const ContainerVisitedBuildings = css`
+  background: none;
+  min-height: inherit;
+  width: 100%;
+  padding: 30px;
+
+  hr {
+    max-width: 55px;
+    margin: 0;
+  }
+
+  ${media.greaterThan('medium')`
+    justify-content: flex-start;
+    padding: 60px 50px;
+  `}
+
+  ${media.greaterThan('1024px')`
+    padding: 60px 30px;
+  `}
+
+  ${media.greaterThan('large')`
+    padding: 60px 80px;
+  `}
+`;
+
 const ContainerPlanta = css`
   ${media.greaterThan('medium')`
     max-width: 1000px;
@@ -102,18 +127,22 @@ export const Container = styled.div`
     align-items: center;
   `}
 
-  ${props => props.type === 'contact' && ContainerContact}
-  ${props => props.type === 'contactWork' && ContainerContactWork}
-  ${props => props.type === 'landing' && ContainerLanding}
-  ${props => props.type === 'registerProperty' && ContainerRegisterProperty}
-  ${props => props.type === 'planta' && ContainerPlanta}
-  ${props =>
+  ${(props) => props.type === 'contact' && ContainerContact}
+  ${(props) => props.type === 'contactWork' && ContainerContactWork}
+  ${(props) => props.type === 'landing' && ContainerLanding}
+  ${(props) => props.type === 'registerProperty' && ContainerRegisterProperty}
+  ${(props) =>
+    props.type === 'visitedBuildings' && ContainerVisitedBuildings}
+  ${(props) => props.type === 'planta' && ContainerPlanta}
+  ${(props) =>
     props.type === 'registerPropertyWhite' && ContainerRegisterPropertyWhite}
-  ${props => props.type === 'notfound' && media.greaterThan('medium')`
+  ${(props) =>
+    props.type === 'notfound' &&
+    media.greaterThan('medium')`
     margin-top: 60px;
   `}
 
-  ${props =>
+  ${(props) =>
     [ 'notfound', 'landing', 'registerPropertyTransform' ].includes(props.type) &&
     css`
       background-color: ${({ theme }) => theme.colors.greenDark};
@@ -379,7 +408,7 @@ const RegisterPropertyTransform = css`
 `;
 
 export const Link = styled(Button)`
-  background-color: ${props => props.theme.colors[props.color]};
+  background-color: ${(props) => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
   height: 45px;
   border-radius: 6px;
@@ -398,19 +427,20 @@ const BaseHighlighted = css`
 `;
 
 export const HighlightedH1 = styled.h1`${BaseHighlighted}
-  ${props => props.type === 'contact' && Contact}
-  ${props => props.type === 'registerProperty' && RegisterProperty}
-  ${props => props.type === 'registerPropertyWhite' && RegisterPropertyWhite}
-  ${props =>
+  ${(props) => props.type === 'contact' && Contact}
+  ${(props) => props.type === 'registerProperty' && RegisterProperty}
+  ${(props) => props.type === 'visitedBuildings' && RegisterPropertyWhite}
+  ${(props) => props.type === 'registerPropertyWhite' && RegisterPropertyWhite}
+  ${(props) =>
     props.type === 'registerPropertyTransform' && RegisterPropertyTransform}
 `;
 
 export const HighlightedH4 = styled.h4`
   ${BaseHighlighted}
-  ${props => props.type === 'contactWork' && ContactWork}
-  ${props => props.type === 'contactHome' && ContactHome}
-  ${props => props.type === 'notfound' && NotFound}
-  ${props => props.type === 'planta' && Planta}
-  ${props => props.type === 'landing' && Landing}
-  ${props => props.type === 'dream' && Dream}
+  ${(props) => props.type === 'contactWork' && ContactWork}
+  ${(props) => props.type === 'contactHome' && ContactHome}
+  ${(props) => props.type === 'notfound' && NotFound}
+  ${(props) => props.type === 'planta' && Planta}
+  ${(props) => props.type === 'landing' && Landing}
+  ${(props) => props.type === 'dream' && Dream}
 `;
