@@ -143,7 +143,7 @@ function ContactBar() {
     [ contactBarActive ]
   );
 
-  const toggleShow = useCallback(() => {
+  const toggleShow = () => {
     if (!isBuilding) {
       dispatch(
         setMain({
@@ -154,20 +154,12 @@ function ContactBar() {
     } else {
       dispatch(
         setMain({
-          contactBarActive: false,
+          contactBarActive: true,
           contactBarForced: false,
-          modalLogin: () => {
-            dispatch(
-              setMain({
-                contactBarActive: true,
-                contactBarForced: false,
-              })
-            );
-          },
         })
       );
     }
-  }, [ contactBarActive, isBuilding ]);
+  };
 
   useEffect(() => {
     if (currentBuilding) {
@@ -202,10 +194,6 @@ function ContactBar() {
           ? currentBuilding.infos.parking
           : currentBuilding.infos.parkingStart,
         value: null,
-        userFirstName: 'NAME',
-        userLastName: 'LASTNAME',
-        userPhone: 'PHONE',
-        userEmail: 'EMAIL',
         url: location.href,
         redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
       };

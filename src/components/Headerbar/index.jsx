@@ -15,7 +15,6 @@ import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
-import AlertIconSVG from 'assets/icons/alert';
 import ShareIconSVG from 'assets/icons/share';
 
 // styles
@@ -25,7 +24,6 @@ import {
   Column,
   ButtonBack,
   ButtonIcon,
-  ButtonAlertMessage,
   Text,
   PhoneContact,
 } from './styles';
@@ -115,21 +113,6 @@ function Headerbar({ className, type, title, subtitle, building }) {
 
           {type === 'search' && (
             <Column>
-              <ButtonIcon
-                type="button"
-                active={alertCreated}
-                isLoading={alertCreating}
-                onClick={createAlert}
-                title="Criar alerta"
-                className="btn-alert holos-search-header-button"
-                data-showcase="Busca"
-                data-label="Criar alerta"
-              >
-                <SVG src={AlertIconSVG} uniquifyIDs={true} />
-                <ButtonAlertMessage active={alertCreated}>
-                  {alertMessage}
-                </ButtonAlertMessage>
-              </ButtonIcon>
               <ButtonIcon
                 type="button"
                 onClick={toggleShare}

@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 import SVG from 'react-inlinesvg';
 import SimpleBar from 'simplebar-react';
 
@@ -48,12 +47,9 @@ import {
 function Header() {
   const dispatch = useDispatch();
   const refHeader = useRef(null);
-  const {
-    headerHiding,
-    searchFormActive,
-    modalNewsletter,
-    modalLogin,
-  } = useSelector((state) => state.main);
+  const { headerHiding, searchFormActive, modalNewsletter } = useSelector(
+    (state) => state.main
+  );
   const scrollBarRef = useRef();
   const [ navToggle, setNavToggle ] = useState(false);
   const scrollPosition = useScrollPosition();
@@ -95,13 +91,6 @@ function Header() {
   const openModalNewsletter = useCallback(() => {
     dispatch(setMain({ modalNewsletter: true }));
   }, [ modalNewsletter ]);
-
-  const openModalLogin = useCallback(
-    (redirectTo) => {
-      dispatch(setMain({ modalLogin: redirectTo }));
-    },
-    [ modalLogin ]
-  );
 
   function cancelToggle() {
     setNavToggle(false);
@@ -177,18 +166,12 @@ function Header() {
                   </NavMainButtonSearch>
                 </li>
                 <li>
-                  <NavMainButton
-                    className="holos-menu-item"
-                    type="register"
-                    onClick={() => {
-                      cancelToggle();
-                      openModalLogin('/cadastrar');
-                      Cookies.set('isNewBuildingModal', true, { expires: 2 });
-                    }}
-                  >
-                    <SVG src={HomeIconSVG} uniquifyIDs={true} />
-                    <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
-                  </NavMainButton>
+                  <Link route="/cadastrar" passHref>
+                    <NavMainButton className="holos-menu-item" type="register">
+                      <SVG src={HomeIconSVG} uniquifyIDs={true} />
+                      <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                    </NavMainButton>
+                  </Link>
                 </li>
                 <li>
                   <Link route="/so-quero-sonhar" passHref>

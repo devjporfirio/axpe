@@ -46,7 +46,6 @@ function Main({ children }) {
         setMain({
           searchFormActive: false,
           headerHiding: false,
-          modalLoginRegisterSuccess: false,
         })
       );
       dispatch(setLoading({ active: true }));
