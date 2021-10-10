@@ -48,9 +48,6 @@
     }
 
     switch(name) {
-      case 'userFirstName':
-        document.querySelector('.username').innerHTML = value;
-        break;
       case 'reference':
         message = message.replace('{reference}', value);
         break;
