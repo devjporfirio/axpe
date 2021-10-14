@@ -16,6 +16,10 @@ Project stack:
 - Node.js
 - NPM or Yarn
 
+## If you use Windows, before run install, run:
+```
+  npm install -g win-node-env
+```
 ## Working on project
 
 Here are the commands that are used in the project:
