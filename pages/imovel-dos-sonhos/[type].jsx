@@ -306,7 +306,7 @@ function DreamBuildingSingle({ type }) {
       utm_term: '',
       utm_content: '',
       Dropdown: 'Interessado',
-      Dropdown1: 'VD-RES Revenda',
+      Dropdown1: 'VD-Residencial SP',
       Dropdown2: valueDropdown2,
       DecisionBox: true,
       Radio: 'Novo Lead',
