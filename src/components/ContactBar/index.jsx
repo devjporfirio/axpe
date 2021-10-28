@@ -144,21 +144,12 @@ function ContactBar() {
   );
 
   const toggleShow = () => {
-    if (!isBuilding) {
-      dispatch(
-        setMain({
-          contactBarActive: !contactBarActive,
-          contactBarForced: false,
-        })
-      );
-    } else {
-      dispatch(
-        setMain({
-          contactBarActive: true,
-          contactBarForced: false,
-        })
-      );
-    }
+    dispatch(
+      setMain({
+        contactBarActive: !contactBarActive,
+        contactBarForced: false,
+      })
+    );
   };
 
   useEffect(() => {
