@@ -261,12 +261,9 @@ function Register({ locals, categories, countries }) {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
-      const response = await Api.User.postRegisterProperty(
-        'USER_ACCESS_TOKEN',
-        {
-          files: values.images,
-        }
-      );
+      const response = await Api.Building.postRegisterProperty({
+        files: values.images,
+      });
 
       if (response.status) {
         setFieldValue('MultiLine', response.imgs.join(', '));
@@ -923,7 +920,11 @@ function Register({ locals, categories, countries }) {
                   type="file"
                   multiple
                   onChange={(e) => {
-                    const imagesArr = [ ...values.images, ...e.target.files ];
+                    const imagesArr = [
+                      ...values.images,
+                      ...e.target.files,
+                    ].slice(0, 5);
+
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({
                       event: 'Custom Field Change',
