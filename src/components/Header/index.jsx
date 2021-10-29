@@ -202,16 +202,6 @@ function Header() {
             <NavSecondary>
               <ul>
                 <li>
-                  <Link route="/imoveis-que-visitei" passHref>
-                    <NavSecondaryButton
-                      className="holos-menu-item"
-                      onClick={cancelToggle}
-                    >
-                      Imóveis que visitei
-                    </NavSecondaryButton>
-                  </Link>
-                </li>
-                <li>
                   <Link route="/contato" passHref>
                     <NavSecondaryButton
                       className="holos-menu-item"
