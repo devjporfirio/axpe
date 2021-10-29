@@ -41,6 +41,8 @@ import {
 
 import { FormGroup } from 'components/FormElements/styles';
 
+const formSuccessPageUrl = `${process.env.config.siteUrl}/imovel-dos-sonhos/sucesso`;
+
 function DreamBuildingSingle({ type }) {
   const refForm = useRef(null);
   const { main } = useSelector((state) => state);
@@ -69,7 +71,9 @@ function DreamBuildingSingle({ type }) {
     Dropdown3: Yup.string(),
     Name_First: Yup.string().required(),
     Name_Last: Yup.string().required(),
-    Email: Yup.string().email().required(),
+    Email: Yup.string()
+      .email()
+      .required(),
     PhoneNumber_countrycode: Yup.string(),
   });
 
@@ -298,7 +302,7 @@ function DreamBuildingSingle({ type }) {
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
-      zf_redirect_url: `${process.env.config.siteUrl}/imovel-dos-sonhos/sucesso`,
+      zf_redirect_url: formSuccessPageUrl,
       zc_gad: '',
       utm_source: '',
       utm_medium: '',
@@ -347,6 +351,12 @@ function DreamBuildingSingle({ type }) {
             : values.MultipleChoice.join(', ');
         setFieldValue('SingleLine2', selectedLocations);
       }
+
+      setFieldValue(
+        'zf_redirect_url',
+        `${formSuccessPageUrl}?email=${values.Email}`
+      );
+
       setTimeout(() => {
         refForm.current.submit();
       }, 1000);

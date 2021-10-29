@@ -4,8 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contato Sucesso</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NMFDRR');</script>
+  <!-- End Google Tag Manager -->
+
+  <script type="text/javascript">
+    function Asc(str) {
+      return str.charCodeAt(0);
+    }
+    
+    function Chr(asciiNum) {
+      return String.fromCharCode(asciiNum)
+    }
+
+    function encriptData(data) {
+      var result = '';
+      var l;
+      var j = 0;
+      var hash = "assbdFbdpdPdpfPdAAdpeoseslsQQEcDDldiVVkadiedkdkLLnm";	
+
+      for (var i = 0; i < data.length; i++) {
+        j++;
+        l = (Asc(data.substr(i,1)) + (Asc(hash.substr(j,1))));
+
+        if (j == 50) {
+          j = 1;
+        }
+
+        if (l > 255) {
+          l -= 256;
+        }
+
+        result += (Chr(l));
+      }
+
+      return result;
+    }
+  </script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NMFDRR"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <div class="success-detect"></div>
+
+  <script type="text/javascript">
+    if(window.dataLayer) {
+      var encriptedEmail = null;
+      let params = new URLSearchParams(location.search);
+      let email = params.get('email');
+
+      if (email) {
+        encriptedEmail = encriptData(email);
+      }
+
+      if (localStorage) {
+        localStorage.setItem('cryptoId', encriptedEmail);
+      }
+
+      dataLayer.push({
+        event: 'Form Response',
+        formType: 'Institucional - Contato',
+        formResult: 'Sucesso',
+        formMessage: '',
+        cryptoId: encriptedEmail,
+      });
+    }
+  </script>
 </body>
 </html>

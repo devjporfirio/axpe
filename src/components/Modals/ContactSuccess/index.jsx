@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import GTM from 'helpers/gtm';
 
 // components
 import Modal from 'components/Modals';
@@ -17,15 +16,6 @@ function ContactSuccess() {
   const { modalContactSuccess } = useSelector(state => state.main);
 
   const closeModal = useCallback(() => {
-    if(modalContactSuccess) {
-      GTM.dataLayerPush({
-        event: 'Form Response',
-        formType: 'Institucional - Contato',
-        formResult: 'Sucesso',
-        formMessage: ''
-      });
-    }
-
     dispatch(setMain({ modalContactSuccess: false }));
   }, [ modalContactSuccess ]);
 
