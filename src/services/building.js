@@ -112,7 +112,7 @@ export default {
       formData.append(`file${fileIndex}`, file);
     })
 
-    const result = await fetch(`${process.env.config.apiUrl}/user/register_your_building`, {
+    const result = await fetch(`${process.env.config.apiUrl}/form/register_your_building`, {
       method: 'POST',
       body: formData
     })
