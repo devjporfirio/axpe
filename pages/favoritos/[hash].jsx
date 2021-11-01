@@ -2,12 +2,12 @@ import React from 'react';
 import Api from 'services';
 
 // components
-import Empty from 'pages/MyAccount/Empty';
+// import Empty from 'pages/MyAccount/Empty';
 
 // styles
-import { Amount, BuildingItem } from 'pages/MyAccount/Favorites/styles';
+// import { Amount, BuildingItem } from 'pages/MyAccount/Favorites/styles';
 import { Container } from 'pages/Favorites/styles';
-import { Title } from 'pages/MyAccount/styles';
+// import { Title } from 'pages/MyAccount/styles';
 
 function Favoritos({ buildings, name }) {
   return !buildings || buildings.length <= 0 ? (
