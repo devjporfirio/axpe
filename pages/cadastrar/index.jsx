@@ -923,7 +923,7 @@ function Register({ locals, categories, countries }) {
                     const imagesArr = [
                       ...values.images,
                       ...e.target.files,
-                    ].slice(0, 5);
+                    ];
 
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({
