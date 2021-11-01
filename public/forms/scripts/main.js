@@ -35,6 +35,18 @@
     });
   }
 
+  if ($form.querySelector('input[name="Email"]')) {
+    var $inputRedirectUrl = $form.querySelector('input[data-element="redirectUrl"]')
+
+    $form.querySelector('input[name="Email"]').addEventListener('keyup', function (event) {
+      var $input = event.target;
+      var value = $input.value;
+      var redirectUrl = $inputRedirectUrl.getAttribute('data-value-original');
+      
+      $inputRedirectUrl.value = redirectUrl + '?email=' + value;
+    })
+  }
+
   $form.addEventListener('submit', formSubmit)
 
   search.forEach(item => {
@@ -45,12 +57,10 @@
 
     if($el && name !== 'source') {
       $el.value = value;
+      $el.setAttribute('data-value-original', value);
     }
 
     switch(name) {
-      case 'userFirstName':
-        document.querySelector('.username').innerHTML = value;
-        break;
       case 'reference':
         message = message.replace('{reference}', value);
         break;
@@ -207,7 +217,6 @@
     var utmParams = JSON.parse(cookieParams);
 
     Object.entries(utmParams).forEach(([key, value]) => {
-      console.log(`${key} ${value}`);
       var $field = $form.querySelector(`input[name="${key}"]`);
 
       if($field)

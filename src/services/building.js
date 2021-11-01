@@ -105,4 +105,19 @@ export default {
     ).then(response => response.json());
     return response;
   },
+  async postRegisterProperty(data) {
+    const formData = new FormData();
+
+    data.files.forEach((file, fileIndex) => {
+      formData.append(`file${fileIndex}`, file);
+    })
+
+    const result = await fetch(`${process.env.config.apiUrl}/form/register_your_building`, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    return result;
+  }
+
 };

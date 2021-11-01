@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Api from 'services';
@@ -13,7 +13,6 @@ import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
 // components
-import PasswordNewModal from 'components/Modals/PasswordNew';
 import SlickSection from 'components/SlickSection';
 import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -43,9 +42,8 @@ function Home({ hero, components }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
-    query: { action, hash },
+    query: { action },
   } = router;
-  const user = useSelector((state) => state.user);
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
   const [ heroItems, setHeroItems ] = useState([]);
@@ -160,43 +158,22 @@ function Home({ hero, components }) {
     }
 
     async function loadBuildinsSeen() {
-      if (user.logged) {
-        const responseBuildingsSeen = await Api.MyAccount.getViewed(
-          user.access_token
-        );
-        const responseBuildingsForYou = await Api.MyAccount.getForYou(
-          user.access_token
-        );
+      const buildingsSeenCookie = CookieBuildingSeen.get();
 
-        if (!responseBuildingsSeen.length) return false;
+      if (!buildingsSeenCookie.length) return false;
 
-        setBuildingsSeen(responseBuildingsSeen);
+      const listBuildingsSeen = await Api.Search.getBuildings(
+        `?reference=${buildingsSeenCookie.join(',')}`
+      );
+      const listForYou = await Api.Building.getSimilar(
+        listBuildingsSeen.data[0],
+        10
+      );
 
-        if (
-          responseBuildingsForYou &&
-          responseBuildingsForYou.buildings &&
-          responseBuildingsForYou.buildings.length
-        ) {
-          setBuildingsForYou(responseBuildingsForYou.buildings);
-        }
-      } else {
-        const buildingsSeenCookie = CookieBuildingSeen.get();
+      setBuildingsSeen(listBuildingsSeen.data);
 
-        if (!buildingsSeenCookie.length) return false;
-
-        const listBuildingsSeen = await Api.Search.getBuildings(
-          `?reference=${buildingsSeenCookie.join(',')}`
-        );
-        const listForYou = await Api.Building.getSimilar(
-          listBuildingsSeen.data[0],
-          10
-        );
-
-        setBuildingsSeen(listBuildingsSeen.data);
-
-        if (listForYou && listForYou.total) {
-          setBuildingsForYou(listForYou.data);
-        }
+      if (listForYou && listForYou.total) {
+        setBuildingsForYou(listForYou.data);
       }
     }
 
@@ -273,8 +250,6 @@ function Home({ hero, components }) {
           })}
 
         <Contact />
-
-        {action && action === 'senha-nova' && <PasswordNewModal hash={hash} />}
       </Container>
     </>
   );

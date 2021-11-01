@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
@@ -10,15 +9,11 @@ import * as Yup from 'yup';
 import BlockHighlighted from 'components/BlockHighlighted';
 import FormElements from 'components/FormElements';
 import Contact from 'components/Contact';
-import UserInfo from 'components/UserInfo';
 
 // helpers
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
-
-// actions
-import { setMain } from 'store/modules/main/actions';
 
 // images
 import CloseIconSVG from 'assets/icons/close-white';
@@ -56,7 +51,9 @@ const registrySchema = Yup.object().shape({
   Name_First: Yup.string().required(),
   Name_Last: Yup.string().required(),
   PhoneNumber_countrycode: Yup.string(),
-  Email: Yup.string().required(),
+  Email: Yup.string()
+    .email()
+    .required(),
   SingleLine11: Yup.string(),
   SingleLine: Yup.string().required(),
   SingleLine2: Yup.string().required(),
@@ -91,9 +88,7 @@ const registrySchema = Yup.object().shape({
 });
 
 function Register({ locals, categories, countries }) {
-  const dispatch = useDispatch();
   const refForm = useRef(null);
-  const user = useSelector((state) => state.user);
   const [ cats, setCats ] = useState([]);
 
   const optionsLocals = [
@@ -227,10 +222,10 @@ function Register({ locals, categories, countries }) {
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
       DecisionBox: true,
       Radio: 'Novo Lead',
-      Name_First: user.me.name,
-      Name_Last: user.me.lastName,
-      PhoneNumber_countrycode: user.me.phone,
-      Email: user.me.email,
+      Name_First: '',
+      Name_Last: '',
+      PhoneNumber_countrycode: '',
+      Email: '',
       SingleLine11: '', // Tipo do Imóvel - Apartamento, Casa, Cobertura, Conjunto, etc
       SingleLine: '', // Endereço
       SingleLine2: '', // Número
@@ -262,11 +257,11 @@ function Register({ locals, categories, countries }) {
       terms: false,
     },
     validationSchema: registrySchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
+    onSubmit: async (values) => {
       values.Currency = values.Currency.replace('R$', '');
       values.Currency2 = values.Currency2.replace('R$', '');
 
-      const response = await Api.User.postRegisterProperty(user.access_token, {
+      const response = await Api.Building.postRegisterProperty({
         files: values.images,
       });
 
@@ -293,39 +288,25 @@ function Register({ locals, categories, countries }) {
 
   useEffect(() => {
     async function loadMe() {
-      if (user && user.logged) {
-        dispatch(setMain({ modalLogin: false }));
-        setFieldValue('Name_First', user.me.name);
-        setFieldValue('Name_Last', user.me.lastName);
-        setFieldValue('PhoneNumber_countrycode', user.me.phone);
-        setFieldValue('Email', user.me.email);
-      } else {
-        dispatch(
-          setMain({
-            modalLogin: '/cadastrar',
-          })
-        );
-      }
-
       const utmParams = CookieUtmParams.get();
-      if(utmParams.utm_source)
+
+      if (utmParams.utm_source)
         setFieldValue('utm_source', utmParams.utm_source);
 
-      if(utmParams.utm_medium)
+      if (utmParams.utm_medium)
         setFieldValue('utm_medium', utmParams.utm_medium);
 
-      if(utmParams.utm_campaign)
+      if (utmParams.utm_campaign)
         setFieldValue('utm_campaign', utmParams.utm_campaign);
 
-      if(utmParams.utm_term)
-        setFieldValue('utm_term', utmParams.utm_term);
+      if (utmParams.utm_term) setFieldValue('utm_term', utmParams.utm_term);
 
-      if(utmParams.utm_content)
+      if (utmParams.utm_content)
         setFieldValue('utm_content', utmParams.utm_content);
     }
 
     loadMe();
-  }, [ user ]);
+  }, []);
 
   useEffect(() => {
     let newCats = optionsTypesData[values.SingleLine5.toLowerCase()];
@@ -562,7 +543,7 @@ function Register({ locals, categories, countries }) {
                       items={optionsCountries}
                       onChange={(e) => {
                         handleChange(e);
-                        setFieldValue('SingleLine8', e.currentTarget.value)
+                        setFieldValue('SingleLine8', e.currentTarget.value);
                       }}
                       error={touched.SingleLine8 && errors.SingleLine8}
                       onBlur={handleBlur}
@@ -939,7 +920,11 @@ function Register({ locals, categories, countries }) {
                   type="file"
                   multiple
                   onChange={(e) => {
-                    const imagesArr = [ ...values.images, ...e.target.files ];
+                    const imagesArr = [
+                      ...values.images,
+                      ...e.target.files,
+                    ].slice(0, 5);
+
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({
                       event: 'Custom Field Change',
@@ -971,6 +956,61 @@ function Register({ locals, categories, countries }) {
               </GroupImages>
             </FormGroup>
 
+            <FormGroup>
+              <h2>Dados pessoais</h2>
+            </FormGroup>
+            <FormGroupFlex layout="userdata">
+              <FormElements
+                name="Name_First"
+                label="Nome"
+                placeholder="Nome"
+                onChange={handleChange}
+                error={touched.Name_First && errors.Name_First}
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Nome"
+                data-type="Imóvel dos Sonhos"
+              />
+              <FormElements
+                name="Name_Last"
+                label="Sobrenome"
+                placeholder="Sobrenome"
+                onChange={handleChange}
+                error={touched.Name_Last && errors.Name_Last}
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sobrenome"
+                data-type="Imóvel dos Sonhos"
+              />
+              <FormElements
+                name="Email"
+                type="email"
+                label="Email"
+                placeholder="Email"
+                onChange={handleChange}
+                error={touched.Email && errors.Email}
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Sobrenome"
+                data-type="Imóvel dos Sonhos"
+              />
+              <FormElements
+                name="PhoneNumber_countrycode"
+                type="phone"
+                label="Telefone ou Celular"
+                placeholder="Telefone ou Celular"
+                onChange={handleChange}
+                error={
+                  touched.PhoneNumber_countrycode &&
+                  errors.PhoneNumber_countrycode
+                }
+                onBlur={handleBlur}
+                className="holos-form-field"
+                data-label="Telefone ou Celular"
+                data-type="Imóvel dos Sonhos"
+              />
+            </FormGroupFlex>
+
             <FormGroupFooter>
               {/* <CheckLinkTerms
                 type="checkboxLink"
@@ -982,8 +1022,6 @@ function Register({ locals, categories, countries }) {
                 checked={values.terms}
                 onBlur={handleBlur}
               /> */}
-
-              <UserInfo layout="register-property" />
 
               <ButtonSubmit
                 disabled={isSubmitting}

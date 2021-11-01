@@ -2,11 +2,11 @@ import Cookies from 'js-cookie';
 
 export default {
   cookieParams: {
-    expires: 15
+    expires: 15,
   },
 
   get() {
-		const utmParams = Cookies.get('ax_utm_params');
+    const utmParams = Cookies.get('ax_utm_params');
     return utmParams ? JSON.parse(utmParams) : {};
   },
 
@@ -15,49 +15,51 @@ export default {
   },
 
   set(queryStrings) {
+    const utmVariables = queryStrings.split('&');
+    const utmParams = this.get();
 
-		const utmVariables = queryStrings.split('&');
-		const utmParams = this.get();
+    let ParameterName, i;
 
-		let ParameterName, i;
+    const getUTMValue = (inputParameter) => {
+      // return utmVariables[inputParameter] === null ? null : utmVariables[inputParameter];
+      for (i = 0; i < utmVariables.length; i++) {
+        ParameterName = utmVariables[i].split('=');
+        if (ParameterName[0].replace(/\?/g, '') === inputParameter) {
+          return ParameterName[1] === null ? null : ParameterName[1];
+        }
+      }
+    };
 
-		const getUTMValue = (inputParameter) => {
-			// return utmVariables[inputParameter] === null ? null : utmVariables[inputParameter];
-			for (i = 0; i < utmVariables.length; i++) {
-				ParameterName = utmVariables[i].split('=');
-				if (ParameterName[0].replace(/\?/g, '') === inputParameter) {
-					return ParameterName[1] === null ? null : ParameterName[1];
-				}
-			}
-		}
+    const valueExists = (value) => {
+      return value != null && value != '' && value != undefined;
+    };
 
-		const valueExists = (value) => {
-			return (value != null && value != '' && value != undefined)
-		}
+    // Set params and store it in the variable
+    const utmParamNames = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+    ];
 
-		// Set params and store it in the variable
-		const utmParamNames = [
-			'utm_source',
-			'utm_medium',
-			'utm_campaign',
-			'utm_content',
-			'utm_term'
-		];
+    let updatedParams = false;
 
-		let updatedParams = false;
-		
-		utmParamNames.forEach(param => {
-			const paramValue = getUTMValue(param);
-		
-			if (valueExists(paramValue)) {
-				utmParams[param] = paramValue;
-				updatedParams = true;
-			}
-		});
+    utmParamNames.forEach((param) => {
+      const paramValue = getUTMValue(param);
 
-		if(updatedParams) {
-			Cookies.set('ax_utm_params', JSON.stringify(utmParams), this.cookieParams);
-		}
+      if (valueExists(paramValue)) {
+        utmParams[param] = paramValue;
+        updatedParams = true;
+      }
+    });
 
-  }
-}
+    if (updatedParams) {
+      Cookies.set(
+        'ax_utm_params',
+        JSON.stringify(utmParams),
+        this.cookieParams
+      );
+    }
+  },
+};

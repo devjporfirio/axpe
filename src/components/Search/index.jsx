@@ -18,7 +18,6 @@ import RangeSlider from 'components/Search/FormElements/RangeSlider';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
-import AlertIconSVG from 'assets/icons/alert';
 import SearchIconSVG from 'assets/icons/search';
 
 // styles
@@ -38,9 +37,6 @@ import {
   FormButtonFilter,
   FormFooter,
   FormButtonSubmit,
-  FormAlert,
-  FormAlertTooltip,
-  FormButtonAlert,
   FormButtonClear,
   FormTab,
   FormTabWrapper,
@@ -61,10 +57,6 @@ function Search() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { searchFormActive } = useSelector((state) => state.main);
-  const user = useSelector((state) => state.user);
-  const [ alertCreated, setAlertCreated ] = useState(false);
-  const [ alertCreating, setAlertCreating ] = useState(false);
-  const [ alertMessage, setAlertMessage ] = useState(null);
   const [ categoriesData, setCategoriesData ] = useState(null);
   const [ filtersData, setFiltersData ] = useState(null);
   const [ filtersListToggle, setFiltersListToggle ] = useState(null);
@@ -128,12 +120,13 @@ function Search() {
     onSubmit: (values, { setSubmitting }) => {
       const data = {};
 
-      if(typeof values.reference !== 'undefined' && values.reference && values.reference.length > 0) {
-        
+      if (
+        typeof values.reference !== 'undefined' &&
+        values.reference &&
+        values.reference.length > 0
+      ) {
         data['reference'] = values.reference;
-
       } else {
-
         Object.keys(values).forEach((key) => {
           if (key == 'source' && values[key].value) {
             data[key] = values[key].value;
@@ -163,7 +156,6 @@ function Search() {
             data[key] = values[key];
           }
         });
-
       }
 
       const params = getParamsFromObject(data);
@@ -194,10 +186,6 @@ function Search() {
     setFiltersData(null);
     setFiltersListToggle(null);
     formik.resetForm();
-  }
-
-  function closeAlertTooltip() {
-    setAlertCreated(false);
   }
 
   function setArrayValue(name, value) {
@@ -279,53 +267,6 @@ function Search() {
     resetValuesOnChange();
   }
 
-  function createAlert() {
-    const doCreateAlert = async (accessToken) => {
-      if (alertCreating) return false;
-
-      setAlertCreating(true);
-
-      const response = await Api.MyAccount.postAlert(
-        accessToken ? accessToken : user.access_token,
-        formik.values
-      );
-      const timeTohide = response.status ? 6000 : 4000;
-
-      setAlertCreating(false);
-
-      if (response.status) {
-        setAlertMessage(
-          <p>
-            <strong>Alerta criado com sucesso!</strong> Você pode acompanhar
-            seus alertas no seu perfil.
-          </p>
-        );
-        setAlertCreated(true);
-      } else {
-        setAlertMessage(<p>{response.error}</p>);
-        setAlertCreated(true);
-      }
-
-      setTimeout(() => {
-        setAlertMessage(null);
-        setAlertCreated(false);
-      }, timeTohide);
-    };
-
-    if (user && user.logged) {
-      doCreateAlert();
-    } else {
-      dispatch(
-        setMain({
-          modalLoginType: 'alert',
-          modalLogin: (accessToken) => {
-            doCreateAlert(accessToken);
-          },
-        })
-      );
-    }
-  }
-
   useEffect(() => {
     if (!formik.values.finality && filtersData) {
       setFiltersData(null);
@@ -373,7 +314,7 @@ function Search() {
       });
 
       // Avoids type list being shrunk when locations are updated
-      if(filtersData && filtersData.types) {
+      if (filtersData && filtersData.types) {
         response.types = filtersData.types;
       }
 
@@ -382,9 +323,11 @@ function Search() {
     };
 
     if (formik.values.finality) {
-
-      if(formik.values.finality == 'venda' && formik.values.source.value == 'sao-paulo') {
-        if((formik.values.ready_release || formik.values.use == 'COMERCIAL')) {
+      if (
+        formik.values.finality == 'venda' &&
+        formik.values.source.value == 'sao-paulo'
+      ) {
+        if (formik.values.ready_release || formik.values.use == 'COMERCIAL') {
           getFilters();
         } else {
           setFiltersData(null);
@@ -392,9 +335,7 @@ function Search() {
       } else {
         getFilters();
       }
-
     }
-
   }, [
     formik.values.source.value,
     formik.values.use,
@@ -406,11 +347,9 @@ function Search() {
 
   // Reset locations on building type definition
   useEffect(() => {
-
     if (formik.values.types) {
       formik.values.local = [];
     }
-
   }, [ JSON.stringify(formik.values.types) ]);
 
   useEffect(() => {
@@ -473,7 +412,10 @@ function Search() {
                         data-type={'Alterar localização'}
                       >
                         <span className="icon">
-                          <img src={require(`assets/icons/sources-${source.value}.svg`)} alt={source.label} />
+                          <img
+                            src={require(`assets/icons/sources-${source.value}.svg`)}
+                            alt={source.label}
+                          />
                         </span>
                         <span className="label">{source.label}</span>
                       </FormTabListItemButton>
@@ -481,8 +423,6 @@ function Search() {
                   ))}
                 </FormTabListContainer>
               </FormGroup>
-
-
 
               {formik.values.source.value ? (
                 <FormButtonsFilter>
@@ -749,29 +689,6 @@ function Search() {
                 >
                   Buscar
                 </FormButtonSubmit>
-                <FormAlert>
-                  <FormAlertTooltip
-                    active={alertCreated}
-                    onClick={closeAlertTooltip}
-                  >
-                    {alertMessage}
-                  </FormAlertTooltip>
-                  <FormButtonAlert
-                    type="button"
-                    active={alertCreated}
-                    isLoading={alertCreating}
-                    disabled={
-                      !formik.isSubmitting &&
-                      !filtersData &&
-                      !formik.values.reference
-                    }
-                    onClick={createAlert}
-                    className="holos-create-alert"
-                  >
-                    <SVG src={AlertIconSVG} uniquifyIDs={true} />{' '}
-                    {alertCreating ? `Criando alerta...` : `Criar alerta`}
-                  </FormButtonAlert>
-                </FormAlert>
                 <FormButtonClear
                   type="button"
                   disabled={

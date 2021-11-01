@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,7 +9,6 @@ import Api from 'services';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import FormElements from 'components/FormElements';
-import UserInfo from 'components/UserInfo';
 
 // store
 import { setMain } from 'store/modules/main/actions';
@@ -22,15 +21,12 @@ import {
   Column,
   Text,
   TextWrapper,
-  ColumnTitle
+  ColumnTitle,
 } from 'components/Modals/styles';
 
 export default function Contact() {
   const dispatch = useDispatch();
-  const { modalContact, modalContactMessage } = useSelector(
-    state => state.main
-  );
-  const user = useSelector(state => state.user);
+  const { modalContact } = useSelector((state) => state.main);
   const [ showRegister, setShowRegister ] = useState(false);
 
   const closeModal = useCallback(() => {
@@ -44,37 +40,30 @@ export default function Contact() {
   const contactSchema = Yup.object().shape({
     message: Yup.string()
       .min(2)
-      .required()
+      .required(),
+    name: Yup.string().required(),
+    lastName: Yup.string().required(),
+    phone: Yup.string(),
+    email: Yup.string().required(),
   });
 
-  useEffect(() => {
-    if (user.logged) {
-      setFieldValue('message', modalContactMessage);
-    }
-  }, [ modalContact ]);
-
   const {
-    setFieldValue,
     handleSubmit,
     handleChange,
     handleBlur,
     isSubmitting,
     values,
     touched,
-    errors
+    errors,
   } = useFormik({
     initialValues: {
-      message: ''
+      message: '',
     },
     validationSchema: contactSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const response = await Api.Contact.postContact({
-        message: values.message,
-        name: user.me.name,
-        lastName: user.me.lastName,
-        phone: user.me.phone,
-        email: user.me.email,
-        subject: 'Mais informações'
+        ...values,
+        subject: 'Mais informações',
       });
 
       setSubmitting(false);
@@ -84,7 +73,7 @@ export default function Contact() {
           setMain({
             modalBuildingContactSuccess: true,
             modalContact: false,
-            modalContactMessage: ''
+            modalContactMessage: '',
           })
         );
 
@@ -94,10 +83,10 @@ export default function Contact() {
           event: 'Form Response',
           formType: 'Favorito - Agendar',
           formResult: 'Erro',
-          formMessage: ''
+          formMessage: '',
         });
       }
-    }
+    },
   });
 
   return modalContact ? (
@@ -132,6 +121,50 @@ export default function Contact() {
               data-label="Quer mais informações sobre este imóvel?"
               data-type="Favorito - Agendar"
             />
+            <FormElements
+              type="text"
+              name="name"
+              onChange={handleChange}
+              error={touched.name && errors.name}
+              value={values.name}
+              onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Nome"
+              data-type="Favorito - Agendar"
+            />
+            <FormElements
+              type="text"
+              name="lastName"
+              onChange={handleChange}
+              error={touched.lastName && errors.lastName}
+              value={values.lastName}
+              onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Sobrenome"
+              data-type="Favorito - Agendar"
+            />
+            <FormElements
+              type="phone"
+              name="phone"
+              onChange={handleChange}
+              error={touched.phone && errors.phone}
+              value={values.phone}
+              onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Telefone ou celular"
+              data-type="Favorito - Agendar"
+            />
+            <FormElements
+              type="email"
+              name="email"
+              onChange={handleChange}
+              error={touched.email && errors.email}
+              value={values.email}
+              onBlur={handleBlur}
+              className="holos-form-field"
+              data-label="Sobrenome"
+              data-type="Favorito - Agendar"
+            />
             <Button
               disabled={isSubmitting}
               type="submit"
@@ -143,7 +176,6 @@ export default function Contact() {
             </Button>
           </FormGroup>
         </Form>
-        <UserInfo asInclude={true} />
       </Column>
     </Modal>
   ) : null;

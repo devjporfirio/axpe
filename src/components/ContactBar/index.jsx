@@ -41,7 +41,6 @@ function ContactBar() {
     contactBarForced,
     searchFunnel,
   } = useSelector((state) => state.main);
-  const user = useSelector((state) => state.user);
   const [ isBuilding, setIsBuilding ] = useState(false);
   const [ iframeUrl, setIframeUrl ] = useState(null);
   const iframes = [
@@ -144,34 +143,17 @@ function ContactBar() {
     [ contactBarActive ]
   );
 
-  const toggleShow = useCallback(() => {
-    if (!isBuilding || (isBuilding && user.logged)) {
-      dispatch(
-        setMain({
-          contactBarActive: !contactBarActive,
-          contactBarForced: false,
-        })
-      );
-    } else {
-      dispatch(
-        setMain({
-          contactBarActive: false,
-          contactBarForced: false,
-          modalLogin: () => {
-            dispatch(
-              setMain({
-                contactBarActive: true,
-                contactBarForced: false,
-              })
-            );
-          },
-        })
-      );
-    }
-  }, [ contactBarActive, isBuilding, user ]);
+  const toggleShow = () => {
+    dispatch(
+      setMain({
+        contactBarActive: !contactBarActive,
+        contactBarForced: false,
+      })
+    );
+  };
 
   useEffect(() => {
-    if (user.logged && user.me && currentBuilding) {
+    if (currentBuilding) {
       let params = null;
       const areaUseful = !currentBuilding.infos
         ? null
@@ -203,10 +185,6 @@ function ContactBar() {
           ? currentBuilding.infos.parking
           : currentBuilding.infos.parkingStart,
         value: null,
-        userFirstName: user.me.name,
-        userLastName: user.me.lastName || 'semnome',
-        userPhone: user.me.phone,
-        userEmail: user.me.email,
         url: location.href,
         redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
       };
@@ -275,7 +253,9 @@ function ContactBar() {
           }
 
           params = getParamsFromObject(paramsObj);
-          setIframeUrl(`${process.env.config.siteUrl}${iframeSelected.src}${params}`);
+          setIframeUrl(
+            `${process.env.config.siteUrl}${iframeSelected.src}${params}`
+          );
         }
       }
     } else {
@@ -287,23 +267,23 @@ function ContactBar() {
         ? true
         : false
     );
-  }, [ router.route, user.logged, user.me, contactBarActive, currentBuilding ]);
+  }, [ router.route, contactBarActive, currentBuilding ]);
 
   useEffect(() => {
     if (refIframe.current && iframeUrl) {
       refIframe.current.onload = function() {
         const $iframe = this.contentWindow || this.contentDocument;
 
-        if($iframe.document) {
+        if ($iframe.document) {
           const $contents = $iframe.document;
 
           const $btnClose = $contents.querySelector('.header__close');
           const $btnLogout = $contents.querySelector('.userinfo__btn');
-  
+
           if ($btnClose) {
             $btnClose.addEventListener('click', (event) => {
               toggleShow();
-  
+
               if (
                 $btnClose.classList.contains('js-reset-iframe-url') &&
                 refIframe.current
@@ -312,19 +292,17 @@ function ContactBar() {
               }
             });
           }
-  
+
           if ($btnLogout) {
             $btnLogout.addEventListener('click', (event) => {
               toggleShow();
               Router.push('/logout');
             });
           }
-
         }
       };
     }
-    
-  }, [ refIframe.current, iframeUrl, contactBarActive, user ]);
+  }, [ refIframe.current, iframeUrl, contactBarActive ]);
 
   return (
     <>
@@ -340,9 +318,7 @@ function ContactBar() {
             Fale com um corretor.
           </div>
         ) : (
-          <div>
-            Fale com a gente
-          </div>
+          <div>Fale com a gente</div>
         )}
       </LinkFloat>
 
@@ -358,9 +334,7 @@ function ContactBar() {
             Fale com um corretor.
           </div>
         ) : (
-          <div>
-            Fale com a gente
-          </div>
+          <div>Fale com a gente</div>
         )}
       </ButtonFloat>
 
@@ -457,7 +431,11 @@ function ContactBar() {
                             data-label="Cadastrar imóvel"
                           >
                             <i>
-                              <SVG src={BuildingFileSVG} uniquifyIDs={true} className="no-fill"  />
+                              <SVG
+                                src={BuildingFileSVG}
+                                uniquifyIDs={true}
+                                className="no-fill"
+                              />
                             </i>
                             <span>
                               Quero <strong>cadastrar</strong> <br />

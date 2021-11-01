@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // components
@@ -97,10 +97,6 @@ export const FormGroupFlex = styled.div`
   ${media.greaterThan('medium')`
     display: flex;
 
-    label + label {
-      margin-left: 26px;
-    }
-
     label {
       height: 50px;
 
@@ -108,6 +104,25 @@ export const FormGroupFlex = styled.div`
         background: none;
       }
     }
+
+    ${(props) => !props.layout && css`
+      label + label {
+        margin-left: 26px;
+      }
+    `}
+
+    ${(props) => props.layout === 'userdata' && css`
+      flex-wrap: wrap;
+
+      & > label {
+        width: 49%;
+        margin: 0 0 20px 0;
+
+        &:nth-child(2n+2) {
+          margin-left: 2%;
+        }
+      }
+    `}
   `}
 `;
 
