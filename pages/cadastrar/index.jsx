@@ -87,6 +87,8 @@ const registrySchema = Yup.object().shape({
   //   .required(),
 });
 
+const formSuccessPageUrl = `${process.env.config.siteUrl}/cadastrar/sucesso`;
+
 function Register({ locals, categories, countries }) {
   const refForm = useRef(null);
   const [ cats, setCats ] = useState([]);
@@ -210,7 +212,7 @@ function Register({ locals, categories, countries }) {
   } = useFormik({
     initialValues: {
       zf_referrer_name: '',
-      zf_redirect_url: 'https://www.axpe.com.br/cadastrar/sucesso',
+      zf_redirect_url: formSuccessPageUrl,
       zc_gad: '',
       utm_source: '',
       utm_medium: '',
@@ -268,6 +270,11 @@ function Register({ locals, categories, countries }) {
       if (response.status) {
         setFieldValue('MultiLine', response.imgs.join(', '));
       }
+
+      setFieldValue(
+        'zf_redirect_url',
+        `${formSuccessPageUrl}?email=${values.Email}`
+      );
 
       setTimeout(() => {
         refForm.current.submit();
@@ -920,10 +927,7 @@ function Register({ locals, categories, countries }) {
                   type="file"
                   multiple
                   onChange={(e) => {
-                    const imagesArr = [
-                      ...values.images,
-                      ...e.target.files,
-                    ];
+                    const imagesArr = [ ...values.images, ...e.target.files ];
 
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({

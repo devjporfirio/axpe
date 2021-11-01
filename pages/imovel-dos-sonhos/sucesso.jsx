@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 // helpers
+import { encrypt } from 'helpers/encryption';
 import { Link } from 'helpers/routes';
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
@@ -15,43 +16,7 @@ function DreamBuildingSuccess() {
   const { query } = router;
 
   useEffect(() => {
-    function Asc(str) {
-      return str.charCodeAt(0);
-    }
-
-    function Chr(asciiNum) {
-      return String.fromCharCode(asciiNum);
-    }
-
-    function encriptData(data) {
-      let result = '';
-      let l;
-      let j = 0;
-      const hash = 'assbdFbdpdPdpfPdAAdpeoseslsQQEcDDldiVVkadiedkdkLLnm';
-
-      for (let i = 0; i < data.length; i++) {
-        j++;
-        l = Asc(data.substr(i, 1)) + Asc(hash.substr(j, 1));
-
-        if (j == 50) {
-          j = 1;
-        }
-
-        if (l > 255) {
-          l -= 256;
-        }
-
-        result += Chr(l);
-      }
-
-      return result;
-    }
-
-    let encriptedEmail = null;
-
-    if (query.email) {
-      encriptedEmail = encriptData(query.email);
-    }
+    const encriptedEmail = query.email ? encrypt(query.email) : '';
 
     if (localStorage) {
       localStorage.setItem('cryptoId', encriptedEmail);

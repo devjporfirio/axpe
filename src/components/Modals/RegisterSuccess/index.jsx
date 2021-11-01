@@ -6,6 +6,9 @@ import GTM from 'helpers/gtm';
 // components
 import Modal from 'components/Modals';
 
+// helpers
+import { encrypt } from 'helpers/encryption';
+
 // actions
 import { setMain } from 'store/modules/main/actions';
 
@@ -16,20 +19,31 @@ import { Success } from './styles';
 function RegisterSuccess() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { modalRegisterSuccess } = useSelector(state => state.main);
+  const { query } = router;
+  const { modalRegisterSuccess } = useSelector((state) => state.main);
 
-  const closeModal = useCallback((redirectUrl = '/') => {
-    dispatch(setMain({ modalRegisterSuccess: false }));
-    router.push(redirectUrl);
-  }, [ modalRegisterSuccess ]);
+  const closeModal = useCallback(
+    (redirectUrl = '/') => {
+      dispatch(setMain({ modalRegisterSuccess: false }));
+      router.push(redirectUrl);
+    },
+    [ modalRegisterSuccess ]
+  );
 
   useEffect(() => {
-    if(modalRegisterSuccess) {
+    if (modalRegisterSuccess) {
+      const encriptedEmail = query.email ? encrypt(query.email) : '';
+
+      if (localStorage) {
+        localStorage.setItem('cryptoId', encriptedEmail);
+      }
+
       GTM.dataLayerPush({
         event: 'Form Response',
         formType: 'Cadastrar Imóvel',
         formResult: 'Sucesso',
-        formMessage: ''
+        formMessage: '',
+        cryptoId: encriptedEmail,
       });
     }
   }, [ modalRegisterSuccess ]);
@@ -42,7 +56,9 @@ function RegisterSuccess() {
     >
       <Success>
         <SuccessColumn>
-          <h2>Recebemos&nbsp;o seu&nbsp;<span>cadastro</span></h2>
+          <h2>
+            Recebemos&nbsp;o seu&nbsp;<span>cadastro</span>
+          </h2>
         </SuccessColumn>
         <SuccessColumn>
           <p>Aguarde nosso contato para agendarmos uma visita ao seu imóvel.</p>
