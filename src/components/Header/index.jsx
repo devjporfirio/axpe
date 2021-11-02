@@ -167,7 +167,11 @@ function Header() {
                 </li>
                 <li>
                   <Link route="/cadastrar" passHref>
-                    <NavMainButton className="holos-menu-item" type="register">
+                    <NavMainButton
+                      className="holos-menu-item"
+                      type="register"
+                      onClick={cancelToggle}
+                    >
                       <SVG src={HomeIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                     </NavMainButton>

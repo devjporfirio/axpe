@@ -15,6 +15,7 @@ import Footer from 'components/Footer';
 import Search from 'components/Search';
 import NewsletterModal from 'components/Modals/Newsletter';
 import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
+import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
 import BuildingContactSuccess from 'components/Modals/BuildingContactSuccess';
 import ContactSuccess from 'components/Modals/ContactSuccess';
 import WorkWithUsSuccess from 'components/Modals/WorkWithUsSuccess';
@@ -87,6 +88,7 @@ function Main({ children }) {
         </Wrapper>
         <NewsletterModal />
         <NewsletterSuccessModal />
+        <RegisterSuccessModal />
         <BuildingContactSuccess />
         <ContactSuccess />
         <WorkWithUsSuccess />

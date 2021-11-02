@@ -94,6 +94,15 @@ export const FormGroupFlex = styled.div`
     }
   }
 
+  ${(props) =>
+    props.layout === 'userdata' &&
+    css`
+      label {
+        height: 50px;
+        margin-bottom: 16px;
+      }
+    `}
+
   ${media.greaterThan('medium')`
     display: flex;
 
@@ -105,24 +114,28 @@ export const FormGroupFlex = styled.div`
       }
     }
 
-    ${(props) => !props.layout && css`
-      label + label {
-        margin-left: 26px;
-      }
-    `}
-
-    ${(props) => props.layout === 'userdata' && css`
-      flex-wrap: wrap;
-
-      & > label {
-        width: 49%;
-        margin: 0 0 20px 0;
-
-        &:nth-child(2n+2) {
-          margin-left: 2%;
+    ${(props) =>
+      !props.layout &&
+      css`
+        label + label {
+          margin-left: 26px;
         }
-      }
-    `}
+      `}
+
+    ${(props) =>
+      props.layout === 'userdata' &&
+      css`
+        flex-wrap: wrap;
+
+        & > label {
+          width: 49%;
+          margin: 0 0 20px 0;
+
+          &:nth-child(2n + 2) {
+            margin-left: 2%;
+          }
+        }
+      `}
   `}
 `;
 
