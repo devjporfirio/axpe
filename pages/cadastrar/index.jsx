@@ -921,13 +921,14 @@ function Register({ locals, categories, countries }) {
                   Hora de enviar as fotos do seu imóvel. Pode ser do celular
                   mesmo, é só para gente ter uma ideia e planejar a sessão com o
                   fotógrafo.
+                  <small>Máximo de 30 fotos. Tamanho máximo por foto: 15 MB.</small>
                 </Description>
 
                 <FormElements
                   type="file"
                   multiple
                   onChange={(e) => {
-                    const imagesArr = [ ...values.images, ...e.target.files ];
+                    const imagesArr = [ ...values.images, ...e.target.files ].slice(0, 30);
 
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({

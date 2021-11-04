@@ -183,6 +183,11 @@ export const FormGroupAddress = styled.div`
 `;
 
 export const FormGroupPhotos = styled.div`
+  small{
+    display: inline-block;
+    font-size: 12px;
+    padding-top: 5px;
+  }
   ${media.greaterThan('medium')`
     display: flex;
     align-items: center;

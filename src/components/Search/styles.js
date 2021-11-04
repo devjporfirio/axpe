@@ -318,7 +318,7 @@ export const FormButtonFilter = styled.button`
     overflow: hidden;
     text-overflow: ellipsis;
     letter-spacing: 0.5px;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 
