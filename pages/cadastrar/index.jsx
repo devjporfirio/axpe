@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import * as Yup from 'yup';
+import ScrollTo, { getElementScrollTop } from 'helpers/scrollTo';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -292,6 +293,38 @@ function Register({ locals, categories, countries }) {
       fieldValMax: value,
     });
   }, []);
+
+  const scrollToErrors = () => {
+    const errorKeys = Object.keys(errors);
+
+    if (!values.finalityVender && !values.finalityAluguel) {
+      errorKeys.push('finalityVender');
+      errorKeys.push('finalityAluguel');
+    }
+
+    if (errorKeys.length > 0) {
+      let scrollToTop = -1;
+      let firstErrorInput = null;
+
+      errorKeys.forEach((key) => {
+        const input = document.getElementsByName(key)?.[0];
+        const inputScrollTop = getElementScrollTop(input);
+
+        if (
+          input &&
+          input.getAttribute('type') !== 'hidden' &&
+          (scrollToTop === -1 || inputScrollTop < scrollToTop)
+        ) {
+          scrollToTop = inputScrollTop;
+          firstErrorInput = input;
+        }
+      });
+
+      if (firstErrorInput) {
+        ScrollTo(firstErrorInput, 50);
+      }
+    }
+  };
 
   useEffect(() => {
     async function loadMe() {
@@ -1046,6 +1079,7 @@ function Register({ locals, categories, countries }) {
                 type="submit"
                 className="holos-form-submit"
                 data-type="Cadastrar Imóvel"
+                onClick={scrollToErrors}
               >
                 Enviar
               </ButtonSubmit>
