@@ -24,7 +24,7 @@ export const Label = styled.label`
     transition: top 0.2s ease;
   }
 
-  ${props =>
+  ${(props) =>
     props.children[1] &&
     css`
       input::placeholder {
@@ -32,7 +32,7 @@ export const Label = styled.label`
       }
     `}
 
-  ${props =>
+  ${(props) =>
     props.type === 'select' &&
     props.children[0].props.placeholder &&
     css`
@@ -47,14 +47,14 @@ export const Label = styled.label`
     `}
 
 
-  ${props =>
+  ${(props) =>
     props.type === 'area' &&
     css`
       height: 100px;
     `}
 
 
-  ${props =>
+  ${(props) =>
     [ 'checkboxLink', 'checkbox' ].includes(props.type) &&
     css`
       padding-left: 0;
@@ -63,7 +63,8 @@ export const Label = styled.label`
       span {
         position: initial;
 
-        a, button {
+        a,
+        button {
           text-decoration: underline;
           color: ${({ theme }) => theme.colors.orange};
         }
@@ -75,7 +76,7 @@ export const Label = styled.label`
     `}
 
 
-  ${props =>
+  ${(props) =>
     props.type === 'radio' &&
     css`
       input {
@@ -84,7 +85,7 @@ export const Label = styled.label`
     `}
 
 
-  ${props =>
+  ${(props) =>
     props.type === 'checkboxLink' &&
     css`
       span {
@@ -101,7 +102,7 @@ export const Label = styled.label`
       }
     `}
 
-  ${props =>
+  ${(props) =>
     props.themeColor === 'dark' &&
     css`
       background: ${({ theme }) => theme.colors.grey};
@@ -111,10 +112,23 @@ export const Label = styled.label`
       }
     `}
 
-  ${props =>
+  ${(props) =>
     props.error &&
+    props.type !== 'checkbox' &&
     css`
       background: ${({ theme }) => theme.colors.orangeLight} !important;
+    `}
+  
+  ${(props) =>
+    props.error &&
+    props.type === 'checkbox' &&
+    css`
+      input {
+        border-color: ${({ theme }) => theme.colors.orange} !important;
+      }
+      span {
+        color: ${({ theme }) => theme.colors.orange} !important;
+      }
     `}
 `;
 
@@ -123,7 +137,9 @@ export const Span = styled.span`
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   color: ${({ theme }) => theme.colors.green};
   padding-left: 12px;
-  ${({ size }) => size === 'big' && `
+  ${({ size }) =>
+    size === 'big' &&
+    `
     width: calc(100% - 5px);
     margin-left: 5px;
   `}
@@ -277,11 +293,13 @@ export const ButtonEye = styled.button`
   height: 15px;
   z-index: 9;
 
-  ${props => props.active && css`
-    svg path {
-      fill: ${({ theme }) => theme.colors.orange};
-    }
-  `}
+  ${(props) =>
+    props.active &&
+    css`
+      svg path {
+        fill: ${({ theme }) => theme.colors.orange};
+      }
+    `}
 `;
 
 export const SVGEye = styled(SVG)`
@@ -295,7 +313,9 @@ export const FormFeedback = styled.p`
   font: 14px 'Raleway';
   color: ${({ theme }) => theme.colors.orange};
 
-  ${props => props.themeColor && css`
-    color: ${({ theme }) => theme.colors[props.themeColor]};
-  `}
+  ${(props) =>
+    props.themeColor &&
+    css`
+      color: ${({ theme }) => theme.colors[props.themeColor]};
+    `}
 `;

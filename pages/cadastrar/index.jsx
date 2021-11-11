@@ -496,7 +496,11 @@ function Register({ locals, categories, countries }) {
                         fieldValMax: 'Vender',
                       });
                     }}
-                    error={touched.finalityVender && errors.finalityVender}
+                    error={
+                      Object.keys(touched).length &&
+                      !values.finalityVender &&
+                      !values.finalityAluguel
+                    }
                     value={values.finalityVender}
                     checked={values.finalityVender}
                     onBlur={handleBlur}
@@ -519,7 +523,11 @@ function Register({ locals, categories, countries }) {
                         fieldValMax: 'Alugar',
                       });
                     }}
-                    error={touched.finalityAluguel && errors.finalityAluguel}
+                    error={
+                      Object.keys(touched).length &&
+                      !values.finalityVender &&
+                      !values.finalityAluguel
+                    }
                     value={values.finalityAluguel}
                     checked={values.finalityAluguel}
                     onBlur={handleBlur}
@@ -921,14 +929,19 @@ function Register({ locals, categories, countries }) {
                   Hora de enviar as fotos do seu imóvel. Pode ser do celular
                   mesmo, é só para gente ter uma ideia e planejar a sessão com o
                   fotógrafo.
-                  <small>Máximo de 30 fotos. Tamanho máximo por foto: 15 MB.</small>
+                  <small>
+                    Máximo de 30 fotos. Tamanho máximo por foto: 15 MB.
+                  </small>
                 </Description>
 
                 <FormElements
                   type="file"
                   multiple
                   onChange={(e) => {
-                    const imagesArr = [ ...values.images, ...e.target.files ].slice(0, 30);
+                    const imagesArr = [
+                      ...values.images,
+                      ...e.target.files,
+                    ].slice(0, 30);
 
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({
