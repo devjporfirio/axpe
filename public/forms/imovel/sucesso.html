@@ -68,6 +68,7 @@
   <script type="text/javascript">
     if(window.dataLayer) {
       var encriptedEmail = null;
+      var AnonymousId = '';
       let params = new URLSearchParams(location.search);
       let email = params.get('email');
 
@@ -77,6 +78,7 @@
 
       if (localStorage) {
         localStorage.setItem('cryptoId', encriptedEmail);
+        AnonymousId = localStorage.anonymousId;
       }
 
       dataLayer.push({
@@ -85,7 +87,8 @@
         formResult: 'Sucesso',
         formMessage: '',
         cryptoId: encriptedEmail,
-      });
+        anonymousId: AnonymousId,
+      }); 
     }
   </script>
 </body>
