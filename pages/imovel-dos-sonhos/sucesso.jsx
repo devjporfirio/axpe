@@ -17,11 +17,11 @@ function DreamBuildingSuccess() {
 
   useEffect(() => {
     const encriptedEmail = query.email ? encrypt(query.email) : '';
-    var AnonymousId = '';
+    let anonymousId = '';
 
     if (localStorage) {
       localStorage.setItem('cryptoId', encriptedEmail);
-      AnonymousId = localStorage.anonymousId;
+      anonymousId = localStorage.anonymousId;
     }
 
     GTM.dataLayerPush({
@@ -30,7 +30,7 @@ function DreamBuildingSuccess() {
       formResult: 'Sucesso',
       formMessage: '',
       cryptoId: encriptedEmail,
-      anonymousId: AnonymousId,
+      anonymousId,
     });
   }, []);
 

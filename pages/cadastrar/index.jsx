@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import Api from 'services';
 import * as Yup from 'yup';
+import ScrollTo, { getElementScrollTop } from 'helpers/scrollTo';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
@@ -14,6 +15,7 @@ import Contact from 'components/Contact';
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
+import { encrypt } from 'helpers/encryption';
 
 // images
 import CloseIconSVG from 'assets/icons/close-white';
@@ -219,6 +221,8 @@ function Register({ locals, categories, countries }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
+      cryptoId: '',
+      anonymousId: '',
       Dropdown: 'Proprietário',
       SingleLine6: '', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
@@ -271,6 +275,9 @@ function Register({ locals, categories, countries }) {
         setFieldValue('MultiLine', response.imgs.join(', '));
       }
 
+      setFieldValue('cryptoId', encrypt(values.Email));
+      setFieldValue('anonymousId', localStorage.anonymousId);
+
       setFieldValue(
         'zf_redirect_url',
         `${formSuccessPageUrl}?email=${values.Email}`
@@ -292,6 +299,38 @@ function Register({ locals, categories, countries }) {
       fieldValMax: value,
     });
   }, []);
+
+  const scrollToErrors = () => {
+    const errorKeys = Object.keys(errors);
+
+    if (!values.finalityVender && !values.finalityAluguel) {
+      errorKeys.push('finalityVender');
+      errorKeys.push('finalityAluguel');
+    }
+
+    if (errorKeys.length > 0) {
+      let scrollToTop = -1;
+      let firstErrorInput = null;
+
+      errorKeys.forEach((key) => {
+        const input = document.getElementsByName(key)?.[0];
+        const inputScrollTop = getElementScrollTop(input);
+
+        if (
+          input &&
+          input.getAttribute('type') !== 'hidden' &&
+          (scrollToTop === -1 || inputScrollTop < scrollToTop)
+        ) {
+          scrollToTop = inputScrollTop;
+          firstErrorInput = input;
+        }
+      });
+
+      if (firstErrorInput) {
+        ScrollTo(firstErrorInput, 50);
+      }
+    }
+  };
 
   useEffect(() => {
     async function loadMe() {
@@ -496,7 +535,11 @@ function Register({ locals, categories, countries }) {
                         fieldValMax: 'Vender',
                       });
                     }}
-                    error={touched.finalityVender && errors.finalityVender}
+                    error={
+                      Object.keys(touched).length &&
+                      !values.finalityVender &&
+                      !values.finalityAluguel
+                    }
                     value={values.finalityVender}
                     checked={values.finalityVender}
                     onBlur={handleBlur}
@@ -519,7 +562,11 @@ function Register({ locals, categories, countries }) {
                         fieldValMax: 'Alugar',
                       });
                     }}
-                    error={touched.finalityAluguel && errors.finalityAluguel}
+                    error={
+                      Object.keys(touched).length &&
+                      !values.finalityVender &&
+                      !values.finalityAluguel
+                    }
                     value={values.finalityAluguel}
                     checked={values.finalityAluguel}
                     onBlur={handleBlur}
@@ -921,14 +968,19 @@ function Register({ locals, categories, countries }) {
                   Hora de enviar as fotos do seu imóvel. Pode ser do celular
                   mesmo, é só para gente ter uma ideia e planejar a sessão com o
                   fotógrafo.
-                  <small>Máximo de 30 fotos. Tamanho máximo por foto: 15 MB.</small>
+                  <small>
+                    Máximo de 30 fotos. Tamanho máximo por foto: 15 MB.
+                  </small>
                 </Description>
 
                 <FormElements
                   type="file"
                   multiple
                   onChange={(e) => {
-                    const imagesArr = [ ...values.images, ...e.target.files ].slice(0, 30);
+                    const imagesArr = [
+                      ...values.images,
+                      ...e.target.files,
+                    ].slice(0, 30);
 
                     setFieldValue('images', imagesArr);
                     GTM.dataLayerPush({
@@ -1033,8 +1085,9 @@ function Register({ locals, categories, countries }) {
                 type="submit"
                 className="holos-form-submit"
                 data-type="Cadastrar Imóvel"
+                onClick={scrollToErrors}
               >
-                Enviar
+                {isSubmitting ? 'Enviando...' : 'Enviar' }
               </ButtonSubmit>
             </FormGroupFooter>
           </Form>
