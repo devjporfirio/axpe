@@ -1087,7 +1087,7 @@ function Register({ locals, categories, countries }) {
                 data-type="Cadastrar Imóvel"
                 onClick={scrollToErrors}
               >
-                Enviar
+                {isSubmitting ? 'Enviando...' : 'Enviar' }
               </ButtonSubmit>
             </FormGroupFooter>
           </Form>
