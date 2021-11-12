@@ -435,6 +435,12 @@ function Register({ locals, categories, countries }) {
               name="utm_content"
               value={values.utm_content}
             />
+            <input type="hidden" name="cryptoId" value={values.cryptoId} />
+            <input
+              type="hidden"
+              name="anonymousId"
+              value={values.anonymousId}
+            />
             <input type="hidden" name="Name_First" value={values.Name_First} />
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
             <input
@@ -1087,7 +1093,7 @@ function Register({ locals, categories, countries }) {
                 data-type="Cadastrar Imóvel"
                 onClick={scrollToErrors}
               >
-                {isSubmitting ? 'Enviando...' : 'Enviar' }
+                {isSubmitting ? 'Enviando...' : 'Enviar'}
               </ButtonSubmit>
             </FormGroupFooter>
           </Form>

@@ -536,6 +536,12 @@ function DreamBuildingSingle({ type }) {
               name="utm_content"
               value={values.utm_content}
             />
+            <input type="hidden" name="cryptoId" value={values.cryptoId} />
+            <input
+              type="hidden"
+              name="anonymousId"
+              value={values.anonymousId}
+            />
             <input type="hidden" name="Dropdown" value={values.Dropdown} />
             <input type="hidden" name="Dropdown1" value={values.Dropdown1} />
             <input type="hidden" name="Dropdown2" value={values.Dropdown2} />
