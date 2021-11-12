@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { Link } from 'helpers/routes';
 import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
+import { encrypt } from 'helpers/encryption';
 
 // components
 import Button from 'components/Button';
@@ -309,6 +310,8 @@ function DreamBuildingSingle({ type }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
+      cryptoId: '',
+      anonymousId: '',
       Dropdown: 'Interessado',
       Dropdown1: 'VD-Residencial SP',
       Dropdown2: valueDropdown2,
@@ -351,6 +354,9 @@ function DreamBuildingSingle({ type }) {
             : values.MultipleChoice.join(', ');
         setFieldValue('SingleLine2', selectedLocations);
       }
+
+      setFieldValue('cryptoId', encrypt(values.Email));
+      setFieldValue('anonymousId', localStorage.anonymousId);
 
       setFieldValue(
         'zf_redirect_url',

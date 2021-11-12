@@ -15,6 +15,7 @@ import Contact from 'components/Contact';
 import GTM from 'helpers/gtm';
 import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
+import { encrypt } from 'helpers/encryption';
 
 // images
 import CloseIconSVG from 'assets/icons/close-white';
@@ -220,6 +221,8 @@ function Register({ locals, categories, countries }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
+      cryptoId: '',
+      anonymousId: '',
       Dropdown: 'Proprietário',
       SingleLine6: '', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
@@ -271,6 +274,9 @@ function Register({ locals, categories, countries }) {
       if (response.status) {
         setFieldValue('MultiLine', response.imgs.join(', '));
       }
+
+      setFieldValue('cryptoId', encrypt(values.Email));
+      setFieldValue('anonymousId', localStorage.anonymousId);
 
       setFieldValue(
         'zf_redirect_url',
