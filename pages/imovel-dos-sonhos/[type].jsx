@@ -310,8 +310,8 @@ function DreamBuildingSingle({ type }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
-      cryptoId: '',
-      anonymousId: '',
+      SingleLine16: '',
+      SingleLine17: '',
       Dropdown: 'Interessado',
       Dropdown1: 'VD-Residencial SP',
       Dropdown2: valueDropdown2,
@@ -355,8 +355,8 @@ function DreamBuildingSingle({ type }) {
         setFieldValue('SingleLine2', selectedLocations);
       }
 
-      setFieldValue('cryptoId', encrypt(values.Email));
-      setFieldValue('anonymousId', localStorage.anonymousId);
+      setFieldValue('SingleLine16', encrypt(values.Email));
+      setFieldValue('SingleLine17', localStorage.anonymousId);
 
       setFieldValue(
         'zf_redirect_url',
@@ -536,11 +536,11 @@ function DreamBuildingSingle({ type }) {
               name="utm_content"
               value={values.utm_content}
             />
-            <input type="hidden" name="cryptoId" value={values.cryptoId} />
+            <input type="hidden" name="SingleLine16" value={values.SingleLine16} />
             <input
               type="hidden"
-              name="anonymousId"
-              value={values.anonymousId}
+              name="SingleLine17"
+              value={values.SingleLine17}
             />
             <input type="hidden" name="Dropdown" value={values.Dropdown} />
             <input type="hidden" name="Dropdown1" value={values.Dropdown1} />

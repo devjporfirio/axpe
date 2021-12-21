@@ -71,8 +71,9 @@
     var $inputRedirectUrl = $form.querySelector(
       'input[data-element="redirectUrl"]'
     );
-    var $inputCryptoId = $form.querySelector('input[name="cryptoId"]');
-    var $inputAnonymousId = $form.querySelector('input[name="anonymousId"]');
+    var $inputSingleLine16 = $form.querySelector('input[name="SingleLine16"]');
+    var $inputSingleLine17 = $form.querySelector('input[name="SingleLine17"]');
+
 
     $form
       .querySelector('input[name="Email"]')
@@ -83,12 +84,12 @@
 
         $inputRedirectUrl.value = redirectUrl + '?email=' + value;
 
-        if ($inputCryptoId) {
-          $inputCryptoId.value = encrypt(value);
+        if ($inputSingleLine16) {
+          $inputSingleLine16.value = encrypt(value);
         }
 
-        if ($inputAnonymousId) {
-          $inputAnonymousId.value = localStorage.anonymousId;
+        if ($inputSingleLine17) {
+          $inputSingleLine17.value = localStorage.anonymousId;
         }
       });
   }

@@ -33,11 +33,11 @@ function RegisterSuccess() {
   useEffect(() => {
     if (modalRegisterSuccess) {
       const encriptedEmail = query.email ? encrypt(query.email) : '';
-      let anonymousId = '';
+      let SingleLine17 = '';
 
       if (localStorage) {
         localStorage.setItem('cryptoId', encriptedEmail);
-        anonymousId = localStorage.anonymousId;
+        SingleLine17 = localStorage.anonymousId;
       }
 
       GTM.dataLayerPush({
@@ -46,7 +46,7 @@ function RegisterSuccess() {
         formResult: 'Sucesso',
         formMessage: '',
         cryptoId: encriptedEmail,
-        anonymousId,
+        SingleLine17: SingleLine17
       });
     }
   }, [ modalRegisterSuccess ]);

@@ -84,6 +84,8 @@ const registrySchema = Yup.object().shape({
   SingleLine9: Yup.string(),
   SingleLine10: Yup.string(),
   images: Yup.array(),
+  SingleLine7: Yup.string(),
+  SingleLine8: Yup.string(),
   // terms: Yup.boolean()
   //   .oneOf([ true ])
   //   .required(),
@@ -221,8 +223,8 @@ function Register({ locals, categories, countries }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
-      cryptoId: '',
-      anonymousId: '',
+      SingleLine16: '',
+      SingleLine17: '',
       Dropdown: 'Proprietário',
       SingleLine6: '', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
@@ -261,6 +263,8 @@ function Register({ locals, categories, countries }) {
       finalityAluguel: false,
       images: [],
       terms: false,
+      SingleLine16: '',
+      SingleLine17: ''
     },
     validationSchema: registrySchema,
     onSubmit: async (values) => {
@@ -275,8 +279,8 @@ function Register({ locals, categories, countries }) {
         setFieldValue('MultiLine', response.imgs.join(', '));
       }
 
-      setFieldValue('cryptoId', encrypt(values.Email));
-      setFieldValue('anonymousId', localStorage.anonymousId);
+      setFieldValue('SingleLine16', encrypt(values.Email));
+      setFieldValue('SingleLine17', localStorage.anonymousId);
 
       setFieldValue(
         'zf_redirect_url',
@@ -435,12 +439,9 @@ function Register({ locals, categories, countries }) {
               name="utm_content"
               value={values.utm_content}
             />
-            <input type="hidden" name="cryptoId" value={values.cryptoId} />
-            <input
-              type="hidden"
-              name="anonymousId"
-              value={values.anonymousId}
-            />
+            <input type="hidden" name="SingleLine16" value={values.SingleLine16} />
+            <input type="hidden" name="SingleLine17" value={values.SingleLine17} />
+            
             <input type="hidden" name="Name_First" value={values.Name_First} />
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
             <input
