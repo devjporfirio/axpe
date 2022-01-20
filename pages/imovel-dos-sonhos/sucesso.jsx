@@ -17,11 +17,11 @@ function DreamBuildingSuccess() {
 
   useEffect(() => {
     const encriptedEmail = query.email ? encrypt(query.email) : '';
-    let SingleLine17 = '';
+    let anonymousId = '';
 
     if (localStorage) {
       localStorage.setItem('cryptoId', encriptedEmail);
-      SingleLine17 = localStorage.anonymousId;
+      anonymousId = localStorage.anonymousId;
     }
 
     GTM.dataLayerPush({
@@ -29,8 +29,8 @@ function DreamBuildingSuccess() {
       formType: 'Imóvel dos Sonhos',
       formResult: 'Sucesso',
       formMessage: '',
-      SingleLine16: encriptedEmail,
-      SingleLine17: SingleLine17
+      cryptoId: encriptedEmail,
+      anonymousId: anonymousId
     });
   }, []);
 

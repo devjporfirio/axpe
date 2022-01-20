@@ -61,7 +61,6 @@ function DreamBuildingSingle({ type }) {
     Number2: Yup.string().required(),
     Finality: Yup.string(),
     Currency: Yup.string().required(),
-    Currency_copy: Yup.string().required(),
     Dropdown4: Yup.string(),
     Dropdown5: Yup.string().required(),
     MultiLine1: Yup.string().required(),
@@ -69,6 +68,8 @@ function DreamBuildingSingle({ type }) {
     Radio1: Yup.string(),
     SingleLine2: Yup.string(),
     SingleLine3: Yup.string(),
+    SingleLine4: Yup.string(),
+    SingleLine5: Yup.string(),
     Dropdown3: Yup.string(),
     Name_First: Yup.string().required(),
     Name_Last: Yup.string().required(),
@@ -310,8 +311,8 @@ function DreamBuildingSingle({ type }) {
       utm_campaign: '',
       utm_term: '',
       utm_content: '',
-      SingleLine16: '',
-      SingleLine17: '',
+      // dinamic cryptoId: '',
+      // dinamic anonymousId: '',
       Dropdown: 'Interessado',
       Dropdown1: 'VD-Residencial SP',
       Dropdown2: valueDropdown2,
@@ -332,7 +333,6 @@ function DreamBuildingSingle({ type }) {
       Number1: '',
       Number2: '',
       Currency: '',
-      Currency_copy: '',
       Dropdown4: '',
       Dropdown5: '',
       MultiLine1: '',
@@ -340,23 +340,38 @@ function DreamBuildingSingle({ type }) {
       Radio1: '',
       SingleLine2: '',
       SingleLine3: '',
+      SingleLine4: '',
+      SingleLine5: '',
       Dropdown3: '',
     },
     validationSchema: formSchema,
     onSubmit: async (values) => {
-      if (
-        values.MultipleChoice &&
-        typeof values.MultipleChoice !== 'undefined'
-      ) {
-        const selectedLocations =
-          typeof values.MultipleChoice === 'string'
-            ? values.MultipleChoice
-            : values.MultipleChoice.join(', ');
-        setFieldValue('SingleLine2', selectedLocations);
+
+      if (type == 'praia-campo'){
+          values.SingleLine4 = encrypt(values.Email);
+          setFieldValue('SingleLine4', encrypt(values.Email));
+          values.SingleLine5 = localStorage.anonymousId;
+          setFieldValue('SingleLine5', localStorage.anonymousId);
+      } else {
+        values.SingleLine3 = encrypt(values.Email);
+        setFieldValue('SingleLine3', encrypt(values.Email));
+        values.SingleLine4 = localStorage.anonymousId;
+        setFieldValue('SingleLine4', localStorage.anonymousId);
       }
 
-      setFieldValue('SingleLine16', encrypt(values.Email));
-      setFieldValue('SingleLine17', localStorage.anonymousId);
+      if (type != 'praia-campo'){
+
+        if (
+          values.MultipleChoice &&
+          typeof values.MultipleChoice !== 'undefined'
+        ) {
+          const selectedLocations =
+            typeof values.MultipleChoice === 'string'
+              ? values.MultipleChoice
+              : values.MultipleChoice.join(', ');
+          setFieldValue('SingleLine2', selectedLocations);
+        }
+      }
 
       setFieldValue(
         'zf_redirect_url',
@@ -525,6 +540,9 @@ function DreamBuildingSingle({ type }) {
             <input type="hidden" name="zc_gad" value={values.zc_gad} />
             <input type="hidden" name="utm_source" value={values.utm_source} />
             <input type="hidden" name="utm_medium" value={values.utm_medium} />
+
+            <input type="hidden" name="utm_source" value={values.utm_source} />
+            <input type="hidden" name="utm_medium" value={values.utm_medium} />
             <input
               type="hidden"
               name="utm_campaign"
@@ -535,12 +553,6 @@ function DreamBuildingSingle({ type }) {
               type="hidden"
               name="utm_content"
               value={values.utm_content}
-            />
-            <input type="hidden" name="SingleLine16" value={values.SingleLine16} />
-            <input
-              type="hidden"
-              name="SingleLine17"
-              value={values.SingleLine17}
             />
             <input type="hidden" name="Dropdown" value={values.Dropdown} />
             <input type="hidden" name="Dropdown1" value={values.Dropdown1} />
@@ -557,6 +569,11 @@ function DreamBuildingSingle({ type }) {
             <input type="hidden" name="Email" value={values.Email} />
             <input type="hidden" name="Currency" value={values.Currency} />
             <input type="hidden" name="Radio1" value={values.Radio1} />
+
+            <input type="hidden" name="SingleLine3" value={values.SingleLine3} />
+            <input type="hidden" name="SingleLine4" value={values.SingleLine4} />
+            <input type="hidden" name="SingleLine5" value={values.SingleLine5} />
+
 
             {type !== 'praia-campo' && type !== 'internacional' && (
               <input
@@ -841,19 +858,19 @@ function DreamBuildingSingle({ type }) {
                 <FormGroup>
                   <FormElements
                     type="currency"
-                    name="Currency_copy"
+                    name="Currency"
                     label="Valor em R$"
                     placeholder="Valor em R$"
                     onChange={(event) => {
                       const currency = event.target.value;
-                      setFieldValue('Currency_copy', currency);
+                      setFieldValue('Currency', currency);
                       setFieldValue(
                         'Currency',
                         currency.replace('R$', '').replace(/[.]/g, '')
                       );
                     }}
-                    error={touched.Currency_copy && errors.Currency_copy}
-                    value={values.Currency_copy}
+                    error={touched.Currency && errors.Currency}
+                    value={values.Currency}
                     onBlur={handleBlur}
                     className="holos-form-field"
                     data-label="Qual o valor que você quer investir?"

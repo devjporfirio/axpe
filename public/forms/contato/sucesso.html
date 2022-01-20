@@ -57,7 +57,7 @@
   <script type="text/javascript">
     if(window.dataLayer) {
       var encriptedEmail = null;
-      var SingleLine17 = '';
+      var anonymousId = '';
       let params = new URLSearchParams(location.search);
       let email = params.get('email');
 
@@ -67,7 +67,7 @@
 
       if (localStorage) {
         localStorage.setItem('cryptoId', encriptedEmail);
-        SingleLine17 = localStorage.anonymousId;
+        anonymousId = localStorage.anonymousId;
       }
 
       dataLayer.push({
@@ -75,8 +75,8 @@
         formType: 'Institucional - Contato',
         formResult: 'Sucesso',
         formMessage: '',
-        SingleLine16: encriptedEmail,
-        SingleLine17: SingleLine17
+        cryptoId: encriptedEmail,
+        anonymousId: anonymousId
       }); 
     }
   </script>

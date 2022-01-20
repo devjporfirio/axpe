@@ -148,33 +148,7 @@ export const FormGroupAddress = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-
-    label {
-      &:nth-child(1) {
-        flex-basis: 80%;
-      }
-
-      &:nth-child(2) {
-        flex-basis: 18%;
-        margin-left: 2%;
-      }
-
-      &:nth-child(3) {
-        width: 31%;
-      }
-
-      &:nth-child(4) {
-        width: 30%;
-        margin-left: 2%;
-      }
-
-      &:nth-child(5),
-      &[for='SingleLine7'] {
-        width: 35%;
-        margin-left: 2%;
-      }
-    }
-
+    
     p {
       margin-top: -5px;
       margin-left: 65%;
