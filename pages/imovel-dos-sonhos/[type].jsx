@@ -210,25 +210,25 @@ function DreamBuildingSingle({ type }) {
 
   const optionsCountries = [
     { label: 'Selecione uma opção', value: '' },
-    { label: '&Aacute;frica do Sul', value: '&Aacute;frica do Sul' },
+    { label: '&Aacute;frica do Sul', value: 'África do Sul' },
     { label: 'Argentina', value: 'Argentina' },
-    { label: '&Aacute;ustria', value: '&Aacute;ustria' },
-    { label: 'Austr&aacute;lia', value: 'Austr&aacute;lia' },
+    { label: '&Aacute;ustria', value: 'Áustria' },
+    { label: 'Austr&aacute;lia', value: 'Austrália' },
     { label: 'Bahamas', value: 'Bahamas' },
     { label: 'Barbados', value: 'Barbados' },
     { label: 'Belize', value: 'Belize' },
     { label: 'Bermuda', value: 'Bermuda' },
-    { label: 'Canad&aacute;', value: 'Canad&aacute;' },
+    { label: 'Canad&aacute;', value: 'Canadá' },
     { label: 'Chile', value: 'Chile' },
     { label: 'Colombia', value: 'Colombia' },
     { label: 'Costa Rica', value: 'Costa Rica' },
-    { label: 'Emirados &Aacute;rabes', value: 'Emirados &Aacute;rabes' },
-    { label: 'Esc&oacute;cia', value: 'Esc&oacute;cia' },
+    { label: 'Emirados &Aacute;rabes', value: 'Emirados Árabes' },
+    { label: 'Esc&oacute;cia', value: 'Escócia' },
     { label: 'Espanha', value: 'Espanha' },
     { label: 'EUA', value: 'EUA' },
     { label: 'Fiji', value: 'Fiji' },
-    { label: 'Fran&ccedil;a', value: 'Fran&ccedil;a' },
-    { label: 'Gr&eacute;cia', value: 'Gr&eacute;cia' },
+    { label: 'Fran&ccedil;a', value: 'França' },
+    { label: 'Gr&eacute;cia', value: 'Grécia' },
     { label: 'Holanda', value: 'Holanda' },
     { label: 'Hong Kong', value: 'Hong Kong' },
     { label: 'Ilhas Cayman', value: 'Ilhas Cayman' },
@@ -236,23 +236,20 @@ function DreamBuildingSingle({ type }) {
     { label: 'Ilhas Virgens', value: 'Ilhas Virgens' },
     { label: 'Inglaterra', value: 'Inglaterra' },
     { label: 'Irlanda', value: 'Irlanda' },
-    { label: 'It&aacute;lia', value: 'It&aacute;lia' },
+    { label: 'It&aacute;lia', value: 'Itália' },
     { label: 'Maldivas', value: 'Maldivas' },
     { label: 'Marrocos', value: 'Marrocos' },
-    { label: 'M&eacute;xico', value: 'M&eacute;xico' },
-    { label: 'M&ocirc;naco', value: 'M&ocirc;naco' },
-    { label: 'Nova Zel&acirc;ndia', value: 'Nova Zel&acirc;ndia' },
-    { label: 'Panam&aacute;', value: 'Panam&aacute;' },
+    { label: 'M&eacute;xico', value: 'México' },
+    { label: 'M&ocirc;naco', value: 'Mônaco' },
+    { label: 'Nova Zel&acirc;ndia', value: 'Nova Zelândia' },
+    { label: 'Panam&aacute;', value: 'Panamá' },
     { label: 'Porto Rico', value: 'Porto Rico' },
     { label: 'Portugal', value: 'Portugal' },
-    {
-      label: 'Rep&uacute;blica Dominicana',
-      value: 'Rep&uacute;blica Dominicana',
-    },
+    { label: 'Rep&uacute;blica Dominicana', value: 'República Dominicana' },
     { label: 'Singapura', value: 'Singapura' },
-    { label: 'Su&eacute;cia', value: 'Su&eacute;cia' },
-    { label: 'Su&iacute;&ccedil;a', value: 'Su&iacute;&ccedil;a' },
-    { label: 'S&atilde;o Bartolomeu', value: 'S&atilde;o Bartolomeu' },
+    { label: 'Su&eacute;cia', value: 'Suécia' },
+    { label: 'Su&iacute;&ccedil;a', value: 'Suíça' },
+    { label: 'S&atilde;o Bartolomeu', value: 'São Bartolomeu' },
     { label: 'Uruguai', value: 'Uruguai' },
   ];
 
@@ -359,7 +356,7 @@ function DreamBuildingSingle({ type }) {
         setFieldValue('SingleLine4', localStorage.anonymousId);
       }
 
-      if (type != 'praia-campo'){
+      if (type != 'praia-campo' && type != 'internacional'){
 
         if (
           values.MultipleChoice &&
