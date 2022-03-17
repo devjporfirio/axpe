@@ -268,7 +268,7 @@ function Search({ total, totalPages, data, banner, locals }) {
           local: localsSelected.join(','),
         };
         await getBuildingsSuggestion(
-          `Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, mas em bairros vizinhos, tudo bem?`,
+          `Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, mas em localizações próximas, tudo bem?`,
           query2
         );
       }
