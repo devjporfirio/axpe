@@ -4,9 +4,6 @@ import SVG from 'react-inlinesvg';
 // helpers
 import { Link } from 'helpers/routes';
 
-// components
-import LGPDFooterOverlay from 'components/LGPDFooterOverlay';
-
 // assets
 import FacebookIconSVG from 'assets/icons/facebook';
 import InstagramIconSVG from 'assets/icons/instagram';
@@ -87,7 +84,6 @@ function Footer() {
           </FutureBrand>
         </Links>
       </Wrapper>
-      <LGPDFooterOverlay />
     </Container>
   );
 }
