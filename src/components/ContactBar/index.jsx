@@ -303,14 +303,23 @@ function ContactBar() {
       };
     }
   }, [ refIframe.current, iframeUrl, contactBarActive ]);
-
+  
+  var message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}.`;
+  
+  if(isBuilding) {
+    message = message.replace('{reference}', currentBuilding.reference);
+    message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? '-' + currentBuilding.infos.areaTotal : ''); 
+    message = message.replace('{areaUseful}', currentBuilding.infos.areaUsefulStart ? ', com ' +  currentBuilding.infos.areaUsefulStart + ' m²' : '');
+    message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt (currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
+    message = message.replace('{parking}', currentBuilding.infos.parking ? ', ' + currentBuilding.infos.parking + ( parseInt (currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
+  }
+  
   return (
     <>
-      <LinkFloat
-        href="https://wa.me/551130743600"
-        className="holos-contact-float flex large:hidden"
-        target="_blank"
-      >
+      <LinkFloat       
+        className="holos-contact-float moreinfo-btn--whatsapp flex large:hidden"      
+        href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
+        target="_blank">
         <SVG src={ChatIconSVG} />
         {isBuilding ? (
           <div>
@@ -320,8 +329,9 @@ function ContactBar() {
         ) : (
           <div>Fale com a gente</div>
         )}
-      </LinkFloat>
-
+      </LinkFloat>{/* Botão MObile */}
+      
+      {/* Botão Dekstop*/}
       <ButtonFloat
         className="holos-contact-float hidden large:flex"
         type="button"
