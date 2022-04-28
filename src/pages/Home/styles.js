@@ -44,6 +44,65 @@ export const Banner = styled.a`
 
 export const Hero = styled.div`
   margin-bottom: 10px;
+  
+  .slick-slider:before{
+    content: inherit;
+  }
+
+  .slick-prev{
+    right: inherit!important;
+    left: 20px!important;
+  }
+
+  @media (max-width: 991px){
+    .slick-prev{
+      left: -5px!important;
+    }
+
+    .slick-next{
+      right: -5px!important;
+    }
+  }
+
+  .slick-prev, .slick-next{
+    position: absolute;
+    top: 50%;    
+  }
+
+  .slick-next{
+    right: 20px!important;
+    left: inherit!important;
+  }
+
+  .slick-dots{
+    bottom: 44px;
+    width: auto;
+    padding: 0 100px;
+    display: flex!important;
+    align-items: center;
+  }
+
+  ul.slick-dots li button, ul.slick-dots li:last-child button:before{
+    color: #fff;
+    font-size: 15px;    
+    font-family: 'Inter', sans-serif;
+  }
+
+  ul.slick-dots li{
+    display: none;
+  }
+   
+  ul.slick-dots li.slick-active{
+    display: block;    
+  }
+
+  // ul.slick-dots li:last-child button:before{
+  //   content: '/';
+  //   position: absolute;
+  //   top: 0;
+  //   left: -15px;
+  //   opacity: 1;
+  // }
 
   .slick-slide.active {
     div[class*='HeroItemInfo'] {

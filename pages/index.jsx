@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState, useEffect } from 'react';
+import React, { Fragment, useCallback, useState, useEffect, Component } from 'react';//vini
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -49,7 +49,7 @@ function Home({ hero, components }) {
   const [ heroItems, setHeroItems ] = useState([]);
 
   const heroSettings = {
-    dots: false,
+    dots: true,
     infinite: true,
     fade: true,
     lazyLoad: true,
@@ -58,7 +58,12 @@ function Home({ hero, components }) {
     autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
+    customPaging: i => (
+      <button>
+        {i  + '/' + (i + 2)}           
+      </button>
+    ),
+  };  
 
   const renderComponents = useCallback((type, component) => {
     switch (type) {
