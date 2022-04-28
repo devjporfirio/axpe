@@ -76,37 +76,36 @@ export default function GalleryFull({
           onInit: () => { toggleVideo() }
         }}
       >
-        {items &&
-          items.length > 0 &&
-          items.map((item, itemIndex) => {
-            switch (item.tipo) {
-              case 'imagem':
-                return (
-                  <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
-                    {/* <img alt="Foto do Imóvel" src={item.src} /> */}
-                    <TransformWrapper pan={{ disabled: true }} options={{ maxScale: 4, padding: false, centerContent: true, limitToBounds: true }}>
-                      <TransformComponent>
-                        <img alt="Foto do Imóvel" src={item.src} />
-                      </TransformComponent>
-                    </TransformWrapper>
-                  </Slide>
-                );
-              case 'video':
-                return (
-                  <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
-                    <iframe
-                      title="video"
-                      src={`https://www.youtube.com/embed/${item.video}?iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1`}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </Slide>
-                );
-            }
-          })}
+      {items &&
+        items.length > 0 &&
+        items.map((item, itemIndex) => {
+          switch (item.tipo) {
+            case 'imagem':
+              return (
+                <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
+                  {/* <img alt="Foto do Imóvel" src={item.src} /> */}
+                  <TransformWrapper pan={{ disabled: true }} options={{ maxScale: 4, padding: false, centerContent: true, limitToBounds: true }}>
+                    <TransformComponent>
+                      <img alt="Foto do Imóvel" src={item.src} />
+                    </TransformComponent>
+                  </TransformWrapper>
+                </Slide>
+              );
+            case 'video':
+              return (
+                <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
+                  <iframe
+                    title="video"
+                    src={`https://www.youtube.com/embed/${item.video}?iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </Slide>
+              );
+          }
+      })}
       </Images>
-      }
     </Container>
   );
 }
