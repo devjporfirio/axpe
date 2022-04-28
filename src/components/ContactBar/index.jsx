@@ -303,21 +303,23 @@ function ContactBar() {
       };
     }
   }, [ refIframe.current, iframeUrl, contactBarActive ]);
+
+  const pageUrl = 'http://www.axpe.com.br'+router.asPath;
   
-  var message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}.`;
+  var message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
   
   if(isBuilding) {
     message = message.replace('{reference}', currentBuilding.reference);
-    message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? '-' + currentBuilding.infos.areaTotal : ''); 
+    message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? ', com ' + currentBuilding.infos.areaTotal +' m²': '');
     message = message.replace('{areaUseful}', currentBuilding.infos.areaUsefulStart ? ', com ' +  currentBuilding.infos.areaUsefulStart + ' m²' : '');
     message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt (currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
-    message = message.replace('{parking}', currentBuilding.infos.parking ? ', ' + currentBuilding.infos.parking + ( parseInt (currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
+    message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + ( parseInt (currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
   }
   
   return (
     <>
-      <LinkFloat       
-        className="holos-contact-float moreinfo-btn--whatsapp flex large:hidden"      
+      <LinkFloat
+        className="holos-contact-float moreinfo-btn--whatsapp flex large:hidden"
         href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
         target="_blank">
         <SVG src={ChatIconSVG} />

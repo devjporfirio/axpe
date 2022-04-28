@@ -54,16 +54,6 @@ export const Hero = styled.div`
     left: 20px!important;
   }
 
-  @media (max-width: 991px){
-    .slick-prev{
-      left: -5px!important;
-    }
-
-    .slick-next{
-      right: -5px!important;
-    }
-  }
-
   .slick-prev, .slick-next{
     position: absolute;
     top: 50%;    
@@ -100,6 +90,19 @@ export const Hero = styled.div`
    
   ul.slick-dots li.slick-active{
     display: block;    
+  }
+
+  @media (max-width: 991px){
+    .slick-prev{
+      left: -5px!important;
+    }
+
+    .slick-next{
+      right: -5px!important;
+    }
+    .slick-dots{
+      padding: 0 30px;
+    }
   }
 
   .slick-slide.active {
