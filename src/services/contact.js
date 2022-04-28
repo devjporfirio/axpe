@@ -4,7 +4,8 @@ export default {
       method: 'POST',
       body: JSON.stringify(values),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     }).then(response => response.json());
     return response;
@@ -17,7 +18,8 @@ export default {
         method: 'POST',
         body: JSON.stringify(values),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       }
     ).then(response => response.json());
