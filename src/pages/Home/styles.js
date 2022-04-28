@@ -80,12 +80,18 @@ export const Hero = styled.div`
     padding: 0 100px;
     display: flex!important;
     align-items: center;
+    pointer-events: none;
+    moz-pointer-events: none;
   }
 
-  ul.slick-dots li button, ul.slick-dots li:last-child button:before{
+  .slick-dots li{
+    width: auto;
+  }
+
+  .slick-dots li span{
     color: #fff;
-    font-size: 15px;    
-    font-family: 'Inter', sans-serif;
+    font-size: 14px;    
+    font-family: 'Bitter', sans-serif;
   }
 
   ul.slick-dots li{
@@ -95,14 +101,6 @@ export const Hero = styled.div`
   ul.slick-dots li.slick-active{
     display: block;    
   }
-
-  // ul.slick-dots li:last-child button:before{
-  //   content: '/';
-  //   position: absolute;
-  //   top: 0;
-  //   left: -15px;
-  //   opacity: 1;
-  // }
 
   .slick-slide.active {
     div[class*='HeroItemInfo'] {
