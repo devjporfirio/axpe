@@ -54,6 +54,21 @@ export const Hero = styled.div`
     left: 20px!important;
   }
 
+  .slick-arrow svg{
+    width: 35px;
+    height: 35px;
+  }
+
+  @media (max-width: 991px){
+    .slick-prev{
+      left: -5px!important;
+    }
+
+    .slick-next{
+      right: -5px!important;
+    }
+  }
+
   .slick-prev, .slick-next{
     position: absolute;
     top: 50%;    
