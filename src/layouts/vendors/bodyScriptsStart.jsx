@@ -6,12 +6,9 @@ function BodyScripts() {
       <noscript>
         <iframe title="google-tag-manager" src="https://www.googletagmanager.com/ns.html?id=GTM-NMFDRR" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
       </noscript>
-      <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="66b49a98-3c17-4811-bc8d-ca1d5f7f9c1d" ></script>
-      <script type="text/javascript">
-      function OptanonWrapper() { }
-      </script>
+      <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/fb20d1dbee876f8832b8baa6/script.js"></script>      
     </>
   )
 }
 
-export default BodyScripts
+export default BodyScripts 
