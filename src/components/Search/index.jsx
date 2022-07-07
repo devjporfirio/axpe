@@ -141,6 +141,8 @@ function Search() {
             } else {
               data[key] = values[key];
             }
+          } else if ((key === 'parking_start' || key === 'parking_end') && typeof values[key] !== 'undefined') {
+            data[key] = values[key].toString();
           } else if (key == 'price_end' && values['finality']) {
             if (
               (values['finality'] == 'venda' && values[key] >= 20000000) ||
@@ -620,7 +622,7 @@ function Search() {
                         (formik.values.area_start && formik.values.area_end) ||
                         (formik.values.bedroom_start &&
                           formik.values.bedroom_end) ||
-                        (formik.values.parking_start &&
+                        (typeof formik.values.parking_start !== 'undefined' &&
                           formik.values.parking_end)
                       }
                       onClick={() => setTabActive('filters')}
@@ -632,7 +634,7 @@ function Search() {
                       (formik.values.area_start && formik.values.area_end) ||
                       (formik.values.bedroom_start &&
                         formik.values.bedroom_end) ||
-                      (formik.values.parking_start &&
+                      (typeof formik.values.parking_start !== 'undefined' &&
                         formik.values.parking_end) ? (
                         <span>
                           {formik.values.price_start && formik.values.price_end
@@ -652,7 +654,7 @@ function Search() {
                             ? `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
                             : null}
 
-                          {formik.values.parking_start &&
+                          {typeof formik.values.parking_start !== 'undefined' &&
                           formik.values.parking_end
                             ? `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
                             : null}
@@ -954,7 +956,7 @@ function Search() {
                 {(formik.values.price_start && formik.values.price_end) ||
                 (formik.values.area_start && formik.values.area_end) ||
                 (formik.values.bedroom_start && formik.values.bedroom_end) ||
-                (formik.values.parking_start && formik.values.parking_end) ? (
+                (typeof formik.values.parking_start !== 'undefined' && formik.values.parking_end) ? (
                   <FormTabFooter>
                     <Button
                       type="button"
