@@ -62,6 +62,7 @@ function Building({ property }) {
     }
 
     GTM.dataLayerPush({
+      event: 'Realty Loaded',
       productId: property.reference,
       productValue: property.values.sell
         ? property.values.sell
