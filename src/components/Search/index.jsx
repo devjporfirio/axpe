@@ -141,7 +141,10 @@ function Search() {
             } else {
               data[key] = values[key];
             }
-          } else if ((key === 'parking_start' || key === 'parking_end') && typeof values[key] !== 'undefined') {
+          } else if (
+            (key === 'parking_start' || key === 'parking_end') &&
+            typeof values[key] !== 'undefined'
+          ) {
             data[key] = values[key].toString();
           } else if (key == 'price_end' && values['finality']) {
             if (
@@ -318,6 +321,20 @@ function Search() {
       // Avoids type list being shrunk when locations are updated
       if (filtersData && filtersData.types) {
         response.types = filtersData.types;
+      }
+
+      // set price start minimum to 10k
+      if (
+        formik.values.finality === 'aluguel' &&
+        response.prices &&
+        response.prices.length
+      ) {
+        response.prices[0] = 10000;
+      }
+
+      // set area end maximum to 2k
+      if (response.area && response.area.length) {
+        response.area[1] = 2000;
       }
 
       setFiltersListToggle(filtersListToggle);
@@ -956,7 +973,8 @@ function Search() {
                 {(formik.values.price_start && formik.values.price_end) ||
                 (formik.values.area_start && formik.values.area_end) ||
                 (formik.values.bedroom_start && formik.values.bedroom_end) ||
-                (typeof formik.values.parking_start !== 'undefined' && formik.values.parking_end) ? (
+                (typeof formik.values.parking_start !== 'undefined' &&
+                  formik.values.parking_end) ? (
                   <FormTabFooter>
                     <Button
                       type="button"
