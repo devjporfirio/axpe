@@ -58,21 +58,16 @@ function RangeSlider({
     end = end.replace('R$', '<span>R$</span>');
 
     if (type == 'area') {
-
       const startVal = parseInt(start);
-      const endVal = parseInt(end);
+      const endVal = 2000;
 
       if (startVal <= 50) {
         start = `< 50${suffix}`;
       } else {
-        start = `${prefix}${Math.ceil(startVal/5)*5}${suffix}`;
+        start = `${prefix}${Math.ceil(startVal / 5) * 5}${suffix}`;
       }
 
-      if (endVal >= 500) {
-        end = `500${suffix} >`;
-      } else {
-        end = `${prefix}${Math.ceil(endVal/5)*5}${suffix}`;
-      }
+      end = `${prefix}${Math.ceil(endVal / 5) * 5}${suffix}`;
     }
 
     setValues({
@@ -93,7 +88,7 @@ function RangeSlider({
       max: data[1],
     };
 
-    switch(type) {
+    switch (type) {
       case 'prices':
         if (finality === 'venda') {
           range = {
@@ -117,7 +112,7 @@ function RangeSlider({
       case 'area':
         range = {
           min: 50,
-          max: 500
+          max: 500,
         };
         break;
     }
@@ -148,11 +143,13 @@ function RangeSlider({
     renderSlider();
   }, [ data ]);
 
-  const innerTextHTML = (values) ? `${values.first} ${sep} ${values.last}` : null;
+  const innerTextHTML = values ? `${values.first} ${sep} ${values.last}` : null;
 
   return (
     <Container>
-      {values ? <Text dangerouslySetInnerHTML={{ __html: innerTextHTML }}></Text> : null}
+      {values ? (
+        <Text dangerouslySetInnerHTML={{ __html: innerTextHTML }}></Text>
+      ) : null}
       <Slider ref={ref}></Slider>
     </Container>
   );
