@@ -13,6 +13,10 @@ export const Container = styled.div`
   p {
     color: ${({ theme }) => theme.colors.greenDark};
 
+    a {
+      color: ${({ theme }) => theme.colors.greenDark};
+    }
+
     &:nth-child(1) {
       font: 18px/16px 'Bitter';
     }
