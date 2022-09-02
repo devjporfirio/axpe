@@ -37,8 +37,8 @@ function RangeSlider({
           end = formatCurrency.format(end);
         }
       } else {
-        if (start <= 5000) {
-          start = `< ${formatCurrency.format(5000)}`;
+        if (start <= 10000) {
+          start = `< ${formatCurrency.format(10000)}`;
         } else {
           start = formatCurrency.format(start);
         }
@@ -59,7 +59,7 @@ function RangeSlider({
 
     if (type == 'area') {
       const startVal = parseInt(start);
-      const endVal = 2000;
+      const endVal = parseInt(end);
 
       if (startVal <= 50) {
         start = `< 50${suffix}`;
@@ -67,7 +67,11 @@ function RangeSlider({
         start = `${prefix}${Math.ceil(startVal / 5) * 5}${suffix}`;
       }
 
-      end = `${prefix}${Math.ceil(endVal / 5) * 5}${suffix}`;
+      if (endVal >= 500) {
+        end = `500${suffix} >`;
+      } else {
+        end = `${prefix}${Math.ceil(endVal / 5) * 5}${suffix}`;
+      }
     }
 
     setValues({
@@ -101,10 +105,8 @@ function RangeSlider({
           };
         } else {
           range = {
-            min: [ 5000, 200 ],
-            '25%': [ 6000, 500 ],
-            '50%': [ 10000, 1000 ],
-            '75%': [ 20000, 5000 ],
+            min: [ 10000, 1000 ],
+            '50%': [ 20000, 5000 ],
             max: 30000,
           };
         }
