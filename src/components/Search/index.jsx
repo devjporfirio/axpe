@@ -135,7 +135,7 @@ function Search() {
           } else if (key == 'price_start' && values['finality']) {
             if (
               (values['finality'] == 'venda' && values[key] <= 800000) ||
-              (values['finality'] == 'aluguel' && values[key] <= 5000)
+              (values['finality'] == 'aluguel' && values[key] <= 10000)
             ) {
               data[key] = 0;
             } else {
@@ -151,6 +151,14 @@ function Search() {
               (values['finality'] == 'venda' && values[key] >= 20000000) ||
               (values['finality'] == 'aluguel' && values[key] >= 30000)
             ) {
+              data[key] = 999000000;
+            } else {
+              data[key] = values[key];
+            }
+          } else if (key === 'area_start' || key === 'area_end') {
+            if (key == 'area_start' && values[key] <= 50) {
+              data[key] = 0;
+            } else if (key == 'area_end' && values[key] >= 500) {
               data[key] = 999000000;
             } else {
               data[key] = values[key];

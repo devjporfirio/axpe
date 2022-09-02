@@ -37,8 +37,8 @@ function RangeSlider({
           end = formatCurrency.format(end);
         }
       } else {
-        if (start <= 5000) {
-          start = `< ${formatCurrency.format(5000)}`;
+        if (start <= 10000) {
+          start = `< ${formatCurrency.format(10000)}`;
         } else {
           start = formatCurrency.format(start);
         }
@@ -58,20 +58,19 @@ function RangeSlider({
     end = end.replace('R$', '<span>R$</span>');
 
     if (type == 'area') {
-
       const startVal = parseInt(start);
       const endVal = parseInt(end);
 
       if (startVal <= 50) {
         start = `< 50${suffix}`;
       } else {
-        start = `${prefix}${Math.ceil(startVal/5)*5}${suffix}`;
+        start = `${prefix}${Math.ceil(startVal / 5) * 5}${suffix}`;
       }
 
       if (endVal >= 500) {
         end = `500${suffix} >`;
       } else {
-        end = `${prefix}${Math.ceil(endVal/5)*5}${suffix}`;
+        end = `${prefix}${Math.ceil(endVal / 5) * 5}${suffix}`;
       }
     }
 
@@ -93,7 +92,7 @@ function RangeSlider({
       max: data[1],
     };
 
-    switch(type) {
+    switch (type) {
       case 'prices':
         if (finality === 'venda') {
           range = {
@@ -106,10 +105,10 @@ function RangeSlider({
           };
         } else {
           range = {
-            min: [ 5000, 200 ],
-            '25%': [ 6000, 500 ],
-            '50%': [ 10000, 1000 ],
-            '75%': [ 20000, 5000 ],
+            // min: [ 5000, 200 ],
+            // '25%': [ 6000, 500 ],
+            min: [ 10000, 1000 ],
+            '50%': [ 20000, 5000 ],
             max: 30000,
           };
         }
@@ -117,7 +116,7 @@ function RangeSlider({
       case 'area':
         range = {
           min: 50,
-          max: 500
+          max: 500,
         };
         break;
     }
@@ -148,11 +147,13 @@ function RangeSlider({
     renderSlider();
   }, [ data ]);
 
-  const innerTextHTML = (values) ? `${values.first} ${sep} ${values.last}` : null;
+  const innerTextHTML = values ? `${values.first} ${sep} ${values.last}` : null;
 
   return (
     <Container>
-      {values ? <Text dangerouslySetInnerHTML={{ __html: innerTextHTML }}></Text> : null}
+      {values ? (
+        <Text dangerouslySetInnerHTML={{ __html: innerTextHTML }}></Text>
+      ) : null}
       <Slider ref={ref}></Slider>
     </Container>
   );
