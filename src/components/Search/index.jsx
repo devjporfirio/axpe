@@ -340,6 +340,14 @@ function Search() {
         response.prices[0] = 10000;
       }
 
+      if (
+        formik.values.finality === 'venda' &&
+        response.prices &&
+        response.prices.length
+      ) {
+        response.prices[0] = 800000;
+      }
+
       // set area end maximum to 2k
       if (response.area && response.area.length) {
         response.area[1] = 2000;
