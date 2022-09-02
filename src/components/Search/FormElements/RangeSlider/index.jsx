@@ -67,8 +67,8 @@ function RangeSlider({
         start = `${prefix}${Math.ceil(startVal / 5) * 5}${suffix}`;
       }
 
-      if (endVal >= 500) {
-        end = `500${suffix} >`;
+      if (endVal >= 2000) {
+        end = `2000${suffix} >`;
       } else {
         end = `${prefix}${Math.ceil(endVal / 5) * 5}${suffix}`;
       }
@@ -114,7 +114,7 @@ function RangeSlider({
       case 'area':
         range = {
           min: 50,
-          max: 500,
+          max: 2000,
         };
         break;
     }
