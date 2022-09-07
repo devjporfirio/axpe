@@ -57,14 +57,14 @@ export const Sell = ({
       <p>
         {currency
           ? formatCurrency.format(sell).replace('R$', formatCurrencyToText(currency))
-          : formatCurrency.format(parseInt(rent + iptu + condo))}
+          : formatCurrency.format(parseInt(sell + iptu + condo))}
       </p>
       {iptu ? (
         <p>
           IPTU: 10x{' '}
           {currency
             ? formatCurrency.format(parseInt(iptu)).replace('R$', formatCurrencyToText(currency))
-            : formatCurrency.format(parseInt(rent + iptu + condo))}
+            : formatCurrency.format(parseInt(sell + iptu + condo))}
         </p>
       ) : null}
       {condo ? (
@@ -72,7 +72,7 @@ export const Sell = ({
           Condominio:{' '}
           {currency
             ? formatCurrency.format(parseInt(condo)).replace('R$', formatCurrencyToText(currency))
-            : formatCurrency.format(parseInt(rent + iptu + condo))}
+            : formatCurrency.format(parseInt(sell + iptu + condo))}
         </p>
       ) : null}
     </Price>
