@@ -68,7 +68,7 @@ function Building({ property }) {
         ? property.values.sell
         : property.values.rent,
       productType: property.type,
-      productLocation: property.address.local,
+      productLocation: property?.address?.local,
       productSeals: productSeals.join('|'),
       productNumberOfBedrooms: property.infos.bedrooms,
       productParkingSpace: property.infos.parking,
@@ -93,12 +93,12 @@ function Building({ property }) {
         <Headerbar
           type="building"
           title={data.category}
-          subtitle={data.address.local}
+          subtitle={data?.address.local}
           building={{
             reference: data.reference,
             source: data.source,
             likes: data.totalFavorites,
-            local: data.address.local,
+            local: data?.address.local,
             area: data.infos.areaBuilding,
             bedrooms: data.infos.bedrooms,
             parking: data.infos.parking,
@@ -108,7 +108,7 @@ function Building({ property }) {
         {data.gallery && (
           <Images
             category={data.category}
-            local={data.address.local}
+            local={data?.address.local}
             items={data.gallery}
             tour360={data.tour360}
             reference={data.reference}
