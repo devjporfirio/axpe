@@ -269,7 +269,7 @@ export const SearchBanner = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   max-width: calc(100vw - 32px);
   height: ${(props) =>
-      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
+    props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
   margin: ${(props) =>
     props.useBtSchedule ? 'auto auto 33px auto' : 'auto auto 20px auto'};
   overflow: hidden;
@@ -406,6 +406,18 @@ export const ImageContainer = styled.div`
     height: 100%;
     background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.8));
     z-index: 2;
+
+    ${(props) =>
+      props.hideOverlay &&
+      css`
+        display: none !important;
+      `}
+
+    ${(props) =>
+      props.mq === 'mobile' &&
+      media.greaterThan('medium')`
+      display: none !important;
+    `}
 
     ${media.greaterThan('medium')`
       background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.4));
