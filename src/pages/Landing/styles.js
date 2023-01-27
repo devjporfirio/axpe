@@ -59,7 +59,7 @@ export const Title = styled.h1`
   text-align: center;
   width: 235px;
   font: 24px/37px 'Bitter';
-  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
   color: ${({ theme }) => theme.colors.greenDark};
   margin: 0 auto 15px auto;
   padding-top: 24px;
@@ -167,7 +167,7 @@ export const Module = styled.div`
 export const TitleModule = styled.h2`
   padding: 0 30px 10px 30px;
   font: 22px/28px 'Bitter';
-  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
 
   strong {
     color: ${({ theme }) => theme.colors.orange};
@@ -179,7 +179,6 @@ export const TitleModule = styled.h2`
     margin-bottom: 15px;
     font-size: 41px;
     line-height: 40px;
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
   `}
 `;
 

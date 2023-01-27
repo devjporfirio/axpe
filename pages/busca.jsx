@@ -500,7 +500,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                               href={banner.button_link}
                               target={banner.button_target}
                             >
-                              <ImageContainer>
+                              <ImageContainer hideOverlay={true}>
                                 {banner.imageDesktop && (
                                   <Image
                                     mq="desktop"
@@ -562,7 +562,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         href={banner.button_link}
                         target={banner.button_target}
                       >
-                        <ImageContainer>
+                        <ImageContainer hideOverlay={true}>
                           {banner.imageDesktop && (
                             <Image mq="desktop" src={banner.imageDesktop} />
                           )}
