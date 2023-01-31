@@ -513,7 +513,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                               </ImageContainer>
                             </a>
                           ) : (
-                            <ImageContainer>
+                            <ImageContainer hideOverlay={!banner.title}>
                               {banner.imageDesktop && (
                                 <Image mq="desktop" src={banner.imageDesktop} />
                               )}
@@ -572,7 +572,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         </ImageContainer>
                       </a>
                     ) : (
-                      <ImageContainer>
+                      <ImageContainer hideOverlay={!banner.title}>
                         {banner.imageDesktop && (
                           <Image mq="desktop" src={banner.imageDesktop} />
                         )}
