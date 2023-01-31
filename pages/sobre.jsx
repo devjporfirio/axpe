@@ -290,33 +290,6 @@ function About() {
           </BlockCol>
         </Block>
 
-        <Block dataTemplate="4">
-          <BlockCol dataType="text">
-            <BlockTitle>
-              A Axpe é afiliada à <strong>Christie’s.</strong> O que você ganha
-              com isso?
-            </BlockTitle>
-            <Text>
-              <p>
-                A Christie’s International Real Estate é a única rede global de
-                imobiliárias que pertence integralmente a uma casa de leilões, a
-                Christie’s. Ao contrário de uma franquia, para integrar a rede,
-                as imobiliárias são selecionadas e convidadas com os mesmos
-                critérios que definem a atuação da casa de leilões: a
-                transparência, confiança, discrição e excelência.
-              </p>
-            </Text>
-          </BlockCol>
-          <BlockCol dataType="image">
-            <BlockImage>
-              <img
-                src="/static/about/06.jpg"
-                alt="A Axpe é afiliada à Christie’s. O que você ganha com isso?"
-              />
-            </BlockImage>
-          </BlockCol>
-        </Block>
-
         <Block dataTemplate="2_inverted">
           <BlockCol dataType="text">
             <BlockTitle>
