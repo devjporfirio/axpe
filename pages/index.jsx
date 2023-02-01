@@ -18,7 +18,6 @@ import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
 import SliderNew from 'components/SliderNew';
 import GalleryCarousel from 'components/GalleryCarousel';
-import Contact from 'components/Contact';
 import Tag from 'components/Tag';
 
 // styles
@@ -253,8 +252,6 @@ function Home({ hero, components }) {
               </Fragment>
             );
           })}
-
-        <Contact />
       </Container>
     </>
   );

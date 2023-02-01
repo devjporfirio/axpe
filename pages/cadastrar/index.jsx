@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { useFormik } from 'formik';
-import SVG from 'react-inlinesvg';
 import Api from 'services';
 import * as Yup from 'yup';
 import ScrollTo, { getElementScrollTop } from 'helpers/scrollTo';
@@ -17,9 +16,6 @@ import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
 import { encrypt } from 'helpers/encryption';
 
-// images
-import CloseIconSVG from 'assets/icons/close-white';
-
 // styles
 import { FormGroup } from 'components/FormElements/styles';
 
@@ -31,14 +27,14 @@ import {
   FormGroupFlex,
   FormGroupRow,
   FormRow,
-  FormGroupValues,
-  FormGroupValuesSub,
+  // FormGroupValues,
+  // FormGroupValuesSub,
   FormGroupAddress,
-  FormGroupPhotos,
-  Description,
-  GroupImages,
-  GroupImage,
-  Image,
+  // FormGroupPhotos,
+  // Description,
+  // GroupImages,
+  // GroupImage,
+  // Image,
   FormGroupFooter,
   ButtonSubmit,
 } from 'pages/Register/styles';
@@ -57,24 +53,24 @@ const registrySchema = Yup.object().shape({
     .email()
     .required(),
   SingleLine11: Yup.string(),
-  //SingleLine: Yup.string().required(),
-  //SingleLine2: Yup.string().required(),
-  //SingleLine3: Yup.string(),
+  // SingleLine: Yup.string().required(),
+  // SingleLine2: Yup.string().required(),
+  // SingleLine3: Yup.string(),
   SingleLine4: Yup.string(),
   SingleLine7: Yup.string(),
   SingleLine8: Yup.string(),
-  //Number2: Yup.string().required(),
+  // Number2: Yup.string().required(),
   Number: Yup.string(),
   Number1: Yup.string().required(),
-  //SingleLine12: Yup.string().required(),
-  //SingleLine13: Yup.string(),
-  //Currency: Yup.string(),
-  //Currency1: Yup.string(),
-  //Currency2: Yup.string(),
-  //Currency3: Yup.string(),
-  MultiLine: Yup.string(),
-  //MultiLine2: Yup.string().required(),
-  //MultiLine1: Yup.string().required(),
+  // SingleLine12: Yup.string().required(),
+  // SingleLine13: Yup.string(),
+  // Currency: Yup.string(),
+  // Currency1: Yup.string(),
+  // Currency2: Yup.string(),
+  // Currency3: Yup.string(),
+  // MultiLine: Yup.string(),
+  // MultiLine2: Yup.string().required(),
+  // MultiLine1: Yup.string().required(),
   finalityVender: Yup.string().required(),
   finalityAluguel: Yup.string().required(),
   SingleLine9: Yup.string(),
@@ -228,43 +224,37 @@ function Register({ locals, categories, countries }) {
       PhoneNumber_countrycode: '',
       Email: '',
       SingleLine11: '', // Tipo do Imóvel - Apartamento, Casa, Cobertura, Conjunto, etc
-      //removed SingleLine: '', // Endereço
-      //removed SingleLine2: '', // Número
-      //removed SingleLine3: '', // Complemento
+      // removed SingleLine: '', // Endereço
+      // removed SingleLine2: '', // Número
+      // removed SingleLine3: '', // Complemento
       SingleLine4: '', // Cidade
       SingleLine7: '', // Bairros
       SingleLine8: '', // País
-      //removed Number2: '', // Area util
+      // removed Number2: '', // Area util
       Number: '', // Quartos
       Number1: '', // Vagas
-      //removed SingleLine12: '', // Chaves ficam com quem?
-      //removed SingleLine13: '', // Imóvel vago? Sim ou Não
-      //removed Currency: '', // Valor de venda
-      //removed Currency1: '', // Valor de aluguel
-      //removed Currency2: '', // Valor de condominio
-      //removed Currency3: '', // Valor de iptu
-      MultiLine: '', // Fotos urls
-      //removed MultiLine2: '', // O que o imóvel tem de melhor?
-      //removed MultiLine1: '', // O que não é tão bacana
+      // removed SingleLine12: '', // Chaves ficam com quem?
+      // removed SingleLine13: '', // Imóvel vago? Sim ou Não
+      // removed Currency: '', // Valor de venda
+      // removed Currency1: '', // Valor de aluguel
+      // removed Currency2: '', // Valor de condominio
+      // removed Currency3: '', // Valor de iptu
+      // removed MultiLine: '', // Fotos urls
+      // removed MultiLine2: '', // O que o imóvel tem de melhor?
+      // removed MultiLine1: '', // O que não é tão bacana
       SingleLine9: '', // Praia
       SingleLine10: '', // Condominio
       finalityVender: false,
       finalityAluguel: false,
       images: [],
-      terms: false
+      terms: false,
     },
     validationSchema: registrySchema,
     onSubmit: async (values) => {
-      //values.Currency = values.Currency.replace('R$', '');
-      //values.Currency2 = values.Currency2.replace('R$', '');
+      // values.Currency = values.Currency.replace('R$', '');
+      // values.Currency2 = values.Currency2.replace('R$', '');
 
-      const response = await Api.Building.postRegisterProperty({
-        files: values.images,
-      });
-
-      if (response.status) {
-        setFieldValue('MultiLine', response.imgs.join(', '));
-      }
+      // await Api.Building.postRegisterProperty();
 
       const encriptedEmail = values.Email ? encrypt(values.Email) : '';
 
@@ -364,17 +354,6 @@ function Register({ locals, categories, countries }) {
     setCats(newCats);
   }, [ values ]);
 
-  const handleRemoveImage = useCallback(
-    (position) => {
-      const newList = [ ...values.images ];
-
-      newList.splice(position, 1);
-
-      setFieldValue('images', newList);
-    },
-    [ values ]
-  );
-
   const setFinality = useCallback((sell, rent) => {
     let result = '';
 
@@ -430,9 +409,19 @@ function Register({ locals, categories, countries }) {
               name="utm_content"
               value={values.utm_content}
             />
-            <input type="hidden" name="SingleLine16" value={values.SingleLine16} data-element="cryptoId" />
-            <input type="hidden" name="SingleLine17" value={values.SingleLine17} data-element="anonymousId" />
-            
+            <input
+              type="hidden"
+              name="SingleLine16"
+              value={values.SingleLine16}
+              data-element="cryptoId"
+            />
+            <input
+              type="hidden"
+              name="SingleLine17"
+              value={values.SingleLine17}
+              data-element="anonymousId"
+            />
+
             <input type="hidden" name="Name_First" value={values.Name_First} />
             <input type="hidden" name="Name_Last" value={values.Name_Last} />
             <input
@@ -449,7 +438,6 @@ function Register({ locals, categories, countries }) {
               value={values.SingleLine6}
             />
             <input type="checkbox" name="DecisionBox" checked={true} />
-            <input type="hidden" name="MultiLine" value={values.MultiLine} />
 
             <FormGroup>
               <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>
@@ -602,12 +590,11 @@ function Register({ locals, categories, countries }) {
             </FormRow>
 
             <FormGroup>
-              {values.SingleLine5 !== 'Campo' && (
-                <h2>Onde fica?</h2>
-              )}
-              {values.SingleLine5 === 'Campo' &&  values.SingleLine11 === 'Casa em Condomínio' &&(
-                <h2>Onde fica?</h2>
-              )}
+              {values.SingleLine5 !== 'Campo' && <h2>Onde fica?</h2>}
+              {values.SingleLine5 === 'Campo' &&
+                values.SingleLine11 === 'Casa em Condomínio' && (
+                  <h2>Onde fica?</h2>
+                )}
               <FormGroupAddress>
                 {values.SingleLine5 === 'Internacional' && (
                   <FormElements
@@ -679,14 +666,14 @@ function Register({ locals, categories, countries }) {
                     <FormElements
                       type="number"
                       name="Number"
-                      label="Dormitórios"
-                      placeholder="Dormitórios"
+                      label="Números de dormitórios"
+                      placeholder="Números de dormitórios"
                       onChange={handleChange}
                       error={touched.Number && errors.Number}
                       value={values.Number}
                       onBlur={handleBlur}
                       className="holos-form-field"
-                      data-label="Dormitórios"
+                      data-label="Números de dormitórios"
                       data-type="Cadastrar Imóvel"
                     />
                   </>
@@ -694,69 +681,17 @@ function Register({ locals, categories, countries }) {
                 <FormElements
                   type="number"
                   name="Number1"
-                  label="Vagas de garagem"
-                  placeholder="Vagas de garagem"
+                  label="Número de vagas de garagem"
+                  placeholder="Número de vagas de garagem"
                   onChange={handleChange}
                   error={touched.Number1 && errors.Number1}
                   value={values.Number1}
                   onBlur={handleBlur}
                   className="holos-form-field"
-                  data-label="Vagas de garagem"
+                  data-label="Número de vagas de garagem"
                   data-type="Cadastrar Imóvel"
                 />
               </FormGroupFlex>
-            </FormGroup>
-
-            <FormGroup>
-              <h2>FOTOS</h2>
-              <FormGroupPhotos>
-                <Description>
-                  Hora de enviar as fotos do seu imóvel. Pode ser do celular
-                  mesmo, é só para gente ter uma ideia e planejar a sessão com o
-                  fotógrafo.
-                  <small>
-                    Máximo de 15 fotos. Tamanho máximo por foto: 10 MB.
-                  </small>
-                </Description>
-
-                <FormElements
-                  type="file"
-                  multiple
-                  onChange={(e) => {
-                    const imagesArr = [
-                      ...values.images,
-                      ...e.target.files,
-                    ].slice(0, 15);
-
-                    setFieldValue('images', imagesArr);
-                    GTM.dataLayerPush({
-                      event: 'Custom Field Change',
-                      fieldLabel: 'Fotos',
-                      fieldForm: 'Cadastrar Imóvel',
-                      fieldValMin: '',
-                      fieldValMax: imagesArr.map((img) => img.name).join(', '),
-                    });
-                  }}
-                ></FormElements>
-              </FormGroupPhotos>
-              <GroupImages>
-                {values.images.length > 0 &&
-                  values.images.map((imgSrc, index) => {
-                    return (
-                      <GroupImage key={`groupimg-${index}`}>
-                        <SVG
-                          src={CloseIconSVG}
-                          uniquifyIDs={true}
-                          onClick={() => handleRemoveImage(index)}
-                        />
-                        <Image
-                          alt={imgSrc.name}
-                          src={URL.createObjectURL(imgSrc)}
-                        />
-                      </GroupImage>
-                    );
-                  })}
-              </GroupImages>
             </FormGroup>
 
             <FormGroup>
