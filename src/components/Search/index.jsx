@@ -184,6 +184,18 @@ function Search() {
     },
   });
 
+  const handleInputReferenceFocusIn = useCallback(() => {
+    if (!formik.values.reference || formik.values.reference === 'AX') {
+      formik.setFieldValue('reference', 'AX');
+    }
+  }, [ formik.values.reference ]);
+
+  const handleInputReferenceFocusOut = useCallback(() => {
+    if (formik.values.reference === 'AX') {
+      formik.setFieldValue('reference', '');
+    }
+  }, [ formik.values.reference ]);
+
   function closeSearch() {
     dispatch(setMain({ searchFormActive: false }));
   }
@@ -706,7 +718,11 @@ function Search() {
                     name="reference"
                     placeholder="buscar por referência"
                     onChange={formik.handleChange}
-                    onBlur={formik.handleChange}
+                    onBlur={(e) => {
+                      formik.handleChange(e);
+                      handleInputReferenceFocusOut();
+                    }}
+                    onFocus={handleInputReferenceFocusIn}
                     value={formik.values.reference}
                     className="holos-search-field"
                     data-label="buscar por referência"
@@ -718,9 +734,11 @@ function Search() {
                   disabled={
                     !formik.isSubmitting &&
                     !filtersData &&
-                    !formik.values.reference
+                    (!formik.values.reference ||
+                      formik.values.reference === 'AX')
                   }
                   className="holos-search-submit"
+                  data-label={formik.values.reference}
                 >
                   Buscar
                 </FormButtonSubmit>
@@ -729,7 +747,8 @@ function Search() {
                   disabled={
                     !formik.isSubmitting &&
                     !filtersData &&
-                    !formik.values.reference
+                    (!formik.values.reference ||
+                      formik.values.reference === 'AX')
                   }
                   onClick={resetForm}
                   className="holos-clear-filter"
