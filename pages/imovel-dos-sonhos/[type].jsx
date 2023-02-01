@@ -197,7 +197,7 @@ function DreamBuildingSingle({ type }) {
     },
     { label: 'Eventos da Axpe', value: 'Eventos&#x20;da&#x20;Axpe' },
     { label: 'Linkedin', value: 'Linkedin' },
-    { label: 'Christie\'s', value: 'Christie&#x27;s' },
+    // { label: 'Christie\'s', value: 'Christie&#x27;s' },
     { label: 'Viva Real', value: 'Viva&#x20;Real' },
     { label: 'Zap Im&oacute;veis', value: 'Zap&#x20;Im&oacute;veis' },
   ];
