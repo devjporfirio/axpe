@@ -16,36 +16,40 @@ export default {
     const result = await fetch(
       `${process.env.config.apiUrl}/building/${reference}`
     )
-      .then(response => response.json())
-      .then(data => data);
+      .then((response) => response.json())
+      .then((data) => data);
     return result;
   },
   async getGeocode(local, cep) {
-    if(!local || !cep) return null;
+    if (!local || !cep) return null;
 
     const googleApiKey = process.env.config.googleApiKey;
 
     let result = await fetch(
       `${baseMaps}/geocode/json?address=${local} ${cep}&key=${googleApiKey}`
     )
-      .then(response => response.json())
-      .then(data => data);
+      .then((response) => response.json())
+      .then((data) => data);
 
     if (result.results.length && result.results[0].geometry) {
       result = await fetch(
         `${baseMaps}/geocode/json?latlng=${result.results[0].geometry.location.lat},${result.results[0].geometry.location.lng}&key=${googleApiKey}`
       )
-        .then(response => response.json())
-        .then(data => data);
+        .then((response) => response.json())
+        .then((data) => data);
 
-      const addressRoute = result.results[0].address_components.find(x =>
+      const addressRoute = result.results[0].address_components.find((x) =>
         x.types.includes('route')
       );
-      const addressSub = result.results[0].address_components.find(x =>
-        x.types.includes('sublocality_level_1') || x.types.includes('locality')
+      const addressSub = result.results[0].address_components.find(
+        (x) =>
+          x.types.includes('sublocality_level_1') ||
+          x.types.includes('locality')
       );
-      const addressAdm = result.results[0].address_components.find(x =>
-        x.types.includes('administrative_area_level_1') || x.types.includes('administrative_area_level_2')
+      const addressAdm = result.results[0].address_components.find(
+        (x) =>
+          x.types.includes('administrative_area_level_1') ||
+          x.types.includes('administrative_area_level_2')
       );
 
       if (addressRoute && addressSub && addressAdm) {
@@ -54,8 +58,8 @@ export default {
         result = await fetch(
           `${baseMaps}/geocode/json?address=${address}&key=${googleApiKey}`
         )
-          .then(response => response.json())
-          .then(data => data);
+          .then((response) => response.json())
+          .then((data) => data);
       }
     }
 
@@ -65,7 +69,7 @@ export default {
     const googleApiKey = process.env.config.googleApiKey;
     const result = await fetch(
       `https://cors-anywhere.herokuapp.com/${baseMaps}/directions/json?origin=${southwest.lat},${southwest.lng}&destination=${northeast.lat},${northeast.lng}&key=${googleApiKey}`
-    ).then(response => response.json());
+    ).then((response) => response.json());
     return result && result.status === 'OK' ? result : [];
   },
   async getSimilar(property, limit) {
@@ -84,13 +88,13 @@ export default {
       bedroom_end: property.infos ? property.infos.bedroomsEnd : '',
       parking_start: property.infos ? property.infos.parkingStart : '',
       parking_end: property.infos ? property.infos.parkingEnd : '',
-      limit
+      limit,
     };
     const url = `${process.env.config.apiUrl}/buildings/find`;
 
     const result = await fetch(url + getParamsFromObject(params))
-      .then(response => response.json())
-      .then(data => data);
+      .then((response) => response.json())
+      .then((data) => data);
     return result;
   },
   async getFavoritesShare(hash) {
@@ -99,25 +103,22 @@ export default {
       {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       }
-    ).then(response => response.json());
+    ).then((response) => response.json());
     return response;
   },
-  async postRegisterProperty(data) {
+  async postRegisterProperty() {
     const formData = new FormData();
 
-    data.files.forEach((file, fileIndex) => {
-      formData.append(`file${fileIndex}`, file);
-    })
-
-    const result = await fetch(`${process.env.config.apiUrl}/form/register_your_building`, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
+    const result = await fetch(
+      `${process.env.config.apiUrl}/form/register_your_building`,
+      {
+        method: 'POST',
+        body: formData,
+      }
+    ).then((response) => response.json());
     return result;
-  }
-
+  },
 };
