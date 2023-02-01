@@ -2,11 +2,15 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const Container = styled.footer`
-  padding: 30px;
+  padding: 30px 30px 90px;
   border-top: 1px solid ${({ theme }) => theme.colors.grey};
   background: ${({ theme }) => theme.colors.white};
   font-size: 13px;
   text-align: center;
+
+  ${media.greaterThan('large')`
+    padding: 30px;
+  `}
 
   a {
     color: ${({ theme }) => theme.colors.greenDark};
