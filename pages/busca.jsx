@@ -19,7 +19,6 @@ import BuildingsPanel from 'components/BuildingsPanel';
 
 // helpers
 import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
-import { checkChristiesLogo } from 'helpers/checkChristiesLogo';
 import { getParamsFromObject } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 
@@ -355,12 +354,6 @@ function Search({ total, totalPages, data, banner, locals }) {
     }
   }, [ checkLoadMoreOnScroll ]);
 
-  useEffect(() => {
-    checkChristiesLogo(buildings, suggestions);
-
-    return () => checkChristiesLogo();
-  }, [ query, buildings, suggestions ]);
-
   return (
     <>
       <Head>
@@ -513,7 +506,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                               </ImageContainer>
                             </a>
                           ) : (
-                            <ImageContainer>
+                            <ImageContainer hideOverlay={!banner.title}>
                               {banner.imageDesktop && (
                                 <Image mq="desktop" src={banner.imageDesktop} />
                               )}
@@ -572,7 +565,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         </ImageContainer>
                       </a>
                     ) : (
-                      <ImageContainer>
+                      <ImageContainer hideOverlay={!banner.title}>
                         {banner.imageDesktop && (
                           <Image mq="desktop" src={banner.imageDesktop} />
                         )}

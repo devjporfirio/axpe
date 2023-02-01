@@ -24,7 +24,7 @@ import {
   Container,
   Wrapper,
   AxpeLogo,
-  ChristiesLogo,
+  Axpe20Years,
   LogoLink,
   ButtonSearch,
   ButtonToggle,
@@ -122,17 +122,17 @@ function Header() {
             </Link>
           </AxpeLogo>
 
-          <ChristiesLogo type="christies" className="christies-logo">
+          <Axpe20Years type="axpe20years" className="axpe-20-logo">
             <Link route="/sobre" passHref>
               <LogoLink
                 className="holos-logo"
-                data-label="Christies"
+                data-label="Axpe 20 anos"
                 onClick={cancelToggle}
               >
-                Christie's Real Estate São Paulo
+                Axpe 20 anos
               </LogoLink>
             </Link>
-          </ChristiesLogo>
+          </Axpe20Years>
 
           <ButtonSearch
             className="holos-menu-item"
