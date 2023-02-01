@@ -85,74 +85,74 @@ function Building({ property }) {
     };
   }, []);
 
-  return data && Object.keys(data).length ? (
-    <>
-      <Container>
-        <Headerbar
-          type="building"
-          title={data.category}
-          subtitle={data?.address.local}
-          building={{
-            reference: data.reference,
-            source: data.source,
-            likes: data.totalFavorites,
-            local: data?.address.local,
-            area: data.infos.areaBuilding,
-            bedrooms: data.infos.bedrooms,
-            parking: data.infos.parking,
-          }}
+  if (!data || Object.keys(data).length === 0) return null;
+
+  return (
+    <Container>
+      <Headerbar
+        type="building"
+        title={data.category}
+        subtitle={data?.address.local}
+        building={{
+          reference: data.reference,
+          source: data.source,
+          likes: data.totalFavorites,
+          local: data?.address.local,
+          area: data.infos.areaBuilding,
+          bedrooms: data.infos.bedrooms,
+          parking: data.infos.parking,
+        }}
+      />
+
+      {data.gallery && (
+        <Images
+          category={data.category}
+          local={data?.address.local}
+          items={data.gallery}
+          tour360={data.tour360}
+          reference={data.reference}
         />
+      )}
 
-        {data.gallery && (
-          <Images
-            category={data.category}
-            local={data?.address.local}
-            items={data.gallery}
-            tour360={data.tour360}
-            reference={data.reference}
-          />
-        )}
+      <DataSheet property={data} />
 
-        <DataSheet property={data} />
+      <Alert>
+        <p>
+          As informações acima, incluindo preço, áreas e valores, podem não ser
+          exatas e devem ser confirmadas com o corretor.
+        </p>
 
-        <Alert>
-          <p>
-            As informações acima, incluindo preço, áreas e valores, podem não
-            ser exatas e devem ser confirmadas com o corretor.
-          </p>
+        <p>
+          No caso de imóveis em lançamento, as imagens são meramente
+          ilustrativas e os valores estão sujeitos a alterações de tabelas.
+        </p>
+      </Alert>
 
-          <p>
-            No caso de imóveis em lançamento, as imagens são meramente
-            ilustrativas e os valores estão sujeitos a alterações de tabelas.
-          </p>
-        </Alert>
+      {Object.keys(data.components).length > 0 && <Modules property={data} />}
 
-        {Object.keys(data.components).length > 0 && <Modules property={data} />}
+      {similarBuildings && similarBuildings.length > 0 && (
+        <SimilarBuildings>
+          <SimilarBuildingsHeader>
+            <h2>Pessoas que viram este imóvel também viram:</h2>
+          </SimilarBuildingsHeader>
+          <SimilarBuildingsList>
+            {similarBuildings.map((building, buildingIndex) => (
+              <BuildingList
+                layout="horizontal"
+                item={building}
+                page="building"
+                positionIndex={buildingIndex + 1}
+                key={`building-searchitem-${building.reference}-${buildingIndex}`}
+              />
+            ))}
+          </SimilarBuildingsList>
+        </SimilarBuildings>
+      )}
 
-        {similarBuildings && similarBuildings.length > 0 && (
-          <SimilarBuildings>
-            <SimilarBuildingsHeader>
-              <h2>Pessoas que viram este imóvel também viram:</h2>
-            </SimilarBuildingsHeader>
-            <SimilarBuildingsList>
-              {similarBuildings.map((building, buildingIndex) => (
-                <BuildingList
-                  layout="horizontal"
-                  item={building}
-                  page="building"
-                  positionIndex={buildingIndex + 1}
-                  key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                />
-              ))}
-            </SimilarBuildingsList>
-          </SimilarBuildings>
-        )}
-
-        <BlockHighlighted type="notfound" />
-        <Contact />
-      </Container>
-    </>
-  ) : null;
+      <BlockHighlighted type="notfound" />
+      <Contact />
+    </Container>
+  );
 }
 
 Building.getInitialProps = async ({ query }) => {

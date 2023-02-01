@@ -141,8 +141,8 @@ export const Ref = styled.p`
   white-space: nowrap;
 
   ${media.greaterThan('medium')`
-    font-size: 12px;
-    line-height: 33px;
+    font-size: 16px;
+    line-height: 23.6px;
     letter-spacing: 0.34px;
     margin-left: 18px;
   `}
