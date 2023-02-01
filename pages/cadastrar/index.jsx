@@ -666,14 +666,14 @@ function Register({ locals, categories, countries }) {
                     <FormElements
                       type="number"
                       name="Number"
-                      label="Dormitórios"
-                      placeholder="Dormitórios"
+                      label="Números de dormitórios"
+                      placeholder="Números de dormitórios"
                       onChange={handleChange}
                       error={touched.Number && errors.Number}
                       value={values.Number}
                       onBlur={handleBlur}
                       className="holos-form-field"
-                      data-label="Dormitórios"
+                      data-label="Números de dormitórios"
                       data-type="Cadastrar Imóvel"
                     />
                   </>
@@ -681,14 +681,14 @@ function Register({ locals, categories, countries }) {
                 <FormElements
                   type="number"
                   name="Number1"
-                  label="Vagas de garagem"
-                  placeholder="Vagas de garagem"
+                  label="Número de vagas de garagem"
+                  placeholder="Número de vagas de garagem"
                   onChange={handleChange}
                   error={touched.Number1 && errors.Number1}
                   value={values.Number1}
                   onBlur={handleBlur}
                   className="holos-form-field"
-                  data-label="Vagas de garagem"
+                  data-label="Número de vagas de garagem"
                   data-type="Cadastrar Imóvel"
                 />
               </FormGroupFlex>
