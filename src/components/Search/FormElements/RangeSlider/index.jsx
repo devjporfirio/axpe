@@ -25,8 +25,8 @@ function RangeSlider({
 
     if (type == 'prices') {
       if (finality === 'venda') {
-        if (start <= 800000) {
-          start = `< ${formatCurrency.format(800000)}`;
+        if (start <= 2000000) {
+          start = `< ${formatCurrency.format(2000000)}`;
         } else {
           start = formatCurrency.format(start);
         }
@@ -96,11 +96,12 @@ function RangeSlider({
       case 'prices':
         if (finality === 'venda') {
           range = {
-            min: [ 800000, 200000 ],
-            '5%': [ 1000000, 200000 ],
-            '40%': [ 3000000, 500000 ],
-            '60%': [ 5000000, 1000000 ],
-            '80%': [ 10000000, 2000000 ],
+            min: 2000000,
+            // min: [ 800000, 200000 ],
+            // '5%': [ 1000000, 200000 ],
+            // '40%': [ 3000000, 500000 ],
+            // '60%': [ 5000000, 1000000 ],
+            // '80%': [ 10000000, 2000000 ],
             max: 20000000,
           };
         } else {
