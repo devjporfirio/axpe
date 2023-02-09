@@ -134,7 +134,7 @@ function Search() {
             data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
           } else if (key == 'price_start' && values['finality']) {
             if (
-              (values['finality'] == 'venda' && values[key] <= 800000) ||
+              (values['finality'] == 'venda' && values[key] <= 2000000) ||
               (values['finality'] == 'aluguel' && values[key] <= 10000)
             ) {
               data[key] = 0;
@@ -357,7 +357,7 @@ function Search() {
         response.prices &&
         response.prices.length
       ) {
-        response.prices[0] = 800000;
+        response.prices[0] = 2000000;
       }
 
       // set area end maximum to 2k
