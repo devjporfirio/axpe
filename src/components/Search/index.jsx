@@ -292,6 +292,41 @@ function Search() {
     resetValuesOnChange();
   }
 
+  const formatLocals = useCallback(
+    (locals) => {
+      if (formik.values.source.value !== 'internacional') {
+        return locals;
+      }
+
+      // order locals following this task
+      // https://app.clickup.com/t/864dy4q4z
+      // Portugal: Alentejo
+      // Portugal: Reg. Lisboa
+      // EUA: Miami
+      // EUA Orlando
+
+      // order alphabetically locals keys and show Portugal first
+      const orderedPTLocals = [];
+      const orderedLocals = Object.keys(locals)
+        .sort()
+        .map((key) => {
+          if (key.toLowerCase().includes('portugal')) {
+            orderedPTLocals.push(key);
+          }
+
+          return key;
+        })
+        .filter((key) => !key.toLowerCase().includes('portugal'))
+        .reverse();
+
+      return [ ...orderedPTLocals, ...orderedLocals ].reduce((acc, key) => {
+        acc[key] = locals[key];
+        return acc;
+      }, {});
+    },
+    [ formik.values.source ]
+  );
+
   useEffect(() => {
     if (!formik.values.finality && filtersData) {
       setFiltersData(null);
@@ -366,7 +401,10 @@ function Search() {
       }
 
       setFiltersListToggle(filtersListToggle);
-      setFiltersData(response);
+      setFiltersData({
+        ...response,
+        locals: formatLocals(response.locals),
+      });
     };
 
     if (formik.values.finality) {
@@ -824,7 +862,7 @@ function Search() {
                 <FormTabTitle>
                   {formik.values.source.value === 'sao-paulo'
                     ? 'Bairros'
-                    : 'Locais'}
+                    : 'Localização'}
                 </FormTabTitle>
                 <FormTabContent hasFooter={true}>
                   <ul>
