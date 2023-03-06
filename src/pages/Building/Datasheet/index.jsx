@@ -58,9 +58,9 @@ export default function Datasheet({ property }) {
           </GroupTags>
         </BlockOne>
 
-        {!!infos.internalDescription && (
+        {!!infos.titleSite && (
           <BlockTwo>
-            <Content>{infos.internalDescription}</Content>
+            <Content>{infos.titleSite}</Content>
           </BlockTwo>
         )}
 
