@@ -49,6 +49,7 @@ function HowWeLove({ reasons }) {
     const response = data.title
       .replace('<div class="building-lovely-items">', '')
       .replace('<div class="building-lovely-items-wrapper">', '')
+      .replace('<<article', '<article')
       .replace(/\n/g, '')
       .replace(/\r/g, '')
       .replace(/>\s+</g, '><')
