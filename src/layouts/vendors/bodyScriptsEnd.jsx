@@ -202,9 +202,13 @@ function BodyScripts() {
           };
         `}
       </Script>
-      {/* <script src="https://www.googleoptimize.com/optimize.js?id=OPT-KRWJ7DB"></script> */}
+      <script
+        type="text/javascript"
+        async
+        src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/89391abb-8927-4477-85f4-0f3b30e8185c-loader.js"
+      ></script>
     </>
-  )
+  );
 }
 
-export default BodyScripts
+export default BodyScripts;
