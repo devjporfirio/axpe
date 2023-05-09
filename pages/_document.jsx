@@ -82,21 +82,6 @@ export default class MyDocument extends Document {
             </>
           )}
 
-          {/*
-
-          <meta name='twitter:card' content='summary' />
-          <meta name='twitter:url' content='https://www.axpe.com.br' />
-          <meta name='twitter:title' content='Axpe' />
-          <meta name='twitter:description' content='Axpe Description' />
-          <meta name='twitter:image' content='https://www.axpe.com.br/favicon/android-chrome-192x192.png' />
-          <meta name='twitter:creator' content='@DavidWShadow' />
-          <meta property='og:type' content='website' />
-          <meta property='og:title' content='Axpe' />
-          <meta property='og:description' content='Axpe Description' />
-          <meta property='og:site_name' content='Axpe' />
-          <meta property='og:url' content='https://www.axpe.com.br' />
-          <meta property='og:image' content='https://www.axpe.com.br/favicon/apple-touch-icon.png' /> */}
-
           <HeaderStyles />
         </Head>
         <body>
