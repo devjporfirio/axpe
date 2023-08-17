@@ -164,6 +164,7 @@ Building.getInitialProps = async ({ query }) => {
   }
 
   const response = await Api.Building.getPage(reference);
+  const buildingCategory = response.building.category || '';
 
   const buildingLocationTitle = response.building.address
     ? response.building.address.local && response.building.address.state
@@ -204,12 +205,12 @@ Building.getInitialProps = async ({ query }) => {
     'Conjunto',
     'Galpão',
     'Prédio',
-  ].includes(response.building.category)
+  ].includes(buildingCategory)
     ? 'Venha conhecer este'
     : 'Venha conhecer esta';
 
-  const pageTitle = `${response.building.category} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
-  const pageDesc = `${pageDescPrefix} ${response.building.category.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
+  const pageTitle = `${buildingCategory} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
+  const pageDesc = `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
   const pageBanner = `${
     response.building.gallery ? response.building.gallery[0].src : ''
   }`;
