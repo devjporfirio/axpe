@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import Head from 'next/head';
 import GTM from 'helpers/gtm';
 import Api from 'services';
 
@@ -28,7 +29,7 @@ import {
   SimilarBuildingsList,
 } from 'pages/Building/styles';
 
-function Building({ property }) {
+function Building({ property, meta }) {
   const dispatch = useDispatch();
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
   const [ data, setData ] = useState([]);
@@ -88,70 +89,76 @@ function Building({ property }) {
   if (!data || Object.keys(data).length === 0) return null;
 
   return (
-    <Container>
-      <Headerbar
-        type="building"
-        title={data.category}
-        subtitle={data?.address.local}
-        building={{
-          reference: data.reference,
-          source: data.source,
-          likes: data.totalFavorites,
-          local: data?.address.local,
-          area: data.infos.areaBuilding,
-          bedrooms: data.infos.bedrooms,
-          parking: data.infos.parking,
-        }}
-      />
-
-      {data.gallery && (
-        <Images
-          category={data.category}
-          local={data?.address.local}
-          items={data.gallery}
-          tour360={data.tour360}
-          reference={data.reference}
+    <>
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
+      </Head>
+      <Container>
+        <Headerbar
+          type="building"
+          title={data.category}
+          subtitle={data?.address.local}
+          building={{
+            reference: data.reference,
+            source: data.source,
+            likes: data.totalFavorites,
+            local: data?.address.local,
+            area: data.infos.areaBuilding,
+            bedrooms: data.infos.bedrooms,
+            parking: data.infos.parking,
+          }}
         />
-      )}
 
-      <DataSheet property={data} />
+        {data.gallery && (
+          <Images
+            category={data.category}
+            local={data?.address.local}
+            items={data.gallery}
+            tour360={data.tour360}
+            reference={data.reference}
+          />
+        )}
 
-      <Alert>
-        <p>
-          As informações acima, incluindo preço, áreas e valores, podem não ser
-          exatas e devem ser confirmadas com o corretor.
-        </p>
+        <DataSheet property={data} />
 
-        <p>
-          No caso de imóveis em lançamento, as imagens são meramente
-          ilustrativas e os valores estão sujeitos a alterações de tabelas.
-        </p>
-      </Alert>
+        <Alert>
+          <p>
+            As informações acima, incluindo preço, áreas e valores, podem não
+            ser exatas e devem ser confirmadas com o corretor.
+          </p>
 
-      {Object.keys(data.components).length > 0 && <Modules property={data} />}
+          <p>
+            No caso de imóveis em lançamento, as imagens são meramente
+            ilustrativas e os valores estão sujeitos a alterações de tabelas.
+          </p>
+        </Alert>
 
-      {similarBuildings && similarBuildings.length > 0 && (
-        <SimilarBuildings>
-          <SimilarBuildingsHeader>
-            <h2>Pessoas que viram este imóvel também viram:</h2>
-          </SimilarBuildingsHeader>
-          <SimilarBuildingsList>
-            {similarBuildings.map((building, buildingIndex) => (
-              <BuildingList
-                layout="horizontal"
-                item={building}
-                page="building"
-                positionIndex={buildingIndex + 1}
-                key={`building-searchitem-${building.reference}-${buildingIndex}`}
-              />
-            ))}
-          </SimilarBuildingsList>
-        </SimilarBuildings>
-      )}
+        {Object.keys(data.components).length > 0 && <Modules property={data} />}
 
-      <BlockHighlighted type="notfound" />
-      <Contact />
-    </Container>
+        {similarBuildings && similarBuildings.length > 0 && (
+          <SimilarBuildings>
+            <SimilarBuildingsHeader>
+              <h2>Pessoas que viram este imóvel também viram:</h2>
+            </SimilarBuildingsHeader>
+            <SimilarBuildingsList>
+              {similarBuildings.map((building, buildingIndex) => (
+                <BuildingList
+                  layout="horizontal"
+                  item={building}
+                  page="building"
+                  positionIndex={buildingIndex + 1}
+                  key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                />
+              ))}
+            </SimilarBuildingsList>
+          </SimilarBuildings>
+        )}
+
+        <BlockHighlighted type="notfound" />
+        <Contact />
+      </Container>
+    </>
   );
 }
 
