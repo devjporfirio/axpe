@@ -106,7 +106,7 @@ export const Type = styled.p`
 export const GroupNeigRef = styled.div`
   ${media.greaterThan('medium')`
     display: flex;
-    align-items: center;
+    align-items: start;
     margin-top: -2px;
   `}
 `;
@@ -120,7 +120,7 @@ export const Neighborhood = styled.p`
     font-size: 16px;
     line-height: 33px;
     letter-spacing: 0.5px;
-    white-space: nowrap;
+    max-width: 50%;
   `}
 `;
 
@@ -145,6 +145,7 @@ export const Ref = styled.p`
     line-height: 23.6px;
     letter-spacing: 0.34px;
     margin-left: 18px;
+    padding-top: 4px;
   `}
 `;
 
@@ -157,8 +158,10 @@ export const GroupTags = styled.div`
   }
 `;
 
-export const Content = styled.p`
-  font-size: 18px;
+export const Content = styled.h1`
+  font-size: 16px;
+  line-height: 23.6px;
+  color: #fff;
 `;
 
 export const Price = styled.div`
@@ -196,7 +199,6 @@ export const Price = styled.div`
       font-size: 12px;
     }
   }
-
 `;
 
 export const PriceGroup = styled.div`
@@ -225,11 +227,11 @@ export const PriceRelease = styled.div`
 `;
 
 export const BuildingLabel = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 20px;
+  position: absolute;
+  top: 0px;
+  left: 20px;
 
-    ${media.greaterThan('medium')`
+  ${media.greaterThan('medium')`
       left: unset;
       right: 20px;
     `}

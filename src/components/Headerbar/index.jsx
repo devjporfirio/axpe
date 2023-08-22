@@ -107,9 +107,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
             <SVG src={ArrowIconSVG} /> Voltar
           </ButtonBack>
 
-          {title && <h2 dangerouslySetInnerHTML={{ __html: title }} />}
+          {title && <h3 dangerouslySetInnerHTML={{ __html: title }} />}
 
-          {subtitle && <h3 dangerouslySetInnerHTML={{ __html: subtitle }} />}
+          {subtitle && <h4 dangerouslySetInnerHTML={{ __html: subtitle }} />}
 
           {type === 'search' && (
             <Column>

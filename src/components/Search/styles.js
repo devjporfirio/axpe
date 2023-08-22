@@ -136,7 +136,7 @@ export const FormHeader = styled.header`
   `}
 `;
 
-export const FormHeaderTitle = styled.h2`
+export const FormHeaderTitle = styled.h6`
   max-width: 90%;
   margin-bottom: 20px;
   font: 22px 'Raleway';

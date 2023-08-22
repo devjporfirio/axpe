@@ -7,5 +7,7 @@ Disallow: /import_root
 Disallow: /import_log
 Disallow: /emails
 Disallow: /forms
+Disallow: /contato
+Disallow: /cadastrar
 
-Sitemap: /sitemap.xml
+Sitemap: https://www.axpe.com.br/sitemap.xml

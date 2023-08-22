@@ -23,6 +23,7 @@ import {
 export default function Datasheet({ property }) {
   const { type, infos, category, address, reference, label, values, source } = property;
   const { searchFunnel } = useSelector(state => state.main);
+  const hasTitle = infos.titleSite || infos.internalDescription;
 
   return (
     <>
@@ -58,9 +59,9 @@ export default function Datasheet({ property }) {
           </GroupTags>
         </BlockOne>
 
-        {!!infos.titleSite && (
+        {hasTitle && (
           <BlockTwo>
-            <Content>{infos.titleSite}</Content>
+            <Content>{infos.titleSite || infos.internalDescription}</Content>
           </BlockTwo>
         )}
 

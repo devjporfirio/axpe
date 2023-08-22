@@ -94,7 +94,7 @@ export const Wrapper = styled.div`
   `}
 `;
 
-export const AxpeLogo = styled.h1`
+export const AxpeLogo = styled.div`
   display: block;
   width: 78px;
   margin-right: 20px;
@@ -117,7 +117,7 @@ export const AxpeLogo = styled.h1`
   }
 `;
 
-export const ChristiesLogo = styled.h2`
+export const ChristiesLogo = styled.div`
   display: block;
   width: 108px;
 
@@ -132,7 +132,7 @@ export const ChristiesLogo = styled.h2`
   }
 `;
 
-export const Axpe20Years = styled.h2`
+export const Axpe20Years = styled.div`
   display: none;
   width: 108px;
 
