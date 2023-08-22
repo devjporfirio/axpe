@@ -157,8 +157,10 @@ export const GroupTags = styled.div`
   }
 `;
 
-export const Content = styled.p`
-  font-size: 18px;
+export const Content = styled.h1`
+  font-size: 16px;
+  line-height: 23.6px;
+  color: #fff;
 `;
 
 export const Price = styled.div`
@@ -196,7 +198,6 @@ export const Price = styled.div`
       font-size: 12px;
     }
   }
-
 `;
 
 export const PriceGroup = styled.div`
@@ -225,11 +226,11 @@ export const PriceRelease = styled.div`
 `;
 
 export const BuildingLabel = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 20px;
+  position: absolute;
+  top: 0px;
+  left: 20px;
 
-    ${media.greaterThan('medium')`
+  ${media.greaterThan('medium')`
       left: unset;
       right: 20px;
     `}

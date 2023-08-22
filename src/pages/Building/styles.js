@@ -52,7 +52,7 @@ export const SimilarBuildings = styled.div`
 export const SimilarBuildingsHeader = styled.header`
   margin-bottom: 20px;
 
-  h2 {
+  h3 {
     font: 22px/26px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
 

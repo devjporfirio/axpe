@@ -7,7 +7,7 @@ import Button from 'components/Button';
 export const Container = styled.div`
   min-height: 64px;
 
-  h2 {
+  h3 {
     font: 18px/28px 'Bitter';
     color: ${({ theme }) => theme.colors.orange};
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
@@ -17,13 +17,13 @@ export const Container = styled.div`
     }
   }
 
-  h3 {
+  h4 {
     font: 14px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.regular};
   }
 
   ${media.greaterThan('large')`
-    h3 {
+    h4 {
       margin-left: 30px;
     }
   `}
@@ -37,11 +37,11 @@ export const Container = styled.div`
 `;
 
 export const ContainerBuildingPage = css`
-  h2 {
+  h3 {
     color: ${({ theme }) => theme.colors.green};
   }
 
-  h3 {
+  h4 {
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.orange};
     font-weight: ${({ theme }) => theme.fontsWeight.bold};

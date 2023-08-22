@@ -139,7 +139,7 @@ function Building({ property, meta }) {
         {similarBuildings && similarBuildings.length > 0 && (
           <SimilarBuildings>
             <SimilarBuildingsHeader>
-              <h2>Pessoas que viram este imóvel também viram:</h2>
+              <h3>Pessoas que viram este imóvel também viram:</h3>
             </SimilarBuildingsHeader>
             <SimilarBuildingsList>
               {similarBuildings.map((building, buildingIndex) => (
