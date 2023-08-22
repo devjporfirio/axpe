@@ -106,7 +106,7 @@ export const Type = styled.p`
 export const GroupNeigRef = styled.div`
   ${media.greaterThan('medium')`
     display: flex;
-    align-items: center;
+    align-items: start;
     margin-top: -2px;
   `}
 `;
@@ -120,7 +120,7 @@ export const Neighborhood = styled.p`
     font-size: 16px;
     line-height: 33px;
     letter-spacing: 0.5px;
-    white-space: nowrap;
+    max-width: 50%;
   `}
 `;
 
@@ -145,6 +145,7 @@ export const Ref = styled.p`
     line-height: 23.6px;
     letter-spacing: 0.34px;
     margin-left: 18px;
+    padding-top: 4px;
   `}
 `;
 
