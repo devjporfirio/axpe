@@ -88,9 +88,6 @@ function Building({ property, meta }) {
 
   if (!data || Object.keys(data).length === 0) return null;
 
-  // eslint-disable-next-line no-console
-  console.log(data)
-
   return (
     <>
       <Head>
