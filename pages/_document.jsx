@@ -105,36 +105,40 @@ export default class MyDocument extends Document {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              '@context': 'http://schema.org',
-              '@type': 'WebSite',
-              name: 'AXPE',
-              url: 'https://www.axpe.com.br/',
+              __html: {
+                '@context': 'http://schema.org',
+                '@type': 'WebSite',
+                name: 'AXPE',
+                url: 'https://www.axpe.com.br/',
+              },
             }}
           />
 
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              '@context': 'http://schema.org',
-              '@type': 'LocalBusiness',
-              name: 'AXPE',
-              image: 'https://www.axpe.com.br/logo.png',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress:
-                  'Av. Nove de Julho, 5017 - 10 andar - Jardim Paulista',
-                addressLocality: 'São Paulo',
-                addressRegion: 'SP',
-                postalCode: '01407-200',
-                addressCountry: 'BR',
+              __html: {
+                '@context': 'http://schema.org',
+                '@type': 'LocalBusiness',
+                name: 'AXPE',
+                image: 'https://www.axpe.com.br/logo.png',
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress:
+                    'Av. Nove de Julho, 5017 - 10 andar - Jardim Paulista',
+                  addressLocality: 'São Paulo',
+                  addressRegion: 'SP',
+                  postalCode: '01407-200',
+                  addressCountry: 'BR',
+                },
+                telephone: '+55 11 3074-3600',
+                url: 'https://www.axpe.com.br/',
+                sameAs: [
+                  'https://www.facebook.com/axpe.imoveis',
+                  'https://www.linkedin.com/company/axpe-imoveis',
+                  'https://www.instagram.com/axpe_imoveis/',
+                ],
               },
-              telephone: '+55 11 3074-3600',
-              url: 'https://www.axpe.com.br/',
-              sameAs: [
-                'https://www.facebook.com/axpe.imoveis',
-                'https://www.linkedin.com/company/axpe-imoveis',
-                'https://www.instagram.com/axpe_imoveis/',
-              ],
             }}
           />
 
