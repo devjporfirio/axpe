@@ -105,19 +105,19 @@ export default class MyDocument extends Document {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: {
+              __html: JSON.stringify({
                 '@context': 'http://schema.org',
                 '@type': 'WebSite',
                 name: 'AXPE',
                 url: 'https://www.axpe.com.br/',
-              },
+              }),
             }}
           />
 
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: {
+              __html: JSON.stringify({
                 '@context': 'http://schema.org',
                 '@type': 'LocalBusiness',
                 name: 'AXPE',
@@ -138,7 +138,7 @@ export default class MyDocument extends Document {
                   'https://www.linkedin.com/company/axpe-imoveis',
                   'https://www.instagram.com/axpe_imoveis/',
                 ],
-              },
+              }),
             }}
           />
 
