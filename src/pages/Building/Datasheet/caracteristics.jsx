@@ -1,6 +1,17 @@
 import React from 'react';
-import { formatCurrency, formatCurrencyToText, checkPluralSingular } from 'helpers/utils';
-import { Price, InfoValue, PriceRelease, BuildingLabel, GroupTags } from './styles';
+import {
+  formatCurrency,
+  formatCurrencyToText,
+  checkPluralSingular,
+} from 'helpers/utils';
+import {
+  Price,
+  InfoValue,
+  PriceRelease,
+  BuildingLabel,
+  GroupTags,
+  NamesAndPrices,
+} from './styles';
 import Tag from 'components/Tag';
 
 export const Release = ({ release, type, currency }) =>
@@ -9,7 +20,9 @@ export const Release = ({ release, type, currency }) =>
       <p>
         {type === 'pronto' ? 'Venda' : 'A partir de'}{' '}
         {currency
-          ? formatCurrency.format(release).replace('R$', formatCurrencyToText(currency))
+          ? formatCurrency
+              .format(release)
+              .replace('R$', formatCurrencyToText(currency))
           : formatCurrency.format(release)}
       </p>
     </PriceRelease>
@@ -26,7 +39,7 @@ export const Rent = ({ valueOnlyConsults, rent, iptu, condo, currency }) =>
     <Price>
       <p>Aluguel:</p>
       <p>{formatCurrency.format(rent)}</p>
-      <p>
+      {/* <p>
         Total locação:{' '}
         {currency
           ? formatCurrency
@@ -34,7 +47,41 @@ export const Rent = ({ valueOnlyConsults, rent, iptu, condo, currency }) =>
               .replace('R$', formatCurrencyToText(currency))
           : formatCurrency.format(parseInt(rent + iptu + condo))}
       </p>
-      <p>(Aluguel + IPTU + Cond.)</p>
+      <p>(Aluguel + IPTU + Cond.)</p> */}
+      <NamesAndPrices>
+        {condo ? (
+          <>
+            <dt>Condominio</dt>
+            <dd>
+              {currency
+                ? formatCurrency
+                    .format(parseInt(condo))
+                    .replace('R$', formatCurrencyToText(currency))
+                : formatCurrency.format(parseInt(condo))}
+            </dd>
+          </>
+        ) : null}
+        {iptu ? (
+          <>
+            <dt>IPTU</dt>
+            <dd>
+              {currency
+                ? formatCurrency
+                    .format(parseInt(iptu))
+                    .replace('R$', formatCurrencyToText(currency))
+                : formatCurrency.format(parseInt(iptu))}
+            </dd>
+          </>
+        ) : null}
+        <dt>Total</dt>
+        <dd>
+          {currency
+            ? formatCurrency
+                .format(parseInt(rent + iptu + condo))
+                .replace('R$', formatCurrencyToText(currency))
+            : formatCurrency.format(parseInt(rent + iptu + condo))}
+        </dd>
+      </NamesAndPrices>
     </Price>
   ) : (
     <Price className="price-wfull">
@@ -56,14 +103,18 @@ export const Sell = ({
       <p>{type === 'pronto' ? 'Venda' : 'A partir de'} </p>
       <p>
         {currency
-          ? formatCurrency.format(sell).replace('R$', formatCurrencyToText(currency))
+          ? formatCurrency
+              .format(sell)
+              .replace('R$', formatCurrencyToText(currency))
           : formatCurrency.format(parseInt(sell + iptu + condo))}
       </p>
       {iptu ? (
         <p>
           IPTU: 10x{' '}
           {currency
-            ? formatCurrency.format(parseInt(iptu)).replace('R$', formatCurrencyToText(currency))
+            ? formatCurrency
+                .format(parseInt(iptu))
+                .replace('R$', formatCurrencyToText(currency))
             : formatCurrency.format(parseInt(sell + iptu + condo))}
         </p>
       ) : null}
@@ -71,7 +122,9 @@ export const Sell = ({
         <p>
           Condominio:{' '}
           {currency
-            ? formatCurrency.format(parseInt(condo)).replace('R$', formatCurrencyToText(currency))
+            ? formatCurrency
+                .format(parseInt(condo))
+                .replace('R$', formatCurrencyToText(currency))
             : formatCurrency.format(parseInt(sell + iptu + condo))}
         </p>
       ) : null}
@@ -180,7 +233,11 @@ export const AreaUseFul = ({ category, type, areaUseful, areaUsefulStart }) =>
           {formatCurrency.format(parseInt(areaUsefulStart)).replace('R$', '')}m²
         </p>
       ) : null}
-      <p>{category && category.search('Casa') >= 0 ? `Área construída` : `Área útil`}</p>
+      <p>
+        {category && category.search('Casa') >= 0
+          ? `Área construída`
+          : `Área útil`}
+      </p>
     </InfoValue>
   ) : null;
 

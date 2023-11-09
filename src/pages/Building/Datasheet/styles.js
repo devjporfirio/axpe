@@ -168,10 +168,8 @@ export const Price = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 82px;
 
   &.price-wfull {
-    height: 52px;
     margin-top: 20px;
   }
 
@@ -191,7 +189,12 @@ export const Price = styled.div`
     }
 
     &:nth-child(3) {
-      margin-top: 6px;
+      margin-top: 8px;
+
+      ${media.greaterThan('medium')`
+        margin-top: 12px;
+        margin-bottom: 4px;
+      `}
     }
 
     &:nth-child(3),
@@ -205,6 +208,7 @@ export const PriceGroup = styled.div`
   width: 100%;
   flex-basis: 100% !important;
   display: flex;
+  align-items: baseline;
 `;
 
 export const PriceRelease = styled.div`
@@ -293,3 +297,23 @@ export const Delivery = styled.div`
     }
   `}
 `;
+
+export const NamesAndPrices = styled.div`
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    width: 100%;
+    font-size: 12px;
+    color: ${({ theme }) => theme.colors.white};
+
+    dt,
+    dd {
+      width: 50%;
+      margin-bottom: 8px;
+    }
+
+    dd {
+      text-align: right;
+    }
+`
