@@ -195,7 +195,7 @@ function Header() {
             <Whatsapp>
               <WhatsappButton
                 className="holos-menu-item"
-                href="https://wa.me/551130743600"
+                href="https://wa.me/5511974478093"
                 target="_blank"
               >
                 <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
@@ -257,8 +257,8 @@ function Header() {
 
             <Contact>
               Fale com a gente{' '}
-              <a href="tel:+551130743600" className="holos-menu-item">
-                (11) 3074-3600
+              <a href="tel:+5511974478093" className="holos-menu-item">
+                (11) 97447-8093
               </a>
             </Contact>
 
