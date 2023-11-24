@@ -6,13 +6,13 @@ import WhatsappIconSVG from 'assets/icons/whats-white';
 import { Container } from './styles';
 
 const LINKS = {
-  tel: 'tel:+5511974478093',
-  whats: 'https://wa.me/5511974478093'
+  tel: 'tel:+551130743600',
+  whats: 'https://wa.me/551130743600'
 };
 
 const NUMBERS = {
-  tel: '(11) 97447-8093',
-  whats: '(11) 97447-8093'
+  tel: '(11) 3074-3600',
+  whats: '(11) 3074-3600'
 };
 
 const ICONS = {

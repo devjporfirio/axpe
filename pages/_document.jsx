@@ -131,7 +131,7 @@ export default class MyDocument extends Document {
                   postalCode: '01407-200',
                   addressCountry: 'BR',
                 },
-                telephone: '+55 11 97447-8093',
+                telephone: '+55 11 3074-3600',
                 url: 'https://www.axpe.com.br/',
                 sameAs: [
                   'https://www.facebook.com/axpe.imoveis',

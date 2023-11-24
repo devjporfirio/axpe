@@ -306,21 +306,21 @@ function ContactBar() {
 
   const pageUrl = 'http://www.axpe.com.br'+router.asPath;
   
-  let message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
+  var message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
   
   if(isBuilding) {
     message = message.replace('{reference}', currentBuilding.reference);
     message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? ', com ' + currentBuilding.infos.areaTotal +' m²': '');
     message = message.replace('{areaUseful}', currentBuilding.infos.areaUsefulStart ? ', com ' +  currentBuilding.infos.areaUsefulStart + ' m²' : '');
-    message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt(currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
-    message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + ( parseInt(currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
+    message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt (currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
+    message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + ( parseInt (currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
   }
   
   return (
     <>
       <LinkFloat
         className="holos-contact-float moreinfo-btn--whatsapp flex large:hidden"
-        href={!isBuilding ? `https://wa.me/5511974478093` : `https://wa.me/5511974478093?text=${message}`}
+        href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
         target="_blank">
         <SVG src={ChatIconSVG} />
         {isBuilding ? (
@@ -387,7 +387,7 @@ function ContactBar() {
                   <List>
                     <li>
                       <ListLink
-                        href="https://wa.me/5511974478093"
+                        href="https://wa.me/551130743600"
                         target="_blank"
                         className="holos-contact-float-item"
                         data-label="Whatsapp"
@@ -398,13 +398,13 @@ function ContactBar() {
                         <span>
                           Whatsapp:
                           <br />
-                          <strong>(11) 97447-8093</strong>
+                          <strong>(11) 3074-3600</strong>
                         </span>
                       </ListLink>
                     </li>
                     <li>
                       <ListLink
-                        href="tel:+5511974478093"
+                        href="tel:+551130743600"
                         target="_blank"
                         className="holos-contact-float-item"
                         data-label="Telefone"
@@ -415,7 +415,7 @@ function ContactBar() {
                         <span>
                           Telefone:
                           <br />
-                          <strong>(11) 97447-8093</strong>
+                          <strong>(11) 3074-3600</strong>
                         </span>
                       </ListLink>
                     </li>

@@ -137,7 +137,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />
               </ButtonIcon>
               <Text>Ref {building.reference}</Text>
-              <PhoneContact href="tel:+5511974478093">11 97447-8093</PhoneContact>
+              <PhoneContact href="tel:+551130743600">11 3074-3600</PhoneContact>
             </Column>
           )}
         </Wrapper>
