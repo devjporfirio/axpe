@@ -236,7 +236,7 @@ export const AreaUseFul = ({ category, type, areaUseful, areaUsefulStart }) =>
       <p>
         {category && category.search('Casa') >= 0
           ? `Área construída`
-          : `Área útil`}
+          : `Área`}
       </p>
     </InfoValue>
   ) : null;
@@ -248,7 +248,7 @@ export const AreaUseFulBetween = ({ start, end }) =>
         {formatCurrency.format(parseInt(start)).replace('R$', '')} a{' '}
         {formatCurrency.format(parseInt(end)).replace('R$', '')} m²
       </p>
-      <p>Área útil</p>
+      <p>Área</p>
     </InfoValue>
   ) : (
     <AreaUseFul areaUseful={start} />
