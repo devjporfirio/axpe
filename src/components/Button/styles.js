@@ -11,7 +11,6 @@ export const ButtonStyle = css`
   background-color: ${(props) =>
     !props.color ? props.theme.colors.orange : props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
-  text-transform: uppercase;
   padding: 0 25px;
   transition: all 300ms ease;
 

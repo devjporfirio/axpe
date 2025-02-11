@@ -62,8 +62,6 @@ export const Container = styled.header`
   ${css`
     @media (min-width: 768px) and (max-height: 580px) {
       display: block;
-      /* overflow: hidden;
-      overflow-y: auto; */
     }
   `}
 `;
@@ -85,6 +83,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: flex-start;
     height: auto;
+    padding: 10vh 30px 0;
   `}
 
   ${css`
@@ -101,7 +100,7 @@ export const AxpeLogo = styled.div`
 
   ${media.greaterThan('large')`
     width: 110px;
-    margin: 0 auto 20px auto;
+    margin: 0 0 40px 0;
   `}
 
   a {
@@ -163,10 +162,10 @@ export const ButtonSearch = styled.button`
   display: block;
   width: 19px;
   height: 23px;
+  margin: 0 0 0 auto;
   margin-left: auto;
   font-size: 0;
   background: url(${SearchIconSVG}) no-repeat;
-  background-size: contain;
 
   ${media.greaterThan('large')`
     display: none;
@@ -178,7 +177,7 @@ export const ButtonToggle = styled.button`
   position: relative;
   width: 20px;
   height: 17px;
-  margin-left: 20px;
+  margin: 0 0 0 20px;
 
   ${media.greaterThan('large')`
     display: none;
@@ -227,31 +226,45 @@ export const Box = styled.div`
   top: 70px;
   left: 0;
   width: 100%;
-  padding: 30px;
+  padding: 50px 30px 50px;
   height: calc(100vh - 70px);
   overflow: hidden;
   overflow-y: auto;
   background: ${({ theme }) => theme.colors.white};
 
-  ${(props) => (props.navToggle ? `display: block;` : `display: none;`)}
+  ${(props) => (props.navToggle ? `display: flex;` : `display: none;`)}
+
+  flex-direction: column;
+  justify-content: space-between;
 
   ${media.greaterThan('large')`
-    display: block;
+    display: flex;
     height: auto;
     position: relative;
     top: 0;
     overflow: none;
     padding: 0;
     background: transparent;
+    flex-direction: column;
+    justify-content: space-between;
   `}
-`;
+`
 
 export const NavMain = styled.nav`
   margin-bottom: 35px;
 
   ${media.greaterThan('large')`
-    margin-bottom: 30px;
+    margin-bottom: 30vh;
   `}
+
+  ${media.greaterThan('huge')`
+    margin-bottom: 40vh;
+  `}
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+  }
 
   li {
     &:not(:last-child) {
@@ -269,6 +282,7 @@ export const NavMainButtonSearch = styled.button`
   align-items: center;
   width: 100%;
   position: relative;
+  padding: 0px;
 
   i {
     display: block;
@@ -292,18 +306,22 @@ export const NavMainButtonSearch = styled.button`
     }
   }
 
-  ${media.greaterThan('large')`
-    &:hover {
-      span {
-        color: ${({ theme }) => theme.colors.orange};
-      }
+  span {
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    text-decoration: none;
+  }
 
-      svg path,
-      svg polyline {
-        stroke: ${({ theme }) => theme.colors.orange};
-      }
+  &:hover {
+    span {
+      color: ${({ theme }) => theme.colors.green};
+      font-weight: ${({ theme }) => theme.fontsWeight.bold};
     }
-  `}
+
+    svg path,
+    svg polyline {
+      stroke: ${({ theme }) => theme.colors.green};
+    }
+  }
 
   ${(props) => props.active && NavMainButtonSearchActive}
 `;
@@ -311,11 +329,12 @@ export const NavMainButtonSearch = styled.button`
 export const NavMainButtonSearchActive = css`
   svg path,
   svg polyline {
-    stroke: ${({ theme }) => theme.colors.orange};
+    stroke: ${({ theme }) => theme.colors.green};
   }
 
   span {
-    color: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.green};
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 `;
 
@@ -346,43 +365,47 @@ export const NavMainButton = styled.a`
           `}
   }
 
-  ${media.greaterThan('large')`
     &:hover {
+      text-decoration: none;
       span {
-        color: ${({ theme }) => theme.colors.orange};
+        color: ${({ theme }) => theme.colors.green};
+        font-weight: ${({ theme }) => theme.fontsWeight.bold};
       }
 
       svg path,
       svg polyline {
-        stroke: ${({ theme }) => theme.colors.orange};
+        stroke: ${({ theme }) => theme.colors.green};
       }
     }
-  `}
 `;
 
 export const NavMainButtonText = styled.span`
   display: block;
   width: 100%;
-  padding-left: 50px;
   text-transform: uppercase;
   text-align: left;
-  font: 20px 'Raleway';
-  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+  font: 18px 'Raleway';
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
   color: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
 
   ${media.greaterThan('large')`
-    padding-left: 40px;
     font-size: 14px;
     line-height: 20px;
   `}
+`;
+
+export const NavBottomContainer = styled.div`
+  width: 140px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const NavSecondary = styled.nav`
   margin-bottom: 30px;
 
   ${media.greaterThan('large')`
-    margin-bottom: 24px;
+    margin-bottom: 14px;
   `}
 
   li {
@@ -401,6 +424,11 @@ export const NavSecondaryButton = styled.a`
   text-transform: uppercase;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
+
+  :hover{
+    text-decoration: none;
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  }
 
   ${media.greaterThan('large')`
     font-size: 14px;
@@ -501,10 +529,6 @@ export const NavLangsButton = styled.a`
     `}
 `;
 
-export const Whatsapp = styled.div`
-  margin-bottom: 30px;
-`;
-
 export const WhatsappButton = styled.a`
   display: flex;
   align-items: center;
@@ -527,22 +551,18 @@ export const WhatsappButton = styled.a`
     margin-right: 6px;
 
     ${media.greaterThan('large')`
-      width: 16px;
-      min-width: 16px;
-      height: 17px;
+      width: 24px;
+      min-width: 24px;
+      height: 25px;
     `}
   }
 `;
 
 export const Socials = styled.div`
-  display: none;
-
-  ${media.greaterThan('large')`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 30px;
-  `}
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 14px;
 `;
 
 export const SocialButton = styled.a`
@@ -617,14 +637,14 @@ export const Newsletter = styled.div`
 export const NewsletterButton = styled.button`
   display: block;
   width: 100%;
-  text-align: center;
+  text-align: left;
   font: 18px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
+  padding-left: 0px;
 
   ${media.greaterThan('large')`
     font-size: 13px;
     line-height: 18px;
-    text-align: left;
   `}
 
   strong {
