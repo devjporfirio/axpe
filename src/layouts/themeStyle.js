@@ -24,6 +24,7 @@ const theme = {
     greenBorder: '#374E52',
     greenLight2: '#89D4AA',
     blueLight: '#77D0DD',
+    blueDark: '#1C282A',
     yellowLight: '#FFDBA8',
   },
 

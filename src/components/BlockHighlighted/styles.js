@@ -102,12 +102,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  min-height: 268px;
+  min-height: 152px;
   padding: 30px;
   width: 100%;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ theme }) => theme.colors.blueDark};
 
   div {
     margin-top: 20px;

@@ -11,12 +11,7 @@ import { Link } from 'helpers/routes';
 import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
-import SearchIconSVG from 'assets/icons/search';
-import HomeIconSVG from 'assets/icons/home';
-import CloudIconSVG from 'assets/icons/cloud';
-import FacebookIconSVG from 'assets/icons/facebook';
 import InstagramIconSVG from 'assets/icons/instagram';
-import LinkedinIconSVG from 'assets/icons/linkedin';
 import WhatsappIconSVG from 'assets/icons/whatsapp';
 
 // styles
@@ -24,7 +19,6 @@ import {
   Container,
   Wrapper,
   AxpeLogo,
-  Axpe20Years,
   LogoLink,
   ButtonSearch,
   ButtonToggle,
@@ -35,13 +29,11 @@ import {
   NavMainButtonText,
   NavSecondary,
   NavSecondaryButton,
-  Whatsapp,
-  WhatsappButton,
   Socials,
   SocialButton,
-  Contact,
   Newsletter,
   NewsletterButton,
+  NavBottomContainer,
 } from './styles';
 
 function Header() {
@@ -122,18 +114,6 @@ function Header() {
             </Link>
           </AxpeLogo>
 
-          <Axpe20Years type="axpe20years" className="axpe-20-logo">
-            <Link route="/sobre" passHref>
-              <LogoLink
-                className="holos-logo"
-                data-label="Axpe 20 anos"
-                onClick={cancelToggle}
-              >
-                Axpe 20 anos
-              </LogoLink>
-            </Link>
-          </Axpe20Years>
-
           <ButtonSearch
             className="holos-menu-item"
             type="button"
@@ -161,7 +141,6 @@ function Header() {
                     active={searchFormActive}
                     onClick={toggleSearch}
                   >
-                    <SVG src={SearchIconSVG} uniquifyIDs={true} />
                     <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                   </NavMainButtonSearch>
                 </li>
@@ -172,7 +151,6 @@ function Header() {
                       type="register"
                       onClick={cancelToggle}
                     >
-                      <SVG src={HomeIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
                     </NavMainButton>
                   </Link>
@@ -184,7 +162,6 @@ function Header() {
                       type="dream"
                       onClick={cancelToggle}
                     >
-                      <SVG src={CloudIconSVG} uniquifyIDs={true} />
                       <NavMainButtonText>Só quero sonhar</NavMainButtonText>
                     </NavMainButton>
                   </Link>
@@ -192,85 +169,51 @@ function Header() {
               </ul>
             </NavMain>
 
-            <Whatsapp>
-              <WhatsappButton
-                className="holos-menu-item"
-                href="https://wa.me/551130743600"
-                target="_blank"
-              >
-                <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-                Entre em contato pelo Whatsapp
-              </WhatsappButton>
-            </Whatsapp>
+            <NavBottomContainer>
+              <NavSecondary>
+                <ul>
+                  <li>
+                    <Link route="/sobre" passHref>
+                      <NavSecondaryButton
+                        className="holos-menu-item"
+                        onClick={cancelToggle}
+                      >
+                        Sobre a Axpe
+                      </NavSecondaryButton>
+                    </Link>
+                  </li>
+                </ul>
+              </NavSecondary>
 
-            <NavSecondary>
-              <ul>
-                <li>
-                  <Link route="/contato" passHref>
-                    <NavSecondaryButton
-                      className="holos-menu-item"
-                      onClick={cancelToggle}
-                    >
-                      Fale com a gente
-                    </NavSecondaryButton>
-                  </Link>
-                </li>
-                <li>
-                  <Link route="/sobre" passHref>
-                    <NavSecondaryButton
-                      className="holos-menu-item"
-                      onClick={cancelToggle}
-                    >
-                      Sobre a Axpe
-                    </NavSecondaryButton>
-                  </Link>
-                </li>
-              </ul>
-            </NavSecondary>
+              <Socials>
+                <SocialButton
+                  className="holos-menu-item"
+                  href="https://wa.me/551130743600"
+                  target="_blank"
+                >
+                  <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
+                </SocialButton>
 
-            <Socials>
-              <SocialButton
-                href="https://www.facebook.com/pages/Axpe-Im%C3%B3veis-Especiais-Unicamente/100515957997"
-                target="_blank"
-                className="holos-footer-social-link"
-                data-label="Facebook"
-              >
-                <SVG src={FacebookIconSVG} uniquifyIDs={true} />
-              </SocialButton>
-              <SocialButton
-                href="https://instagram.com/axpe_imoveis"
-                target="_blank"
-                className="holos-footer-social-link"
-                data-label="Instagram"
-              >
-                <SVG src={InstagramIconSVG} uniquifyIDs={true} />
-              </SocialButton>
-              <SocialButton
-                href="https://br.linkedin.com/company/axpe-im-veis"
-                target="_blank"
-                className="holos-footer-social-link"
-                data-label="Linkedin"
-              >
-                <SVG src={LinkedinIconSVG} uniquifyIDs={true} />
-              </SocialButton>
-            </Socials>
+                <SocialButton
+                  href="https://instagram.com/axpe_imoveis"
+                  target="_blank"
+                  className="holos-footer-social-link"
+                  data-label="Instagram"
+                >
+                  <SVG src={InstagramIconSVG} uniquifyIDs={true} />
+                </SocialButton>
+              </Socials>
 
-            <Contact>
-              Fale com a gente{' '}
-              <a href="tel:+551130743600" className="holos-menu-item">
-                (11) 3074-3600
-              </a>
-            </Contact>
-
-            <Newsletter>
-              <NewsletterButton
-                className="holos-menu-item"
-                type="button"
-                onClick={openModalNewsletter}
-              >
-                Receba nossas <strong>novidades</strong>
-              </NewsletterButton>
-            </Newsletter>
+              <Newsletter>
+                <NewsletterButton
+                  className="holos-menu-item"
+                  type="button"
+                  onClick={openModalNewsletter}
+                >
+                  Receba nossas novidades
+                </NewsletterButton>
+              </Newsletter>
+            </NavBottomContainer>
           </Box>
         </Wrapper>
       </SimpleBar>
