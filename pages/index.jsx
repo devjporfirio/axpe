@@ -31,6 +31,8 @@ import {
   HeroItemWrapper,
   HeroItemInfo,
 } from 'pages/Home/styles';
+import NewsletterFooter from '../src/components/NewsletterFooter';
+
 
 const COMPONENT_SLICK = {
   buildingsSquare: 'slickLeft',
@@ -107,7 +109,13 @@ function Home({ hero, components }) {
       case 'gallery':
         return <GalleryCarousel {...component} />;
       case 'contact':
-        return <BlockHighlighted type="contactHome" />;
+        return (
+        <>
+          <NewsletterFooter/>
+          <BlockHighlighted type="contactHome" />
+        </>
+      
+      );
     }
   }, []);
 
