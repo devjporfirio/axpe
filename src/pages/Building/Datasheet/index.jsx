@@ -8,100 +8,146 @@ import {
   BlockOne,
   Type,
   GroupInfo,
-  GroupNeigRef,
   CategoryRelease,
   Neighborhood,
-  Ref,
   GroupTags,
   BlockTwo,
   Content,
   BlockThree,
-  PriceGroup,
-  Delivery
+  Delivery,
+  Location,
+  InfoContent,
+  ButtonVisit,
+  ButtonMoreInfo,
+  MainContainer,
+  PriceGroupDesktop,
+  PriceGroupMobile
 } from './styles';
+import ILocation from 'assets/icons/location.svg';
 
 export default function Datasheet({ property }) {
-  const { type, infos, category, address, reference, label, values, source } = property;
+  const { type, infos, category, address, label, values, source } = property;
   const { searchFunnel } = useSelector(state => state.main);
   const hasTitle = infos.titleSite || infos.internalDescription;
 
-  return (
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${address.local}, ${address.state}, ${address.country} ${address.zipcode}`
+  )}`;
+
+   return (
     <>
+    <MainContainer>
       <DatasheetContent>
         <BlockOne type={property.type}>
-          <GroupInfo>
-            <Type>
-              {type === 'lancamento'
-                ? infos.releaseStatus === 'Pronto'
-                  ? 'Pronto para morar'
-                  : infos.releaseStatus
-                : category}
-            </Type>
-            <GroupNeigRef>
-              <Neighborhood>{address.local}</Neighborhood>
-              <Ref>Ref {reference}</Ref>
-            </GroupNeigRef>
+          <Neighborhood>{address.local}</Neighborhood>
+            
             {type === 'lancamento' && (
               <CategoryRelease>{category}</CategoryRelease>
             )}
             {type !== 'lancamento' && <hr />}
+
+          <GroupInfo>
+            <InfoContent>
+              <GroupTags>
+                {label && label.isNew && (
+                  <Tag label={'Novidade'} icon="star" color="blueLight" />
+                )}
+                {label && label.isExclusive && (
+                  <Tag label={'Exclusividade'} icon="check" color="orange" />
+                )}
+                {label && label.isFurnished && (
+                  <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+                )}
+              </GroupTags>
+              <Type>
+                  {type === 'lancamento'
+                    ? infos.releaseStatus === 'Pronto'
+                      ? 'Pronto para morar'
+                      : infos.releaseStatus
+                    : category}
+              </Type>
+            </InfoContent>
+            <Location>
+              <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                <img src={ILocation} alt="ícone de localização" />
+                <p>Ver localização</p>
+              </a>
+            </Location>
           </GroupInfo>
-          <GroupTags>
-            {label && label.isNew && (
-              <Tag label={'Novidade'} icon="star" color="blueLight" />
-            )}
-            {label && label.isExclusive && (
-              <Tag label={'Exclusividade'} icon="check" color="orange" />
-            )}
-            {label && label.isFurnished && (
-              <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-            )}
-          </GroupTags>
         </BlockOne>
+  
+        <PriceGroupMobile>
+          {!values.sell && !values.rent && values.valueOnlyConsults ? (
+            <Caracteristics.OnlyConsults />
+          ) : null}
 
-        {hasTitle && (
-          <BlockTwo>
-            <Content>{infos.titleSite || infos.internalDescription}</Content>
-          </BlockTwo>
-        )}
+          {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
+            <Caracteristics.Sell
+              valueOnlyConsults={values.valueOnlyConsults}
+              sell={values.sell}
+              iptu={values.iptu}
+              condo={values.condo}
+              currency={values.currency}
+              type={type}
+            />
+          ) : null}
 
-        <BlockThree type={property.type}>
-          <PriceGroup>
+          <Caracteristics.Release
+            release={values.release}
+            currency={values.currency}
+          />
 
-            {!values.sell && !values.rent && values.valueOnlyConsults ? (
-              <Caracteristics.OnlyConsults />
-            ) : null}
-
-            {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
-              <Caracteristics.Sell
-                valueOnlyConsults={values.valueOnlyConsults}
-                sell={values.sell}
-                iptu={values.iptu}
-                condo={values.condo}
-                currency={values.currency}
-                type={type}
-              />
-            ) : null}
-
-            <Caracteristics.Release
-              release={values.release}
+          {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
+            <Caracteristics.Rent
+              valueOnlyConsults={values.valueOnlyConsults}
+              rent={values.rent}
+              iptu={values.iptu}
+              condo={values.condo}
               currency={values.currency}
             />
+          ) : null}
 
-            {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
-              <Caracteristics.Rent
-                valueOnlyConsults={values.valueOnlyConsults}
-                rent={values.rent}
-                iptu={values.iptu}
-                condo={values.condo}
-                currency={values.currency}
-              />
-            ) : null}
-          </PriceGroup>
+          <Caracteristics.Expenses
+            valueOnlyConsults={values.valueOnlyConsults}
+            rent={values.rent}
+            iptu={values.iptu}
+            condo={values.condo}
+            currency={values.currency}
+          />
+          
+          <ButtonVisit>Agendar visita</ButtonVisit>
+          <ButtonMoreInfo>Mais informações</ButtonMoreInfo>
+        </PriceGroupMobile>
+
+        <BlockThree type={property.type}>
+
+          {((category && category.search('Casa') < 0) || infos.areaUseful !== '') && infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaUseFulBetween
+              start={infos.areaUsefulStart}
+              end={infos.areaUsefulEnd}
+            />
+          )}
+
+          <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
+
+          <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+
+          {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
+          )}
+
+          {infos.use !== 'COMERCIAL' && (
+            <Caracteristics.AreaGround areaGround={infos.areaGround} />
+          )}
+
           <Caracteristics.Bedrooms
             bedrooms={infos.bedrooms}
+          />
+
+          <Caracteristics.Suites
             suites={infos.suites}
           />
+
           <Caracteristics.BedroomsBetween
             start={infos.bedroomsStart}
             end={infos.bedroomsEnd}
@@ -112,22 +158,6 @@ export default function Datasheet({ property }) {
             end={infos.parkingEnd}
           />
 
-          {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
-            <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
-          )}
-
-          <Caracteristics.AreaUseFul areaUseful={infos.areaTotal} />
-
-          {infos.use !== 'COMERCIAL' && (
-            <Caracteristics.AreaGround areaGround={infos.areaGround} />
-          )}
-
-          {((category && category.search('Casa') < 0) || infos.areaUseful !== '') && infos.use !== 'COMERCIAL' && (
-            <Caracteristics.AreaUseFulBetween
-              start={infos.areaUsefulStart}
-              end={infos.areaUsefulEnd}
-            />
-          )}
 
           {category && (category.search('Casa') < 0 && category !== 'Apartamento' && category !== 'Cobertura') &&
             infos.use !== 'COMERCIAL' &&
@@ -136,7 +166,59 @@ export default function Datasheet({ property }) {
               <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
             )}
         </BlockThree>
+
+        {hasTitle && (
+          <BlockTwo>
+            <Content>{infos.titleSite}</Content>
+            <Content>{infos.shortDescription}</Content>
+            <Content>{infos.internalDescription}</Content>
+          </BlockTwo>
+        )}
       </DatasheetContent>
+      
+      <PriceGroupDesktop>
+          {!values.sell && !values.rent && values.valueOnlyConsults ? (
+            <Caracteristics.OnlyConsults />
+          ) : null}
+
+          {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
+            <Caracteristics.Sell
+              valueOnlyConsults={values.valueOnlyConsults}
+              sell={values.sell}
+              iptu={values.iptu}
+              condo={values.condo}
+              currency={values.currency}
+              type={type}
+            />
+          ) : null}
+
+          <Caracteristics.Release
+            release={values.release}
+            currency={values.currency}
+          />
+
+          {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
+            <Caracteristics.Rent
+              valueOnlyConsults={values.valueOnlyConsults}
+              rent={values.rent}
+              iptu={values.iptu}
+              condo={values.condo}
+              currency={values.currency}
+            />
+          ) : null}
+
+          <Caracteristics.Expenses
+            valueOnlyConsults={values.valueOnlyConsults}
+            rent={values.rent}
+            iptu={values.iptu}
+            condo={values.condo}
+            currency={values.currency}
+          />
+          
+          <ButtonVisit>Agendar visita</ButtonVisit>
+          <ButtonMoreInfo>Mais informações</ButtonMoreInfo>
+        </PriceGroupDesktop>
+        </MainContainer>
       {type === 'lancamento' && infos.releaseDelivery && (
         <Delivery>
           <p>

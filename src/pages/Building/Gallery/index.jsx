@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // components
 import Slider from 'components/Slider';
 import GalleryNav from './GalleryNav';
 import GalleryFull from './GalleryFull';
+import DotPagination from 'components/Dots';
 
 // assets
 import I360 from 'assets/icons/360';
-import IGrid from 'assets/icons/grid';
 import PlayIcon from 'assets/icons/play-button';
 
 // styles
@@ -19,7 +19,6 @@ import {
   PlayButton,
   SliderButton,
   Button360,
-  SizeGallery
 } from './styles';
 
 function Gallery({
@@ -38,6 +37,9 @@ function Gallery({
   const [ showGalleryFull, setShowGalleryFull ] = useState(false);
   const [ imageSelected, setImageSelected ] = useState(null);
   const [ showTour, setShowTour ] = useState('');
+  const [ currentSlide, setCurrentSlide ] = useState(0);
+  const sliderRef = useRef(null);
+
   const linkTour = (tour360) ? tour360 : `https://www.banibconecta.com/site/tour/axpe-imoveis-especiais/${reference}/autostart`;
 
   return (
@@ -54,17 +56,19 @@ function Gallery({
           category={category}
           local={local}
         >
-          <iframe title="tour360" src={linkTour} frameBorder="0"></iframe>
+          <iframe title="tour360" src={linkTour}></iframe>
         </Tour360>
       )}
 
       <Slider
+        reference={sliderRef}
         lazyLoad={false}
         propsArrow={propsArrow}
         slidesToShow={1}
         centerMode={true}
         className={center ? 'center' : ''}
         variableWidth={true}
+        afterChange = {index => setCurrentSlide(index)}
         responsive={[
           {
             breakpoint: 769,
@@ -98,12 +102,11 @@ function Gallery({
             ))}
       </Slider>
 
-      {showSizeGallery && (
-        <SizeGallery onClick={() => setShowGalleryNav(true)}>
-          <img src={IGrid} alt="Galeria de fotos" />
-          <span>{items.length}</span>
-        </SizeGallery>
-      )}
+      <DotPagination
+        currentSlide={currentSlide}
+        slideCount={items ? items.length : 0}
+        onDotClick={index => sliderRef.current.slickGoTo(index)}
+      />
 
       {showGalleryNav && (
         <GalleryNav

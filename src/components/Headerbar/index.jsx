@@ -125,6 +125,7 @@ function Headerbar({ className, type, title, subtitle, building }) {
             </Column>
           )}
 
+        </Wrapper>
           {type === 'building' && (
             <Column>
               <ButtonIcon
@@ -140,7 +141,6 @@ function Headerbar({ className, type, title, subtitle, building }) {
               <PhoneContact href="tel:+551130743600">11 3074-3600</PhoneContact>
             </Column>
           )}
-        </Wrapper>
       </Container>
       <Share
         active={shareActive}

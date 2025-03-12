@@ -14,14 +14,14 @@ const backgroundColorWhite = css`
 
 const positionCenterNext = css`
   top: 0;
-  right: 0;
+  right: 10px;
   bottom: 0;
   margin-top: auto;
   margin-bottom: auto;
 `;
 const positionCenterPrev = css`
   top: 0;
-  left: 0;
+  left: 10px;
   bottom: 0;
   margin-top: auto;
   margin-bottom: auto;
