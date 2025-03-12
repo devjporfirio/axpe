@@ -103,19 +103,19 @@ export const Container = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   min-height: 152px;
-  padding: 30px;
+  padding: 40px 20px;
   width: 100%;
   align-items: flex-start;
   justify-content: flex-start;
   background-color: ${({ theme }) => theme.colors.blueDark};
 
   div {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   p {
-    max-width: 240px;
-    font: 18px/21px 'Raleway';
+    max-width: 170px;
+    font: 13px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     color: ${({ theme }) => theme.colors.white};
     margin-bottom: 24px;
@@ -151,24 +151,19 @@ export const Container = styled.div`
 
 const ContactHome = css`
   width: 100%;
-  max-width: 320px;
+  max-width: 180px;
 
   span {
-    color: ${({ theme }) => theme.colors.greenLight};
-    font-family: 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.black};
+    font-size: 25px;
+    color: ${({ theme }) => theme.colors.white};
+    font-family: 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
     &:nth-child(3) {
       color: ${({ theme }) => theme.colors.orange};
-      font-family: 'Raleway';
+      font-family: 'Bitter';
       font-weight: ${({ theme }) => theme.fontsWeight.black};
     }
-  }
-
-  strong span {
-    color: ${({ theme }) => theme.colors.white};
-    font-family: 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 `;
 
@@ -410,9 +405,12 @@ const RegisterPropertyTransform = css`
 export const Link = styled(Button)`
   background-color: ${(props) => props.theme.colors[props.color]};
   color: ${({ theme }) => theme.colors.white};
-  height: 45px;
-  border-radius: 6px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 10px 24px;
+  border-radius: 4px;
 `;
 
 const BaseHighlighted = css`
@@ -420,10 +418,10 @@ const BaseHighlighted = css`
 
   span {
     font-size: 40px;
-    line-height: 47px;
+    line-height: 110%;
   }
 
-  ${media.greaterThan('medium')`margin-right: 107px;`}
+  ${media.greaterThan('medium')`margin-right: 30px;`}
 `;
 
 export const HighlightedH1 = styled.h1`${BaseHighlighted}

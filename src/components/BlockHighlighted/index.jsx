@@ -16,12 +16,12 @@ const ContactHome = () => (
       </p>
       <Link
         className="holos-footer-imovel-sonhos"
-        data-label="Conte aqui"
+        data-label="Fale com o corretor"
         route="/imovel-dos-sonhos"
         fullWidth={true}
         passHref
       >
-        Conte aqui
+        Fale com o corretor
       </Link>
     </div>
   </>
@@ -76,15 +76,12 @@ const NotFound = ({ query }) => {
       <div>
         {query && query.ready_release === 'pronto' && (
           <p>
-            {/* Que tal um imóvel na planta? Conheça nossas opções de imóveis em
-            lançamento */}
             Que tal um imóvel na planta? Como é o imóvel dos seus sonhos?
           </p>
         )}
 
         {query && query.ready_release === 'lancamento' && (
           <p>
-            {/* Que tal um imóvel na planta? Conheça nossas opções de imóveis prontos */}
             Que tal um imóvel na planta? Como é o imóvel dos seus sonhos?
           </p>
         )}
