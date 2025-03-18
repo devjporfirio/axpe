@@ -82,7 +82,7 @@ Slick.propTypes = {
   rows: PropTypes.number,
 
   propsArrow: PropTypes.object,
-  reference: PropTypes.func,
+  reference: PropTypes.oneOfType([ PropTypes.func, PropTypes.object ]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

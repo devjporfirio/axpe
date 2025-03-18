@@ -57,7 +57,10 @@ const CategorySection = ({ items }) => {
       <DotsPagination
         currentSlide={currentSlide}
         slideCount={items ? items.length : 0}
-        onDotClick={index => sliderRef.current.slickGoTo(index)}
+        onDotClick={index => {
+          setCurrentSlide(index);
+          sliderRef.current.slickGoTo(index);
+        }}
       />
 
     </SectionContainer>
