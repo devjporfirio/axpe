@@ -44,7 +44,7 @@ export const Banner = styled.a`
 
 export const Hero = styled.div`
   margin-bottom: 10px;
-  
+  position: relative;
   .slick-slider:before{
     content: inherit;
   }
@@ -55,8 +55,8 @@ export const Hero = styled.div`
   }
 
   .slick-arrow svg{
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 24px;
   }
 
   @media (max-width: 991px){
@@ -83,7 +83,7 @@ export const Hero = styled.div`
     bottom: 44px;
     width: auto;
     padding: 0 100px;
-    display: flex!important;
+    display: flex !important;
     align-items: center;
     pointer-events: none;
     moz-pointer-events: none;
@@ -180,6 +180,10 @@ export const HeroItemWrapper = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
+
+  ${media.greaterThan('medium')`
+    max-height: 580px;
+  `}
 
   ${props => props.hasContent && css`
     &:before {
