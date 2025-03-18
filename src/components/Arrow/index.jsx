@@ -5,7 +5,7 @@ import { ArrowNext, ArrowPrev } from './styles';
 
 export const NextArrow = ({
   type = '',
-  color = 'greenDark',
+  color = 'white',
   position = '',
   backgroundColor= '',
   onClick = () => {}
@@ -23,7 +23,7 @@ export const NextArrow = ({
 
 export const PrevArrow = ({
   type = '',
-  color = 'greenDark',
+  color = 'white',
   position = '',
   backgroundColor= '',
   onClick = () => {}

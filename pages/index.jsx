@@ -13,12 +13,14 @@ import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
 // components
-import SlickSection from 'components/SlickSection';
 import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
 import SliderNew from 'components/SliderNew';
 import GalleryCarousel from 'components/GalleryCarousel';
 import Tag from 'components/Tag';
+import NewsletterFooter from 'components/NewsletterFooter';
+import CategoryBannerVertical from 'components/CategoryBannerVertical';
+import CategorySection from 'components/CategorySection';
 
 // styles
 import {
@@ -31,13 +33,7 @@ import {
   HeroItemWrapper,
   HeroItemInfo,
 } from 'pages/Home/styles';
-import NewsletterFooter from '../src/components/NewsletterFooter';
 
-
-const COMPONENT_SLICK = {
-  buildingsSquare: 'slickLeft',
-  buildingsGrid: 'slickGrid',
-};
 
 function Home({ hero, components }) {
   const dispatch = useDispatch();
@@ -91,20 +87,10 @@ function Home({ hero, components }) {
             </Banner>
           </>
         );
-      case 'buildingsSquare':
-      case 'buildingsGrid':
-        if ([ 'buildingsSquare', 'buildingsGrid' ].includes(type)) {
-          component.items = shuffle(component.items);
-        }
+        // case 'buildingsSquare':
+        case 'buildingsGrid':
         return (
-          component.items &&
-          component.items.length > 0 && (
-            <SlickSection
-              type={COMPONENT_SLICK[type]}
-              items={component.items}
-              useButtom
-            />
-          )
+          <CategorySection items={component.items} />
         );
       case 'gallery':
         return <GalleryCarousel {...component} />;
@@ -114,7 +100,6 @@ function Home({ hero, components }) {
           <NewsletterFooter/>
           <BlockHighlighted type="contactHome" />
         </>
-      
       );
     }
   }, []);
@@ -227,6 +212,7 @@ function Home({ hero, components }) {
           </SliderNew>
         </Hero>
 
+        <CategoryBannerVertical categoryItems={heroItems} />
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {
@@ -237,7 +223,7 @@ function Home({ hero, components }) {
                   key={`buildingspanel-0-${c.type}-${cIndex}`}
                   page="home"
                   title="Imóveis que você viu"
-                  buildingLayout="horizontal"
+                  buildingLayout="vertical"
                   data={buildingsSeen}
                 />
               ) : null;
@@ -248,7 +234,6 @@ function Home({ hero, components }) {
                   key={`panel-buildings-1-${c.type}-${cIndex}`}
                   page="home"
                   title="Indicados para você"
-                  subtitle="Selecionamos alguns imóveis que acabaram de chegar"
                   buildingLayout="vertical"
                   data={buildingsForYou}
                 />

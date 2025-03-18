@@ -24,41 +24,42 @@ function BuildingsPanel({
 }) {
   const settings = {
     vertical: {
-      dots: false,
+      dots: true,
       infinite: false,
       lazyLoad: true,
       speed: 800,
       slidesToShow: 3,
       slidesToScroll: 1,
+      arrows: true,
       responsive: [
         {
           breakpoint: 1023,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 2.2,
             slidesToScroll: 2,
           }
         },
         {
           breakpoint: 767,
           settings: {
-            slidesToShow: 1,
+            slidesToShow: 1.1,
             slidesToScroll: 1,
           }
         }
-      ]
+      ],
     },
     horizontal: {
       dots: false,
       infinite: false,
       vertical: true,
       speed: 800,
-      slidesToShow: 2,
+      slidesToShow: 2.2,
       slidesToScroll: 2,
       responsive: [
         {
           breakpoint: 767,
           settings: {
-            slidesToShow: 1,
+            slidesToShow: 1.1,
             slidesToScroll: 1,
             vertical: false
           }
@@ -84,8 +85,6 @@ function BuildingsPanel({
           <Items data-layout={buildingLayout} data-quantity={data.length}>
             <SliderNew
               type="normal"
-              arrowsColor="greenDark"
-              arrowsClassName={page ? `holos-${page}-product-slider-arrow` : ''}
               settings={settings[buildingLayout]}
             >
               {data.map((building, buildingIndex) => (

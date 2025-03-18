@@ -1,10 +1,9 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+import Slider from 'components/Slider';
 
 export const Container = styled.article`
   ${media.greaterThan('medium')`
-    padding: 0 18px;
-
     ${props => props.layout === 'horizontal' && css`
       padding: 15px 10px;
     `}
@@ -23,6 +22,10 @@ export const LinkTag = styled.a`
   overflow: hidden;
   color: ${({ theme }) => theme.colors.greenDark};
 
+  :hover {
+    text-decoration: none;
+  }
+
   ${media.greaterThan('large')`
     transition: all 300ms ease;
 
@@ -38,10 +41,8 @@ export const LinkTag = styled.a`
 
 export const Wrapper = styled.div`
   position: relative;
-  /* overflow: hidden;
-  border-radius: 6px; */
   background: ${({ theme }) => theme.colors.white};
-
+  
   ${media.greaterThan('medium')`
     ${props => props.layout === 'horizontal' && css`
       display: flex;
@@ -50,12 +51,44 @@ export const Wrapper = styled.div`
   `}
 `;
 
+export const GallerySlider = styled(Slider)`
+  position: relative;
+
+  .slick-slide > div {
+    margin-left: 0px;
+    padding-right: 0px;
+  }
+
+  .slick-slide > div:last-child {
+    padding-right: 0px;
+  }
+  
+ button[class*="ArrowPrev"] {
+    position: absolute !important;
+    left: 10px;
+    top: 50% !important;
+    transform: translateY(-50%);
+    z-index: 10;
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  button[class*="ArrowNext"] {
+    position: absolute !important;
+    right: 10px;
+    top: 50% !important;
+    transform: translateY(-50%);
+    z-index: 10;
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
 export const Gallery = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 230px;
-
+  height: 404px;
+  border-radius: 8px;
+  
   &:before {
     content: '';
     display: none;
@@ -74,13 +107,13 @@ export const Gallery = styled.div`
     position: absolute;
     top: 0;
     left: 50%;
-    width: auto;
+    width: 100%;
     height: 100%;
     transform: translateX(-50%);
   }
 
   ${media.greaterThan('medium')`
-    height: 200px;
+    height: 250px;
 
     ${props => props.layout === 'horizontal' && css`
       width: 65%;
@@ -118,7 +151,9 @@ export const Image = styled.img`
 `;
 
 export const Column = styled.div`
-  padding: 20px;
+  margin-top: 14px;
+  padding: 8px;
+  border-radius: 8px;
 
   ${media.greaterThan('medium')`
     ${props => props.layout === 'horizontal' && css`
@@ -133,42 +168,51 @@ export const Column = styled.div`
 `;
 
 export const Text = styled.div`
-  ${media.greaterThan('medium')`
-    ${props => props.layout === 'vertical' && css`
-      min-height: 160px;
-    `}
-  `}
+  display: flex;
+  flex-direction: column;
+  gap:2px;
 
   h4 {
-    margin-bottom: 15px;
     text-transform: uppercase;
     font-size: 16px;
-    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-
-    ${props => props.layout === 'vertical' && css`
-      font-size: 18px;
-    `}
+    color: ${({ theme }) => theme.colors.orange};
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    min-height: 19px;
   }
 
   p {
-    font-size: 18px;
+    font-family: 'Bitter';
+    font-size: 16px;
+    color: ${({ theme }) => theme.colors.green};
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    text-transform: uppercase;
 
-    ${props => props.layout === 'vertical' && css`
-      font-size: 16px;
-    `}
+    :last-of-type {
+      text-transform: none;
+      font-size: 14px;
+
+      ${media.lessThan('medium')`
+      display: none;
+      `};
+    }
   }
 
   span {
-    display: block;
+    font-size: 16px;
+    color: ${({ theme }) => theme.colors.green};
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    min-height: 19px;
+  }
 
-    &.ref {
-      margin-top: 30px;
+  div {
+    display: flex;
 
-      ${media.greaterThan('medium')`
-        ${props => props.layout === 'horizontal' && css`
-          margin-top: 0;
-        `}
-      `}
+    span {
+      font-family: 'Raleway';
+      font-size: 16px;
+      color: ${({ theme }) => theme.colors.green};
+      font-weight: ${({ theme }) => theme.fontsWeight.medium};
+      margin: 0 2px;
     }
   }
 `;

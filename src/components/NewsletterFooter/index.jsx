@@ -33,7 +33,7 @@ function NewsletterFooter() {
           .form-submit input[type="submit"] {
             height: 35px;
             margin-bottom: 10px;
-            text-transform: capitalize;
+            text-transform: none;
           }
 
           @media (min-width: 530px) {
