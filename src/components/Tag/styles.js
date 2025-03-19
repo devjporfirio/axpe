@@ -7,14 +7,14 @@ export const Container = styled.div`
   align-items: center;
   height: 35px;
   line-height: 35px;
-  padding: 0 10px;
-  border-radius: 17.5px;
-  font: 14px/18px 'Raleway';
+  padding: 0 8px;
+  border-radius: 4px;
+  font: 12px/16px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
 
   img {
-    width: 19px;
+    width: 14px;
     margin-right: 10px;
   }
 

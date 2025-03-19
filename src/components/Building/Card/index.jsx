@@ -115,9 +115,9 @@ function BuildingCard({
             <p>{category}</p>
             <h4>{address && address.local ? address.local : ''}</h4>
             <div>
-              <span>{`${infos && infos.areaUseful} m²`} |</span>
-              <span>{infos && infos.suites && `${infos.suites} Suites`} |</span>
-              <span>{infos && infos.bedrooms && `${infos.bedrooms} Quartos`} |</span>
+              <span>{infos && infos.areaUseful &&`${infos.areaUseful} m² |`} </span>
+              <span>{infos && infos.suites && `${infos.suites} Suites |`}</span>
+              <span>{infos && infos.bedrooms && `${infos.bedrooms} Quartos |`}</span>
               <span>{infos && infos.parking && `${infos.parking} Vagas`}</span>
             </div>
             <p>{infoDescription.length > charDescriptionLimit

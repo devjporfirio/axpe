@@ -248,7 +248,7 @@ function BuildingList({
       <SliderContainer useBtSchedule={useBtSchedule}>
         <SliderNew
           type="gallery"
-          arrowsColor="greenDark"
+          arrowsColor="white"
           arrowsClassName={gtmObj ? `${gtmObj.className}-image-arrow` : ''}
           settings={gallerySettings}
         >

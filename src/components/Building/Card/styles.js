@@ -3,7 +3,10 @@ import media from 'styled-media-query';
 import Slider from 'components/Slider';
 
 export const Container = styled.article`
+  margin-bottom: 10px;
+
   ${media.greaterThan('medium')`
+    max-width: 450px;
     ${props => props.layout === 'horizontal' && css`
       padding: 15px 10px;
     `}
@@ -12,6 +15,10 @@ export const Container = styled.article`
       padding-top: 5px;
       padding-bottom: 5px;
     `}
+  `}
+
+  ${media.greaterThan('large')`
+    max-width: 480px;
   `}
 `;
 
