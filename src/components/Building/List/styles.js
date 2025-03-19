@@ -220,7 +220,7 @@ export const CaracteristicsGroup = styled.div`
 
   div {
     margin-top: 15px !important;
-    height: 40px;
+    height: 35px;
     flex: 0 50%;
 
     p {

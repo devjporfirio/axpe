@@ -35,7 +35,7 @@ export const Header = styled.header`
 
   h3 {
     font: 22px 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     color: ${({ theme }) => theme.colors.green};
     text-align: start;
 
