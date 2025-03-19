@@ -20,7 +20,7 @@ export const Container = styled.section`
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 954px;
+  max-width: 990px;
   padding: 0 0 30px 0;
 
   ${media.greaterThan('medium')`
@@ -51,10 +51,21 @@ export const Header = styled.header`
     }
   }
 
+  p {
+    font: 13px 'Raleway';
+    text-transform: uppercase;
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
+    color: ${({ theme }) => theme.colors.green};
+    margin-top: 15px;
+
+    ${media.lessThan('medium')`
+      display: none;
+    `}
+  }
+
   ${media.greaterThan('medium')`
     padding: 50px 0 0;
-    flex-direction: row;
-    align-items: flex-end;
+    flex-direction: column;
 
     h3 {
       width: 60%;
@@ -72,10 +83,46 @@ export const HeaderOrder = styled.div`
   margin-bottom: 30px;
   position: relative;
   z-index: 2;
+  display: flex;
 
   ${media.greaterThan('medium')`
     margin-left: auto;
     margin-bottom: 0;
+  `}
+`;
+
+export const DisplayOrder =  styled.div`
+  display: flex;
+  gap: 10px;
+
+  button {
+    padding: 0;
+    cursor: pointer;
+  }
+
+  ${media.lessThan('medium')`
+    display: none;
+  `}
+`;
+
+export const MoreFiltersButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 38px;
+  font: 10px 'Raleway';
+  padding: 10px 24px;
+  margin-right: 0;
+  text-transform: uppercase;
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  color: ${({ theme }) => theme.colors.green};
+  border: 1px solid ${({ theme }) => theme.colors.green};
+  border-radius: 4px;
+  cursor: pointer;
+
+  ${media.greaterThan('medium')`
+    display: none;
   `}
 `;
 
@@ -96,7 +143,7 @@ export const HeaderOrderButton = styled.button`
 
   span {
     margin-left: 10px;
-    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
   }
 
   &:after {
@@ -110,6 +157,10 @@ export const HeaderOrderButton = styled.button`
     transform: rotate(90deg);
     transition: all 300ms ease;
   }
+
+  ${media.lessThan('medium')`
+    display: none;
+  `}
 
   ${media.greaterThan('medium')`
     padding: 0 15px;
@@ -133,14 +184,18 @@ export const HeaderOrderSelect = styled.select`
   display: block;
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 165px;
+  width: 40%;
   height: 100%;
   background: transparent;
   z-index: 2;
   opacity: 0;
 
   ${media.greaterThan('large')`
+    display: none;
+  `}
+
+  ${media.lessThan('medium')`
     display: none;
   `}
 `;
@@ -221,6 +276,9 @@ export const ButtonBack = styled.button`
 
 export const Buildings = styled.div`
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 `;
 
 export const BuildingsNotFound = styled.div`
@@ -449,5 +507,6 @@ export const Image = styled.img`
 
 export const BuildingsLoadMore = styled.div`
   display: flex;
+  width: 100%;
   justify-content: center;
 `;

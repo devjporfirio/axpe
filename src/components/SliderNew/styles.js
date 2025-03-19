@@ -151,10 +151,9 @@ const ContainerFull = css`
 const ContainerGallery = css`
   .slick-arrow {
     top: 50%;
-    background: rgba(255, 255, 255, 0.5);
     transform: translateY(-50%);
-
-    ${media.greaterThan('large')`
+    
+    ${media.greaterThan('medium')`
       &:hover {
         background: rgba(255, 255, 255, 0.7);
       }
