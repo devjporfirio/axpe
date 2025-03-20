@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import Slider from 'components/Slider';
 import GalleryNav from './GalleryNav';
 import GalleryFull from './GalleryFull';
-import DotPagination from 'components/Dots';
+import DotsPagination from 'components/DotsPagination';
 
 // assets
 import I360 from 'assets/icons/360';
 import PlayIcon from 'assets/icons/play-button';
-
 // styles
 import {
   Container,
@@ -20,6 +19,7 @@ import {
   SliderButton,
   Button360,
 } from './styles';
+
 
 function Gallery({
   items,
@@ -102,7 +102,7 @@ function Gallery({
             ))}
       </Slider>
 
-      <DotPagination
+      <DotsPagination
         currentSlide={currentSlide}
         slideCount={items ? items.length : 0}
         onDotClick={index => sliderRef.current.slickGoTo(index)}
