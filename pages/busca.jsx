@@ -14,16 +14,21 @@ import Button from 'components/Button';
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
 import BuildingList from 'components/Building/List';
-import Contact from 'components/Contact';
+import NewsletterFooter from 'components/NewsletterFooter';
 import BuildingsPanel from 'components/BuildingsPanel';
+import BuildingCard from 'components/Building/Card';
+import CustomSelect from 'components/CustomSelect';
 
 // helpers
-import useCheckLoadMoreOnScroll from 'helpers/checkLoadMoreOnScroll';
 import { getParamsFromObject } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
+import IOrderBlockOn from 'assets/icons/order-block-active';
+import IOrderRowOn from 'assets/icons/order-row-active';
+import IOrderBlockOff from 'assets/icons/order-block-off';
+import IOrderRowOff from 'assets/icons/order-row-off';
 
 // styles
 import {
@@ -43,6 +48,8 @@ import {
   ImageContainer,
   Image,
   BuildingsLoadMore,
+  DisplayOrder,
+  MoreFiltersButton
 } from 'pages/Search/styles';
 
 function Search({ total, totalPages, data, banner, locals }) {
@@ -53,7 +60,6 @@ function Search({ total, totalPages, data, banner, locals }) {
     query: { source, finality, reference, order },
   } = router;
   const { searchFormActive } = useSelector((state) => state.main);
-  const checkLoadMoreOnScroll = useCheckLoadMoreOnScroll();
 
   const keysToHumanNames = {
     source: 'Localização',
@@ -83,6 +89,11 @@ function Search({ total, totalPages, data, banner, locals }) {
     { label: 'Maior Preço', value: 'biggest_price' },
   ];
 
+  const finalityOptions = [
+    { value: 'venda', label: 'Comprar' },
+    { value: 'aluguel', label: 'Alugar' },
+  ];
+
   const orderTiming = useRef(false);
   const [ loadNewPage, setLoadNewPage ] = useState(false);
   const [ orderByComboActive, setOrderByComboActive ] = useState(false);
@@ -92,6 +103,7 @@ function Search({ total, totalPages, data, banner, locals }) {
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ suggestions, setSuggestions ] = useState(null);
+  const [ isOrderListActive, setIsOrderListActive ] = useState(true);
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
@@ -178,11 +190,11 @@ function Search({ total, totalPages, data, banner, locals }) {
   );
 
   const loadMore = useCallback(() => {
+    setIsLoading(true)
     const newPage = page + 1;
     const params = getParamsFromObject({ ...query, page: newPage });
 
     router.push(`/busca${params}`, undefined, { shallow: true });
-
     setPage(newPage);
     setLoadNewPage(true);
   }, [ page ]);
@@ -306,6 +318,18 @@ function Search({ total, totalPages, data, banner, locals }) {
     setSuggestions(results);
   }, [ total, reference ]);
 
+  const handleFinalityChange = (newFinality) => {
+    const newQuery = { ...router.query, finality: newFinality };
+    router.push({
+      pathname: router.pathname,
+      query: newQuery,
+    });
+  };
+
+  const handleOpenFilters = () => {
+    dispatch(setMain({ searchFormActive: true }));
+  };
+
   useEffect(() => {
     setDataInitialGTM();
   }, [ query ]);
@@ -347,12 +371,13 @@ function Search({ total, totalPages, data, banner, locals }) {
     }
   }, [ loadNewPage ]);
 
-  useEffect(() => {
-    if (total && page < totalPages && checkLoadMoreOnScroll && !isLoading) {
-      setIsLoading(true);
-      loadMore();
-    }
-  }, [ checkLoadMoreOnScroll ]);
+  // Load more on scroll disabled
+  // useEffect(() => {
+  //   if (total && page < totalPages && checkLoadMoreOnScroll && !isLoading) {
+  //     setIsLoading(true);
+  //     loadMore();
+  //   }
+  // }, [ checkLoadMoreOnScroll ]);
 
   return (
     <>
@@ -379,6 +404,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                   <h3>
                     Encontramos <strong>{total} imóveis</strong> para sua busca
                   </h3>
+                  <p>Mostrando 1-{buildings.length} de {total}</p>
                   <HeaderOrder
                     onMouseEnter={() => clearTimeout(orderTiming.current)}
                     onMouseLeave={() => {
@@ -387,6 +413,26 @@ function Search({ total, totalPages, data, banner, locals }) {
                       }, 300);
                     }}
                   >
+                    <DisplayOrder>
+                      <button onClick={() => setIsOrderListActive(!isOrderListActive)}>
+                        <img src={isOrderListActive ? IOrderRowOn : IOrderRowOff} alt="Botão de ordenar lista" />
+                      </button>
+                      <button onClick={() => setIsOrderListActive(!isOrderListActive)}>
+                        <img src={isOrderListActive ? IOrderBlockOff : IOrderBlockOn} alt="Botão de ordenar bloco"/>
+                      </button>
+                    </DisplayOrder>
+
+                    <CustomSelect
+                      id="finalitySelect"
+                      options={finalityOptions}
+                      value={finality}
+                      onChange={(newValue) => {
+                        handleFinalityChange(newValue);
+                      }}
+                    />
+
+                    <MoreFiltersButton onClick={handleOpenFilters}>Mais Filtros</MoreFiltersButton>
+
                     <HeaderOrderButton
                       type="button"
                       active={orderByComboActive}
@@ -464,13 +510,22 @@ function Search({ total, totalPages, data, banner, locals }) {
                 {total ? (
                   buildings.map((building, buildingIndex) => (
                     <>
-                      <BuildingList
-                        item={building}
-                        page="search"
-                        positionIndex={buildingIndex + 1}
-                        key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                      />
-
+                      {isOrderListActive ? (
+                        <BuildingList
+                          item={building}
+                          page="search"
+                          positionIndex={buildingIndex + 1}
+                          key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                        />
+                      ) : (
+                        <BuildingCard
+                          item={building}
+                          gtmShowcase={''}
+                          positionIndex={buildingIndex + 1}
+                          key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                          showGallery={true}
+                        />
+                      )}
                       {banner && buildingIndex == 2 && total >= 5 && (
                         <SearchBanner>
                           {banner.title && (
@@ -581,12 +636,12 @@ function Search({ total, totalPages, data, banner, locals }) {
                   <BuildingsLoadMore>
                     <Button
                       type="button"
-                      // onClick={loadMore}
                       disabled={isLoading}
                       className="holos-search-load-more load-more-button"
                       data-showcase="Busca"
+                      onClick={loadMore}
                     >
-                      {isLoading ? 'Carregando...' : 'Carregar mais'}
+                      {isLoading ? 'Carregando...' : 'Ver mais'}
                     </Button>
                   </BuildingsLoadMore>
                 ) : null}
@@ -606,8 +661,8 @@ function Search({ total, totalPages, data, banner, locals }) {
                 />
               ))}
 
-            <BlockHighlighted type="notfound" query={query} />
-            <Contact />
+            <NewsletterFooter/>
+            <BlockHighlighted type="contactHome" query={query} />
           </>
         ) : null}
       </Container>

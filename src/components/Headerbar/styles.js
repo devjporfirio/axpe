@@ -40,6 +40,11 @@ export const Container = styled.div`
 
   ${props => props.type === 'building' && ContainerBuilding}
   ${props => props.type === 'modal' && ContainerModal}
+
+  ${props => props.type === 'search' &&
+    media.lessThan('medium')`
+      display: none;
+  `}
 `;
 
 export const ContainerBuildingPage = css`

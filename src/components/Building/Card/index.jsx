@@ -17,8 +17,8 @@ import {
   Image,
   Column,
   Text,
-  ButtonContainer,
   Inactive,
+  GallerySlider
 } from './styles';
 
 function BuildingCard({
@@ -26,14 +26,18 @@ function BuildingCard({
   gtmShowcase = '',
   positionIndex = 1,
   item,
+  showGallery = false,
 }) {
   const [ gtmObj, setGtmObj ] = useState(null);
   const itemData =
-    item && item.building && Object.keys(item.building).length > 0
-      ? item.building
-      : item;
+  item && item.building && Object.keys(item.building).length > 0
+  ? item.building
+  : item;
 
-  const { category, values, infos, reference, address, status } = itemData;
+  const { category, values, infos, address, status } = itemData;
+
+  const infoDescription = infos && infos.shortDescription || infos && infos.titleSite;
+  const charDescriptionLimit = 70;
 
   const sell =
     values && Object.keys(values).length > 0 && values.sell
@@ -65,69 +69,63 @@ function BuildingCard({
         ? itemData.imageFeatured.mobile
         : '';
 
-    return urlImageDesktop || urlImageMobile ? (
-      <Gallery layout={layout}>
-        {status === 'inactive' && (
-          <Inactive>
-            <SVG src={EmojiIconSVG} uniquifyIDs={true} />
-            <p>
-              <strong>Ops!</strong>
-              <br />
-              Esse imóvel não está mais disponível
-            </p>
-          </Inactive>
-        )}
-        {urlImageDesktop && <Image mq="desktop" src={urlImageDesktop} />}
-        {urlImageMobile && <Image mq="mobile" src={urlImageMobile} />}
-      </Gallery>
-    ) : null;
-  }, [ layout, itemData ]);
-
+        if (showGallery && itemData.gallery && itemData.gallery.length > 0) {
+          return (
+            <GallerySlider layout={layout}>
+              {itemData.gallery.map((image, index) => (
+                <>
+                  <Image mq="mobile" src={image.src} alt={`Slide ${index + 1}`} />
+                  <Image mq="desktop" src={image.src} alt={`Slide ${index + 1}`} />
+                </>
+              ))}
+            </GallerySlider>
+          );
+        } else if (urlImageDesktop || urlImageMobile) {
+          return (
+            <Gallery layout={layout}>
+              {status === 'inactive' && (
+                <Inactive>
+                  <SVG src={EmojiIconSVG} uniquifyIDs={true} />
+                  <p>
+                    <strong>Ops!</strong>
+                    <br />
+                    Esse imóvel não está mais disponível
+                  </p>
+                </Inactive>
+              )}
+              {urlImageDesktop && <Image mq="desktop" src={urlImageDesktop} />}
+              {urlImageMobile && <Image mq="mobile" src={urlImageMobile} />}
+            </Gallery>
+          );
+        } else {
+          return null;
+        }
+      }, [ showGallery, layout, itemData, status ]);
   const renderHTML = useCallback(() => {
     return (
       <Wrapper layout={layout}>
         {renderGalleryImages()}
         <Column layout={layout}>
           <Text layout={layout}>
-            {address && address.local && <h4>{address.local}</h4>}
-            <p>
-              <span>
-                {category}
-                {(item.type && item.type === 'lancamento') ||
-                (item.building && item.building.type === 'lancamento')
-                  ? infos &&
-                    infos.areaUsefulStart &&
-                    infos.areaUsefulEnd &&
-                    infos.areaUsefulEnd !== 99999999
-                    ? `, ${infos.areaUsefulStart}m² a ${infos.areaUsefulEnd}m²`
-                    : null
-                  : `, ${
-                      infos && infos.areaTotal ? infos.areaTotal + ' m²' :
-                      infos && infos.areaUseful ? infos.areaUseful + ' m²' : null
-                    }`}
-              </span>
-              {sell || release || rent ? (
-                <>
-                  {sell || release ? (
-                    <span>
-                      {(item.type && item.type === 'lancamento') ||
-                      (item.building && item.building.type === 'lancamento')
-                        ? 'A partir de: '
-                        : 'Venda: '}
-                      {sell
-                        ? formatCurrency.format(sell)
-                        : formatCurrency.format(release)}
-                    </span>
-                  ) : null}
-                  {rent ? (
-                    <span>Aluguel: {formatCurrency.format(rent)}</span>
-                  ) : null}
-                </>
-              ) : null}
-              <span className="ref">Ref {reference}</span>
+            <span>
+              {sell
+                ? formatCurrency.format(sell)
+                : release ? formatCurrency.format(release) : rent ? formatCurrency.format(rent) : ' '}
+            </span>
+            <p>{category}</p>
+            <h4>{address && address.local ? address.local : ''}</h4>
+            <div>
+              <span>{infos && infos.areaUseful &&`${infos.areaUseful} m² |`} </span>
+              <span>{infos && infos.suites && `${infos.suites} Suites |`}</span>
+              <span>{infos && infos.bedrooms && `${infos.bedrooms} Quartos |`}</span>
+              <span>{infos && infos.parking && `${infos.parking} Vagas`}</span>
+            </div>
+            <p>{infoDescription.length > charDescriptionLimit
+              ? `${infoDescription.slice(0, charDescriptionLimit)}...`
+              : infoDescription}
             </p>
+            
           </Text>
-          <ButtonContainer layout={layout}>Saiba mais</ButtonContainer>
         </Column>
       </Wrapper>
     );

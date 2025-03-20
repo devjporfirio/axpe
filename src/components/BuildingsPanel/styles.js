@@ -4,30 +4,27 @@ import media from 'styled-media-query';
 export const Container = styled.section`
   width: 100%;
   position: relative;
-  background: ${({ theme }) => theme.colors.greyLight};
 `;
 
 export const Wrapper = styled.div`
   width: 100%;
   margin: 0 auto;
-  max-width: 974px;
-  padding: 30px 50px;
-
+  max-width: 1500px;
+  padding: 30px 15px;
+  margin-right: 16px;
+  
   ${props => props.type === 'building' && css`
     max-width: 994px;
   `}
 
-  ${media.greaterThan('medium')`
-    padding: 50px;
+  ${media.greaterThan('large')`
+    padding: 25px 50px;
   `}
 
-  ${media.greaterThan('1280px')`
-    padding: 50px 0;
-  `}
 `;
 
 export const Header = styled.header`
-  margin-bottom: 30px;
+  margin-bottom: 14px;
 
   ${media.greaterThan('medium')`
     display: flex;
@@ -37,18 +34,12 @@ export const Header = styled.header`
   `}
 
   h3 {
-    font: 22px/32px 'Bitter';
-    font-weight: ${({ theme }) => theme.fontsWeight.bold};
-    color: ${({ theme }) => theme.colors.greenDark};
-    text-align: center;
+    font: 22px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    color: ${({ theme }) => theme.colors.green};
+    text-align: start;
 
     ${media.greaterThan('medium')`
-      font-size: 34px;
-      line-height: 34px;
-      text-align: left;
-    `}
-
-    ${media.greaterThan('large')`
       font-size: 40px;
       line-height: 48px;
     `}
@@ -101,4 +92,54 @@ export const Items = styled.div`
       }
     `}
   `}
+
+  .slick-track {
+    display: flex;
+    gap: 16px;
+
+    ${media.lessThan('medium')`
+      gap: 0;
+
+      > div {
+        margin-right: 16px;
+  
+      }
+    `}
+  }
+
+  .slick-dots {
+    position: absolute;
+    width: 100%;
+    display: flex !important;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    z-index: 5;
+  }
+
+  .slick-dots li {
+    margin: 0 5px;
+    width: 12px;
+  }
+
+  .slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.grey2};
+    border: none;
+    cursor: pointer;
+
+    &::before {
+      display: none
+    }
+  }
+
+  .slick-dots li.slick-active button {
+    background: ${({ theme }) => theme.colors.green};
+  }
 `;

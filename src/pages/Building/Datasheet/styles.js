@@ -288,7 +288,7 @@ export const PriceRelease = styled.div`
 export const BuildingLabel = styled.div`
   position: absolute;
   top: 0px;
-  left: 20px;
+  right: 20px;
 
   ${media.greaterThan('medium')`
       left: unset;
