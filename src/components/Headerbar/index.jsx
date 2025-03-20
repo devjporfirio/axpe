@@ -24,8 +24,6 @@ import {
   Column,
   ButtonBack,
   ButtonIcon,
-  Text,
-  PhoneContact,
 } from './styles';
 
 function Headerbar({ className, type, title, subtitle, building }) {
@@ -137,8 +135,6 @@ function Headerbar({ className, type, title, subtitle, building }) {
               >
                 <SVG src={ShareIconSVG} uniquifyIDs={true} />
               </ButtonIcon>
-              <Text>Ref {building.reference}</Text>
-              <PhoneContact href="tel:+551130743600">11 3074-3600</PhoneContact>
             </Column>
           )}
       </Container>
