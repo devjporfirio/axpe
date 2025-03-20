@@ -5,7 +5,7 @@ import ArrowIconSVG from 'assets/icons/arrow';
 export const SelectContainer = styled.div`
   position: relative;
   display: inline-block;
-  width: 40%;
+  width: 30%;
   
   ${media.greaterThan('medium')`
     display: none;

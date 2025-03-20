@@ -1,33 +1,44 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
-export const DatasheetContent = styled.div`
-  max-width: 974px;
-  margin: auto;
-  background-color: ${({ theme }) => theme.colors.green};
-  p {
-    color: ${({ theme }) => theme.colors.white};
-  }
+export const MainContainer = styled.section`
+display: flex;
+flex-direction: column;
+font-family: 'Raleway';
+max-width: 1280px;
+margin: 0 auto;
 
   ${media.greaterThan('medium')`
-    display: flex;
-    height: 268px;
+    flex-direction: row;
+    justify-content: center;
   `}
+`;
+
+export const DatasheetContent = styled.div`
+  max-width: 974px;
+
+  background-color: ${({ theme }) => theme.colors.greyLight};
+  padding: 16px;
+  p {
+    color: ${({ theme }) => theme.colors.green};
+  }
+
 `;
 
 export const Block = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.greenBorder};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
+  margin-bottom: 20px;
 
   ${media.greaterThan('medium')`
-    padding: 33px 38px;
+    padding: 16px 20px;
     width: 100%;
-    border-bottom: none;
-    border-right: 1px solid ${({ theme }) => theme.colors.greenBorder};
-  `}
+    `}
 `;
 
 export const BlockOne = styled(Block)`
@@ -37,24 +48,18 @@ export const BlockOne = styled(Block)`
 
   ${media.greaterThan('medium')`
     flex-direction: column;
-    max-width: 349px;
     justify-content: flex-start;
     align-items: flex-start;
     flex-shrink: 0;
-
-    hr {
-      display: block;
-      width: 79px;
-      margin: 0;
-      border: 1px solid  ${({ theme }) => theme.colors.greenBorder};    
-    }
   `}
 `;
 
 export const BlockTwo = styled(Block)`
+  display: flex;
+  gap: 12px;
+
   ${media.greaterThan('medium')`
-    padding: 51px 27px 0 27px;
-    max-width: 264px;
+    padding: 16px 20px;
     flex-shrink: 0;
     align-items: flex-start;
 
@@ -66,13 +71,14 @@ export const BlockTwo = styled(Block)`
 `;
 
 export const BlockThree = styled(Block)`
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  min-height: 240px;
-
+  padding: 20px 10px;
+  
   div {
-    flex-basis: 50%;
+    flex-basis: 33%;
 
     &.price-wfull {
       flex-basis: 100%;
@@ -82,26 +88,64 @@ export const BlockThree = styled(Block)`
   ${media.greaterThan('medium')`
     align-content: start;
     border: none;
+    padding: 16px 20px;
+    flex-wrap: nowrap;
+  `}
+`;
+
+export const BlockFour = styled(Block)`
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 240px;
+
+  ${media.greaterThan('medium')`
+    align-content: start;
+    border: none;
     padding: 19px 26px;
   `}
 `;
 
 export const GroupInfo = styled.div`
-  ${media.greaterThan('medium')`
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 100%;
+
+  ${media.greaterThan('small')`
+    flex-direction: row;
   `}
+`;
+
+export const InfoContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
 `;
 
 export const Type = styled.p`
-  font: 18px 'Bitter';
+  font: 16px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
-  margin-bottom: 21px;
-
-  ${media.greaterThan('medium')`
-    font-size: 28px;
-    margin-bottom: 0;
-  `}
+  text-transform: uppercase;
 `;
+
+export const Location = styled.div`
+  font: 14px 'Raleway';
+  color: ${({ theme }) => theme.colors.green};
+  text-decoration: underline;
+  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  padding: 8px;
+
+  a {
+    display: flex;
+  }
+  img {
+    width: 18px;
+    margin-right: 4px;
+  }
+`;
+
 
 export const GroupNeigRef = styled.div`
   ${media.greaterThan('medium')`
@@ -112,16 +156,11 @@ export const GroupNeigRef = styled.div`
 `;
 
 export const Neighborhood = styled.p`
-  font-size: 15px;
-  text-transform: uppercase;
+  font-size: 28px;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  text-transform: capitalize;
   margin-bottom: 5px;
 
-  ${media.greaterThan('medium')`
-    font-size: 16px;
-    line-height: 33px;
-    letter-spacing: 0.5px;
-    max-width: 50%;
-  `}
 `;
 
 export const CategoryRelease = styled.p`
@@ -150,67 +189,83 @@ export const Ref = styled.p`
 `;
 
 export const GroupTags = styled.div`
-  /*width: 144px;*/
-  margin-top: 27px;
-
   div + div {
     margin-top: 10px;
   }
 `;
 
-export const Content = styled.h1`
+export const Content = styled.p`
   font-size: 16px;
   line-height: 23.6px;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.green};
 `;
 
 export const Price = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 100%;
 
-  &.price-wfull {
+  &.price-wfull, &.price-expenses {
     margin-top: 20px;
   }
 
-  p {
-    &:nth-child(1) {
-      font-size: 14px;
-    }
+  div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
 
-    &:nth-child(2) {
-      font-size: 22px;
-      line-height: 26px;
-      font-weight: 600;
+    p {
+      &:nth-child(1) {
+        font-size: 16px;
+        font-weight: ${({ theme }) => theme.fontsWeight.bold};
+      }
 
-      ${media.lessThan('small')`
-        font-size: 19px;
-      `}
-    }
-
-    &:nth-child(3) {
-      margin-top: 8px;
-
-      ${media.greaterThan('medium')`
-        margin-top: 12px;
-        margin-bottom: 4px;
-      `}
-    }
-
-    &:nth-child(3),
-    &:nth-child(4) {
-      font-size: 12px;
+      &:nth-child(2) {
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: ${({ theme }) => theme.fontsWeight.bold};
+      }
     }
   }
 `;
 
 export const PriceGroup = styled.div`
-  width: 100%;
-  flex-basis: 100% !important;
   display: flex;
-  align-items: baseline;
+  width: 100%;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: ${({ theme }) => theme.colors.green};
+
+  ${media.greaterThan('medium')`
+    padding: 20px;
+    max-width: 291px;
+    max-height: 326px;
+    justify-content: start;
+    margin: 16px 16px 0 0;
+  `}
 `;
 
+export const PriceGroupMobile = styled(PriceGroup)`
+display: flex;
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
+`
+
+export const PriceGroupDesktop = styled(PriceGroup)`
+display: none;
+  ${media.greaterThan('medium')`
+    display: flex;
+  `}
+`
 export const PriceRelease = styled.div`
   height: 26px;
   flex-basis: 100% !important;
@@ -242,30 +297,21 @@ export const BuildingLabel = styled.div`
 `;
 
 export const InfoValue = styled.div`
-  height: 82px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 12px;
 
   p {
+    font-size: 14px;
     &:nth-child(1) {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    &:nth-child(2) {
-      font-size: 18px;
+      font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     }
   }
 
   ${media.greaterThan('medium')`
     height: auto;
     padding: 14px 0;
-
-    p {
-      font-size: 16px !important;
-      line-height: 18px !important;
-    }
   `}
 `;
 
@@ -273,7 +319,7 @@ export const Delivery = styled.div`
   p {
     text-align: center;
     background-color: ${({ theme }) => theme.colors.greenLight};
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.green};
     font-size: 16px;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     height: 35px;
@@ -281,8 +327,8 @@ export const Delivery = styled.div`
 
     span {
       font-size: 16px;
-      font-weight: 600;
-      color: ${({ theme }) => theme.colors.white};
+      font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+      color: ${({ theme }) => theme.colors.green};
     }
   }
 
@@ -298,22 +344,60 @@ export const Delivery = styled.div`
   `}
 `;
 
-export const NamesAndPrices = styled.div`
+export const PriceExpenses = styled.div`
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
     margin-top: 12px;
     width: 100%;
     font-size: 12px;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.green};
+    border-top: 1px solid ${({ theme }) => theme.colors.green};
 
-    dt,
-    dd {
-      width: 50%;
-      margin-bottom: 8px;
+    p {
+      font-size: 12px;
+      font-weight: ${({ theme }) => theme.fontsWeight.bold};
+      text-transform: uppercase;
+      margin-top: 12px;
     }
 
-    dd {
-      text-align: right;
+    div {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+
+      dt,
+      dd {
+        width: 50%;
+        font-size: 16px;
+      }
+  
+      dd {
+        text-align: right;
+      }
     }
+`
+
+export const ButtonVisit = styled.button`
+font-size: 16px;
+font-weight: ${({ theme }) => theme.fontsWeight.bold};
+color: ${({ theme }) => theme.colors.white};
+background-color: ${({ theme }) => theme.colors.orange};
+border-radius: 4px;
+width: 100%;
+height: 46px;
+margin-top: 20px;
+padding: 10px;
+`
+
+export const ButtonMoreInfo = styled.button`
+font-size: 16px;
+font-weight: ${({ theme }) => theme.fontsWeight.bold};
+color: ${({ theme }) => theme.colors.orange};
+border: 1px solid ${({ theme }) => theme.colors.orange};
+border-radius: 4px;
+width: 100%;
+height: 46px;
+margin-top: 12px;
+padding: 10px;
+
 `

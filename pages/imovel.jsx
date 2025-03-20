@@ -7,10 +7,9 @@ import Api from 'services';
 // components
 import Headerbar from 'components/Headerbar';
 import BlockHighlighted from 'components/BlockHighlighted';
-import Contact from 'components/Contact';
+import NewsletterFooter from 'components/NewsletterFooter';
 import BuildingList from 'components/Building/List';
 import DataSheet from 'pages/Building/Datasheet';
-import Modules from 'pages/Building/modules';
 
 // helpers
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
@@ -134,7 +133,7 @@ function Building({ property, meta }) {
           </p>
         </Alert>
 
-        {Object.keys(data.components).length > 0 && <Modules property={data} />}
+        {/* {Object.keys(data.components).length > 0 && <Modules property={data} />} */}
 
         {similarBuildings && similarBuildings.length > 0 && (
           <SimilarBuildings>
@@ -155,8 +154,8 @@ function Building({ property, meta }) {
           </SimilarBuildings>
         )}
 
-        <BlockHighlighted type="notfound" />
-        <Contact />
+        <NewsletterFooter />
+        <BlockHighlighted type="contactHome" />
       </Container>
     </>
   );

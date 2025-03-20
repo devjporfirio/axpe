@@ -6,7 +6,7 @@ import Button from 'components/Button';
 
 export const Container = styled.div`
   min-height: 64px;
-
+  background: ${({ theme }) => theme.colors.white};
   h3 {
     font: 18px/28px 'Bitter';
     color: ${({ theme }) => theme.colors.orange};
@@ -23,9 +23,15 @@ export const Container = styled.div`
   }
 
   ${media.greaterThan('large')`
+  display: flex;
+  justify-content: space-between;
     h4 {
       margin-left: 30px;
     }
+  `}
+
+  ${media.lessThan('large')`
+    display: none;
   `}
 
   ${props =>
@@ -56,7 +62,7 @@ export const ContainerBuildingPage = css`
 export const ContainerBuilding = css`
   ${media.greaterThan('large')`
     & > div {
-      padding: 15px;
+      padding: 15px 52px;
 
       & > button {
         display: flex;
@@ -99,9 +105,6 @@ export const ContainerModal = css`
 `;
 
 export const Wrapper = styled.div`
-  position: fixed;
-  top: 70px;
-  left: 0;
   width: 100%;
   min-height: 46px;
   padding: 10px 30px 10px 60px;
@@ -110,21 +113,17 @@ export const Wrapper = styled.div`
   transition: all 50ms ease;
 
   ${media.greaterThan('large')`
-    top: 0;
-    left: 200px;
-    width: calc(100% - 200px);
-    padding: 15px 30px;
     display: flex;
+    width: auto;
+    padding: 15px 30px;
     align-items: center;
     justify-content: space-between;
   `}
 `;
 
 export const Column = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 30px;
   display: flex;
+  width: auto;
   align-items: center;
   justify-content: flex-end;
   transform: translateY(-50%);
@@ -142,9 +141,6 @@ export const ButtonBack = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 20px;
   width: 24px;
   height: 24px;
   font-size: 0;

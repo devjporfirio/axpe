@@ -5,16 +5,16 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.colors.green};
   display: flex;
   align-items: center;
-  height: 35px;
+  height: 30px;
   line-height: 35px;
-  padding: 0 8px;
+  padding: 0 10px;
   border-radius: 4px;
-  font: 12px/16px 'Raleway';
+  font: 12px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
 
   img {
-    width: 14px;
+    width: 11px;
     margin-right: 10px;
   }
 

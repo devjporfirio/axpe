@@ -15,7 +15,6 @@ export const NextArrow = ({
       color={color}
       position={position}
       type={type}
-      backgroundColor={backgroundColor}
       onClick={onClick}
     />
   );
@@ -33,7 +32,6 @@ export const PrevArrow = ({
       color={color}
       position={position}
       type={type}
-      backgroundColor={backgroundColor}
       onClick={onClick}
     />
   );
