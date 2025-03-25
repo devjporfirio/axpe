@@ -1,8 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
 export default createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
     v2.0 | 20110126

@@ -14,6 +14,8 @@ import configureStore from 'store';
 
 import 'isomorphic-unfetch';
 import 'promise-polyfill/lib/polyfill';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 class MyApp extends App {
 
