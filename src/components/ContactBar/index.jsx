@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
 import Router, { useRouter } from 'next/router';
+import FormElements from 'components/FormElements';
+import { FormGroup } from 'components/FormElements/styles';
 import SVG from 'react-inlinesvg';
 
 // actions
@@ -22,6 +25,10 @@ import {
   Wrapper,
   LinkFloat,
   ButtonFloat,
+  Form,
+  FormGroupBasics,
+  FormGroupLang,
+  ButtonSubmit,
   Header,
   ButtonClose,
   Iframe,
@@ -33,6 +40,7 @@ import {
 
 function ContactBar() {
   const router = useRouter();
+  const refForm = useRef(null);
   const dispatch = useDispatch();
   const refIframe = useRef(null);
   const {
@@ -43,6 +51,24 @@ function ContactBar() {
   } = useSelector((state) => state.main);
   const [ isBuilding, setIsBuilding ] = useState(false);
   const [ iframeUrl, setIframeUrl ] = useState(null);
+  const {
+      handleSubmit,
+      values,
+      isSubmitting,
+      touched,
+      errors,
+      handleChange,
+    } = useFormik({
+      initialValues: {
+       name: "",
+       email: "",
+       whatsapp: "",
+       message: "",
+      },
+      onSubmit: async (values) => {
+       console.log("values aqqq", values);
+      },
+    });
   const iframes = [
     {
       source: 'praia-campo',
@@ -378,13 +404,75 @@ function ContactBar() {
                     Fechar
                   </ButtonClose>
                   <h3>
-                    <strong>Pergunte</strong>, peça um imóvel ou reclame. Pode
-                    elogiar também.
+                    Quer vender, comprar ou alugar um imóvel?
                   </h3>
                 </Header>
                 <Column>
-                  <p>Você pode também falar diretamente conosco:</p>
-                  <List>
+                  <p>Fale diretamente conosco</p>
+                  <Form
+                    ref={refForm}
+                    action="https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit"
+                    method="POST"
+                    accept-charset="UTF-8"
+                    enctype="multipart/form-data"
+                    onSubmit={handleSubmit}
+                  >
+                    <FormGroup>
+                      <FormGroupBasics>
+                        <FormElements
+                          name="name"
+                          placeholder="Nome e Sobrenome"
+                          onChange={handleChange}
+                          error={touched.name && errors.name}
+                          value={values.name}
+                          className="holos-form-field"
+                          data-label="Nome e Sobrenome"
+                          data-type="Trabalhe Conosco"
+                        />
+                        <FormElements
+                          type="emailmask"
+                          name="email"
+                          placeholder="Seu E-mail"
+                          onChange={handleChange}
+                          error={touched.email && errors.email}
+                          value={values.email}
+                          className="holos-form-field"
+                          data-label="E-mail pessoal"
+                          data-type="Trabalhe Conosco"
+                        />
+                        <FormElements
+                          type="number"
+                          name="whatsapp"
+                          placeholder="Seu Whatsapp"
+                          onChange={handleChange}
+                          error={touched.whatsapp && errors.whatsapp}
+                          value={values.whatsapp}
+                          className="holos-form-field"
+                          data-label="Whatsapp"
+                          data-type="Trabalhe Conosco"
+                        />
+                        <FormElements
+                          type="area"
+                          name="message"
+                          placeholder="Deixe sua mensagem"
+                          onChange={handleChange}
+                          error={touched.message && errors.message}
+                          value={values.message}
+                          className="holos-form-field"
+                          data-label="Experiências anteriores na area comercial de empresas"
+                          data-type="Trabalhe Conosco"
+                        />
+                      </FormGroupBasics>
+                    </FormGroup>
+                      <ButtonSubmit
+                        disabled={isSubmitting}
+                        type="submit"
+                        className="contact-form-submit"
+                      >
+                        {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
+                      </ButtonSubmit>
+                  </Form>
+                  {/* <List>
                     <li>
                       <ListLink
                         href="https://wa.me/551130743600"
@@ -468,8 +556,8 @@ function ContactBar() {
                           </i>
                           <span className="big">Fale pelo chat</span>
                         </ListButton>
-                      </li> */}
-                  </List>
+                      </li> 
+                  </List>*/}
                 </Column>
               </>
             )}

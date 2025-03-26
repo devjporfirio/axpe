@@ -1,4 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
+import Button from 'components/Button';
+import FormElements from 'components/FormElements';
 import media from 'styled-media-query';
 
 const animateBalloonLeft = keyframes`
@@ -28,6 +30,78 @@ const animateBalloonDot = keyframes`
   27.5% { transform: translateY(-0.75px); }
   29% { transform: translateY(0px); }
 `;
+
+export const Form = styled.form`
+  ${media.greaterThan('medium')`
+    max-width: 888px;
+    margin: auto;
+
+    input {
+      width: 100%;
+      border: 1px solid #C3CCCD;
+      border-radius: 4px;
+      padding: 11px 20px;
+      margin-bottom: 16px;
+
+      ::placeholder {
+        font-family: Raleway;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0px;
+        vertical-align: middle;
+        color: #C3CCCD;
+      }
+    }
+
+    label[type='area'] {
+      overflow: visible;
+      height: 173px;
+    }
+
+    textarea {
+      border: 1px solid #C3CCCD;
+      width: 100%;
+      border-radius: 4px;
+      resize: none;
+      padding: 22px 20px;
+      height: 163px;
+
+      ::placeholder {
+        font-family: Raleway;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0px;
+        vertical-align: middle;
+        color: #C3CCCD;
+      }
+    }
+  `}
+`;
+
+export const FormGroupBasics = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 600px;
+  justify-content: space-between;
+`;
+
+export const FormGroupLang = styled(FormGroupBasics)`
+  ${media.greaterThan('medium')`
+    label {
+      max-width: 282px;
+    }
+  `}
+`;
+
+export const ButtonSubmit = styled(Button)`
+  width: 100%;
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+  `}
+`;
+
 
 export const ButtonStyle = css`
   align-items: center;
@@ -158,20 +232,20 @@ export const Wrapper = styled.div`
     right: 0;
     overflow: hidden;
     overflow-y: auto;
-    width: 375px;
+    width: 343px;
     height: 100vh;
-    background: ${({ theme }) => theme.colors.greyLight};
+    background: ${({ theme }) => theme.colors.white};
     cursor: default;
   `}
 `;
 
 export const Header = styled.header`
   position: relative;
-  padding: 30px 60px 30px 30px;
+  padding: 38px 54px 38px 20px;
   background: ${({ theme }) => theme.colors.green};
 
   h3 {
-    font: 30px/36px 'Bitter';
+    font: 22px/100% 'Bitter';
     color: ${({ theme }) => theme.colors.white};
 
     strong {
@@ -187,7 +261,7 @@ export const Header = styled.header`
 
       h3 {
         max-width: 210px;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 21px;
         color: ${({ theme }) => theme.colors.greenDark};
       }
@@ -197,7 +271,7 @@ export const Header = styled.header`
 export const ButtonClose = styled.button`
   display: block;
   position: absolute;
-  top: 30px;
+  top: 36px;
   right: 30px;
   width: 24px;
   height: 24px;
@@ -210,7 +284,7 @@ export const ButtonClose = styled.button`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 3px;
+    width: 1px;
     height: 100%;
     border-radius: 3px;
     background: ${({ theme }) => theme.colors.white};
@@ -250,7 +324,7 @@ export const Column = styled.div`
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
     ${media.greaterThan('large')`
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     `}
   }
 `;
