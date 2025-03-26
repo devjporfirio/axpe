@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
 import Button from 'components/Button';
-import FormElements from 'components/FormElements';
 import media from 'styled-media-query';
 
 const animateBalloonLeft = keyframes`
@@ -32,7 +31,6 @@ const animateBalloonDot = keyframes`
 `;
 
 export const Form = styled.form`
-  ${media.greaterThan('medium')`
     max-width: 888px;
     margin: auto;
 
@@ -51,6 +49,10 @@ export const Form = styled.form`
         vertical-align: middle;
         color: #C3CCCD;
       }
+    }
+
+    label {
+      background-color: transparent;
     }
 
     label[type='area'] {
@@ -75,7 +77,23 @@ export const Form = styled.form`
         color: #C3CCCD;
       }
     }
-  `}
+
+    .contact-whatsapp-button {
+      width: 100%;
+      border: 1px solid #EE6900;
+      border-radius: 4px;
+      padding: 14px 0;
+      margin-bottom: 16px;
+
+      font-family: Raleway;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      color: #EE6900;
+    }
+  }
 `;
 
 export const FormGroupBasics = styled.div`
@@ -108,11 +126,10 @@ export const ButtonStyle = css`
   justify-content: center;
   position: fixed;
   bottom: 25px;
-  width: 245px;
-  height: 50px;
+  width: 261px;
+  height: 40px;
   background: ${({ theme }) => theme.colors.orange};
-  border-radius: 36px;
-  border: 2px solid ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
   right: 50%;
   z-index: 10;
   transform: translateX(50%);
@@ -122,7 +139,7 @@ export const ButtonStyle = css`
   }
 
   div {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 16px;
     text-align: left;
     margin-left: 20px;
@@ -152,8 +169,8 @@ export const ButtonStyle = css`
 
   svg {
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
 
     .hollow-bg {
       fill: ${({ theme }) => theme.colors.orange};
@@ -241,8 +258,12 @@ export const Wrapper = styled.div`
 
 export const Header = styled.header`
   position: relative;
-  padding: 38px 54px 38px 20px;
-  background: ${({ theme }) => theme.colors.green};
+  padding: 38px 69px 38px 35px;
+  background: #2F4447;
+
+   ${media.greaterThan('medium')`
+      padding: 38px 54px 38px 20px;
+  `}
 
   h3 {
     font: 22px/100% 'Bitter';
@@ -316,7 +337,7 @@ export const Iframe = styled.iframe`
 `;
 
 export const Column = styled.div`
-  padding: 30px;
+  padding: 38px 32px 30px 30px;
 
   & > p {
     margin-bottom: 30px;
