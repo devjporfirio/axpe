@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import Button from 'components/Button';
 import media from 'styled-media-query';
 
 const animateBalloonLeft = keyframes`
@@ -29,16 +30,106 @@ const animateBalloonDot = keyframes`
   29% { transform: translateY(0px); }
 `;
 
+export const Form = styled.form`
+    max-width: 888px;
+    margin: auto;
+
+    input {
+      width: 100%;
+      border: 1px solid #C3CCCD;
+      border-radius: 4px;
+      padding: 11px 20px;
+      margin-bottom: 16px;
+
+      ::placeholder {
+        font-family: Raleway;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0px;
+        vertical-align: middle;
+        color: #C3CCCD;
+      }
+    }
+
+    label {
+      background-color: transparent;
+    }
+
+    label[type='area'] {
+      overflow: visible;
+      height: 173px;
+    }
+
+    textarea {
+      border: 1px solid #C3CCCD;
+      width: 100%;
+      border-radius: 4px;
+      resize: none;
+      padding: 22px 20px;
+      height: 163px;
+
+      ::placeholder {
+        font-family: Raleway;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0px;
+        vertical-align: middle;
+        color: #C3CCCD;
+      }
+    }
+
+    .contact-whatsapp-button {
+      width: 100%;
+      border: 1px solid #EE6900;
+      border-radius: 4px;
+      padding: 14px 0;
+      margin-bottom: 16px;
+
+      font-family: Raleway;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      color: #EE6900;
+    }
+  }
+`;
+
+export const FormGroupBasics = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 600px;
+  justify-content: space-between;
+`;
+
+export const FormGroupLang = styled(FormGroupBasics)`
+  ${media.greaterThan('medium')`
+    label {
+      max-width: 282px;
+    }
+  `}
+`;
+
+export const ButtonSubmit = styled(Button)`
+  width: 100%;
+
+  ${media.greaterThan('medium')`
+    width: 100%;
+  `}
+`;
+
+
 export const ButtonStyle = css`
   align-items: center;
   justify-content: center;
   position: fixed;
   bottom: 25px;
-  width: 245px;
-  height: 50px;
+  width: 261px;
+  height: 40px;
   background: ${({ theme }) => theme.colors.orange};
-  border-radius: 36px;
-  border: 2px solid ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
   right: 50%;
   z-index: 10;
   transform: translateX(50%);
@@ -48,7 +139,7 @@ export const ButtonStyle = css`
   }
 
   div {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 16px;
     text-align: left;
     margin-left: 20px;
@@ -78,8 +169,8 @@ export const ButtonStyle = css`
 
   svg {
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
 
     .hollow-bg {
       fill: ${({ theme }) => theme.colors.orange};
@@ -158,20 +249,24 @@ export const Wrapper = styled.div`
     right: 0;
     overflow: hidden;
     overflow-y: auto;
-    width: 375px;
+    width: 343px;
     height: 100vh;
-    background: ${({ theme }) => theme.colors.greyLight};
+    background: ${({ theme }) => theme.colors.white};
     cursor: default;
   `}
 `;
 
 export const Header = styled.header`
   position: relative;
-  padding: 30px 60px 30px 30px;
-  background: ${({ theme }) => theme.colors.green};
+  padding: 38px 69px 38px 35px;
+  background: #2F4447;
+
+   ${media.greaterThan('medium')`
+      padding: 38px 54px 38px 20px;
+  `}
 
   h3 {
-    font: 30px/36px 'Bitter';
+    font: 22px/100% 'Bitter';
     color: ${({ theme }) => theme.colors.white};
 
     strong {
@@ -187,7 +282,7 @@ export const Header = styled.header`
 
       h3 {
         max-width: 210px;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 21px;
         color: ${({ theme }) => theme.colors.greenDark};
       }
@@ -197,7 +292,7 @@ export const Header = styled.header`
 export const ButtonClose = styled.button`
   display: block;
   position: absolute;
-  top: 30px;
+  top: 36px;
   right: 30px;
   width: 24px;
   height: 24px;
@@ -210,7 +305,7 @@ export const ButtonClose = styled.button`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 3px;
+    width: 1px;
     height: 100%;
     border-radius: 3px;
     background: ${({ theme }) => theme.colors.white};
@@ -242,7 +337,7 @@ export const Iframe = styled.iframe`
 `;
 
 export const Column = styled.div`
-  padding: 30px;
+  padding: 38px 32px 30px 30px;
 
   & > p {
     margin-bottom: 30px;
@@ -250,7 +345,7 @@ export const Column = styled.div`
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 
     ${media.greaterThan('large')`
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     `}
   }
 `;
