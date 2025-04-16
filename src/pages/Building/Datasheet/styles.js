@@ -377,6 +377,33 @@ export const PriceExpenses = styled.div`
     }
 `
 
+export const CharacteristicsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 20px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+export const CharacteristicItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+
+  p {
+    font-size: 14px;
+    color:  ${({ theme }) => theme.colors.green};
+  }
+`;
+
 export const ButtonVisit = styled.button`
 font-size: 16px;
 font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -433,7 +460,7 @@ export const ModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 325px;
-    background-color: #FFF;
+    background-color:  ${({ theme }) => theme.colors.orange};
 `
 
 export const ModalOverlay = styled.div`
@@ -462,7 +489,7 @@ export const ModalHeader = styled.div`
 `
 
 export const ModalHeaderTitle = styled.div`
-  color: #FFF;
+  color:  ${({ theme }) => theme.colors.orange};
   font-size: 22px;
 `
 
@@ -494,7 +521,7 @@ export const ModalLocalDescription = styled.div`
 `
 
 export const ModalLocalTitle = styled.div`
-  color: #EE6900;
+  color:  ${({ theme }) => theme.colors.orange};
   display: block;
   font-size: 14px;
   font-weight: 700;
@@ -503,7 +530,7 @@ export const ModalLocalTitle = styled.div`
 `
 
 export const ModalLocalInfos = styled.div`
-  color: #3F5A5E;
+  color: ${({ theme }) => theme.colors.green};
   font-size: 10px;
   font-weight: 500;
 `
@@ -526,11 +553,11 @@ export const ModalFormGroupNames = styled.div`
   }
   input {
     width: 100%;
-      color: #C3CCCD;
+      color: ${({ theme }) => theme.colors.grey2};
       display: block;
       font-size: 16px;
       padding: 10px 20px  !important;
-      border: 1px solid  #C3CCCD;
+      border: 1px solid  ${({ theme }) => theme.colors.grey2};
       border-radius: 4px;
   }
 `
@@ -539,11 +566,11 @@ export const ModalFormGroup = styled.div`
   margin: 0 0 10px 0;
   width: 100%;
   input {
-    color: #C3CCCD;
+    color: ${({ theme }) => theme.colors.grey2};
     display: block;
     font-size: 16px;
     padding: 10px 20px !important;
-    border: 1px solid  #C3CCCD;
+    border: 1px solid  ${({ theme }) => theme.colors.grey2};
     width: 100%;
     border-radius: 4px;
   }
@@ -554,9 +581,9 @@ export const ModalInput = styled.div``
 export const ModalSchedule = styled.div``
 
 export const ModalScheduleTitle = styled.div`
-  color: #3F5A5E;
+  color: ${({ theme }) => theme.colors.green};
   font-size: 16px;
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
 `
 
 export const ModalScheduleWrapper = styled.div`
@@ -571,11 +598,11 @@ export const ModalScheduleWrapper = styled.div`
       height: 7px;
   }
   &::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 5px #9c9c9c;
+      box-shadow: inset 0 0 5px ${({ theme }) => theme.colors.greyDark};
       border-radius: 10px;
   }
   &::-webkit-scrollbar-thumb {
-      background: #3F5A5E;
+      background: ${({ theme }) => theme.colors.green};
       border-radius: 10px;
       transition: 0.2s;
   }
@@ -593,30 +620,29 @@ export const ModalScheduleItem = styled.div`
 export const ModalScheduleItemLine = styled.div`
   cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #3F5A5E;
-  //background: #ECEFEF;
+  border: 1px solid ${({ theme }) => theme.colors.green};
   background-color: ${(props) => (props.selected ? '#ECEFEF' : '#FFF')};
 `
 
 export const ModalScheduleItemDay = styled.div`
-  color: #3F5A5E;
+  color: ${({ theme }) => theme.colors.green};
   text-align: center;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
 `
 
 export const ModalScheduleItemDayNumber = styled.div`
-  color: #3F5A5E;
+  color: ${({ theme }) => theme.colors.green};
   text-align: center;
   font-size: 28px;
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 `
 
 export const ModalScheduleItemMonth = styled.div`
-  color: #3F5A5E;
+  color: ${({ theme }) => theme.colors.green};
   text-align: center;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
 `
 
 export const ModalScheduleHour = styled.div`
@@ -626,13 +652,13 @@ export const ModalScheduleHour = styled.div`
 
 export const ModalScheduleSelect = styled.select`
   width: 100%;
-  color: #3F5A5E;
+  color: ${({ theme }) => theme.colors.green};
   font-size: 16px;
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #3F5A5E;
-  background: #FFF;
+  border: 1px solid ${({ theme }) => theme.colors.green};
+  background:  ${({ theme }) => theme.colors.orange};
 `
 
 export const ModalFormGroupCheckbox = styled.div`
@@ -641,7 +667,7 @@ export const ModalFormGroupCheckbox = styled.div`
 
   input {
     -webkit-appearance: checkbox;
-    accent-color: #3F5A5E;
+    accent-color: ${({ theme }) => theme.colors.green};
   }
 
   label {
@@ -654,11 +680,11 @@ export const ModalFormSubmit = styled.div`
 `
 
 export const ModalFormBtnSubmit = styled.div`
-  color: #FFF;
+  color:  ${({ theme }) => theme.colors.orange};
   cursor: pointer;
   display: block;
   font-size: 16px;
-  background-color: #EE6900;
+  background-color: ${({ theme }) => theme.colors.orange};
   width: 100%;
   text-align: center;
   padding: 10px 0;
