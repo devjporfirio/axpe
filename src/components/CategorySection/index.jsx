@@ -43,10 +43,10 @@ const CategorySection = ({ items }) => {
            
             <CardWrapper>
               <BuildingCard
+                key={`building-categoryitem-${item.building.reference}-${index}`}
                 item={item}
                 gtmShowcase={''}
                 positionIndex={index + 1}
-                key={`building-searchitem-${item.building.reference}-${index}`}
                 showGallery={true}
               />
             </CardWrapper>

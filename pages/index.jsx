@@ -20,7 +20,6 @@ import GalleryCarousel from 'components/GalleryCarousel';
 import Tag from 'components/Tag';
 import NewsletterFooter from 'components/NewsletterFooter';
 import CategoryBannerVertical from 'components/CategoryBannerVertical';
-import CategorySection from 'components/CategorySection';
 
 // styles
 import {
@@ -33,7 +32,7 @@ import {
   HeroItemWrapper,
   HeroItemInfo,
 } from 'pages/Home/styles';
-
+import CategorySection from '../src/components/CategorySection';
 
 function Home({ hero, components }) {
   const dispatch = useDispatch();
@@ -87,11 +86,44 @@ function Home({ hero, components }) {
             </Banner>
           </>
         );
+      case 'category':
+        return (
+          <CategoryBannerVertical categoryItems={component.items}/>
+        );
+      case 'exclusivity':
+        return (
+          <Hero>
+            <SliderNew
+              type="full"
+              arrowsColor="white"
+              hasVerticalBar={true}
+              arrowsClassName="holos-home-hero-arrow"
+              settings={heroSettings}
+            >
+              {component.items.map((item, itemIndex) => (
+                <HeroItem key={`hero-item-${itemIndex}`}>
+                  {item.link &&
+                    item.link.url &&
+                    (item.link.target === 'blank' ||
+                      item.link.target === 'self') && (
+                      <HeroLink
+                        href={item.link.url}
+                        target={`_${item.link.target}`}
+                      >
+                        {renderHeroItem(item)}
+                      </HeroLink>
+                    )}
+                  {!item.link || !item.link.url ? renderHeroItem(item) : null}
+                </HeroItem>
+              ))}
+            </SliderNew>
+          </Hero>
+        );
         // case 'buildingsSquare':
         case 'buildingsGrid':
-        return (
-          <CategorySection items={component.items} />
-        );
+         return (
+           <CategorySection items={component.items} />
+         );
       case 'gallery':
         return <GalleryCarousel {...component} />;
       case 'contact':
@@ -212,7 +244,6 @@ function Home({ hero, components }) {
           </SliderNew>
         </Hero>
 
-        <CategoryBannerVertical categoryItems={heroItems} />
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {
