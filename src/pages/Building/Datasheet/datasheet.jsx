@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Tag from 'components/Tag';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
@@ -21,19 +21,24 @@ import {
     ButtonMoreInfo,
     MainContainer,
     PriceGroupDesktop,
-    PriceGroupMobile
+    PriceGroupMobile,
+    CharacteristicsGrid,
+    CharacteristicItem
 } from './styles';
 
 import ILocation from 'assets/icons/location.svg';
+import ICheck from 'assets/icons/checked-grey.svg';
 
 // Componentns
-import VisitModal from "./VisitModal";
+import VisitModal from './VisitModal';
+import { MoreInformationModal } from '../../../components/Modals/MoreInformation';
 
 import { useVisitModalContext } from './context';
 
 export default function Datasheet({ property }) {
-    console.log("Dados: ", property);
-    const { type, infos, category, address, label, values, source } = property;
+    const [ modalMoreInfoIsVisibility, setModalMoreInfoIsVisibility ] = useState(false);
+    const { type, infos, category, address, label, values, source, vista } = property;
+    const { setModalVisitOn } = useVisitModalContext();
     const { searchFunnel } = useSelector(state => state.main);
     const hasTitle = infos.titleSite || infos.internalDescription;
 
@@ -41,13 +46,15 @@ export default function Datasheet({ property }) {
         `${address.local}, ${address.state}, ${address.country} ${address.zipcode}`
     )}`;
 
-    const {
-        setModalVisitOn
-    } = useVisitModalContext();
 
     const openVisitModal = (e) => {
         e.preventDefault();
         setModalVisitOn(true);
+    }
+
+    const toggleModalMoreInfo  = (e) => {
+        e.preventDefault();
+        setModalMoreInfoIsVisibility(prevState => !prevState);
     }
 
     return (
@@ -133,7 +140,7 @@ export default function Datasheet({ property }) {
                         />
 
                         <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit>
-                        <ButtonMoreInfo>Mais informações</ButtonMoreInfo>
+                        <ButtonMoreInfo onClick={toggleModalMoreInfo}>Mais informações</ButtonMoreInfo>
                     </PriceGroupMobile>
 
                     <BlockThree type={property.type}>
@@ -186,11 +193,25 @@ export default function Datasheet({ property }) {
 
                     {hasTitle && (
                         <BlockTwo>
-                            <Content>{infos.titleSite}</Content>
-                            <Content>{infos.shortDescription}</Content>
+                            {/* <Content>{infos.titleSite}</Content>
+                            <Content>{infos.shortDescription}</Content> */}
                             <Content>{infos.internalDescription}</Content>
                         </BlockTwo>
                     )}
+                    
+                        <BlockTwo>
+                            <CharacteristicsGrid>
+                                {Object.entries(vista?.Caracteristicas || {})
+                                .filter(([ _, value ]) => value === 'Sim')
+                                .map(([ label ]) => (
+                                    <CharacteristicItem key={label}>
+                                        <img src={ICheck} alt="ícone de Check" />
+                                        <p>{label}</p>
+                                    </CharacteristicItem>
+                                ))}
+                            </CharacteristicsGrid>
+                        </BlockTwo>
+                    
                 </DatasheetContent>
 
                 <PriceGroupDesktop>
@@ -233,8 +254,9 @@ export default function Datasheet({ property }) {
                     />
 
                     <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit>
-                    <ButtonMoreInfo>Mais informações</ButtonMoreInfo>
+                    <ButtonMoreInfo onClick={toggleModalMoreInfo}>Mais informações</ButtonMoreInfo>
                 </PriceGroupDesktop>
+
             </MainContainer>
             {type === 'lancamento' && infos.releaseDelivery && (
                 <Delivery>
@@ -251,6 +273,12 @@ export default function Datasheet({ property }) {
             {/* <RenderVisitModal /> */}
             <VisitModal property={property} />
 
+            {modalMoreInfoIsVisibility && (
+                <MoreInformationModal
+                    toggleModalMoreInfo={toggleModalMoreInfo}
+                    address={address}
+                />
+            )}
         </>
     );
 }
