@@ -31,68 +31,80 @@ const animateBalloonDot = keyframes`
 `;
 
 export const Form = styled.form`
-    max-width: 888px;
-    margin: auto;
+  max-width: 888px;
+  margin: auto;
 
-    input {
-      width: 100%;
-      border: 1px solid #C3CCCD;
-      border-radius: 4px;
-      padding: 11px 20px;
-      margin-bottom: 16px;
-
-      ::placeholder {
-        font-family: Raleway;
-        font-weight: 400;
-        font-size: 16px;
-        letter-spacing: 0px;
-        vertical-align: middle;
-        color: #C3CCCD;
-      }
-    }
-
-    label {
-      background-color: transparent;
-    }
-
-    label[type='area'] {
-      overflow: visible;
-      height: 173px;
-    }
-
-    textarea {
-      border: 1px solid #C3CCCD;
-      width: 100%;
-      border-radius: 4px;
-      resize: none;
-      padding: 22px 20px;
-      height: 163px;
-
-      ::placeholder {
-        font-family: Raleway;
-        font-weight: 400;
-        font-size: 16px;
-        letter-spacing: 0px;
-        vertical-align: middle;
-        color: #C3CCCD;
-      }
-    }
-
-    .contact-whatsapp-button {
-      width: 100%;
-      border: 1px solid #EE6900;
-      border-radius: 4px;
-      padding: 14px 0;
-      margin-bottom: 16px;
-
-      font-family: Raleway;
-      font-weight: 600;
+  input {
+    width: 100%;
+    border: 1px solid ${({ theme }) => theme.colors.grey2};
+    border-radius: 4px;
+    padding: 11px 20px;
+    margin-bottom: 16px;
+    ::placeholder {
+      font-family: 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.regular};
       font-size: 16px;
-      line-height: 100%;
       letter-spacing: 0px;
       vertical-align: middle;
-      color: #EE6900;
+      color: ${({ theme }) => theme.colors.grey2};
     }
+  }
+
+  label {
+    background-color: transparent;
+  }
+
+  label[type='area'] {
+    overflow: visible;
+    height: 140px;
+  }
+
+  textarea {
+    border: 1px solid ${({ theme }) => theme.colors.grey2};
+    width: 100%;
+    border-radius: 4px;
+    resize: none;
+    padding: 20px;
+    height: 130px;
+    ::placeholder {
+      font-family: 'Raleway';
+      font-weight: ${({ theme }) => theme.fontsWeight.regular};
+      font-size: 16px;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      color: ${({ theme }) => theme.colors.grey2};
+    }
+  }
+
+  .contact-whatsapp-button {
+    width: 100%;
+    border: 1px solid ${({ theme }) => theme.colors.orange};
+    border-radius: 4px;
+    padding: 14px 0;
+    margin-bottom: 16px;
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    color: ${({ theme }) => theme.colors.orange};
+  }
+
+  .contact-whatsapp-button-green {
+    width: 100%;
+    border: 1px solid ${({ theme }) => theme.colors.green2};
+    border-radius: 4px;
+    padding: 14px 0;
+    margin-top: 16px;
+    font-family: 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    background-color: ${({ theme }) => theme.colors.green2};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 
@@ -241,36 +253,54 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  min-height: 100vh;
 
   ${media.greaterThan('medium')`
-    position: absolute;
-    top: 0;
-    right: 0;
-    overflow: hidden;
-    overflow-y: auto;
-    width: 343px;
-    height: 100vh;
-    background: ${({ theme }) => theme.colors.white};
-    cursor: default;
+    ${({ isHome, theme }) =>
+      isHome
+        ? css`
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 440px;
+            background: ${theme.colors.white};
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            height: auto;
+            max-height: 630px;
+            overflow-y: auto;
+          `
+        : css`
+            position: absolute;
+            top: 0;
+            right: 0;
+            overflow: hidden;
+            overflow-y: auto;
+            width: 343px;
+            height: 100vh;
+            background: ${theme.colors.white};
+            cursor: default;
+          `}
   `}
 `;
 
 export const Header = styled.header`
   position: relative;
   padding: 38px 69px 38px 35px;
-  background: #2F4447;
+  background: ${({ theme }) => theme.colors.greenDark};
 
-   ${media.greaterThan('medium')`
-      padding: 38px 54px 38px 20px;
+  ${media.greaterThan('medium')`
+    padding: 20px;
   `}
 
   h3 {
+    width: 75%;
     font: 22px/100% 'Bitter';
     color: ${({ theme }) => theme.colors.white};
 
     strong {
-      font-weight: ${({ theme }) => theme.fontsWeight.bold};
+      font-weight: ${({ theme }) => theme.fontsWeight.regular};
       color: ${({ theme }) => theme.colors.greenLight};
     }
   }
@@ -292,7 +322,7 @@ export const Header = styled.header`
 export const ButtonClose = styled.button`
   display: block;
   position: absolute;
-  top: 36px;
+  top: 20px;
   right: 30px;
   width: 24px;
   height: 24px;
@@ -337,10 +367,10 @@ export const Iframe = styled.iframe`
 `;
 
 export const Column = styled.div`
-  padding: 38px 32px 30px 30px;
+  padding: 20px;
 
   & > p {
-    margin-bottom: 30px;
+    margin-bottom: 16px;
     font: 14px/18px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
 

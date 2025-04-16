@@ -300,7 +300,7 @@ function ContactBar() {
 
     setIsBuilding(
       router.route === '/imovel' || (contactBarActive && contactBarForced)
-        ? true
+        ? false // Modal fale com corretor se torna o mesmo da home (v0)
         : false
     );
   }, [ router.route, contactBarActive, currentBuilding ]);
@@ -342,14 +342,14 @@ function ContactBar() {
 
   const pageUrl = 'http://www.axpe.com.br'+router.asPath;
   
-  var message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
+  let message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
   
   if(isBuilding) {
     message = message.replace('{reference}', currentBuilding.reference);
     message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? ', com ' + currentBuilding.infos.areaTotal +' m²': '');
     message = message.replace('{areaUseful}', currentBuilding.infos.areaUsefulStart ? ', com ' +  currentBuilding.infos.areaUsefulStart + ' m²' : '');
-    message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt (currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
-    message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + (parseInt (currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
+    message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt(currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
+    message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + (parseInt(currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
   }
   
   return (
@@ -405,7 +405,7 @@ function ContactBar() {
 
       {contactBarActive && (
         <Container onClick={clickContainer} data-type='container'>
-          <Wrapper>
+          <Wrapper isHome={true}>
             {isBuilding && iframeUrl ? (
               <Iframe
                 ref={refIframe}
@@ -435,7 +435,7 @@ function ContactBar() {
                   </h3>
                 </Header>
                 <Column>
-                  <p>Fale diretamente conosco</p>
+                  <p>Deixe seu contato para nosso time entrar em contato com você.</p>
                   <Form
                     ref={refForm}
                     action='https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit'
@@ -491,9 +491,6 @@ function ContactBar() {
                         />
                       </FormGroupBasics>
                     </FormGroup>
-                      <button className='contact-whatsapp-button' disabled={isSubmitting} onClick={handleWhatsapp}>
-                        Fale por Whatsapp
-                      </button>
                       <ButtonSubmit
                         disabled={isSubmitting}
                         type='submit'
@@ -501,6 +498,9 @@ function ContactBar() {
                       >
                         {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
                       </ButtonSubmit>
+                      <button className='contact-whatsapp-button-green' disabled={isSubmitting} onClick={handleWhatsapp}>
+                        Whatsapp  <strong>(11) 3074-3600</strong>
+                      </button>
                   </Form>
                 </Column>
               </>
