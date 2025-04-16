@@ -23,7 +23,7 @@ import {
     PriceGroupDesktop,
     PriceGroupMobile,
     GenericDiv,
-    ModalBody, // MODAL
+    ModalBody,
     ModalBodyWrapper,
     ModalWrapper,
     ModalOverlay,
@@ -40,7 +40,6 @@ import {
     ModalFormGroupNames,
     ModalFormGroup,
     ModalFormGroupCheckbox,
-    ModalInput,
     ModalSchedule,
     ModalScheduleTitle,
     ModalScheduleWrapper,
@@ -59,12 +58,11 @@ import ILocation from 'assets/icons/location.svg';
 import CloseIcon from 'assets/icons/axpe-modal-close-icon.svg';
 
 // Componentns
-import VisitModal from "./VisitModal";
+import VisitModal from './VisitModal';
 
 import { VisitModalProvider, useVisitModalContext } from './context';
 
 export default function Datasheet({ property }) {
-    console.log("Dados: ", property);
     const { type, infos, category, address, label, values, source } = property;
     const { searchFunnel } = useSelector(state => state.main);
     const hasTitle = infos.titleSite || infos.internalDescription;
@@ -80,21 +78,21 @@ export default function Datasheet({ property }) {
         setModalVisitOn
     } = useVisitModalContext();
 
-    const [scheduleList, setScheduleList] = useState(null);
-    const [scheduleSelected, setScheduleSelected] = useState(null);
+    const [ scheduleList, setScheduleList ] = useState(null);
+    const [ scheduleSelected, setScheduleSelected ] = useState(null);
 
     const getSchedules = () => {
-        let diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-        let mesesDoAno = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+        const diasDaSemana = [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado' ];
+        const mesesDoAno = [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ];
 
-        let result = [];
+        const result = [];
 
         for (let i = 1; i <= 5; i++) {
-            let data = new Date();
+            const data = new Date();
             data.setDate(data.getDate() + i);
-            let day = diasDaSemana[data.getDay()];
-            let dayNumber = data.getDate();
-            let month = mesesDoAno[data.getMonth()];
+            const day = diasDaSemana[data.getDay()];
+            const dayNumber = data.getDate();
+            const month = mesesDoAno[data.getMonth()];
             result.push({ day, dayNumber, month });
         }
 
@@ -114,7 +112,7 @@ export default function Datasheet({ property }) {
     const setSelectDate = (e, item) => {
         e.preventDefault();
         setScheduleSelected(item);
-    } 
+    }
 
     useEffect(() => {
         getSchedules();
@@ -127,7 +125,7 @@ export default function Datasheet({ property }) {
 
         return scheduleList.map((item, index) => (
             <ModalScheduleItem key={index}>
-                <ModalScheduleItemLine 
+                <ModalScheduleItemLine
                     onClick={e => setSelectDate(e, item)}
                     selected={scheduleSelected === item}
                 >
@@ -155,13 +153,13 @@ export default function Datasheet({ property }) {
                                     onClick={closeVisitModal}
                                 >
                                     <ModalHeaderBtnCloseImage>
-                                        <img src={CloseIcon} />
+                                        <img src={CloseIcon} alt=''/>
                                     </ModalHeaderBtnCloseImage>
                                 </ModalHeaderBtnClose>
                             </ModalHeader>
                             <ModalLocal>
                                 <ModalLocalImage>
-                                    <img src={(property.gallery && property.gallery[0].src) || ''} />
+                                    <img src={(property.gallery && property.gallery[0].src) || ''} alt='' />
                                 </ModalLocalImage>
                                 <ModalLocalDescription>
                                     <ModalLocalTitle>{property.address.local}</ModalLocalTitle>
@@ -230,7 +228,7 @@ export default function Datasheet({ property }) {
                                         name="accept"
                                         id="acceptVisit"
                                     />
-                                    <label for="acceptVisit">Ao clicar em Solicitar visita, você concorda com nosso Termos de Uso.</label>
+                                    <label htmlFor='acceptVisit' for="acceptVisit">Ao clicar em Solicitar visita, você concorda com nosso Termos de Uso.</label>
                                 </ModalFormGroupCheckbox>
                                 <ModalFormSubmit>
                                     <ModalFormBtnSubmit type="submit">Solicitar visita</ModalFormBtnSubmit>
@@ -443,7 +441,7 @@ export default function Datasheet({ property }) {
                 )}
 
 
-                {/* <RenderVisitModal /> */}
+                <RenderVisitModal />
                 <VisitModal data={property} />
 
             </VisitModalProvider>

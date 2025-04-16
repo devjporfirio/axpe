@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && NODE_ENV=development node server.js",
+    "dev": "NODE_ENV=development node server.js",
     "build": "next build",
     "start": "next build && NODE_ENV=production node server.js",
     "api": "node api/index.js",

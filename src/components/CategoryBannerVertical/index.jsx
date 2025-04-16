@@ -120,6 +120,17 @@ function CategoryBannerVertical({ categoryItems }) {
   const [ currentSlide, setCurrentSlide ] = useState(0);
   const sliderRef = useRef(null);
 
+  const mergedItems = categoryItems.map((item) => {
+    const mocked = mockedCategoryItems.find(
+      (mock) => mock.title.toLowerCase() === item.title.toLowerCase()
+    );
+  
+    return {
+      ...item,
+      images: mocked?.images || item.images,
+    };
+  });
+
   const handleAfterChange = useCallback((index) => {
     setCurrentSlide(index);
   }, []);
@@ -131,8 +142,8 @@ function CategoryBannerVertical({ categoryItems }) {
     }
   };
   const reorderedTitles = [
-    ...mockedCategoryItems.slice(currentSlide),
-    ...mockedCategoryItems.slice(0, currentSlide)
+    ...mergedItems.slice(currentSlide),
+    ...mergedItems.slice(0, currentSlide)
   ];
 
   return (
@@ -145,7 +156,7 @@ function CategoryBannerVertical({ categoryItems }) {
         onChange={handleAfterChange}
         type="full"
       >
-        {mockedCategoryItems.map((item, itemIndex) => (
+        {mergedItems.map((item, itemIndex) => (
           <CategoryItem key={`category-item-${itemIndex}`}>
             {item.link &&
               item.link.url &&
