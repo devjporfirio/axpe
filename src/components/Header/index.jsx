@@ -13,6 +13,7 @@ import useScrollPosition from 'helpers/scrollPosition';
 // assets
 import InstagramIconSVG from 'assets/icons/instagram';
 import WhatsappIconSVG from 'assets/icons/whatsapp';
+import SearchIconSVG from 'assets/icons/search.svg';
 
 // styles
 import {
@@ -34,6 +35,7 @@ import {
   Newsletter,
   NewsletterButton,
   NavBottomContainer,
+  ZohoFixWhatsModal,
 } from './styles';
 
 function Header() {
@@ -100,6 +102,7 @@ function Header() {
 
   return (
     <Container ref={refHeader}>
+      <ZohoFixWhatsModal />
       <SimpleBar style={{ maxHeight: '100%' }} ref={scrollBarRef}>
         <Wrapper>
           <AxpeLogo type="axpe">
@@ -119,7 +122,8 @@ function Header() {
             type="button"
             onClick={toggleSearch}
           >
-            Buscar
+            Buscar Imóvel
+            <img src={SearchIconSVG} alt='Ícone de lupa'/>
           </ButtonSearch>
           <ButtonToggle
             type="button"

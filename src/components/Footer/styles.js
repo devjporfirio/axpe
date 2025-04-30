@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 export const Container = styled.footer`
-  padding: 30px;
   border-top: 1px solid ${({ theme }) => theme.colors.grey};
   background: ${({ theme }) => theme.colors.white};
   font-size: 10px;
   text-align: center;
   font-family: 'Bitter';
+  padding: 30px;
+  padding-bottom: 70px;
 
   ${media.greaterThan('large')`
     padding: 30px;

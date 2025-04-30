@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import media from 'styled-media-query';
 
 // import AxpeLogoSVG from 'assets/axpe-logo.svg';
@@ -6,7 +6,6 @@ import AxpeSpecialLogoSVG from 'assets/axpe-special.svg';
 import AxpeFullLogoSVG from 'assets/axpe-full-logo.svg';
 import ChristiesLogoSVG from 'assets/christies-logo.svg';
 import Axpe20YearsLogoSVG from 'assets/axpe-20-anos.svg';
-import SearchIconSVG from 'assets/icons/search.svg';
 
 export const Container = styled.header`
   position: fixed;
@@ -80,7 +79,7 @@ export const Wrapper = styled.div`
 
   ${media.greaterThan('large')`
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     align-items: flex-start;
     height: auto;
     padding: 10vh 30px 0;
@@ -99,7 +98,7 @@ export const AxpeLogo = styled.div`
   margin-right: 20px;
 
   ${media.greaterThan('large')`
-    width: 110px;
+    width: 134px;
     margin: 0 0 40px 0;
   `}
 
@@ -159,24 +158,35 @@ export const LogoLink = styled.a`
 `;
 
 export const ButtonSearch = styled.button`
-  display: block;
-  width: 19px;
-  height: 23px;
+  display: flex;
+  width: 145px;
+  height: 34px;
   margin: 0 0 0 auto;
   margin-left: auto;
-  font-size: 0;
-  background: url(${SearchIconSVG}) no-repeat;
-
+  font: 12px 'Raleway';
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  color: ${({ theme }) => theme.colors.green};
+  text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  
   ${media.greaterThan('large')`
     display: none;
   `}
+
+  img {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 4px
+  }
 `;
 
 export const ButtonToggle = styled.button`
   display: block;
   position: relative;
   width: 20px;
-  height: 17px;
+  height: 19px;
   margin: 0 0 0 20px;
 
   ${media.greaterThan('large')`
@@ -227,7 +237,7 @@ export const Box = styled.div`
   left: 0;
   width: 100%;
   padding: 50px 30px 50px;
-  height: calc(100vh - 70px);
+  height: 100vh;
   overflow: hidden;
   overflow-y: auto;
   background: ${({ theme }) => theme.colors.white};
@@ -399,6 +409,7 @@ export const NavBottomContainer = styled.div`
   width: 140px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 `;
 
 export const NavSecondary = styled.nav`
@@ -671,4 +682,10 @@ export const Creci = styled.p`
   ${media.greaterThan('large')`
     font-size: 11px;
   `}
+`;
+
+export const ZohoFixWhatsModal = createGlobalStyle`
+  .zf-backgroundBg {
+    z-index: 999 !important;
+  }
 `;
