@@ -116,7 +116,7 @@ export const Label = styled.label`
     props.error &&
     props.type !== 'checkbox' &&
     css`
-      background: ${({ theme }) => theme.colors.orangeLight} !important;
+      background: ${({ theme }) => theme.colors.white} !important;
     `}
   
   ${(props) =>

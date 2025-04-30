@@ -25,7 +25,7 @@ function BuildingsPanel({
   const settings = {
     vertical: {
       dots: true,
-      infinite: false,
+      infinite: true,
       lazyLoad: true,
       speed: 800,
       slidesToShow: 3,
@@ -50,7 +50,7 @@ function BuildingsPanel({
     },
     horizontal: {
       dots: false,
-      infinite: false,
+      infinite: true,
       vertical: true,
       speed: 800,
       slidesToShow: 2.2,

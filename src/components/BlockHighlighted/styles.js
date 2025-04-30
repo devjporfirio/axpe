@@ -114,7 +114,7 @@ export const Container = styled.div`
   }
 
   p {
-    max-width: 170px;
+    max-width: ${({ type }) => (type === 'dream' ? '225px' : '170px')};
     font: 13px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     color: ${({ theme }) => theme.colors.white};

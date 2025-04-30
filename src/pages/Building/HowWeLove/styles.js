@@ -5,11 +5,13 @@ export const Container = styled.div`
   width: 100vw;
   padding-bottom: 40px;
   background-color: #91a8ab;
+  margin-bottom: 20px;
 
   ${media.greaterThan('medium')`
     width: 100%;
-    max-width: 974px;
+    max-width: 1086px;
     margin: auto;
+    margin-bottom: 20px;
     padding-bottom: 50px;
     border-radius: 6px;
   `}
