@@ -89,6 +89,10 @@ const ContainerNormal = css`
     top: 50%;
     transform: translateY(-50%);
 
+    ${media.lessThan('medium')`
+      top: 40%;
+      `}
+
     &.slick-prev {
       left: -44px;
 
@@ -99,6 +103,10 @@ const ContainerNormal = css`
 
     &.slick-next {
       right: -42px;
+
+      ${media.lessThan('medium')`
+        right: 0px;
+      `}
 
       ${media.greaterThan('large')`
         right: -30px;

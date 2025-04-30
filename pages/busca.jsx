@@ -36,7 +36,6 @@ import {
   Header,
   HeaderOrder,
   HeaderOrderButton,
-  HeaderOrderSelect,
   HeaderOrderList,
   HeaderOrderListButton,
   Wrapper,
@@ -49,7 +48,6 @@ import {
   Image,
   BuildingsLoadMore,
   DisplayOrder,
-  MoreFiltersButton
 } from 'pages/Search/styles';
 
 function Search({ total, totalPages, data, banner, locals }) {
@@ -83,8 +81,8 @@ function Search({ total, totalPages, data, banner, locals }) {
 
   const orderOptions = [
     { label: 'Mais Recentes', value: 'latest' },
-    { label: 'Menor área útil', value: 'lowest_area' },
-    { label: 'Maior área útil', value: 'biggest_area' },
+    { label: 'Menor Área útil', value: 'lowest_area' },
+    { label: 'Maior Área útil', value: 'biggest_area' },
     { label: 'Menor Preço', value: 'lowest_price' },
     { label: 'Maior Preço', value: 'biggest_price' },
   ];
@@ -97,7 +95,7 @@ function Search({ total, totalPages, data, banner, locals }) {
   const orderTiming = useRef(false);
   const [ loadNewPage, setLoadNewPage ] = useState(false);
   const [ orderByComboActive, setOrderByComboActive ] = useState(false);
-  const [ orderBy, setOrderBy ] = useState(order ? order : orderOptions[0].value);
+  const [ orderBy, setOrderBy ] = useState('');
   const [ page, setPage ] = useState(+query.page || 1);
   const [ buildings, setBuildings ] = useState(null);
   const [ dataLoaded, setDataLoaded ] = useState(false);
@@ -326,10 +324,6 @@ function Search({ total, totalPages, data, banner, locals }) {
     });
   };
 
-  const handleOpenFilters = () => {
-    dispatch(setMain({ searchFormActive: true }));
-  };
-
   useEffect(() => {
     setDataInitialGTM();
   }, [ query ]);
@@ -431,27 +425,15 @@ function Search({ total, totalPages, data, banner, locals }) {
                       }}
                     />
 
-                    <MoreFiltersButton onClick={handleOpenFilters}>Mais Filtros</MoreFiltersButton>
-
-                    <HeaderOrderButton
-                      type="button"
-                      active={orderByComboActive}
-                      onClick={() => setOrderByComboActive(!orderByComboActive)}
-                    >
-                      <strong>Ordenar por:</strong>
-                      {getOrderBySelected().length ? (
-                        <span>{getOrderBySelected()[0].label}</span>
-                      ) : null}
-                    </HeaderOrderButton>
-                    <HeaderOrderSelect
-                      name="orderBy"
+                    <CustomSelect
+                      id="orderByMobile"
+                      options={orderOptions}
                       value={orderBy}
-                      onChange={(event) => {
-                        handleOrderBy(event.target.value);
+                      searchFilter
+                      onChange={(value) => {
+                        handleOrderBy(value);
 
-                        const results = orderOptions.filter(
-                          (item) => item.value === event.target.value
-                        );
+                        const results = orderOptions.filter((item) => item.value === value);
 
                         if (results.length) {
                           GTM.dataLayerPush({
@@ -463,17 +445,18 @@ function Search({ total, totalPages, data, banner, locals }) {
                           });
                         }
                       }}
-                      onBlur={(event) => handleOrderBy(event.target.value)}
+                    />
+
+                    <HeaderOrderButton
+                      type="button"
+                      active={orderByComboActive}
+                      onClick={() => setOrderByComboActive(!orderByComboActive)}
                     >
-                      {orderOptions.map((orderItem, orderItemIndex) => (
-                        <option
-                          value={orderItem.value}
-                          key={`orderby-item-${orderItemIndex}`}
-                        >
-                          {orderItem.label}
-                        </option>
-                      ))}
-                    </HeaderOrderSelect>
+                      <strong>Ordenar por:</strong>
+                      {getOrderBySelected().length ? (
+                        <span>{getOrderBySelected()[0].label}</span>
+                      ) : null}
+                    </HeaderOrderButton>
                     <HeaderOrderList active={orderByComboActive}>
                       {orderOptions.map((orderItem, orderItemIndex) => (
                         <HeaderOrderListButton

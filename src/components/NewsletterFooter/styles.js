@@ -18,6 +18,7 @@ export const NewsletterContainer = styled.div`
 export const NewsletterTextDesktop = styled.div`
   color: ${({ theme }) => theme.colors.greenDark};
   font-family: 'Bitter';
+  z-index: 10;
 
   h4 {
     font-size: 26px;

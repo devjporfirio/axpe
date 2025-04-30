@@ -34,6 +34,7 @@ function NewsletterFooter() {
             height: 35px;
             margin-bottom: 10px;
             text-transform: none;
+            line-height: normal;
           }
 
           @media (min-width: 530px) {
