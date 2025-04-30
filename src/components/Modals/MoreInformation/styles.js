@@ -79,15 +79,23 @@ export const MoreInformationForm = styled.form`
   gap: 10px;
   width: 100%;
   padding: 0 30px;
+  overflow-x: hidden;
+  box-sizing: border-box;
   & > input:nth-child(3),
   & > input:nth-child(4),
   & > textarea,
   & > button {
     grid-column: span 2;
   }
+
+  ${media.lessThan('small')`
+    padding: 0 16px;
+  `}
 `;
 
 export const MoreInformationInput = styled.input`
+  width: 100%;
+  box-sizing: border-box;
   height: 45px;
   padding: 10px;
   border: 1px solid ${({ theme }) => theme.colors.grey2};
@@ -103,6 +111,8 @@ export const MoreInformationInputDiv = styled.div`
 `;
 
 export const MoreInformationTextarea = styled.textarea`
+  width: 100%;
+  box-sizing: border-box;
   padding: 10px;
   border: 1px solid ${({ theme }) => theme.colors.grey2};
   border-radius: 5px;

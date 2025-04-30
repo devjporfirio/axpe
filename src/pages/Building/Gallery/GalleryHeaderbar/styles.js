@@ -52,7 +52,7 @@ export const ButtonClose = styled.button`
       left: 50%;
       width: 1px;
       height: 15px;
-      background: ${({ theme }) => theme.colors.green};
+      background: ${({ theme }) => theme.colors.white};
 
       ${css`
         @media (orientation: landscape) and (max-width: 767px) {

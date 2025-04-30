@@ -24,7 +24,7 @@ export const Alert = styled.div`
   p {
     color: ${({ theme }) => theme.colors.greenDark};
     text-align: center;
-    font: 10.62px 'Bitter';
+    font: 12px 'Bitter';
   }
 `;
 
