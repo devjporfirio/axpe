@@ -50,7 +50,7 @@ export const Header = styled.header`
     width: 15px;
     height: 15px;
     position: relative;
-    margin-left: auto;
+    margin: 0;
     font-size: 0;
 
     &:before,

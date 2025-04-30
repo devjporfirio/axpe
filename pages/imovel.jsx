@@ -10,6 +10,7 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import NewsletterFooter from 'components/NewsletterFooter';
 import BuildingList from 'components/Building/List';
 import DataSheet from 'pages/Building/Datasheet';
+import HowWeLove from 'pages/Building/HowWeLove';
 
 // helpers
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
@@ -133,7 +134,9 @@ function Building({ property, meta }) {
           </p>
         </Alert>
 
-        {/* {Object.keys(data.components).length > 0 && <Modules property={data} />} */}
+        {data.components.find(c => c.module?.slug === 'porque-adoramos') && (
+          <HowWeLove reasons={data.components.find(c => c.module?.slug === 'porque-adoramos').data} />
+        )}
 
         {similarBuildings && similarBuildings.length > 0 && (
           <SimilarBuildings>
@@ -215,8 +218,11 @@ Building.getInitialProps = async ({ query }) => {
     ? 'Venha conhecer este'
     : 'Venha conhecer esta';
 
-  const pageTitle = `${buildingCategory} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
-  const pageDesc = `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
+  const metaTitle = response.building.infos.metaTitle;
+  const metaDescription = response.building.infos.metaDescription;
+
+  const pageTitle = metaTitle || `${buildingCategory} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
+  const pageDesc = metaDescription || `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
   const pageBanner = `${
     response.building.gallery ? response.building.gallery[0].src : ''
   }`;
