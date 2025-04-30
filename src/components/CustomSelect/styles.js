@@ -5,40 +5,55 @@ import ArrowIconSVG from 'assets/icons/arrow';
 export const SelectContainer = styled.div`
   position: relative;
   display: inline-block;
-  width: 30%;
+  width: ${props => props.searchTab ? '100%' : '50%'};
   
-  ${media.greaterThan('medium')`
-    display: none;
-  `}
+  ${props =>
+    !props.searchTab &&
+    media.greaterThan('medium')`
+      display: none;
+    `}
 `;
 
 export const SelectButton = styled.button`
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: ${props => props.searchTab ? 'space-between' : 'space-evenly'};
   width: 100%;
   height: 38px;
-  line-height: 50px;
-  font: 14px 'Raleway';
+  font: ${props => props.searchTab || props.searchFilter ? '12px' : '14px'} 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
-  color: ${({ theme }) => theme.colors.green};
+  color: ${({ searchTab, theme }) => searchTab ? theme.colors.orange : theme.colors.green};
   text-align: left;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.green};
-  background: transparent;
+  background: ${({ searchTab, theme }) => searchTab ? theme.colors.white : 'transparent'};
   cursor: pointer;
-  padding: 10px 24px;
-  
-  &:after {
-    content: '';
-    display: block;
-    width: 13px;
-    height: 13px;
-    margin-left: 10px;
-    background: url(${ArrowIconSVG}) no-repeat;
-    background-size: contain;
-    transform: rotate(90deg);
-    transition: all 300ms ease;
-  }
+  padding: 10px;
+  border-radius: ${props => props.searchTab ? '4px' : props.searchFilter ? '4px' : '0px'}; ;
+  text-transform: ${props => props.searchTab || props.searchFilter ? 'uppercase' : 'capitalize'};
+
+  border: ${({ searchFilter, theme }) =>
+    searchFilter
+      ? `1px solid ${theme.colors.green}`
+      : `none`};
+
+  border-bottom: ${({ searchFilter, theme }) =>
+    searchFilter ? `1px solid ${theme.colors.green}` : `1px solid ${theme.colors.green}`};
+
+  ${({ searchFilter, theme, searchTab, open }) =>
+    !searchFilter &&
+    `
+    &:after {
+      content: '';
+      display: block;
+      width: 13px;
+      height: 13px;
+      margin-left: 10px;
+      mask: url(${ArrowIconSVG}) no-repeat center;
+      mask-size: contain;
+      background-color: ${searchTab ? theme.colors.orange : theme.colors.green};
+      transform: ${open ? 'rotate(270deg)' : 'rotate(90deg)'};
+      transition: all 300ms ease;
+    }
+  `}
 `;
 
 export const OptionsList = styled.ul`
@@ -57,7 +72,7 @@ export const OptionsList = styled.ul`
 
 export const OptionItem = styled.li`
   padding: 10px 16px;
-  font-size: 14px;
+  font: ${props => props.searchTab ? '12px' : '14px'} 'Raleway';
   font-weight: 700;
   color: ${({ theme }) => theme.colors.green};
   cursor: pointer;

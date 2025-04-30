@@ -1,9 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 import noUiSlider from 'nouislider';
-import { formatCurrency } from 'helpers/utils';
 
 // styles
-import { Container, Text, Slider } from './styles';
+import {
+  Container,
+  Slider,
+  InputGroup,
+  StyledInput,
+  InputLabel,
+  ButtonGroup,
+  RangeButton,
+  InputWrapper,
+  PrefixSpan,
+  SuffixSpan
+} from './styles';
 
 function RangeSlider({
   data,
@@ -17,71 +27,33 @@ function RangeSlider({
 }) {
   const ref = useRef(null);
   const sliderApi = useRef(null);
-  const [ values, setValues ] = useState(null);
+  const [ values, setValues ] = useState({ first: '', last: '' });
+  const [ visualFirst, setVisualFirst ] = useState('');
+  const [ visualLast, setVisualLast ] = useState('');
+  const [ selectedButton, setSelectedButton ] = useState(null);
+  const to = data?.[1];
+  const formatNumberOnlyDigits = (value) => {
+    const numericValue = String(value).replace(/\D/g, '');
+    if (!numericValue) return '';
+    
+    return new Intl.NumberFormat('pt-BR', {
+      useGrouping: true,
+    }).format(BigInt(numericValue));
+  };
+  
+  function formatAreaInput(value) {
+    return String(Number(value || 0));
+  }
 
   function saveValues(params) {
-    let start = params[0];
-    let end = params[1];
-
-    if (type == 'prices') {
-      if (finality === 'venda') {
-        if (start <= 2000000) {
-          start = `< ${formatCurrency.format(2000000)}`;
-        } else {
-          start = formatCurrency.format(start);
-        }
-
-        if (end >= 20000000) {
-          end = `${formatCurrency.format(20000000)} >`;
-        } else {
-          end = formatCurrency.format(end);
-        }
-      } else {
-        if (start <= 10000) {
-          start = `< ${formatCurrency.format(10000)}`;
-        } else {
-          start = formatCurrency.format(start);
-        }
-
-        if (end >= 30000) {
-          end = `${formatCurrency.format(30000)} >`;
-        } else {
-          end = formatCurrency.format(end);
-        }
-      }
-    } else {
-      start = `${prefix}${start}${suffix}`;
-      end = `${prefix}${end}${suffix}`;
-    }
-
-    start = start.replace('R$', '<span>R$</span>');
-    end = end.replace('R$', '<span>R$</span>');
-
-    if (type == 'area') {
-      const startVal = parseInt(start);
-      const endVal = parseInt(end);
-
-      if (startVal <= 50) {
-        start = `< 50${suffix}`;
-      } else {
-        start = `${prefix}${Math.ceil(startVal / 5) * 5}${suffix}`;
-      }
-
-      if (endVal >= 2000) {
-        end = `2000${suffix} >`;
-      } else {
-        end = `${prefix}${Math.ceil(endVal / 5) * 5}${suffix}`;
-      }
-    }
-
-    setValues({
-      first: start,
-      last: end,
-    });
+    const [ first, last ] = params.map(val => parseInt(val));
+    setValues({ first, last });
+    setVisualFirst(type === 'prices' ? formatNumberOnlyDigits(first) : formatAreaInput(first));
+    setVisualLast(type === 'prices' ? formatNumberOnlyDigits(last) : formatAreaInput(last));
   }
 
   function renderSlider() {
-    if (!data) return false;
+    if (!data || type === 'others') return;
 
     if (sliderApi.current) {
       sliderApi.current.destroy();
@@ -92,44 +64,22 @@ function RangeSlider({
       max: data[1],
     };
 
-    switch (type) {
-      case 'prices':
-        if (finality === 'venda') {
-          range = {
-            min: 2000000,
-            // min: [ 800000, 200000 ],
-            // '5%': [ 1000000, 200000 ],
-            // '40%': [ 3000000, 500000 ],
-            // '60%': [ 5000000, 1000000 ],
-            // '80%': [ 10000000, 2000000 ],
-            max: 20000000,
-          };
-        } else {
-          range = {
-            min: [ 10000, 1000 ],
-            '50%': [ 20000, 5000 ],
-            max: 30000,
-          };
-        }
-        break;
-      case 'area':
-        range = {
-          min: 50,
-          max: 2000,
-        };
-        break;
+    if (type === 'prices') {
+      range = finality === 'venda'
+        ? { min: 2000000, max: 20000000 }
+        : { min: [ 10000, 1000 ], '50%': [ 20000, 5000 ], max: 30000 };
+    }
+
+    if (type === 'area') {
+      range = { min: 50, max: 2000 };
     }
 
     sliderApi.current = noUiSlider.create(ref.current, {
       start: data,
       connect: true,
       format: {
-        to: function(value) {
-          return parseInt(value);
-        },
-        from: function(value) {
-          return parseInt(value.replace(',-', ''));
-        },
+        to: value => parseInt(value),
+        from: value => parseInt(value.replace(',-', '')),
       },
       step,
       range,
@@ -137,23 +87,102 @@ function RangeSlider({
 
     if (sliderApi.current) {
       sliderApi.current.on('update', saveValues);
-      sliderApi.current.on('end', (params) => onChange([ params[0], params[1] ]));
+      sliderApi.current.on('end', params => onChange([ params[0], params[1] ]));
     }
   }
 
+  const handleBlur = (index) => {
+    const visual = index === 0 ? visualFirst : visualLast;
+    let parsed = parseInt(visual.replace(/\D/g, ''));
+    if (isNaN(parsed)) return;
+    const min = type === 'area' ? 50 : (finality === 'venda' ? 2000000 : 10000);
+    const max = type === 'area' ? 2000 : (finality === 'venda' ? 20000000 : 30000);
+    parsed = Math.max(min, Math.min(parsed, max));
+    const newValues = {
+      first: index === 0 ? parsed : values.first,
+      last: index === 1 ? parsed : values.last,
+    };
+    if (newValues.first > newValues.last) {
+      if (index === 0) newValues.last = parsed;
+      else newValues.first = parsed;
+    }
+    setValues(newValues);
+    setVisualFirst(type === 'prices' ? formatNumberOnlyDigits(newValues.first) : formatAreaInput(newValues.first));
+    setVisualLast(type === 'prices' ? formatNumberOnlyDigits(newValues.last) : formatAreaInput(newValues.last));
+    if (sliderApi.current) sliderApi.current.set([ newValues.first, newValues.last ]);
+    onChange([ newValues.first, newValues.last ]);
+  };
+
   useEffect(() => {
-    saveValues(data);
-    renderSlider();
+   if (type !== 'others') {
+      saveValues(data);
+      renderSlider();
+    }
   }, [ data ]);
 
-  const innerTextHTML = values ? `${values.first} ${sep} ${values.last}` : null;
+  const handleButtonClick = (value) => {
+    setSelectedButton(value);
+    onChange([ value, to ]);
+  };
 
   return (
     <Container>
-      {values ? (
-        <Text dangerouslySetInnerHTML={{ __html: innerTextHTML }}></Text>
-      ) : null}
-      <Slider ref={ref}></Slider>
+      {type === 'others' ? (
+        <ButtonGroup>
+          {[ 1, 2, 3, 4, 5, 6 ].map((num) => (
+            <RangeButton
+              key={num}
+              active={selectedButton === num}
+              onClick={() => handleButtonClick(num)}
+              type='button'
+            >
+              {num}+
+            </RangeButton>
+          ))}
+        </ButtonGroup>
+      ) : (
+        <>
+          <Slider ref={ref}></Slider>
+          {values && (
+            <InputGroup>
+            <div>
+              <InputWrapper>
+                {prefix && <PrefixSpan>{prefix}</PrefixSpan>}
+                <StyledInput
+                  value={visualFirst}
+                  onChange={(e) => {
+                    const masked = formatNumberOnlyDigits(e.target.value);
+                    setVisualFirst(masked);
+                  }}
+                  onBlur={() => handleBlur(0)}
+                  type="text"
+                  inputMode="numeric"
+                />
+                {suffix && <SuffixSpan>{suffix}</SuffixSpan>}
+              </InputWrapper>
+              <InputLabel>Mínimo</InputLabel>
+            </div>
+              <div>
+                <InputWrapper>
+                  {prefix && <PrefixSpan>{prefix}</PrefixSpan>}
+                  <StyledInput
+                    value={visualLast}
+                    onChange={(e) => {
+                      const masked = formatNumberOnlyDigits(e.target.value);
+                      setVisualLast(masked);
+                    }}
+                    onBlur={() => handleBlur(1)}
+                    type="text"
+                    inputMode="numeric"
+                  />
+                  {suffix && <SuffixSpan>{suffix}</SuffixSpan>}
+                </InputWrapper>
+                <InputLabel className="right">Máximo</InputLabel>
+              </div>
+            </InputGroup>
+          )}
+        </>
+      )}
     </Container>
   );
 }

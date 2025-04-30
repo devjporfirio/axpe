@@ -1,33 +1,7 @@
 import styled from 'styled-components';
-import media from 'styled-media-query';
 
 export const Container = styled.div`
   width: 100%;
-`;
-
-export const Text = styled.p`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-  font: 18px 'Raleway';
-  color: ${({ theme }) => theme.colors.green};
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  span {
-    font-size: 14px;
-    font-weight: 700;
-  }
-
-  ${media.greaterThan('medium')`
-    font-size: 13px;
-
-    span {
-      font-size: 10px;
-    }
-  `};
 `;
 
 export const Slider = styled.div`
@@ -46,8 +20,8 @@ export const Slider = styled.div`
       top: 50%;
       left: 0;
       width: 100%;
-      height: 2px;
-      background: ${({ theme }) => theme.colors.orange};
+      height: 3px;
+      background: ${({ theme }) => theme.colors.blueDark};
       opacity: 0.4;
       border-radius: 4px;
     }
@@ -61,7 +35,7 @@ export const Slider = styled.div`
     right: -6px !important;
     border: 0;
     font-size: 0;
-    background: ${({ theme }) => theme.colors.orange};
+    background: ${({ theme }) => theme.colors.blueDark};
     border-radius: 50%;
     box-shadow: none;
     z-index: 5;
@@ -84,10 +58,87 @@ export const Slider = styled.div`
       top: 50%;
       left: 0;
       width: 100%;
-      height: 2px;
-      background: ${({ theme }) => theme.colors.orange};
+      height: 3px;
+      background: ${({ theme }) => theme.colors.blueDark};
       opacity: 0.4;
       border-radius: 4px;
     }
+  }
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  :first-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+export const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: ${({ theme }) => theme.colors.white};
+  gap: 4px;
+  height: 40px;
+`;
+export const PrefixSpan = styled.span`
+  font: 12px 'Raleway';
+  color: ${({ theme }) => theme.colors.green};
+  white-space: nowrap;
+`;
+export const SuffixSpan = styled.span`
+  font: 12px 'Raleway';
+  color: ${({ theme }) => theme.colors.green};
+  white-space: nowrap;
+`;
+export const StyledInput = styled.input`
+  border: none;
+  outline: none;
+  width: 100%;
+  font: 12px 'Raleway';
+  color: ${({ theme }) => theme.colors.green};
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.green};
+  }
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.orange};
+  }
+`;
+export const InputLabel = styled.span`
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  text-align: start;
+  &.right {
+    text-align: end;
+  }
+`;
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+`;
+export const RangeButton = styled.button`
+  padding: 8px 10px;
+  border: 2px solid ${({ theme }) => theme.colors.white};
+  background: ${({ active, theme }) => (active ? theme.colors.white : 'transparent')};
+  color: ${({ active, theme }) => (active ? theme.colors.green : theme.colors.white)};
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.green};
   }
 `;

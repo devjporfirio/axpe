@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { OptionItem, OptionsList, SelectButton, SelectContainer } from './styles';
 
-const CustomSelect = ({ options, value, onChange, ariaLabel }) => {
+const CustomSelect = ({ options, value, onChange, ariaLabel, searchTab, searchFilter }) => {
   const [ open, setOpen ] = useState(false);
   const containerRef = useRef(null);
 
@@ -24,14 +24,24 @@ const CustomSelect = ({ options, value, onChange, ariaLabel }) => {
   const selectedOption = options.find(opt => opt.value === value);
 
   return (
-    <SelectContainer ref={containerRef}>
-      <SelectButton onClick={() => setOpen(prev => !prev)} aria-label={ariaLabel}>
-        {selectedOption ? selectedOption.label : 'Selecione'}
+    <SelectContainer ref={containerRef} searchTab={searchTab} searchFilter={searchFilter}>
+      <SelectButton
+        type='button'
+        searchTab={searchTab}
+        searchFilter={searchFilter}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(prev => !prev);
+        }}
+        open={open}
+        aria-label={ariaLabel}
+      >
+         {selectedOption ? selectedOption.label : (searchFilter ? 'Ordenar por' : 'Selecione')}
       </SelectButton>
       {open && (
         <OptionsList>
           {options.map((opt) => (
-            <OptionItem key={opt.value} onClick={() => handleSelect(opt.value)}>
+            <OptionItem key={opt.value} onClick={() => handleSelect(opt.value)} searchTab={searchTab}>
               {opt.label}
             </OptionItem>
           ))}
@@ -49,6 +59,7 @@ CustomSelect.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   ariaLabel: PropTypes.string,
+  searchTab: PropTypes.bool,
 };
 
 export default CustomSelect;
