@@ -46,8 +46,6 @@ export const Form = styled.form`
   display: flex;
   width: 100%;
   height: 100vh;
-  /* overflow: hidden;
-  overflow-y: auto; */
 
   ${media.greaterThan('medium')`
     overflow: visible;
@@ -66,8 +64,6 @@ export const FormWrapper = styled.div`
     height: 100vh;
     background: ${({ theme }) => theme.colors.green};
     transform: translateX(-100%);
-    /* overflow: hidden;
-    overflow-y: auto; */
     z-index: 5;
     transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
     cursor: default;
@@ -183,7 +179,6 @@ export const FormGroupReference = css`
 export const FormButtonsFilter = styled.div`
   width: 100%;
   margin: 10px 0 0 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
 
   ${media.greaterThan('medium')`
     border-bottom: 0;
@@ -293,7 +288,6 @@ export const FormButtonFilter = styled.button`
   width: 100%;
   height: 60px;
   min-height: 60px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
   font: 12px 'Raleway';
 
   span,
@@ -523,6 +517,7 @@ export const FormTabTitle = styled.h3`
 
 export const FormTabContent = styled.div`
   ${media.lessThan('medium')`
+    padding: 0 10px;
     ${props => props.hasFooter && css`
       padding-bottom: 100px;
     `}
@@ -681,7 +676,7 @@ export const FormTabListItemButtonActive = css`
 
 export const FormTabSlider = styled.div`
   width: 100%;
-  margin-bottom: 30px;
+  margin: 20px 0;
 
   & > div {
     touch-action: none;
@@ -713,18 +708,15 @@ export const FormTabListItemContainer = styled.li`
 `;
 
 export const FormTabSliderTitle = styled.h4`
-  font: 16px 'Raleway';
+  font: 14px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.white};
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
-  ${media.greaterThan('medium')`
-    font-size: 13px;
-  `};
+  margin-bottom: 10px;
 `;
 
 export const FormFooter = styled.footer`
@@ -744,15 +736,16 @@ export const FormButtonSubmit = styled.button`
   display: block;
   width: 100%;
   height: 48px;
-  margin-bottom: 30px;
-  font: 20px/48px 'Raleway';
+  margin-bottom: 20px;
+  font: 16px 'Raleway';
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.white};
-  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  font-weight: ${({ theme }) => theme.fontsWeight.bold};
   text-align: center;
   border-radius: 6px;
   background: ${({ theme }) => theme.colors.orange};
-
+  padding: 14px 16px;
+  
   &[disabled] {
     opacity: 0.2;
     cursor: default;

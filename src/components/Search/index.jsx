@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import SimpleBar from 'simplebar-react';
 import Api from 'services';
-import { formatCurrency, getParamsFromObject } from 'helpers/utils';
+import { getParamsFromObject } from 'helpers/utils';
 import GTM from 'helpers/gtm';
 
 // actions
@@ -15,6 +15,7 @@ import { setMain } from 'store/modules/main/actions';
 import Button from 'components/Button';
 import Input from 'components/Search/FormElements/Input';
 import RangeSlider from 'components/Search/FormElements/RangeSlider';
+import CustomSelect from '../CustomSelect';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow';
@@ -47,8 +48,6 @@ import {
   FormTabFooter,
   FormTabListItemTitle,
   FormTabListItemButton,
-  FormTabListContainer,
-  FormTabListItemContainer,
   FormTabSlider,
   FormTabSliderTitle,
 } from './styles';
@@ -251,10 +250,6 @@ function Search() {
     if (formik.values.types.length) {
       params.push(`types=${formik.values.types.join(',')}`);
     }
-
-    // if (formik.values.local.length) {
-    //   params.push(`local=${formik.values.local.join(',')}`);
-    // }
 
     return `?${params.join('&')}`;
   }
@@ -466,47 +461,24 @@ function Search() {
           <SimpleBar style={{ maxHeight: '100%' }}>
             <FormWrapperBox>
               <FormHeader>
-                <FormHeaderTitle>Onde você procura um imóvel?</FormHeaderTitle>
+                <FormHeaderTitle>Onde você busca?</FormHeaderTitle>
                 <FormClose type="button" onClick={closeSearch}>
                   Fechar
                 </FormClose>
               </FormHeader>
 
               <FormGroup>
-                <FormTabListContainer isEmpty={formik.values.source}>
-                  {sources.map((source, sourceIndex) => (
-                    <FormTabListItemContainer
-                      key={`local-${sourceIndex}`}
-                      active={
-                        formik.values.source &&
-                        formik.values.source.value === source.value
-                      }
-                    >
-                      <FormTabListItemButton
-                        type="button"
-                        format="icon"
-                        active={
-                          formik.values.source &&
-                          formik.values.source.value === source.value
-                        }
-                        onClick={() => {
-                          setSource(source);
-                        }}
-                        className="holos-search-menu-item location-button"
-                        data-label={source.label}
-                        data-type={'Alterar localização'}
-                      >
-                        <span className="icon">
-                          <img
-                            src={require(`assets/icons/sources-${source.value}.svg`)}
-                            alt={source.label}
-                          />
-                        </span>
-                        <span className="label">{source.label}</span>
-                      </FormTabListItemButton>
-                    </FormTabListItemContainer>
-                  ))}
-                </FormTabListContainer>
+              <CustomSelect
+                  options={sources}
+                  value={formik.values.source?.value || ''}
+                  onChange={(newValue) => {
+                    const selectedSource = sources.find((s) => s.value === newValue);
+                    setSource(selectedSource);
+                  }}
+                  ariaLabel="Selecione a fonte"
+                  searchTab={true}
+                  onClick={(event) => event.stopPropagation()}
+                />
               </FormGroup>
 
               {formik.values.source.value ? (
@@ -696,55 +668,136 @@ function Search() {
                   (filtersData.parking &&
                     filtersData.parking.length &&
                     filtersData.parking[0] != filtersData.parking[1]) ? (
-                    <FormButtonFilter
-                      type="button"
-                      active={tabActive === 'filters'}
-                      filled={
-                        (formik.values.price_start &&
-                          formik.values.price_end) ||
-                        (formik.values.area_start && formik.values.area_end) ||
-                        (formik.values.bedroom_start &&
-                          formik.values.bedroom_end) ||
-                        (typeof formik.values.parking_start !== 'undefined' &&
-                          formik.values.parking_end)
-                      }
-                      onClick={() => setTabActive('filters')}
-                      className="holos-search-menu-filter"
-                      data-label="Mais filtros"
-                    >
-                      <strong>Mais filtros</strong>
-                      {(formik.values.price_start && formik.values.price_end) ||
-                      (formik.values.area_start && formik.values.area_end) ||
-                      (formik.values.bedroom_start &&
-                        formik.values.bedroom_end) ||
-                      (typeof formik.values.parking_start !== 'undefined' &&
-                        formik.values.parking_end) ? (
-                        <span>
-                          {formik.values.price_start && formik.values.price_end
-                            ? `Valor ${formatCurrency.format(
-                                formik.values.price_start
-                              )} a ${formatCurrency.format(
-                                formik.values.price_end
-                              )}, `
-                            : null}
-
-                          {formik.values.area_start && formik.values.area_end
-                            ? `Area de ${formik.values.area_start}m a ${formik.values.area_end}m, `
-                            : null}
-
-                          {formik.values.bedroom_start &&
-                          formik.values.bedroom_end
-                            ? `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
-                            : null}
-
-                          {typeof formik.values.parking_start !== 'undefined' &&
-                          formik.values.parking_end
-                            ? `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
-                            : null}
-                        </span>
+                    <FormTabContent>
+                      {filtersData.prices &&
+                      filtersData.prices.length &&
+                      filtersData.prices[0] != filtersData.prices[1] ? (
+                        <FormTabSlider>
+                          <FormTabSliderTitle>Valor do Imóvel</FormTabSliderTitle>
+                          <RangeSlider
+                            type="prices"
+                            data={filtersData.prices}
+                            finality={formik.values.finality}
+                            prefix="R$ "
+                            onChange={(values) => {
+                              formik.setFieldValue('price_start', values[0]);
+                              formik.setFieldValue('price_end', values[1]);
+    
+                              GTM.dataLayerPush({
+                                event: 'Custom Field Change',
+                                fieldLabel: 'Valor do Imóvel',
+                                fieldForm: 'Locais',
+                                fieldValMin: values[0],
+                                fieldValMax: values[1],
+                              });
+                            }}
+                          />
+                        </FormTabSlider>
                       ) : null}
-                      <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-                    </FormButtonFilter>
+                      {filtersData.area &&
+                      filtersData.area.length &&
+                      filtersData.area[0] != filtersData.area[1] ? (
+                        <FormTabSlider>
+                          <FormTabSliderTitle>Metragem</FormTabSliderTitle>
+                          <RangeSlider
+                            type="area"
+                            data={filtersData.area}
+                            sep="a"
+                            step={50}
+                            suffix=" m²"
+                            onChange={(values) => {
+                              formik.setFieldValue('area_start', values[0]);
+                              formik.setFieldValue('area_end', values[1]);
+    
+                              GTM.dataLayerPush({
+                                event: 'Custom Field Change',
+                                fieldLabel: 'Metragem',
+                                fieldForm: 'Locais',
+                                fieldValMin: values[0],
+                                fieldValMax: values[1],
+                              });
+                            }}
+                          />
+                        </FormTabSlider>
+                      ) : null}
+    
+                      {filtersData.bedrooms &&
+                      filtersData.bedrooms.length &&
+                      filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
+                        <FormTabSlider>
+                          <FormTabSliderTitle>Quartos</FormTabSliderTitle>
+                          <RangeSlider
+                            type="others"
+                            data={filtersData.bedrooms}
+                            sep="a"
+                            step={1}
+                            onChange={(values) => {
+                              formik.setFieldValue('bedroom_start', values[0]);
+                              formik.setFieldValue('bedroom_end', values[1]);
+    
+                              GTM.dataLayerPush({
+                                event: 'Custom Field Change',
+                                fieldLabel: 'Quartos',
+                                fieldForm: 'Locais',
+                                fieldValMin: values[0],
+                                fieldValMax: values[1],
+                              });
+                            }}
+                          />
+                        </FormTabSlider>
+                      ) : null}
+    
+                    {filtersData.bedrooms &&
+                      filtersData.bedrooms.length &&
+                      filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
+                        <FormTabSlider>
+                          <FormTabSliderTitle>Suítes</FormTabSliderTitle>
+                          <RangeSlider
+                            type="others"
+                            data={filtersData.bedrooms}
+                            sep="a"
+                            step={1}
+                            onChange={(values) => {
+                              formik.setFieldValue('bedroom_start', values[0]);
+                              formik.setFieldValue('bedroom_end', values[1]);
+    
+                              GTM.dataLayerPush({
+                                event: 'Custom Field Change',
+                                fieldLabel: 'Suítes',
+                                fieldForm: 'Locais',
+                                fieldValMin: values[0],
+                                fieldValMax: values[1],
+                              });
+                            }}
+                          />
+                        </FormTabSlider>
+                      ) : null}
+                      {filtersData.parking &&
+                      filtersData.parking.length &&
+                      filtersData.parking[0] != filtersData.parking[1] ? (
+                        <FormTabSlider>
+                          <FormTabSliderTitle>Vagas</FormTabSliderTitle>
+                          <RangeSlider
+                            type="others"
+                            data={filtersData.parking}
+                            sep="a"
+                            step={1}
+                            onChange={(values) => {
+                              formik.setFieldValue('parking_start', values[0]);
+                              formik.setFieldValue('parking_end', values[1]);
+    
+                              GTM.dataLayerPush({
+                                event: 'Custom Field Change',
+                                fieldLabel: 'Vagas',
+                                fieldForm: 'Locais',
+                                fieldValMin: values[0],
+                                fieldValMax: values[1],
+                              });
+                            }}
+                          />
+                        </FormTabSlider>
+                      ) : null}
+                    </FormTabContent>
                   ) : null}
                 </>
               ) : null}
@@ -754,7 +807,7 @@ function Search() {
                   <Input
                     type="text"
                     name="reference"
-                    placeholder="buscar por referência"
+                    placeholder="Buscar por referência"
                     onChange={formik.handleChange}
                     onBlur={(e) => {
                       formik.handleChange(e);
@@ -763,7 +816,7 @@ function Search() {
                     onFocus={handleInputReferenceFocusIn}
                     value={formik.values.reference}
                     className="holos-search-field"
-                    data-label="buscar por referência"
+                    data-label="Buscar por referência"
                   />
                   <SVG src={SearchIconSVG} uniquifyIDs={true} />
                 </FormGroup>
@@ -910,144 +963,6 @@ function Search() {
                   </ul>
                 </FormTabContent>
                 {formik.values.local.length > 0 ? (
-                  <FormTabFooter>
-                    <Button
-                      type="button"
-                      fullWidth={true}
-                      onClick={() => setTabActive(null)}
-                    >
-                      Aplicar filtro
-                    </Button>
-                  </FormTabFooter>
-                ) : null}
-              </FormTabWrapper>
-            </SimpleBar>
-          </FormTab>
-        ) : null}
-
-        {filtersData ? (
-          <FormTab
-            active={tabActive === 'filters'}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </FormTabButtonBack>
-            <SimpleBar style={{ maxHeight: '100%' }}>
-              <FormTabWrapper>
-                <FormTabClose type="button" onClick={() => setTabActive(null)}>
-                  Fechar
-                </FormTabClose>
-                <FormTabTitle>Mais filtros</FormTabTitle>
-                <FormTabContent>
-                  {filtersData.prices &&
-                  filtersData.prices.length &&
-                  filtersData.prices[0] != filtersData.prices[1] ? (
-                    <FormTabSlider>
-                      <FormTabSliderTitle>Valor</FormTabSliderTitle>
-                      <RangeSlider
-                        type="prices"
-                        data={filtersData.prices}
-                        finality={formik.values.finality}
-                        prefix="R$ "
-                        onChange={(values) => {
-                          formik.setFieldValue('price_start', values[0]);
-                          formik.setFieldValue('price_end', values[1]);
-
-                          GTM.dataLayerPush({
-                            event: 'Custom Field Change',
-                            fieldLabel: 'Valor',
-                            fieldForm: 'Locais',
-                            fieldValMin: values[0],
-                            fieldValMax: values[1],
-                          });
-                        }}
-                      />
-                    </FormTabSlider>
-                  ) : null}
-
-                  {filtersData.area &&
-                  filtersData.area.length &&
-                  filtersData.area[0] != filtersData.area[1] ? (
-                    <FormTabSlider>
-                      <FormTabSliderTitle>Área útil</FormTabSliderTitle>
-                      <RangeSlider
-                        type="area"
-                        data={filtersData.area}
-                        sep="a"
-                        step={50}
-                        suffix=" m²"
-                        onChange={(values) => {
-                          formik.setFieldValue('area_start', values[0]);
-                          formik.setFieldValue('area_end', values[1]);
-
-                          GTM.dataLayerPush({
-                            event: 'Custom Field Change',
-                            fieldLabel: 'Área útil',
-                            fieldForm: 'Locais',
-                            fieldValMin: values[0],
-                            fieldValMax: values[1],
-                          });
-                        }}
-                      />
-                    </FormTabSlider>
-                  ) : null}
-
-                  {filtersData.bedrooms &&
-                  filtersData.bedrooms.length &&
-                  filtersData.bedrooms[0] != filtersData.bedrooms[1] ? (
-                    <FormTabSlider>
-                      <FormTabSliderTitle>Quartos</FormTabSliderTitle>
-                      <RangeSlider
-                        data={filtersData.bedrooms}
-                        sep="a"
-                        step={1}
-                        onChange={(values) => {
-                          formik.setFieldValue('bedroom_start', values[0]);
-                          formik.setFieldValue('bedroom_end', values[1]);
-
-                          GTM.dataLayerPush({
-                            event: 'Custom Field Change',
-                            fieldLabel: 'Quartos',
-                            fieldForm: 'Locais',
-                            fieldValMin: values[0],
-                            fieldValMax: values[1],
-                          });
-                        }}
-                      />
-                    </FormTabSlider>
-                  ) : null}
-
-                  {filtersData.parking &&
-                  filtersData.parking.length &&
-                  filtersData.parking[0] != filtersData.parking[1] ? (
-                    <FormTabSlider>
-                      <FormTabSliderTitle>Vagas</FormTabSliderTitle>
-                      <RangeSlider
-                        data={filtersData.parking}
-                        sep="a"
-                        step={1}
-                        onChange={(values) => {
-                          formik.setFieldValue('parking_start', values[0]);
-                          formik.setFieldValue('parking_end', values[1]);
-
-                          GTM.dataLayerPush({
-                            event: 'Custom Field Change',
-                            fieldLabel: 'Vagas',
-                            fieldForm: 'Locais',
-                            fieldValMin: values[0],
-                            fieldValMax: values[1],
-                          });
-                        }}
-                      />
-                    </FormTabSlider>
-                  ) : null}
-                </FormTabContent>
-                {(formik.values.price_start && formik.values.price_end) ||
-                (formik.values.area_start && formik.values.area_end) ||
-                (formik.values.bedroom_start && formik.values.bedroom_end) ||
-                (typeof formik.values.parking_start !== 'undefined' &&
-                  formik.values.parking_end) ? (
                   <FormTabFooter>
                     <Button
                       type="button"
