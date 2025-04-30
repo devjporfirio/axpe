@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import CloseIcon from 'assets/icons/axpe-modal-close-icon.svg';
 
-import { useVisitModalContext } from "../context";
+import { useVisitModalContext } from '../context';
 
 import {
-    GenericDiv,
     ModalBody, // MODAL
     ModalBodyWrapper,
     ModalWrapper,
@@ -23,17 +21,6 @@ import {
     ModalFormGroupNames,
     ModalFormGroup,
     ModalFormGroupCheckbox,
-    ModalInput,
-    ModalSchedule,
-    ModalScheduleTitle,
-    ModalScheduleWrapper,
-    ModalScheduleItem,
-    ModalScheduleItemLine,
-    ModalScheduleItemDay,
-    ModalScheduleItemDayNumber,
-    ModalScheduleItemMonth,
-    ModalScheduleHour,
-    ModalScheduleSelect,
     ModalFormSubmit,
     ModalFormBtnSubmit
 } from './styles';
@@ -47,64 +34,9 @@ export default function VisitModal(property) {
         setModalVisitOn
     } = useVisitModalContext();
 
-    //const [modalVisitOn, setModalVisitOn] = useState(null);
-    const [scheduleList, setScheduleList] = useState(null);
-    const [scheduleSelected, setScheduleSelected] = useState(null);
-
-    const getSchedules = () => {
-        let diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-        let mesesDoAno = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-
-        let result = [];
-
-        for (let i = 1; i <= 5; i++) {
-            let data = new Date();
-            data.setDate(data.getDate() + i);
-            let day = diasDaSemana[data.getDay()];
-            let dayNumber = data.getDate();
-            let month = mesesDoAno[data.getMonth()];
-            result.push({ day, dayNumber, month });
-        }
-
-        setScheduleList(result);
-    }
-
-    const openVisitModal = (e) => {
-        e.preventDefault();
-        setModalVisitOn(true);
-    }
-
     const closeVisitModal = (e) => {
         e.preventDefault();
         setModalVisitOn(null);
-    }
-
-    const setSelectDate = (e, item) => {
-        e.preventDefault();
-        setScheduleSelected(item);
-    }
-
-    useEffect(() => {
-        getSchedules();
-    }, []);
-
-    const RenderSchedule = () => {
-        if (!scheduleList) {
-            return null;
-        }
-
-        return scheduleList.map((item, index) => (
-            <ModalScheduleItem key={index}>
-                <ModalScheduleItemLine
-                    onClick={e => setSelectDate(e, item)}
-                    selected={scheduleSelected === item}
-                >
-                    <ModalScheduleItemDay>{item.day}</ModalScheduleItemDay>
-                    <ModalScheduleItemDayNumber>{item.dayNumber}</ModalScheduleItemDayNumber>
-                    <ModalScheduleItemMonth>{item.month}</ModalScheduleItemMonth>
-                </ModalScheduleItemLine>
-            </ModalScheduleItem>
-        ));
     }
 
     if (!modalVisitOn) {
@@ -122,13 +54,13 @@ export default function VisitModal(property) {
                                 onClick={closeVisitModal}
                             >
                                 <ModalHeaderBtnCloseImage>
-                                    <img src={CloseIcon} />
+                                    <img src={CloseIcon} alt=''/>
                                 </ModalHeaderBtnCloseImage>
                             </ModalHeaderBtnClose>
                         </ModalHeader>
                         <ModalLocal>
                             <ModalLocalImage>
-                                <img src={(gallery && gallery[0].src) || ''} />
+                                <img src={(gallery && gallery[0].src) || ''} alt=''/>
                             </ModalLocalImage>
                             <ModalLocalDescription>
                                 <ModalLocalTitle>{address.local}</ModalLocalTitle>
@@ -169,35 +101,14 @@ export default function VisitModal(property) {
                                     placeholder="Seu WhatsApp"
                                 />
                             </ModalFormGroup>
-                            <ModalSchedule>
-                                <ModalScheduleTitle>Escolha o dia da sua visita</ModalScheduleTitle>
-                                <ModalScheduleWrapper>
-
-                                    {/* ITEM */}
-                                    <RenderSchedule />
-                                    {/* -- */}
-
-                                </ModalScheduleWrapper>
-                            </ModalSchedule>
-                            <ModalScheduleHour>
-                                <ModalScheduleSelect name="hour">
-                                    <option valeu="09">9:00</option>
-                                    <option valeu="09">10:00</option>
-                                    <option valeu="09">11:00</option>
-                                    <option valeu="09">12:00</option>
-                                    <option valeu="09">13:00</option>
-                                    <option valeu="09">14:00</option>
-                                    <option valeu="09">15:00</option>
-                                    <option valeu="09">16:00</option>
-                                </ModalScheduleSelect>
-                            </ModalScheduleHour>
                             <ModalFormGroupCheckbox>
                                 <input
                                     type="checkbox"
                                     name="accept"
                                     id="acceptVisit"
+                                    aria-labelledby="acceptVisit"
                                 />
-                                <label for="acceptVisit">Ao clicar em Solicitar visita, você concorda com nosso Termos de Uso.</label>
+                                <label htmlFor="acceptVisit" id="acceptVisit">Ao clicar em Solicitar visita, você concorda com nosso Termos de Uso.</label>
                             </ModalFormGroupCheckbox>
                             <ModalFormSubmit>
                                 <ModalFormBtnSubmit type="submit">Solicitar visita</ModalFormBtnSubmit>

@@ -121,7 +121,6 @@ export const GroupInfo = styled.div`
 export const InfoContent = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
 `;
 
 export const Type = styled.p`
@@ -155,7 +154,7 @@ export const GroupNeigRef = styled.div`
   `}
 `;
 
-export const Neighborhood = styled.p`
+export const Neighborhood = styled.h1`
   font-size: 28px;
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   text-transform: capitalize;
@@ -189,6 +188,7 @@ export const Ref = styled.p`
 `;
 
 export const GroupTags = styled.div`
+  margin-right: 12px;
   div + div {
     margin-top: 10px;
   }
@@ -339,7 +339,6 @@ export const Delivery = styled.div`
     p {
       width: 100%;
       max-width: 349px;
-      margin-top: -35px;
     }
   `}
 `;

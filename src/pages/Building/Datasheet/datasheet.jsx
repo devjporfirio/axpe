@@ -72,17 +72,19 @@ export default function Datasheet({ property }) {
 
                         <GroupInfo>
                             <InfoContent>
-                                <GroupTags>
-                                    {label && label.isNew && (
-                                        <Tag label={'Novidade'} icon="star" color="blueLight" />
-                                    )}
-                                    {label && label.isExclusive && (
-                                        <Tag label={'Exclusividade'} icon="check" color="orange" />
-                                    )}
-                                    {label && label.isFurnished && (
-                                        <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-                                    )}
-                                </GroupTags>
+                                {Object.values(label).some(value => value === true) && (
+                                    <GroupTags>
+                                        {label && label.isNew && (
+                                            <Tag label={'Novidade'} icon="star" color="blueLight" />
+                                        )}
+                                        {label && label.isExclusive && (
+                                            <Tag label={'Exclusividade'} icon="check" color="orange" />
+                                        )}
+                                        {label && label.isFurnished && (
+                                            <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+                                        )}
+                                    </GroupTags>
+                                )}
                                 <Type>
                                     {type === 'lancamento'
                                         ? infos.releaseStatus === 'Pronto'
@@ -198,10 +200,11 @@ export default function Datasheet({ property }) {
                             <Content>{infos.internalDescription}</Content>
                         </BlockTwo>
                     )}
-                    
+
+                    {vista.length > 0 && (
                         <BlockTwo>
                             <CharacteristicsGrid>
-                                {Object.entries(vista?.Caracteristicas || {})
+                                {Object.entries(vista?.Caracteristicas || vista?.InfraEstrutura || {})
                                 .filter(([ _, value ]) => value === 'Sim')
                                 .map(([ label ]) => (
                                     <CharacteristicItem key={label}>
@@ -211,7 +214,8 @@ export default function Datasheet({ property }) {
                                 ))}
                             </CharacteristicsGrid>
                         </BlockTwo>
-                    
+                    )}
+                
                 </DatasheetContent>
 
                 <PriceGroupDesktop>
@@ -258,6 +262,7 @@ export default function Datasheet({ property }) {
                 </PriceGroupDesktop>
 
             </MainContainer>
+
             {type === 'lancamento' && infos.releaseDelivery && (
                 <Delivery>
                     <p>
