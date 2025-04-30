@@ -81,7 +81,11 @@ export const SliderItem = styled.article`
   width: 100%;
 `;
 
-export const LinkTag = styled.a``;
+export const LinkTag = styled.a`
+   :hover{
+     text-decoration: none;
+   }
+ `;
 
 export const Infos = styled.div`
   display: block;
