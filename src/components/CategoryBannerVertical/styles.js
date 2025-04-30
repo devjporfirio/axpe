@@ -45,7 +45,7 @@ export const CategoryBannerContainer = styled.div`
     position: absolute;
     top: 15%;
     left: 10%;
-    z-index: 50;
+    z-index: 10;
     max-width: 400px;
     font: 20px 'Bitter';
     color: ${({ theme }) => theme.colors.white};
@@ -102,7 +102,7 @@ export const TitleList = styled.ul`
   position: absolute;
   top: 30%;
   left: 10%;
-  z-index: 50;
+  z-index: 10;
   list-style: none;
   padding: 0;
   margin: 0;

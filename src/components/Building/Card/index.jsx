@@ -73,10 +73,10 @@ function BuildingCard({
           return (
             <GallerySlider layout={layout}>
               {itemData.gallery.map((image, index) => (
-                <>
+                <React.Fragment key={index}>
                   <Image mq="mobile" src={image.src} alt={`Slide ${index + 1}`} />
                   <Image mq="desktop" src={image.src} alt={`Slide ${index + 1}`} />
-                </>
+                </React.Fragment>
               ))}
             </GallerySlider>
           );

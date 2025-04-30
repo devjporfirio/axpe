@@ -93,7 +93,7 @@ export const Gallery = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 404px;
+  height: 250px;
   border-radius: 8px;
   
   &:before {
@@ -120,7 +120,6 @@ export const Gallery = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    height: 250px;
 
     ${props => props.layout === 'horizontal' && css`
       width: 65%;
