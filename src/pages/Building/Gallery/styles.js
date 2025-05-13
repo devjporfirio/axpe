@@ -29,16 +29,22 @@ export const Tour360 = styled(GalleryHeaderbar)`
   }
 `;
 
-export const Image = styled.img`
-  object-fit: cover;
+export const ImageWrapper = styled.div`
+  position: relative;
   border: 2.5px solid ${({ theme }) => theme.colors.white};
   border-top: none;
   border-bottom: none;
   height: 376px;
 
-  ${media.greaterThan('medium')`
+  @media (min-width: 768px) {
     height: 525px;
-  `}
+  }
+
+  .next-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const PlayButton = styled.img`

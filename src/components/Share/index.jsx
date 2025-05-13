@@ -4,10 +4,10 @@ import SVG from 'react-inlinesvg';
 import ClipboardJS from 'clipboard';
 
 // assets
-import WhatsappRoundedIconSVG from 'assets/icons/whatsapp-rounded';
-import FacebookRoundedIconSVG from 'assets/icons/facebook-rounded';
-import TwitterRoundedIconSVG from 'assets/icons/twitter-rounded';
-import LinkedinRoundedIconSVG from 'assets/icons/linkedin-rounded';
+import WhatsappRoundedIconSVG from 'assets/icons/whatsapp-rounded.svg';
+import FacebookRoundedIconSVG from 'assets/icons/facebook-rounded.svg';
+import TwitterRoundedIconSVG from 'assets/icons/twitter-rounded.svg';
+import LinkedinRoundedIconSVG from 'assets/icons/linkedin-rounded.svg';
 
 // styles
 import {

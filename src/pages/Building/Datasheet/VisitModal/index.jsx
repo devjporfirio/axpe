@@ -54,13 +54,13 @@ export default function VisitModal(property) {
                                 onClick={closeVisitModal}
                             >
                                 <ModalHeaderBtnCloseImage>
-                                    <img src={CloseIcon} alt=''/>
+                                    <img src={CloseIcon} alt="Ícone de fechar"/>
                                 </ModalHeaderBtnCloseImage>
                             </ModalHeaderBtnClose>
                         </ModalHeader>
                         <ModalLocal>
                             <ModalLocalImage>
-                                <img src={(gallery && gallery[0].src) || ''} alt=''/>
+                                <img src={(gallery && gallery[0].src) || ''} alt="Foto do imóvel" loading='lazy'/>
                             </ModalLocalImage>
                             <ModalLocalDescription>
                                 <ModalLocalTitle>{address.local}</ModalLocalTitle>

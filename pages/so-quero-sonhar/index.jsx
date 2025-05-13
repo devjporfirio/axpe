@@ -8,7 +8,7 @@ import DataJSON from 'pages/Dream/data.json';
 import BlockHighlighted from 'components/BlockHighlighted';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import SeoData from 'helpers/seo';
 
 // styles
@@ -46,7 +46,7 @@ function Dream() {
             <List>
               {data.map((item, itemIndex) => (
                 <li key={`dream-list-item-${itemIndex}`}>
-                  <Link route={`/so-quero-sonhar/${item.slug}`} passHref>
+                  <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
                     <ListButton
                       className="holos-search-category-button"
                       data-showcase="Só Quero Sonhar"

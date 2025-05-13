@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import Image from 'next/image';
 import PropTypes from 'prop-types';
 
 // components
@@ -8,16 +9,16 @@ import GalleryFull from './GalleryFull';
 import DotsPagination from 'components/DotsPagination';
 
 // assets
-import I360 from 'assets/icons/360';
-import PlayIcon from 'assets/icons/play-button';
+import I360 from 'assets/icons/360.svg';
+import PlayIcon from 'assets/icons/play-button.svg';
 // styles
 import {
   Container,
   Tour360,
-  Image,
   PlayButton,
   SliderButton,
   Button360,
+  ImageWrapper,
 } from './styles';
 
 
@@ -46,7 +47,7 @@ function Gallery({
     <Container className={className}>
       {tour360 && (
         <Button360 onClick={() => setShowTour(true)}>
-          <img src={I360} alt="Tour 360" />
+          <img src={I360} alt="Tour 360" loading='lazy'/>
         </Button360>
       )}
 
@@ -97,7 +98,16 @@ function Gallery({
               <PlayButton class="play-button" src={PlayIcon} alt="Assistir vídeo" />
             )}
 
-            <Image src={item.src} alt="" />
+            <ImageWrapper>
+              <Image
+                src={item.src}
+                alt="Imagens imóvel"
+                layout="fill"
+                className="next-image"
+                priority
+                sizes="(max-width: 768px) 100vw, 780px"
+              />
+            </ImageWrapper>
           </SliderButton>
             ))}
       </Slider>

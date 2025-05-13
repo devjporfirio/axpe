@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import Api from 'services';
 
 // helpers
@@ -119,7 +119,7 @@ function SiteMap({ buildings, landings }) {
                                 <ListItems fullWidth={true}>
                                   {placeItems.map((item, itemIndex) => (
                                     <li key={`sitemap-item-${itemIndex}`}>
-                                      <Link route={item.url} passHref>
+                                      <Link href={item.url} passHref>
                                         {item.title}
                                       </Link>
                                     </li>
@@ -149,7 +149,7 @@ function SiteMap({ buildings, landings }) {
                   <ListItems>
                     {landings.map((item, itemIndex) => (
                       <li key={`landing-item-${itemIndex}`}>
-                        <Link route={`/landing/${item.slug}`} passHref>
+                        <Link href={`/landing/${item.slug}`} passHref>
                           {item.title}
                         </Link>
                       </li>

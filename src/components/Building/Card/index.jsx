@@ -2,11 +2,11 @@ import React, { useCallback, useState, useEffect } from 'react';
 import SVG from 'react-inlinesvg';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import { formatCurrency } from 'helpers/utils';
 
 // assets
-import EmojiIconSVG from 'assets/icons/emoji';
+import EmojiIconSVG from 'assets/icons/emoji.svg';
 
 // styles
 import {
@@ -164,7 +164,7 @@ function BuildingCard({
   return (
     <Container layout={layout}>
       {status !== 'inactive' ? (
-        <Link route={`/${itemData.slug}`} passHref>
+        <Link href={`/${itemData.slug}`} passHref>
           <LinkTag
             layout={layout}
             className={gtmObj ? gtmObj.className : ''}

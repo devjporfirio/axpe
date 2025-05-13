@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 // components
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
@@ -7,7 +8,7 @@ import Inactive from 'components/Inactive';
 import SliderNew from 'components/SliderNew';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import { formatCurrency, formatCurrencyToText } from 'helpers/utils';
 
 // actions
@@ -29,6 +30,7 @@ import {
   Price,
   Description,
   ScheduleButton,
+  ImageWrapper,
 } from './styles';
 
 function BuildingList({
@@ -260,17 +262,23 @@ function BuildingList({
                   <SliderItem
                     key={`item-gallery-${reference}-${galleryItemIndex}`}
                   >
-                    <Link route={`/${item.slug}`} passHref>
+                    <Link href={`/${item.slug}`} passHref>
                       <LinkTag
                         className={gtmObj ? gtmObj.className : ''}
                         data-showcase={gtmObj ? gtmObj.showcase : ''}
                         data-product-id={item.reference}
                         data-position={positionIndex}
                       >
-                        <img
-                          src={galleryItem.src}
-                          alt={`Axpe ${category} - ${reference}`}
-                        />
+                        <ImageWrapper useBtSchedule={useBtSchedule}>
+                          <Image
+                            src={galleryItem.src}
+                            alt={`Axpe ${category} - ${reference}`}
+                            layout="fill"
+                            className="next-image"
+                            sizes="(max-width: 768px) 100vw, 60vw"
+                            loading="lazy"
+                          />
+                        </ImageWrapper>
                       </LinkTag>
                     </Link>
                   </SliderItem>
@@ -280,7 +288,7 @@ function BuildingList({
         </SliderNew>
       </SliderContainer>
       <Infos releaseDelivery={infos.releaseDelivery}>
-        <Link route={`/${item.slug}`} passHref>
+        <Link href={`/${item.slug}`} passHref>
           <LinkTag
             className={gtmObj ? gtmObj.className : ''}
             data-showcase={gtmObj ? gtmObj.showcase : ''}
@@ -309,7 +317,7 @@ function BuildingList({
         </Link>
 
         <ValuesFavGroup>
-          <Link route={`/${item.slug}`} passHref>
+          <Link href={`/${item.slug}`} passHref>
             <LinkTag
               className={gtmObj ? gtmObj.className : ''}
               data-showcase={gtmObj ? gtmObj.showcase : ''}
@@ -357,7 +365,7 @@ function BuildingList({
             </LinkTag>
           </Link>
         </ValuesFavGroup>
-        <Link route={`/${item.slug}`} passHref>
+        <Link href={`/${item.slug}`} passHref>
           <LinkTag
             className={gtmObj ? gtmObj.className : ''}
             data-showcase={gtmObj ? gtmObj.showcase : ''}

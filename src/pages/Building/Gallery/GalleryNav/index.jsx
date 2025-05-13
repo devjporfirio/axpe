@@ -64,7 +64,7 @@ function GalleryNav({
               items.map((item, itemIndex) => (
                 <BodySlider key={`building-gallerynav1-${itemIndex}`}>
                   {item.image || item.src ? (
-                    <img src={item.src || item.image} alt="Imóvel" />
+                    <img src={item.src || item.image} alt="Imóvel" loading='lazy'/>
                   ) : item.video ? (
                     <iframe
                       title="video"

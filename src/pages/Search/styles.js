@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // assets
-import ArrowIconSVG from 'assets/icons/arrow';
+import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 export const Container = styled.section`
   background: ${({ theme }) => theme.colors.greyLight3};
@@ -84,7 +84,8 @@ export const HeaderOrder = styled.div`
   position: relative;
   z-index: 2;
   display: flex;
-
+  gap: 16px;
+  
   ${media.greaterThan('medium')`
     margin-left: auto;
     margin-bottom: 0;
@@ -180,35 +181,16 @@ export const HeaderOrderButton = styled.button`
   `}
 `;
 
-export const HeaderOrderSelect = styled.select`
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 165px;
-  width: 40%;
-  height: 100%;
-  background: transparent;
-  z-index: 2;
-  opacity: 0;
-
-  ${media.greaterThan('large')`
-    display: none;
-  `}
-
-  ${media.lessThan('medium')`
-    display: none;
-  `}
-`;
-
 export const HeaderOrderList = styled.div`
   display: none;
 
-  ${media.greaterThan('large')`
+  ${media.greaterThan('small')`
     display: block;
     position: absolute;
     top: 15px;
     right: 10px;
     padding: 10px 10px;
+    border: 1px solid ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.white};
     border-radius: 6px;
     ${({ theme }) => theme.hide};
@@ -231,13 +213,15 @@ export const HeaderOrderListButton = styled.button`
   font: ${({ theme }) => theme.fontsWeight.regular} 13px 'Raleway';
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.green};
+  font-weight: 700;
 
   &:not(:last-child) {
     border-bottom: 1px solid ${({ theme }) => theme.colors.greyLight};
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.black};
+    background: transparent; 
+    color: ${({ theme }) => theme.colors.orange}; 
   }
 `;
 
@@ -256,6 +240,7 @@ export const ButtonBack = styled.button`
     background: ${({ theme }) => theme.colors.green};
     font-size: 0;
     z-index: 2;
+    padding: 0px;
 
     svg {
       display: block;
@@ -444,7 +429,7 @@ export const Infos = styled.div`
 export const ImageContainer = styled.div`
   position: absolute;
   left: 0px;
-  top: 0px;
+  top: 1px;
   width: 100%;
   height: 100%;
 

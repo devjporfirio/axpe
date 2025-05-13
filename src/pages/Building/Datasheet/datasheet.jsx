@@ -218,7 +218,7 @@ export default function Datasheet({ property }) {
                 
                 </DatasheetContent>
 
-                <PriceGroupDesktop>
+                <PriceGroupDesktop type={type}>
                     {!values.sell && !values.rent && values.valueOnlyConsults ? (
                         <Caracteristics.OnlyConsults />
                     ) : null}

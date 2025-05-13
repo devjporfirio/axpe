@@ -4,22 +4,8 @@ import { BaseMask } from '../styles';
 export default function CPF(props) {
   return (
     <BaseMask
-      mask={[
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        '.',
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        '.',
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        '-',
-        /[0-9]/,
-        /[0-9]/
-      ]}
+      mask="999.999.999-99"
+      maskChar={null}
       {...props}
     />
   );

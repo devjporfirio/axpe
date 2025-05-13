@@ -9,6 +9,10 @@ export const Container = styled.div`
     font-size: 0;
   }
 
+  .slick-slide {
+    /* height: 550px; */
+  }
+
   .slick-slider {
     width: 100%;
 
@@ -31,6 +35,8 @@ export const Container = styled.div`
 
   .slick-track {
     min-width: 100%;
+    display: flex;
+    align-items: stretch;
   }
 
   .slick-arrow {

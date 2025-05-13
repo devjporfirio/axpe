@@ -2,10 +2,10 @@ import React from 'react';
 import Router from 'next/router'
 
 // assets
-import IArrowOrange from 'assets/icons/arrow-prev-orange';
-import IArrowBlack from 'assets/icons/arrow-prev-green';
-import IHeartBlack from 'assets/icons/heart-black';
-import IHeartOrange from 'assets/icons/heart-orange';
+import IArrowOrange from 'assets/icons/arrow-prev-orange.svg';
+import IArrowBlack from 'assets/icons/arrow-prev-green.svg';
+import IHeartBlack from 'assets/icons/heart-black.svg';
+import IHeartOrange from 'assets/icons/heart-orange.svg';
 
 // styles
 import {

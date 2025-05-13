@@ -5,7 +5,7 @@ import SVG from 'react-inlinesvg';
 import { Container } from './styles';
 
 // images
-import EmojiIconSVG from 'assets/icons/emoji';
+import EmojiIconSVG from 'assets/icons/emoji.svg';
 
 export default function Inactive({ type, className }) {
   return (

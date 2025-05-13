@@ -7,7 +7,7 @@ import Api from 'services';
 import * as Yup from 'yup';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import SeoData from 'helpers/seo';
 import CookieUtmParams from 'helpers/cookieUtmParams';
 import { encrypt } from 'helpers/encryption';
@@ -17,7 +17,7 @@ import Button from 'components/Button';
 import FormElements from 'components/FormElements';
 
 // assets
-import ArrowIconSVG from 'assets/icons/arrow';
+import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 // styles
 import {
@@ -498,7 +498,7 @@ function DreamBuildingSingle({ type }) {
         <Wrapper>
           {breadcrumb.length > 0 && (
             <Breadcrumb>
-              <Link route="/imovel-dos-sonhos" passHref>
+              <Link href="/imovel-dos-sonhos" passHref>
                 {breadcrumb[0] === 'sp' ? 'São Paulo' : breadcrumb[0]}
               </Link>
               {breadcrumb[1] ? (

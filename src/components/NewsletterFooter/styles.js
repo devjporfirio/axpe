@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import BackgroundDesktop from 'assets/bg-newsletter-bottom-desktop.png';
-import BackgroundMobile from 'assets/bg-newsletter-bottom-mobile';
 
 export const NewsletterContainer = styled.div`
   display: flex;
@@ -9,6 +7,7 @@ export const NewsletterContainer = styled.div`
   padding: 60px 20px;
   position: relative;
   margin-top: 10px;
+  min-height: 250px;
   
   ${media.greaterThan('medium')`
     padding: 42px 41px 0px;
@@ -28,7 +27,7 @@ export const NewsletterTextDesktop = styled.div`
   p {
     font-size: 14px;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
-    width: 60%;
+    width: 70%;
     margin-top: 6px;
   }
 
@@ -73,10 +72,10 @@ export const Background = styled.div`
   background-repeat: no-repeat;
   background-position: right center;
   background-size: contain;
-  background-image: url(${BackgroundMobile});
+  background-image: url('/static/bg-newsletter-bottom-mobile.svg');
 
   ${media.greaterThan('large')`
     background-repeat: repeat;
-    background-image: url(${BackgroundDesktop});
+    background-image: url('/static/bg-newsletter-bottom-desktop.png');
   `}
 `;

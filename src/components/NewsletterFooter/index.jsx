@@ -88,7 +88,7 @@ function NewsletterFooter() {
       <Background />
       <NewsletterTextDesktop>
         <h4>Receba nossas novidades</h4>
-        <p>Lorem ipsum dolor sit amet. Aut quaerat distinctio ut neque voluptatem qui eaque</p>
+        <p>Cadastre-se e receba lançamentos e novidades da Axpe!</p>
         <h4>Cadastre-se e receba nossas novidades</h4>
       <FormContainer>
         <Iframe

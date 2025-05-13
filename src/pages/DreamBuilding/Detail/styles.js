@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // assets
-import ArrowIconSVG from 'assets/icons/arrow';
+import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 // styles
 import { FormGroup } from 'components/FormElements/styles';

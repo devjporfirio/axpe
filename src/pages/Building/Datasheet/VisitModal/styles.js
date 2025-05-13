@@ -67,7 +67,7 @@ export const ModalHeaderTitle = styled.div`
 export const ModalHeaderBtnClose = styled.button`
   position: absolute;
   top: 15px;
-  right: 0;
+  right: 20px;
 `
 
 export const ModalHeaderBtnCloseImage = styled.button`

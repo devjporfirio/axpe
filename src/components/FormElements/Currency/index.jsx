@@ -1,16 +1,17 @@
 import React from 'react';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
-import { BaseMask } from '../styles';
-
-const numberMask = createNumberMask({
-  prefix: 'R$',
-  thousandsSeparatorSymbol: '.',
-  allowDecimal: true,
-  decimalSymbol: ',',
-  decimalLimit: 2
-});
+import { StyledCurrency } from '../styles';
 
 export default function Currency(props) {
-  return <BaseMask mask={numberMask} {...props} />;
+  return (
+    <StyledCurrency
+      thousandSeparator="."
+      decimalSeparator=","
+      prefix="R$ "
+      decimalScale={2}
+      fixedDecimalScale
+      allowNegative={false}
+      {...props}
+    />
+  );
 }

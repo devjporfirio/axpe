@@ -17,7 +17,7 @@ import {
 } from './styles';
 
 // image
-import WhatsappIconSVG from 'assets/icons/whats-white';
+import WhatsappIconSVG from 'assets/icons/whats-white.svg';
 
 const LANGUAGE_TEXT = {
   es: {

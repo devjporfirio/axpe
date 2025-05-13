@@ -83,10 +83,9 @@ export default function GalleryFull({
             case 'imagem':
               return (
                 <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
-                  {/* <img alt="Foto do Imóvel" src={item.src} /> */}
                   <TransformWrapper pan={{ disabled: true }} options={{ maxScale: 4, padding: false, centerContent: true, limitToBounds: true }}>
                     <TransformComponent>
-                      <img alt="Foto do Imóvel" src={item.src} />
+                      <img alt="Foto do Imóvel" src={item.src} loading='lazy'/>
                     </TransformComponent>
                   </TransformWrapper>
                 </Slide>

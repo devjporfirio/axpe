@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DotsContainer, DotItem, DotButton } from './styles';
+
 const DotsPagination = ({ currentSlide, slideCount, onDotClick }) => {
   const maxDots = 4;
   const windowStart = slideCount > maxDots
@@ -14,18 +15,18 @@ const DotsPagination = ({ currentSlide, slideCount, onDotClick }) => {
   return (
     <DotsContainer>
       {windowDots.map((dotIndex, idx) => {
-        let size = 12;
+        let size = 14;
         if (dotIndex < currentSlide) {
-          size = 8;
+          size = 10;
         }
         if (
           idx === windowDots.length - 1 &&
           slideCount > windowDots[windowDots.length - 1] + 1
         ) {
-          size = 8;
+          size = 10;
         }
         if (dotIndex === currentSlide) {
-          size = 12;
+          size = 14;
         }
         return (
           <DotItem key={`dot-${dotIndex}`}>
@@ -33,6 +34,7 @@ const DotsPagination = ({ currentSlide, slideCount, onDotClick }) => {
               size={size}
               active={dotIndex === currentSlide}
               onClick={() => onDotClick(dotIndex)}
+              aria-label={`Ir para o slide ${dotIndex + 1}`}
             />
           </DotItem>
         );

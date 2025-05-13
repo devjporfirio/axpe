@@ -16,6 +16,7 @@ export const NextArrow = ({
       position={position}
       type={type}
       onClick={onClick}
+      aria-label='Próximo'
     />
   );
 };
@@ -33,6 +34,7 @@ export const PrevArrow = ({
       position={position}
       type={type}
       onClick={onClick}
+      aria-label='Anterior'
     />
   );
 };

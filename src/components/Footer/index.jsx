@@ -1,7 +1,5 @@
 import React from 'react';
-
-// helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 
 // styles
 import {
@@ -18,19 +16,19 @@ function Footer() {
           Todos os direitos reservados. Axpe. CRECI 19111J{' '}
           <span>
             |{' '}
-            <Link route="/mapa-do-site" passHref>
+            <Link href="/mapa-do-site" passHref>
               <a className="holos-footer-link" data-label="Mapa do site">Mapa do site</a>
             </Link>
           </span>{' '}
           <span>
             |{' '}
-            <Link route="/politica-de-privacidade" passHref>
+            <Link href="/politica-de-privacidade" passHref>
               <a className="holos-footer-link" data-label="Política de privacidade">Política de privacidade</a>
             </Link>
           </span>{' '}
           <span>
             |{' '}
-            <Link route="/termos-de-uso" passHref>
+            <Link href="/termos-de-uso" passHref>
               <a className="holos-footer-link" data-label="Termos de uso">Termos de uso</a>
             </Link>
           </span>

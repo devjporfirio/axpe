@@ -2,7 +2,7 @@ import React from 'react';
 import SVG from 'react-inlinesvg';
 import { InputSelect } from '../styles';
 
-import ArrowIconSVG from 'assets/icons/arrow';
+import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 export default function Select(props) {
   return (

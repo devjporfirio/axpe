@@ -4,6 +4,7 @@ import media from 'styled-media-query';
 export const Container = styled.div`
   width: 100%;
   border-radius: 8px;
+  min-height: 560px;
 
   .slick-list,
   .slick-slide {
@@ -11,7 +12,7 @@ export const Container = styled.div`
   }
 
   ${props => props.type === 'vertical' && css`
-    height: 400px;
+    min-height: 560px;
     .slick-list {
       height: 100% !important;
     }
@@ -74,8 +75,31 @@ export const CategoryLink = styled.a``;
 export const CategoryItemWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 600px;
   overflow: hidden;
+
+  .category-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    img {
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    &.mobile {
+      ${media.greaterThan('medium')`
+        display: none !important;
+      `}
+    }
+
+    &.desktop {
+      ${media.lessThan('medium')`
+        display: none !important;
+      `}
+    }
+  }
 `;
 
 export const CategoryImage = styled.img`

@@ -29,7 +29,7 @@ function SlickText({ items }) {
                 return !media.mediaType || (media.mediaType !== 'imagem' && media.mediaType !== 'video') ?
                   null :  media.mediaType === 'imagem' ? (
                   <div key={`item-gallery-${media.mediaType}-${mediaIndex}`}>
-                    <img src={media.image} alt="Imóvel" />
+                    <img src={media.image} alt="Imóvel" loading='lazy'/>
                   </div>
                 ) : media.mediaType === 'video' ? (
                   <iframe

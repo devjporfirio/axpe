@@ -16,7 +16,7 @@ import Tag from 'components/Tag';
 
 export const Release = ({ release, type, currency }) =>
   !!release && (
-    <PriceRelease>
+    <PriceRelease type={type}>
       <p>
         {type === 'pronto' ? 'Venda' : 'A partir de'}{' '}
         {currency
@@ -82,7 +82,7 @@ export const Sell = ({
       <PriceExpenses>
         <p>Despesas Mensais</p>
           {condo ? (
-            <div>
+            <dl>
               <dt>Condominio</dt>
               <dd>
                 {currency
@@ -91,10 +91,10 @@ export const Sell = ({
                       .replace('R$', formatCurrencyToText(currency))
                   : formatCurrency.format(parseInt(condo))}
               </dd>
-            </div>
+            </dl>
           ) : null}
           {iptu ? (
-            <div>
+            <dl>
               <dt>IPTU</dt>
               <dd>
                 {currency
@@ -103,7 +103,7 @@ export const Sell = ({
                       .replace('R$', formatCurrencyToText(currency))
                   : formatCurrency.format(parseInt(iptu))}
               </dd>
-            </div>
+            </dl>
           ) : null}
       </PriceExpenses>
     )

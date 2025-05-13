@@ -1,7 +1,5 @@
 import React from 'react';
-
-// helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 
 // styles
 import {
@@ -26,7 +24,7 @@ function Guidelines() {
 
         <List>
           <li>
-            <Link route="/guidelines/buildings" passHref>Buildings: List, Card (Horizontal and Vertical)</Link>
+            <Link href="/guidelines/buildings" passHref>Buildings: List, Card (Horizontal and Vertical)</Link>
           </li>
         </List>
 
