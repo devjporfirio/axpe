@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DotsContainer, DotItem, DotButton } from './styles';
+
 const DotsPagination = ({ currentSlide, slideCount, onDotClick }) => {
   const maxDots = 4;
   const windowStart = slideCount > maxDots
@@ -33,6 +34,7 @@ const DotsPagination = ({ currentSlide, slideCount, onDotClick }) => {
               size={size}
               active={dotIndex === currentSlide}
               onClick={() => onDotClick(dotIndex)}
+              aria-label={`Ir para o slide ${dotIndex + 1}`}
             />
           </DotItem>
         );

@@ -4,6 +4,7 @@ import media from 'styled-media-query';
 export const Container = styled.div`
   width: 100%;
   border-radius: 8px;
+  min-height: 560px;
 
   .slick-list,
   .slick-slide {
@@ -11,7 +12,7 @@ export const Container = styled.div`
   }
 
   ${props => props.type === 'vertical' && css`
-    height: 400px;
+    min-height: 560px;
     .slick-list {
       height: 100% !important;
     }

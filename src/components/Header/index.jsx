@@ -129,6 +129,7 @@ function Header() {
             type="button"
             onClick={handleToggle}
             navToggle={navToggle}
+            aria-label='Menu mobile'
           >
             <i></i>
             <i></i>
@@ -194,8 +195,9 @@ function Header() {
                   className="holos-menu-item"
                   href="https://wa.me/551130743600"
                   target="_blank"
+                  aria-label="WhatsApp Axpe Imóveis"
                 >
-                  <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
+                  <SVG src={WhatsappIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                 </SocialButton>
 
                 <SocialButton
@@ -203,8 +205,9 @@ function Header() {
                   target="_blank"
                   className="holos-footer-social-link"
                   data-label="Instagram"
+                  aria-label="Instagram Axpe Imóveis"
                 >
-                  <SVG src={InstagramIconSVG} uniquifyIDs={true} />
+                  <SVG src={InstagramIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                 </SocialButton>
               </Socials>
 
@@ -213,6 +216,7 @@ function Header() {
                   className="holos-menu-item"
                   type="button"
                   onClick={openModalNewsletter}
+                  aria-label="Receba nossas novidades"
                 >
                   Receba nossas novidades
                 </NewsletterButton>

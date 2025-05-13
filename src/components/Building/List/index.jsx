@@ -270,6 +270,7 @@ function BuildingList({
                         <img
                           src={galleryItem.src}
                           alt={`Axpe ${category} - ${reference}`}
+                          loading='lazy'
                         />
                       </LinkTag>
                     </Link>

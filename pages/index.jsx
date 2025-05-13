@@ -71,18 +71,18 @@ function Home({ hero, components }) {
               target={component.link.external ? '_blank' : '_self'}
               mq="mobile"
               className="holos-home-banner"
-              data-label=""
+              data-label="mobile-banner"
             >
-              <img src={component.images.mobile} alt="" />
+              <img src={component.images.mobile} alt="Foto imóvel banner" loading='lazy'/>
             </Banner>
             <Banner
               href={component.link.url}
               target={component.link.external ? '_blank' : '_self'}
               mq="desktop"
               className="holos-home-banner"
-              data-label=""
+              data-label="desktop-banner"
             >
-              <img src={component.images.desktop} alt="" />
+              <img src={component.images.desktop} alt="Foto imóvel banner" loading='lazy'/>
             </Banner>
           </>
         );
@@ -110,10 +110,10 @@ function Home({ hero, components }) {
                         href={item.link.url}
                         target={`_${item.link.target}`}
                       >
-                        {renderHeroItem(item)}
+                        {renderHeroItem(item, itemIndex)}
                       </HeroLink>
                     )}
-                  {!item.link || !item.link.url ? renderHeroItem(item) : null}
+                  {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
                 </HeroItem>
               ))}
             </SliderNew>
@@ -144,36 +144,34 @@ function Home({ hero, components }) {
     return heroItems;
   });
 
-  const renderHeroItem = useCallback((item) => {
+  const renderHeroItem = (item, itemIndex) => {
     const hasContent = item.title || item.content ? true : false;
 
     return (
-      <>
-        <HeroItemWrapper hasContent={hasContent}>
-          <HeroImage mq="mobile" src={item.images.mobile} alt={item.title} />
-          <HeroImage mq="desktop" src={item.images.desktop} alt={item.title} />
-          {item.title || item.content ? (
-            <HeroItemInfo>
-              {item.label && item.label == 'isExclusive' ? (
-                <Tag label={'Exclusividade'} icon="check" color="orange" />
-              ) : item.label == 'isNew' ? (
-                <Tag label={'Novidade'} icon="star" color="blueLight" />
-              ) : item.label == 'isFurnished' ? (
-                <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-              ) : null}
-              {item && item.title && (
-                <h2 className={item.title && item.content && 'with-separator'}>
-                  {item.title}
-                </h2>
-              )}
-              {item.content && <p>{item.content}</p>}
-              {item.link.url && <span>Saiba mais</span>}
-            </HeroItemInfo>
-          ) : null}
-        </HeroItemWrapper>
-      </>
+      <HeroItemWrapper hasContent={hasContent}>
+        <HeroImage className="hero-image" mq="mobile" src={item.images.mobile} alt={item.title} width={375} height='auto' loading='eager' priority={itemIndex === 0}/>
+        <HeroImage className="hero-image" mq="desktop" src={item.images.desktop} alt={item.title} width={1280} height='auto' loading='eager' priority={itemIndex === 0}/>
+        {hasContent && (
+          <HeroItemInfo className="hero-info">
+            {item.label && item.label == 'isExclusive' ? (
+              <Tag label={'Exclusividade'} icon="check" color="orange" />
+            ) : item.label == 'isNew' ? (
+              <Tag label={'Novidade'} icon="star" color="blueLight" />
+            ) : item.label == 'isFurnished' ? (
+              <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+            ) : null}
+            {item && item.title && (
+              <h2 className={item.title && item.content && 'with-separator'}>
+                {item.title}
+              </h2>
+            )}
+            {item.content && <p>{item.content}</p>}
+            {item.link.url && <span>Saiba mais</span>}
+          </HeroItemInfo>
+        )}
+      </HeroItemWrapper>
     );
-  }, []);
+  };
 
   useEffect(() => {
     function checkActionParams() {
@@ -235,10 +233,10 @@ function Home({ hero, components }) {
                       href={item.link.url}
                       target={`_${item.link.target}`}
                     >
-                      {renderHeroItem(item)}
+                      {renderHeroItem(item, itemIndex)}
                     </HeroLink>
                   )}
-                {!item.link || !item.link.url ? renderHeroItem(item) : null}
+                {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
               </HeroItem>
             ))}
           </SliderNew>

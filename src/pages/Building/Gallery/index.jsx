@@ -46,7 +46,7 @@ function Gallery({
     <Container className={className}>
       {tour360 && (
         <Button360 onClick={() => setShowTour(true)}>
-          <img src={I360} alt="Tour 360" />
+          <img src={I360} alt="Tour 360" loading='lazy'/>
         </Button360>
       )}
 
@@ -97,7 +97,7 @@ function Gallery({
               <PlayButton class="play-button" src={PlayIcon} alt="Assistir vídeo" />
             )}
 
-            <Image src={item.src} alt="" />
+            <Image src={item.src} alt="Vídeo imóvel" />
           </SliderButton>
             ))}
       </Slider>

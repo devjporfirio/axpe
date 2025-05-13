@@ -45,6 +45,8 @@ export const Banner = styled.a`
 export const Hero = styled.div`
   margin-bottom: 10px;
   position: relative;
+  min-height: 580px;
+
   .slick-slider:before{
     content: inherit;
   }
@@ -59,24 +61,14 @@ export const Hero = styled.div`
     height: 24px;
   }
 
-  @media (max-width: 991px){
-    .slick-prev{
-      left: -5px!important;
-    }
-
-    .slick-next{
-      right: -5px!important;
-    }
-  }
-
   .slick-prev, .slick-next{
     position: absolute;
     top: 50%;    
   }
 
   .slick-next{
-    right: 20px!important;
-    left: inherit!important;
+    right: 20px !important;
+    left: inherit !important;
   }
 
   .slick-dots{
@@ -109,19 +101,20 @@ export const Hero = styled.div`
 
   @media (max-width: 991px){
     .slick-prev{
-      left: -5px!important;
+      left: -5px !important;
     }
 
     .slick-next{
-      right: -5px!important;
+      right: -5px !important;
     }
+
     .slick-dots{
       padding: 0 30px;
     }
   }
 
   .slick-slide.active {
-    div[class*='HeroItemInfo'] {
+    .hero-info {
       div, h2, p, span {
         transition-duration: 300ms;
         transform: translateX(0);
@@ -145,7 +138,7 @@ export const Hero = styled.div`
       }
     }
 
-    img[class*='HeroImage'] {
+    .hero-image {
       transform: scale(1.05);
       transition-delay: 0s;
       transition-duration: 7s;

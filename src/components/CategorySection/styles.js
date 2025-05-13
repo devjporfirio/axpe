@@ -4,7 +4,8 @@ import Slick from '../Slider';
 
 export const SectionContainer = styled.section`
   padding: 18px 14px 0;
-
+  min-height: 560px;
+  
   ${media.greaterThan('medium')`
     padding: 40px 50px;
   `}

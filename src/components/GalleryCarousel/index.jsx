@@ -45,6 +45,7 @@ function GalleryCarousel({ items }) {
                   src={item.images.mobile}
                   alt={item.title}
                   className="mobile"
+                  loading='lazy'
                 />
               )}
               {item.images.desktop && (
@@ -52,6 +53,7 @@ function GalleryCarousel({ items }) {
                   src={item.images.desktop}
                   alt={item.title}
                   className="desktop"
+                  loading='lazy'
                 />
               )}
             </a>

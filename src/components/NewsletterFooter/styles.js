@@ -9,6 +9,7 @@ export const NewsletterContainer = styled.div`
   padding: 60px 20px;
   position: relative;
   margin-top: 10px;
+  min-height: 250px;
   
   ${media.greaterThan('medium')`
     padding: 42px 41px 0px;

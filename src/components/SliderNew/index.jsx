@@ -73,6 +73,7 @@ function SliderNew({
           $buttonPrev.classList.add(arrowsClassName);
         }
         $buttonPrev.setAttribute('data-direction', 'anterior');
+        $buttonPrev.setAttribute('aria-label', 'Slide anterior');
         $buttonPrev.innerHTML = renderSVG('prev');
       }
 
@@ -81,6 +82,7 @@ function SliderNew({
           $buttonNext.classList.add(arrowsClassName);
         }
         $buttonNext.setAttribute('data-direction', 'próximo');
+        $buttonNext.setAttribute('aria-label', 'Próximo slide');
         $buttonNext.innerHTML = renderSVG('next');
       }
 
