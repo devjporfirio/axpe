@@ -14,8 +14,8 @@ import Share from 'components/Share';
 import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
-import ArrowIconSVG from 'assets/icons/arrow';
-import ShareIconSVG from 'assets/icons/share';
+import ArrowIconSVG from 'assets/icons/arrow.svg';
+import ShareIconSVG from 'assets/icons/share.svg';
 
 // styles
 import {
@@ -101,8 +101,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
             type="button"
             onClick={buttonBack}
             className="holos-product-back"
+            aria-label='Voltar'
           >
-            <SVG src={ArrowIconSVG} /> Voltar
+            <SVG src={ArrowIconSVG} aria-hidden="true"/> Voltar
           </ButtonBack>
 
           {title && <h3 dangerouslySetInnerHTML={{ __html: title }} />}
@@ -117,8 +118,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
                 className="btn-share holos-search-header-button"
                 data-showcase="Busca"
                 data-label="Share"
+                aria-label="Compartilhar"
               >
-                <SVG src={ShareIconSVG} uniquifyIDs={true} />
+                <SVG src={ShareIconSVG} uniquifyIDs={true} aria-hidden="true"/>
               </ButtonIcon>
             </Column>
           )}
@@ -132,8 +134,9 @@ function Headerbar({ className, type, title, subtitle, building }) {
                 className="btn-share holos-search-header-button"
                 data-showcase="Busca"
                 data-label="Share"
+                aria-label='Compartilhar'
               >
-                <SVG src={ShareIconSVG} uniquifyIDs={true} />
+                <SVG src={ShareIconSVG} uniquifyIDs={true} aria-hidden="true"/>
               </ButtonIcon>
             </Column>
           )}

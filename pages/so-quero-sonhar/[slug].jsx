@@ -9,7 +9,7 @@ import GTM from 'helpers/gtm';
 import DataJSON from 'pages/Dream/data.json';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import SeoData from 'helpers/seo';
 
 // components
@@ -125,7 +125,7 @@ function DreamDetail({ buildings }) {
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
               <article key={`dreamsingle-list-item-${itemIndex}`}>
-                <Link route={`/so-quero-sonhar/${item.slug}`} passHref>
+                <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
                   <ListButton>
                     <ListText>
                       <h3>{item.title}</h3>

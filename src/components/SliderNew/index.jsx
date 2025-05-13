@@ -28,28 +28,42 @@ function SliderNew({
       const $list = ref.current.innerSlider.list;
       const $track = $list.querySelector('.slick-track');
       const $items = $list.querySelectorAll('.slick-slide');
-
+  
       $items.forEach(($item) => {
+        const isHidden = $item.getAttribute('aria-hidden') === 'true';
+        const focusables = $item.querySelectorAll('a, button, input, textarea, select, [tabindex]');
+  
+        focusables.forEach((el) => {
+          if (isHidden) {
+            el.setAttribute('tabindex', '-1');
+            el.setAttribute('aria-hidden', 'true');
+          } else {
+            el.removeAttribute('tabindex');
+            el.removeAttribute('aria-hidden');
+          }
+        });
+  
         if ($item.classList.contains('slick-active')) {
           $item.classList.add('active');
         } else {
           $item.classList.remove('active');
         }
       });
-
+  
       setTimeout(() => {
         if ($track && $track.style && settings.slidesToShow >= $items.length) {
           $track.style.height = '';
         }
       }, 400);
     }, 100);
-
+  
     if (typeof onChange === 'function') {
       onChange(ref.current.innerSlider.state.currentSlide);
     }
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
     if (ref.current && ref.current.innerSlider) {
       const $list = ref.current.innerSlider.list;
 
@@ -87,7 +101,10 @@ function SliderNew({
       }
 
       afterChange();
-    }
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (

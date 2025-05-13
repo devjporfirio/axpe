@@ -24,11 +24,11 @@ import { getParamsFromObject } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 
 // assets
-import ArrowIconSVG from 'assets/icons/arrow';
-import IOrderBlockOn from 'assets/icons/order-block-active';
-import IOrderRowOn from 'assets/icons/order-row-active';
-import IOrderBlockOff from 'assets/icons/order-block-off';
-import IOrderRowOff from 'assets/icons/order-row-off';
+import ArrowIconSVG from 'assets/icons/arrow.svg';
+import IOrderBlockOn from 'assets/icons/order-block-active.svg';
+import IOrderRowOn from 'assets/icons/order-row-active.svg';
+import IOrderBlockOff from 'assets/icons/order-block-off.svg';
+import IOrderRowOff from 'assets/icons/order-row-off.svg';
 
 // styles
 import {

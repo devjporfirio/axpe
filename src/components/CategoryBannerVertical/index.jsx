@@ -1,8 +1,9 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 // styles
-import { CategoryBannerContainer, Container, CategoryImage, CategoryItem, CategoryItemWrapper, CategoryLink, TitleList, TitleItem } from './styles';
+import { CategoryBannerContainer, Container, CategoryItem, CategoryItemWrapper, CategoryLink, TitleList, TitleItem } from './styles';
+import Image from 'next/image';
 
 const SliderVertical = forwardRef(({
   children,
@@ -39,7 +40,27 @@ const SliderVertical = forwardRef(({
 
 function CategoryBannerVertical({ categoryItems }) {
   const [ currentSlide, setCurrentSlide ] = useState(0);
+  const [ isVisible, setIsVisible ] = useState(false);
+  const containerRef = useRef(null);
   const sliderRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([ entry ]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleAfterChange = useCallback((index) => {
     setCurrentSlide(index);
@@ -57,10 +78,12 @@ function CategoryBannerVertical({ categoryItems }) {
   ];
 
   return (
-    <CategoryBannerContainer>
+    <CategoryBannerContainer ref={containerRef}>
       <h2 className={'with-separator'}>
         Onde você procura um imóvel?
       </h2>
+      {isVisible && (
+
       <SliderVertical
         ref={sliderRef}
         onChange={handleAfterChange}
@@ -73,18 +96,35 @@ function CategoryBannerVertical({ categoryItems }) {
               (item.link.target === 'blank' ||
                 item.link.target === 'self') && (
                 <CategoryLink
-                  href={item.link.url}
+                  href={`/busca?source=${item.link.url}`}
                   target={`_${item.link.target}`}
                 >
                   <CategoryItemWrapper>
-                    <CategoryImage mq="mobile" src={item.images.mobile} alt={item.title} loading='lazy' width={375} height={500}/>
-                    <CategoryImage mq="desktop" src={item.images.desktop} alt={item.title} loading='lazy' width={1280} height={720}/>
+                    <div className="category-image mobile">
+                      <Image
+                        src={item.images.mobile}
+                        alt={item.title}
+                        layout="fill"
+                        objectFit="cover"
+                        priority={itemIndex === 0}
+                      />
+                    </div>
+                    <div className="category-image desktop">
+                      <Image
+                        src={item.images.desktop}
+                        alt={item.title}
+                        layout="fill"
+                        objectFit="cover"
+                        priority={itemIndex === 0}
+                      />
+                    </div>
                   </CategoryItemWrapper>
                 </CategoryLink>
               )}
           </CategoryItem>
         ))}
       </SliderVertical>
+      )}
 
       <TitleList>
         {reorderedTitles.map((item, idx) => {

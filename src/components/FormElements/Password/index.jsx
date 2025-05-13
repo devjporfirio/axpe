@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // image
-import EyeSVG from 'assets/icons/eye';
+import EyeSVG from 'assets/icons/eye.svg';
 
 // styles
 import { Input, ButtonEye, SVGEye } from '../styles';

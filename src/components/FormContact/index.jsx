@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import GoogleMapReact from 'google-map-react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 // import Api from 'services';
 
 // actions
@@ -27,6 +27,16 @@ import {
   Circle,
   Rec,
 } from './styles';
+
+const containerStyle = {
+  width: '100%',
+  height: '400px',
+};
+
+const center = {
+  lat: -23.578524,
+  lng: -46.67418,
+};
 
 function FormContact({ showHeader = true }) {
   const dispatch = useDispatch();
@@ -91,29 +101,27 @@ function FormContact({ showHeader = true }) {
             <BlockHighlighted type="contactWork" />
           </BlockForm>
           <Mapa>
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: 'AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto',
-              }}
-              defaultCenter={{
-                lat: -23.578524,
-                lng: -46.67418,
-              }}
-              defaultZoom={18}
-            >
-              <Pin lat={-23.577693} lng={-46.67388}>
-                <Balloon>
-                  <h4>Nosso escritório</h4>
-                  <p>
-                    Avenida Nove de Julho, 5017, 10° Andar.Jardim Paulista - São
-                    Paulo, SP
-                  </p>
-                  <a href="https://g.page/axpe_imoveis?share">Como chegar?</a>
-                </Balloon>
-                <Rec></Rec>
-                <Circle></Circle>
-              </Pin>
-            </GoogleMapReact>
+            <LoadScript googleMapsApiKey="AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto">
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={18}
+              >
+                <Marker position={{ lat: -23.577693, lng: -46.67388 }} />
+                <Pin>
+                  <Balloon>
+                    <h4>Nosso escritório</h4>
+                    <p>
+                      Avenida Nove de Julho, 5017, 10° Andar. Jardim Paulista - São
+                      Paulo, SP
+                    </p>
+                    <a href="https://g.page/axpe_imoveis?share">Como chegar?</a>
+                  </Balloon>
+                  <Rec />
+                  <Circle />
+                </Pin>
+              </GoogleMap>
+            </LoadScript>
           </Mapa>
         </Body>
       </Container>

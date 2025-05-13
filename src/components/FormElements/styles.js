@@ -1,10 +1,12 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import MaskedInput from 'react-text-mask';
+// import MaskedInput from 'react-input-mask';
 import SVG from 'react-inlinesvg';
 
 // components
 import Button from 'components/Button';
+import ReactInputMask from 'react-input-mask';
+import { NumericFormat } from 'react-number-format';
 
 export const Label = styled.label`
   display: block;
@@ -234,7 +236,11 @@ export const FormGroup = styled.div`
   }
 `;
 
-export const BaseMask = styled(MaskedInput)`
+export const BaseMask = styled(ReactInputMask)`
+  ${BaseInput}
+`;
+
+export const StyledCurrency = styled(NumericFormat)`
   ${BaseInput}
 `;
 

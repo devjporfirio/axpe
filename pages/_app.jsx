@@ -1,7 +1,4 @@
-import React from 'react'
-import App from 'next/app';
-import { Provider } from 'react-redux';
-import withRedux from 'next-redux-wrapper';
+import React, { useEffect } from 'react'
 
 // helpers
 import CookieUtmParams from 'helpers/cookieUtmParams';
@@ -10,30 +7,33 @@ import CookieUtmParams from 'helpers/cookieUtmParams';
 import Main from 'layouts/main';
 
 // store
-import configureStore from 'store';
+import { wrapper } from '../src/store';
 
 import 'isomorphic-unfetch';
 import 'promise-polyfill/lib/polyfill';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Head from 'next/head';
 
-class MyApp extends App {
+function MyApp({ Component, pageProps }) {
 
-  componentDidMount() {
-    CookieUtmParams.set(location.search);
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      CookieUtmParams.set(window.location.search);
+    }
+  }, []);
 
-  render() {
-    const { Component, pageProps, store } = this.props;
-
-    return (
-      <Provider store={store}>
-        <Main>
-          <Component {...pageProps} />
-        </Main>
-      </Provider>
-    );
-  }
+  return (
+    <Main>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+      </Head>
+      <Component {...pageProps} />
+    </Main>
+  );
 }
 
-export default withRedux(configureStore)(MyApp);
+export default wrapper.withRedux(MyApp);

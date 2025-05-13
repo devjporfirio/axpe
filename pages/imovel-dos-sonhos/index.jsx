@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import SeoData from 'helpers/seo';
 
 // styles
@@ -31,7 +31,7 @@ function DreamBuilding() {
           </Header>
           <List>
             <li>
-              <Link route="/imovel-dos-sonhos/sao-paulo-comprar-residencial" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-comprar-residencial" passHref>
                 <ListButton
                   className="holos-search-category-button"
                   data-showcase="Imóvel dos Sonhos"
@@ -46,7 +46,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link route="/imovel-dos-sonhos/sao-paulo-comprar-lancamentos" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-comprar-lancamentos" passHref>
                 <ListButton
                   className="holos-search-category-button"
                   data-showcase="Imóvel dos Sonhos"
@@ -61,7 +61,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link route="/imovel-dos-sonhos/sao-paulo-alugar-residencial" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-alugar-residencial" passHref>
                 <ListButton
                   className="holos-search-category-button"
                   data-showcase="Imóvel dos Sonhos"
@@ -76,7 +76,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link route="/imovel-dos-sonhos/sao-paulo-comerciais" passHref>
+              <Link href="/imovel-dos-sonhos/sao-paulo-comerciais" passHref>
                 <ListButton
                   className="holos-search-category-button"
                   data-showcase="Imóvel dos Sonhos"
@@ -91,7 +91,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link route="/imovel-dos-sonhos/praia-campo" passHref>
+              <Link href="/imovel-dos-sonhos/praia-campo" passHref>
                 <ListButton
                   className="holos-search-category-button"
                   data-showcase="Imóvel dos Sonhos"
@@ -106,7 +106,7 @@ function DreamBuilding() {
               </Link>
             </li>
             <li>
-              <Link route="/imovel-dos-sonhos/internacional" passHref>
+              <Link href="/imovel-dos-sonhos/internacional" passHref>
                 <ListButton
                   className="holos-search-category-button"
                   data-showcase="Imóvel dos Sonhos"

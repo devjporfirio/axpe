@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import WhatsappIconSVG from 'assets/icons/whats-white';
+import WhatsappIconSVG from 'assets/icons/whats-white.svg';
 
 import { Container } from './styles';
 

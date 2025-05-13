@@ -75,8 +75,31 @@ export const CategoryLink = styled.a``;
 export const CategoryItemWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 600px;
   overflow: hidden;
+
+  .category-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    img {
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    &.mobile {
+      ${media.greaterThan('medium')`
+        display: none !important;
+      `}
+    }
+
+    &.desktop {
+      ${media.lessThan('medium')`
+        display: none !important;
+      `}
+    }
+  }
 `;
 
 export const CategoryImage = styled.img`

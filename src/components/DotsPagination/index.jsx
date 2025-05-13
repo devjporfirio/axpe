@@ -15,18 +15,18 @@ const DotsPagination = ({ currentSlide, slideCount, onDotClick }) => {
   return (
     <DotsContainer>
       {windowDots.map((dotIndex, idx) => {
-        let size = 12;
+        let size = 14;
         if (dotIndex < currentSlide) {
-          size = 8;
+          size = 10;
         }
         if (
           idx === windowDots.length - 1 &&
           slideCount > windowDots[windowDots.length - 1] + 1
         ) {
-          size = 8;
+          size = 10;
         }
         if (dotIndex === currentSlide) {
-          size = 12;
+          size = 14;
         }
         return (
           <DotItem key={`dot-${dotIndex}`}>

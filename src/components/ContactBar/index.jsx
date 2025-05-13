@@ -14,8 +14,8 @@ import { setMain } from 'store/modules/main/actions';
 import { getParamsFromObject } from 'helpers/utils';
 
 // assets
-import ChatIconSVG from 'assets/icons/chat';
-import WhatsappWhiteIconSVG from 'assets/icons/whatsapp-white-icon'
+import ChatIconSVG from 'assets/icons/chat.svg';
+import WhatsappWhiteIconSVG from 'assets/icons/whatsapp-white-icon.svg'
 
 // styles
 import {
@@ -358,7 +358,7 @@ function ContactBar() {
         className='holos-contact-float moreinfo-btn--whatsapp hidden'
         href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
         target='_blank'>
-        <SVG src={WhatsappWhiteIconSVG} />
+        <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
         {isBuilding ? (
           <div>
             <span>Quer saber mais?</span>
@@ -367,15 +367,16 @@ function ContactBar() {
         ) : (
           <div>Fale com um corretor</div>
         )}
-      </LinkFloat>{/* Botão MObile */}
+      </LinkFloat>
 
        {/* Botão Mobile*/}
        <ButtonFloat
         className='holos-contact-float moreinfo-btn--whatsapp flex large:hidden'
         type='button'
         onClick={toggleShow}
+        aria-label='Fale com um corretor'
       >
-        <SVG src={WhatsappWhiteIconSVG} />
+        <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
         {isBuilding ? (
           <div>
             <span>Quer saber mais?</span>
@@ -391,8 +392,9 @@ function ContactBar() {
         className='holos-contact-float hidden large:flex'
         type='button'
         onClick={toggleShow}
+        aria-label='Fale com um corretor'
       >
-        <SVG src={ChatIconSVG} />
+        <SVG src={ChatIconSVG} aria-hidden="true"/>
         {isBuilding ? (
           <div>
             <span>Quer saber mais?</span>

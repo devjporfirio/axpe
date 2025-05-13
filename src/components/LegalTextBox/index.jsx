@@ -1,9 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-// helpers
-import { Link } from 'helpers/routes';
-
+import Link from 'next/link';
 // styles
 import {
   Container,
@@ -35,7 +33,7 @@ function LegalTextBox({ title, content, onDemand, active, onClose }) {
               Fechar
             </ButtonClose>
           ) : (
-            <Link route="/" passHref>
+            <Link href="/" passHref>
               <ButtonCloseLink>Fechar</ButtonCloseLink>
             </Link>
           )}

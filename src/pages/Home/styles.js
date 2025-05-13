@@ -42,10 +42,13 @@ export const Banner = styled.a`
   }
 `;
 
-export const Hero = styled.div`
+export const Hero =  styled.div.attrs(() => ({
+  tabIndex: -1,
+}))`
   margin-bottom: 10px;
   position: relative;
-  min-height: 580px;
+  height: 100%;
+  min-height: 550px;
 
   .slick-slider:before{
     content: inherit;
@@ -116,6 +119,7 @@ export const Hero = styled.div`
   .slick-slide.active {
     .hero-info {
       div, h2, p, span {
+        transition-delay: 200ms;
         transition-duration: 300ms;
         transform: translateX(0);
         ${({ theme }) => theme.show};
@@ -139,22 +143,32 @@ export const Hero = styled.div`
     }
 
     .hero-image {
+      transition-delay: 1.5s;
       transform: scale(1.05);
-      transition-delay: 0s;
       transition-duration: 7s;
+      will-change: transform;
+      contain: paint;
     }
   }
 `;
 
-export const HeroItem = styled.article``;
+export const HeroItem = styled.article`
+  height: 550px;
+`;
 
-export const HeroLink = styled.a``;
+export const HeroLink = styled.a`
+  height: 100%;
+`;
 
 export const HeroImage = styled.img`
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   transition: all 100ms 500ms ease;
+  will-change: transform;
+  contain: paint;
 
   ${props =>
     props.mq === 'mobile' &&
@@ -165,18 +179,43 @@ export const HeroImage = styled.img`
   ${props =>
     props.mq === 'desktop' &&
     media.lessThan('medium')`
-    display: none !important;
+    display: none !important; 
   `}
 `;
 
 export const HeroItemWrapper = styled.div`
-  position: relative;
   width: 100%;
+  height: 100%;
+  position: relative;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
 
   ${media.greaterThan('medium')`
     max-height: 580px;
   `}
+
+  .hero-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &.mobile {
+      ${media.greaterThan('medium')`
+        display: none !important;
+      `}
+    }
+
+    &.desktop {
+      ${media.lessThan('medium')`
+        display: none !important;
+      `}
+    }
+  }
+
+  .hero-image.desktop img,
+  .hero-image.mobile img {
+    object-fit: cover !important;
+  }
 
   ${props => props.hasContent && css`
     &:before {
@@ -205,6 +244,7 @@ export const HeroItemInfo = styled.div`
   z-index: 4;
   transform: translateY(-50%);
   color: ${({ theme }) => theme.colors.white};
+  min-height: 300px;
 
   ${media.greaterThan('medium')`
     padding: 0 100px;
@@ -264,4 +304,24 @@ export const HeroItemInfo = styled.div`
   span {
     ${ButtonStyle}
   }
+`;
+
+export const PlaceholderImageDesk = styled.div`
+  width: 100%;
+  height: auto;
+  max-height: 720px;
+
+  ${media.lessThan('medium')`
+    display: none;
+  `}
+`;
+
+export const PlaceholderImageMob = styled.div`
+  width: 100%;
+  height: auto;
+  max-height: 375px;
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
 `;

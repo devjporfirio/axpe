@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 // assets
-import RectangleIconSVG from 'assets/icons/rectangle';
+import RectangleIconSVG from 'assets/icons/rectangle.svg';
 
 const TypeSlickLargeDesktop = css`
   position: initial;

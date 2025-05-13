@@ -83,6 +83,7 @@ export const Slide = styled.div`
   .react-transform-component {
     margin: 0px auto;
     overflow: unset;
+    width: 100vw;
 
     img {
       margin: auto;

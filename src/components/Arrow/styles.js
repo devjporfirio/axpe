@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-import IArrowNext from 'assets/icons/arrow-next-white';
-import IArrowPrev from 'assets/icons/arrow-prev-white';
-import IArrowNextBlack from 'assets/icons/arrow-next-green';
-import IArrowPrevBlack from 'assets/icons/arrow-prev-green';
+import IArrowNext from 'assets/icons/arrow-next-white.svg';
+import IArrowPrev from 'assets/icons/arrow-prev-white.svg';
+import IArrowNextBlack from 'assets/icons/arrow-next-green.svg';
+import IArrowPrevBlack from 'assets/icons/arrow-prev-green.svg';
 
 const backgroundColorWhite = css`
   background-color: rgba(255, 255, 255, 0.5) !important;

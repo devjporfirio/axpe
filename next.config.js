@@ -1,72 +1,79 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const fs = require('fs');
 const withPWA = require('next-pwa');
-const withFonts = require('next-fonts');
-const envConfig = require(`./config/${process.env.NODE_ENV}.json`);
+const runtimeCaching = require('next-pwa/cache');
 
-const POLYFILL_NOMODULE = resolve(
-  __dirname,
-  'polyfills',
-  'polyfill-nomodule.js'
+const nodeEnv = process.env.NODE_ENV || 'development';
+
+const envConfig = JSON.parse(
+  fs.readFileSync(`./config/${nodeEnv}.json`, 'utf-8')
 );
 
-module.exports = withPWA(
-  withFonts({
-    pwa: {
-      disable: process.env.NODE_ENV === 'development',
-      dest: 'public',
-    },
-    webpack(config, options) {
-      config.module.rules.push({
-        test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/i,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 100000,
-            name: '[name].[ext]',
+module.exports = withPWA({
+  pwa: {
+    dest: 'public',
+    disable: nodeEnv === 'development',
+    runtimeCaching,
+    buildExcludes: [ /middleware-manifest\.json$/ ],
+  },
+  images: {
+    domains: [
+      'admin.axpe.com.br',
+      'images.axpe.com.br',
+      'axpe.com.br',
+      'adminaxpe.wicomm.com.br',
+    ],
+    formats: [ 'image/avif', 'image/webp' ],
+  },
+  compiler: {
+    styledComponents: true,
+  },
+  async headers() {
+    return [
+      {
+        source: '/static/:all*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=604800, immutable',
           },
-        },
-      });
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          'process.env.config': JSON.stringify(envConfig),
-        })
-      );
-      config.resolve = {
-        extensions: [
-          '.js',
-          '.jsx',
-          '.json',
-          '.scss',
-          '.css',
-          '.svg',
-          '.jpg',
-          '.png',
-          '.pdf',
-          '.zip',
         ],
-        alias: {
-          ...(config.resolve.alias || {}),
-          public: resolve(__dirname, './public'),
-          assets: resolve(__dirname, './src/assets'),
-          components: resolve(__dirname, './src/components'),
-          helpers: resolve(__dirname, './src/helpers'),
-          layouts: resolve(__dirname, './src/layouts'),
-          pages: resolve(__dirname, './src/pages'),
-          services: resolve(__dirname, './src/services'),
-          store: resolve(__dirname, './src/store'),
+      },
+    ];
+  },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/i,
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 100000,
         },
-      };
-      const originalEntry = options.entry;
-      options.entry = async () => {
-        const entries = await originalEntry();
+      },
+      generator: {
+        filename: 'static/chunks/[name].[hash][ext]',
+      },
+    });
 
-        if (entries['static/runtime/polyfills.js']) {
-          entries['static/runtime/polyfills.js'] = [ POLYFILL_NOMODULE ];
-        }
-        return entries;
-      };
-      return config;
-    },
-  })
-);
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.config': JSON.stringify(envConfig),
+      })
+    );
+
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      public: resolve(__dirname, './public'),
+      assets: resolve(__dirname, './src/assets'),
+      components: resolve(__dirname, './src/components'),
+      helpers: resolve(__dirname, './src/helpers'),
+      layouts: resolve(__dirname, './src/layouts'),
+      pages: resolve(__dirname, './src/pages'),
+      services: resolve(__dirname, './src/services'),
+      store: resolve(__dirname, './src/store'),
+    };
+
+    return config;
+  },
+});

@@ -4,17 +4,7 @@ import { BaseMask } from '../styles';
 export default function CEP(props) {
   return (
     <BaseMask
-      mask={[
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/,
-        '-',
-        /[0-9]/,
-        /[0-9]/,
-        /[0-9]/
-      ]}
+      mask="99999-999"
       {...props}
     />
   );

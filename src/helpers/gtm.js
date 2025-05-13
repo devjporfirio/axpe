@@ -1,10 +1,10 @@
 function dataLayerPush(data) {
-  if(dataLayer) {
-    // console.log(`dataLayerPush`, data)
-    dataLayer.push(data);
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    // console.log(`dataLayerPush`, data);
+    window.dataLayer.push(data);
   }
 }
 
 export default {
-  dataLayerPush
+  dataLayerPush,
 };

@@ -142,7 +142,7 @@ function About() {
         <Hero id="nosso-jeito">
           <figure>
             <h2>Nosso Jeito</h2>
-            <img src="/static/about/nosso-jeito.jpg" alt="Nosso jeito" />
+            <img src="/static/about/nosso-jeito.jpg" alt="Nosso jeito" loading='lazy'/>
           </figure>
           <div>
             <Title>
@@ -182,6 +182,7 @@ function About() {
               <img
                 src="/static/about/01.jpg"
                 alt="Olhar e ouvidos apurados. Entender para atender."
+                loading='lazy'
               />
             </BlockImage>
           </BlockCol>
@@ -207,6 +208,7 @@ function About() {
               <img
                 src="/static/about/02.jpg"
                 alt="Visitar imóveis comuns? Ninguém merece."
+                loading='lazy'
               />
             </BlockImage>
           </BlockCol>

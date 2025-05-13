@@ -1,8 +1,5 @@
 import React from 'react';
 
-// helpers
-import { Link } from 'helpers/routes';
-
 // components
 import LegalTextBox from 'components/LegalTextBox';
 

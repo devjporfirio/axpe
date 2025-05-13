@@ -411,6 +411,10 @@ export const Link = styled(Button)`
   height: 32px;
   padding: 10px 24px;
   border-radius: 4px;
+
+  :hover{
+    text-decoration: none;
+  }
 `;
 
 const BaseHighlighted = css`

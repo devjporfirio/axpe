@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   ${media.greaterThan('medium')`
     width: 100%;
-    max-width: 1086px;
+    max-width: 1000px;
     margin: auto;
     margin-bottom: 20px;
     padding-bottom: 50px;

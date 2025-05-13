@@ -7,12 +7,12 @@ import SimpleBar from 'simplebar-react';
 import { setMain } from 'store/modules/main/actions';
 
 // helpers
-import { Link } from 'helpers/routes';
+import Link from 'next/link';
 import useScrollPosition from 'helpers/scrollPosition';
 
 // assets
-import InstagramIconSVG from 'assets/icons/instagram';
-import WhatsappIconSVG from 'assets/icons/whatsapp';
+import InstagramIconSVG from 'assets/icons/instagram.svg';
+import WhatsappIconSVG from 'assets/icons/whatsapp.svg';
 import SearchIconSVG from 'assets/icons/search.svg';
 
 // styles
@@ -106,7 +106,7 @@ function Header() {
       <SimpleBar style={{ maxHeight: '100%' }} ref={scrollBarRef}>
         <Wrapper>
           <AxpeLogo type="axpe">
-            <Link route="/" passHref>
+            <Link href="/" passHref>
               <LogoLink
                 className="holos-logo"
                 data-label="Axpe"
@@ -150,7 +150,7 @@ function Header() {
                   </NavMainButtonSearch>
                 </li>
                 <li>
-                  <Link route="/cadastrar" passHref>
+                  <Link href="/cadastrar" passHref>
                     <NavMainButton
                       className="holos-menu-item"
                       type="register"
@@ -161,7 +161,7 @@ function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link route="/so-quero-sonhar" passHref>
+                  <Link href="/so-quero-sonhar" passHref>
                     <NavMainButton
                       className="holos-menu-item"
                       type="dream"
@@ -178,7 +178,7 @@ function Header() {
               <NavSecondary>
                 <ul>
                   <li>
-                    <Link route="/sobre" passHref>
+                    <Link href="/sobre" passHref>
                       <NavSecondaryButton
                         className="holos-menu-item"
                         onClick={cancelToggle}

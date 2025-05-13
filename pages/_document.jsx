@@ -36,23 +36,15 @@ export default class MyDocument extends Document {
   render() {
     // SEO Metadata
     const metaData =
-      this.props.__NEXT_DATA__.props &&
-      this.props.__NEXT_DATA__.props.initialProps.pageProps.meta
-        ? this.props.__NEXT_DATA__.props.initialProps.pageProps.meta
-        : null;
-    const metaTitle = metaData && metaData.title ? metaData.title : null;
-    const metaDescription =
-      metaData && metaData.description ? metaData.description : null;
-    const metaImage = metaData && metaData.image ? metaData.image : null;
+    this.props.__NEXT_DATA__?.props?.pageProps?.meta ?? null;
+    const metaTitle = metaData?.title ?? null;
+    const metaDescription = metaData?.description ?? null;
+    const metaImage = metaData?.image ?? null;
 
     return (
-      <Html>
+      <Html lang="pt-br" dir="ltr">
         <Head>
           <meta charSet="UTF-8" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
 
           <meta name="application-name" content="Axpe" />

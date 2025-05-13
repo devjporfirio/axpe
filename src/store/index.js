@@ -1,22 +1,18 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
+import thunk from 'redux-thunk';
+import logger from 'store/middlewares/logger';
+import rootReducer from './modules/rootReducers';
 
-import loggerMiddleware from 'store/middlewares/logger';
-import rootReducers from './modules/rootReducers';
-
-const configureStore = (initialState = {}) => {
-  const middlewares =
-    process.env.NODE_ENV === 'production'
-      ? [ thunkMiddleware ]
-      : [ loggerMiddleware, thunkMiddleware ];
-
-  const middlewareEnhancer = applyMiddleware(...middlewares);
-
-  const enhancers = [ middlewareEnhancer ];
-  const composedEnhancers = composeWithDevTools(...enhancers);
-
-  return createStore(rootReducers, initialState, composedEnhancers);
+const makeStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      process.env.NODE_ENV === 'production'
+        ? getDefaultMiddleware().concat(thunk)
+        : getDefaultMiddleware().concat(logger, thunk),
+    devTools: process.env.NODE_ENV !== 'production',
+  });
 };
 
-export default configureStore;
+export const wrapper = createWrapper(makeStore);

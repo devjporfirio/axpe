@@ -2,7 +2,7 @@ import React from 'react';
 import SVG from 'react-inlinesvg';
 
 // assets
-import ArrowSVG from 'assets/icons/arrow';
+import ArrowSVG from 'assets/icons/arrow.svg';
 
 // styles
 import { Container, Wrapper, ButtonBack, ButtonClose } from './styles';
@@ -34,8 +34,9 @@ function Modal({
             onClick={onClickButtonBack}
             className="holos-modal-close"
             data-type="Cadastro"
+            aria-label='Fechar'
           >
-            <SVG src={ArrowSVG} uniquifyIDs={true} /> Fechar
+            <SVG src={ArrowSVG} uniquifyIDs={true} aria-hidden="true"/> Fechar
           </ButtonBack>
         )}
         <ButtonClose

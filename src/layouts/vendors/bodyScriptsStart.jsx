@@ -1,4 +1,5 @@
 import React from 'react';
+import Script from 'next/script';
 
 function BodyScripts() {
   return (
@@ -12,11 +13,11 @@ function BodyScripts() {
           style={{ display: 'none', visibility: 'hidden' }}
         ></iframe>
       </noscript>
-      <script
+      <Script
         id="cookieyes"
-        type="text/javascript"
+        strategy="afterInteractive"
         src="https://cdn-cookieyes.com/client_data/fb20d1dbee876f8832b8baa6/script.js"
-      ></script>
+      />
     </>
   );
 }

@@ -123,7 +123,7 @@ export const InfoContent = styled.div`
   align-items: center;
 `;
 
-export const Type = styled.p`
+export const Type = styled.h2`
   font: 16px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   text-transform: uppercase;
@@ -247,14 +247,14 @@ export const PriceGroup = styled.div`
   ${media.greaterThan('medium')`
     padding: 20px;
     max-width: 291px;
-    max-height: 326px;
-    justify-content: start;
+    max-height: ${({ type }) => (type === 'lancamento' ? '275px': '326px')};
+    justify-content: ${({ type }) => (type === 'lancamento' ? 'start' : 'space-around')};
     margin: 16px 16px 0 0;
   `}
 `;
 
 export const PriceGroupMobile = styled(PriceGroup)`
-display: flex;
+  display: flex;
   ${media.greaterThan('medium')`
     display: none;
   `}
@@ -266,9 +266,12 @@ display: none;
     display: flex;
   `}
 `
+
 export const PriceRelease = styled.div`
-  height: 26px;
-  flex-basis: 100% !important;
+  flex-basis: auto;
+  min-height: 26px;
+  margin: 0; 
+  padding: 0;
 
   p {
     font-size: 22px;
@@ -276,8 +279,10 @@ export const PriceRelease = styled.div`
   }
 
   ${media.greaterThan('medium')`
-    padding-top: 22px;
-    padding-bottom: 29px;
+    ${({ type }) => (type === 'pronto' && `
+      padding-top: 22px;
+      padding-bottom: 29px;
+    `)}
 
     p {
       font-size: 24px;
@@ -359,7 +364,7 @@ export const PriceExpenses = styled.div`
       margin-top: 12px;
     }
 
-    div {
+    dl {
       display: flex;
       justify-content: space-between;
       margin-top: 10px;
