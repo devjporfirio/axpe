@@ -48,7 +48,12 @@ export const Hero =  styled.div.attrs(() => ({
   margin-bottom: 10px;
   position: relative;
   height: 100%;
+  height: 550px;
   min-height: 550px;
+
+  ${media.lessThan('medium')`
+    height: 650px;
+  `}
 
   .slick-slider:before{
     content: inherit;
@@ -154,6 +159,10 @@ export const Hero =  styled.div.attrs(() => ({
 
 export const HeroItem = styled.article`
   height: 550px;
+
+  ${media.lessThan('medium')`
+    height: 650px;
+  `}
 `;
 
 export const HeroLink = styled.a`
@@ -206,6 +215,8 @@ export const HeroItemWrapper = styled.div`
     }
 
     &.desktop {
+      aspect-ratio: 16 / 9;
+      height: auto;
       ${media.lessThan('medium')`
         display: none !important;
       `}

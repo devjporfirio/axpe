@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMain } from 'store/modules/main/actions';
+
 import Tag from 'components/Tag';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 
@@ -14,60 +16,51 @@ import {
     BlockTwo,
     Content,
     BlockThree,
-    Delivery,
     Location,
     InfoContent,
-    ButtonVisit,
     ButtonMoreInfo,
     MainContainer,
     PriceGroupDesktop,
     PriceGroupMobile,
     CharacteristicsGrid,
-    CharacteristicItem
+    CharacteristicItem,
+    BuildingTitle
 } from './styles';
 
 import ILocation from 'assets/icons/location.svg';
 import ICheck from 'assets/icons/checked-grey.svg';
 
-// Componentns
-import VisitModal from './VisitModal';
-import { MoreInformationModal } from '../../../components/Modals/MoreInformation';
-
-import { useVisitModalContext } from './context';
-
 export default function Datasheet({ property }) {
-    const [ modalMoreInfoIsVisibility, setModalMoreInfoIsVisibility ] = useState(false);
-    const { type, infos, category, address, label, values, source, vista } = property;
-    const { setModalVisitOn } = useVisitModalContext();
+    const dispatch = useDispatch();
+    const { type, infos, category, address, label, values, source, vista, title } = property;
     const { searchFunnel } = useSelector(state => state.main);
     const hasTitle = infos.titleSite || infos.internalDescription;
 
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        `${address.local}, ${address.state}, ${address.country} ${address.zipcode}`
+        `${address.local}, ${address.state}, ${address.country} ${address.zipcode}, 15z`
     )}`;
 
-
-    const openVisitModal = (e) => {
-        e.preventDefault();
-        setModalVisitOn(true);
-    }
-
-    const toggleModalMoreInfo  = (e) => {
-        e.preventDefault();
-        setModalMoreInfoIsVisibility(prevState => !prevState);
-    }
-
+    const toggleModalMoreInfo = () => {
+      dispatch(
+        setMain({
+          contactBarActive: true,
+          contactBarForced: true,
+        })
+      );
+    };
     return (
         <>
-
             <MainContainer>
                 <DatasheetContent>
                     <BlockOne type={property.type}>
                         <Neighborhood>{address.local}</Neighborhood>
 
+                        <BuildingTitle>{title}</BuildingTitle>
+
                         {type === 'lancamento' && (
                             <CategoryRelease>{category}</CategoryRelease>
                         )}
+                        
                         {type !== 'lancamento' && <hr />}
 
                         <GroupInfo>
@@ -141,8 +134,8 @@ export default function Datasheet({ property }) {
                             currency={values.currency}
                         />
 
-                        <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit>
-                        <ButtonMoreInfo onClick={toggleModalMoreInfo}>Mais informações</ButtonMoreInfo>
+                        {/* <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit> */}
+                        <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
                     </PriceGroupMobile>
 
                     <BlockThree type={property.type}>
@@ -195,23 +188,24 @@ export default function Datasheet({ property }) {
 
                     {hasTitle && (
                         <BlockTwo>
-                            {/* <Content>{infos.titleSite}</Content>
-                            <Content>{infos.shortDescription}</Content> */}
                             <Content>{infos.internalDescription}</Content>
                         </BlockTwo>
                     )}
 
-                    {vista.length > 0 && (
+                    {vista && vista.length > 0 && (
                         <BlockTwo>
                             <CharacteristicsGrid>
-                                {Object.entries(vista?.Caracteristicas || vista?.InfraEstrutura || {})
-                                .filter(([ _, value ]) => value === 'Sim')
-                                .map(([ label ]) => (
-                                    <CharacteristicItem key={label}>
-                                        <img src={ICheck} alt="ícone de Check" />
-                                        <p>{label}</p>
-                                    </CharacteristicItem>
-                                ))}
+                                {[
+                                    ...Object.entries(vista.Caracteristicas || {}),
+                                    ...Object.entries(vista.InfraEstrutura || {})
+                                ]
+                                    .filter(([ _, value ]) => value === 'Sim')
+                                    .map(([ label ]) => (
+                                        <CharacteristicItem key={label}>
+                                            <img src={ICheck} alt="ícone de Check" />
+                                            <p>{label}</p>
+                                        </CharacteristicItem>
+                                    ))}
                             </CharacteristicsGrid>
                         </BlockTwo>
                     )}
@@ -257,33 +251,10 @@ export default function Datasheet({ property }) {
                         currency={values.currency}
                     />
 
-                    <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit>
-                    <ButtonMoreInfo onClick={toggleModalMoreInfo}>Mais informações</ButtonMoreInfo>
+                    <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
                 </PriceGroupDesktop>
 
             </MainContainer>
-
-            {type === 'lancamento' && infos.releaseDelivery && (
-                <Delivery>
-                    <p>
-                        {infos.releaseStatus === 'Pronto'
-                            ? 'Entregue em '
-                            : 'Previsão de entrega em '}
-                        <span>{infos.releaseDelivery}</span>
-                    </p>
-                </Delivery>
-            )}
-
-
-            {/* <RenderVisitModal /> */}
-            <VisitModal property={property} />
-
-            {modalMoreInfoIsVisibility && (
-                <MoreInformationModal
-                    toggleModalMoreInfo={toggleModalMoreInfo}
-                    address={address}
-                />
-            )}
         </>
     );
 }

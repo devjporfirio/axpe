@@ -264,6 +264,7 @@ export const Buildings = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  padding: 0 16px;
 `;
 
 export const BuildingsNotFound = styled.div`

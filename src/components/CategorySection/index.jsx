@@ -15,8 +15,8 @@ const CategorySection = ({ items }) => {
     lazyLoad: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-  }
+    autoplay: false,
+  };
 
   return (
     <SectionContainer>
@@ -49,6 +49,7 @@ const CategorySection = ({ items }) => {
                 gtmShowcase={''}
                 positionIndex={index + 1}
                 showGallery={true}
+                categorySection={true}
               />
             </CardWrapper>
           </Slide>

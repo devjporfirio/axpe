@@ -30,6 +30,7 @@ import {
   ButtonClose,
   Iframe,
   Column,
+  ButtonQuickCall,
   // ListButton
 } from './styles';
 
@@ -299,8 +300,8 @@ function ContactBar() {
     }
 
     setIsBuilding(
-      router.route === '/imovel' || (contactBarActive && contactBarForced)
-        ? false // Modal fale com corretor se torna o mesmo da home (v0)
+      router.pathname.startsWith('/[category]/[slug]') || (contactBarActive && contactBarForced)
+        ? true
         : false
     );
   }, [ router.route, contactBarActive, currentBuilding ]);
@@ -351,63 +352,67 @@ function ContactBar() {
     message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt(currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
     message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + (parseInt(currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
   }
-  
+
   return (
     <>
-      <LinkFloat
-        className='holos-contact-float moreinfo-btn--whatsapp hidden'
-        href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
-        target='_blank'>
-        <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
-        {isBuilding ? (
-          <div>
-            <span>Quer saber mais?</span>
-            Fale com um corretor.
-          </div>
-        ) : (
-          <div>Fale com um corretor</div>
-        )}
-      </LinkFloat>
+    {!isBuilding && (
+      <>
+        <LinkFloat
+          className='holos-contact-float moreinfo-btn--whatsapp hidden'
+          href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
+          target='_blank'>
+          <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
+          {isBuilding ? (
+            <div>
+              <span>Quer saber mais?</span>
+              Fale com um corretor.
+            </div>
+          ) : (
+            <div>Fale com um corretor</div>
+          )}
+        </LinkFloat>
 
-       {/* Botão Mobile*/}
-       <ButtonFloat
-        className='holos-contact-float moreinfo-btn--whatsapp flex large:hidden'
-        type='button'
-        onClick={toggleShow}
-        aria-label='Fale com um corretor'
-      >
-        <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
-        {isBuilding ? (
-          <div>
-            <span>Quer saber mais?</span>
-            Fale com um corretor.
-          </div>
-        ) : (
-          <div>Fale com um corretor</div>
-        )}
-      </ButtonFloat>
-      
-      {/* Botão Dekstop*/}
-      <ButtonFloat
-        className='holos-contact-float hidden large:flex'
-        type='button'
-        onClick={toggleShow}
-        aria-label='Fale com um corretor'
-      >
-        <SVG src={ChatIconSVG} aria-hidden="true"/>
-        {isBuilding ? (
-          <div>
-            <span>Quer saber mais?</span>
-            Fale com um corretor.
-          </div>
-        ) : (
-          <div>Fale com um corretor</div>
-        )}
-      </ButtonFloat>
+        {/* Botão Mobile*/}
+        <ButtonFloat
+          className='holos-contact-float moreinfo-btn--whatsapp flex large:hidden'
+          type='button'
+          onClick={toggleShow}
+          aria-label='Fale com um corretor'
+        >
+          <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
+          {isBuilding ? (
+            <div>
+              <span>Quer saber mais?</span>
+              Fale com um corretor.
+            </div>
+          ) : (
+            <div>Fale com um corretor</div>
+          )}
+        </ButtonFloat>
+        
+        {/* Botão Dekstop*/}
+        <ButtonFloat
+          className='holos-contact-float hidden large:flex'
+          type='button'
+          onClick={toggleShow}
+          aria-label='Fale com um corretor'
+        >
+          <SVG src={ChatIconSVG} aria-hidden="true"/>
+          {isBuilding ? (
+            <div>
+              <span>Quer saber mais?</span>
+              Fale com um corretor.
+            </div>
+          ) : (
+            <div>Fale com um corretor</div>
+          )}
+        </ButtonFloat>
+      </>
+    )}
 
       {contactBarActive && (
         <Container onClick={clickContainer} data-type='container'>
-          <Wrapper isHome={true}>
+          <Wrapper isHome={router.route === '/'}>
             {isBuilding && iframeUrl ? (
               <Iframe
                 ref={refIframe}
@@ -491,18 +496,23 @@ function ContactBar() {
                           data-label='Experiências anteriores na area comercial de empresas'
                           data-type='Trabalhe Conosco'
                         />
-                      </FormGroupBasics>
+                       </FormGroupBasics>
                     </FormGroup>
                       <ButtonSubmit
                         disabled={isSubmitting}
                         type='submit'
                         className='contact-form-submit'
                       >
-                        {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
+                        {isSubmitting ? 'Enviando...' : 'Enviar formulário2'}
                       </ButtonSubmit>
                       <button className='contact-whatsapp-button-green' disabled={isSubmitting} onClick={handleWhatsapp}>
                         Whatsapp  <strong>(11) 3074-3600</strong>
                       </button>
+                      <ButtonQuickCall>
+                        <a href="tel:+551130743600" target="_blank" class="moreinfo-btn holos-product-contact-method" data-label="Telefone">
+                            Telefone: <strong>(11) 3074-3600</strong>
+                        </a>
+                      </ButtonQuickCall>
                   </Form>
                 </Column>
               </>

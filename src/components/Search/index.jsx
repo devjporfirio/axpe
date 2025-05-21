@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import SimpleBar from 'simplebar-react';
 import Api from 'services';
-import { getParamsFromObject } from 'helpers/utils';
+import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 import GTM from 'helpers/gtm';
 
 // actions
@@ -15,7 +15,6 @@ import { setMain } from 'store/modules/main/actions';
 import Button from 'components/Button';
 import Input from 'components/Search/FormElements/Input';
 import RangeSlider from 'components/Search/FormElements/RangeSlider';
-import CustomSelect from '../CustomSelect';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
@@ -46,10 +45,12 @@ import {
   FormTabTitle,
   FormTabContent,
   FormTabFooter,
-  FormTabListItemTitle,
   FormTabListItemButton,
   FormTabSlider,
   FormTabSliderTitle,
+  FormTabListContainer,
+  FormTabListItemContainer,
+  FormTabListItemTitle,
 } from './styles';
 
 function Search() {
@@ -72,6 +73,7 @@ function Search() {
     { label: 'Praia', value: 'praia' },
     { label: 'Campo', value: 'campo' },
     { label: 'Exterior', value: 'internacional' },
+    { label: 'Montanha', value: 'montanha' },
   ];
 
   const getFinalities = useCallback(
@@ -79,12 +81,12 @@ function Search() {
       {
         label: 'Comprar',
         value: 'venda',
-        sources: [ 'sao-paulo', 'praia', 'campo', 'internacional' ],
+        sources: [ 'sao-paulo', 'praia', 'campo', 'internacional', 'montanha' ],
       },
       {
         label: 'Alugar',
         value: 'aluguel',
-        sources: [ 'sao-paulo', 'praia', 'campo' ],
+        sources: [ 'sao-paulo', 'praia', 'campo', 'montanha' ],
       },
       {
         label: 'Temporada',
@@ -124,7 +126,7 @@ function Search() {
         values.reference &&
         values.reference.length > 0
       ) {
-        data['reference'] = values.reference;
+        data['reference'] = `AX${values.reference.replace(/^AX/i, '')}`;
       } else {
         Object.keys(values).forEach((key) => {
           if (key == 'source' && values[key].value) {
@@ -182,18 +184,6 @@ function Search() {
       router.push(`/busca${params}`);
     },
   });
-
-  const handleInputReferenceFocusIn = useCallback(() => {
-    if (!formik.values.reference || formik.values.reference === 'AX') {
-      formik.setFieldValue('reference', 'AX');
-    }
-  }, [ formik.values.reference ]);
-
-  const handleInputReferenceFocusOut = useCallback(() => {
-    if (formik.values.reference === 'AX') {
-      formik.setFieldValue('reference', '');
-    }
-  }, [ formik.values.reference ]);
 
   function closeSearch() {
     dispatch(setMain({ searchFormActive: false }));
@@ -374,21 +364,21 @@ function Search() {
       }
 
       // set price start minimum to 10k
-      if (
-        formik.values.finality === 'aluguel' &&
-        response.prices &&
-        response.prices.length
-      ) {
-        response.prices[0] = 10000;
-      }
+      // if (
+      //   formik.values.finality === 'aluguel' &&
+      //   response.prices &&
+      //   response.prices.length
+      // ) {
+      //   response.prices[0] = 10000;
+      // }
 
-      if (
-        formik.values.finality === 'venda' &&
-        response.prices &&
-        response.prices.length
-      ) {
-        response.prices[0] = 2000000;
-      }
+      // if (
+      //   formik.values.finality === 'venda' &&
+      //   response.prices &&
+      //   response.prices.length
+      // ) {
+      //   response.prices[0] = 200000;
+      // }
 
       // set area end maximum to 2k
       if (response.area && response.area.length) {
@@ -461,14 +451,14 @@ function Search() {
           <SimpleBar style={{ maxHeight: '100%' }}>
             <FormWrapperBox>
               <FormHeader>
-                <FormHeaderTitle>Onde você busca?</FormHeaderTitle>
+                <FormHeaderTitle>Onde você procura um imóvel?</FormHeaderTitle>
                 <FormClose type="button" onClick={closeSearch}>
                   Fechar
                 </FormClose>
               </FormHeader>
 
               <FormGroup>
-              <CustomSelect
+              {/* <CustomSelect
                   options={sources}
                   value={formik.values.source?.value || ''}
                   onChange={(newValue) => {
@@ -478,7 +468,41 @@ function Search() {
                   ariaLabel="Selecione a fonte"
                   searchTab={true}
                   onClick={(event) => event.stopPropagation()}
-                />
+                /> */}
+                <FormTabListContainer isEmpty={formik.values.source}>
+                  {sources.map((source, sourceIndex) => (
+                    <FormTabListItemContainer
+                      key={`local-${sourceIndex}`}
+                      active={
+                        formik.values.source &&
+                        formik.values.source.value === source.value
+                      }
+                    >
+                      <FormTabListItemButton
+                        type="button"
+                        format="icon"
+                        active={
+                          formik.values.source &&
+                          formik.values.source.value === source.value
+                        }
+                        onClick={() => {
+                          setSource(source);
+                        }}
+                        className="holos-search-menu-item location-button"
+                        data-label={source.label}
+                        data-type={'Alterar localização'}
+                      >
+                        <span className="icon">
+                          <img
+                            src={require(`assets/icons/sources-${source.value}.svg`)}
+                            alt={source.label}
+                          />
+                        </span>
+                        <span className="label">{source.label}</span>
+                      </FormTabListItemButton>
+                    </FormTabListItemContainer>
+                  ))}
+                </FormTabListContainer>
               </FormGroup>
 
               {formik.values.source.value ? (
@@ -668,7 +692,171 @@ function Search() {
                   (filtersData.parking &&
                     filtersData.parking.length &&
                     filtersData.parking[0] != filtersData.parking[1]) ? (
-                    <FormTabContent>
+                    <FormButtonFilter
+                      type="button"
+                      active={tabActive === 'filters'}
+                      filled={
+                        (formik.values.price_start &&
+                          formik.values.price_end) ||
+                        (formik.values.area_start && formik.values.area_end) ||
+                        (formik.values.bedroom_start &&
+                          formik.values.bedroom_end) ||
+                        (typeof formik.values.parking_start !== 'undefined' &&
+                          formik.values.parking_end)
+                      }
+                      onClick={() => setTabActive('filters')}
+                      className="holos-search-menu-filter"
+                      data-label="Mais filtros"
+                    >
+                      <strong>Mais filtros</strong>
+                      {(formik.values.price_start && formik.values.price_end) ||
+                      (formik.values.area_start && formik.values.area_end) ||
+                      (formik.values.bedroom_start &&
+                        formik.values.bedroom_end) ||
+                      (typeof formik.values.parking_start !== 'undefined' &&
+                        formik.values.parking_end) ? (
+                        <span>
+                          {formik.values.price_start && formik.values.price_end
+                            ? `Valor ${formatCurrency.format(
+                                formik.values.price_start
+                              )} a ${formatCurrency.format(
+                                formik.values.price_end
+                              )}, `
+                            : null}
+
+                          {formik.values.area_start && formik.values.area_end
+                            ? `Area de ${formik.values.area_start}m a ${formik.values.area_end}m, `
+                            : null}
+
+                          {formik.values.bedroom_start &&
+                          formik.values.bedroom_end
+                            ? `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
+                            : null}
+
+                          {typeof formik.values.parking_start !== 'undefined' &&
+                          formik.values.parking_end
+                            ? `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
+                            : null}
+                        </span>
+                      ) : null}
+                      <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+                    </FormButtonFilter>
+                  ) : null}
+                </>
+              ) : null}
+
+              <FormFooter>
+                <FormGroup type="reference">
+                  <Input
+                    type="text"
+                    name="reference"
+                    placeholder="Buscar por referência"
+                    onChange={formik.handleChange}
+                    onBlur={(e) => {
+                      formik.handleChange(e);
+                      // handleInputReferenceFocusOut();
+                    }}
+                    // onFocus={handleInputReferenceFocusIn}
+                    value={formik.values.reference}
+                    className="holos-search-field"
+                    data-label="Buscar por referência"
+                  />
+                  <SVG src={SearchIconSVG} uniquifyIDs={true} />
+                </FormGroup>
+                <FormButtonSubmit
+                  type="submit"
+                  disabled={
+                    !formik.isSubmitting &&
+                    !filtersData &&
+                    (!formik.values.reference ||
+                      formik.values.reference === 'AX')
+                  }
+                  className="holos-search-submit"
+                  data-label={formik.values.reference}
+                >
+                  Buscar
+                </FormButtonSubmit>
+                <FormButtonClear
+                  type="button"
+                  disabled={
+                    !formik.isSubmitting &&
+                    !filtersData &&
+                    (!formik.values.reference ||
+                      formik.values.reference === 'AX')
+                  }
+                  onClick={resetForm}
+                  className="holos-clear-filter"
+                >
+                  Limpar filtros
+                </FormButtonClear>
+              </FormFooter>
+            </FormWrapperBox>
+          </SimpleBar>
+        </FormWrapper>
+
+        {filtersData && filtersData.types && filtersData.types.length ? (
+          <FormTab
+            active={tabActive === 'types'}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            </FormTabButtonBack>
+            <SimpleBar style={{ maxHeight: '100%' }}>
+              <FormTabWrapper>
+                <FormTabClose type="button" onClick={() => setTabActive(null)}>
+                  Fechar
+                </FormTabClose>
+                <FormTabTitle>Tipo de imóvel</FormTabTitle>
+                <FormTabContent>
+                  <ul>
+                    {filtersData.types.map((type, typeIndex) => (
+                      <li key={`type-${type}-${typeIndex}`}>
+                        <FormTabListItemButton
+                          type="button"
+                          active={formik.values.types.includes(type)}
+                          onClick={() => setArrayValue('types', type)}
+                          className="holos-search-menu-item"
+                          data-label={type}
+                          data-type={'Tipo de imóvel'}
+                        >
+                          {type}
+                        </FormTabListItemButton>
+                      </li>
+                    ))}
+                  </ul>
+                </FormTabContent>
+                {formik.values.types.length > 0 ? (
+                  <FormTabFooter>
+                    <Button
+                      type="button"
+                      fullWidth={true}
+                      onClick={() => setTabActive(null)}
+                    >
+                      Aplicar filtro
+                    </Button>
+                  </FormTabFooter>
+                ) : null}
+              </FormTabWrapper>
+            </SimpleBar>
+          </FormTab>
+        ) : null}
+
+        {filtersData ? (
+          <FormTab
+            active={tabActive === 'filters'}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            </FormTabButtonBack>
+            <SimpleBar style={{ maxHeight: '100%' }}>
+              <FormTabWrapper>
+                <FormTabClose type="button" onClick={() => setTabActive(null)}>
+                  Fechar
+                </FormTabClose>
+                <FormTabTitle>Mais filtros</FormTabTitle>
+                  <FormTabContent>
                       {filtersData.prices &&
                       filtersData.prices.length &&
                       filtersData.prices[0] != filtersData.prices[1] ? (
@@ -797,93 +985,12 @@ function Search() {
                           />
                         </FormTabSlider>
                       ) : null}
-                    </FormTabContent>
-                  ) : null}
-                </>
-              ) : null}
-
-              <FormFooter>
-                <FormGroup type="reference">
-                  <Input
-                    type="text"
-                    name="reference"
-                    placeholder="Buscar por referência"
-                    onChange={formik.handleChange}
-                    onBlur={(e) => {
-                      formik.handleChange(e);
-                      handleInputReferenceFocusOut();
-                    }}
-                    onFocus={handleInputReferenceFocusIn}
-                    value={formik.values.reference}
-                    className="holos-search-field"
-                    data-label="Buscar por referência"
-                  />
-                  <SVG src={SearchIconSVG} uniquifyIDs={true} />
-                </FormGroup>
-                <FormButtonSubmit
-                  type="submit"
-                  disabled={
-                    !formik.isSubmitting &&
-                    !filtersData &&
-                    (!formik.values.reference ||
-                      formik.values.reference === 'AX')
-                  }
-                  className="holos-search-submit"
-                  data-label={formik.values.reference}
-                >
-                  Buscar
-                </FormButtonSubmit>
-                <FormButtonClear
-                  type="button"
-                  disabled={
-                    !formik.isSubmitting &&
-                    !filtersData &&
-                    (!formik.values.reference ||
-                      formik.values.reference === 'AX')
-                  }
-                  onClick={resetForm}
-                  className="holos-clear-filter"
-                >
-                  Limpar filtros
-                </FormButtonClear>
-              </FormFooter>
-            </FormWrapperBox>
-          </SimpleBar>
-        </FormWrapper>
-
-        {filtersData && filtersData.types && filtersData.types.length ? (
-          <FormTab
-            active={tabActive === 'types'}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
-            </FormTabButtonBack>
-            <SimpleBar style={{ maxHeight: '100%' }}>
-              <FormTabWrapper>
-                <FormTabClose type="button" onClick={() => setTabActive(null)}>
-                  Fechar
-                </FormTabClose>
-                <FormTabTitle>Tipo de imóvel</FormTabTitle>
-                <FormTabContent>
-                  <ul>
-                    {filtersData.types.map((type, typeIndex) => (
-                      <li key={`type-${type}-${typeIndex}`}>
-                        <FormTabListItemButton
-                          type="button"
-                          active={formik.values.types.includes(type)}
-                          onClick={() => setArrayValue('types', type)}
-                          className="holos-search-menu-item"
-                          data-label={type}
-                          data-type={'Tipo de imóvel'}
-                        >
-                          {type}
-                        </FormTabListItemButton>
-                      </li>
-                    ))}
-                  </ul>
-                </FormTabContent>
-                {formik.values.types.length > 0 ? (
+                  </FormTabContent>
+                {(formik.values.price_start && formik.values.price_end) ||
+                (formik.values.area_start && formik.values.area_end) ||
+                (formik.values.bedroom_start && formik.values.bedroom_end) ||
+                (typeof formik.values.parking_start !== 'undefined' &&
+                  formik.values.parking_end) ? (
                   <FormTabFooter>
                     <Button
                       type="button"
@@ -899,7 +1006,7 @@ function Search() {
           </FormTab>
         ) : null}
 
-        {filtersData && filtersData.locals ? (
+{filtersData && filtersData.locals ? (
           <FormTab
             active={tabActive === 'locals'}
             onClick={(event) => event.stopPropagation()}

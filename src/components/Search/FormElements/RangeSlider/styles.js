@@ -21,7 +21,7 @@ export const Slider = styled.div`
       left: 0;
       width: 100%;
       height: 3px;
-      background: ${({ theme }) => theme.colors.blueDark};
+      background: ${({ theme }) => theme.colors.orange};
       opacity: 0.4;
       border-radius: 4px;
     }
@@ -35,7 +35,7 @@ export const Slider = styled.div`
     right: -6px !important;
     border: 0;
     font-size: 0;
-    background: ${({ theme }) => theme.colors.blueDark};
+    background: ${({ theme }) => theme.colors.orange};
     border-radius: 50%;
     box-shadow: none;
     z-index: 5;
@@ -49,7 +49,7 @@ export const Slider = styled.div`
 
   .noUi-connect {
     position: absolute;
-    background: transparent;
+    background: ${({ theme }) => theme.colors.white};
 
     &:before {
       content: '';
@@ -59,7 +59,7 @@ export const Slider = styled.div`
       left: 0;
       width: 100%;
       height: 3px;
-      background: ${({ theme }) => theme.colors.blueDark};
+      background: ${({ theme }) => theme.colors.orange};
       opacity: 0.4;
       border-radius: 4px;
     }
@@ -85,6 +85,7 @@ export const InputWrapper = styled.div`
   border-radius: 4px;
   padding: 6px 8px;
   background: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.blueDark};
   gap: 4px;
   height: 40px;
 `;
@@ -116,7 +117,7 @@ export const InputLabel = styled.span`
   display: block;
   margin-top: 4px;
   font-size: 12px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.green};
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   text-align: start;
   &.right {
@@ -130,15 +131,15 @@ export const ButtonGroup = styled.div`
 `;
 export const RangeButton = styled.button`
   padding: 8px 10px;
-  border: 2px solid ${({ theme }) => theme.colors.white};
-  background: ${({ active, theme }) => (active ? theme.colors.white : 'transparent')};
-  color: ${({ active, theme }) => (active ? theme.colors.green : theme.colors.white)};
-  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  border: 1px solid ${({ theme }) => theme.colors.green};
+  background: ${({ active, theme }) => (active ? theme.colors.orange : 'transparent')};
+  color: ${({ active, theme }) => (active ? theme.colors.white : theme.colors.green)};
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
   &:hover {
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.green};
+    background: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;

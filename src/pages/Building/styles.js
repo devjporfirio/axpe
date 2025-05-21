@@ -42,7 +42,7 @@ export const SimilarBuildings = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 15px;
-  max-width: 974px;
+  max-width: 1060px;
 
   ${media.greaterThan('large')`
     padding: 0;
@@ -51,7 +51,10 @@ export const SimilarBuildings = styled.div`
 
 export const SimilarBuildingsHeader = styled.header`
   margin-bottom: 20px;
-
+  ${media.greaterThan('medium')`
+    padding-left: 16px;
+  `}
+  
   h3 {
     font: 22px/26px 'Bitter';
     font-weight: ${({ theme }) => theme.fontsWeight.bold};
@@ -63,4 +66,10 @@ export const SimilarBuildingsHeader = styled.header`
   }
 `;
 
-export const SimilarBuildingsList = styled.div``;
+export const SimilarBuildingsList = styled.div`
+  ${media.greaterThan('medium')`
+    width: 100%;
+    display: flex;
+    gap: 16px;
+  `}
+`;

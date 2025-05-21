@@ -4,13 +4,16 @@ import media from 'styled-media-query';
 export const Container = styled.div`
   width: 100%;
 
-  .slick-list,
-  .slick-slide {
-    font-size: 0;
+  .slick-list {
+    ${props => props.buildingsSlider && css`
+      ${media.lessThan('medium')`
+        padding-left: 10%; 
+      `}
+    `}
   }
 
   .slick-slide {
-    /* height: 550px; */
+    font-size: 0;
   }
 
   .slick-slider {
@@ -92,30 +95,30 @@ export const Container = styled.div`
 
 const ContainerNormal = css`
   .slick-arrow {
-    top: 50%;
+    top: 35%;
     transform: translateY(-50%);
 
     ${media.lessThan('medium')`
       top: 40%;
-      `}
+    `}
 
     &.slick-prev {
-      left: -44px;
+      left: 0px;
 
       ${media.greaterThan('large')`
-        left: -30px;
+        left: 10px;
       `}
     }
 
     &.slick-next {
-      right: -42px;
+      right: 20px;
 
       ${media.lessThan('medium')`
         right: 0px;
       `}
 
       ${media.greaterThan('large')`
-        right: -30px;
+        right: 10px;
       `}
     }
   }
@@ -123,11 +126,7 @@ const ContainerNormal = css`
 
 const ContainerFull = css`
   .slick-arrow {
-    bottom: 30px;
-
-    ${media.greaterThan('large')`
-      bottom: 60px;
-    `}
+    bottom: 40%;
 
     &.slick-prev {
       left: auto;
@@ -165,6 +164,7 @@ const ContainerFull = css`
 const ContainerGallery = css`
   .slick-arrow {
     top: 50%;
+    background: rgba(255, 255, 255, 0.5);
     transform: translateY(-50%);
     
     ${media.greaterThan('medium')`
@@ -178,7 +178,7 @@ const ContainerGallery = css`
     }
 
     &.slick-next {
-      right: 0;
+      right: 10px;
     }
   }
 `;

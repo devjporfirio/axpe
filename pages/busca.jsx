@@ -16,7 +16,6 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import BuildingList from 'components/Building/List';
 import NewsletterFooter from 'components/NewsletterFooter';
 import BuildingsPanel from 'components/BuildingsPanel';
-import BuildingCard from 'components/Building/Card';
 import CustomSelect from 'components/CustomSelect';
 
 // helpers
@@ -101,7 +100,7 @@ function Search({ total, totalPages, data, banner, locals }) {
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ suggestions, setSuggestions ] = useState(null);
-  const [ isOrderListActive, setIsOrderListActive ] = useState(true);
+  const [ isOrderListActive, setIsOrderListActive ] = useState(false);
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
@@ -409,10 +408,10 @@ function Search({ total, totalPages, data, banner, locals }) {
                   >
                     <DisplayOrder>
                       <button onClick={() => setIsOrderListActive(!isOrderListActive)}>
-                        <img src={isOrderListActive ? IOrderRowOn : IOrderRowOff} alt="Botão de ordenar lista" loading='lazy'/>
+                        <img src={isOrderListActive ? IOrderBlockOff : IOrderBlockOn} alt="Botão de ordenar bloco" loading='lazy'/>
                       </button>
                       <button onClick={() => setIsOrderListActive(!isOrderListActive)}>
-                        <img src={isOrderListActive ? IOrderBlockOff : IOrderBlockOn} alt="Botão de ordenar bloco" loading='lazy'/>
+                        <img src={isOrderListActive ? IOrderRowOn : IOrderRowOff} alt="Botão de ordenar lista" loading='lazy'/>
                       </button>
                     </DisplayOrder>
 
@@ -501,12 +500,11 @@ function Search({ total, totalPages, data, banner, locals }) {
                           key={`building-searchitem-${building.reference}-${buildingIndex}`}
                         />
                       ) : (
-                        <BuildingCard
+                        <BuildingList
+                          layout="horizontal"
                           item={building}
-                          gtmShowcase={''}
                           positionIndex={buildingIndex + 1}
                           key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                          showGallery={true}
                         />
                       )}
                       {banner && buildingIndex == 2 && total >= 5 && (

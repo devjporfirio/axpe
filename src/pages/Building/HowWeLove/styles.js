@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import ICheck from 'assets/icons/checked-grey.svg';
 
 export const Container = styled.div`
   width: 100vw;
@@ -30,7 +31,7 @@ export const Title = styled.h3`
   span:nth-child(2) {
     color: ${({ theme }) => theme.colors.green};
     font: 40px 'Raleway';
-    font-weight: ${({ theme }) => theme.fontsWeight.black};
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   }
 
   ${media.greaterThan('medium')`
@@ -39,6 +40,109 @@ export const Title = styled.h3`
     width: 342px;
     height: 248.2px;
   `}
+`;
+
+export const Article = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
+  margin: 0 16px;
+  margin-bottom: 20px;
+  gap: 10px;
+
+  ${media.greaterThan('medium')`
+    width: 96%;
+    max-width: 1060px;
+    padding: 16px 20px;
+    margin: 0 auto 12px;
+  `}
+
+  .building-lovely-item {
+    display: flex !important;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 4px;
+
+    &:before {
+      content: '';
+      display: flex;
+      width: 100%;
+      height: 100%;
+      border-radius: 7px;
+    }
+
+    h3,
+    p {
+      width: 100%;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      color: ${({ theme }) => theme.colors.orange};
+      font: 18px/20px 'Bitter';
+      font-weight: ${({ theme }) => theme.fontsWeight.bold};
+      height: 20px;
+      display: flex;
+      align-items: flex-start;
+      align-items: center;
+      position: relative;
+      padding-left: 22px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 3px;
+        width: 14px;
+        height: 14px;
+        background-image: url(${ICheck});
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+      }
+    }
+
+    p {
+      color: ${({ theme }) => theme.colors.greenDark};
+      font: 16px/19px 'Raleway';
+    }
+  }
+`;
+
+export const ContainerBlock = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  p {
+    color: ${({ theme }) => theme.colors.greenDark};
+    font: 16px/19px 'Raleway';
+  }
+`;
+
+export const CharacteristicItem = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 14px;
+    height: 14px;
+  }
+
+  h3 {
+    color: ${({ theme }) => theme.colors.orange};
+    font: 18px/20px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.bold};
+    height: 20px;
+    margin-left: 10px;
+  }
 `;
 
 export const Reasons = styled.div`

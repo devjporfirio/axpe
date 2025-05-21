@@ -1,14 +1,12 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 
-// components
-import Slider from 'components/SliderNew';
-
 // helpers
 import useResize from 'helpers/resize';
 
 // styles
-import { Container, Title, Reasons } from './styles';
+import { CharacteristicItem, ContainerBlock, Article } from './styles';
+import ICheck from 'assets/icons/checked-grey.svg';
 
 function HowWeLove({ reasons }) {
   const refReasons = useRef();
@@ -112,27 +110,20 @@ function HowWeLove({ reasons }) {
   }, [ reasons ]);
 
   return (type === 'array' && data) || (type === 'html' && html && data) ? (
-    <Container ref={refReasons}>
-      <Title>
-        <span>Porque </span>
-        <span>curtimos </span>
-        <span>esse imóvel</span>
-      </Title>
-
-      <Reasons>
-        <Slider type="normal" arrowsColor="white" settings={settings}>
-          {type === 'html' && html}
-          {type === 'array' && data && data.length > 0
-            ? data.map((reason, index) => (
-                <article className="building-lovely-item" key={index}>
-                  <h3>{reason.title}</h3>
-                  <p>{reason.text}</p>
-                </article>
-              ))
-            : null}
-        </Slider>
-      </Reasons>
-    </Container>
+    <Article>
+      {type === 'html' && html}
+      {type === 'array' && data && data.length > 0
+        ? data.map((reason, index) => (
+            <ContainerBlock key={index}>
+              <CharacteristicItem>
+                <img src={ICheck} alt="ícone de Check" />
+                <h3>{reason.title}</h3>
+              </CharacteristicItem>
+              <p>{reason.text}</p>
+            </ContainerBlock>
+          ))
+        : null}
+    </Article>
   ) : null;
 }
 

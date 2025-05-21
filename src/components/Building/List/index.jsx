@@ -245,9 +245,9 @@ function BuildingList({
   }, [ page ]);
 
   return (
-    <Container className={className} useBtSchedule={useBtSchedule}>
+    <Container className={className} useBtSchedule={useBtSchedule} page={page}>
       {useInactive && status === 'inactive' && <Inactive />}
-      <SliderContainer useBtSchedule={useBtSchedule}>
+      <SliderContainer useBtSchedule={useBtSchedule} page={page}>
         <SliderNew
           type="gallery"
           arrowsColor="white"
@@ -269,7 +269,7 @@ function BuildingList({
                         data-product-id={item.reference}
                         data-position={positionIndex}
                       >
-                        <ImageWrapper useBtSchedule={useBtSchedule}>
+                        <ImageWrapper useBtSchedule={useBtSchedule} page={page}>
                           <Image
                             src={galleryItem.src}
                             alt={`Axpe ${category} - ${reference}`}
@@ -287,7 +287,7 @@ function BuildingList({
             })}
         </SliderNew>
       </SliderContainer>
-      <Infos releaseDelivery={infos.releaseDelivery}>
+      <Infos releaseDelivery={infos.releaseDelivery} page={page}>
         <Link href={`/${item.slug}`} passHref>
           <LinkTag
             className={gtmObj ? gtmObj.className : ''}
@@ -295,8 +295,8 @@ function BuildingList({
             data-product-id={item.reference}
             data-position={positionIndex}
           >
-            <CatLocGroup>
-              <Category>
+            <CatLocGroup page={page}>
+              <Category page={page}>
                 {type === 'lancamento'
                   ? infos.releaseStatus === 'Pronto'
                     ? 'Pronto para morar'
@@ -310,13 +310,13 @@ function BuildingList({
                     <CategoryRelease>{category}</CategoryRelease>
                   )}
                 </div>
-                <Reference>Ref {item.reference}</Reference>
+                <Reference page={page}>Ref {item.reference}</Reference>
               </div>
             </CatLocGroup>
           </LinkTag>
         </Link>
 
-        <ValuesFavGroup>
+        <ValuesFavGroup page={page}>
           <Link href={`/${item.slug}`} passHref>
             <LinkTag
               className={gtmObj ? gtmObj.className : ''}
@@ -333,7 +333,7 @@ function BuildingList({
                 (!searchFunnel ||
                   !searchFunnel.finality ||
                   searchFunnel.finality == 'venda') ? (
-                  <Price>
+                  <Price page={page}>
                     {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                     {!!values.sell &&
                       formatCurrency
@@ -345,22 +345,22 @@ function BuildingList({
                         .replace('R$', formatCurrencyToText(values.currency))}
                   </Price>
                 ) : !!values.sell && values.valueOnlyConsults ? (
-                  <Price>Valores sob consulta</Price>
+                  <Price page={page}>Valores sob consulta</Price>
                 ) : null}
                 {!!values.rent &&
                 !values.valueOnlyConsults &&
                 (!searchFunnel ||
                   !searchFunnel.finality ||
                   searchFunnel.finality == 'aluguel') ? (
-                  <Price>
+                  <Price page={page}>
                     Locação:{' '}
                     {formatCurrency
                       .format(parseInt(values.rent))
                       .replace('R$', formatCurrencyToText(values.currency))}
                   </Price>
                 ) : !!values.rent && values.valueOnlyConsults ? (
-                  <Price>Valores sob consulta</Price>
-                ) : null}
+                  <Price page={page}>Valores sob consulta</Price>
+                ) : <Price page={page}></Price>}
               </div>
             </LinkTag>
           </Link>
@@ -373,10 +373,10 @@ function BuildingList({
             data-position={positionIndex}
           >
             <div>
-              <CaracteristicsGroup>
+              <CaracteristicsGroup page={page}>
                 {getCaracteristics().map((item, itemIndex) => item)}
               </CaracteristicsGroup>
-              <Description>{infos.internalDescription}</Description>
+              <Description page={page}>{infos.internalDescription}</Description>
             </div>
           </LinkTag>
         </Link>
@@ -388,6 +388,7 @@ function BuildingList({
             data-showcase={gtmObj ? gtmObj.showcase : ''}
             data-product-id={item.reference}
             data-position={positionIndex}
+            page={page}
           >
             Agende uma visita
           </ScheduleButton>

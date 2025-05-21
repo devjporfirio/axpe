@@ -29,6 +29,7 @@ import {
   SimilarBuildingsList,
 } from 'pages/Building/styles';
 import { useDispatch } from 'react-redux';
+import { Delivery } from '../../src/pages/Building/Datasheet/styles';
 
 function Building(props) {
   const { property, meta } = props;
@@ -55,12 +56,22 @@ function Building(props) {
 
     async function loadSimilarBuildings() {
       const similar = await Api.Building.getSimilar(property, 3);
-      const buildings =
-        similar &&
-        similar.data &&
-        similar.data.length > 0 &&
-        similar.data.filter((x) => x.reference !== property.reference);
+      let buildings = similar?.data?.filter((x) => x.reference !== property.reference) || [];
 
+      if (buildings.length === 0) {
+        const fallbackParams = {
+          ...property,
+          values: {
+            ...property.values,
+            sell: '',
+            release: '',
+          }
+        };
+    
+        const fallback = await Api.Building.getSimilar(fallbackParams, 3);
+        buildings = fallback?.data?.filter((x) => x.reference !== property.reference) || [];
+      }
+    
       setSimilarBuildings(buildings);
     }
 
@@ -126,6 +137,21 @@ function Building(props) {
 
         <DataSheet property={data} />
 
+        {data.components.find(c => c.module?.slug === 'porque-adoramos') && (
+          <HowWeLove reasons={data.components.find(c => c.module?.slug === 'porque-adoramos').data} />
+        )}
+        
+        {property.type === 'lancamento' && property.infos.releaseDelivery && (
+          <Delivery>
+              <p>
+                  {property.infos.releaseStatus === 'Pronto'
+                      ? 'Entregue em '
+                      : 'Previsão de entrega em '}
+                  <span>{property.infos.releaseDelivery}</span>
+              </p>
+          </Delivery>
+        )}
+
         <Alert>
           <p>
             As informações acima, incluindo preço, áreas e valores, podem não
@@ -137,10 +163,6 @@ function Building(props) {
             ilustrativas e os valores estão sujeitos a alterações de tabelas.
           </p>
         </Alert>
-
-        {data.components.find(c => c.module?.slug === 'porque-adoramos') && (
-          <HowWeLove reasons={data.components.find(c => c.module?.slug === 'porque-adoramos').data} />
-        )}
 
         {similarBuildings && similarBuildings.length > 0 && (
           <SimilarBuildings>

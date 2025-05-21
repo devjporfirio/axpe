@@ -58,9 +58,8 @@ export const FormContainer = styled.div`
 export const Iframe = styled.iframe`
   display: block;
   width: 100%;
-  ${media.lessThan('768px')`
-    min-height: 190px;
-  `}
+  min-height: 190px;
+
 `;
 
 export const Background = styled.div` 

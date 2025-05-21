@@ -15,10 +15,11 @@ const ContactHome = () => (
         Conte o que está buscando e deixe com a gente.
       </p>
       <Link
-        className="holos-footer-imovel-sonhos"
+        className="holos-footer-whatsapp-contact"
         data-label="Fale com o corretor"
-        route="/imovel-dos-sonhos"
+        href="https://api.whatsapp.com/send/?phone=551130743600&text&type=phone_number&app_absent=0"
         fullWidth={true}
+        target="_blank"
         passHref
       >
         Fale com o corretor

@@ -59,20 +59,10 @@ function RangeSlider({
       sliderApi.current.destroy();
     }
 
-    let range = {
+    const range = {
       min: data[0],
       max: data[1],
     };
-
-    if (type === 'prices') {
-      range = finality === 'venda'
-        ? { min: 2000000, max: 20000000 }
-        : { min: [ 10000, 1000 ], '50%': [ 20000, 5000 ], max: 30000 };
-    }
-
-    if (type === 'area') {
-      range = { min: 50, max: 2000 };
-    }
 
     sliderApi.current = noUiSlider.create(ref.current, {
       start: data,
@@ -94,22 +84,30 @@ function RangeSlider({
   const handleBlur = (index) => {
     const visual = index === 0 ? visualFirst : visualLast;
     let parsed = parseInt(visual.replace(/\D/g, ''));
+
     if (isNaN(parsed)) return;
-    const min = type === 'area' ? 50 : (finality === 'venda' ? 2000000 : 10000);
-    const max = type === 'area' ? 2000 : (finality === 'venda' ? 20000000 : 30000);
+
+    const min = type === 'area' ? data?.[0] || 50 : (finality === 'venda' ? data?.[0] || 2000000 : 10000);
+    const max = type === 'area' ? data?.[1] || 2000 : (finality === 'venda' ? data?.[1] || 20000000 : 30000);
+
     parsed = Math.max(min, Math.min(parsed, max));
+
     const newValues = {
       first: index === 0 ? parsed : values.first,
       last: index === 1 ? parsed : values.last,
     };
+
     if (newValues.first > newValues.last) {
       if (index === 0) newValues.last = parsed;
       else newValues.first = parsed;
     }
+
     setValues(newValues);
     setVisualFirst(type === 'prices' ? formatNumberOnlyDigits(newValues.first) : formatAreaInput(newValues.first));
     setVisualLast(type === 'prices' ? formatNumberOnlyDigits(newValues.last) : formatAreaInput(newValues.last));
+    
     if (sliderApi.current) sliderApi.current.set([ newValues.first, newValues.last ]);
+
     onChange([ newValues.first, newValues.last ]);
   };
 

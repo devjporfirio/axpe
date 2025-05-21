@@ -3,10 +3,20 @@ import media from 'styled-media-query';
 import Slider from 'components/Slider';
 
 export const Container = styled.article`
+  margin: 0 auto;
   margin-bottom: 10px;
 
+  ${props => props.searchPage && css`
+    padding: 0 10px;
+  `}
+    
   ${media.greaterThan('medium')`
     max-width: 450px;
+
+  ${props => props.searchPage && css`
+    padding: 0;
+  `}
+
     ${props => props.layout === 'horizontal' && css`
       padding: 15px 10px;
     `}
@@ -14,6 +24,10 @@ export const Container = styled.article`
     ${props => props.layout === 'vertical' && css`
       padding-top: 5px;
       padding-bottom: 5px;
+    `}
+
+    ${props => props.categorySection && css`
+      margin-right: 20px;
     `}
   `}
 
@@ -28,6 +42,17 @@ export const LinkTag = styled.a`
   border-radius: 6px;
   overflow: hidden;
   color: ${({ theme }) => theme.colors.greenDark};
+
+  ${props => props.categorySection  && css`
+    ${media.greaterThan('medium')`
+      margin-left: 20px;
+    `}
+    &:last-child {
+      ${media.greaterThan('medium')`
+        padding-right: 22px;
+      `}
+    }
+  `}
 
   :hover {
     text-decoration: none;
@@ -49,7 +74,9 @@ export const LinkTag = styled.a`
 export const Wrapper = styled.div`
   position: relative;
   background: ${({ theme }) => theme.colors.white};
-  
+  width: 100%;
+  height: 100%;
+
   ${media.greaterThan('medium')`
     ${props => props.layout === 'horizontal' && css`
       display: flex;
@@ -60,6 +87,40 @@ export const Wrapper = styled.div`
 
 export const GallerySlider = styled(Slider)`
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 250px;
+  max-width: 345px;
+
+  ${media.greaterThan('medium')`
+    max-width: 480px;
+  `}
+
+  .image-mobile,
+  .image-desktop {
+    position: relative;
+    width: 100%;
+    height: 250px; 
+    
+    img {
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .image-mobile {
+    display: block;
+    ${media.greaterThan('medium')`
+      display: none;
+    `}
+  }
+
+  .image-desktop {
+    display: none;
+    ${media.greaterThan('medium')`
+      display: block;
+    `}
+  }
 
   .slick-slide > div {
     margin-left: 0px;
@@ -81,7 +142,7 @@ export const GallerySlider = styled(Slider)`
 
   button[class*="ArrowNext"] {
     position: absolute !important;
-    right: 10px;
+    right: 0px;
     top: 50% !important;
     transform: translateY(-50%);
     z-index: 10;
@@ -93,9 +154,35 @@ export const Gallery = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 250px;
+  height: 350px;
   border-radius: 8px;
   
+  .image-mobile,
+  .image-desktop {
+    position: relative;
+    width: 100%;
+    height: 350px; 
+
+    img {
+      object-fit: cover !important;
+      object-position: left center !important;
+    }
+  }
+
+  .image-mobile {
+    display: block;
+    ${media.greaterThan('medium')`
+      display: none;
+    `}
+  }
+
+  .image-desktop {
+    display: none;
+    ${media.greaterThan('medium')`
+      display: block;
+    `}
+  }
+
   &:before {
     content: '';
     display: none;
@@ -110,30 +197,13 @@ export const Gallery = styled.div`
     ${({ theme }) => theme.hide};
   }
 
-  img {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translateX(-50%);
-  }
-
   ${media.greaterThan('medium')`
-
-    ${props => props.layout === 'horizontal' && css`
-      width: 65%;
-      height: 260px;
-
-      img {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: auto;
-        transform: translateY(-50%);
-      }
-    `}
+    ${({ layout }) =>
+      layout === 'horizontal' &&
+      css`
+        width: 65%;
+        height: 260px;
+      `}
   `}
 
   ${media.greaterThan('large')`

@@ -73,15 +73,19 @@ export default {
     return result && result.status === 'OK' ? result : [];
   },
   async getSimilar(property, limit) {
+    const basePrice = property.values?.sell || property.values?.release || 0;
+    const margin = 0.25;
+
     const params = {
       source: property.source,
       use: property.infos ? property.infos.use : '',
       finality: property.infos ? property.infos.type : '',
-      category: property.catergory,
+      category: property.category,
       local: property.address ? property.address.local : '',
       furniture: property.label ? property.label.isFurnished : '',
       type: property.type,
-      price_start: property.values ? property.values.release : '',
+      price_start: Math.floor(basePrice * (1 - margin)),
+      price_end: Math.ceil(basePrice * (1 + margin)),
       area_start: property.infos ? property.infos.areaUsefulStart : '',
       area_end: property.infos ? property.infos.areaUsefulEnd : '',
       bedroom_start: property.infos ? property.infos.bedroomsStart : '',

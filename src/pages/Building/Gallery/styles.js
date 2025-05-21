@@ -7,11 +7,11 @@ import GalleryHeaderbar from './GalleryHeaderbar';
 export const Container = styled.div`
   margin: auto;
   position: relative;
-  max-width: 974px;
+  max-width: 1160px;
 
   & > .slick-slider .slick-slide {
-    width: calc(100vw - 500px);
-    max-width: 780px;
+    width: calc(100vw - 400px);
+    max-width: 1040px;
   }
 `;
 
@@ -34,16 +34,16 @@ export const ImageWrapper = styled.div`
   border: 2.5px solid ${({ theme }) => theme.colors.white};
   border-top: none;
   border-bottom: none;
-  height: 376px;
+  height: 470px;
 
   @media (min-width: 768px) {
     height: 525px;
   }
 
   .next-image {
-    object-fit: cover;
     width: 100%;
     height: 100%;
+    ${props => props.isVertical ? 'object-fit: contain;' : 'object-fit: cover;'}
   }
 `;
 

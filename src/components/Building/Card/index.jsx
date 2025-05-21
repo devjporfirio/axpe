@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
+import Image from 'next/image';
 import SVG from 'react-inlinesvg';
 
 // helpers
@@ -14,7 +15,6 @@ import {
   LinkTag,
   Wrapper,
   Gallery,
-  Image,
   Column,
   Text,
   Inactive,
@@ -27,6 +27,8 @@ function BuildingCard({
   positionIndex = 1,
   item,
   showGallery = false,
+  categorySection = false,
+  searchPage = false
 }) {
   const [ gtmObj, setGtmObj ] = useState(null);
   const itemData =
@@ -74,8 +76,24 @@ function BuildingCard({
             <GallerySlider layout={layout}>
               {itemData.gallery.map((image, index) => (
                 <React.Fragment key={index}>
-                  <Image mq="mobile" src={image.src} alt={`Slide ${index + 1}`} />
-                  <Image mq="desktop" src={image.src} alt={`Slide ${index + 1}`} />
+                  <div className="image-mobile">
+                    <Image
+                      src={image.src}
+                      alt={`Slide ${index + 1}`}
+                      layout= 'fill'
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      loading='lazy'
+                    />
+                  </div>
+                  <div className="image-desktop">
+                    <Image
+                      src={image.src}
+                      alt={`Slide ${index + 1}`}
+                       layout= 'fill'
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      loading='lazy'
+                    />
+                  </div>
                 </React.Fragment>
               ))}
             </GallerySlider>
@@ -93,14 +111,36 @@ function BuildingCard({
                   </p>
                 </Inactive>
               )}
-              {urlImageDesktop && <Image mq="desktop" src={urlImageDesktop} />}
-              {urlImageMobile && <Image mq="mobile" src={urlImageMobile} />}
+
+              {urlImageMobile && (
+                <div className="image-mobile">
+                  <Image
+                    src={urlImageMobile}
+                    alt="Imagem do imóvel mobile"
+                    layout= 'fill'
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    loading='lazy'
+                  />
+                </div>
+              )}
+              {urlImageDesktop && (
+                <div className="image-desktop">
+                  <Image
+                    src={urlImageDesktop}
+                    alt="Imagem do imóvel desktop"
+                    layout= 'fill'
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    loading='lazy'
+                  />
+                </div>
+              )}
             </Gallery>
           );
         } else {
           return null;
         }
       }, [ showGallery, layout, itemData, status ]);
+
   const renderHTML = useCallback(() => {
     return (
       <Wrapper layout={layout}>
@@ -162,7 +202,7 @@ function BuildingCard({
   }, [ gtmShowcase ]);
 
   return (
-    <Container layout={layout}>
+    <Container layout={layout} categorySection={categorySection} searchPage={searchPage}>
       {status !== 'inactive' ? (
         <Link href={`/${itemData.slug}`} passHref>
           <LinkTag
