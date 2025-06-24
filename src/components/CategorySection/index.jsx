@@ -16,7 +16,7 @@ const CategorySection = ({ items }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-  }
+  };
 
   return (
     <SectionContainer>
@@ -49,6 +49,7 @@ const CategorySection = ({ items }) => {
                 gtmShowcase={''}
                 positionIndex={index + 1}
                 showGallery={true}
+                categorySection={true}
               />
             </CardWrapper>
           </Slide>

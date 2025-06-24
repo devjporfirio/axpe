@@ -12,7 +12,7 @@ export const Container = styled.div`
     props.useBtSchedule ? 'auto auto 33px auto' : 'auto auto 20px auto'};
   overflow: hidden;
   border-radius: 6px;
-
+  
   ${props =>
     props.hasDeleted &&
     css`
@@ -27,10 +27,19 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.colors.greenDark};
   }
 
-  ${media.greaterThan('medium')`
+  ${props =>
+  props.page !== 'search' &&
+  css`
+    width: 100%;
+    max-width: 435px;
+    margin: 0 0 16px 0;
+  `}
+
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     width: 100%;
     height: ${props =>
-      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '365px'};
+      props.useBtSchedule ? (props.hasDeleted ? '45px' : '386px') : '385px'};
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
@@ -48,7 +57,8 @@ export const Container = styled.div`
           `}
   `}
 
-  ${media.greaterThan('large')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('large')`
     transition: all 300ms ease;
 
     &:hover {
@@ -58,10 +68,11 @@ export const Container = styled.div`
 `;
 
 export const SliderContainer = styled.div`
-  height: 244px;
+  height: 350px;
   position: relative;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     width: 60%;
     height: ${props => props.useBtSchedule ? '386px' : '365px'};
   `}
@@ -70,11 +81,13 @@ export const SliderContainer = styled.div`
 export const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 244px;
+  height: 350px;
 
   @media (min-width: 768px) {
+    ${props =>
+    props.page === 'search' && css `
     height: ${props => props.useBtSchedule ? '386px' : '365px'};
-  }
+  `}}
 
   .next-image {
     object-fit: cover;
@@ -97,12 +110,14 @@ export const Infos = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     padding: 30px;
     margin: auto;
   `}
 
-  ${media.greaterThan('1280px')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('1280px')`
     ${props =>
       props.releaseDelivery
         ? css`
@@ -126,7 +141,8 @@ export const CatLocGroup = styled.div`
     justify-content: space-between;
     align-items: flex-end;
 
-    ${media.greaterThan('medium')`
+    ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
       margin-top: 3px;
     `};
 
@@ -147,7 +163,8 @@ export const Category = styled.h4`
   font: 22px/29px 'Bitter';
   letter-spacing: 1px;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     font-size: 24px;
     line-height: 32px;
   `};
@@ -159,7 +176,8 @@ export const Local = styled.h4`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   text-transform: uppercase;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     font-size: 16px;
   `};
 `;
@@ -168,31 +186,35 @@ export const Reference = styled.p`
   font: 14px 'Raleway';
   transform: translateY(-1px);
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     font-size: 12px;
   `};
 `;
 
 export const Description = styled.p`
-  margin-top: 25px;
+  margin-top: 15px;
   display: block;
   display: -webkit-box;
   max-width: 100%;
-  height: 65px;
+  height: 75px;
+  max-height: 85px;
   font: 16px/18px 'Raleway';
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     height: 49px;
     -webkit-line-clamp: 3;
     font-size: 14px;
     line-height: 16px;
   `};
 
-  ${media.greaterThan('large')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('large')`
     margin-top: 15px;
   `}
 `;
@@ -236,7 +258,8 @@ export const CaracteristicsGroup = styled.div`
     }
   }
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     div {
       margin-top: 20px;
       height: 31px;
@@ -253,17 +276,20 @@ export const CaracteristicsGroup = styled.div`
 export const ValuesFavGroup = styled.div`
   ${CenterBetween};
   margin-top: 15px;
+  margin-bottom: 4px;
 
   p {
     letter-spacing: 0.46px;
     line-height: 18px !important;
   }
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     margin-top: 20px;
   `}
 
-  ${media.greaterThan('large')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('large')`
     margin-top: 20px;
     margin-bottom: 15px;
   `}
@@ -293,7 +319,8 @@ export const FavoriteButton = styled.button`
     }
   `}
 
-  ${media.greaterThan('large')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('large')`
     &:hover {
       svg path {
         stroke: ${({ theme }) => theme.colors.orange};
@@ -308,7 +335,8 @@ export const Price = styled.p`
   font-weight: ${({ theme }) => theme.fontsWeight.bold};
   line-height: 28px;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     font-size: 16px;
   `};
 `;
@@ -323,7 +351,8 @@ export const RemoveButton = styled(Button)`
   right: 0;
   margin-top: -259px;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     margin-top: 0;
     top: 0;
     right: 60%;
@@ -337,7 +366,8 @@ export const ScheduleButton = styled(Button)`
   height: 35px;
   padding: 0 10px;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     width: 190px;
   `}
 `;
@@ -347,7 +377,8 @@ export const UndoButton = styled(Button)`
   line-height: 35px;
   height: 35px;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     padding: 0 40px;
     width: auto;
   `}
@@ -357,7 +388,8 @@ export const MessageSuccess = styled.p`
   font: 18px 'Raleway';
   margin-bottom: 20px;
 
-  ${media.greaterThan('medium')`
+  ${props =>
+    props.page === 'search' && media.greaterThan('medium')`
     font-size: 16px;
     margin-left: 67.5px;
     margin-right: 31.5px;

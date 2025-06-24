@@ -4,15 +4,12 @@ import Head from 'next/head';
 // components
 import FormContact from 'components/FormContact';
 
-// helpers
-import SeoData from 'helpers/seo';
-
 function Contact() {
   return (
     <>
       <Head>
-        <title>{`Fale com a gente - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} />
+        <title>Entre em Contato com a Axpe - Fale Conosco</title>
+        <meta name="description" content="Fale com a Axpe. Tire suas dúvidas e conheça nossos canais de atendimento." />
       </Head>
       <FormContact />
     </>

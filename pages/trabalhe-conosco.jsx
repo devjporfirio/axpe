@@ -15,7 +15,6 @@ import { FormGroup, FormGroupYesNo } from 'components/FormElements/styles';
 // helpers
 import GTM from 'helpers/gtm';
 import { getErrorMessage } from 'helpers/errors';
-import SeoData from 'helpers/seo';
 
 // styles
 import {
@@ -131,8 +130,8 @@ function Work() {
   return (
     <>
       <Head>
-        <title>{`Quero trabalhar na Axpe - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} />
+        <title>Trabalhe Conosco | Faça Parte da Equipe Axpe</title>
+        <meta name="description" content="Quer fazer parte do time da Axpe? Veja as vagas disponíveis!" />
       </Head>
       <Container>
         <Form onSubmit={handleSubmit}>

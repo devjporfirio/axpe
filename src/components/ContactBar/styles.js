@@ -116,6 +116,15 @@ export const FormGroupBasics = styled.div`
   justify-content: space-between;
 `;
 
+export const FormGroupName = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  max-width: 600px;
+  gap: 10px;
+  min-height: 45px;
+`;
+
 export const FormGroupLang = styled(FormGroupBasics)`
   ${media.greaterThan('medium')`
     label {
@@ -126,12 +135,35 @@ export const FormGroupLang = styled(FormGroupBasics)`
 
 export const ButtonSubmit = styled(Button)`
   width: 100%;
+  font-family: 'Raleway', sans-serif;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  font-size: 20px;
 
   ${media.greaterThan('medium')`
     width: 100%;
   `}
 `;
 
+export const ButtonQuickCall = styled(Button)`
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  font-size: 20px;
+  margin-top: 16px;
+  background: ${({ theme }) => theme.colors.green};
+
+  a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  ${media.greaterThan('medium')`
+    display: none;
+  `}
+`;
 
 export const ButtonStyle = css`
   align-items: center;
@@ -431,7 +463,7 @@ const ListButtonStyle = css`
   }
 
   span {
-    padding-left: 30px;
+    padding-left: 3px;
     font: 14px 'Raleway';
     font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
     color: ${({ theme }) => theme.colors.orange};

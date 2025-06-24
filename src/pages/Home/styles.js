@@ -15,6 +15,18 @@ export const Container = styled.section`
       padding-top: 0;
     }
   }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 `;
 
 export const GroupSlider = styled.div`
@@ -48,7 +60,12 @@ export const Hero =  styled.div.attrs(() => ({
   margin-bottom: 10px;
   position: relative;
   height: 100%;
+  height: 550px;
   min-height: 550px;
+
+  ${media.lessThan('medium')`
+    height: 650px;
+  `}
 
   .slick-slider:before{
     content: inherit;
@@ -154,6 +171,10 @@ export const Hero =  styled.div.attrs(() => ({
 
 export const HeroItem = styled.article`
   height: 550px;
+
+  ${media.lessThan('medium')`
+    height: 650px;
+  `}
 `;
 
 export const HeroLink = styled.a`
@@ -206,6 +227,8 @@ export const HeroItemWrapper = styled.div`
     }
 
     &.desktop {
+      aspect-ratio: 16 / 9;
+      height: auto;
       ${media.lessThan('medium')`
         display: none !important;
       `}

@@ -16,12 +16,10 @@ import BlockHighlighted from 'components/BlockHighlighted';
 import BuildingList from 'components/Building/List';
 import NewsletterFooter from 'components/NewsletterFooter';
 import BuildingsPanel from 'components/BuildingsPanel';
-import BuildingCard from 'components/Building/Card';
 import CustomSelect from 'components/CustomSelect';
 
 // helpers
 import { getParamsFromObject } from 'helpers/utils';
-import SeoData from 'helpers/seo';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
@@ -58,6 +56,18 @@ function Search({ total, totalPages, data, banner, locals }) {
     query: { source, finality, reference, order },
   } = router;
   const { searchFormActive } = useSelector((state) => state.main);
+  const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
+
+  const canonicalPath = (() => {
+    const url = new URLSearchParams(query);
+  
+    const canonicalParams = new URLSearchParams();
+    for (const [ key, value ] of url.entries()) {
+      if (key !== 'page') canonicalParams.append(key, value);
+    }
+  
+    return `${baseUrl}/busca${canonicalParams.toString() ? '?' + canonicalParams.toString() : ''}`;
+  })();
 
   const keysToHumanNames = {
     source: 'Localização',
@@ -101,7 +111,7 @@ function Search({ total, totalPages, data, banner, locals }) {
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ suggestions, setSuggestions ] = useState(null);
-  const [ isOrderListActive, setIsOrderListActive ] = useState(true);
+  const [ isOrderListActive, setIsOrderListActive ] = useState(false);
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
@@ -376,8 +386,10 @@ function Search({ total, totalPages, data, banner, locals }) {
   return (
     <>
       <Head>
-        <title>{`Busca - ${SeoData.title}`}</title>
+        <title>{`Busca ${source} - Os Melhores imoveis para você!`}</title>
+        <meta name="description" content={`Confira os melhores imoveis em ${source} e encontre o apartamento ideal!`}/>
         <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href={canonicalPath} />
       </Head>
       <Container>
         {dataLoaded ? (
@@ -409,10 +421,10 @@ function Search({ total, totalPages, data, banner, locals }) {
                   >
                     <DisplayOrder>
                       <button onClick={() => setIsOrderListActive(!isOrderListActive)}>
-                        <img src={isOrderListActive ? IOrderRowOn : IOrderRowOff} alt="Botão de ordenar lista" loading='lazy'/>
+                        <img src={isOrderListActive ? IOrderBlockOff : IOrderBlockOn} alt="Botão de ordenar bloco" loading='lazy'/>
                       </button>
                       <button onClick={() => setIsOrderListActive(!isOrderListActive)}>
-                        <img src={isOrderListActive ? IOrderBlockOff : IOrderBlockOn} alt="Botão de ordenar bloco" loading='lazy'/>
+                        <img src={isOrderListActive ? IOrderRowOn : IOrderRowOff} alt="Botão de ordenar lista" loading='lazy'/>
                       </button>
                     </DisplayOrder>
 
@@ -501,16 +513,15 @@ function Search({ total, totalPages, data, banner, locals }) {
                           key={`building-searchitem-${building.reference}-${buildingIndex}`}
                         />
                       ) : (
-                        <BuildingCard
+                        <BuildingList
+                          layout="horizontal"
                           item={building}
-                          gtmShowcase={''}
                           positionIndex={buildingIndex + 1}
                           key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                          showGallery={true}
                         />
                       )}
                       {banner && buildingIndex == 2 && total >= 5 && (
-                        <SearchBanner>
+                        <SearchBanner key={`building-searchbanner-${building.reference}-${buildingIndex}`}>
                           {banner.title && (
                             <Infos>
                               <h4>{banner.title}</h4>

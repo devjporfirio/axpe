@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import PropTypes from 'prop-types';
 
 // components
@@ -7,6 +6,7 @@ import Slider from 'components/Slider';
 import GalleryNav from './GalleryNav';
 import GalleryFull from './GalleryFull';
 import DotsPagination from 'components/DotsPagination';
+import GalleryItem from './GalleryItem';
 
 // assets
 import I360 from 'assets/icons/360.svg';
@@ -18,7 +18,6 @@ import {
   PlayButton,
   SliderButton,
   Button360,
-  ImageWrapper,
 } from './styles';
 
 
@@ -98,16 +97,7 @@ function Gallery({
               <PlayButton class="play-button" src={PlayIcon} alt="Assistir vídeo" />
             )}
 
-            <ImageWrapper>
-              <Image
-                src={item.src}
-                alt="Imagens imóvel"
-                layout="fill"
-                className="next-image"
-                priority
-                sizes="(max-width: 768px) 100vw, 780px"
-              />
-            </ImageWrapper>
+            <GalleryItem item={item} />
           </SliderButton>
             ))}
       </Slider>

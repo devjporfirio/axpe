@@ -9,6 +9,7 @@ function SliderNew({
   arrowsColor = 'white',
   hasVerticalBar = false,
   type = 'full',
+  buildingsSlider = false,
   arrowsClassName = '',
   onChange,
   settings = {
@@ -25,6 +26,8 @@ function SliderNew({
 
   const afterChange = () => {
     setTimeout(() => {
+      if (!ref.current || !ref.current.innerSlider) return;
+      
       const $list = ref.current.innerSlider.list;
       const $track = $list.querySelector('.slick-track');
       const $items = $list.querySelectorAll('.slick-slide');
@@ -112,6 +115,7 @@ function SliderNew({
       type={type}
       arrowsColor={arrowsColor}
       hasVerticalBar={hasVerticalBar}
+      buildingsSlider={buildingsSlider}
     >
       <Slider
         {...settings}

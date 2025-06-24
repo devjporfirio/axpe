@@ -228,8 +228,8 @@ const positionLeftNext = css`
 
 const Arrow = styled.button`
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   z-index: 3;
   position: absolute;
 

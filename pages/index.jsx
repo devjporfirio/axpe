@@ -17,7 +17,6 @@ import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 // components
 import BuildingsPanel from 'components/BuildingsPanel';
 import BlockHighlighted from 'components/BlockHighlighted';
-import GalleryCarousel from 'components/GalleryCarousel';
 import Tag from 'components/Tag';
 import NewsletterFooter from 'components/NewsletterFooter';
 import CategoryBannerVertical from 'components/CategoryBannerVertical';
@@ -129,7 +128,6 @@ function Home({ hero, components }) {
             <SliderNew
               type="full"
               arrowsColor="white"
-              hasVerticalBar={true}
               arrowsClassName="holos-home-exclusivity-arrow"
               settings={heroSettings(component.items.length)}
             >
@@ -153,12 +151,66 @@ function Home({ hero, components }) {
           </Hero>
         );
         // case 'buildingsSquare':
-        case 'buildingsGrid':
-         return (
-           <CategorySection items={component.items} />
-         );
+      case 'buildingsGrid':
+       return (
+         <CategorySection items={component.items} />
+       );
       case 'gallery':
-        return <GalleryCarousel {...component} />;
+        return (
+          <Hero>
+            <SliderNew
+              type="full"
+              arrowsColor="white"
+              arrowsClassName="holos-home-gallery-arrow"
+              settings={heroSettings(component.items.length)}
+            >
+              {component.items.map((item, itemIndex) => (
+                <HeroItem key={`gallery-item-${itemIndex}`}>
+                  {item.link &&
+                    item.link.url &&
+                    (item.link.target === 'blank' ||
+                      item.link.target === 'self') && (
+                      <HeroLink
+                        href={item.link.url}
+                        target={`_${item.link.target}`}
+                      >
+                        {renderHeroItem(item, itemIndex)}
+                      </HeroLink>
+                    )}
+                  {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
+                </HeroItem>
+              ))}
+            </SliderNew>
+          </Hero>
+        );
+        case 'highlights':
+          return (
+            <Hero>
+              <SliderNew
+                type="full"
+                arrowsColor="white"
+                arrowsClassName="holos-home-highlights-arrow"
+                settings={heroSettings(component.items.length)}
+              >
+                {component.items.map((item, itemIndex) => (
+                  <HeroItem key={`highlights-item-${itemIndex}`}>
+                    {item.link &&
+                      item.link.url &&
+                      (item.link.target === 'blank' ||
+                        item.link.target === 'self') && (
+                        <HeroLink
+                          href={item.link.url}
+                          target={`_${item.link.target}`}
+                        >
+                          {renderHeroItem(item, itemIndex)}
+                        </HeroLink>
+                      )}
+                    {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
+                  </HeroItem>
+                ))}
+              </SliderNew>
+            </Hero>
+          );
       case 'contact':
         return (
         <>
@@ -178,8 +230,10 @@ function Home({ hero, components }) {
   });
 
   const renderHeroItem = (item, itemIndex) => {
-    const hasContent = item.title || item.content ? true : false;
-
+    const hasContent = item.title || item.content || item.text ? true : false;
+    const itemLink = item.link ? item.link : item.link.url
+    const itemContent = item.content ? item.content : item.text
+    
     return (
       <HeroItemWrapper hasContent={hasContent}>
         <div className="hero-image mobile">
@@ -213,8 +267,8 @@ function Home({ hero, components }) {
                 {item.title}
               </h2>
             )}
-            {item.content && <p>{item.content}</p>}
-            {item.link.url && <span>Saiba mais</span>}
+            {itemContent && <p>{itemContent}</p>}
+            {itemLink && <span>Saiba mais</span>}
           </HeroItemInfo>
         )}
       </HeroItemWrapper>
@@ -261,8 +315,13 @@ function Home({ hero, components }) {
       <Head>
         <title>{SeoData.title}</title>
         <meta name="description" content={SeoData.description} />
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href="https://www.axpe.com.br/" />
       </Head>
       <Container>
+        <h1 className="sr-only">
+          Axpe | Imóveis especiais São Paulo
+        </h1>
         <Hero ref={sliderRef}>
           {!showSlider ? (
             <>
@@ -292,7 +351,6 @@ function Home({ hero, components }) {
             <SliderNew
               type="full"
               arrowsColor="white"
-              hasVerticalBar={true}
               arrowsClassName="holos-home-hero-arrow"
               settings={heroSettings(heroItems.length)}
             >

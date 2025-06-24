@@ -3,6 +3,11 @@ import media from 'styled-media-query';
 
 export const Container = styled.section`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+  gap: 12px;
 `;
 
 export const Wrapper = styled.div``;
@@ -101,6 +106,13 @@ export const Nav = styled.nav`
 
 export const Hero = styled.div`
   margin-bottom: 30px;
+  height: 500px;
+  background-color: #E1DFDF;
+  width: 100%;
+
+  ${media.lessThan('medium')`
+    height: 400px;
+  `}
 
   figure {
     display: block;
@@ -177,26 +189,69 @@ export const Hero = styled.div`
     }
   }
 
-  & > div {
-    padding: 40px 30px;
+    div {
+      width: 100%;
+      height: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
 
-    ${media.greaterThan('medium')`
-      padding: 60px 10%;
+      ${media.greaterThan('medium')`
+        max-width: 1120px;
+      `}
 
-      h3 {
-        width: 60%;
+      p {
+        position: absolute;
+        top: 20%;
+        width: 95%;
+        font-size: 48px;
+        line-height: 100%;
+        padding: 16px;
+        color: ${({ theme }) => theme.colors.white};
+        font-weight: ${({ theme }) => theme.fontsWeight.normal};
+        max-width: 370px;
+
+        strong {
+          color: ${({ theme }) => theme.colors.orange};
+          font-weight: ${({ theme }) => theme.fontsWeight.normal};
+        }
+    
+        ${media.greaterThan('medium')`
+          font-size: 45px;
+          width: 100%;
+          max-width: none;
+        `}
+
+        ${media.greaterThan('medium')`
+          top: 20%;
+          left: 10%;
+          width: 60%;
+          font-size: 90px;
+          line-height: 100%;
+        `}
       }
+    
+       span {
+        position: absolute;
+        top: 70%;
+        padding: 16px;
+        width: 85%;
+        font-size: 24px;
+        color: #676767;
 
-      div {
-        width: 70%;
+        ${media.greaterThan('medium')`
+          top: 60%;
+          right: 10%;
+          width: 35%;
+          font-size: 36px;
+        `}
       }
-    `}
-  }
+    }
 `;
 
 export const Title = styled.h3`
-  margin-bottom: 30px;
-  font: ${({ theme }) => theme.fontsWeight.regular} 24px/28px 'Bitter';
+  margin-bottom: 10px;
+  font: ${({ theme }) => theme.fontsWeight.regular} 28px 'Raleway';
   color: ${({ theme }) => theme.colors.greenDark};
 
   ${media.greaterThan('medium')`
@@ -204,13 +259,21 @@ export const Title = styled.h3`
     line-height: 42px;
   `}
 
+  span {
+    white-space: nowrap;
+  }
+  
   strong {
-    font-weight: ${({ theme }) => theme.fontsWeight.black};
+    font-weight: ${({ theme }) => theme.fontsWeight.normal};
     color: ${({ theme }) => theme.colors.orange};
   }
 `;
 
 export const Text = styled.div`
+  ${media.greaterThan('medium')`
+    min-width: 560px;
+  `}
+    
   p {
     font-size: 18px;
     line-height: 25px;
@@ -223,12 +286,12 @@ export const Text = styled.div`
 
 export const Block = styled.article`
   position: relative;
-  margin-bottom: 60px;
+  margin-bottom: 0px;
+  max-width: 1040px;
 
   ${media.lessThan('767px')`
     display: flex;
     flex-direction: column-reverse;
-    padding-top: 116px;
 
     ${props => props.dataTemplate === '5_full' && css`
         padding-top: 200px;
@@ -237,7 +300,7 @@ export const Block = styled.article`
 
   ${media.greaterThan('medium')`
     display: flex;
-    padding: 50px 10% 50px 0;
+    padding: 20px 10% 0px 0;
 
     &:before {
       content: '';
@@ -262,21 +325,21 @@ export const BlockTemplate1 = css`
   align-items: flex-start;
   padding-left: 10%;
 
-  &:before {
+  /* &:before {
     top: 0;
     left: 0;
     width: 65%;
     height: 85%;
-  }
+  } */
 
   div[class*='BlockCol'] {
     &:first-child {
-      width: 45%;
+      width: 100%;
       margin-right: 10%;
     }
 
     &:last-child {
-      width: 45%;
+      width: 100%;
     }
   }
 `;
@@ -523,15 +586,18 @@ export const BlockCol = styled.div`
 `;
 
 export const BlockTitle = styled(Title)`
-  ${media.lessThan('767px')`
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 30px;
-    width: 100%;
-    min-height: 116px;
-    margin-bottom: 0;
-    background: ${({ theme }) => theme.colors.greyLight};
+  display: flex;
+  width: 75%;
+  max-width: 250px;
+  padding: 30px 30px 10px 00px;
+  flex-direction: ${({ isLast }) => (isLast ? 'row' : 'column')};
+  margin-bottom: 0;
+  background: ${({ theme }) => theme.colors.greyLight};
+  gap: ${({ isLast }) => (isLast ? ' 8px' : '0px')};
+
+  ${media.greaterThan('767px')`
+    width: 50%;
+    max-width: 500px;
   `}
 `;
 

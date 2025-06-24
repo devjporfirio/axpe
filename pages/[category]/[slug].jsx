@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import GTM from 'helpers/gtm';
 import Api from 'services';
@@ -29,12 +30,16 @@ import {
   SimilarBuildingsList,
 } from 'pages/Building/styles';
 import { useDispatch } from 'react-redux';
+import { Delivery } from '../../src/pages/Building/Datasheet/styles';
 
 function Building(props) {
   const { property, meta } = props;
   const dispatch = useDispatch();
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
   const [ data, setData ] = useState(null);
+  const router = useRouter();
+  const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
+  const canonicalUrl = `${baseUrl}${router.asPath.split('?')[0]}`;
 
   useEffect(() => {
     if (!property) return;
@@ -55,12 +60,22 @@ function Building(props) {
 
     async function loadSimilarBuildings() {
       const similar = await Api.Building.getSimilar(property, 3);
-      const buildings =
-        similar &&
-        similar.data &&
-        similar.data.length > 0 &&
-        similar.data.filter((x) => x.reference !== property.reference);
+      let buildings = similar?.data?.filter((x) => x.reference !== property.reference) || [];
 
+      if (buildings.length === 0) {
+        const fallbackParams = {
+          ...property,
+          values: {
+            ...property.values,
+            sell: '',
+            release: '',
+          }
+        };
+    
+        const fallback = await Api.Building.getSimilar(fallbackParams, 3);
+        buildings = fallback?.data?.filter((x) => x.reference !== property.reference) || [];
+      }
+    
       setSimilarBuildings(buildings);
     }
 
@@ -97,6 +112,8 @@ function Building(props) {
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <Container>
         <Headerbar
@@ -126,6 +143,21 @@ function Building(props) {
 
         <DataSheet property={data} />
 
+        {data.components.find(c => c.module?.slug === 'porque-adoramos') && (
+          <HowWeLove reasons={data.components.find(c => c.module?.slug === 'porque-adoramos').data} />
+        )}
+        
+        {property.type === 'lancamento' && property.infos.releaseDelivery && (
+          <Delivery>
+              <p>
+                  {property.infos.releaseStatus === 'Pronto'
+                      ? 'Entregue em '
+                      : 'Previsão de entrega em '}
+                  <span>{property.infos.releaseDelivery}</span>
+              </p>
+          </Delivery>
+        )}
+
         <Alert>
           <p>
             As informações acima, incluindo preço, áreas e valores, podem não
@@ -137,10 +169,6 @@ function Building(props) {
             ilustrativas e os valores estão sujeitos a alterações de tabelas.
           </p>
         </Alert>
-
-        {data.components.find(c => c.module?.slug === 'porque-adoramos') && (
-          <HowWeLove reasons={data.components.find(c => c.module?.slug === 'porque-adoramos').data} />
-        )}
 
         {similarBuildings && similarBuildings.length > 0 && (
           <SimilarBuildings>
@@ -203,11 +231,6 @@ export async function getServerSideProps({ params }) {
       ? response.building.infos.bedroomsStart
       : response.building.infos.bedrooms
     : 0;
-  const buildingPark = response.building.infos
-    ? response.building.infos.parkingStart
-      ? response.building.infos.parkingStart
-      : response.building.infos.parking
-    : 0;
 
   const pageDescPrefix = [
     'Apartamento',
@@ -216,14 +239,14 @@ export async function getServerSideProps({ params }) {
     'Galpão',
     'Prédio',
   ].includes(buildingCategory)
-    ? 'Venha conhecer este'
-    : 'Venha conhecer esta';
+    ? 'Conheça este'
+    : 'Conheça esta';
 
   const metaTitle = response.building.infos.metaTitle;
   const metaDescription = response.building.infos.metaDescription;
 
-  const pageTitle = metaTitle || `${buildingCategory} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
-  const pageDesc = metaDescription || `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
+  const pageTitle = metaTitle || `${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
+  const pageDesc = metaDescription || `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} com dormitórios. O local ideal para quem é apaixonado por arquitetura e design!`;
   const pageBanner = `${
     response.building.gallery ? response.building.gallery[0].src : ''
   }`;

@@ -1,8 +1,8 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 
 // components
 import BuildingCard from 'components/Building/Card';
-import SliderNew from 'components/SliderNew';
 
 // styles
 import {
@@ -11,6 +11,10 @@ import {
   Header,
   Items
 } from './styles';
+
+const SliderNew = dynamic(() => import('components/SliderNew'), {
+  loading: () => <div>Loading...</div>,
+});
 
 function BuildingsPanel({
   data,
@@ -35,8 +39,8 @@ function BuildingsPanel({
         {
           breakpoint: 1023,
           settings: {
-            slidesToShow: 2.2,
-            slidesToScroll: 2,
+            slidesToShow: 2,
+            slidesToScroll: 1,
           }
         },
         {
@@ -86,6 +90,7 @@ function BuildingsPanel({
             <SliderNew
               type="normal"
               settings={settings[buildingLayout]}
+              buildingsSlider={true}
             >
               {data.map((building, buildingIndex) => (
                 <BuildingCard

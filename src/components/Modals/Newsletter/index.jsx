@@ -68,7 +68,6 @@ function NewsletterModal() {
             ref={refIframe}
             src={`${process.env.config.siteUrl}/forms/newsletter/index.html?redirectUrl=${process.env.config.siteUrl}/forms/newsletter/sucesso.html`}
             border="none"
-            frameBorder="0"
             title="Newsletter"
           ></Iframe>
         </FormContainer>

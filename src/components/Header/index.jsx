@@ -14,6 +14,8 @@ import useScrollPosition from 'helpers/scrollPosition';
 import InstagramIconSVG from 'assets/icons/instagram.svg';
 import WhatsappIconSVG from 'assets/icons/whatsapp.svg';
 import SearchIconSVG from 'assets/icons/search.svg';
+import HomeIconSVG from 'assets/icons/home.svg';
+import CloudIconSVG from 'assets/icons/cloud.svg';
 
 // styles
 import {
@@ -146,6 +148,7 @@ function Header() {
                     active={searchFormActive}
                     onClick={toggleSearch}
                   >
+                    <SVG src={SearchIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                     <NavMainButtonText>Buscar imóvel</NavMainButtonText>
                   </NavMainButtonSearch>
                 </li>
@@ -156,7 +159,8 @@ function Header() {
                       type="register"
                       onClick={cancelToggle}
                     >
-                      <NavMainButtonText>Cadastrar imóvel</NavMainButtonText>
+                      <SVG src={HomeIconSVG} uniquifyIDs={true} aria-hidden="true"/>
+                      <NavMainButtonText>Vender imóvel</NavMainButtonText>
                     </NavMainButton>
                   </Link>
                 </li>
@@ -167,6 +171,7 @@ function Header() {
                       type="dream"
                       onClick={cancelToggle}
                     >
+                      <SVG src={CloudIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                       <NavMainButtonText>Só quero sonhar</NavMainButtonText>
                     </NavMainButton>
                   </Link>
@@ -221,6 +226,15 @@ function Header() {
                   Receba nossas novidades
                 </NewsletterButton>
               </Newsletter>
+
+              <Link href="/trabalhe-conosco" passHref>
+                <NewsletterButton
+                  className="holos-menu-item"
+                  onClick={cancelToggle}
+                >
+                  Trabalhe conosco
+                </NewsletterButton>
+              </Link>
             </NavBottomContainer>
           </Box>
         </Wrapper>

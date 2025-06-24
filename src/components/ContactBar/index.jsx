@@ -30,17 +30,20 @@ import {
   ButtonClose,
   Iframe,
   Column,
+  ButtonQuickCall,
+  FormGroupName,
   // ListButton
 } from './styles';
 
 const registrySchema = Yup.object().shape({
-  name: Yup.string().required(),
-  whatsapp: Yup.number().required(),
-  email: Yup.string()
-    .email()
-    .required(),
-  message: Yup.string().required(),
+  Name_First: Yup.string().required('Informe seu nome'),
+  Name_Last: Yup.string().required('Informe seu sobrenome'),
+  Email: Yup.string().email().required('Informe um email válido'),
+  PhoneNumber: Yup.string().required('Informe seu Whatsapp'),
+  SingleLine11: Yup.string().required('Deixe sua mensagem'),
 });
+
+const formSuccessPageUrl = `${process.env.config.siteUrl}/forms/imovel/sucesso.html`;
 
 function ContactBar() {
   const router = useRouter();
@@ -56,23 +59,27 @@ function ContactBar() {
   const [ isBuilding, setIsBuilding ] = useState(false);
   const [ iframeUrl, setIframeUrl ] = useState(null);
   const {
-      handleSubmit,
       values,
       isSubmitting,
       touched,
       errors,
       handleChange,
+      setTouched,
+      validateForm
     } = useFormik({
       initialValues: {
-       name: '',
-       email: '',
-       whatsapp: '',
-       message: '',
+       Name_First: '',
+       Name_Last: '',
+       Email: '',
+       PhoneNumber: '',
+       SingleLine11: '',
       },
       validationSchema: registrySchema,
-      onSubmit: async (values) => {
+      onSubmit: (values, { setSubmitting }) => {
+        setSubmitting(false);
       },
     });
+
   const iframes = [
     {
       source: 'praia-campo',
@@ -299,8 +306,8 @@ function ContactBar() {
     }
 
     setIsBuilding(
-      router.route === '/imovel' || (contactBarActive && contactBarForced)
-        ? false // Modal fale com corretor se torna o mesmo da home (v0)
+      router.pathname.startsWith('/[category]/[slug]') || (contactBarActive && contactBarForced)
+        ? true
         : false
     );
   }, [ router.route, contactBarActive, currentBuilding ]);
@@ -351,63 +358,67 @@ function ContactBar() {
     message = message.replace('{bedrooms}', currentBuilding.infos.bedrooms ? ', ' + currentBuilding.infos.bedrooms + (parseInt(currentBuilding.infos.bedrooms) > 1 ? ' quartos' : ' quarto') : '');
     message = message.replace('{parking}', currentBuilding.infos.parking ? ' e ' + currentBuilding.infos.parking + (parseInt(currentBuilding.infos.parking) > 1 ? ' vagas' : ' vaga') : '');
   }
-  
+
   return (
     <>
-      <LinkFloat
-        className='holos-contact-float moreinfo-btn--whatsapp hidden'
-        href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
-        target='_blank'>
-        <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
-        {isBuilding ? (
-          <div>
-            <span>Quer saber mais?</span>
-            Fale com um corretor.
-          </div>
-        ) : (
-          <div>Fale com um corretor</div>
-        )}
-      </LinkFloat>
+    {!isBuilding && (
+      <>
+        <LinkFloat
+          className='holos-contact-float moreinfo-btn--whatsapp hidden'
+          href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
+          target='_blank'>
+          <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
+          {isBuilding ? (
+            <div>
+              <span>Quer saber mais?</span>
+              Fale com um corretor.
+            </div>
+          ) : (
+            <div>Fale com um corretor</div>
+          )}
+        </LinkFloat>
 
-       {/* Botão Mobile*/}
-       <ButtonFloat
-        className='holos-contact-float moreinfo-btn--whatsapp flex large:hidden'
-        type='button'
-        onClick={toggleShow}
-        aria-label='Fale com um corretor'
-      >
-        <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
-        {isBuilding ? (
-          <div>
-            <span>Quer saber mais?</span>
-            Fale com um corretor.
-          </div>
-        ) : (
-          <div>Fale com um corretor</div>
-        )}
-      </ButtonFloat>
-      
-      {/* Botão Dekstop*/}
-      <ButtonFloat
-        className='holos-contact-float hidden large:flex'
-        type='button'
-        onClick={toggleShow}
-        aria-label='Fale com um corretor'
-      >
-        <SVG src={ChatIconSVG} aria-hidden="true"/>
-        {isBuilding ? (
-          <div>
-            <span>Quer saber mais?</span>
-            Fale com um corretor.
-          </div>
-        ) : (
-          <div>Fale com um corretor</div>
-        )}
-      </ButtonFloat>
+        {/* Botão Mobile*/}
+        <ButtonFloat
+          className='holos-contact-float moreinfo-btn--whatsapp flex large:hidden'
+          type='button'
+          onClick={toggleShow}
+          aria-label='Fale com um corretor'
+        >
+          <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
+          {isBuilding ? (
+            <div>
+              <span>Quer saber mais?</span>
+              Fale com um corretor.
+            </div>
+          ) : (
+            <div>Fale com um corretor</div>
+          )}
+        </ButtonFloat>
+        
+        {/* Botão Dekstop*/}
+        <ButtonFloat
+          className='holos-contact-float hidden large:flex'
+          type='button'
+          onClick={toggleShow}
+          aria-label='Fale com um corretor'
+        >
+          <SVG src={ChatIconSVG} aria-hidden="true"/>
+          {isBuilding ? (
+            <div>
+              <span>Quer saber mais?</span>
+              Fale com um corretor.
+            </div>
+          ) : (
+            <div>Fale com um corretor</div>
+          )}
+        </ButtonFloat>
+      </>
+    )}
 
       {contactBarActive && (
         <Container onClick={clickContainer} data-type='container'>
-          <Wrapper isHome={true}>
+          <Wrapper isHome={router.route === '/'}>
             {isBuilding && iframeUrl ? (
               <Iframe
                 ref={refIframe}
@@ -444,65 +455,105 @@ function ContactBar() {
                     method='POST'
                     accept-charset='UTF-8'
                     enctype='multipart/form-data'
-                    onSubmit={handleSubmit}
                   >
+                    <input type="hidden" name="zf_referrer_name" value="Form Contato Home" />
+                    <input
+                      type="hidden"
+                      name="zf_redirect_url"
+                      value={formSuccessPageUrl}
+                    />
+                    <input type="hidden" name="zc_gad" value="" />
+                    <input type="checkbox" name="DecisionBox" defaultChecked hidden />
+
                     <FormGroup>
                       <FormGroupBasics>
+                        <FormGroupName>
+                          <FormElements
+                            name='Name_First'
+                            placeholder='Nome'
+                            onChange={handleChange}
+                            error={touched.Name_First && errors.Name_First}
+                            value={values.Name_First}
+                            elname="First"
+                            className='holos-form-field'
+                            data-label='Nome'
+                          />
+
+                          <FormElements
+                            name="Name_Last"
+                            placeholder="Sobrenome"
+                            value={values.Name_Last}
+                            error={touched.Name_Last && errors.Name_Last}
+                            onChange={handleChange}
+                            elname="Last"
+                            className='holos-form-field'
+                            data-label='Sobrenome'
+                          />
+                        </FormGroupName>
+                     
                         <FormElements
-                          name='name'
-                          placeholder='Nome e Sobrenome'
-                          onChange={handleChange}
-                          error={touched.name && errors.name}
-                          value={values.name}
-                          className='holos-form-field'
-                          data-label='Nome e Sobrenome'
-                          data-type='Trabalhe Conosco'
-                        />
-                        <FormElements
-                          type='emailmask'
-                          name='email'
+                          type='email'
+                          name='Email'
                           placeholder='Seu E-mail'
                           onChange={handleChange}
-                          error={touched.email && errors.email}
-                          value={values.email}
+                          error={touched.Email && errors.Email}
+                          value={values.Email}
                           className='holos-form-field'
                           data-label='E-mail pessoal'
-                          data-type='Trabalhe Conosco'
                         />
                         <FormElements
                           type='number'
-                          name='whatsapp'
+                          name='PhoneNumber'
                           placeholder='Seu Whatsapp'
                           onChange={handleChange}
-                          error={touched.whatsapp && errors.whatsapp}
-                          value={values.whatsapp}
+                          error={touched.PhoneNumber && errors.PhoneNumber}
+                          value={values.PhoneNumber}
                           className='holos-form-field'
                           data-label='Whatsapp'
-                          data-type='Trabalhe Conosco'
                         />
                         <FormElements
                           type='area'
-                          name='message'
+                          name='SingleLine11'
                           placeholder='Deixe sua mensagem'
                           onChange={handleChange}
-                          error={touched.message && errors.message}
-                          value={values.message}
+                          error={touched.SingleLine11 && errors.SingleLine11}
+                          value={values.SingleLine11}
                           className='holos-form-field'
-                          data-label='Experiências anteriores na area comercial de empresas'
-                          data-type='Trabalhe Conosco'
+                          data-label='Mensagem sobre imóvel'
                         />
-                      </FormGroupBasics>
+                       </FormGroupBasics>
                     </FormGroup>
-                      <ButtonSubmit
-                        disabled={isSubmitting}
-                        type='submit'
-                        className='contact-form-submit'
-                      >
-                        {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
-                      </ButtonSubmit>
+                    <ButtonSubmit
+                      type="button"
+                      disabled={isSubmitting}
+                      className="contact-form-submit"
+                      onClick={async () => {
+                        const formErrors = await validateForm();
+                        const hasErrors = Object.keys(formErrors).length > 0;
+
+                        setTouched({
+                          Name_First: true,
+                          Name_Last: true,
+                          Email: true,
+                          PhoneNumber: true,
+                          SingleLine11: true,
+                        });
+
+                        if (!hasErrors && refForm.current) {
+                          refForm.current.submit();
+                        }
+                      }}
+                    >
+                      {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
+                    </ButtonSubmit>
                       <button className='contact-whatsapp-button-green' disabled={isSubmitting} onClick={handleWhatsapp}>
                         Whatsapp  <strong>(11) 3074-3600</strong>
                       </button>
+                      <ButtonQuickCall>
+                        <a href="tel:+551130743600" target="_blank" class="moreinfo-btn holos-product-contact-method" data-label="Telefone">
+                            Telefone: <strong>(11) 3074-3600</strong>
+                        </a>
+                      </ButtonQuickCall>
                   </Form>
                 </Column>
               </>

@@ -21,7 +21,7 @@ export const Slider = styled.div`
       left: 0;
       width: 100%;
       height: 3px;
-      background: ${({ theme }) => theme.colors.blueDark};
+      background: ${({ theme }) => theme.colors.orange};
       opacity: 0.4;
       border-radius: 4px;
     }
@@ -35,7 +35,7 @@ export const Slider = styled.div`
     right: -6px !important;
     border: 0;
     font-size: 0;
-    background: ${({ theme }) => theme.colors.blueDark};
+    background: ${({ theme }) => theme.colors.orange};
     border-radius: 50%;
     box-shadow: none;
     z-index: 5;
@@ -49,7 +49,7 @@ export const Slider = styled.div`
 
   .noUi-connect {
     position: absolute;
-    background: transparent;
+    background: ${({ theme }) => theme.colors.white};
 
     &:before {
       content: '';
@@ -59,8 +59,7 @@ export const Slider = styled.div`
       left: 0;
       width: 100%;
       height: 3px;
-      background: ${({ theme }) => theme.colors.blueDark};
-      opacity: 0.4;
+      background: ${({ theme }) => theme.colors.orange};
       border-radius: 4px;
     }
   }
@@ -73,31 +72,37 @@ export const InputGroup = styled.div`
   gap: 8px;
   margin-top: 10px;
   margin-bottom: 10px;
+
   :first-child {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
 `;
+
 export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   border-radius: 4px;
   padding: 6px 8px;
   background: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.blueDark};
   gap: 4px;
   height: 40px;
 `;
+
 export const PrefixSpan = styled.span`
   font: 12px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
   white-space: nowrap;
 `;
+
 export const SuffixSpan = styled.span`
   font: 12px 'Raleway';
   color: ${({ theme }) => theme.colors.green};
   white-space: nowrap;
 `;
+
 export const StyledInput = styled.input`
   border: none;
   outline: none;
@@ -112,33 +117,38 @@ export const StyledInput = styled.input`
     border-color: ${({ theme }) => theme.colors.orange};
   }
 `;
+
 export const InputLabel = styled.span`
   display: block;
   margin-top: 4px;
   font-size: 12px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.green};
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   text-align: start;
   &.right {
     text-align: end;
   }
 `;
+
 export const ButtonGroup = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 10px;
 `;
+
 export const RangeButton = styled.button`
+  font-size: 12px;
   padding: 8px 10px;
-  border: 2px solid ${({ theme }) => theme.colors.white};
-  background: ${({ active, theme }) => (active ? theme.colors.white : 'transparent')};
-  color: ${({ active, theme }) => (active ? theme.colors.green : theme.colors.white)};
-  font-weight: ${({ theme }) => theme.fontsWeight.bold};
+  border: 1px solid ${({ theme }) => theme.colors.green};
+  background: ${({ active, theme }) => (active ? theme.colors.green : 'transparent')};
+  color: ${({ active, theme }) => (active ? theme.colors.white : theme.colors.green)};
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
+
   &:hover {
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.green};
+    background: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;

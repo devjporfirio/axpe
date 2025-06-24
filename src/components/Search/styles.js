@@ -60,7 +60,7 @@ export const FormWrapper = styled.div`
   ${media.greaterThan('medium')`
     position: absolute;
     top: 0;
-    width: 360px;
+    width: 420px;
     height: 100vh;
     background: ${({ theme }) => theme.colors.green};
     transform: translateX(-100%);
@@ -392,7 +392,7 @@ export const FormTab = styled.div`
 
   ${media.greaterThan('medium')`
     left: 0;
-    width: 250px;
+    width: 335px;
     z-index: 3;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
     cursor: default;
@@ -428,7 +428,7 @@ export const FormTabActive = css`
   }
 
   ${media.greaterThan('medium')`
-    left: 360px;
+    left: 420px;
     ${({ theme }) => theme.show}
   `}
 `;
@@ -468,8 +468,8 @@ export const FormTabClose = styled.button`
   position: absolute;
   top: 30px;
   right: 30px;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   font-size: 0;
 
   &:before,
@@ -711,7 +711,7 @@ export const FormTabSliderTitle = styled.h4`
   font: 14px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.green};
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

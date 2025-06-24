@@ -106,7 +106,12 @@ function Headerbar({ className, type, title, subtitle, building }) {
             <SVG src={ArrowIconSVG} aria-hidden="true"/> Voltar
           </ButtonBack>
 
-          {title && <h3 dangerouslySetInnerHTML={{ __html: title }} />}
+          {title &&
+            (router.pathname === '/busca' ? (
+              <h1 dangerouslySetInnerHTML={{ __html: title }} />
+            ) : (
+              <h3 dangerouslySetInnerHTML={{ __html: title }} />
+            ))}
 
           {subtitle && <h4 dangerouslySetInnerHTML={{ __html: subtitle }} />}
 
