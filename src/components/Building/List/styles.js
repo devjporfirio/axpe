@@ -32,6 +32,7 @@ export const Container = styled.div`
   css`
     width: 100%;
     max-width: 435px;
+    margin: 0 0 16px 0;
   `}
 
   ${props =>

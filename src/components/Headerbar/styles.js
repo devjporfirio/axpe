@@ -7,7 +7,8 @@ import Button from 'components/Button';
 export const Container = styled.div`
   min-height: 64px;
   background: ${({ theme }) => theme.colors.white};
-  h3 {
+  
+  h1,h3 {
     font: 18px/28px 'Bitter';
     color: ${({ theme }) => theme.colors.orange};
     font-weight: ${({ theme }) => theme.fontsWeight.regular};

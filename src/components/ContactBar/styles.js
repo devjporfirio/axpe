@@ -116,6 +116,15 @@ export const FormGroupBasics = styled.div`
   justify-content: space-between;
 `;
 
+export const FormGroupName = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  max-width: 600px;
+  gap: 10px;
+  min-height: 45px;
+`;
+
 export const FormGroupLang = styled(FormGroupBasics)`
   ${media.greaterThan('medium')`
     label {

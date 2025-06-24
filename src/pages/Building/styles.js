@@ -43,10 +43,6 @@ export const SimilarBuildings = styled.div`
   margin: 0 auto;
   padding: 0 15px;
   max-width: 1060px;
-
-  ${media.greaterThan('large')`
-    padding: 0;
-  `}
 `;
 
 export const SimilarBuildingsHeader = styled.header`

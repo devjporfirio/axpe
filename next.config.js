@@ -1,3 +1,4 @@
+
 const { resolve } = require('path');
 const webpack = require('webpack');
 const fs = require('fs');
@@ -5,18 +6,9 @@ const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
 const nodeEnv = process.env.NODE_ENV || 'development';
+const envConfig = JSON.parse(fs.readFileSync(`./config/${nodeEnv}.json`, 'utf-8'));
 
-const envConfig = JSON.parse(
-  fs.readFileSync(`./config/${nodeEnv}.json`, 'utf-8')
-);
-
-module.exports = withPWA({
-  pwa: {
-    dest: 'public',
-    disable: nodeEnv === 'development',
-    runtimeCaching,
-    buildExcludes: [ /middleware-manifest\.json$/ ],
-  },
+const nextConfig = {
   images: {
     domains: [
       'admin.axpe.com.br',
@@ -75,5 +67,15 @@ module.exports = withPWA({
     };
 
     return config;
+  },
+};
+
+module.exports = withPWA({
+  ...nextConfig,
+  pwa: {
+    dest: 'public',
+    disable: nodeEnv === 'development',
+    runtimeCaching,
+    buildExcludes: [ /middleware-manifest\.json$/ ],
   },
 });

@@ -7,7 +7,7 @@ function BodyScripts() {
       <noscript>
         <iframe
           title="google-tag-manager"
-          src="https://www.googletagmanager.com/ns.html?id=GTM-5B8BH98"
+          src="https://www.googletagmanager.com/ns.html?id=GTM-PH2WRPFM"
           height="0"
           width="0"
           style={{ display: 'none', visibility: 'hidden' }}

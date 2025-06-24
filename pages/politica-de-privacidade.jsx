@@ -4,15 +4,12 @@ import Head from 'next/head';
 // components
 import PrivacyPolicy from 'components/PrivacyPolicy';
 
-// helpers
-import SeoData from 'helpers/seo';
-
 function Privacy() {
   return (
     <>
       <Head>
-        <title>{`Política de Privacidade - ${SeoData.title}`}</title>
-        <meta name="description" content={SeoData.description} />
+        <title>Política de Privacidade da Axpe | Saiba Mais</title>
+        <meta name="description" content="Entenda como protegemos seus dados e garantimos sua privacidade."/>
       </Head>
       <PrivacyPolicy />
     </>

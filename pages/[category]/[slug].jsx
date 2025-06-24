@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import GTM from 'helpers/gtm';
 import Api from 'services';
@@ -36,6 +37,9 @@ function Building(props) {
   const dispatch = useDispatch();
   const [ similarBuildings, setSimilarBuildings ] = useState([]);
   const [ data, setData ] = useState(null);
+  const router = useRouter();
+  const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
+  const canonicalUrl = `${baseUrl}${router.asPath.split('?')[0]}`;
 
   useEffect(() => {
     if (!property) return;
@@ -108,6 +112,8 @@ function Building(props) {
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <Container>
         <Headerbar
@@ -225,11 +231,6 @@ export async function getServerSideProps({ params }) {
       ? response.building.infos.bedroomsStart
       : response.building.infos.bedrooms
     : 0;
-  const buildingPark = response.building.infos
-    ? response.building.infos.parkingStart
-      ? response.building.infos.parkingStart
-      : response.building.infos.parking
-    : 0;
 
   const pageDescPrefix = [
     'Apartamento',
@@ -238,14 +239,14 @@ export async function getServerSideProps({ params }) {
     'Galpão',
     'Prédio',
   ].includes(buildingCategory)
-    ? 'Venha conhecer este'
-    : 'Venha conhecer esta';
+    ? 'Conheça este'
+    : 'Conheça esta';
 
   const metaTitle = response.building.infos.metaTitle;
   const metaDescription = response.building.infos.metaDescription;
 
-  const pageTitle = metaTitle || `${buildingCategory} ${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
-  const pageDesc = metaDescription || `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} dormitórios e ${buildingPark} vagas de garagem. O local ideal para quem é apaixonado por arquitetura e design!`;
+  const pageTitle = metaTitle || `${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
+  const pageDesc = metaDescription || `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} com dormitórios. O local ideal para quem é apaixonado por arquitetura e design!`;
   const pageBanner = `${
     response.building.gallery ? response.building.gallery[0].src : ''
   }`;

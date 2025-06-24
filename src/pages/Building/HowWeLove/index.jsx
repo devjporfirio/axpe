@@ -111,6 +111,7 @@ function HowWeLove({ reasons }) {
 
   return (type === 'array' && data) || (type === 'html' && html && data) ? (
     <Article>
+      <h2>Porque curtimos esse imóvel</h2>
       {type === 'html' && html}
       {type === 'array' && data && data.length > 0
         ? data.map((reason, index) => (

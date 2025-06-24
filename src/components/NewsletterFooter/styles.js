@@ -3,19 +3,20 @@ import media from 'styled-media-query';
 
 export const NewsletterContainer = styled.div`
   display: flex;
-  background-color: ${({ theme }) => theme.colors.grey2};
-  padding: 60px 20px;
+  background-color: ${({ theme }) => theme.colors.green3};
+  padding: 20px;
+  padding-top: 30px;
   position: relative;
-  margin-top: 10px;
-  min-height: 250px;
+  margin-top: 12px;
+  min-height: 300px;
   
   ${media.greaterThan('medium')`
-    padding: 42px 41px 0px;
+    padding: 42px 41px 0px 100px;
   `}
 `;
 
 export const NewsletterTextDesktop = styled.div`
-  color: ${({ theme }) => theme.colors.greenDark};
+  color: ${({ theme }) => theme.colors.white};
   font-family: 'Bitter';
   z-index: 10;
 
@@ -25,7 +26,7 @@ export const NewsletterTextDesktop = styled.div`
   }
 
   p {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: ${({ theme }) => theme.fontsWeight.medium};
     width: 70%;
     margin-top: 6px;
@@ -33,7 +34,6 @@ export const NewsletterTextDesktop = styled.div`
 
   h4:nth-child(1),
   p:nth-child(2) {
-    display: none;
     ${media.greaterThan('medium')`
       display: block;
     `}
@@ -49,16 +49,18 @@ export const NewsletterTextDesktop = styled.div`
 
 export const FormContainer = styled.div`
   margin-top: 24px;
+  width: 70%;
 
-  ${media.greaterThan('768px')`
+  ${media.greaterThan('medium')`
     display: block;
+    width: 75%;
   `}
 `;
 
 export const Iframe = styled.iframe`
   display: block;
   width: 100%;
-  min-height: 190px;
+  min-height: 225px;
 
 `;
 
@@ -71,10 +73,6 @@ export const Background = styled.div`
   background-repeat: no-repeat;
   background-position: right center;
   background-size: contain;
-  background-image: url('/static/bg-newsletter-bottom-mobile.svg');
+  background-image: url('/static/bg-newsletter-bottom.svg');
 
-  ${media.greaterThan('large')`
-    background-repeat: repeat;
-    background-image: url('/static/bg-newsletter-bottom-desktop.png');
-  `}
 `;

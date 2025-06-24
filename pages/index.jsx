@@ -94,7 +94,6 @@ function Home({ hero, components }) {
   }, []);
 
   const renderComponents = useCallback((type, component) => {
-    // console.log(type, component)
     switch (type) {
       case 'banner':
         return (
@@ -316,8 +315,13 @@ function Home({ hero, components }) {
       <Head>
         <title>{SeoData.title}</title>
         <meta name="description" content={SeoData.description} />
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href="https://www.axpe.com.br/" />
       </Head>
       <Container>
+        <h1 className="sr-only">
+          Axpe | Imóveis especiais São Paulo
+        </h1>
         <Hero ref={sliderRef}>
           {!showSlider ? (
             <>

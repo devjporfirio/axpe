@@ -20,7 +20,6 @@ import CustomSelect from 'components/CustomSelect';
 
 // helpers
 import { getParamsFromObject } from 'helpers/utils';
-import SeoData from 'helpers/seo';
 
 // assets
 import ArrowIconSVG from 'assets/icons/arrow.svg';
@@ -57,6 +56,18 @@ function Search({ total, totalPages, data, banner, locals }) {
     query: { source, finality, reference, order },
   } = router;
   const { searchFormActive } = useSelector((state) => state.main);
+  const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
+
+  const canonicalPath = (() => {
+    const url = new URLSearchParams(query);
+  
+    const canonicalParams = new URLSearchParams();
+    for (const [ key, value ] of url.entries()) {
+      if (key !== 'page') canonicalParams.append(key, value);
+    }
+  
+    return `${baseUrl}/busca${canonicalParams.toString() ? '?' + canonicalParams.toString() : ''}`;
+  })();
 
   const keysToHumanNames = {
     source: 'Localização',
@@ -375,8 +386,10 @@ function Search({ total, totalPages, data, banner, locals }) {
   return (
     <>
       <Head>
-        <title>{`Busca - ${SeoData.title}`}</title>
+        <title>{`Busca ${source} - Os Melhores imoveis para você!`}</title>
+        <meta name="description" content={`Confira os melhores imoveis em ${source} e encontre o apartamento ideal!`}/>
         <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href={canonicalPath} />
       </Head>
       <Container>
         {dataLoaded ? (
@@ -508,7 +521,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         />
                       )}
                       {banner && buildingIndex == 2 && total >= 5 && (
-                        <SearchBanner>
+                        <SearchBanner key={`building-searchbanner-${building.reference}-${buildingIndex}`}>
                           {banner.title && (
                             <Infos>
                               <h4>{banner.title}</h4>
