@@ -153,7 +153,7 @@ function Header() {
                   </NavMainButtonSearch>
                 </li>
                 <li>
-                  <Link href="/cadastrar" passHref>
+                  <Link href="https://wa.me/551130743600?text=Ol%C3%A1%2C%20eu%20gostaria%20de%20comercializar%20o%20meu%20im%C3%B3vel%20com%20a%20Axpe" passHref>
                     <NavMainButton
                       className="holos-menu-item"
                       type="register"

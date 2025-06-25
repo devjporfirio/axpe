@@ -263,6 +263,7 @@ export const Buildings = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 0 16px;
 `;

@@ -80,7 +80,7 @@ export const List = styled.main`
   `}
 
   ${media.greaterThan('large')`
-    padding: 70px 130px 70px 130px;
+    padding: 70px;
     text-align: left;
   `}
 

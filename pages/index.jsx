@@ -167,17 +167,16 @@ function Home({ hero, components }) {
               {component.items.map((item, itemIndex) => (
                 <HeroItem key={`gallery-item-${itemIndex}`}>
                   {item.link &&
-                    item.link.url &&
-                    (item.link.target === 'blank' ||
-                      item.link.target === 'self') && (
+                    (item.link_type === 'blank' ||
+                      item.link_type === 'self') && (
                       <HeroLink
-                        href={item.link.url}
-                        target={`_${item.link.target}`}
+                        href={item.link}
+                        target={`_${item.link_type}`}
                       >
                         {renderHeroItem(item, itemIndex)}
                       </HeroLink>
                     )}
-                  {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
+                  {!item.link ? renderHeroItem(item, itemIndex) : null}
                 </HeroItem>
               ))}
             </SliderNew>
