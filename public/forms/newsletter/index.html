@@ -11,6 +11,24 @@
 </head>
 
 <body>
+  <script type="text/javascript" src="https://axfq.maillist-manage.com/js/optin.min.js" onload="setupSF('sf5421edfd82389be4a1c6ff247369342f430b2153cb848ae9','ZCFORMVIEW',false,'acc',false,'2')"></script>
+  <script type="text/javascript">
+    function runOnFormSubmit_sf5421edfd82389be4a1c6ff247369342f430b2153cb848ae9(th){
+      /*Before submit, if you want to trigger your event, "include your code here"*/
+      setTimeout(function() {
+        document.querySelector('input[name="FIRSTNAME"]').value = '';
+        document.querySelector('input[name="LASTNAME"]').value = '';
+        document.querySelector('input[name="CONTACT_EMAIL"]').value = '';
+
+        document.querySelector('input[name="FIRSTNAME"]').classList.remove('filled');
+        document.querySelector('input[name="LASTNAME"]').classList.remove('filled');
+        document.querySelector('input[name="CONTACT_EMAIL"]').classList.remove('filled');
+
+        window.location = document.querySelector('input[name="zf_redirect_url"]').value;
+      }, 500)
+    };
+  </script>
+
   <div id="sf5421edfd82389be4a1c6ff247369342f430b2153cb848ae9" data-type="signupform" class="contact">
     
     <input type="hidden" id="recapTheme" value="2">
@@ -36,32 +54,29 @@
         </div>
       </div>
 
-      <form class="form" method="POST" id="zcampaignOptinForm" action="https://lfia-cmpzourl.maillist-manage.com/weboptin.zc">
-        <input type="hidden" name="zf_redirect_url" value="https://axpe-frontend.vercel.app/forms/newsletter/sucesso.html" data-element="redirectUrl">
+      <form class="form" method="POST" id="zcampaignOptinForm" action="https://axfq.maillist-manage.com/weboptin.zc">
+        <input type="hidden" name="zf_redirect_url" value="" data-element="redirectUrl">
         <input type="hidden" id="fieldBorder" value="rgb(222, 222, 222)">
         <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW" onload="">
         <input type="hidden" name="viewFrom" id="viewFrom" value="URL_ACTION">
         <input type="hidden" id="submitType" name="submitType" value="optinCustomView">
-        <input type="hidden" id="lD" name="lD" value="">
+        <input type="hidden" id="lD" name="lD" value="18df842cc944caf2">
         <input type="hidden" name="emailReportId" id="emailReportId" value="">
-        <input type="hidden" name="zx" id="cmpZuid" value="12f3cd12b">
+        <input type="hidden" name="zx" id="cmpZuid" value="12a187f13">
         <input type="hidden" name="zcvers" value="3.0">
         <input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
         <input type="hidden" id="mode" name="mode" value="OptinCreateView">
-        <input type="hidden" id="zctd" name="zctd" value="190b014cb1f69c41">
-        <input type="hidden" id="zcld" name="zcld" value="">
-        <input type="hidden" id="document_domain" value="lfia-cmpzourl.maillist-manage.com">
-        <input type="hidden" id="zc_Url" value="lfia-cmpzourl.maillist-manage.com">
+        <input type="hidden" id="zcld" name="zcld" value="18df842cc944caf2">
+        <input type="hidden" id="zctd" name="zctd" value="">
+        <input type="hidden" id="document_domain" value="campaigns.zoho.com">
+        <input type="hidden" id="zc_Url" value="axfq.maillist-manage.com">
         <input type="hidden" id="new_optin_response_in" value="0">
         <input type="hidden" id="duplicate_optin_response_in" value="0">
-        <input type="hidden" id="zc_formIx" name="zc_formIx" value="3z491d7ba85e8e6f4100279d3ae36cfe46d254a79383c038769dd0cf94840f5bdb">
+        <input type="hidden" id="zc_formIx" name="zc_formIx" value="5421edfd82389be4a1c6ff247369342f430b2153cb848ae9">
         <input type="hidden" id="isCaptchaNeeded" value="false">
         <input type="hidden" id="superAdminCap" value="0">
         <input type="hidden" id="scriptless" name="scriptless" value="yes">
-        <input type="hidden" name="tpIx" value="3z959d73b09d0e13ca8594ab409fd34a9d37ba5997534fd7152e6e213c4d7a557a">
-        <input type="hidden" name="custIx" value="3z959d73b09d0e13ca8594ab409fd34a9d017af7a1866bf81a88fc14bac98d2bf7">
-        <input type="hidden" name="cntrIx" value="3z491d7ba85e8e6f4100279d3ae36cfe466dd4a2514a8b93fc3ed6f1f6c9f1b27d">
-        <input type="hidden" name="sourceURL" value="https://lfia-cmpzourl.maillist-manage.com/ua/Optin?od=11287ecb233841&zx=12f3cd12b&tD=190b014cb1f69c41&sD=190b014cb87354cd">
+        <input type="hidden" id="secretid" value="6LdNeDUUAAAAAG5l7cJfv1AA5OKLslkrOa_xXxLs">
 
         <label class="form-group" fieldid="639375000000000023">
           <input type="text" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" maxlength="100" required="true" value="" class="form-group__control holos-form-field" data-label="Nome" data-type="Newsletter" />
@@ -86,13 +101,15 @@
       <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
       <div id="zcOptinSuccessPopup" style="display:none;z-index: 9999;width: 800px; height: 40%;top: 84px;position: fixed; left: 26%;background-color: #FFFFFF;border-color: #E6E6E6; border-style: solid; border-width: 1px;  box-shadow: 0 1px 10px #424242;padding: 35px;">
         <span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" id="closeSuccess">
-          <img src="https://campaigns.zoho.com/images/videoclose.png">
+          <img src="https://axfq.maillist-manage.com/images/videoclose.png">
         </span>
         <div id="zcOptinSuccessPanel"></div>
       </div>
     </div>
 
   </div>
+
+  <script type="text/javascript" src="https://axfq.maillist-manage.com/js/optin.min.js" onload="setupSF('sf5421edfd82389be4a1c6ff247369342f430b2153cb848ae9','ZCFORMVIEW',false,'acc',false,'2')"></script>
 
   <script src="https://unpkg.com/imask"></script>
   <script type="text/javascript" src="../scripts/pristine.min.js"></script>
