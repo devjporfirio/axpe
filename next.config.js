@@ -14,7 +14,6 @@ const nextConfig = {
       'admin.axpe.com.br',
       'images.axpe.com.br',
       'axpe.com.br',
-      'adminaxpe.wicomm.com.br',
     ],
     formats: [ 'image/avif', 'image/webp' ],
   },
