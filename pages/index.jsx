@@ -241,6 +241,7 @@ function Home({ hero, components }) {
             alt={item.title}
             layout='fill'
             priority={itemIndex === 0}
+            unoptimized
           />
         </div>
         <div className="hero-image desktop">
@@ -250,6 +251,7 @@ function Home({ hero, components }) {
             layout='fill'
             priority={itemIndex === 0}
             sizes="(max-width: 768px) 100vw, 1280px"
+            unoptimized
           />
         </div>
         {hasContent && (
@@ -332,6 +334,7 @@ function Home({ hero, components }) {
                   height={720}
                   priority
                   placeholder="empty"
+                  unoptimized
                 />
               </PlaceholderImageDesk>
 
@@ -343,6 +346,7 @@ function Home({ hero, components }) {
                   height={375}
                   priority
                   placeholder="empty"
+                  unoptimized
                 />
               </PlaceholderImageMob>
             </>

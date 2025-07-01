@@ -277,6 +277,7 @@ function BuildingList({
                             className="next-image"
                             sizes="(max-width: 768px) 100vw, 60vw"
                             loading="lazy"
+                            unoptimized
                           />
                         </ImageWrapper>
                       </LinkTag>

@@ -20,6 +20,7 @@ export default function GalleryItem({ item }) {
         className="next-image"
         onLoadingComplete={handleImageLoad}
         sizes="(max-width: 768px) 100vw, 780px"
+        unoptimized
       />
     </ImageWrapper>
   );

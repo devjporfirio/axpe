@@ -83,15 +83,17 @@ function BuildingCard({
                       layout= 'fill'
                       sizes="(max-width: 768px) 100vw, 50vw"
                       loading='lazy'
+                      unoptimized
                     />
                   </div>
                   <div className="image-desktop">
                     <Image
                       src={image.src}
                       alt={`Slide ${index + 1}`}
-                       layout= 'fill'
+                      layout= 'fill'
                       sizes="(max-width: 768px) 100vw, 50vw"
                       loading='lazy'
+                      unoptimized
                     />
                   </div>
                 </React.Fragment>
@@ -120,6 +122,7 @@ function BuildingCard({
                     layout= 'fill'
                     sizes="(max-width: 768px) 100vw, 50vw"
                     loading='lazy'
+                    unoptimized
                   />
                 </div>
               )}
@@ -131,6 +134,7 @@ function BuildingCard({
                     layout= 'fill'
                     sizes="(max-width: 768px) 100vw, 50vw"
                     loading='lazy'
+                    unoptimized
                   />
                 </div>
               )}

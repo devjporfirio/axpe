@@ -107,6 +107,7 @@ function CategoryBannerVertical({ categoryItems }) {
                         layout="fill"
                         objectFit="cover"
                         priority={itemIndex === 0}
+                        unoptimized
                       />
                     </div>
                     <div className="category-image desktop">
@@ -116,6 +117,7 @@ function CategoryBannerVertical({ categoryItems }) {
                         layout="fill"
                         objectFit="cover"
                         priority={itemIndex === 0}
+                        unoptimized
                       />
                     </div>
                   </CategoryItemWrapper>

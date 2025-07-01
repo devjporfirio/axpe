@@ -15,7 +15,7 @@ const nextConfig = {
       'images.axpe.com.br',
       'axpe.com.br',
     ],
-    formats: [ 'image/avif', 'image/webp' ],
+    // formats: [ 'image/avif', 'image/webp' ],
   },
   compiler: {
     styledComponents: true,
