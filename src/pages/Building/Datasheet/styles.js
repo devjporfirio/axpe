@@ -155,10 +155,13 @@ export const GroupNeigRef = styled.div`
 `;
 
 export const Neighborhood = styled.h1`
+  display: flex;
+  width: 100%;
   font-size: 28px;
   font-weight: ${({ theme }) => theme.fontsWeight.regular};
   text-transform: capitalize;
   margin-bottom: 12px;
+
 `;
 
 export const BuildingTitle = styled.h2`
@@ -182,13 +185,13 @@ export const CategoryRelease = styled.p`
 export const Ref = styled.p`
   font-size: 14px;
   white-space: nowrap;
+  margin-left: 18px;
+  padding-top: 4px;
 
   ${media.greaterThan('medium')`
     font-size: 16px;
     line-height: 23.6px;
     letter-spacing: 0.34px;
-    margin-left: 18px;
-    padding-top: 4px;
   `}
 `;
 
@@ -428,7 +431,8 @@ padding: 10px;
 export const ButtonMoreInfo = styled.button`
 font-size: 16px;
 font-weight: ${({ theme }) => theme.fontsWeight.bold};
-color: ${({ theme }) => theme.colors.orange};
+color: ${({ theme }) => theme.colors.white};
+background-color: ${({ theme }) => theme.colors.orange};
 border: 1px solid ${({ theme }) => theme.colors.orange};
 border-radius: 4px;
 width: 100%;

@@ -24,7 +24,8 @@ import {
     PriceGroupMobile,
     CharacteristicsGrid,
     CharacteristicItem,
-    BuildingTitle
+    BuildingTitle,
+    Ref
 } from './styles';
 
 import ILocation from 'assets/icons/location.svg';
@@ -32,7 +33,7 @@ import ICheck from 'assets/icons/checked-grey.svg';
 
 export default function Datasheet({ property }) {
     const dispatch = useDispatch();
-    const { type, infos, category, address, label, values, source, vista, title } = property;
+    const { type, infos, category, address, label, values, source, vista, title, reference } = property;
     const { searchFunnel } = useSelector(state => state.main);
     const hasTitle = infos.titleSite || infos.internalDescription;
 
@@ -53,8 +54,8 @@ export default function Datasheet({ property }) {
             <MainContainer>
                 <DatasheetContent>
                     <BlockOne type={property.type}>
-                        <Neighborhood>{address.local}</Neighborhood>
-
+                        <Neighborhood>{address.local}<Ref>Ref {reference}</Ref></Neighborhood>
+                        
                         <BuildingTitle>{title}</BuildingTitle>
 
                         {type === 'lancamento' && (

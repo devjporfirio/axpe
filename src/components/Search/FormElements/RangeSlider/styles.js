@@ -29,9 +29,9 @@ export const Slider = styled.div`
 
   .noUi-handle {
     display: block;
-    width: 12px;
-    height: 12px;
-    top: 1px !important;
+    width: 15px;
+    height: 15px;
+    top: 0px !important;
     right: -6px !important;
     border: 0;
     font-size: 0;

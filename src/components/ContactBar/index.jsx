@@ -170,7 +170,7 @@ function ContactBar() {
   ];
 
   const handleWhatsapp = () => {
-    const url = `https://wa.me/551130743600?text=Olá, vim através do site, gostaria de falar com um corretor, meu nome é ${values.name}, ${values.message}`;
+    const url = `https://wa.me/551130743600?text=Olá, vim através do site, gostaria de falar com um corretor!`;
         
     window.open(url, '_blank');
   }

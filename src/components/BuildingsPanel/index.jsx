@@ -26,6 +26,7 @@ function BuildingsPanel({
   buildingLayout = 'vertical',
   type = 'normal'
 }) {
+  
   const settings = {
     vertical: {
       dots: true,
@@ -65,7 +66,7 @@ function BuildingsPanel({
           settings: {
             slidesToShow: 1.1,
             slidesToScroll: 1,
-            vertical: false
+            vertical: false,
           }
         }
       ]

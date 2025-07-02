@@ -27,6 +27,10 @@ import {
   SlideSmall,
 } from 'pages/Landing/styles';
 
+import {
+  Buildings,
+} from 'pages/Search/styles';
+
 function Landing({ slug, page }) {
   const textEl = useRef();
   const [ transparent, setTransparent ] = useState(false);
@@ -77,7 +81,7 @@ function Landing({ slug, page }) {
                     <strong>{comp.info.title}</strong> {comp.info.subtitle}
                   </TitleModule>
                   <TextModule>{comp.info.text}</TextModule>
-
+                  <Buildings>
                   {comp.buildings &&
                     comp.buildings.length > 0 &&
                     comp.buildings.map((building) =>
@@ -85,9 +89,11 @@ function Landing({ slug, page }) {
                         <BuildingList
                           key={building.reference}
                           item={building}
+                          layout="horizontal"
                         />
                       ) : null
                     )}
+                    </Buildings>
                 </Module>
               );
             case 'imoveis-horizontal':

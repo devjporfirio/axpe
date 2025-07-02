@@ -157,11 +157,15 @@ export const SeeMore = styled(Button)`
 `;
 
 export const Module = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  margin: 0 auto;
   ${media.greaterThan('medium')`
-    max-width: 1000px;
-    margin: auto;
-    padding-top: 30px;
+    max-width: 1440px;
   `}
+
 `;
 
 export const TitleModule = styled.h2`
