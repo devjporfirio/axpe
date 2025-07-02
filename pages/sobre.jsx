@@ -33,7 +33,9 @@ function About() {
         <meta name="description" content={SeoData.description} />
       </Head>
       <Container>
-
+        <h1 className="sr-only">
+          Sobre a Axpe
+        </h1>
         <Hero id="nosso-jeito">
           <div>
             <p>Prazer, somos a <strong>Axpe.</strong></p>

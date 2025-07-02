@@ -105,8 +105,27 @@ function Building(props) {
     };
   }, []);
 
-  if (!data) return null;
-
+  if (!property || !data) {
+    return (
+      <Container>
+        <Head>
+          <title>Imóvel não encontrado</title>
+          <meta name="robots" content="noindex,nofollow" />
+        </Head>
+        <div style={{ padding: '2rem', textAlign: 'center', height: '100vh', alignContent: 'center' }}>
+          <h1>Houve um problema ao carregar este imóvel</h1>
+          <p>
+            Tente recarregar a página em alguns instantes.<br />
+            Se o erro persistir, entre em contato conosco e informe este link.
+          </p>
+          <button onClick={() => window.location.reload()} style={{ marginTop: '1rem' }}>
+            Recarregar página
+          </button>
+        </div>
+      </Container>
+    );
+  }
+  
   return (
     <>
       <Head>
@@ -202,6 +221,22 @@ export async function getServerSideProps({ params }) {
   const slugParts = slug ? slug.split('-') : [];
   const reference = slugParts[slugParts.length - 1];
   const response = await Api.Building.getPage(reference);
+
+  if (!response || !response.building) {
+    return {
+      props: {
+        reference,
+        property: null,
+        meta: {
+          title: 'Imóvel não encontrado',
+          description: SeoData.description,
+          image: '',
+        },
+      },
+    };
+  }
+
+
   const buildingCategory = response.building.category || '';
 
   const buildingLocationTitle = response.building.address

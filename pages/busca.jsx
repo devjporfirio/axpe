@@ -386,8 +386,8 @@ function Search({ total, totalPages, data, banner, locals }) {
   return (
     <>
       <Head>
-        <title>{`Busca ${source} - Os Melhores imoveis para você!`}</title>
-        <meta name="description" content={`Confira os melhores imoveis em ${source} e encontre o apartamento ideal!`}/>
+        <title>{`Busca ${source ? source : reference} - Os Melhores imoveis para você!`}</title>
+        <meta name="description" content={`Confira os melhores imoveis ${source ? 'em' + source :''} e encontre o apartamento ideal!`}/>
         <meta name="robots" content="noindex,follow" />
         <link rel="canonical" href={canonicalPath} />
       </Head>
@@ -569,7 +569,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                     </>
                   ))
                 ) : (
-                  <BuildingsNotFound>
+                  <BuildingsNotFound key="building-searchnotfound">
                     <h6>
                       Não encontramos o imóvel que você procura <span>:(</span>
                     </h6>

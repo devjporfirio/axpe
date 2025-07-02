@@ -6,18 +6,27 @@ export const Container = styled.section`
 `;
 
 export const Body = styled.div`
-  padding: 30px;
   width: 100%;
   min-height: 70vh;
+`;
 
-  ${media.greaterThan('1024px')`
-    padding: 0 10px 60px 10px;
+export const Wrapper = styled.div`
+  width: 100%;
+  max-width: 990px;
+  padding: 0 0 30px 0;
+
+  ${media.greaterThan('medium')`
+    padding: 0 30px 60px 30px;
+    margin: 0 auto;
+    min-height: calc(100vh - 268px);
   `}
-  
-  ${media.greaterThan('large')`
-    padding: 0 60px 60px 60px;
+
+  ${media.greaterThan('1280px')`
+    padding-left: 0;
+    padding-right: 0;
   `}
 `;
+
 
 export const Buildings = styled.div`
   ${media.greaterThan('medium')`

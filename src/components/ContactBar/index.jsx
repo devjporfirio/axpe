@@ -351,7 +351,7 @@ function ContactBar() {
   
   let message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
   
-  if(isBuilding) {
+  if(isBuilding && currentBuilding) {
     message = message.replace('{reference}', currentBuilding.reference);
     message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? ', com ' + currentBuilding.infos.areaTotal +' m²': '');
     message = message.replace('{areaUseful}', currentBuilding.infos.areaUsefulStart ? ', com ' +  currentBuilding.infos.areaUsefulStart + ' m²' : '');

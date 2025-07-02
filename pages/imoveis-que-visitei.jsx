@@ -8,13 +8,13 @@ import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
 // components
 import BlockHighlighted from 'components/BlockHighlighted';
-import BuildingCard from 'components/Building/Card';
+import BuildingList from 'components/Building/List';
 
 // styles
+import { Buildings } from 'pages/Search/styles';
 import {
   Container,
   Body,
-  Buildings,
   Empty,
 } from 'pages/VisitedBuildings/styles';
 
@@ -54,15 +54,14 @@ function VisitedBuildings() {
             <>
               {buildingsSeen.length >= 1 ? (
                 <Buildings>
-                  {buildingsSeen.map((building, buildingIndex) => (
-                    <BuildingCard
-                      key={`building-viewed-${building.reference}-${buildingIndex}`}
-                      layout="vertical"
-                      item={building}
-                      gtmShowcase="Imóvel Recente"
-                      positionIndex={buildingIndex + 1}
-                    />
-                  ))}
+                 {buildingsSeen.map((building, buildingIndex) => (
+                  <BuildingList
+                    item={building}
+                    layout="horizontal"
+                    positionIndex={buildingIndex + 1}
+                    key={`building-visited-${building.reference}-${buildingIndex}`}
+                  />
+                ))}
                 </Buildings>
               ) : (
                 <Empty>
