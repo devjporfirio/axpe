@@ -280,7 +280,7 @@ export async function getServerSideProps({ params }) {
   const metaTitle = response.building.infos.metaTitle;
   const metaDescription = response.building.infos.metaDescription;
 
-  const pageTitle = metaTitle || `${buildingLocationTitle} com ${buildingArea}m² e ${buildingBedrooms} dormitórios ${SeoData.shortTitle}`;
+  const pageTitle = metaTitle || buildingLocationTitle || `${response.building.address.state} ${response.building.reference}` || SeoData.title;
   const pageDesc = metaDescription || `${pageDescPrefix} ${buildingCategory.toLowerCase()} ${buildingLocation} com ${buildingArea}m², ${buildingBedrooms} com dormitórios. O local ideal para quem é apaixonado por arquitetura e design!`;
   const pageBanner = `${
     response.building.gallery ? response.building.gallery[0].src : ''

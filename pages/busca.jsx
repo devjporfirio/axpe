@@ -504,7 +504,7 @@ function Search({ total, totalPages, data, banner, locals }) {
               <Buildings>
                 {total ? (
                   buildings.map((building, buildingIndex) => (
-                    <>
+                    <React.Fragment key={`building-searchitem-${building.reference}-${buildingIndex}`}>
                       {isOrderListActive ? (
                         <BuildingList
                           item={building}
@@ -566,7 +566,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                           )}
                         </SearchBanner>
                       )}
-                    </>
+                    </React.Fragment>
                   ))
                 ) : (
                   <BuildingsNotFound key="building-searchnotfound">

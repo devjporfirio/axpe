@@ -14,7 +14,7 @@ import {
     Neighborhood,
     GroupTags,
     BlockTwo,
-    Content,
+    // Content,
     BlockThree,
     Location,
     InfoContent,
@@ -35,7 +35,7 @@ export default function Datasheet({ property }) {
     const dispatch = useDispatch();
     const { type, infos, category, address, label, values, source, vista, title, reference } = property;
     const { searchFunnel } = useSelector(state => state.main);
-    const hasTitle = infos.titleSite || infos.internalDescription;
+    // const hasTitle = infos.titleSite || infos.internalDescription;
 
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         `${address.local}, ${address.state}, ${address.country} ${address.zipcode}, 15z`
@@ -49,12 +49,25 @@ export default function Datasheet({ property }) {
         })
       );
     };
+
+    const totalValidVistaFields = [
+        ...Object.entries(vista.Caracteristicas || {}),
+        ...Object.entries(vista.InfraEstrutura || {})
+      ].reduce((count, [ _, value ]) => {
+        if (value === 'Sim' || (!isNaN(value) && Number(value) > 0)) {
+          return count + 1;
+        }
+        return count;
+      }, 0);
+      
+    const hasAtLeastThreeVistaInfos = totalValidVistaFields >= 3;
+      
     return (
         <>
             <MainContainer>
                 <DatasheetContent>
                     <BlockOne type={property.type}>
-                        <Neighborhood>{address.local}<Ref>Ref {reference}</Ref></Neighborhood>
+                        <Neighborhood>{address.local ?? address.state}<Ref> Ref {reference}</Ref></Neighborhood>
                         
                         <BuildingTitle>{title}</BuildingTitle>
 
@@ -172,7 +185,17 @@ export default function Datasheet({ property }) {
                             start={infos.bedroomsStart}
                             end={infos.bedroomsEnd}
                         />
-                        <Caracteristics.Parking parking={infos.parking} />
+
+                        <Caracteristics.Parking
+                            parking={
+                                infos.parking && Number(infos.parking) > 0
+                                ? infos.parking
+                                : vista?.Caracteristicas?.['Vagas'] && Number(vista.Caracteristicas['Vagas']) > 0
+                                ? Number(vista.Caracteristicas['Vagas'])
+                                : 0
+                            }
+                        />
+
                         <Caracteristics.ParkingBetween
                             start={infos.parkingStart}
                             end={infos.parkingEnd}
@@ -187,20 +210,20 @@ export default function Datasheet({ property }) {
                             )}
                     </BlockThree>
 
-                    {hasTitle && (
+                    {/* {hasTitle && (
                         <BlockTwo>
                             <Content>{infos.internalDescription}</Content>
                         </BlockTwo>
-                    )}
+                    )} */}
 
-                    {vista && vista.length > 0 && (
+                    {hasAtLeastThreeVistaInfos && (
                         <BlockTwo>
                             <CharacteristicsGrid>
                                 {[
                                     ...Object.entries(vista.Caracteristicas || {}),
                                     ...Object.entries(vista.InfraEstrutura || {})
                                 ]
-                                    .filter(([ _, value ]) => value === 'Sim')
+                                    .filter(([ _, value ]) => value === 'Sim' || (!isNaN(value) && Number(value) > 0))
                                     .map(([ label ]) => (
                                         <CharacteristicItem key={label}>
                                             <img src={ICheck} alt="ícone de Check" />
