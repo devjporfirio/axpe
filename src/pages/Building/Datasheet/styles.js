@@ -135,13 +135,23 @@ export const Location = styled.div`
   text-decoration: underline;
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   padding: 8px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 
   a {
     display: flex;
   }
+
   img {
     width: 18px;
     margin-right: 4px;
+  }
+
+  button {
+    ${media.greaterThan('large')`
+    display: none;
+  `}
   }
 `;
 

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMain } from 'store/modules/main/actions';
+import SVG from 'react-inlinesvg';
 
 import Tag from 'components/Tag';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
@@ -27,19 +28,33 @@ import {
     BuildingTitle,
     Ref
 } from './styles';
-
+import { ButtonIcon } from '../../../components/Headerbar/styles';
+import Share from 'components/Share';
 import ILocation from 'assets/icons/location.svg';
 import ICheck from 'assets/icons/checked-grey.svg';
+import ShareIconSVG from 'assets/icons/share.svg';
+import { useRouter } from 'next/router';
 
 export default function Datasheet({ property }) {
     const dispatch = useDispatch();
+    const router = useRouter();
     const { type, infos, category, address, label, values, source, vista, title, reference } = property;
     const { searchFunnel } = useSelector(state => state.main);
+    const [ shareActive, setShareActive ] = useState(false);
+
+    const toggleShare = useCallback(() => {
+        setShareActive(!shareActive);
+      }, [ shareActive ]);
+    
+    const shareOnClose = useCallback(() => {
+      setShareActive(!shareActive);
+    }, [ shareActive ]);
+    
     // const hasTitle = infos.titleSite || infos.internalDescription;
 
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        `${address.local}, ${address.state}, ${address.country} ${address.zipcode}, 15z`
-    )}`;
+        `${address.local}, ${address.state}, ${address.country}`
+      )}`;
 
     const toggleModalMoreInfo = () => {
       dispatch(
@@ -61,7 +76,7 @@ export default function Datasheet({ property }) {
       }, 0);
       
     const hasAtLeastThreeVistaInfos = totalValidVistaFields >= 3;
-      
+
     return (
         <>
             <MainContainer>
@@ -105,6 +120,16 @@ export default function Datasheet({ property }) {
                                     <img src={ILocation} alt="ícone de localização" />
                                     <p>Ver localização</p>
                                 </a>
+                                <ButtonIcon
+                                    type="button"
+                                    onClick={toggleShare}
+                                    className="btn-share holos-search-header-button"
+                                    data-showcase="Busca"
+                                    data-label="Share"
+                                    aria-label='Compartilhar'
+                                >
+                                    <SVG src={ShareIconSVG} uniquifyIDs={true} aria-hidden="true"/>
+                                </ButtonIcon>
                             </Location>
                         </GroupInfo>
                     </BlockOne>
@@ -277,7 +302,12 @@ export default function Datasheet({ property }) {
 
                     <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
                 </PriceGroupDesktop>
-
+                <Share
+                    active={shareActive}
+                    path={router.asPath}
+                    title={`Axpe - Resultado de Busca`}
+                    onClose={shareOnClose}
+                />
             </MainContainer>
         </>
     );

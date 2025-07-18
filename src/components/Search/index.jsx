@@ -279,6 +279,36 @@ function Search() {
 
   const formatLocals = useCallback(
     (locals) => {
+      // remove locais do filtro de sao paulo
+      if (Object.keys(locals).includes('São Paulo') && formik.values.source.value === 'sao-paulo') {
+        const bairrosRaw = locals['São Paulo'];
+        const bairros = Array.from(bairrosRaw);
+        
+        const locaisParaRemover = [
+          'Baleia',
+          'Camburi',
+          'Riviera São Lourenço',
+          'Praia São Pedro',
+          'Terras São José',
+        ];
+      
+        const bairrosFiltrados = bairros.filter((bairro) => !locaisParaRemover.includes(bairro));
+      
+        locals['São Paulo'] = bairrosFiltrados;
+      }
+
+      if (Object.keys(locals).includes('Bahia') && formik.values.source.value === 'sao-paulo') {
+        const bairrosRaw = locals['Bahia'];
+        const bairros = Array.from(bairrosRaw);
+        
+        const index = bairros.indexOf('Corumbau');
+        if (index !== -1) {
+          bairros.splice(index, 1);
+        }
+        
+        locals['Bahia'] = bairros;
+      }
+
       if (formik.values.source.value !== 'internacional') {
         return locals;
       }

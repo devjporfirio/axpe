@@ -111,7 +111,7 @@ function Search({ total, totalPages, data, banner, locals }) {
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ suggestions, setSuggestions ] = useState(null);
-  const [ isOrderListActive, setIsOrderListActive ] = useState(false);
+  const [ isOrderListActive, setIsOrderListActive ] = useState(true);
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
