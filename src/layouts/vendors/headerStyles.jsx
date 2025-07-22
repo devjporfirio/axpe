@@ -7,7 +7,6 @@ function HeaderStyles() {
   return (
     <>
       <meta name="google-signin-client_id" content={googleClientId} />
-      <link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700|Raleway:300,400,500,600,700,800,900&display=swap" rel="stylesheet"></link>
       <Script id="gtm-init" strategy="afterInteractive">
         {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

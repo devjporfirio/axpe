@@ -110,7 +110,6 @@ function Building(props) {
       <Container>
         <Head>
           <title>Imóvel não encontrado</title>
-          <meta name="robots" content="noindex,nofollow" />
         </Head>
         <div style={{ padding: '2rem', textAlign: 'center', height: '100vh', alignContent: 'center' }}>
           <h1>Houve um problema ao carregar este imóvel</h1>

@@ -139,6 +139,10 @@ export const Location = styled.div`
   width: 100%;
   justify-content: space-between;
 
+  ${media.greaterThan('medium')`
+    width: 50%;
+  `}
+
   a {
     display: flex;
   }
@@ -150,8 +154,8 @@ export const Location = styled.div`
 
   button {
     ${media.greaterThan('large')`
-    display: none;
-  `}
+      display: none;
+    `}
   }
 `;
 

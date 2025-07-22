@@ -286,7 +286,7 @@ function ContactBar() {
           {}
         );
 
-        if (iframeSelected) {
+        if (iframeSelected && iframeSelected.src) {
           if (iframeSelected.src.search('locacao') >= 0) {
             paramsObj.value = currentBuilding.values.rent;
           } else if (iframeSelected.src.search('lancamento') >= 0) {
@@ -294,7 +294,7 @@ function ContactBar() {
           } else {
             paramsObj.value = currentBuilding.values.sell;
           }
-
+        
           params = getParamsFromObject(paramsObj);
           setIframeUrl(
             `${process.env.config.siteUrl}${iframeSelected.src}${params}`
