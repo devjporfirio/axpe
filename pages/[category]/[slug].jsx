@@ -105,22 +105,24 @@ function Building(props) {
     };
   }, []);
 
-  if (!property || !data) {
+  if (property === null) {
     return (
       <Container>
         <Head>
           <title>Imóvel não encontrado</title>
         </Head>
         <div style={{ padding: '2rem', textAlign: 'center', height: '100vh', alignContent: 'center' }}>
-          <h1>Houve um problema ao carregar este imóvel</h1>
-          <p>
-            Tente recarregar a página em alguns instantes.<br />
-            Se o erro persistir, entre em contato conosco e informe este link.
-          </p>
-          <button onClick={() => window.location.reload()} style={{ marginTop: '1rem' }}>
-            Recarregar página
-          </button>
+          <h1>Imóvel não encontrado</h1>
+          <p>Esse imóvel não existe ou foi removido do nosso sistema.</p>
         </div>
+      </Container>
+    );
+  }
+  
+  if (!data) {
+    return (
+      <Container>
+        <p style={{ padding: '2rem', textAlign: 'center' }}>Carregando dados do imóvel...</p>
       </Container>
     );
   }
