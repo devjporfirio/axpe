@@ -12,7 +12,7 @@ const LINKS = {
 
 const NUMBERS = {
   tel: '(11) 3074-3600',
-  whats: '(11) 3074-3600'
+  whats: '(11) 93206-2653'
 };
 
 const ICONS = {

@@ -170,7 +170,7 @@ function ContactBar() {
   ];
 
   const handleWhatsapp = () => {
-    const url = `https://wa.me/551130743600?text=Olá, vim através do site, gostaria de falar com um corretor!`;
+    const url = `https://wa.me/5511932062653?text=Olá, vim através do site, gostaria de falar com um corretor!`;
         
     window.open(url, '_blank');
   }
@@ -547,7 +547,7 @@ function ContactBar() {
                       {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
                     </ButtonSubmit>
                       <button className='contact-whatsapp-button-green' disabled={isSubmitting} onClick={handleWhatsapp}>
-                        Whatsapp  <strong>(11) 3074-3600</strong>
+                        Whatsapp  <strong>(11) 93206-2653</strong>
                       </button>
                       <ButtonQuickCall>
                         <a href="tel:+551130743600" target="_blank" class="moreinfo-btn holos-product-contact-method" data-label="Telefone">
