@@ -153,7 +153,7 @@ function Header() {
                   </NavMainButtonSearch>
                 </li>
                 <li>
-                  <Link href="https://wa.me/551130743600?text=Ol%C3%A1%2C%20eu%20gostaria%20de%20comercializar%20o%20meu%20im%C3%B3vel%20com%20a%20Axpe" passHref>
+                  <Link href="https://wa.me/5511932062653?text=Ol%C3%A1%2C%20eu%20gostaria%20de%20comercializar%20o%20meu%20im%C3%B3vel%20com%20a%20Axpe" passHref>
                     <NavMainButton
                       className="holos-menu-item"
                       type="register"
@@ -198,7 +198,7 @@ function Header() {
               <Socials>
                 <SocialButton
                   className="holos-menu-item"
-                  href="https://wa.me/551130743600"
+                  href="https://wa.me/5511932062653"
                   target="_blank"
                   aria-label="WhatsApp Axpe Imóveis"
                 >
