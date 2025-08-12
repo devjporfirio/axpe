@@ -76,6 +76,11 @@ export default function Datasheet({ property }) {
       }, 0);
       
     const hasAtLeastThreeVistaInfos = totalValidVistaFields >= 3;
+    const tagsCount = [
+        label?.isNew,
+        label?.isExclusive,
+        label?.isFurnished
+      ].filter(Boolean).length;
 
     return (
         <>
@@ -93,19 +98,19 @@ export default function Datasheet({ property }) {
                         {type !== 'lancamento' && <hr />}
 
                         <GroupInfo>
-                            <InfoContent>
-                                {Object.values(label).some(value => value === true) && (
-                                    <GroupTags>
-                                        {label && label.isNew && (
-                                            <Tag label={'Novidade'} icon="star" color="blueLight" />
-                                        )}
-                                        {label && label.isExclusive && (
-                                            <Tag label={'Exclusividade'} icon="check" color="orange" />
-                                        )}
-                                        {label && label.isFurnished && (
-                                            <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-                                        )}
-                                    </GroupTags>
+                            <InfoContent tagsCount={tagsCount}>
+                                {tagsCount > 0 && (
+                                <GroupTags>
+                                    {label?.isNew && (
+                                    <Tag label={'Novidade'} icon="star" color="blueLight" />
+                                    )}
+                                    {label?.isExclusive && (
+                                    <Tag label={'Exclusividade'} icon="check" color="orange" />
+                                    )}
+                                    {label?.isFurnished && (
+                                    <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+                                    )}
+                                </GroupTags>
                                 )}
                                 <Type>
                                     {type === 'lancamento'
