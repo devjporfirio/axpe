@@ -66,7 +66,8 @@ function ContactBar() {
       errors,
       handleChange,
       setTouched,
-      validateForm
+      validateForm,
+      setFieldValue
     } = useFormik({
       initialValues: {
        Name_First: '',
@@ -174,11 +175,11 @@ function ContactBar() {
     },
   ];
 
-  const handleWhatsapp = () => {
-    const url = `https://wa.me/5511932062653?text=Olá, vim através do site, gostaria de falar com um corretor!`;
+  // const handleWhatsapp = () => {
+  //   const url = `https://wa.me/5511932062653?text=Olá, vim através do site, gostaria de falar com um corretor!`;
         
-    window.open(url, '_blank');
-  }
+  //   window.open(url, '_blank');
+  // }
 
   const clickContainer = useCallback(
     (event) => {
@@ -356,6 +357,17 @@ function ContactBar() {
   
   let message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
   
+  function normalizePhone(val, { allowPlus = true, maxDigits = 15 } = {}) {
+    const s = String(val ?? '');
+    let cleaned = s.replace(/[^\d+]/g, '');
+    if (allowPlus) cleaned = cleaned.replace(/(?!^)\+/g, '');
+    else cleaned = cleaned.replace(/\+/g, '');
+    const hasPlus = allowPlus && cleaned.startsWith('+');
+    const digits = cleaned.replace(/\D/g, '');
+    const limited = digits.slice(0, maxDigits);
+    return hasPlus ? `+${limited}` : limited;
+  }
+
   if(isBuilding && currentBuilding) {
     message = message.replace('{reference}', currentBuilding.reference);
     message = message.replace('{areaTotal}', currentBuilding.infos.areaTotal ? ', com ' + currentBuilding.infos.areaTotal +' m²': '');
@@ -462,7 +474,7 @@ function ContactBar() {
                     ref={refForm}
                     action='https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit'
                     method='POST'
-                    accept-charset='UTF-8'
+                    acceptCharset='UTF-8'
                     enctype='multipart/form-data'
                   >
                     <input type="hidden" name="zf_referrer_name" value="Form Contato Home" />
@@ -511,17 +523,17 @@ function ContactBar() {
                           data-label='E-mail pessoal'
                         />
                         <FormElements
-                          type="number"
+                          type="text"
                           name="PhoneNumber"
                           id="PhoneNumber"
                           inputMode="tel"
                           pattern="^\+?[0-9\s()-]{7,20}$"
+                          autoComplete="tel"
+                          maxLength={20}
                           placeholder="Seu WhatsApp"
+                          value={values.PhoneNumber}
                           onChange={handleChange}
                           error={touched.PhoneNumber && errors.PhoneNumber}
-                          value={values.PhoneNumber}
-                          className='holos-form-field'
-                          data-label='Whatsapp'
                         />
                         <FormElements
                           type='area'
@@ -542,7 +554,7 @@ function ContactBar() {
                       onClick={async () => {
                         const formErrors = await validateForm();
                         const hasErrors = Object.keys(formErrors).length > 0;
-
+                      
                         setTouched({
                           Name_First: true,
                           Name_Last: true,
@@ -550,17 +562,17 @@ function ContactBar() {
                           PhoneNumber: true,
                           SingleLine11: true,
                         });
-
-                        if (!hasErrors && refForm.current) {
-                          const rawStr = String(values.PhoneNumber ?? '');
-
-                          const keepPlus = rawStr.replace(/[^\d+]/g, '');
-                      
-                          const input = refForm.current.querySelector('#PhoneNumber');
-                          if (input) input.value = keepPlus
-                          handleWhatsapp()
-                          refForm.current.submit();
-                          toggleShow();
+                
+                        if (!hasErrors || refForm.current) {
+                          const normalized = normalizePhone(values.PhoneNumber, { allowPlus: true, maxDigits: 15 });
+                         
+                          await setFieldValue('PhoneNumber', normalized);
+                         
+                           const input = refForm.current.querySelector('#PhoneNumber');
+                            if (input) input.value = normalized;
+                        
+                            refForm.current.submit();
+                            toggleShow();
                         }
                       }}
                     >
