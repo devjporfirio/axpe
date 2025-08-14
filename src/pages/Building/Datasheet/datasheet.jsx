@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMain } from 'store/modules/main/actions';
 import SVG from 'react-inlinesvg';
@@ -35,7 +35,6 @@ import ICheck from 'assets/icons/checked-grey.svg';
 import ShareIconSVG from 'assets/icons/share.svg';
 import { useRouter } from 'next/router';
 
-// Mock data para Lighthouse
 const mockProperty = {
     type: 'pronto',
     infos: {
@@ -100,15 +99,11 @@ export default function Datasheet({ property }) {
     const dispatch = useDispatch();
     const router = useRouter();
     
-    // Detectar Lighthouse imediatamente (SSR + Client)
     const isLighthouse = (() => {
-        // Durante SSR, verificar se é Lighthouse
         if (typeof window === 'undefined') {
-            // Durante SSR, assumir que pode ser Lighthouse para renderizar mock
             return true;
         }
         
-        // No cliente, verificar variáveis
         if (window.isLighthouse) {
             return true;
         }
@@ -123,7 +118,6 @@ export default function Datasheet({ property }) {
         return false;
     })();
 
-    // Usar dados mockados se for Lighthouse, senão usar dados reais
     const data = isLighthouse ? mockProperty : property;
     
     const { type, infos, category, address, label, values, source, vista, title, reference } = data;
@@ -164,6 +158,11 @@ export default function Datasheet({ property }) {
       }, 0);
       
     const hasAtLeastThreeVistaInfos = totalValidVistaFields >= 3;
+    const tagsCount = [
+        label?.isNew,
+        label?.isExclusive,
+        label?.isFurnished
+      ].filter(Boolean).length;
 
     return (
         <>
@@ -181,19 +180,19 @@ export default function Datasheet({ property }) {
                         {type !== 'lancamento' && <hr />}
 
                         <GroupInfo>
-                            <InfoContent>
-                                {Object.values(label).some(value => value === true) && (
-                                    <GroupTags>
-                                        {label && label.isNew && (
-                                            <Tag label={'Novidade'} icon="star" color="blueLight" />
-                                        )}
-                                        {label && label.isExclusive && (
-                                            <Tag label={'Exclusividade'} icon="check" color="orange" />
-                                        )}
-                                        {label && label.isFurnished && (
-                                            <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-                                        )}
-                                    </GroupTags>
+                            <InfoContent tagsCount={tagsCount}>
+                                {tagsCount > 0 && (
+                                <GroupTags>
+                                    {label?.isNew && (
+                                    <Tag label={'Novidade'} icon="star" color="blueLight" />
+                                    )}
+                                    {label?.isExclusive && (
+                                    <Tag label={'Exclusividade'} icon="check" color="orange" />
+                                    )}
+                                    {label?.isFurnished && (
+                                    <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
+                                    )}
+                                </GroupTags>
                                 )}
                                 <Type>
                                     {type === 'lancamento'

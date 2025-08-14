@@ -82,5 +82,20 @@
       }); 
     }
   </script>
+  <script>
+    function closeFlow() {
+      if (window.top !== window.self) {
+        window.parent.postMessage({ type: 'ZOHO_SUCCESS_CLOSE' }, 'https://www.axpe.com.br');
+        return;
+      }
+      location.replace('https://www.axpe.com.br/');
+    }
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      document
+        .querySelector('.js-reset-iframe-url')
+        ?.addEventListener('click', closeFlow);
+    });
+  </script>
 </body>
 </html>

@@ -166,15 +166,10 @@ class MyDocument extends Document {
                     const lighthouseSimulation = localStorage.getItem('lighthouse-simulation');
                     if (lighthouseSimulation === 'true') {
                       window.isLighthouse = true;
-                      console.log('🔧 [LCP DEBUG] Lighthouse detectado via localStorage (simulação local)');
                     }
                   } catch (e) {
                     // localStorage pode não estar disponível
                   }
-                }
-                
-                if (window.isLighthouse) {
-                  console.log('🔧 [LCP DEBUG] Lighthouse detectado - scripts de terceiros desabilitados');
                 }
               `,
             }}

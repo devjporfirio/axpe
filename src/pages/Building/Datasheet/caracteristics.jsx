@@ -9,7 +9,7 @@ import {
   InfoValue,
   PriceRelease,
   BuildingLabel,
-  GroupTags,
+  GroupTagsSearchPage,
   PriceExpenses
 } from './styles';
 import Tag from 'components/Tag';
@@ -248,14 +248,14 @@ export const AreaUseFulBetween = ({ start, end }) =>
 export const BuildingLabels = ({ labels }) =>
   !!labels && (
     <BuildingLabel>
-      <GroupTags>
-        {labels && labels.isExclusive ? (
+      <GroupTagsSearchPage>
+        {labels && labels.isExclusive && (
           <Tag label={'Exclusividade'} icon="check" color="orange" />
-        ) : labels.isNew ? (
+        ) } {labels.isNew && (
           <Tag label={'Novidade'} icon="star" color="blueLight" />
-        ) : labels.isFurnished ? (
+        ) } {labels.isFurnished && (
           <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-        ) : null}
-      </GroupTags>
+        )}
+      </GroupTagsSearchPage>
     </BuildingLabel>
   );

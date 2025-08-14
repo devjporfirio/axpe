@@ -72,7 +72,6 @@ import {
 
 function Home({ heroItems, components }) {
   // eslint-disable-next-line no-console
-  console.log('HomePage Version: 24 - pdp optimization');
   const dispatch = useDispatch();
   const router = useRouter();
   const {
@@ -271,7 +270,7 @@ function Home({ heroItems, components }) {
     const isFirstSlide = itemIndex === 0;
     
     // Verificar Lighthouse de forma mais robusta (incluindo SSR)
-    const shouldHideText = isLighthouse || 
+    const shouldHideText = isLighthouse ||
       (typeof window !== 'undefined' && window.isLighthouse) ||
       (typeof window !== 'undefined' && localStorage.getItem('lighthouse-simulation') === 'true');
     

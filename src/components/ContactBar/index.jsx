@@ -43,7 +43,7 @@ const registrySchema = Yup.object().shape({
   SingleLine11: Yup.string().required('Deixe sua mensagem'),
 });
 
-const formSuccessPageUrl = `${process.env.config.siteUrl}/forms/imovel/sucesso.html`;
+const formSuccessPageUrl = `${process.env.config.siteUrl}/forms/imovel/sucesso.html?back=https://www.axpe.com.br/`;
 
 function ContactBar() {
   const [ isMounted, setIsMounted ] = useState(false);
@@ -175,7 +175,7 @@ function ContactBar() {
   ];
 
   const handleWhatsapp = () => {
-    const url = `https://wa.me/551130743600?text=Olá, vim através do site, gostaria de falar com um corretor!`;
+    const url = `https://wa.me/5511932062653?text=Olá, vim através do site, gostaria de falar com um corretor!`;
         
     window.open(url, '_blank');
   }
@@ -234,7 +234,7 @@ function ContactBar() {
           : currentBuilding.infos.parkingStart,
         value: null,
         url: location.href,
-        redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
+        redirectUrl: `https://wa.me/5511932062653?text=Olá, vim através do site, gostaria de falar com um corretor!`,
       };
       let iframeSelected = null;
       let iframesPreSelected = iframes;
@@ -374,7 +374,7 @@ function ContactBar() {
       <>
         <LinkFloat
           className='holos-contact-float moreinfo-btn--whatsapp hidden'
-          href={!isBuilding ? `https://wa.me/551130743600` : `https://wa.me/551130743600?text=${message}`}
+          href={!isBuilding ? `https://wa.me/5511932062653` : `https://wa.me/5511932062653?text=${message}`}
           target='_blank'>
           <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
           {isBuilding ? (
@@ -511,9 +511,12 @@ function ContactBar() {
                           data-label='E-mail pessoal'
                         />
                         <FormElements
-                          type='number'
-                          name='PhoneNumber'
-                          placeholder='Seu Whatsapp'
+                          type="number"
+                          name="PhoneNumber"
+                          id="PhoneNumber"
+                          inputMode="tel"
+                          pattern="^\+?[0-9\s()-]{7,20}$"
+                          placeholder="Seu WhatsApp"
                           onChange={handleChange}
                           error={touched.PhoneNumber && errors.PhoneNumber}
                           value={values.PhoneNumber}
@@ -549,15 +552,23 @@ function ContactBar() {
                         });
 
                         if (!hasErrors && refForm.current) {
+                          const rawStr = String(values.PhoneNumber ?? '');
+
+                          const keepPlus = rawStr.replace(/[^\d+]/g, '');
+                      
+                          const input = refForm.current.querySelector('#PhoneNumber');
+                          if (input) input.value = keepPlus
+                          handleWhatsapp()
                           refForm.current.submit();
+                          toggleShow();
                         }
                       }}
                     >
                       {isSubmitting ? 'Enviando...' : 'Enviar formulário'}
                     </ButtonSubmit>
-                      <button className='contact-whatsapp-button-green' disabled={isSubmitting} onClick={handleWhatsapp}>
-                        Whatsapp  <strong>(11) 3074-3600</strong>
-                      </button>
+                      {/* <button className='contact-whatsapp-button-green' disabled={isSubmitting} onClick={handleWhatsapp}>
+                        Whatsapp  <strong>(11) 93206-2653</strong>
+                      </button> */}
                       <ButtonQuickCall>
                         <a href="tel:+551130743600" target="_blank" class="moreinfo-btn holos-product-contact-method" data-label="Telefone">
                             Telefone: <strong>(11) 3074-3600</strong>

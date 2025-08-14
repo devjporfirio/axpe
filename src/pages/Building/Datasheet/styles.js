@@ -113,14 +113,36 @@ export const GroupInfo = styled.div`
 
   width: 100%;
 
+  ${({ tagsCount }) => tagsCount > 1 && `
+    ${InfoContent} {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  `}
+
+  ${({ tagsCount }) => tagsCount > 1 && `
+    ${Location} {
+      align-self: center;
+      width: auto;
+    }
+  `}
+
   ${media.greaterThan('small')`
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   `}
 `;
 
 export const InfoContent = styled.div`
   display: flex;
   align-items: center;
+  gap: 12px;
+
+  ${({ tagsCount }) => tagsCount > 1 && `
+    flex-direction: column;
+    align-items: flex-start;
+  `}
 `;
 
 export const Type = styled.p`
@@ -178,6 +200,12 @@ export const Neighborhood = styled.h1`
 
 `;
 
+export const GroupTags = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+`;
+
 export const BuildingTitle = styled.h2`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
@@ -209,7 +237,7 @@ export const Ref = styled.p`
   `}
 `;
 
-export const GroupTags = styled.div`
+export const GroupTagsSearchPage = styled.div`
   margin-right: 12px;
   div + div {
     margin-top: 10px;

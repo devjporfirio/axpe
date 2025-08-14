@@ -43,29 +43,23 @@ function Building(props) {
   const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
   const canonicalUrl = `${baseUrl}${router.asPath.split('?')[0]}`;
 
-  // Detectar Lighthouse imediatamente
   const isLighthouse = (() => {
-    // Durante SSR, sempre renderizar LCPPlaceholder
+
     if (typeof window === 'undefined') {
-      console.log('🔍 SSR detectado - renderizando LCPPlaceholder');
       return true;
     }
     
-    // No cliente, verificar se é Lighthouse
     if (window.isLighthouse) {
-      console.log('🔍 Lighthouse detectado via window.isLighthouse');
       return true;
     }
     
     try {
       const lighthouseSimulation = localStorage.getItem('lighthouse-simulation');
       if (lighthouseSimulation === 'true') {
-        console.log('🔍 Lighthouse detectado via localStorage');
         return true;
       }
     } catch (e) {}
     
-    console.log('🔍 Lighthouse NÃO detectado - usando dados reais');
     return false;
   })();
 
@@ -163,13 +157,13 @@ function Building(props) {
             title="Casa"
             subtitle="Alto de Pinheiros"
             building={{
-              reference: "AX155499",
-              source: "sao-paulo",
+              reference: 'AX155499',
+              source: 'sao-paulo',
               likes: 0,
-              local: "Alto de Pinheiros",
-              area: "410",
-              bedrooms: "4",
-              parking: "5",
+              local: 'Alto de Pinheiros',
+              area: '410',
+              bedrooms: '4',
+              parking: '5',
             }}
           />
 

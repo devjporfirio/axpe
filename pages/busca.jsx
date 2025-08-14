@@ -44,7 +44,6 @@ import {
   SearchBanner,
   Infos,
   ImageContainer,
-  Image,
   BuildingsLoadMore,
   DisplayOrder,
 } from 'pages/Search/styles';
@@ -206,7 +205,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     router.push(`/busca${params}`, undefined, { shallow: true });
     setPage(newPage);
     setLoadNewPage(true);
-  }, [ page ]);
+  }, [ page, router ]);
 
   const getBuildingsSuggestions = useCallback(async () => {
     const results = [];
