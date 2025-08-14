@@ -59,16 +59,33 @@ export const Hero =  styled.div.attrs(() => ({
 }))`
   margin-bottom: 10px;
   position: relative;
-  height: 100%;
-  height: 550px;
+  width: 100%;
   min-height: 550px;
 
   ${media.lessThan('medium')`
-    height: 650px;
+    min-height: 650px;
   `}
 
   .slick-slider:before{
     content: inherit;
+  }
+
+  .slick-slider {
+    overflow: hidden;
+  }
+
+  .slick-list {
+    overflow: hidden;
+  }
+
+  .slick-track {
+    width: 100% !important;
+    display: flex !important;
+  }
+
+  .slick-slide {
+    width: 100% !important;
+    flex-shrink: 0;
   }
 
   .slick-prev{
@@ -98,7 +115,6 @@ export const Hero =  styled.div.attrs(() => ({
     display: flex !important;
     align-items: center;
     pointer-events: none;
-    moz-pointer-events: none;
   }
 
   .slick-dots li{

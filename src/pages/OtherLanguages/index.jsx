@@ -70,7 +70,7 @@ function OtherLanguages({ language }) {
               <p>Whatsapp:</p>
               <p>
                 <SVG src={WhatsappIconSVG} uniquifyIDs={true} />
-                (11) 93206-2653
+                (11) 99037-3600
               </p>
             </Contact>
           </GroupContact>

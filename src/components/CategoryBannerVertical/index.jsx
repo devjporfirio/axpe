@@ -1,11 +1,21 @@
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import Slider from 'react-slick';
+import Image from 'next/image';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 // styles
-import { CategoryBannerContainer, Container, CategoryItem, CategoryItemWrapper, CategoryLink, TitleList, TitleItem } from './styles';
-import Image from 'next/image';
+import {
+  CategoryBannerContainer,
+  CategoryItem,
+  CategoryItemWrapper,
+  CategoryLink,
+  TitleList,
+  TitleItem,
+  SliderVertical,
+} from './styles';
 
-const SliderVertical = forwardRef(({
+// Componente SliderVertical que estava faltando
+const SliderVerticalComponent = forwardRef(({
   children,
   onChange,
   type = 'vertical',
@@ -26,7 +36,7 @@ const SliderVertical = forwardRef(({
   useImperativeHandle(ref, () => localRef.current);
 
   return (
-    <Container type={type}>
+    <SliderVertical type={type}>
       <Slider
         {...settings}
         afterChange={onChange}
@@ -34,9 +44,90 @@ const SliderVertical = forwardRef(({
       >
         {children}
       </Slider>
-    </Container>
+    </SliderVertical>
   );
 });
+
+// Componente otimizado para renderizar apenas a imagem necessária
+const ResponsiveCategoryImage = ({ mobileSrc, desktopSrc, alt, priority = false }) => {
+  const [isClient, setIsClient] = useState(false);
+  const [deviceType, setDeviceType] = useState('mobile'); // Default para mobile
+  
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isDesktop = useMediaQuery('(min-width: 769px)');
+
+  useEffect(() => {
+    setIsClient(true);
+    
+    // Determinar o tipo de dispositivo apenas uma vez
+    if (isMobile) {
+      setDeviceType('mobile');
+    } else if (isDesktop) {
+      setDeviceType('desktop');
+    }
+  }, [isMobile, isDesktop]);
+
+  // Durante SSR, renderizar mobile por padrão
+  if (!isClient) {
+    return (
+      <div className="category-image mobile">
+        <Image
+          src={mobileSrc}
+          alt={alt}
+          layout="fill"
+          objectFit="cover"
+          priority={priority}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  // No cliente, renderizar apenas a imagem apropriada
+  if (deviceType === 'mobile') {
+    return (
+      <div className="category-image mobile">
+        <Image
+          src={mobileSrc}
+          alt={alt}
+          layout="fill"
+          objectFit="cover"
+          priority={priority}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  if (deviceType === 'desktop') {
+    return (
+      <div className="category-image desktop">
+        <Image
+          src={desktopSrc}
+          alt={alt}
+          layout="fill"
+          objectFit="cover"
+          priority={priority}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  // Fallback para mobile
+  return (
+    <div className="category-image mobile">
+      <Image
+        src={mobileSrc}
+        alt={alt}
+        layout="fill"
+        objectFit="cover"
+        priority={priority}
+        unoptimized
+      />
+    </div>
+  );
+};
 
 function CategoryBannerVertical({ categoryItems }) {
   const [ currentSlide, setCurrentSlide ] = useState(0);
@@ -54,7 +145,7 @@ function CategoryBannerVertical({ categoryItems }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.1 }
     );
 
     observer.observe(containerRef.current);
@@ -84,7 +175,7 @@ function CategoryBannerVertical({ categoryItems }) {
       </h2>
       {isVisible && (
 
-      <SliderVertical
+      <SliderVerticalComponent
         ref={sliderRef}
         onChange={handleAfterChange}
         type="full"
@@ -100,32 +191,18 @@ function CategoryBannerVertical({ categoryItems }) {
                   target={`_${item.link.target}`}
                 >
                   <CategoryItemWrapper>
-                    <div className="category-image mobile">
-                      <Image
-                        src={item.images.mobile}
-                        alt={item.title}
-                        layout="fill"
-                        objectFit="cover"
-                        priority={itemIndex === 0}
-                        unoptimized
-                      />
-                    </div>
-                    <div className="category-image desktop">
-                      <Image
-                        src={item.images.desktop}
-                        alt={item.title}
-                        layout="fill"
-                        objectFit="cover"
-                        priority={itemIndex === 0}
-                        unoptimized
-                      />
-                    </div>
+                    <ResponsiveCategoryImage
+                      mobileSrc={item.images.mobile}
+                      desktopSrc={item.images.desktop}
+                      alt={item.title}
+                      priority={itemIndex === 0} // Prioridade máxima para o primeiro item
+                    />
                   </CategoryItemWrapper>
                 </CategoryLink>
               )}
           </CategoryItem>
         ))}
-      </SliderVertical>
+      </SliderVerticalComponent>
       )}
 
       <TitleList>

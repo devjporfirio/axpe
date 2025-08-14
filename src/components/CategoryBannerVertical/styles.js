@@ -35,6 +35,23 @@ export const Container = styled.div`
   }
 `;
 
+export const SliderVertical = styled(Container)`
+  ${props => props.type === 'vertical' && css`
+    min-height: 560px;
+    .slick-list {
+      height: 100% !important;
+    }
+    .slick-track {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slick-slide {
+      height: 100% !important;
+    }
+  `}
+`;
+
 export const CategoryBannerContainer = styled.div`
   position: relative;
   padding: 14px;

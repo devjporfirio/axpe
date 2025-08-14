@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import Image from 'next/image';
 import SVG from 'react-inlinesvg';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // helpers
 import Link from 'next/link';
@@ -77,23 +78,21 @@ function BuildingCard({
               {itemData.gallery.map((image, index) => (
                 <React.Fragment key={index}>
                   <div className="image-mobile">
-                    <Image
+                    <OptimizedBuildingImage
                       src={image.src}
                       alt={`Slide ${index + 1}`}
-                      layout= 'fill'
+                      layout="fill"
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      loading='lazy'
-                      unoptimized
+                      priority={index === 0} // Prioridade para primeira imagem
                     />
                   </div>
                   <div className="image-desktop">
-                    <Image
+                    <OptimizedBuildingImage
                       src={image.src}
                       alt={`Slide ${index + 1}`}
-                      layout= 'fill'
+                      layout="fill"
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      loading='lazy'
-                      unoptimized
+                      priority={index === 0} // Prioridade para primeira imagem
                     />
                   </div>
                 </React.Fragment>
@@ -116,25 +115,21 @@ function BuildingCard({
 
               {urlImageMobile && (
                 <div className="image-mobile">
-                  <Image
+                  <OptimizedBuildingImage
                     src={urlImageMobile}
                     alt="Imagem do imóvel mobile"
-                    layout= 'fill'
+                    layout="fill"
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    loading='lazy'
-                    unoptimized
                   />
                 </div>
               )}
               {urlImageDesktop && (
                 <div className="image-desktop">
-                  <Image
+                  <OptimizedBuildingImage
                     src={urlImageDesktop}
                     alt="Imagem do imóvel desktop"
-                    layout= 'fill'
+                    layout="fill"
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    loading='lazy'
-                    unoptimized
                   />
                 </div>
               )}

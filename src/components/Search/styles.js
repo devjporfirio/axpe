@@ -609,11 +609,22 @@ export const FormTabListItemButton = styled.button`
       margin: 0 auto 10px;
       background-color: white;
       width: 60px;
+      height: 60px;
 
       img {
         height: 32px;
         width: 75%;
         margin: 0 auto;
+      }
+
+      svg {
+        height: 32px;
+        width: 75%;
+        margin: 0 auto;
+
+        &:hover {
+          filter: invert(51%) sepia(65%) saturate(4688%) hue-rotate(9deg) brightness(99%) contrast(105%);
+        }
       }
     }
 
@@ -668,6 +679,9 @@ export const FormTabListItemButton = styled.button`
 export const FormTabListItemButtonActive = css`
   font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   color: ${({ theme }) => theme.colors.orange};
+  svg {
+    filter: invert(51%) sepia(65%) saturate(4688%) hue-rotate(9deg) brightness(99%) contrast(105%);
+  }
 
   &:before {
     ${({ theme }) => theme.show};

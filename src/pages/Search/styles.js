@@ -492,6 +492,35 @@ export const Image = styled.img`
   `}
 `;
 
+// Estilos para as imagens otimizadas do banner
+export const BannerImageStyles = styled.div`
+  .banner-image {
+    display: block;
+    z-index: 1;
+    object-fit: cover;
+    border-top: none;
+    border-bottom: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-image.mobile {
+    ${media.greaterThan('medium')`
+      display: none !important;
+    `}
+  }
+
+  .banner-image.desktop {
+    ${media.lessThan('medium')`
+      display: none !important;
+    `}
+  }
+
+  .banner-image.placeholder {
+    background-color: #f0f0f0;
+  }
+`;
+
 export const BuildingsLoadMore = styled.div`
   display: flex;
   width: 100%;

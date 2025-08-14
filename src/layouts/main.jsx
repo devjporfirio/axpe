@@ -1,30 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
+import dynamic from 'next/dynamic';
 
 // actions
 import { setLoading } from 'store/modules/loading/actions';
 import { setMain } from 'store/modules/main/actions';
 
-// components
+// components - otimizados com dynamic imports
 import Loading from 'components/Loading';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import Search from 'components/Search';
-import NewsletterModal from 'components/Modals/Newsletter';
-import NewsletterSuccessModal from 'components/Modals/NewsletterSuccess';
-import RegisterSuccessModal from 'components/Modals/RegisterSuccess';
-import BuildingContactSuccess from 'components/Modals/BuildingContactSuccess';
-import ContactSuccess from 'components/Modals/ContactSuccess';
-import WorkWithUsSuccess from 'components/Modals/WorkWithUsSuccess';
-import ContactModal from 'components/Modals/Contact';
-import ContactBar from 'components/ContactBar';
-import TermsOfUse from 'components/TermsOfUse';
-import PrivacyPolicy from 'components/PrivacyPolicy';
 
-// styles
+// Dynamic imports com loading otimizado
+const Search = dynamic(() => import('components/Search'), {
+  loading: () => null,
+  ssr: false
+});
+const NewsletterModal = dynamic(() => import('components/Modals/Newsletter'), {
+  loading: () => null,
+  ssr: false
+});
+const NewsletterSuccessModal = dynamic(() => import('components/Modals/NewsletterSuccess'), {
+  loading: () => null,
+  ssr: false
+});
+const RegisterSuccessModal = dynamic(() => import('components/Modals/RegisterSuccess'), {
+  loading: () => null,
+  ssr: false
+});
+const BuildingContactSuccess = dynamic(() => import('components/Modals/BuildingContactSuccess'), {
+  loading: () => null,
+  ssr: false
+});
+const ContactSuccess = dynamic(() => import('components/Modals/ContactSuccess'), {
+  loading: () => null,
+  ssr: false
+});
+const WorkWithUsSuccess = dynamic(() => import('components/Modals/WorkWithUsSuccess'), {
+  loading: () => null,
+  ssr: false
+});
+const ContactModal = dynamic(() => import('components/Modals/Contact'), {
+  loading: () => null,
+  ssr: false
+});
+const ContactBar = dynamic(() => import('components/ContactBar'), {
+  loading: () => null,
+  ssr: false
+});
+const TermsOfUse = dynamic(() => import('components/TermsOfUse'), {
+  loading: () => null,
+  ssr: false
+});
+const PrivacyPolicy = dynamic(() => import('components/PrivacyPolicy'), {
+  loading: () => null,
+  ssr: false
+});
+
+// styles - otimizados
 import GlobalStyle from './globalStyle';
 import noUiSliderCSS from './vendors/noUiSlider';
 import simplebarCSS from './vendors/simplebar';
@@ -36,13 +72,14 @@ function Main({ children }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    // scroll issue related here https://github.com/zeit/next.js/issues/3303
-    const cachedPageHeight = [];
-    const html = document.querySelector('html');
-
-    Router.events.on('routeChangeStart', (a) => {
-      cachedPageHeight.push(document.documentElement.offsetHeight);
+  // Otimizado para evitar forced reflows
+  const handleRouteChangeStart = useCallback((a) => {
+    // Usar requestAnimationFrame para evitar forced reflows
+    requestAnimationFrame(() => {
+      const cachedPageHeight = document.documentElement.offsetHeight;
+      window.cachedPageHeight = window.cachedPageHeight || [];
+      window.cachedPageHeight.push(cachedPageHeight);
+      
       dispatch(
         setMain({
           searchFormActive: false,
@@ -51,27 +88,47 @@ function Main({ children }) {
       );
       dispatch(setLoading({ active: true }));
     });
+  }, [dispatch]);
 
-    Router.events.on('routeChangeComplete', () => {
-      html.style.height = 'initial';
+  const handleRouteChangeComplete = useCallback(() => {
+    requestAnimationFrame(() => {
+      const html = document.querySelector('html');
+      if (html) {
+        html.style.height = 'initial';
+      }
+      
       dispatch(setLoading({ active: false }));
+      
       if (location && location.pathname.search('busca') < 0) {
         window.scrollTo(0, 0);
       }
     });
+  }, [dispatch]);
 
-    Router.beforePopState(() => {
-      html.style.height = `${cachedPageHeight.pop()}px`;
-      return true;
+  const handleBeforePopState = useCallback(() => {
+    requestAnimationFrame(() => {
+      const html = document.querySelector('html');
+      if (html && window.cachedPageHeight && window.cachedPageHeight.length > 0) {
+        const height = window.cachedPageHeight.pop();
+        html.style.height = `${height}px`;
+      }
     });
+    return true;
+  }, []);
 
-    // window.addEventListener('beforeinstallprompt', (e) => {
-    //   e.preventDefault();
-    //   console.log('exibir botão para adicionar app na home!')
-    // });
+  useEffect(() => {
+    // scroll issue related here https://github.com/zeit/next.js/issues/3303
+    Router.events.on('routeChangeStart', handleRouteChangeStart);
+    Router.events.on('routeChangeComplete', handleRouteChangeComplete);
+    Router.beforePopState(handleBeforePopState);
 
     dispatch(setLoading({ active: false }));
-  }, []);
+
+    return () => {
+      Router.events.off('routeChangeStart', handleRouteChangeStart);
+      Router.events.off('routeChangeComplete', handleRouteChangeComplete);
+    };
+  }, [handleRouteChangeStart, handleRouteChangeComplete, handleBeforePopState, dispatch]);
 
   return (
     <ThemeProvider theme={ThemeStyle}>
@@ -97,18 +154,15 @@ function Main({ children }) {
         <PrivacyPolicy
           onDemand
           active={
-            router.query.modal &&
-            router.query.modal === 'politica-de-privacidade'
+            router.query.modal === 'privacy-policy'
           }
         />
         <TermsOfUse
           onDemand
-          active={router.query.modal && router.query.modal === 'termos-de-uso'}
+          active={
+            router.query.modal === 'terms-of-use'
+          }
         />
-        <div
-          className="onesignal-customlink-container"
-          style={{ display: 'none' }}
-        ></div>
       </>
     </ThemeProvider>
   );

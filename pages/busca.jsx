@@ -17,6 +17,7 @@ import BuildingList from 'components/Building/List';
 import NewsletterFooter from 'components/NewsletterFooter';
 import BuildingsPanel from 'components/BuildingsPanel';
 import CustomSelect from 'components/CustomSelect';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // helpers
 import { getParamsFromObject } from 'helpers/utils';
@@ -205,7 +206,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     router.push(`/busca${params}`, undefined, { shallow: true });
     setPage(newPage);
     setLoadNewPage(true);
-  }, [ page, router ]);
+  }, [ page ]);
 
   const getBuildingsSuggestions = useCallback(async () => {
     const results = [];
@@ -542,25 +543,46 @@ function Search({ total, totalPages, data, banner, locals }) {
                               href={banner.button_link}
                               target={banner.button_target}
                             >
-                              <ImageContainer hideOverlay={true}>
-                                {banner.imageDesktop && (
-                                  <Image
-                                    mq="desktop"
-                                    src={banner.imageDesktop}
-                                  />
-                                )}
-                                {banner.imageMobile && (
-                                  <Image mq="mobile" src={banner.imageMobile} />
-                                )}
-                              </ImageContainer>
+                                                          <ImageContainer hideOverlay={true}>
+                              {banner.imageDesktop && (
+                                <OptimizedBuildingImage
+                                  src={banner.imageDesktop}
+                                  alt="Banner desktop"
+                                  layout="fill"
+                                  sizes="(max-width: 768px) 100vw, 100vw"
+                                  className="banner-image desktop"
+                                />
+                              )}
+                              {banner.imageMobile && (
+                                <OptimizedBuildingImage
+                                  src={banner.imageMobile}
+                                  alt="Banner mobile"
+                                  layout="fill"
+                                  sizes="(max-width: 768px) 100vw, 100vw"
+                                  className="banner-image mobile"
+                                />
+                              )}
+                            </ImageContainer>
                             </a>
                           ) : (
                             <ImageContainer hideOverlay={!banner.title}>
                               {banner.imageDesktop && (
-                                <Image mq="desktop" src={banner.imageDesktop} />
+                                <OptimizedBuildingImage
+                                  src={banner.imageDesktop}
+                                  alt="Banner desktop"
+                                  layout="fill"
+                                  sizes="(max-width: 768px) 100vw, 100vw"
+                                  className="banner-image desktop"
+                                />
                               )}
                               {banner.imageMobile && (
-                                <Image mq="mobile" src={banner.imageMobile} />
+                                <OptimizedBuildingImage
+                                  src={banner.imageMobile}
+                                  alt="Banner mobile"
+                                  layout="fill"
+                                  sizes="(max-width: 768px) 100vw, 100vw"
+                                  className="banner-image mobile"
+                                />
                               )}
                             </ImageContainer>
                           )}
@@ -606,20 +628,44 @@ function Search({ total, totalPages, data, banner, locals }) {
                       >
                         <ImageContainer hideOverlay={true}>
                           {banner.imageDesktop && (
-                            <Image mq="desktop" src={banner.imageDesktop} />
+                            <OptimizedBuildingImage
+                              src={banner.imageDesktop}
+                              alt="Banner desktop"
+                              layout="fill"
+                              sizes="(max-width: 768px) 100vw, 100vw"
+                              className="banner-image desktop"
+                            />
                           )}
                           {banner.imageMobile && (
-                            <Image mq="mobile" src={banner.imageMobile} />
+                            <OptimizedBuildingImage
+                              src={banner.imageMobile}
+                              alt="Banner mobile"
+                              layout="fill"
+                              sizes="(max-width: 768px) 100vw, 100vw"
+                              className="banner-image mobile"
+                            />
                           )}
                         </ImageContainer>
                       </a>
                     ) : (
                       <ImageContainer hideOverlay={!banner.title}>
                         {banner.imageDesktop && (
-                          <Image mq="desktop" src={banner.imageDesktop} />
+                          <OptimizedBuildingImage
+                            src={banner.imageDesktop}
+                            alt="Banner desktop"
+                            layout="fill"
+                            sizes="(max-width: 768px) 100vw, 100vw"
+                            className="banner-image desktop"
+                          />
                         )}
                         {banner.imageMobile && (
-                          <Image mq="mobile" src={banner.imageMobile} />
+                          <OptimizedBuildingImage
+                            src={banner.imageMobile}
+                            alt="Banner mobile"
+                            layout="fill"
+                            sizes="(max-width: 768px) 100vw, 100vw"
+                            className="banner-image mobile"
+                          />
                         )}
                       </ImageContainer>
                     )}

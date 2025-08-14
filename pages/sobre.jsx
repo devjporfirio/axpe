@@ -50,7 +50,7 @@ function About() {
             </BlockTitle>
             <Text>
               <p>
-              Mais do que vender imóveis, a Axpe significa o ato de morar. Desde 2002, construímos pontes entre pessoas e espaços com intenção, sensibilidade e curadoria. Atuamos em São Paulo, litoral, campo e montanha e também em Portugal, criando encontros significativos entre estilos de vida e formas de habitar.
+                Mais do que vender imóveis, a Axpe significa o ato de morar. Desde 2002, construímos pontes entre pessoas e espaços com intenção, sensibilidade e curadoria. Atuamos em São Paulo, litoral, campo e montanha — e também em Portugal — criando encontros significativos entre estilos de vida e formas de habitar.
               </p>
             </Text>
           </BlockCol>

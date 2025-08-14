@@ -259,6 +259,103 @@ export const Image = styled.img`
   `}
 `;
 
+// Estilos para as imagens otimizadas do SlickSection
+export const OptimizedImageStyles = styled.div`
+  .slickGrid.desktop,
+  .slick.desktop,
+  .slickLeft.desktop,
+  .slickLarge.desktop,
+  .slickSmall.desktop {
+    height: 700px;
+    display: block;
+    object-fit: cover;
+    
+    ${media.lessThan('medium')`
+      display: none !important;
+    `}
+  }
+
+  .slickGrid.mobile,
+  .slick.mobile,
+  .slickLeft.mobile,
+  .slickLarge.mobile,
+  .slickSmall.mobile {
+    height: 70vw;
+    display: block;
+    object-fit: cover;
+    
+    ${media.greaterThan('medium')`
+      display: none !important;
+    `}
+  }
+
+  .slickGrid.desktop {
+    ${media.lessThan('medium')`
+      height: 0;
+      padding-top: 66.64%;
+    `}
+    
+    ${media.greaterThan('medium')`
+      height: auto;
+    `}
+  }
+
+  .slick.desktop,
+  .slick.mobile {
+    min-height: 507px;
+    margin-bottom: 9px;
+  }
+
+  .slickLeft.desktop {
+    width: 100%;
+    max-width: 705px;
+    min-width: 570px;
+    max-height: 244px;
+    margin-left: 0;
+    margin-right: 2px;
+
+    ${media.greaterThan('medium')`
+      max-height: 680px;
+    `}
+  }
+
+  .slickLarge.desktop {
+    ${media.greaterThan('medium')`
+      width: 64%;
+      max-width: 635px;
+      height: 258px;
+      border-radius: 6px 0 0 6px;
+    `}
+  }
+
+  .slickLarge.mobile {
+    ${media.lessThan('medium')`
+      height: 230px;
+      border-radius: 6px 6px 0 0;
+    `}
+  }
+
+  .slickGrid.mobile {
+    ${media.lessThan('medium')`
+      max-height: 221px;
+    `}
+  }
+
+  .slickSmall.desktop,
+  .slickSmall.mobile {
+    height: 230px;
+    border-radius: 6px 6px 0 0;
+
+    ${media.greaterThan('medium')`
+      max-width: 100%;
+    `}
+  }
+
+  .placeholder {
+    background-color: #f0f0f0;
+  }
+`;
+
 export const GreenBlock = styled.div`
   width: 100%;
   height: 102px;

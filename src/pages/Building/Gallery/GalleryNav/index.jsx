@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 import {
   Container,
   Body,
@@ -64,7 +65,12 @@ function GalleryNav({
               items.map((item, itemIndex) => (
                 <BodySlider key={`building-gallerynav1-${itemIndex}`}>
                   {item.image || item.src ? (
-                    <img src={item.src || item.image} alt="Imóvel" loading='lazy'/>
+                    <OptimizedBuildingImage
+                      src={item.src || item.image}
+                      alt="Imóvel"
+                      layout="fill"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   ) : item.video ? (
                     <iframe
                       title="video"
@@ -82,12 +88,13 @@ function GalleryNav({
             {items &&
               items.length > 0 &&
               items.map((item, itemIndex) => (
-                <img
+                <OptimizedBuildingImage
                   key={`building-gallerynav2-${itemIndex}`}
                   src={item.src || item.image}
                   alt="Imóvel"
+                  layout="fill"
+                  sizes="(max-width: 768px) 100vw, 30vw"
                   className={plantaSelect === itemIndex ? 'active' : ''}
-                  role="presentation"
                   onClick={() => slider1.current.slickGoTo(itemIndex)}
                 />
               ))}

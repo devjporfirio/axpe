@@ -7,12 +7,12 @@ import { Container } from './styles';
 
 const LINKS = {
   tel: 'tel:+551130743600',
-  whats: 'https://wa.me/5511932062653'
+  whats: 'https://wa.me/551130743600'
 };
 
 const NUMBERS = {
   tel: '(11) 3074-3600',
-  whats: '(11) 93206-2653'
+  whats: '(11) 3074-3600'
 };
 
 const ICONS = {

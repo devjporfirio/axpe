@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // styles
 import {
@@ -41,19 +42,21 @@ function GalleryCarousel({ items }) {
           >
             <a href={item.link}>
               {item.images.mobile && (
-                <img
+                <OptimizedBuildingImage
                   src={item.images.mobile}
                   alt={item.title}
+                  layout="fill"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="mobile"
-                  loading='lazy'
                 />
               )}
               {item.images.desktop && (
-                <img
+                <OptimizedBuildingImage
                   src={item.images.desktop}
                   alt={item.title}
+                  layout="fill"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="desktop"
-                  loading='lazy'
                 />
               )}
             </a>

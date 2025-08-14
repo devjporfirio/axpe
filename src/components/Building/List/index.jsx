@@ -6,6 +6,7 @@ import Image from 'next/image';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 import Inactive from 'components/Inactive';
 import SliderNew from 'components/SliderNew';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // helpers
 import Link from 'next/link';
@@ -270,14 +271,13 @@ function BuildingList({
                         data-position={positionIndex}
                       >
                         <ImageWrapper useBtSchedule={useBtSchedule} page={page}>
-                          <Image
+                          <OptimizedBuildingImage
                             src={galleryItem.src}
                             alt={`Axpe ${category} - ${reference}`}
                             layout="fill"
                             className="next-image"
                             sizes="(max-width: 768px) 100vw, 60vw"
-                            loading="lazy"
-                            unoptimized
+                            priority={galleryItemIndex === 0} // Prioridade para primeira imagem
                           />
                         </ImageWrapper>
                       </LinkTag>

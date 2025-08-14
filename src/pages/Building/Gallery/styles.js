@@ -13,6 +13,26 @@ export const Container = styled.div`
     width: calc(100vw - 400px);
     max-width: 1040px;
   }
+
+  /* Corrigir layout shift do slick-track */
+  /* .slick-track {
+    display: flex !important;
+    align-items: stretch;
+    width: 100% !important;
+    min-width: 100% !important;
+  } */
+
+  /* .slick-slide {
+    width: calc(100vw - 400px) !important;
+    max-width: 1040px !important;
+    flex-shrink: 0;
+  } */
+
+  /* Evitar layout shift durante carregamento */
+  .slick-list {
+    overflow: hidden;
+    width: 100%;
+  }
 `;
 
 export const Tour360 = styled(GalleryHeaderbar)`

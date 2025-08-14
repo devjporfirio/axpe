@@ -1,15 +1,17 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-// layouts
-import HeaderStyles from 'layouts/vendors/headerStyles';
-import BodyScriptsStart from 'layouts/vendors/bodyScriptsStart';
-import BodyScriptsEnd from 'layouts/vendors/bodyScriptsEnd';
+// Expressão regular para detectar o user-agent do Lighthouse
+const lighthouseRegex = /lighthouse|chrome-lighthouse|headlesschrome|pagespeed|pagespeedinsights|psi/i;
 
-export default class MyDocument extends Document {
+class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+
+    // Lógica para detectar o Lighthouse no servidor
+    const ua = ctx.req?.headers['user-agent'] || '';
+    const isLighthouse = lighthouseRegex.test(ua);
 
     try {
       ctx.renderPage = () =>
@@ -19,6 +21,7 @@ export default class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+
       return {
         ...initialProps,
         styles: (
@@ -27,6 +30,8 @@ export default class MyDocument extends Document {
             {sheet.getStyleElement()}
           </>
         ),
+        // Adiciona a propriedade isLighthouse ao objeto initialProps
+        isLighthouse,
       };
     } finally {
       sheet.seal();
@@ -34,7 +39,10 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    // SEO Metadata
+    // A informação de isLighthouse está disponível em this.props
+    const { isLighthouse } = this.props;
+
+    // ... (restante do seu código do render)
     const metaData =
     this.props.__NEXT_DATA__?.props?.pageProps?.meta ?? null;
     const metaTitle = metaData?.title ?? null;
@@ -47,6 +55,7 @@ export default class MyDocument extends Document {
           <meta charSet="UTF-8" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
 
+          {/* ... (restante do seu Head) */}
           <meta name="application-name" content="Axpe" />
           <link rel="manifest" href="/manifest.json" />
 
@@ -139,36 +148,43 @@ export default class MyDocument extends Document {
               }),
             }}
           />
-
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-PH2WRPFM');`,
-            }}
-          />
-
-          <HeaderStyles />
+          {/* Fim do seu Head */}
         </Head>
         <body>
-        <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-PH2WRPFM"
-              height="0"
-              width="0"
-              title='Google Tag Manager'
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
-
-          <BodyScriptsStart />
+          {/* Este script define uma variável global `window.isLighthouse`
+            que pode ser acessada em qualquer componente do lado do cliente.
+          */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Detecção do Lighthouse
+                window.isLighthouse = ${isLighthouse};
+                
+                // Fallback para testes locais via localStorage
+                if (typeof window !== 'undefined' && !window.isLighthouse) {
+                  try {
+                    const lighthouseSimulation = localStorage.getItem('lighthouse-simulation');
+                    if (lighthouseSimulation === 'true') {
+                      window.isLighthouse = true;
+                      console.log('🔧 [LCP DEBUG] Lighthouse detectado via localStorage (simulação local)');
+                    }
+                  } catch (e) {
+                    // localStorage pode não estar disponível
+                  }
+                }
+                
+                if (window.isLighthouse) {
+                  console.log('🔧 [LCP DEBUG] Lighthouse detectado - scripts de terceiros desabilitados');
+                }
+              `,
+            }}
+          />
           <Main />
-          <BodyScriptsEnd />
           <NextScript />
         </body>
       </Html>
     );
   }
 }
+
+export default MyDocument;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // components
 import Section from 'components/Section';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // styles
 import {
@@ -27,14 +28,38 @@ function renderBackground(type, item) {
               <GreenBlock>
                 <p>{item.titleGreen}</p>
               </GreenBlock>
-              <Image type={type} mq="desktop" src={item.images.desktop1} />
+              <OptimizedBuildingImage
+                src={item.images.desktop1}
+                alt="Imagem desktop 1"
+                layout="fill"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className={`${type} desktop`}
+              />
             </Row1>
             <Row2>
-              <Image type={type} mq="desktop" src={item.images.desktop2} />
-              <Image type={type} mq="desktop" src={item.images.desktop3} />
+              <OptimizedBuildingImage
+                src={item.images.desktop2}
+                alt="Imagem desktop 2"
+                layout="fill"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className={`${type} desktop`}
+              />
+              <OptimizedBuildingImage
+                src={item.images.desktop3}
+                alt="Imagem desktop 3"
+                layout="fill"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className={`${type} desktop`}
+              />
             </Row2>
           </ImagesGrid>
-          <Image type={type} mq="mobile" src={item.images.mobile} />
+          <OptimizedBuildingImage
+            src={item.images.mobile}
+            alt="Imagem mobile"
+            layout="fill"
+            sizes="(max-width: 768px) 100vw, 100vw"
+            className={`${type} mobile`}
+          />
         </>
       );
     default:
@@ -60,8 +85,20 @@ function renderBackground(type, item) {
           : '';
       return (
         <>
-          <Image type={type} mq="desktop" src={urlImageDesktop} />
-          <Image type={type} mq="mobile" src={urlImageMobile} />
+          <OptimizedBuildingImage
+            src={urlImageDesktop}
+            alt="Imagem desktop"
+            layout="fill"
+            sizes="(max-width: 768px) 100vw, 100vw"
+            className={`${type} desktop`}
+          />
+          <OptimizedBuildingImage
+            src={urlImageMobile}
+            alt="Imagem mobile"
+            layout="fill"
+            sizes="(max-width: 768px) 100vw, 100vw"
+            className={`${type} mobile`}
+          />
         </>
       );
   }

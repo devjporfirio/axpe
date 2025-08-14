@@ -2,6 +2,7 @@ import React from 'react';
 
 // components
 import Slider from 'components/Slider';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // styles
 import {
@@ -29,7 +30,12 @@ function SlickText({ items }) {
                 return !media.mediaType || (media.mediaType !== 'imagem' && media.mediaType !== 'video') ?
                   null :  media.mediaType === 'imagem' ? (
                   <div key={`item-gallery-${media.mediaType}-${mediaIndex}`}>
-                    <img src={media.image} alt="Imóvel" loading='lazy'/>
+                    <OptimizedBuildingImage
+                      src={media.image}
+                      alt="Imóvel"
+                      layout="fill"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
                 ) : media.mediaType === 'video' ? (
                   <iframe

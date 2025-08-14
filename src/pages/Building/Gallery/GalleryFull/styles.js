@@ -84,6 +84,7 @@ export const Slide = styled.div`
     margin: 0px auto;
     overflow: unset;
     width: 100vw;
+    height: 100%;
 
     img {
       margin: auto;
@@ -91,6 +92,18 @@ export const Slide = styled.div`
       height: 100%;
       object-fit: contain;
     }
+
+    .next-image {
+      object-fit: contain !important;
+    }
+  }
+
+  .react-transform-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   iframe {

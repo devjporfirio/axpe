@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "api": "node api/index.js",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "analyze": "ANALYZE=true next build"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -28,22 +29,10 @@
     ]
   },
   "pre-commit": "lint-staged",
-  "browserslist": {
-    "production": [
-      "> 1% in AU",
-      "> 1% in JP",
-      "last 2 Chrome versions",
-      "last 2 Firefox versions",
-      "last 2 ChromeAndroid versions",
-      "last 2 Edge versions",
-      "last 2 iOS versions",
-      "last 2 Safari versions",
-      "not ie <= 9"
-    ],
-    "development": [
-      "last 1 Chrome version"
-    ]
-  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
     "@reduxjs/toolkit": "^2.8.1",
@@ -85,8 +74,8 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.4.5",
     "babel-eslint": "^10.0.3",
-    "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.6.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.5.0",

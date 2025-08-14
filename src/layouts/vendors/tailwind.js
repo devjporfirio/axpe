@@ -1,27 +1,27 @@
 import { css } from 'styled-components';
 import media from 'styled-media-query';
 
-const breakpoints = [ 'small', 'medium', 'large', 'huge' ];
+// Otimizado: apenas breakpoints necessários
+const breakpoints = [ 'small', 'medium', 'large' ];
 
 const createTailwindClasses = () => {
   let classesCSS = '';
 
+  // Otimizado: apenas classes mais usadas
+  const essentialClasses = ['hidden', 'block', 'flex', 'grid'];
+
   for (let i = 0; i < breakpoints.length; i++) {
     const breakpoint = breakpoints[i];
 
-    classesCSS += `
-      ${media.greaterThan(breakpoint)`
-        .${breakpoint}\\:hidden {
-          display: none;
-        }
-        .${breakpoint}\\:block {
-          display: block;
-        }
-        .${breakpoint}\\:flex {
-          display: flex;
-        }
-      `}
-    `;
+    essentialClasses.forEach(className => {
+      classesCSS += `
+        ${media.greaterThan(breakpoint)`
+          .${breakpoint}\\:${className} {
+            display: ${className === 'hidden' ? 'none' : className};
+          }
+        `}
+      `;
+    });
   }
 
   return css`
@@ -30,6 +30,7 @@ const createTailwindClasses = () => {
 };
 
 export default css`
+  /* Classes essenciais apenas */
   .hidden {
     display: none;
   }
@@ -40,6 +41,10 @@ export default css`
 
   .flex {
     display: flex;
+  }
+
+  .grid {
+    display: grid;
   }
 
   ${createTailwindClasses()}

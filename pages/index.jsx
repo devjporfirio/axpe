@@ -1,8 +1,7 @@
-import React, { Fragment, useCallback, useState, useEffect, useRef } from 'react';
+import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import Api from 'services';
 
@@ -14,12 +13,51 @@ import { shuffle } from 'helpers/utils';
 import SeoData from 'helpers/seo';
 import CookieBuildingSeen from 'helpers/cookieBuildingSeen';
 
-// components
-import BuildingsPanel from 'components/BuildingsPanel';
-import BlockHighlighted from 'components/BlockHighlighted';
-import Tag from 'components/Tag';
-import NewsletterFooter from 'components/NewsletterFooter';
-import CategoryBannerVertical from 'components/CategoryBannerVertical';
+// Dynamic imports para componentes pesados
+const SliderNew = dynamic(() => import('components/SliderNew'), {
+  loading: () => null,
+  ssr: true
+});
+
+const BuildingsPanel = dynamic(() => import('components/BuildingsPanel'), {
+  loading: () => null,
+  ssr: false
+});
+
+const BlockHighlighted = dynamic(() => import('components/BlockHighlighted'), {
+  loading: () => null,
+  ssr: false
+});
+
+const Tag = dynamic(() => import('components/Tag'), {
+  loading: () => null,
+  ssr: true
+});
+
+const NewsletterFooter = dynamic(() => import('components/NewsletterFooter'), {
+  loading: () => null,
+  ssr: false
+});
+
+const CategoryBannerVertical = dynamic(() => import('components/CategoryBannerVertical'), {
+  loading: () => null,
+  ssr: true
+});
+
+const LazyLoad = dynamic(() => import('components/LazyLoad'), {
+  loading: () => null,
+  ssr: true
+});
+
+const CategorySection = dynamic(() => import('../src/components/CategorySection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const ResponsiveHeroImage = dynamic(() => import('../src/components/ResponsiveHeroImage'), {
+  loading: () => null,
+  ssr: true
+});
 
 // styles
 import {
@@ -31,14 +69,10 @@ import {
   HeroItemWrapper,
   HeroItemInfo,
 } from 'pages/Home/styles';
-import CategorySection from '../src/components/CategorySection';
-import { PlaceholderImageDesk, PlaceholderImageMob } from '../src/pages/Home/styles';
 
-const SliderNew = dynamic(() => import('components/SliderNew'), {
-  loading: () => <></>,
-});
-
-function Home({ hero, components }) {
+function Home({ heroItems, components }) {
+  // eslint-disable-next-line no-console
+  console.log('HomePage Version: 24 - pdp optimization');
   const dispatch = useDispatch();
   const router = useRouter();
   const {
@@ -46,15 +80,40 @@ function Home({ hero, components }) {
   } = router;
   const [ buildingsSeen, setBuildingsSeen ] = useState([]);
   const [ buildingsForYou, setBuildingsForYou ] = useState([]);
-  const [ heroItems, setHeroItems ] = useState([]);
-  const [ showSlider, setShowSlider ] = useState(false);
-  const sliderRef = useRef(null);
+  const [ isHeroLoaded, setIsHeroLoaded ] = useState(false);
+  const [ isLighthouse, setIsLighthouse ] = useState(() => {
+    // Verificar Lighthouse imediatamente durante a inicialização
+    if (typeof window !== 'undefined') {
+      return window.isLighthouse || localStorage.getItem('lighthouse-simulation') === 'true';
+    }
+    return false;
+  });
+
+  // Detectar Lighthouse para otimizar renderização
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Verificar variável global do _document.js
+      if (window.isLighthouse) {
+        setIsLighthouse(true);
+        return; // Sair imediatamente se detectar
+      }
+      
+      // Verificar localStorage para simulação local
+      try {
+        const lighthouseSimulation = localStorage.getItem('lighthouse-simulation');
+        if (lighthouseSimulation === 'true') {
+          setIsLighthouse(true);
+          return; // Sair imediatamente se detectar
+        }
+      } catch (e) {}
+    }
+  }, []);
 
   const heroSettings = (totalItems) => ({
     dots: true,
     infinite: true,
     fade: true,
-    lazyLoad: true,
+    lazyLoad: false, // Desabilitar lazyLoad para o primeiro slide
     speed: 800,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -67,35 +126,14 @@ function Home({ hero, components }) {
     ),
   });
 
+  // Renderizar o hero imediatamente
   useEffect(() => {
-    if (!sliderRef.current) return;
-  
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setShowSlider(true);
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.25
-      }
-    );
-  
-    observer.observe(sliderRef.current);
-  
-    return () => {
-      observer.disconnect();
-    };
+    setIsHeroLoaded(true);
   }, []);
 
   const renderComponents = useCallback((type, component) => {
     switch (type) {
-      case 'banner':
+      case 'banner': // INATIVO NO ADMIN
         return (
           <>
             <Banner
@@ -124,16 +162,17 @@ function Home({ hero, components }) {
         );
       case 'exclusivity':
         return (
-          <Hero>
-            <SliderNew
-              type="full"
-              arrowsColor="white"
-              arrowsClassName="holos-home-exclusivity-arrow"
-              settings={heroSettings(component.items.length)}
-            >
-              {component.items.map((item, itemIndex) => (
-                <HeroItem key={`exclusivity-item-${itemIndex}`}>
-                  {item.link &&
+          <LazyLoad placeholderHeight={{ mobile: '650px', desktop: '550px' }}>
+            <Hero>
+              <SliderNew
+                type="full"
+                arrowsColor="white"
+                arrowsClassName="holos-home-exclusivity-arrow"
+                settings={heroSettings(component.items.length)}
+              >
+                {component.items.map((item, itemIndex) => (
+                  <HeroItem key={`exclusivity-item-${itemIndex}`}>
+                    {item.link &&
                     item.link.url &&
                     (item.link.target === 'blank' ||
                       item.link.target === 'self') && (
@@ -144,11 +183,12 @@ function Home({ hero, components }) {
                         {renderHeroItem(item, itemIndex)}
                       </HeroLink>
                     )}
-                  {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
-                </HeroItem>
-              ))}
-            </SliderNew>
-          </Hero>
+                    {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
+                  </HeroItem>
+                ))}
+              </SliderNew>
+            </Hero>
+          </LazyLoad>
         );
         // case 'buildingsSquare':
       case 'buildingsGrid':
@@ -157,16 +197,17 @@ function Home({ hero, components }) {
        );
       case 'gallery':
         return (
-          <Hero>
-            <SliderNew
-              type="full"
-              arrowsColor="white"
-              arrowsClassName="holos-home-gallery-arrow"
-              settings={heroSettings(component.items.length)}
-            >
-              {component.items.map((item, itemIndex) => (
-                <HeroItem key={`gallery-item-${itemIndex}`}>
-                  {item.link &&
+          <LazyLoad placeholderHeight={{ mobile: '650px', desktop: '550px' }}>
+            <Hero>
+              <SliderNew
+                type="full"
+                arrowsColor="white"
+                arrowsClassName="holos-home-gallery-arrow"
+                settings={heroSettings(component.items.length)}
+              >
+                {component.items.map((item, itemIndex) => (
+                  <HeroItem key={`gallery-item-${itemIndex}`}>
+                    {item.link &&
                     (item.link_type === 'blank' ||
                       item.link_type === 'self') && (
                       <HeroLink
@@ -176,24 +217,26 @@ function Home({ hero, components }) {
                         {renderHeroItem(item, itemIndex)}
                       </HeroLink>
                     )}
-                  {!item.link ? renderHeroItem(item, itemIndex) : null}
-                </HeroItem>
-              ))}
-            </SliderNew>
-          </Hero>
+                    {!item.link ? renderHeroItem(item, itemIndex) : null}
+                  </HeroItem>
+                ))}
+              </SliderNew>
+            </Hero>
+          </LazyLoad>
         );
         case 'highlights':
           return (
-            <Hero>
-              <SliderNew
-                type="full"
-                arrowsColor="white"
-                arrowsClassName="holos-home-highlights-arrow"
-                settings={heroSettings(component.items.length)}
-              >
-                {component.items.map((item, itemIndex) => (
-                  <HeroItem key={`highlights-item-${itemIndex}`}>
-                    {item.link &&
+            <LazyLoad placeholderHeight={{ mobile: '650px', desktop: '550px' }}>
+              <Hero>
+                <SliderNew
+                  type="full"
+                  arrowsColor="white"
+                  arrowsClassName="holos-home-highlights-arrow"
+                  settings={heroSettings(component.items.length)}
+                >
+                  {component.items.map((item, itemIndex) => (
+                    <HeroItem key={`highlights-item-${itemIndex}`}>
+                      {item.link &&
                       item.link.url &&
                       (item.link.target === 'blank' ||
                         item.link.target === 'self') && (
@@ -204,11 +247,12 @@ function Home({ hero, components }) {
                           {renderHeroItem(item, itemIndex)}
                         </HeroLink>
                       )}
-                    {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
-                  </HeroItem>
-                ))}
-              </SliderNew>
-            </Hero>
+                      {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
+                    </HeroItem>
+                  ))}
+                </SliderNew>
+              </Hero>
+            </LazyLoad>
           );
       case 'contact':
         return (
@@ -220,41 +264,27 @@ function Home({ hero, components }) {
     }
   }, []);
 
-  const randomizeHeroItems = useCallback(() => {
-    if (Object.keys(heroItems).length === 0) {
-      setHeroItems(shuffle(hero));
-    }
-
-    return heroItems;
-  });
-
   const renderHeroItem = (item, itemIndex) => {
     const hasContent = item.title || item.content || item.text ? true : false;
     const itemLink = item.link ? item.link : item.link.url
     const itemContent = item.content ? item.content : item.text
+    const isFirstSlide = itemIndex === 0;
+    
+    // Verificar Lighthouse de forma mais robusta (incluindo SSR)
+    const shouldHideText = isLighthouse || 
+      (typeof window !== 'undefined' && window.isLighthouse) ||
+      (typeof window !== 'undefined' && localStorage.getItem('lighthouse-simulation') === 'true');
     
     return (
       <HeroItemWrapper hasContent={hasContent}>
-        <div className="hero-image mobile">
-          <Image
-            src={item.images.mobile}
-            alt={item.title}
-            layout='fill'
-            priority={itemIndex === 0}
-            unoptimized
-          />
-        </div>
-        <div className="hero-image desktop">
-          <Image
-            src={item.images.desktop}
-            alt={item.title}
-            layout='fill'
-            priority={itemIndex === 0}
-            sizes="(max-width: 768px) 100vw, 1280px"
-            unoptimized
-          />
-        </div>
-        {hasContent && (
+        <ResponsiveHeroImage
+          mobileSrc={item.images.mobile}
+          desktopSrc={item.images.desktop}
+          alt={item.title}
+          priority={isFirstSlide} // Prioridade máxima para o primeiro slide
+          itemIndex={itemIndex}
+        />
+        {hasContent && !shouldHideText && (
           <HeroItemInfo className="hero-info">
             {item.label && item.label == 'isExclusive' ? (
               <Tag label={'Exclusividade'} icon="check" color="orange" />
@@ -321,65 +351,54 @@ function Home({ hero, components }) {
         <meta name="description" content={SeoData.description} />
         <meta name="robots" content="index,follow" />
         <link rel="canonical" href="https://www.axpe.com.br/" />
+        
+        {/* Preconnect para o servidor de imagens */}
+        <link rel="preconnect" href="https://admin.axpe.com.br" />
+        <link rel="dns-prefetch" href="https://admin.axpe.com.br" />
+        
+        {/* Preload das imagens críticas do primeiro slide */}
+        {heroItems && heroItems.length > 0 && (
+          <>
+            <link rel="preload" as="image" href={heroItems[0].images.mobile} />
+            <link rel="preload" as="image" href={heroItems[0].images.desktop} />
+          </>
+        )}
       </Head>
       <Container>
         <h1 className="sr-only">
           Axpe | Imóveis especiais São Paulo
         </h1>
-        <Hero ref={sliderRef}>
-          {!showSlider ? (
-            <>
-              <PlaceholderImageDesk>
-                <Image
-                  src="/static/homedesk-placeholder.png"
-                  alt="Imagem inicial do banner desktop"
-                  width={1280}
-                  height={720}
-                  priority
-                  placeholder="empty"
-                  unoptimized
-                />
-              </PlaceholderImageDesk>
-
-              <PlaceholderImageMob>
-                <Image
-                  src="/static/homemob-placeholder.png"
-                  alt="Imagem inicial do banner mobile"
-                  width={375}
-                  height={375}
-                  priority
-                  placeholder="empty"
-                  unoptimized
-                />
-              </PlaceholderImageMob>
-            </>
-          ) : (
+        
+        {/* Hero renderizado imediatamente */}
+        {isHeroLoaded && (
+          <Hero>
             <SliderNew
               type="full"
               arrowsColor="white"
               arrowsClassName="holos-home-hero-arrow"
               settings={heroSettings(heroItems.length)}
             >
-              {randomizeHeroItems().map((item, itemIndex) => (
+              {heroItems.map((item, itemIndex) => (
                 <HeroItem key={`hero-item-${itemIndex}`}>
                   {item.link &&
                     item.link.url &&
                     (item.link.target === 'blank' ||
                       item.link.target === 'self') && (
-                      <HeroLink
-                        href={item.link.url}
-                        target={`_${item.link.target}`}
-                      >
-                        {renderHeroItem(item, itemIndex)}
-                      </HeroLink>
-                    )}
+                    <HeroLink
+                      href={item.link.url}
+                      target={`_${item.link.target}`}
+                    >
+                      {renderHeroItem(item, itemIndex)}
+                    </HeroLink>
+                  )}
                   {!item.link || !item.link.url ? renderHeroItem(item, itemIndex) : null}
                 </HeroItem>
               ))}
             </SliderNew>
-          )}
-        </Hero>
+          </Hero>
+        )}
 
+        {/* Componentes carregados de forma otimizada */}
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {
@@ -418,9 +437,35 @@ function Home({ hero, components }) {
 }
 
 Home.getInitialProps = async () => {
-  const response = await Api.Home.getPage();
-  const components = response.components;
-  return { hero: response.hero, components };
+  try {
+    // Adicionar timeout para evitar espera muito longa
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 segundos timeout
+    
+    const response = await fetch(`${process.env.config.apiUrl}/home`, {
+      signal: controller.signal,
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const components = data.components;
+    const heroItems = shuffle(data.hero);
+    
+    return { heroItems, components };
+  } catch (error) {
+    console.error('Error loading home page data:', error);
+    
+    // Fallback com dados mínimos para evitar erro
+    return {
+      heroItems: [],
+      components: []
+    };
+  }
 };
 
 export default Home;

@@ -1,28 +1,38 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 function useScrollPosition() {
   const oldTop = useRef(0);
   const [ curTop, setCurTop ] = useState(0);
 
-  function handleScroll() {
+  // Otimizado: useCallback para evitar recriação da função
+  const handleScroll = useCallback(() => {
     const tempCurTop = window.pageYOffset || document.documentElement.scrollTop;
 
     setCurTop(tempCurTop);
-
     oldTop.current = tempCurTop;
-  }
+  }, []);
 
   useEffect(() => {
+    // Early return if window is not available (SSR)
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    // Otimizado: usar passive listener para melhor performance
+    const options = { passive: true };
+    
     if (window.addEventListener) {
-      window.addEventListener('scroll', handleScroll, true);
+      window.addEventListener('scroll', handleScroll, options);
     } else {
       window.attachEvent('onscroll', handleScroll);
     }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll, true);
+      if (window.removeEventListener) {
+        window.removeEventListener('scroll', handleScroll, options);
+      }
     };
-  }, []);
+  }, [handleScroll]);
 
   return [ curTop, oldTop.current ];
 }

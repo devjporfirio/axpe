@@ -148,6 +148,19 @@ export const ImagesSecundary = styled.div`
   `}
 `;
 
+// Estilos para as imagens otimizadas do GalleryNav
+export const OptimizedImageStyles = styled.div`
+  .tour-360-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .placeholder {
+    background-color: #f0f0f0;
+  }
+`;
+
 export const InfoPlanta = styled.div`
   margin: 25px 22px;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // styles
 import {
@@ -85,7 +86,13 @@ export default function GalleryFull({
                 <Slide key={`galleryfull-item-${item.tipo}-${itemIndex}`}>
                   <TransformWrapper pan={{ disabled: true }} options={{ maxScale: 4, padding: false, centerContent: true, limitToBounds: true }}>
                     <TransformComponent>
-                      <img alt="Foto do Imóvel" src={item.src} loading='lazy'/>
+                      <OptimizedBuildingImage
+                        src={item.src}
+                        alt="Foto do Imóvel"
+                        layout="fill"
+                        sizes="(max-width: 768px) 100vw, 100vw"
+                        priority={itemIndex === 0}
+                      />
                     </TransformComponent>
                   </TransformWrapper>
                 </Slide>

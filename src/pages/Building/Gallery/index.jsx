@@ -7,6 +7,7 @@ import GalleryNav from './GalleryNav';
 import GalleryFull from './GalleryFull';
 import DotsPagination from 'components/DotsPagination';
 import GalleryItem from './GalleryItem';
+import OptimizedBuildingImage from 'components/OptimizedImage';
 
 // assets
 import I360 from 'assets/icons/360.svg';
@@ -46,7 +47,13 @@ function Gallery({
     <Container className={className}>
       {tour360 && (
         <Button360 onClick={() => setShowTour(true)}>
-          <img src={I360} alt="Tour 360" loading='lazy'/>
+          <OptimizedBuildingImage
+            src={I360}
+            alt="Tour 360"
+            layout="fill"
+            sizes="(max-width: 768px) 100vw, 50px"
+            className="tour-360-icon"
+          />
         </Button360>
       )}
 
