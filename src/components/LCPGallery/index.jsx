@@ -55,7 +55,7 @@ const LCPGallery = () => {
           <Slide>
             <ImageWrapper>
               <OptimizedBuildingImage
-                src="/placeholder-100x100.png"
+                src="/static/placeholder-100x100.png"
                 alt="Imagem do imóvel 1"
                 layout="fill"
                 sizes="(max-width: 768px) 100vw, 1040px"

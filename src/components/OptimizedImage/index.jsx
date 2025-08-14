@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 // Componente para renderizar um placeholder
-const Placeholder = ({ alt, priority, layout = "fill", sizes = "100vw", className = "building-image placeholder" }) => (
+const Placeholder = ({ alt, priority, layout = 'fill', sizes = '100vw', className = 'building-image placeholder' }) => (
   <div className={className}>
     <Image
-      src="/placeholder-100x100.png"
+      src="/static/placeholder-100x100.png"
       alt={alt}
       layout={layout}
       priority={priority}
@@ -17,16 +17,16 @@ const Placeholder = ({ alt, priority, layout = "fill", sizes = "100vw", classNam
   </div>
 );
 
-const OptimizedBuildingImage = ({ 
-  src, 
-  alt, 
-  priority = false, 
-  layout = "fill", 
-  sizes = "(max-width: 768px) 100vw, 60vw",
-  className = "next-image"
+const OptimizedBuildingImage = ({
+  src,
+  alt,
+  priority = false,
+  layout = 'fill',
+  sizes = '(max-width: 768px) 100vw, 60vw',
+  className = 'next-image'
 }) => {
-  const [isClient, setIsClient] = useState(false);
-  const [isLighthouse, setIsLighthouse] = useState(false);
+  const [ isClient, setIsClient ] = useState(false);
+  const [ isLighthouse, setIsLighthouse ] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -60,7 +60,7 @@ const OptimizedBuildingImage = ({
       layout={layout}
       className={className}
       sizes={sizes}
-      loading={priority ? "eager" : "lazy"}
+      loading={priority ? 'eager' : 'lazy'}
       quality={65}
       objectFit="cover"
     />

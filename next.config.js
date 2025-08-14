@@ -14,7 +14,7 @@ const nextConfig = {
   compress: true,
   
   images: {
-    // unoptimized: true,
+    unoptimized: true,
     domains: [
       'admin.axpe.com.br',
       'images.axpe.com.br',
@@ -23,7 +23,7 @@ const nextConfig = {
       'axpe-frontend.vercel.app',
     ],
     formats: [ 'image/avif', 'image/webp' ],
-    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    deviceSizes: [ 375, 640, 750, 828, 1080, 1200, 1920, 2048, 3840 ],
   },
   compiler: {
     styledComponents: true,

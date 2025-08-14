@@ -6,7 +6,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 const Placeholder = ({ alt, priority }) => (
   <div className="hero-image placeholder">
     <Image
-      src="/placeholder-100x100.png"
+      src="/static/placeholder-100x100.png"
       alt={alt}
       layout='fill'
       priority={priority}
@@ -18,9 +18,9 @@ const Placeholder = ({ alt, priority }) => (
 );
 
 const ResponsiveHeroImage = memo(({ mobileSrc, desktopSrc, alt, priority = false }) => {
-  const [isClient, setIsClient] = useState(false);
-  const [isLighthouse, setIsLighthouse] = useState(false);
-  const [deviceType, setDeviceType] = useState('mobile'); // Default para mobile
+  const [ isClient, setIsClient ] = useState(false);
+  const [ isLighthouse, setIsLighthouse ] = useState(false);
+  const [ deviceType, setDeviceType ] = useState('mobile'); // Default para mobile
 
   // Hook para detectar o tipo de dispositivo
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -39,7 +39,7 @@ const ResponsiveHeroImage = memo(({ mobileSrc, desktopSrc, alt, priority = false
     } else {
       setDeviceType('desktop');
     }
-  }, [isMobile]);
+  }, [ isMobile ]);
 
   // Se o Lighthouse for detectado, renderiza o placeholder
   if (isLighthouse) {
@@ -68,7 +68,7 @@ const ResponsiveHeroImage = memo(({ mobileSrc, desktopSrc, alt, priority = false
   // Lógica de renderização no cliente (CSR)
   // Renderiza a imagem responsiva para usuários normais
   const currentSrc = deviceType === 'mobile' ? mobileSrc : desktopSrc;
-  const currentSizes = deviceType === 'mobile' ? "(max-width: 768px) 100vw, 1200px" : "100vw";
+  const currentSizes = deviceType === 'mobile' ? '(max-width: 768px) 100vw, 1200px' : '100vw';
 
   return (
     <div className={`hero-image ${deviceType}`}>
