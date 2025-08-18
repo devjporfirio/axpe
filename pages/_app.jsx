@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback, useState } from 'react'
 
 import HeaderScripts from 'layouts/vendors/headerScripts';
-import BodyScriptsStart from 'layouts/vendors/bodyScriptsStart';
-import BodyScriptsEnd from 'layouts/vendors/bodyScriptsEnd';
+// import BodyScriptsStart from 'layouts/vendors/bodyScriptsStart';
+// import BodyScriptsEnd from 'layouts/vendors/bodyScriptsEnd';
 
 // helpers
 import CookieUtmParams from 'helpers/cookieUtmParams';
@@ -18,9 +18,28 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Head from 'next/head';
 
+function GtmSafePlaceholders() {
+  return (
+    <div
+      className="holos-contact-float"
+      style={{
+        position: 'absolute',
+        width: 0,
+        height: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        opacity: 0,
+      }}
+      aria-hidden="true"
+    >
+      <div />
+    </div>
+  );
+}
+
 function MyApp({ Component, pageProps }) {
-  const [isLighthouse, setIsLighthouse] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  const [ isLighthouse, setIsLighthouse ] = useState(false);
+  const [ isClient, setIsClient ] = useState(false);
 
   // Otimizado para evitar reflows desnecessários
   const initializeApp = useCallback(() => {
@@ -70,7 +89,7 @@ function MyApp({ Component, pageProps }) {
     
     return () => clearTimeout(timeoutId);
 
-  }, [initializeApp]);
+  }, [ initializeApp ]);
 
 
   return (
@@ -81,7 +100,8 @@ function MyApp({ Component, pageProps }) {
           content="width=device-width, initial-scale=1.0"
         />
       </Head>
-      
+      <GtmSafePlaceholders />
+
       {/* Renderização condicional baseada no estado do cliente e Lighthouse */}
       {isClient && !isLighthouse ? (
         <>

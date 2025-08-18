@@ -57,8 +57,10 @@ function ContactBar() {
     contactBarForced,
     searchFunnel,
   } = useSelector((state) => state.main);
-  const [ isBuilding, setIsBuilding ] = useState(false);
+  const isDynamicBuildingRoute = router.pathname === '/[category]/[slug]';
+  const [ isBuilding, setIsBuilding ] = useState(isDynamicBuildingRoute);
   const [ iframeUrl, setIframeUrl ] = useState(null);
+
   const {
       values,
       isSubmitting,

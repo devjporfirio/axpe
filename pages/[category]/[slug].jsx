@@ -43,25 +43,21 @@ function Building(props) {
   const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
   const canonicalUrl = `${baseUrl}${router.asPath.split('?')[0]}`;
 
-  const isLighthouse = (() => {
+  function useLighthouseFlag() {
+    const [ lh, setLh ] = useState(false);
+    useEffect(() => {
+      if (typeof window === 'undefined') return;
+      if ((window).isLighthouse) return setLh(true);
+      try {
+        if (localStorage.getItem('lighthouse-simulation') === 'true') {
+          setLh(true);
+        }
+      } catch {}
+    }, []);
+    return lh;
+  }
 
-    if (typeof window === 'undefined') {
-      return true;
-    }
-    
-    if (window.isLighthouse) {
-      return true;
-    }
-    
-    try {
-      const lighthouseSimulation = localStorage.getItem('lighthouse-simulation');
-      if (lighthouseSimulation === 'true') {
-        return true;
-      }
-    } catch (e) {}
-    
-    return false;
-  })();
+  const isLighthouse = useLighthouseFlag();
 
   useEffect(() => {
     if (!property) return;

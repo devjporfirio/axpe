@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
 
 // components
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
@@ -204,9 +203,8 @@ function BuildingList({
       infos.use !== 'COMERCIAL' &&
       source !== 'praia' &&
       source !== 'campo' &&
-      categoryText !== 'Cobertura' &&
-      categoryText !== 'Apartamento' &&
-      categoryText.search('Casa') < 0
+      (categoryText === 'Casa' ||
+      categoryText === 'Casa de vila' || categoryText === 'Casa Comercial' || categoryText === 'Prédio')
     ) {
       items.push(
         <Caracteristics.AreaTotal

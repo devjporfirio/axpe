@@ -275,7 +275,7 @@ export default function Datasheet({ property }) {
 
                         <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
 
-                        <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
+                       {(category === 'Casa' || category === 'Casa de vila' || category === 'Casa Comercial' || category === 'Prédio') && <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />}
 
                         {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
                             <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
@@ -314,7 +314,7 @@ export default function Datasheet({ property }) {
                         />
 
 
-                        {category && (category.search('Casa') < 0 && category !== 'Apartamento' && category !== 'Cobertura') &&
+                        {category && (category === 'Casa' || category === 'Casa de vila') &&
                             infos.use !== 'COMERCIAL' &&
                             source !== 'praia' &&
                             source !== 'campo' && (

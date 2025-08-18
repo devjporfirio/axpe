@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import SVG from 'react-inlinesvg';
-import ClipboardJS from 'clipboard';
 
 // assets
 import WhatsappRoundedIconSVG from 'assets/icons/whatsapp-rounded.svg';
@@ -20,29 +19,57 @@ import {
 } from './styles';
 
 function Share({ active, path, title, onClose }) {
-  const [ url, setUrl ] = useState(null);
+  const [ url, setUrl ] = useState('');
   const [ copied, setCopied ] = useState(false);
-  const copySubmitButton = useRef(null);
+  const inputRef = useRef(null);
 
   function handleClose() {
     onClose();
   }
 
-  function attachClipboard() {
-    const copyjs = new ClipboardJS(copySubmitButton.current);
-    copyjs.on('success', () => {
-      setCopied(true);
+  useEffect(() => {
+    if (!active) return;
 
-      setTimeout(() => {
-        setCopied(false);
-      }, 4000);
-    });
+    const buildUrl = () => {
+      const base =
+        process.env.NEXT_PUBLIC_SITE_URL ||
+        process.env?.config?.siteUrl ||
+        (typeof window !== 'undefined' ? window.location.origin : '');
+
+      const cleanPath = path?.startsWith('/') ? path : `/${path ?? ''}`;
+
+      try {
+        return new URL(cleanPath, base).toString();
+      } catch {
+        return `${base}${cleanPath}`;
+      }
+    };
+
+    setUrl(buildUrl());
+  }, [ active, path ]);
+
+  async function handleCopy() {
+    if (!url) return;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      // execCommand é legado, usado só como fallback
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 4000);
   }
 
-  useEffect(() => {
-    setUrl(`${process.env.config.siteUrl}${path}`);
-    attachClipboard();
-  }, [ active ]);
+  const encUrl = encodeURIComponent(url || '');
+  const encTitle = encodeURIComponent(title || '');
 
   return (
     <Container active={active} onClick={handleClose}>
@@ -56,55 +83,74 @@ function Share({ active, path, title, onClose }) {
 
         <Socials>
           <SocialsButton
-            href={`https://api.whatsapp.com/send?text=${url}`}
+            href={`https://api.whatsapp.com/send?text=${encUrl}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="holos-account-favorite-share-network"
             data-label="Whatsapp"
           >
-            <SVG src={WhatsappRoundedIconSVG} uniquifyIDs={true} /> Whatsapp
+            <SVG src={WhatsappRoundedIconSVG} uniquifyIDs aria-hidden="true" /> Whatsapp
           </SocialsButton>
+
           <SocialsButton
-            href={`https://www.facebook.com/sharer.php?u=${url}`}
+            href={`https://www.facebook.com/sharer.php?u=${encUrl}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="holos-account-favorite-share-network"
             data-label="Facebook"
           >
-            <SVG src={FacebookRoundedIconSVG} uniquifyIDs={true} /> Facebook
+            <SVG src={FacebookRoundedIconSVG} uniquifyIDs aria-hidden="true" /> Facebook
           </SocialsButton>
+
           <SocialsButton
-            href={`https://twitter.com/share?text=${title}&url=${url}`}
+            href={`https://twitter.com/share?text=${encTitle}&url=${encUrl}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="holos-account-favorite-share-network"
             data-label="Twitter"
           >
-            <SVG src={TwitterRoundedIconSVG} uniquifyIDs={true} /> Twitter
+            <SVG src={TwitterRoundedIconSVG} uniquifyIDs aria-hidden="true" /> Twitter
           </SocialsButton>
+
           <SocialsButton
-            href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`}
+            href={`https://www.linkedin.com/shareArticle?mini=true&url=${encUrl}&title=${encTitle}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="holos-account-favorite-share-network"
             data-label="Linkedin"
           >
-            <SVG src={LinkedinRoundedIconSVG} uniquifyIDs={true} /> Linkedin
+            <SVG src={LinkedinRoundedIconSVG} uniquifyIDs aria-hidden="true" /> Linkedin
           </SocialsButton>
         </Socials>
 
         <Copy copied={copied}>
-          {url && <input type="text" id="url" name="url" defaultValue={url} />}
+          {/* readonly para permitir seleção no fallback sem edição acidental */}
+          {url && (
+            <input
+              ref={inputRef}
+              type="text"
+              id="url"
+              name="url"
+              defaultValue={url}
+              readOnly
+            />
+          )}
+
           <button
             type="button"
-            ref={copySubmitButton}
-            data-clipboard-target="#url"
+            onClick={handleCopy}
             className="holos-account-favorite-share-network"
             data-label="Copiar Link"
+            aria-live="polite"
           >
-            {copied ? 'Copiado!' : `Copiar`}
+            {copied ? 'Copiado!' : 'Copiar'}
           </button>
         </Copy>
       </Wrapper>
     </Container>
   );
 }
+
 
 Share.propTypes = {
   active: PropTypes.bool.isRequired,

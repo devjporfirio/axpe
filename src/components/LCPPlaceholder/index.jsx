@@ -12,7 +12,6 @@ import {
     BlockOne,
     Type,
     GroupInfo,
-    CategoryRelease,
     Neighborhood,
     GroupTags,
     BlockTwo,
