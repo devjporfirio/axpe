@@ -275,8 +275,6 @@ export default function Datasheet({ property }) {
 
                         <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
 
-                       {(category === 'Casa' || category === 'Casa de vila' || category === 'Casa Comercial' || category === 'Prédio') && <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />}
-
                         {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
                             <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
                         )}

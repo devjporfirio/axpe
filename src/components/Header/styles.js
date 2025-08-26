@@ -1,11 +1,9 @@
 import styled, { createGlobalStyle, css } from 'styled-components';
 import media from 'styled-media-query';
 
-// import AxpeLogoSVG from 'assets/axpe-logo.svg';
-import AxpeSpecialLogoSVG from 'assets/axpe-special.svg';
+import AxpeLogoSVG from 'assets/axpe-logo.svg';
 import AxpeFullLogoSVG from 'assets/axpe-full-logo.svg';
 import ChristiesLogoSVG from 'assets/christies-logo.svg';
-import Axpe20YearsLogoSVG from 'assets/axpe-20-anos.svg';
 
 export const Container = styled.header`
   position: fixed;
@@ -94,7 +92,7 @@ export const Wrapper = styled.div`
 
 export const AxpeLogo = styled.div`
   display: block;
-  width: 78px;
+  width: 145px;
   margin-right: 20px;
 
   ${media.greaterThan('large')`
@@ -104,7 +102,7 @@ export const AxpeLogo = styled.div`
 
   a {
     height: 70px;
-    background: url(${AxpeSpecialLogoSVG}) no-repeat center;
+    background: url(${AxpeFullLogoSVG}) no-repeat center;
     background-size: 130px 130px;
 
     ${media.greaterThan('large')`
@@ -143,7 +141,7 @@ export const Axpe20Years = styled.div`
   a {
     height: 66px;
     margin: 0 auto;
-    background: url(${Axpe20YearsLogoSVG}) no-repeat;
+    background: url(${AxpeLogoSVG}) no-repeat;
     background-size: contain;
   }
 `;

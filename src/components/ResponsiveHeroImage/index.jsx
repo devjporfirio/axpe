@@ -1,12 +1,13 @@
 import React, { memo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import placeholder from '../../assets/placeholder-100x100.png';
 
 // Componente para renderizar um placeholder
 const Placeholder = ({ alt, priority }) => (
   <div className="hero-image placeholder">
     <Image
-      src="/static/placeholder-100x100.png"
+      src={placeholder}
       alt={alt}
       layout='fill'
       priority={priority}

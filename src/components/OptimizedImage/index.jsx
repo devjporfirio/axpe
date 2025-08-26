@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
+import placeholder from '../../assets/placeholder-100x100.png';
 
 // Componente para renderizar um placeholder
 const Placeholder = ({ alt, priority, layout = 'fill', sizes = '100vw', className = 'building-image placeholder' }) => (
   <div className={className}>
     <Image
-      src="/static/placeholder-100x100.png"
+      src={placeholder}
       alt={alt}
       layout={layout}
       priority={priority}
@@ -25,11 +25,11 @@ const OptimizedBuildingImage = ({
   sizes = '(max-width: 768px) 100vw, 60vw',
   className = 'next-image'
 }) => {
-  const [ isClient, setIsClient ] = useState(false);
+  // const [ isClient, setIsClient ] = useState(false);
   const [ isLighthouse, setIsLighthouse ] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // setIsClient(true);
     
     // Captura a variável global criada no _document.js
     if (typeof window !== 'undefined') {
@@ -63,6 +63,7 @@ const OptimizedBuildingImage = ({
       loading={priority ? 'eager' : 'lazy'}
       quality={65}
       objectFit="cover"
+      unoptimized
     />
   );
 };
