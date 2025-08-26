@@ -136,7 +136,7 @@ export const Label = styled.label`
 
 export const Span = styled.span`
   font: 14px 'Raleway';
-  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
   color: ${({ theme }) => theme.colors.green};
   padding-left: 12px;
   ${({ size }) =>
@@ -181,7 +181,7 @@ const BaseInput = css`
   }
 
   &:not(:placeholder-shown) + span,
-  &:focus ~ span {
+  &:not(select):focus ~ span {
     top: 25%;
     font-size: 10px;
   }

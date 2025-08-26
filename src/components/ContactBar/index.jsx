@@ -39,11 +39,17 @@ const registrySchema = Yup.object().shape({
   Name_First: Yup.string().required('Informe seu nome'),
   Name_Last: Yup.string().required('Informe seu sobrenome'),
   Email: Yup.string().email().required('Informe um email válido'),
-  PhoneNumber: Yup.string().required('Informe seu Whatsapp'),
-  SingleLine11: Yup.string().required('Deixe sua mensagem'),
+  PhoneNumber_countrycode: Yup.string().required('Informe seu Whatsapp'),
+  MultiLine: Yup.string().required('Deixe sua mensagem'),
+  Dropdown3: Yup.string().oneOf([ 'Comprar', 'Vender', 'Alugar' ], 'Selecione uma opção válida')
 });
 
 const formSuccessPageUrl = `${process.env.config.siteUrl}/forms/imovel/sucesso.html?back=https://www.axpe.com.br/`;
+
+const DROPDOWN3_ITEMS = [
+  { value: 'Comprar',  label: 'Comprar' },
+  { value: 'Vender',   label: 'Vender' },
+];
 
 function ContactBar() {
   const [ isMounted, setIsMounted ] = useState(false);
@@ -75,8 +81,9 @@ function ContactBar() {
        Name_First: '',
        Name_Last: '',
        Email: '',
-       PhoneNumber: '',
-       SingleLine11: '',
+       PhoneNumber_countrycode: '',
+       MultiLine: '',
+       Dropdown3: 'Comprar'
       },
       validationSchema: registrySchema,
       onSubmit: (values, { setSubmitting }) => {
@@ -203,122 +210,73 @@ function ContactBar() {
     );
   };
 
+  function computeIframeUrl(building, searchFunnel, iframes) {
+    if (!building || !iframes?.length) return null;
+  
+    const norm = (s) => String(s ?? '').toLowerCase().replace(/\s|_/g, '-');
+  
+    const baseList = searchFunnel?.finality
+      ? iframes.filter(f => f.finality === searchFunnel.finality)
+      : iframes;
+  
+    const scored = baseList.map((f) => {
+      let score = 0;
+      if (norm(f.source).includes(norm(building.source))) score++;
+      if (f.type && f.type === building.type) score++;
+      if (!searchFunnel?.finality) {
+        if ((f.finality === 'venda' && building.values?.sell) ||
+            (f.finality === 'aluguel' && building.values?.rent)) score++;
+        else score--;
+      }
+      if (f.use && building.infos && f.use === building.infos.use) score++;
+      return { f, score };
+    }).filter(x => x.score > 0);
+  
+    if (!scored.length) return null;
+  
+    const best = scored.sort((a, b) => b.score - a.score)[0].f;
+  
+    const areaUseful = building?.infos?.areaTotal ?? building?.infos?.areaUsefulStart ?? null;
+  
+    const paramsObj = {
+      type: building.type,
+      reference: building.reference,
+      category: building.category,
+      source: building.source,
+      region: building?.address?.region ?? null,
+      local: building?.address?.local ?? null,
+      areaUseful: Number.isFinite(Number(areaUseful)) ? parseInt(String(areaUseful), 10) : areaUseful,
+      bedrooms: building?.infos?.bedrooms ?? building?.infos?.bedroomsStart ?? null,
+      parking: building?.infos?.parking ?? building?.infos?.parkingStart ?? null,
+      value: null,
+      url: (typeof window !== 'undefined' ? window.location.href : ''),
+      redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
+    };
+  
+    const srcLower = String(best.src).toLowerCase();
+    paramsObj.value = srcLower.includes('locacao')
+      ? building.values?.rent
+      : srcLower.includes('lancamento')
+        ? building.values?.release
+        : building.values?.sell;
+  
+    const params = getParamsFromObject(paramsObj);
+    const base = process.env.config?.siteUrl || (typeof window !== 'undefined' ? window.location.origin : '');
+    return `${base}${best.src}${params}`;
+  }
+
   useEffect(() => {
     if (currentBuilding) {
-      let params = null;
-      const areaUseful = !currentBuilding.infos
-        ? null
-        : currentBuilding.infos.areaTotal
-        ? currentBuilding.infos.areaTotal
-        : currentBuilding.infos.areaUsefulStart;
-      const paramsObj = {
-        type: currentBuilding.type,
-        reference: currentBuilding.reference,
-        category: currentBuilding.category,
-        source: currentBuilding.source,
-        region:
-          currentBuilding.address && currentBuilding.address.region
-            ? currentBuilding.address.region
-            : null,
-        local:
-          currentBuilding.address && currentBuilding.address.local
-            ? currentBuilding.address.local
-            : null,
-        areaUseful: !isNaN(areaUseful) ? parseInt(areaUseful) : areaUseful,
-        bedrooms: !currentBuilding.infos
-          ? null
-          : currentBuilding.infos.bedrooms
-          ? currentBuilding.infos.bedrooms
-          : currentBuilding.infos.bedroomsStart,
-        parking: !currentBuilding.infos
-          ? null
-          : currentBuilding.infos.parking
-          ? currentBuilding.infos.parking
-          : currentBuilding.infos.parkingStart,
-        value: null,
-        url: location.href,
-        redirectUrl: `https://wa.me/5511932062653?text=Olá, vim através do site, gostaria de falar com um corretor!`,
-      };
-      let iframeSelected = null;
-      let iframesPreSelected = iframes;
-      const matches = [];
-
-      if (searchFunnel) {
-        iframesPreSelected = iframes.filter(
-          (iframe) => iframe.finality === searchFunnel.finality
-        );
-      }
-
-      if (iframesPreSelected.length) {
-        iframesPreSelected.forEach((iframe) => {
-          let matchesTotal = 0;
-
-          if (
-            iframe.source &&
-            iframe.source.search(currentBuilding.source) >= 0
-          ) {
-            matchesTotal++;
-
-            if (iframe.type && iframe.type === currentBuilding.type) {
-              matchesTotal++;
-            }
-
-            if (!searchFunnel || !searchFunnel.finality) {
-              if (
-                (iframe.finality === 'venda' && currentBuilding.values.sell) ||
-                (iframe.finality === 'aluguel' && currentBuilding.values.rent)
-              ) {
-                matchesTotal++;
-              } else {
-                matchesTotal--;
-              }
-            }
-
-            if (
-              iframe.use &&
-              currentBuilding.infos &&
-              iframe.use === currentBuilding.infos.use
-            ) {
-              matchesTotal++;
-            }
-
-            matches.push({ matchesTotal, ...iframe });
-          }
-        });
-
-        iframeSelected = matches.reduce(
-          (prev, current) =>
-            prev.matchesTotal && prev.matchesTotal > current.matchesTotal
-              ? prev
-              : current,
-          {}
-        );
-
-        if (iframeSelected && iframeSelected.src) {
-          if (iframeSelected.src.search('locacao') >= 0) {
-            paramsObj.value = currentBuilding.values.rent;
-          } else if (iframeSelected.src.search('lancamento') >= 0) {
-            paramsObj.value = currentBuilding.values.release;
-          } else {
-            paramsObj.value = currentBuilding.values.sell;
-          }
-        
-          params = getParamsFromObject(paramsObj);
-          setIframeUrl(
-            `${process.env.config.siteUrl}${iframeSelected.src}${params}`
-          );
-        }
-      }
+      const url = computeIframeUrl(currentBuilding, searchFunnel, iframes);
+      setIframeUrl(url);
     } else {
       setIframeUrl(null);
     }
-
+  
     setIsBuilding(
       router.pathname.startsWith('/[category]/[slug]') || (contactBarActive && contactBarForced)
-        ? true
-        : false
     );
-  }, [ router.route, contactBarActive, currentBuilding ]);
+  }, [ router.pathname, currentBuilding, searchFunnel ]);
 
   useEffect(() => {
     if (refIframe.current && iframeUrl) {
@@ -442,15 +400,11 @@ function ContactBar() {
       {contactBarActive && (
         <Container onClick={clickContainer} data-type='container'>
           <Wrapper isHome={router.route === '/'}>
-            {isBuilding && iframeUrl ? (
-              <Iframe
-                ref={refIframe}
-                src={iframeUrl}
-                border='none'
-                frameBorder='0'
-                title={router.asPath}
-              ></Iframe>
-            ) : (
+          {isBuilding ? (
+            iframeUrl
+              ? <Iframe ref={refIframe} src={iframeUrl} border='none' title={router.asPath} />
+              : <div style={{ padding:'2rem', textAlign:'center' }}>Preparando formulário do imóvel…</div>
+          ) : (
               <>
                 <Header isBuilding={isBuilding}>
                   <ButtonClose
@@ -467,7 +421,7 @@ function ContactBar() {
                     Fechar
                   </ButtonClose>
                   <h3>
-                    Quer vender, comprar ou alugar um imóvel?
+                    Quer comprar ou vender um imóvel?
                   </h3>
                 </Header>
                 <Column>
@@ -487,7 +441,8 @@ function ContactBar() {
                     />
                     <input type="hidden" name="zc_gad" value="" />
                     <input type="checkbox" name="DecisionBox" defaultChecked hidden />
-
+                    <input type="hidden" name="Radio" value="Novo Lead" />
+                    <input type="checkbox" name="DecisionBox" defaultChecked hidden />
                     <FormGroup>
                       <FormGroupBasics>
                         <FormGroupName>
@@ -526,24 +481,35 @@ function ContactBar() {
                         />
                         <FormElements
                           type="text"
-                          name="PhoneNumber"
-                          id="PhoneNumber"
+                          name="PhoneNumber_countrycode"
+                          id="PhoneNumber_countrycode"
                           inputMode="tel"
                           pattern="^\+?[0-9\s()-]{7,20}$"
                           autoComplete="tel"
                           maxLength={20}
                           placeholder="Seu WhatsApp"
-                          value={values.PhoneNumber}
+                          value={values.PhoneNumber_countrycode}
                           onChange={handleChange}
-                          error={touched.PhoneNumber && errors.PhoneNumber}
+                          error={touched.PhoneNumber_countrycode && errors.PhoneNumber_countrycode}
+                        />
+                        <FormElements
+                          type="select"
+                          name="Dropdown3"
+                          label="Quer comprar ou vender imóvel?"
+                          items={DROPDOWN3_ITEMS}
+                          value={values.Dropdown3}
+                          onChange={handleChange}
+                          error={touched.Dropdown3 && errors.Dropdown3}
+                          className="holos-form-field"
+                          data-label="Funil"
                         />
                         <FormElements
                           type='area'
-                          name='SingleLine11'
+                          name='MultiLine'
                           placeholder='Deixe sua mensagem'
                           onChange={handleChange}
-                          error={touched.SingleLine11 && errors.SingleLine11}
-                          value={values.SingleLine11}
+                          error={touched.MultiLine && errors.MultiLine}
+                          value={values.MultiLine}
                           className='holos-form-field'
                           data-label='Mensagem sobre imóvel'
                         />
@@ -561,20 +527,20 @@ function ContactBar() {
                           Name_First: true,
                           Name_Last: true,
                           Email: true,
-                          PhoneNumber: true,
-                          SingleLine11: true,
+                          PhoneNumber_countrycode: true,
+                          Dropdown3: true,
+                          MultiLine: true,
                         });
                 
                         if (!hasErrors || refForm.current) {
-                          const normalized = normalizePhone(values.PhoneNumber, { allowPlus: true, maxDigits: 15 });
-                         
-                          await setFieldValue('PhoneNumber', normalized);
-                         
-                           const input = refForm.current.querySelector('#PhoneNumber');
-                            if (input) input.value = normalized;
-                        
-                            refForm.current.submit();
-                            toggleShow();
+                          const normalized = normalizePhone(values.PhoneNumber_countrycode, { allowPlus: true, maxDigits: 15 });
+                          await setFieldValue('PhoneNumber_countrycode', normalized);
+                          const input = refForm.current.querySelector('#PhoneNumber_countrycode');
+                          
+                          if (input) input.value = normalized;
+
+                          refForm.current.submit();
+                          toggleShow();
                         }
                       }}
                     >
@@ -584,7 +550,7 @@ function ContactBar() {
                         Whatsapp  <strong>(11) 93206-2653</strong>
                       </button> */}
                       <ButtonQuickCall>
-                        <a href="tel:+551130743600" target="_blank" class="moreinfo-btn holos-product-contact-method" data-label="Telefone">
+                        <a href="tel:+551130743600" target="_blank" className="moreinfo-btn holos-product-contact-method" data-label="Telefone">
                             Telefone: <strong>(11) 3074-3600</strong>
                         </a>
                       </ButtonQuickCall>

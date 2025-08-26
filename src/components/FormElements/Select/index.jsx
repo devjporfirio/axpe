@@ -4,17 +4,17 @@ import { InputSelect } from '../styles';
 
 import ArrowIconSVG from 'assets/icons/arrow.svg';
 
-export default function Select(props) {
+export default function Select({ items = [], ...props }) {
   return (
     <>
       <InputSelect {...props}>
-        {props.items &&
-          props.items.length > 0 &&
-          props.items.map(i => (
-            <option key={`option-${i.value}`} value={i.value} dangerouslySetInnerHTML={{ __html: i.label }} />
-          ))}
+        {items.map(i => (
+          <option key={`option-${i.value}`} value={i.value}>
+            {i.label}
+          </option>
+        ))}
       </InputSelect>
-      <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+      <SVG src={ArrowIconSVG} uniquifyIDs style={{ pointerEvents: 'none' }} />
     </>
   );
 }
