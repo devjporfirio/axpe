@@ -120,7 +120,7 @@ export default function Datasheet({ property }) {
 
     const data = isLighthouse ? mockProperty : property;
     
-    const { type, infos, category, address, label, values, source, vista, title, reference } = data;
+    const { type, infos, category, address, label, values, vista, title, reference } = data;
     const { searchFunnel } = useSelector(state => state.main);
     const [ shareActive, setShareActive ] = useState(false);
 
@@ -312,12 +312,12 @@ export default function Datasheet({ property }) {
                         />
 
 
-                        {category && (category === 'Casa' || category === 'Casa de vila') &&
+                        {/* {category && (category === 'Casa' || category === 'Casa de vila') &&
                             infos.use !== 'COMERCIAL' &&
                             source !== 'praia' &&
                             source !== 'campo' && (
                                 <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
-                            )}
+                            )} */}
                     </BlockThree>
 
                     {/* {hasTitle && (

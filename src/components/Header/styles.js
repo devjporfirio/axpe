@@ -103,7 +103,7 @@ export const AxpeLogo = styled.div`
   a {
     height: 70px;
     background: url(${AxpeFullLogoSVG}) no-repeat center;
-    background-size: 130px 130px;
+    background-size: 130px 45px;
 
     ${media.greaterThan('large')`
       height: 53px;
