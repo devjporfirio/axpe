@@ -263,11 +263,18 @@ export const NavMain = styled.nav`
 
   ${media.greaterThan('large')`
     margin-bottom: 30vh;
+
   `}
 
-  ${media.greaterThan('huge')`
-    margin-bottom: 35vh;
-  `}
+  @media (max-height: 700px) {
+    margin-bottom: 15vh;
+  }
+
+  @media (min-width: 1440px) and (max-height: 700px) {
+    nav {
+      margin-bottom: 15vh;
+    }
+  }
 
   ul {
     display: flex;

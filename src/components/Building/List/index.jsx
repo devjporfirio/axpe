@@ -120,6 +120,16 @@ function BuildingList({
       );
     }
 
+    if (infos.suites) {
+      items.push(
+        <Caracteristics.Suites
+          type={type}
+          suites={infos.suites}
+          key={`caracteristic-${reference}-${items.length}`}
+        />
+      );
+    }
+
     if (infos.parking || (infos.parkingStart && !infos.parkingEnd)) {
       items.push(
         <Caracteristics.Parking
@@ -214,7 +224,7 @@ function BuildingList({
       );
     }
 
-    items = items.slice(0, 4);
+    items = items.slice(0, 5);
 
     return items;
   }, []);

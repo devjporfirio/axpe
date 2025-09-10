@@ -55,7 +55,7 @@ export default css`
     height: 100%; /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
     width: 100%;
     max-width: 100%; /* Not required for horizontal scroll to trigger */
-    max-height: 100%; /* Needed for vertical scroll to trigger */
+    /* max-height: 100%;  Needed for vertical scroll to trigger */
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
