@@ -73,6 +73,10 @@ export const FormWrapper = styled.div`
       transition-duration: 300ms;
     `}
   `};
+
+  .simplebar-content-wrapper {
+    max-height: 100%
+  }
 `;
 
 export const FormWrapperBox = styled.div`
@@ -400,6 +404,10 @@ export const FormTab = styled.div`
   `}
 
   ${props => props.active && FormTabActive}
+
+  .simplebar-content-wrapper {
+    max-height: 100%
+  }
 `;
 
 export const FormTabWrapper = styled.div`
