@@ -146,8 +146,8 @@ Landing.getInitialProps = async ({ query }) => {
   const slug = query.slug;
   const response = await Api.Landing.getPage(slug);
 
-  const pageTitle = `${response.title ? response.title : SeoData.title} ${SeoData.shortTitle}`;
-  const pageDesc = `${response.title}. Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`;
+  const pageTitle = `${response.meta_title ? response.meta_title : SeoData.title} ${SeoData.shortTitle}`;
+  const pageDesc = `${response.meta_description ? response.meta_description : `${SeoData.description} | Aqui na Axpe você encontra o imóvel perfeito para suas necessidades!`}`;
 
   const pageBanner = response.images.desktop ? response.images.desktop : null;
 

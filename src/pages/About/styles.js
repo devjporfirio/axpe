@@ -604,7 +604,6 @@ export const BlockTitle = styled(Title)`
   padding: 30px 30px 10px 00px;
   flex-direction: ${({ isLast }) => (isLast ? 'row' : 'column')};
   margin-bottom: 0;
-  background: ${({ theme }) => theme.colors.greyLight};
   gap: ${({ isLast }) => (isLast ? ' 8px' : '0px')};
 
   ${media.greaterThan('767px')`

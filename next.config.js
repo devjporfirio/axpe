@@ -27,7 +27,6 @@ const nextConfig = {
   },
   compiler: {
     styledComponents: true,
-    // removeConsole: nodeEnv === 'production',
   },
 
   async headers() {
@@ -130,7 +129,6 @@ const nextConfig = {
     // Otimização de tree shaking
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      public: resolve(__dirname, './public'),
       assets: resolve(__dirname, './src/assets'),
       components: resolve(__dirname, './src/components'),
       helpers: resolve(__dirname, './src/helpers'),

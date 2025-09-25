@@ -4,7 +4,6 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import SVG from 'react-inlinesvg';
 import SimpleBar from 'simplebar-react';
-import Image from 'next/image';
 import Api from 'services';
 import { formatCurrency, getParamsFromObject } from 'helpers/utils';
 import GTM from 'helpers/gtm';

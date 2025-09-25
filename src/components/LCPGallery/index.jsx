@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import OptimizedBuildingImage from 'components/OptimizedImage';
-import placeholder from '../../assets/placeholder-100x100.png';
+import { Placeholder } from '../ResponsiveHeroImage';
 
 const GalleryContainer = styled.div`
   margin: auto;
@@ -55,13 +54,7 @@ const LCPGallery = () => {
         <SliderTrack>
           <Slide>
             <ImageWrapper>
-              <OptimizedBuildingImage
-                src={placeholder}
-                alt="Imagem do imóvel 1"
-                layout="fill"
-                sizes="(max-width: 768px) 100vw, 1040px"
-                priority={true}
-              />
+              <Placeholder alt="Imagem Imóvel" priority />
             </ImageWrapper>
           </Slide>
         </SliderTrack>

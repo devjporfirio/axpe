@@ -1,19 +1,18 @@
 import React, { memo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
-import placeholder from '../../assets/placeholder-100x100.png';
 
-// Componente para renderizar um placeholder
-const Placeholder = ({ alt, priority }) => (
+const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+
+export const Placeholder = ({ alt }) => (
   <div className="hero-image placeholder">
     <Image
-      src={placeholder}
+      src={transparentPixel}
       alt={alt}
       layout='fill'
-      priority={priority}
+      priority
       sizes="100vw"
       objectFit="cover"
-      quality={65}
     />
   </div>
 );

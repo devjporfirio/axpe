@@ -1,21 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import placeholder from '../../assets/placeholder-100x100.png';
-
-// Componente para renderizar um placeholder
-const Placeholder = ({ alt, priority, layout = 'fill', sizes = '100vw', className = 'building-image placeholder' }) => (
-  <div className={className}>
-    <Image
-      src={placeholder}
-      alt={alt}
-      layout={layout}
-      priority={priority}
-      sizes={sizes}
-      objectFit="cover"
-      quality={65}
-    />
-  </div>
-);
+import { Placeholder } from '../ResponsiveHeroImage';
 
 const OptimizedBuildingImage = ({
   src,
@@ -49,7 +34,7 @@ const OptimizedBuildingImage = ({
 
   // Se o Lighthouse for detectado, renderiza o placeholder
   if (isLighthouse) {
-    return <Placeholder alt={alt} priority={priority} layout={layout} sizes={sizes} className={className} />;
+    return <Placeholder alt={alt} priority/>;
   }
 
   // Renderização normal para usuários
