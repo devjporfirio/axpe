@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Api from 'services';
+import { useRouter } from 'next/router';
 
 // helpers
 import SeoData from 'helpers/seo';
@@ -34,8 +35,10 @@ import Head from 'next/head';
 
 function Landing({ slug, page, meta }) {
   const textEl = useRef();
+  const router = useRouter();
   const [ transparent, setTransparent ] = useState(false);
   const { images, imagesBanner, title, text, componentes } = page;
+  const isExclusividadesPage = router.pathname === '/landing/[slug]';
 
   useEffect(() => {
     if (
@@ -48,6 +51,12 @@ function Landing({ slug, page, meta }) {
   }, []);
 
   if (!slug) return null;
+
+  const buildingsToRender = componentes[0].buildings && componentes[0].buildings.length > 0
+  ? isExclusividadesPage
+    ? [ ...componentes[0].buildings ].sort((a, b) => b.id - a.id)
+    : componentes[0].buildings
+  : [];
 
   return (
     <>
@@ -92,9 +101,7 @@ function Landing({ slug, page, meta }) {
                     </TitleModule>
                     <TextModule>{comp.info.text}</TextModule>
                     <Buildings>
-                    {comp.buildings &&
-                      comp.buildings.length > 0 &&
-                      comp.buildings.map((building) =>
+                      {buildingsToRender.map((building) =>
                         building && building.status === 'active' ? (
                           <BuildingList
                             key={building.reference}
@@ -103,7 +110,7 @@ function Landing({ slug, page, meta }) {
                           />
                         ) : null
                       )}
-                      </Buildings>
+                    </Buildings>
                   </Module>
                 );
               case 'imoveis-horizontal':

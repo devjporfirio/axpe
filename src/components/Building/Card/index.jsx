@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import Image from 'next/image';
 import SVG from 'react-inlinesvg';
 import OptimizedBuildingImage from 'components/OptimizedImage';
 
@@ -155,7 +154,7 @@ function BuildingCard({
             <h4>{address && address.local ? address.local : ''}</h4>
             <div>
               <span>{infos && infos.areaUseful &&`${infos.areaUseful} m² |`} </span>
-              <span>{infos && infos.suites && `${infos.suites} Suites |`}</span>
+              <span>{infos && infos.suites && `${infos.suites} Suítes |`}</span>
               <span>{infos && infos.bedrooms && `${infos.bedrooms} Quartos |`}</span>
               <span>{infos && infos.parking && `${infos.parking} Vagas`}</span>
             </div>

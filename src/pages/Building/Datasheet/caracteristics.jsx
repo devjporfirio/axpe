@@ -134,7 +134,7 @@ export const Bedrooms = ({ type, bedrooms, bedroomsStart }) => {
 
 export const Suites = ({ type, suites, bedroomsStart }) => {
   const wordBedroom = checkPluralSingular(
-    'Suite',
+    'Suíte',
     !!suites ? suites : bedroomsStart
   );
   return !!suites ? (
