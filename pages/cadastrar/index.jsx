@@ -43,7 +43,6 @@ const registrySchema = Yup.object().shape({
   SingleLine5: Yup.string()
     .oneOf([ 'Residencial', 'Comercial', 'Praia', 'Campo', 'Internacional' ])
     .required(),
-  SingleLine6: Yup.string().required(),
   DecisionBox: Yup.string().required(),
   Radio: Yup.string().required(),
   Name_First: Yup.string().required(),
@@ -215,7 +214,6 @@ function Register({ locals, categories, countries }) {
       SingleLine16: '',
       SingleLine17: '',
       Dropdown: 'Proprietário',
-      SingleLine6: '', // Tipo de Comercialização - Apenas Venda, Apenas Locação ou Venda e Locação
       SingleLine5: 'Residencial', // Categoria do Imóvel - Residencial, Comercial, Praia, Campo ou Internacional
       DecisionBox: true,
       Radio: 'Novo Lead',
@@ -354,20 +352,6 @@ function Register({ locals, categories, countries }) {
     setCats(newCats);
   }, [ values ]);
 
-  const setFinality = useCallback((sell, rent) => {
-    let result = '';
-
-    if (sell && rent) {
-      result = 'Venda e Locação';
-    } else if (sell) {
-      result = 'Apenas Venda';
-    } else if (rent) {
-      result = 'Apenas Locação';
-    }
-
-    setFieldValue('SingleLine6', result);
-  }, []);
-
   return (
     <>
       <Head>
@@ -432,11 +416,6 @@ function Register({ locals, categories, countries }) {
             <input type="hidden" name="Email" value={values.Email} />
             <input type="hidden" name="Radio" value={values.Radio} />
             <input type="hidden" name="Dropdown" value={values.Dropdown} />
-            <input
-              type="hidden"
-              name="SingleLine6"
-              value={values.SingleLine6}
-            />
             <input type="checkbox" name="DecisionBox" checked={true} />
 
             <FormGroup>
