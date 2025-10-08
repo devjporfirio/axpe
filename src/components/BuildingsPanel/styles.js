@@ -96,7 +96,7 @@ export const Items = styled.div`
 
   .slick-track {
     display: flex;
-    gap: 16px;
+    /* gap: 16px; */
 
     ${media.lessThan('medium')`
       gap: 0;
@@ -105,6 +105,13 @@ export const Items = styled.div`
         margin-right: 16px;
   
       }
+    `}
+  }
+
+  .slick-slide {
+    ${media.greaterThan('medium')`
+      flex-shrink: 0;
+      padding: 0 8px; 
     `}
   }
 

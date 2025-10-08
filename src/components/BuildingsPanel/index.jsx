@@ -30,7 +30,7 @@ function BuildingsPanel({
   const settings = {
     vertical: {
       dots: true,
-      infinite: true,
+      infinite: data.length > 3,
       lazyLoad: true,
       speed: 800,
       slidesToShow: 3,
@@ -55,7 +55,7 @@ function BuildingsPanel({
     },
     horizontal: {
       dots: false,
-      infinite: true,
+      infinite: data.length > 3,
       vertical: true,
       speed: 800,
       slidesToShow: 2.2,
