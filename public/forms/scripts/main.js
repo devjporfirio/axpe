@@ -11,6 +11,27 @@
   var isFavorites = false;
   var message = `Olá, gostaria de saber mais sobre o imóvel {reference} - {local}, com {areaUseful} m², {bedrooms} e {parking}.`;
 
+  var $firstNameInput = $form.querySelector('input[name="Name_First"]');
+  var $lastNameInput = $form.querySelector('input[name="Name_Last"]');
+  var $phoneInput = $form.querySelector('input[name="PhoneNumber_countrycode"]');
+  var $submitButton = document.getElementById('submitBtn');
+
+  function validateAndToggleButton() {
+    if (!$firstNameInput || !$lastNameInput || !$phoneInput || !$submitButton) {
+      return;
+    }
+
+    var isFirstNameFilled = $firstNameInput.value.trim() !== '';
+    var isLastNameFilled = $lastNameInput.value.trim() !== '';
+    var isPhoneFilled = $phoneInput.value.trim() !== '';
+
+    if (isFirstNameFilled && isLastNameFilled && isPhoneFilled) {
+      $submitButton.disabled = false;
+    } else {
+      $submitButton.disabled = true;
+    }
+  }
+
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -97,6 +118,14 @@
 
   $form.addEventListener('submit', formSubmit);
 
+  if ($firstNameInput && $lastNameInput && $phoneInput) {
+    $firstNameInput.addEventListener('input', validateAndToggleButton);
+    $lastNameInput.addEventListener('input', validateAndToggleButton);
+    $phoneInput.addEventListener('input', validateAndToggleButton);
+    
+    validateAndToggleButton();
+  }
+  
   search.forEach((item) => {
     var arr = item.split('=');
     var name = decodeURI(arr[0]);

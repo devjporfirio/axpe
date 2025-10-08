@@ -51,7 +51,7 @@ export const Tour360 = styled(GalleryHeaderbar)`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  border: 2.5px solid ${({ theme }) => theme.colors.white};
+  /* border: 2.5px solid ${({ theme }) => theme.colors.white}; */
   border-top: none;
   border-bottom: none;
   height: 470px;
