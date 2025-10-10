@@ -6,7 +6,6 @@
   var $inputsControl = $form.querySelectorAll('.form-group__control');
   var $btnWhatsApp = document.querySelector('.moreinfo-btn--whatsapp');
   var $inputsMaskPhone = $form.querySelectorAll('.js-mask-phone');
-  var $message = $form.querySelector(`[data-element="message"]`);
   var pageUrl = null;
   var isFavorites = false;
   var message = `Olá, gostaria de saber mais sobre o imóvel {reference} - {local}, com {areaUseful} m², {bedrooms} e {parking}.`;
@@ -95,8 +94,6 @@
     var $inputCryptoId = $form.querySelector('input[data-element="cryptoId"]');
     var $inputAnonymousId = $form.querySelector('input[data-element="anonymousId"]');
 
-
-
     $form
       .querySelector('input[name="Email"]')
       .addEventListener('keyup', function(event) {
@@ -122,10 +119,9 @@
     $firstNameInput.addEventListener('input', validateAndToggleButton);
     $lastNameInput.addEventListener('input', validateAndToggleButton);
     $phoneInput.addEventListener('input', validateAndToggleButton);
-    
     validateAndToggleButton();
   }
-  
+
   search.forEach((item) => {
     var arr = item.split('=');
     var name = decodeURI(arr[0]);
@@ -219,21 +215,17 @@
     }
   });
 
-  if ($message) {
-    message = message.replace(', com {areaUseful} m²', '');
-    message = message.replace(', {bedrooms}', '');
-    message = message.replace(' e {parking}', '');
 
-    $message.value = message;
+  if ($btnWhatsApp) {
+    message = message.replace(/, com {areaUseful} m²|, {bedrooms}| e {parking}/g, '');
+    message = message.replace(/{[^}]+}/g, '');
 
-    if ($btnWhatsApp) {
-      $btnWhatsApp.setAttribute(
-        'href',
-        pageUrl
-          ? `${$btnWhatsApp.getAttribute('href')}?text=${message} - ${pageUrl}`
-          : `${$btnWhatsApp.getAttribute('href')}?text=${message}`
-      );
-    }
+    $btnWhatsApp.setAttribute(
+      'href',
+      pageUrl
+        ? `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)} - ${encodeURIComponent(pageUrl)}`
+        : `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)}`
+    );
   }
 
   function clickButton(event) {
