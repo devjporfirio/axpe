@@ -478,7 +478,8 @@
   background-color: #EFEFEF;
   text-transform: none;
   display: flex;
-  justify-content: center;
+  color: #3F5A5E;
+  justify-content: space-between;
   align-items: center;
 }
 

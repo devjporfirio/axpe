@@ -4,7 +4,7 @@
   var search = location.search.replace('?', '').split('&');
   var $buttons = document.querySelectorAll('.js-button-toggle');
   var $inputsControl = $form.querySelectorAll('.form-group__control');
-  var $btnWhatsApp = document.querySelector('.moreinfo-btn--whatsapp');
+
   var $inputsMaskPhone = $form.querySelectorAll('.js-mask-phone');
   var pageUrl = null;
   var isFavorites = false;
@@ -216,17 +216,17 @@
   });
 
 
-  if ($btnWhatsApp) {
-    message = message.replace(/, com {areaUseful} m²|, {bedrooms}| e {parking}/g, '');
-    message = message.replace(/{[^}]+}/g, '');
+  // if ($btnWhatsApp) {
+  //   message = message.replace(/, com {areaUseful} m²|, {bedrooms}| e {parking}/g, '');
+  //   message = message.replace(/{[^}]+}/g, '');
 
-    $btnWhatsApp.setAttribute(
-      'href',
-      pageUrl
-        ? `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)} - ${encodeURIComponent(pageUrl)}`
-        : `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)}`
-    );
-  }
+  //   $btnWhatsApp.setAttribute(
+  //     'href',
+  //     pageUrl
+  //       ? `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)} - ${encodeURIComponent(pageUrl)}`
+  //       : `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)}`
+  //   );
+  // }
 
   function clickButton(event) {
     var $btn = event.currentTarget;
@@ -261,7 +261,19 @@
     var valid = pristine.validate();
 
     if (valid) {
-      this.submit();
+      let finalMessage = message.replace(/, com {areaUseful} m²|, {bedrooms}| e {parking}/g, '');
+      finalMessage = finalMessage.replace(/{[^}]+}/g, ''); 
+
+      const baseUrl = 'https://wa.me/5511932062653';
+      const whatsAppUrl = pageUrl ?
+        `${baseUrl}?text=${encodeURIComponent(finalMessage)} - ${encodeURIComponent(pageUrl)}` :
+        `${baseUrl}?text=${encodeURIComponent(finalMessage)}`;
+
+      window.open(whatsAppUrl, '_blank');
+
+      setTimeout(() => {
+        this.submit();
+      }, 100);
     }
   }
 
