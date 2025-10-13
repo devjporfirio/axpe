@@ -55,6 +55,28 @@ function Search({ total, totalPages, data, banner, locals }) {
     query,
     query: { source, finality, reference, order },
   } = router;
+
+  const SESSION_STORAGE_KEY = 'scrollPositionBusca';
+
+  useEffect(() => {
+    const scrollPosition = sessionStorage.getItem(SESSION_STORAGE_KEY);
+
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition, 10));
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    }
+
+    const handleRouteChangeStart = () => {
+      sessionStorage.setItem(SESSION_STORAGE_KEY, window.scrollY.toString());
+    };
+
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+    };
+  }, [ router.events ]);
+
   const { searchFormActive } = useSelector((state) => state.main);
   const baseUrl = process.env.config?.siteUrl || 'https://www.axpe.com.br';
 

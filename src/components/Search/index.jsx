@@ -113,6 +113,8 @@ function Search() {
       area_end: '',
       bedroom_start: '',
       bedroom_end: '',
+      suites_start: '',
+      suites_end: '',
       parking_start: '',
       parking_end: '',
       reference: '',
@@ -258,6 +260,8 @@ function Search() {
       { name: 'area_end', value: '' },
       { name: 'bedroom_start', value: '' },
       { name: 'bedroom_end', value: '' },
+      { name: 'suites_start', value: '' },
+      { name: 'suites_end', value: '' },
       { name: 'parking_start', value: '' },
       { name: 'parking_end', value: '' },
     ];
@@ -763,6 +767,11 @@ function Search() {
                             ? `Quartos de ${formik.values.bedroom_start} a ${formik.values.bedroom_end}, `
                             : null}
 
+                          {formik.values.suites_start &&
+                          formik.values.suites_end
+                            ? `Suítes de ${formik.values.suites_start} a ${formik.values.suites_end}, `
+                            : null}
+
                           {typeof formik.values.parking_start !== 'undefined' &&
                           formik.values.parking_end
                             ? `Vagas de estacionamento de ${formik.values.parking_start} a ${formik.values.parking_end}`
@@ -976,8 +985,8 @@ function Search() {
                             sep="a"
                             step={1}
                             onChange={(values) => {
-                              formik.setFieldValue('bedroom_start', values[0]);
-                              formik.setFieldValue('bedroom_end', values[1]);
+                              formik.setFieldValue('suites_start', values[0]);
+                              formik.setFieldValue('suites_end', values[1]);
     
                               GTM.dataLayerPush({
                                 event: 'Custom Field Change',

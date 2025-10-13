@@ -5,13 +5,13 @@ import media from 'styled-media-query';
 import GalleryHeaderbar from './GalleryHeaderbar';
 
 export const Container = styled.div`
-  margin: auto;
+  /* margin: auto; */
   position: relative;
-  max-width: 1160px;
+  /* max-width: 1160px; */
 
   & > .slick-slider .slick-slide {
     width: calc(100vw - 400px);
-    max-width: 1040px;
+    /* max-width: 1040px; */
   }
 
   /* Corrigir layout shift do slick-track */
