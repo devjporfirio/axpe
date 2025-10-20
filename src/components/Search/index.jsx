@@ -131,48 +131,22 @@ function Search() {
         data['reference'] = `AX${values.reference.replace(/^AX/i, '')}`;
       } else {
         Object.keys(values).forEach((key) => {
-          if (key == 'source' && values[key].value) {
-            data[key] = values[key].value;
-          } else if (key === 'furnished' && values[key]) {
-            data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
-          } else if (key == 'price_start' && values['finality']) {
-            if (
-              (values['finality'] == 'venda' && values[key] <= 2000000) ||
-              (values['finality'] == 'aluguel' && values[key] <= 10000)
+            if (key == 'source' && values[key].value) {
+                data[key] = values[key].value;
+            } else if (key === 'furnished' && values[key]) {
+                data[key] = values[key] === 'Mobiliado' ? 'true' : 'false';
+            } else if (
+                (key === 'parking_start' || key === 'parking_end') &&
+                typeof values[key] !== 'undefined'
             ) {
-              data[key] = 0;
-            } else {
-              data[key] = values[key];
+                data[key] = values[key].toString();
+            } else if (Array.isArray(values[key]) && values[key].length) {
+                data[key] = values[key].join(',');
+            } else if (!Array.isArray(values[key]) && values[key]) {
+                data[key] = values[key];
             }
-          } else if (
-            (key === 'parking_start' || key === 'parking_end') &&
-            typeof values[key] !== 'undefined'
-          ) {
-            data[key] = values[key].toString();
-          } else if (key == 'price_end' && values['finality']) {
-            if (
-              (values['finality'] == 'venda' && values[key] >= 20000000) ||
-              (values['finality'] == 'aluguel' && values[key] >= 30000)
-            ) {
-              data[key] = 999000000;
-            } else {
-              data[key] = values[key];
-            }
-          } else if (key === 'area_start' || key === 'area_end') {
-            if (key == 'area_start' && values[key] <= 50) {
-              data[key] = 0;
-            } else if (key == 'area_end' && values[key] >= 500) {
-              data[key] = 999000000;
-            } else {
-              data[key] = values[key];
-            }
-          } else if (Array.isArray(values[key]) && values[key].length) {
-            data[key] = values[key].join(',');
-          } else if (!Array.isArray(values[key]) && values[key]) {
-            data[key] = values[key];
-          }
         });
-      }
+    }
 
       const params = getParamsFromObject(data);
 
