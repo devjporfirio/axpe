@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import noUiSlider from 'nouislider';
+// import noUiSlider from 'nouislider';
 
 // styles
 import {
   Container,
-  Slider,
+  // Slider,
   InputGroup,
   StyledInput,
   InputLabel,
@@ -25,7 +25,7 @@ function RangeSlider({
   step = 100,
   onChange,
 }) {
-  const ref = useRef(null);
+  // const ref = useRef(null);
   const sliderApi = useRef(null);
   const [ values, setValues ] = useState({ first: '', last: '' });
   const [ visualFirst, setVisualFirst ] = useState('');
@@ -52,34 +52,35 @@ function RangeSlider({
     setVisualLast(type === 'prices' ? formatNumberOnlyDigits(last) : formatAreaInput(last));
   }
 
-  function renderSlider() {
-    if (!data || type === 'others') return;
+  // Desabilitado slider
+  // function renderSlider() {
+  //   if (!data || type === 'others') return;
 
-    if (sliderApi.current) {
-      sliderApi.current.destroy();
-    }
+  //   if (sliderApi.current) {
+  //     sliderApi.current.destroy();
+  //   }
 
-    const range = {
-      min: data[0],
-      max: data[1],
-    };
+  //   const range = {
+  //     min: data[0],
+  //     max: data[1],
+  //   };
 
-    sliderApi.current = noUiSlider.create(ref.current, {
-      start: data,
-      connect: true,
-      format: {
-        to: value => parseInt(value),
-        from: value => parseInt(value.replace(',-', '')),
-      },
-      step,
-      range,
-    });
+  //   sliderApi.current = noUiSlider.create(ref.current, {
+  //     start: data,
+  //     connect: true,
+  //     format: {
+  //       to: value => parseInt(value),
+  //       from: value => parseInt(value.replace(',-', '')),
+  //     },
+  //     step,
+  //     range,
+  //   });
 
-    if (sliderApi.current) {
-      sliderApi.current.on('update', saveValues);
-      sliderApi.current.on('end', params => onChange([ params[0], params[1] ]));
-    }
-  }
+  //   if (sliderApi.current) {
+  //     sliderApi.current.on('update', saveValues);
+  //     sliderApi.current.on('end', params => onChange([ params[0], params[1] ]));
+  //   }
+  // }
 
   const handleBlur = (index) => {
     const visual = index === 0 ? visualFirst : visualLast;
@@ -114,7 +115,7 @@ function RangeSlider({
   useEffect(() => {
    if (type !== 'others') {
       saveValues(data);
-      renderSlider();
+      // renderSlider();
     }
   }, [ data ]);
 
@@ -140,7 +141,7 @@ function RangeSlider({
         </ButtonGroup>
       ) : (
         <>
-          <Slider ref={ref}></Slider>
+          {/* <Slider ref={ref}></Slider> */}
           {values && (
             <InputGroup>
             <div>

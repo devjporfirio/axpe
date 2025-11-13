@@ -94,6 +94,13 @@
     var $inputCryptoId = $form.querySelector('input[data-element="cryptoId"]');
     var $inputAnonymousId = $form.querySelector('input[data-element="anonymousId"]');
 
+    var redirectUrlBase = 
+    'https://axpe.com.br/forms/imovel/sucesso.html';
+  
+    if ($inputRedirectUrl) {
+      $inputRedirectUrl.value = redirectUrlBase;
+    }
+
     $form
       .querySelector('input[name="Email"]')
       .addEventListener('keyup', function(event) {
@@ -101,7 +108,7 @@
         var value = $input.value;
         var redirectUrl = $inputRedirectUrl.getAttribute('data-value-original');
 
-        $inputRedirectUrl.value = redirectUrl + '?email=' + value;
+        $inputRedirectUrl.value = redirectUrlBase + '?email=' + value;
 
         if ($inputCryptoId) {
           $inputCryptoId.value = encrypt(value);

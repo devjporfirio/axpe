@@ -65,7 +65,7 @@ const Field = ({
           </Span>
         )}
       </Label>
-      {!!message && <Message>{message}</Message>}
+        {!!error && <Message>{error}</Message>}
     </>
   );
 };

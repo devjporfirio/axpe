@@ -30,6 +30,7 @@ const theme = {
     blueLight: '#77D0DD',
     blueDark: '#1C282A',
     yellowLight: '#FFDBA8',
+    error: '#FF0000',
   },
 
   fontsWeight: {

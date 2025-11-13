@@ -150,7 +150,7 @@ export const Span = styled.span`
 export const Message = styled.p`
   font: 12px 'Raleway';
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
-  color: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.error};
   margin-top: -12px;
   margin-bottom: 10px;
 `;

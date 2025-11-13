@@ -122,7 +122,11 @@ export const FormGroupName = styled.div`
   flex-direction: row;
   max-width: 600px;
   gap: 10px;
-  min-height: 45px;
+  min-height: 45px; 
+
+  > * {
+    flex: 1;
+  }
 `;
 
 export const FormGroupLang = styled(FormGroupBasics)`
@@ -300,7 +304,7 @@ export const Wrapper = styled.div`
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
             height: auto;
-            max-height: 630px;
+            max-height: 680px;
             overflow-y: auto;
           `
         : css`

@@ -40,7 +40,7 @@ const registrySchema = Yup.object().shape({
   Name_Last: Yup.string().required('Informe seu sobrenome'),
   Email: Yup.string().email().required('Informe um email válido'),
   PhoneNumber_countrycode: Yup.string().required('Informe seu Whatsapp'),
-  MultiLine: Yup.string().required('Deixe sua mensagem'),
+  // MultiLine: Yup.string().required('Deixe sua mensagem'),
   Dropdown3: Yup.string().oneOf([ 'Comprar', 'Vender', 'Alugar' ], 'Selecione uma opção válida')
 });
 
@@ -75,7 +75,8 @@ function ContactBar() {
       handleChange,
       setTouched,
       validateForm,
-      setFieldValue
+      setFieldValue,
+      resetForm
     } = useFormik({
       initialValues: {
        Name_First: '',
@@ -202,6 +203,7 @@ function ContactBar() {
   );
 
   const toggleShow = () => {
+    resetForm();
     dispatch(
       setMain({
         contactBarActive: !contactBarActive,
@@ -446,27 +448,30 @@ function ContactBar() {
                     <FormGroup>
                       <FormGroupBasics>
                         <FormGroupName>
-                          <FormElements
-                            name='Name_First'
-                            placeholder='Nome'
-                            onChange={handleChange}
-                            error={touched.Name_First && errors.Name_First}
-                            value={values.Name_First}
-                            elname="First"
-                            className='holos-form-field'
-                            data-label='Nome'
-                          />
-
-                          <FormElements
-                            name="Name_Last"
-                            placeholder="Sobrenome"
-                            value={values.Name_Last}
-                            error={touched.Name_Last && errors.Name_Last}
-                            onChange={handleChange}
-                            elname="Last"
-                            className='holos-form-field'
-                            data-label='Sobrenome'
-                          />
+                          <FormGroup>
+                            <FormElements
+                              name='Name_First'
+                              placeholder='Nome'
+                              onChange={handleChange}
+                              error={touched.Name_First && errors.Name_First}
+                              value={values.Name_First}
+                              elname="First"
+                              className='holos-form-field'
+                              data-label='Nome'
+                            />
+                          </FormGroup>
+                          <FormGroup>
+                            <FormElements
+                              name="Name_Last"
+                              placeholder="Sobrenome"
+                              value={values.Name_Last}
+                              error={touched.Name_Last && errors.Name_Last}
+                              onChange={handleChange}
+                              elname="Last"
+                              className='holos-form-field'
+                              data-label='Sobrenome'
+                            />
+                          </FormGroup>
                         </FormGroupName>
                      
                         <FormElements
@@ -532,13 +537,13 @@ function ContactBar() {
                           MultiLine: true,
                         });
                 
-                        if (!hasErrors || refForm.current) {
+                        if (!hasErrors && refForm.current) {
                           const normalized = normalizePhone(values.PhoneNumber_countrycode, { allowPlus: true, maxDigits: 15 });
                           await setFieldValue('PhoneNumber_countrycode', normalized);
                           const input = refForm.current.querySelector('#PhoneNumber_countrycode');
                           
                           if (input) input.value = normalized;
-
+                      
                           refForm.current.submit();
                           toggleShow();
                         }

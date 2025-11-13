@@ -76,7 +76,7 @@ export const InputGroup = styled.div`
   :first-child {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 `;
 
