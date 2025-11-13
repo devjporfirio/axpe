@@ -21,6 +21,7 @@ const ContactHome = () => (
         fullWidth={true}
         target="_blank"
         passHref
+        id="button-footer-whatsapp"
       >
         Fale com o corretor
       </Link>

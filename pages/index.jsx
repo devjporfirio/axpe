@@ -162,7 +162,7 @@ function Home({ heroItems, components }) {
       case 'exclusivity':
         return (
           <LazyLoad placeholderHeight={{ mobile: '650px', desktop: '550px' }}>
-            <Hero>
+            <Hero id="banner-home-exclusivity">
               <SliderNew
                 type="full"
                 arrowsColor="white"
@@ -197,7 +197,7 @@ function Home({ heroItems, components }) {
       case 'gallery':
         return (
           <LazyLoad placeholderHeight={{ mobile: '650px', desktop: '550px' }}>
-            <Hero>
+            <Hero id="banner-home-gallery">
               <SliderNew
                 type="full"
                 arrowsColor="white"
@@ -226,7 +226,7 @@ function Home({ heroItems, components }) {
         case 'highlights':
           return (
             <LazyLoad placeholderHeight={{ mobile: '650px', desktop: '550px' }}>
-              <Hero>
+              <Hero id="banner-home-highlights">
                 <SliderNew
                   type="full"
                   arrowsColor="white"
@@ -275,7 +275,7 @@ function Home({ heroItems, components }) {
       (typeof window !== 'undefined' && localStorage.getItem('lighthouse-simulation') === 'true');
     
     return (
-      <HeroItemWrapper hasContent={hasContent}>
+      <HeroItemWrapper id={`hero-banner-item-${itemIndex}`} hasContent={hasContent}>
         <ResponsiveHeroImage
           mobileSrc={item.images.mobile}
           desktopSrc={item.images.desktop}
@@ -363,14 +363,14 @@ function Home({ heroItems, components }) {
           </>
         )}
       </Head>
-      <Container>
+      <Container id="home-container-section-banners">
         <h1 className="sr-only">
           Axpe | Imóveis especiais São Paulo
         </h1>
         
         {/* Hero renderizado imediatamente */}
         {isHeroLoaded && (
-          <Hero>
+          <Hero id="home-first-hero-banner">
             <SliderNew
               type="full"
               arrowsColor="white"

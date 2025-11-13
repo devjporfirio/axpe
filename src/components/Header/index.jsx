@@ -131,11 +131,11 @@ function Header() {
   }, []);
 
   return (
-    <Container ref={refHeader}>
+    <Container ref={refHeader} id='header-menu-container'>
       <ZohoFixWhatsModal />
       <SimpleBar style={{ maxHeight: '100%' }} ref={scrollBarRef}>
         <Wrapper>
-          <AxpeLogo type="axpe">
+          <AxpeLogo type="axpe" id='header-logo'>
             <Link href="/" passHref>
               <LogoLink
                 className="holos-logo"
@@ -151,6 +151,7 @@ function Header() {
             className="holos-menu-item"
             type="button"
             onClick={toggleSearch}
+            id='button-search-imovel-mobile'
           >
             Buscar Imóvel
             <img src={SearchIconSVG} alt='Ícone de lupa'/>
@@ -160,6 +161,7 @@ function Header() {
             onClick={handleToggle}
             navToggle={navToggle}
             aria-label='Menu mobile'
+            id='button-menu-mobile'
           >
             <i></i>
             <i></i>
@@ -167,7 +169,7 @@ function Header() {
           </ButtonToggle>
 
           <Box navToggle={navToggle}>
-            <NavMain>
+            <NavMain id='nav-main-header-desk'>
               <ul>
                 <li>
                   <NavMainButtonSearch
@@ -175,6 +177,7 @@ function Header() {
                     className="holos-menu-item"
                     active={searchFormActive}
                     onClick={toggleSearch}
+                      id='button-search-imovel-desktop'
                   >
                     <SVG src={SearchIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                     <NavMainButtonText>Buscar imóvel</NavMainButtonText>
@@ -186,6 +189,7 @@ function Header() {
                       className="holos-menu-item"
                       type="register"
                       onClick={cancelToggle}
+                        id='button-sell-imovel-desktop'
                     >
                       <SVG src={HomeIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                       <NavMainButtonText>Vender imóvel</NavMainButtonText>
@@ -198,6 +202,7 @@ function Header() {
                       className="holos-menu-item"
                       type="dream"
                       onClick={cancelToggle}
+                      id='button-dream-desktop'
                     >
                       <SVG src={CloudIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                       <NavMainButtonText>Só quero sonhar</NavMainButtonText>
@@ -207,7 +212,7 @@ function Header() {
               </ul>
             </NavMain>
 
-            <NavBottomContainer>
+            <NavBottomContainer id='nav-bottom-header-desk'>
               <NavSecondary>
                 <ul>
                   <li>
@@ -215,6 +220,7 @@ function Header() {
                       <NavSecondaryButton
                         className="holos-menu-item"
                         onClick={cancelToggle}
+                        id='button-about-desktop'
                       >
                         Sobre a Axpe
                       </NavSecondaryButton>
@@ -229,6 +235,7 @@ function Header() {
                   href="https://wa.me/5511932062653"
                   target="_blank"
                   aria-label="WhatsApp Axpe Imóveis"
+                  id='button-whatsapp-desktop'
                 >
                   <SVG src={WhatsappIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                 </SocialButton>
@@ -239,6 +246,7 @@ function Header() {
                   className="holos-footer-social-link"
                   data-label="Instagram"
                   aria-label="Instagram Axpe Imóveis"
+                  id='button-instagram-desktop'
                 >
                   <SVG src={InstagramIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                 </SocialButton>
@@ -250,6 +258,7 @@ function Header() {
                   type="button"
                   onClick={openModalNewsletter}
                   aria-label="Receba nossas novidades"
+                  id='button-newsletter-desktop'
                 >
                   Receba nossas novidades
                 </NewsletterButton>
@@ -259,6 +268,8 @@ function Header() {
                 <NewsletterButton
                   className="holos-menu-item"
                   onClick={cancelToggle}
+                  aria-label="Trabalhe conosco"
+                  id='button-work-with-us-desktop'
                 >
                   Trabalhe conosco
                 </NewsletterButton>

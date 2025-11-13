@@ -213,6 +213,7 @@ function Search({ total, totalPages, data, banner, locals }) {
         buildings && buildings.length && !first
           ? [ ...buildings, ...newData ]
           : [ ...newData ];
+
       setBuildings(newBuildings);
       setIsLoading(false);
     },
@@ -413,7 +414,7 @@ function Search({ total, totalPages, data, banner, locals }) {
         <meta name="robots" content="noindex,follow" />
         <link rel="canonical" href={canonicalPath} />
       </Head>
-      <Container>
+      <Container id="filtro-container-busca">
         {dataLoaded ? (
           <>
             {total ? (
@@ -426,7 +427,7 @@ function Search({ total, totalPages, data, banner, locals }) {
               />
             ) : null}
 
-            <Wrapper>
+            <Wrapper id="filtro-wrapper-busca">
               {total ? (
                 <Header>
                   <h3>

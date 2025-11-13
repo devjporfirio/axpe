@@ -261,7 +261,7 @@ export default function Datasheet({ property }) {
                         />
 
                         {/* <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit> */}
-                        <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
+                        <ButtonMoreInfo onClick={toggleModalMoreInfo} id='pdp-more-info-button'>Fale com um corretor</ButtonMoreInfo>
                     </PriceGroupMobile>
 
                     <BlockThree type={property.type}>

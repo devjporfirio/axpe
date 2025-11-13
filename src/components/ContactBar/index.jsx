@@ -349,7 +349,9 @@ function ContactBar() {
         <LinkFloat
           className='holos-contact-float moreinfo-btn--whatsapp hidden'
           href={!isBuilding ? `https://wa.me/5511932062653` : `https://wa.me/5511932062653?text=${message}`}
-          target='_blank'>
+          target='_blank'
+          id='float-contactBar'
+          >
           <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
           {isBuilding ? (
             <div>
@@ -367,6 +369,7 @@ function ContactBar() {
           type='button'
           onClick={toggleShow}
           aria-label='Fale com um corretor'
+          id='float-contactBar-mobile'
         >
           <SVG src={WhatsappWhiteIconSVG} aria-hidden="true"/>
           {isBuilding ? (
@@ -385,6 +388,7 @@ function ContactBar() {
           type='button'
           onClick={toggleShow}
           aria-label='Fale com um corretor'
+          id='float-contactBar-desktop'
         >
           <SVG src={ChatIconSVG} aria-hidden="true"/>
           {isBuilding ? (

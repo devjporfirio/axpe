@@ -84,7 +84,7 @@ function NewsletterFooter() {
   }, []);
 
   return (
-    <NewsletterContainer>
+    <NewsletterContainer id="newsletter-footer-home">
       <Background />
       <NewsletterTextDesktop>
         <h4>Newsletter da Axpe</h4>

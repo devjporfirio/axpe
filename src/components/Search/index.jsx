@@ -450,7 +450,7 @@ function Search() {
   }, []);
 
   return (
-    <Container active={searchFormActive}>
+    <Container active={searchFormActive} id='search-container'>
       <Form onSubmit={formik.handleSubmit} onClick={closeSearch}>
         <FormWrapper
           active={searchFormActive}
@@ -465,8 +465,8 @@ function Search() {
                 </FormClose>
               </FormHeader>
 
-              <FormGroup>
-              {/* <CustomSelect
+              <FormGroup id='search-source-filter-container'>
+                {/* <CustomSelect
                   options={sources}
                   value={formik.values.source?.value || ''}
                   onChange={(newValue) => {
@@ -514,7 +514,7 @@ function Search() {
               </FormGroup>
 
               {formik.values.source.value ? (
-                <FormButtonsFilter>
+                <FormButtonsFilter id='search-others-filters-container'>
                   <FormButtonsFilterTitle>Para:</FormButtonsFilterTitle>
 
                   {/* Residencial, Comercial */}
@@ -759,7 +759,7 @@ function Search() {
               ) : null}
 
               <FormFooter>
-                <FormGroup type="reference">
+                <FormGroup type="reference" id='search-input'>
                   <Input
                     type="text"
                     name="reference"
@@ -786,6 +786,7 @@ function Search() {
                   }
                   className="holos-search-submit"
                   data-label={formik.values.reference}
+                  id='search-button'
                 >
                   Buscar
                 </FormButtonSubmit>
@@ -1019,7 +1020,7 @@ function Search() {
           </FormTab>
         ) : null}
 
-{filtersData && filtersData.locals ? (
+        {filtersData && filtersData.locals ? (
           <FormTab
             active={tabActive === 'locals'}
             onClick={(event) => event.stopPropagation()}

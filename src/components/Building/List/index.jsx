@@ -254,7 +254,7 @@ function BuildingList({
   }, [ page ]);
 
   return (
-    <Container className={className} useBtSchedule={useBtSchedule} page={page}>
+    <Container id={`building-card-${reference}`} className={className} useBtSchedule={useBtSchedule} page={page}>
       {useInactive && status === 'inactive' && <Inactive />}
       <SliderContainer useBtSchedule={useBtSchedule} page={page}>
         <SliderNew
