@@ -51,7 +51,7 @@ function Header() {
   const [ navToggle, setNavToggle ] = useState(false);
   const [ isLighthouse, setIsLighthouse ] = useState(() => {
     // Verificar Lighthouse imediatamente durante a inicialização
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' ) {
       return window.isLighthouse || localStorage.getItem('lighthouse-simulation') === 'true';
     }
     return false;
@@ -232,7 +232,7 @@ function Header() {
               <Socials>
                 <SocialButton
                   className="holos-menu-item"
-                  href="https://wa.me/5511932062653"
+                  href="https://api.whatsapp.com/send/?phone=5511932062653&text=Ol%C3%A1%2C%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.&type=phone_number&app_absent=0"
                   target="_blank"
                   aria-label="WhatsApp Axpe Imóveis"
                   id='button-whatsapp-desktop'

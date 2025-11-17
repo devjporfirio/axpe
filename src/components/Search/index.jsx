@@ -151,6 +151,12 @@ function Search() {
       const params = getParamsFromObject(data);
 
       formik.setFieldValue('reference', '');
+     
+      (window).dataLayer = (window).dataLayer || [];
+      (window).dataLayer.push({
+        'event':'search-button-click',
+        'search-params': params,
+      });
 
       setTabActive(null);
       setSubmitting(false);
@@ -875,7 +881,7 @@ function Search() {
                       filtersData.prices.length &&
                       filtersData.prices[0] != filtersData.prices[1] ? (
                         <FormTabSlider>
-                          <FormTabSliderTitle>Valor do Imóvel</FormTabSliderTitle>
+                          <FormTabSliderTitle>Digite o valor Mínimo e Máximo</FormTabSliderTitle>
                           <RangeSlider
                             type="prices"
                             data={filtersData.prices}
@@ -887,7 +893,7 @@ function Search() {
     
                               GTM.dataLayerPush({
                                 event: 'Custom Field Change',
-                                fieldLabel: 'Valor do Imóvel',
+                                fieldLabel: 'Digite o valor Mínimo e Máximo',
                                 fieldForm: 'Locais',
                                 fieldValMin: values[0],
                                 fieldValMax: values[1],
@@ -900,7 +906,7 @@ function Search() {
                       filtersData.area.length &&
                       filtersData.area[0] != filtersData.area[1] ? (
                         <FormTabSlider>
-                          <FormTabSliderTitle>Metragem</FormTabSliderTitle>
+                          <FormTabSliderTitle>Digite a Metragem Mínima e Máxima</FormTabSliderTitle>
                           <RangeSlider
                             type="area"
                             data={filtersData.area}
@@ -913,7 +919,7 @@ function Search() {
     
                               GTM.dataLayerPush({
                                 event: 'Custom Field Change',
-                                fieldLabel: 'Metragem',
+                                fieldLabel: 'Digite a Metragem Minima e Máxima',
                                 fieldForm: 'Locais',
                                 fieldValMin: values[0],
                                 fieldValMax: values[1],

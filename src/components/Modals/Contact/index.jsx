@@ -77,10 +77,16 @@ export default function Contact() {
           })
         );
 
+        GTM.dataLayerPush({
+          event: 'Form_submit_contact',
+          formType: 'Favorito - Agendar',
+          'nome_do_form': 'form_contact_modal'
+        });
+
         resetForm({});
       } else {
         GTM.dataLayerPush({
-          event: 'Form Response',
+          event: 'form_submit_contact',
           formType: 'Favorito - Agendar',
           formResult: 'Erro',
           formMessage: '',

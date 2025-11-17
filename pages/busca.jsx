@@ -137,6 +137,7 @@ function Search({ total, totalPages, data, banner, locals }) {
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
+      event: 'view_search_page',
       searchFilters: Object.keys(query)
         .map((key) => {
           let value = query[key];

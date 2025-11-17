@@ -41,10 +41,11 @@ function RegisterSuccess() {
       }
 
       GTM.dataLayerPush({
-        event: 'Form Response',
+        event: 'Form_submit_cadastrar_imovel',
+        'nome_do_form': 'form_register_imovel_modal',
         formType: 'Cadastrar Imóvel',
         formResult: 'Sucesso',
-        formMessage: '',
+        // formMessage: '',
         cryptoId: encriptedEmail,
         anonymousId: anonymousId
       });

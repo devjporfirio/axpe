@@ -178,6 +178,14 @@ function Home({ heroItems, components }) {
                       <HeroLink
                         href={item.link.url}
                         target={`_${item.link.target}`}
+                        onClick={() => {
+                          (window).dataLayer = (window).dataLayer || [];
+                          (window).dataLayer.push({
+                            'event':'banner-home-redirect',
+                            'banner-home': 'banner-home-exclusivity',
+                            'banner-url-redirect': item.link.url || '-'
+                          });
+                        }}
                       >
                         {renderHeroItem(item, itemIndex)}
                       </HeroLink>
@@ -212,6 +220,14 @@ function Home({ heroItems, components }) {
                       <HeroLink
                         href={item.link}
                         target={`_${item.link_type}`}
+                        onClick={() => {
+                          (window).dataLayer = (window).dataLayer || [];
+                          (window).dataLayer.push({
+                            'event':'banner-home-redirect',
+                            'banner-home': 'banner-home-gallery',
+                            'banner-url-redirect': item.link.url || '-'
+                          });
+                        }}
                       >
                         {renderHeroItem(item, itemIndex)}
                       </HeroLink>
@@ -242,6 +258,14 @@ function Home({ heroItems, components }) {
                         <HeroLink
                           href={item.link.url}
                           target={`_${item.link.target}`}
+                          onClick={() => {
+                            (window).dataLayer = (window).dataLayer || [];
+                            (window).dataLayer.push({
+                              'event':'banner-home-redirect',
+                              'banner-home': 'banner-home-highlights',
+                              'banner-url-redirect': item.link.url || '-'
+                            });
+                          }}
                         >
                           {renderHeroItem(item, itemIndex)}
                         </HeroLink>
@@ -386,6 +410,14 @@ function Home({ heroItems, components }) {
                     <HeroLink
                       href={item.link.url}
                       target={`_${item.link.target}`}
+                      onClick={() => {
+                        (window).dataLayer = (window).dataLayer || [];
+                        (window).dataLayer.push({
+                          'event':'banner-home-redirect',
+                          'banner-home': 'banner-home-hero',
+                          'banner-url-redirect': item.link.url || '-'
+                        });
+                      }}
                     >
                       {renderHeroItem(item, itemIndex)}
                     </HeroLink>
@@ -457,7 +489,7 @@ Home.getInitialProps = async () => {
     
     return { heroItems, components };
   } catch (error) {
-    console.error('Error loading home page data:', error);
+    // console.error('Error loading home page data:', error);
     
     // Fallback com dados mínimos para evitar erro
     return {

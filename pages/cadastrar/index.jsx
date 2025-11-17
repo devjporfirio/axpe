@@ -266,6 +266,11 @@ function Register({ locals, categories, countries }) {
         `${formSuccessPageUrl}?email=${values.Email}`
       );
 
+      GTM.dataLayerPush({
+        'event': 'form_submit_cadastrar_imovel',
+        'nome_do_form': 'Cadastrar Imóvel - ZOHO-SITECADASTROGERAL',
+      });
+
       setTimeout(() => {
         refForm.current.submit();
       }, 500);
@@ -417,6 +422,11 @@ function Register({ locals, categories, countries }) {
             <input type="hidden" name="Radio" value={values.Radio} />
             <input type="hidden" name="Dropdown" value={values.Dropdown} />
             <input type="checkbox" name="DecisionBox" checked={true} />
+
+            <select style={{ display: 'none' }} name="Dropdown7">
+              <option selected="true" value="-Select-">-Select-</option>
+              <option value="AXPE - SITE AXPE" selected>AXPE - SITE AXPE</option>
+            </select>
 
             <FormGroup>
               <h2>Qual o perfil do imóvel que deseja cadastrar?</h2>

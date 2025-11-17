@@ -22,10 +22,10 @@ function NewsletterSuccess() {
   useEffect(() => {
     if(modalNewsletterSuccess) {
       GTM.dataLayerPush({
-        event: 'Form Response',
+        event: 'form_submit_newsletter',
+        'nome_do_form': 'form_newsletter_modal',
         formType: 'Newsletter',
         formResult: 'Sucesso',
-        formMessage: ''
       });
     }
   }, [ modalNewsletterSuccess ]);

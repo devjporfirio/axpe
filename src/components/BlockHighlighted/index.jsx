@@ -17,7 +17,7 @@ const ContactHome = () => (
       <Link
         className="holos-footer-whatsapp-contact"
         data-label="Fale com o corretor"
-        href="https://api.whatsapp.com/send/?phone=551130743600&text&type=phone_number&app_absent=0"
+        href="https://api.whatsapp.com/send/?phone=5511932062653&text=Ol%C3%A1%2C%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.&type=phone_number&app_absent=0"
         fullWidth={true}
         target="_blank"
         passHref

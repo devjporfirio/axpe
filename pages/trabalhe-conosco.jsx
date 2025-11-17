@@ -118,7 +118,8 @@ function Work() {
         const msg = getErrorMessage(response.msg);
 
         GTM.dataLayerPush({
-          event: 'Form Response',
+          event: 'Form Trabalhe Conosco',
+          'nome_do_form': 'trabalhe-conosco',
           formType: 'Trabalhe conosco',
           formResult: 'Erro',
           formMessage: msg,

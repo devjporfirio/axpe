@@ -268,6 +268,21 @@
     var valid = pristine.validate();
 
     if (valid) {
+
+      var formName = $form.getAttribute('data-form-name') || 'form_pdp_nao_identificado';
+
+      window.dataLayer = window.dataLayer || [];
+
+      window.dataLayer.push({
+        'event': 'generate_lead',
+        'form_name': formName
+      });
+
+      window.dataLayer.push({
+        'event': 'form_submit_pdp',
+        'form_name': formName,
+      });
+
       let finalMessage = message.replace(/, com {areaUseful} m²|, {bedrooms}| e {parking}/g, '');
       finalMessage = finalMessage.replace(/{[^}]+}/g, ''); 
 
