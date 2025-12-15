@@ -1,11 +1,13 @@
 import React, { useEffect, useCallback, useState } from 'react'
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import HeaderScripts from 'layouts/vendors/headerScripts';
 // import BodyScriptsStart from 'layouts/vendors/bodyScriptsStart';
 // import BodyScriptsEnd from 'layouts/vendors/bodyScriptsEnd';
 
 // helpers
-import CookieUtmParams from 'helpers/cookieUtmParams';
+import { captureUTMs } from '../src/helpers/cookieUtmParams';
 
 // layout
 import Main from 'layouts/main';
@@ -16,7 +18,6 @@ import { wrapper } from '../src/store';
 // CSS imports - otimizados
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Head from 'next/head';
 
 function GtmSafePlaceholders() {
   return (
@@ -38,15 +39,16 @@ function GtmSafePlaceholders() {
 }
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  
   const [ isLighthouse, setIsLighthouse ] = useState(false);
   const [ isClient, setIsClient ] = useState(false);
 
   // Otimizado para evitar reflows desnecessários
   const initializeApp = useCallback(() => {
     if (typeof window !== 'undefined') {
-      // Usar requestAnimationFrame para evitar forced reflows
       requestAnimationFrame(() => {
-        CookieUtmParams.set(window.location.search);
+        captureUTMs(window.location.search);
       });
     }
   }, []);
@@ -91,6 +93,11 @@ function MyApp({ Component, pageProps }) {
 
   }, [ initializeApp ]);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      captureUTMs(window.location.search);
+    }
+  }, [ router.asPath ]);
 
   return (
     <Main>

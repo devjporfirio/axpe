@@ -41,7 +41,7 @@ const registrySchema = Yup.object().shape({
   Email: Yup.string().email().required('Informe um email válido'),
   PhoneNumber_countrycode: Yup.string().required('Informe seu Whatsapp'),
   // MultiLine: Yup.string().required('Deixe sua mensagem'),
-  Dropdown3: Yup.string().oneOf([ 'Comprar', 'Vender', 'Alugar' ], 'Selecione uma opção válida')
+  Dropdown3: Yup.string().oneOf([ 'Comprar', 'Vender' ], 'Selecione uma opção válida')
 });
 
 const formSuccessPageUrl = `${process.env.config.siteUrl}/forms/imovel/sucesso.html?back=https://www.axpe.com.br/`;
@@ -439,10 +439,13 @@ function ContactBar() {
                     acceptCharset='UTF-8'
                     enctype='multipart/form-data'
                   >
-                    <select style={{ display: 'none' }} class="zf-form-sBox" name="Dropdown" checktype="c1"><option selected="true" value="-Select-">-Select-</option>
-                      <option value="AXPE - SITE AXPE" selected>AXPE - SITE AXPE</option>
-                    </select>
-                   
+                    {/* Tipo de lead (linkname: Dropdown) */}
+                    <input type="hidden" name="Dropdown" value="Interessado" />
+
+                    {/* Origem Marketing (linkname: Dropdown7) */}
+                    <input type="hidden" name="Dropdown7" value="AXPE - SITE AXPE" />
+
+
                     <input type="hidden" name="zf_referrer_name" value="Form Contato Home" />
                     <input
                       type="hidden"
