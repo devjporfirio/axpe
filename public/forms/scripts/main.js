@@ -15,6 +15,45 @@
   var $phoneInput = $form.querySelector('input[name="PhoneNumber_countrycode"]');
   var $submitButton = document.getElementById('submitBtn');
 
+  var UTM_KEYS = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content'
+  ];
+  
+  UTM_KEYS.forEach(function(key) {
+    try {
+      var value = localStorage.getItem(key);
+      if (!value) return;
+  
+      var field = $form.querySelector('input[name="' + key + '"]');
+      if (field) {
+        field.value = value;
+        field.setAttribute('data-value-original', value);
+      }
+    } catch (e) {}
+  });
+  
+  (function attachUtmToAction() {
+    if (!$form || !$form.action) return;
+  
+    var params = new URLSearchParams();
+  
+    UTM_KEYS.forEach(function(key) {
+      try {
+        var value = localStorage.getItem(key);
+        if (value) params.set(key, value);
+      } catch (e) {}
+    });
+  
+    var qs = params.toString();
+    if (qs) {
+      $form.action += ($form.action.indexOf('?') > -1 ? '&' : '?') + qs;
+    }
+  })();
+  
   function validateAndToggleButton() {
     if (!$firstNameInput || !$lastNameInput || !$phoneInput || !$submitButton) {
       return;
@@ -307,30 +346,30 @@
     element.value = elValue;
   }
 
-  function getCookie(cname) {
-    var name = cname + '=';
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return '';
-  }
+  // function getCookie(cname) {
+  //   var name = cname + '=';
+  //   var decodedCookie = decodeURIComponent(document.cookie);
+  //   var ca = decodedCookie.split(';');
+  //   for (var i = 0; i < ca.length; i++) {
+  //     var c = ca[i];
+  //     while (c.charAt(0) == ' ') {
+  //       c = c.substring(1);
+  //     }
+  //     if (c.indexOf(name) == 0) {
+  //       return c.substring(name.length, c.length);
+  //     }
+  //   }
+  //   return '';
+  // }
 
-  var cookieParams = getCookie('ax_utm_params');
-  if (cookieParams) {
-    var utmParams = JSON.parse(cookieParams);
+  // var cookieParams = getCookie('ax_utm_params');
+  // if (cookieParams) {
+  //   var utmParams = JSON.parse(cookieParams);
 
-    Object.entries(utmParams).forEach(([key, value]) => {
-      var $field = $form.querySelector(`input[name="${key}"]`);
+  //   Object.entries(utmParams).forEach(([key, value]) => {
+  //     var $field = $form.querySelector(`input[name="${key}"]`);
 
-      if ($field) $field.value = value;
-    });
-  }
+  //     if ($field) $field.value = value;
+  //   });
+  // }
 })();

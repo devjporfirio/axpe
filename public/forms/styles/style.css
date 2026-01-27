@@ -215,6 +215,10 @@
   display: none;
 }
 
+.utm-field {
+  display: none;
+}
+
 .form-group {
   position: relative;
   margin-bottom: 20px;

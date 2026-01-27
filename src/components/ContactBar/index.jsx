@@ -34,6 +34,7 @@ import {
   FormGroupName,
   // ListButton
 } from './styles';
+import { getUTMs } from '../../helpers/cookieUtmParams';
 
 const registrySchema = Yup.object().shape({
   Name_First: Yup.string().required('Informe seu nome'),
@@ -315,6 +316,28 @@ function ContactBar() {
     }
   }, [ refIframe.current, iframeUrl, contactBarActive ]);
 
+  useEffect(() => {
+    if (!refForm.current || !contactBarActive) return;
+  
+    const form = refForm.current;
+  
+    if (!form.dataset.baseAction) {
+      form.dataset.baseAction = form.action;
+    }
+  
+    const utms = getUTMs();
+    const params = new URLSearchParams();
+  
+    Object.entries(utms).forEach(([ key, value ]) => {
+      if (value) params.set(key, value);
+    });
+  
+    const qs = params.toString();
+    form.action = qs
+      ? `${form.dataset.baseAction}${form.dataset.baseAction.includes('?') ? '&' : '?'}${qs}`
+      : form.dataset.baseAction;
+  }, [ contactBarActive ]);
+
   const pageUrl = 'http://www.axpe.com.br'+router.asPath;
   
   let message = `Olá, gostaria de saber mais sobre o imóvel {reference}{areaTotal}{areaUseful}{bedrooms}{parking}. `+ pageUrl;
@@ -439,6 +462,25 @@ function ContactBar() {
                     acceptCharset='UTF-8'
                     enctype='multipart/form-data'
                   >
+                    <div className="utm-field" style={{ display: 'none' }}>
+                      <input type="text" name="utm_source" value=""/>
+                    </div>
+                    <div className="utm-field" style={{ display: 'none' }}>
+                      <input type="text" name="utm_medium" value=""/>
+                    </div>
+                    <div className="utm-field" style={{ display: 'none' }}>
+                      <input type="text" name="utm_campaign" value=""/>
+                    </div>
+                    <div className="utm-field" style={{ display: 'none' }}>
+                      <input type="text" name="utm_term" value=""/>
+                    </div>
+                    <div className="utm-field" style={{ display: 'none' }}>
+                      <input type="text" name="utm_content" value=""/>
+                    </div>
+                    <div className="utm-field" style={{ display: 'none' }}>
+                      <input type="text" name="utm_teste" value=""/>
+                    </div>
+
                     {/* Tipo de lead (linkname: Dropdown) */}
                     <input type="hidden" name="Dropdown" value="Interessado" />
 
@@ -556,6 +598,12 @@ function ContactBar() {
                           if (input) input.value = normalized;
                       
                           refForm.current.submit();
+
+                          window.dataLayer.push({
+                            'event': 'form_submit_fixo',
+                            'form_name': formName,
+                          });
+                          
                           toggleShow();
                         }
                       }}
