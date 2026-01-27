@@ -168,15 +168,54 @@
     validateAndToggleButton();
   }
 
+  var isExclusive = false;
+  var hasRentValue = false;
+  var hasSellValue = false;
+  var buildingInfoType = '';
+  var buildingCategory = '';
+  var buildingLocal = '';
+  var buildingRentAmount = ''; 
+  var buildingSellAmount = '';
+  var buildingSource = '';
+
   search.forEach((item) => {
     var arr = item.split('=');
+    if (arr.length < 2) return;
+
     var name = decodeURI(arr[0]);
     var value = decodeURI(arr[1]);
-    var $el = $form.querySelector(`[data-element="${name}"]`);
 
-    if ($el && name !== 'source') {
+    if (value === 'null' || value === 'undefined' || !value) return;
+
+    if (name === 'isExclusive') isExclusive = (value === 'true');
+    if (name === 'rent') {
+      hasRentValue = parseFloat(value) > 0;
+      buildingRentAmount = value;
+  }
+  if (name === 'sell' || name === 'value') {
+      hasSellValue = parseFloat(value) > 0;
+      buildingSellAmount = value;
+  }
+    if (name === 'hasSell') hasSellValue = (value === 'true');
+    if (name === 'infoType') buildingInfoType = value;
+    if (name === 'category') buildingCategory = value;
+    if (name === 'local') buildingLocal = value;
+    if (name === 'source') buildingSource = value;
+
+    if (name === 'source') {
+      var formattedValue = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+      
+      var $radio = $form.querySelector(`input[name="Radio1"][value="${formattedValue}"]`);
+      if ($radio) {
+        $radio.checked = true;
+      }
+    }
+
+    var $el = $form.querySelector(`[data-element="${name}"]:not([type="radio"])`);
+    if ($el) {
       $el.value = value;
       $el.setAttribute('data-value-original', value);
+      if ($el.classList) $el.classList.add('filled');
     }
 
     switch (name) {
@@ -212,11 +251,9 @@
         isFavorites = pageUrl.includes('favoritos');
 
         if (isFavorites) {
-          // Change title
           let titleElement = document.querySelector('header h3');
           titleElement.innerHTML = 'Agende uma visita';
 
-          // Custom message behaviour for favorites screen
           message = message.replace(
             'Olá, gostaria de saber mais sobre o imóvel',
             'Olá, gostaria de visitar o imóvel'
@@ -226,7 +263,6 @@
 
           message += messageSuffix;
 
-          // Remove message suffix when focusing in
           $form
             .querySelector('[data-element="message"]')
             .addEventListener('click', function(event) {
@@ -239,7 +275,6 @@
               }
             });
 
-          // Add message back in if no chages were made to the text
           $form
             .querySelector('[data-element="message"]')
             .addEventListener('blur', function(event) {
@@ -261,18 +296,96 @@
     }
   });
 
+  var searchFinality = sessionStorage.getItem('search_finality');
+  
+  if (!searchFinality) {
+    var urlParams = new URLSearchParams(window.location.search);
+    var infoType = urlParams.get('infoType');
 
-  // if ($btnWhatsApp) {
-  //   message = message.replace(/, com {areaUseful} m²|, {bedrooms}| e {parking}/g, '');
-  //   message = message.replace(/{[^}]+}/g, '');
+    if (infoType === 'ALUGUEL') {
+        searchFinality = 'aluguel';
+    } else if (infoType === 'VENDA') {
+        searchFinality = 'venda';
+    }
+    
+    if (!searchFinality) {
+        if (window.location.search.includes('alugar')) searchFinality = 'aluguel';
+        else if (window.location.search.includes('comprar')) searchFinality = 'venda';
+    }
+  }
 
-  //   $btnWhatsApp.setAttribute(
-  //     'href',
-  //     pageUrl
-  //       ? `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)} - ${encodeURIComponent(pageUrl)}`
-  //       : `${$btnWhatsApp.getAttribute('href')}?text=${encodeURIComponent(message)}`
-  //   );
-  // }
+  (function handleLeadFields() {
+    var $dropdownLead = $form.querySelector('select[name="Dropdown1"]');
+    var $dropdownPerfil = $form.querySelector('select[name="Dropdown3"]');
+    var $currencyInput = $form.querySelector('input[name="Currency"]');
+
+    if (!$dropdownLead) return;
+
+    var finalLeadValue = '';
+
+    if (searchFinality === 'aluguel') {
+      finalLeadValue = 'Interessado - Alugar';
+    } 
+    else if (searchFinality === 'venda') {
+      finalLeadValue = 'Comprar';
+    } 
+    else {
+        if (isExclusive === true) {
+            finalLeadValue = 'Comprar';
+        } else if (hasSellValue === true) {
+          finalLeadValue = 'Comprar';
+        } else if (hasRentValue === true) {
+          finalLeadValue = 'Interessado - Alugar';
+        } else {
+          finalLeadValue = 'Interessado - Alugar';
+        }
+    
+    }
+
+    $dropdownLead.value = finalLeadValue;
+
+    if ($dropdownPerfil) {
+      $dropdownPerfil.value = (finalLeadValue === 'Comprar') ? 'VD' : 'LC';
+    }
+
+    if ($currencyInput) {
+      if (finalLeadValue === 'Interessado - Alugar') {
+        $currencyInput.value = buildingRentAmount || buildingSellAmount;
+      } else {
+        $currencyInput.value = buildingSellAmount || buildingRentAmount;
+      }
+      $currencyInput.classList.add('filled');
+    }
+
+    var $dropdownTipoImovel = $form.querySelector('select[name="Dropdown2"]');
+    if ($dropdownTipoImovel && buildingCategory) {
+      var categoryToSelect = buildingCategory;
+      if (categoryToSelect === 'Casa na Montanha') {
+        categoryToSelect = 'Casa';
+      }
+
+      else if (categoryToSelect === 'Prédio') {
+        categoryToSelect = 'Prédio monousuário';
+      }
+
+      $dropdownTipoImovel.value = categoryToSelect;
+    }
+    
+    var $localidadeUnificada = $form.querySelector('input[name="SingleLine2"]');
+    
+    if (buildingLocal && $localidadeUnificada) {
+      $localidadeUnificada.value = buildingLocal;
+      $localidadeUnificada.classList.add('filled');
+    }
+
+    var $dropdownBairros = $form.querySelector('select[name="Dropdown4"]');
+    if ($dropdownBairros && buildingLocal) {
+        $dropdownBairros.value = buildingLocal;
+        if ($dropdownBairros.value === "" || $dropdownBairros.value === "-Select-") {
+            if (buildingLocal === "Jardins") $dropdownBairros.value = "Jardins / C. César";
+        }
+    }
+  })();
 
   function clickButton(event) {
     var $btn = event.currentTarget;
@@ -332,7 +445,9 @@
 
       window.open(whatsAppUrl, '_blank');
 
+      
       setTimeout(() => {
+        sessionStorage.removeItem('search_finality');
         this.submit();
       }, 100);
     }
@@ -345,31 +460,4 @@
     element.value = '';
     element.value = elValue;
   }
-
-  // function getCookie(cname) {
-  //   var name = cname + '=';
-  //   var decodedCookie = decodeURIComponent(document.cookie);
-  //   var ca = decodedCookie.split(';');
-  //   for (var i = 0; i < ca.length; i++) {
-  //     var c = ca[i];
-  //     while (c.charAt(0) == ' ') {
-  //       c = c.substring(1);
-  //     }
-  //     if (c.indexOf(name) == 0) {
-  //       return c.substring(name.length, c.length);
-  //     }
-  //   }
-  //   return '';
-  // }
-
-  // var cookieParams = getCookie('ax_utm_params');
-  // if (cookieParams) {
-  //   var utmParams = JSON.parse(cookieParams);
-
-  //   Object.entries(utmParams).forEach(([key, value]) => {
-  //     var $field = $form.querySelector(`input[name="${key}"]`);
-
-  //     if ($field) $field.value = value;
-  //   });
-  // }
 })();

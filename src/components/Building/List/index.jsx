@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
@@ -55,7 +55,7 @@ function BuildingList({
   } = item;
   const [ gtmObj, setGtmObj ] = useState(null);
   const dispatch = useDispatch();
-  // const { searchFunnel } = useSelector((state) => state.main);
+  const { searchFunnel } = useSelector((state) => state.main);
   const gallerySettings = {
     dots: false,
     infinite: true,
@@ -324,38 +324,44 @@ function BuildingList({
               data-product-id={item.reference}
               data-position={positionIndex}
             >
-            <div>
-              {values.valueOnlyConsults ? (
-                <Price page={page}>Valores sob consulta</Price>
-              ) : (
-                <>
-                  {(!!values.sell || !!values.release) && (
-                    <Price page={page}>
-                      {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
-                      {!!values.sell &&
-                        formatCurrency
-                          .format(parseInt(values.sell))
-                          .replace('R$', formatCurrencyToText(values.currency))}
-                      {!!values.release &&
-                        formatCurrency
-                          .format(parseInt(values.release))
-                          .replace('R$', formatCurrencyToText(values.currency))}
-                    </Price>
-                  )}
-
-                  {!!values.rent && (
-                    <Price page={page}>
-                      Locação:{' '}
-                      {formatCurrency
-                        .format(parseInt(values.rent))
+              <div>
+                {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                  <Price>Valores sob consulta</Price>
+                ) : null}
+                {(!!values.sell || !!values.release) &&
+                !values.valueOnlyConsults &&
+                (!searchFunnel ||
+                  !searchFunnel.finality ||
+                  searchFunnel.finality == 'venda') ? (
+                  <Price page={page}>
+                    {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
+                    {!!values.sell &&
+                      formatCurrency
+                        .format(parseInt(values.sell))
                         .replace('R$', formatCurrencyToText(values.currency))}
-                    </Price>
-                  )}
-                  
-                  {!values.sell && !values.release && !values.rent && <Price page={page}></Price>}
-                </>
-              )}
-            </div>
+                    {!!values.release &&
+                      formatCurrency
+                        .format(parseInt(values.release))
+                        .replace('R$', formatCurrencyToText(values.currency))}
+                        </Price>
+                      ) : !!values.sell && values.valueOnlyConsults ? (
+                        <Price page={page}>Valores sob consulta</Price>
+                      ) : null}
+                      {!!values.rent &&
+                      !values.valueOnlyConsults &&
+                      (!searchFunnel ||
+                        !searchFunnel.finality ||
+                        searchFunnel.finality == 'aluguel') ? (
+                        <Price page={page}>
+                          Locação:{' '}
+                          {formatCurrency
+                            .format(parseInt(values.rent))
+                            .replace('R$', formatCurrencyToText(values.currency))}
+                        </Price>
+                      ) : !!values.rent && values.valueOnlyConsults ? (
+                        <Price page={page}>Valores sob consulta</Price>
+                      ) : <Price page={page}></Price>}
+                    </div>
             </LinkTag>
           </Link>
         </ValuesFavGroup>

@@ -222,25 +222,36 @@ function ContactBar() {
       ? iframes.filter(f => f.finality === searchFunnel.finality)
       : iframes;
   
-    const scored = baseList.map((f) => {
-      let score = 0;
-      if (norm(f.source).includes(norm(building.source))) score++;
-      if (f.type && f.type === building.type) score++;
-      if (!searchFunnel?.finality) {
-        if ((f.finality === 'venda' && building.values?.sell) ||
-            (f.finality === 'aluguel' && building.values?.rent)) score++;
-        else score--;
-      }
-      if (f.use && building.infos && f.use === building.infos.use) score++;
-      return { f, score };
-    }).filter(x => x.score > 0);
+      const scored = baseList.map((f) => {
+        let score = 0;
+        const bSource = norm(building.source);
+        const fSource = norm(f.source);
+      
+        const isMatch =
+          (fSource === bSource) ||
+          (fSource === 'praia-campo' && [ 'praia', 'campo', 'montanha' ].includes(bSource)) ||
+          (fSource === 'sao-paulo' && bSource === 'sao-paulo');
+      
+        if (isMatch) score += 10;
+      
+        if (f.type && f.type === building.type) score += 3;
+      
+        if (!searchFunnel?.finality) {
+          if ((f.finality === 'venda' && building.values?.sell) ||
+              (f.finality === 'aluguel' && building.values?.rent)) score += 2;
+        }
+      
+        if (f.use && building.infos && f.use === building.infos.use) score += 1;
+      
+        return { f, score };
+      }).filter(x => x.score >= 10)
   
     if (!scored.length) return null;
   
     const best = scored.sort((a, b) => b.score - a.score)[0].f;
   
     const areaUseful = building?.infos?.areaTotal ?? building?.infos?.areaUsefulStart ?? null;
-  
+    // console.log(building, '-----')
     const paramsObj = {
       type: building.type,
       reference: building.reference,
@@ -252,6 +263,11 @@ function ContactBar() {
       bedrooms: building?.infos?.bedrooms ?? building?.infos?.bedroomsStart ?? null,
       parking: building?.infos?.parking ?? building?.infos?.parkingStart ?? null,
       value: null,
+      isExclusive: String(building.label?.isExclusive),
+      rent: String(building.values?.rent || 0),
+      sell: String(building.values?.sell || 0),
+      hasSell: (building.values?.sell > 0 || building.values?.release > 0) ? 'true' : 'false',
+      infoType: building.infos?.type || '',
       url: (typeof window !== 'undefined' ? window.location.href : ''),
       redirectUrl: `${process.env.config.siteUrl}/forms/imovel/sucesso.html`,
     };
@@ -457,7 +473,7 @@ function ContactBar() {
                   <p>Deixe seu contato para nosso time entrar em contato com você.</p>
                   <Form
                     ref={refForm}
-                    action='https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERAL/formperma/kS1k-h1kXXOhkZbL-r5ZJvV0cpaVSWVg-cm5AoLytbg/htmlRecords/submit'
+                    action='https://forms.zohopublic.com/axpeimoveis1/form/SITECADASTROGERALDUPLICADOKAFNET/formperma/gVTD0_26LoVjtbtth-1Gf-7EVmNWkfExKUgVe27zY_M/htmlRecords/submit'
                     method='POST'
                     acceptCharset='UTF-8'
                     enctype='multipart/form-data'
@@ -481,11 +497,8 @@ function ContactBar() {
                       <input type="text" name="utm_teste" value=""/>
                     </div>
 
-                    {/* Tipo de lead (linkname: Dropdown) */}
-                    <input type="hidden" name="Dropdown" value="Interessado" />
-
-                    {/* Origem Marketing (linkname: Dropdown7) */}
-                    <input type="hidden" name="Dropdown7" value="AXPE - SITE AXPE" />
+                    {/* Origem Marketing */}
+                    <input type="hidden" name="Dropdown" value="AXPE - SITE AXPE" />
 
 
                     <input type="hidden" name="zf_referrer_name" value="Form Contato Home" />

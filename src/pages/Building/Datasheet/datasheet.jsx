@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMain } from 'store/modules/main/actions';
 import SVG from 'react-inlinesvg';
@@ -99,6 +99,15 @@ export default function Datasheet({ property }) {
     const dispatch = useDispatch();
     const router = useRouter();
     
+    const [ sessionFinality, setSessionFinality ] = useState(null);
+
+    useEffect(() => {
+        const savedFinality = sessionStorage.getItem('search_finality');
+        if (savedFinality) {
+            setSessionFinality(savedFinality);
+        }
+    }, []);
+
     const isLighthouse = (() => {
         if (typeof window === 'undefined') {
             return true;
@@ -226,7 +235,11 @@ export default function Datasheet({ property }) {
                             <Caracteristics.OnlyConsults />
                         ) : null}
 
-                        {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
+                        {!!values.sell && (
+                                sessionFinality
+                                    ? sessionFinality === 'venda'
+                                    : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda')
+                            ) ? (
                             <Caracteristics.Sell
                                 valueOnlyConsults={values.valueOnlyConsults}
                                 sell={values.sell}
@@ -242,7 +255,11 @@ export default function Datasheet({ property }) {
                             currency={values.currency}
                         />
 
-                        {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
+                        {!!values.rent && (
+                                sessionFinality
+                                    ? sessionFinality === 'aluguel'
+                                    : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel')
+                            ) ? (
                             <Caracteristics.Rent
                                 valueOnlyConsults={values.valueOnlyConsults}
                                 rent={values.rent}
@@ -351,7 +368,8 @@ export default function Datasheet({ property }) {
                         <Caracteristics.OnlyConsults />
                     ) : null}
 
-                    {!!values.sell && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'venda') ? (
+                    {!!values.sell && ( (sessionFinality ? sessionFinality === 'venda' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda'))
+                        ) ? (
                         <Caracteristics.Sell
                             valueOnlyConsults={values.valueOnlyConsults}
                             sell={values.sell}
@@ -367,7 +385,9 @@ export default function Datasheet({ property }) {
                         currency={values.currency}
                     />
 
-                    {!!values.rent && (!searchFunnel || !searchFunnel.finality || searchFunnel.finality == 'aluguel') ? (
+                    {!!values.rent && (
+                        (sessionFinality ? sessionFinality === 'aluguel' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel'))
+                        ) ? (
                         <Caracteristics.Rent
                             valueOnlyConsults={values.valueOnlyConsults}
                             rent={values.rent}

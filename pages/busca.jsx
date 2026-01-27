@@ -363,6 +363,10 @@ function Search({ total, totalPages, data, banner, locals }) {
   }, [ query ]);
 
   useEffect(() => {
+    if (query.finality) {
+      sessionStorage.setItem('search_finality', query.finality);
+    }
+
     dispatch(
       setMain({
         searchFunnel: {
