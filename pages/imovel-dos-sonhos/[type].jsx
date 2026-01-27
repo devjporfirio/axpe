@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 // helpers
 import Link from 'next/link';
 import SeoData from 'helpers/seo';
-import CookieUtmParams from 'helpers/cookieUtmParams';
+import { getUTMs } from '../../src/helpers/cookieUtmParams';
 import { encrypt } from 'helpers/encryption';
 
 // components
@@ -468,7 +468,7 @@ function DreamBuildingSingle({ type }) {
 
   useEffect(() => {
     async function loadMe() {
-      const utmParams = CookieUtmParams.get();
+      const utmParams = getUTMs.get();
 
       if (utmParams.utm_source)
         setFieldValue('utm_source', utmParams.utm_source);

@@ -304,7 +304,7 @@ export const Wrapper = styled.div`
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
             height: auto;
-            max-height: 680px;
+            max-height: 630px;
             overflow-y: auto;
           `
         : css`

@@ -9,10 +9,19 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const envConfig = JSON.parse(fs.readFileSync(`./config/${nodeEnv}.json`, 'utf-8'));
 
 const nextConfig = {
-  // Otimizações seguras para reduzir bundle size
   swcMinify: true,
   compress: true,
   
+  async redirects() {
+    return [
+      {
+        source: '/cadastrar',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
+
   images: {
     unoptimized: true,
     domains: [
@@ -43,7 +52,6 @@ const nextConfig = {
     ];
   },
   webpack(config, { dev, isServer }) {
-    // Otimizações para produção
     if (!dev && !isServer) {
       config.optimization = {
         ...config.optimization,
@@ -52,49 +60,49 @@ const nextConfig = {
           maxInitialRequests: 25,
           minSize: 20000,
           cacheGroups: {
-            // React e React DOM
+
             react: {
               test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
               name: 'react',
               chunks: 'all',
               priority: 40,
             },
-            // Styled Components
+
             styledComponents: {
               test: /[\\/]node_modules[\\/](styled-components)[\\/]/,
               name: 'styled-components',
               chunks: 'all',
               priority: 30,
             },
-            // Redux
+
             redux: {
               test: /[\\/]node_modules[\\/](@reduxjs|redux)[\\/]/,
               name: 'redux',
               chunks: 'all',
               priority: 30,
             },
-            // React Slick
+
             reactSlick: {
               test: /[\\/]node_modules[\\/](react-slick|slick-carousel)[\\/]/,
               name: 'react-slick',
               chunks: 'all',
               priority: 30,
             },
-            // Next.js
+
             next: {
               test: /[\\/]node_modules[\\/](next)[\\/]/,
               name: 'next',
               chunks: 'all',
               priority: 30,
             },
-            // Outros vendors
+
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: 'vendors',
               chunks: 'all',
               priority: 20,
             },
-            // Código comum
+
             common: {
               name: 'common',
               minChunks: 2,
@@ -126,7 +134,6 @@ const nextConfig = {
       })
     );
 
-    // Otimização de tree shaking
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       assets: resolve(__dirname, './src/assets'),

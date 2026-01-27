@@ -22,15 +22,18 @@ export const formatCurrencyToText = (currency) => {
 export const getParamsFromObject = (params) => {
   const initial = '?';
   const sep = '&';
-  const paramsJoin = Object.keys(params).reduce(
-    (acc, key, i) =>
-      !params[key]
-        ? acc
-        : acc == initial
-        ? `${acc}${key}=${params[key]}`
-        : `${acc}${sep}${key}=${params[key]}`,
-    initial
-  );
+  
+  const paramsJoin = Object.keys(params).reduce((acc, key) => {
+    const value = params[key];
+
+    if (value === null || value === undefined || value === '') {
+      return acc;
+    }
+
+    const pair = `${key}=${value}`;
+    return acc === initial ? `${acc}${pair}` : `${acc}${sep}${pair}`;
+  }, initial);
+
   return encodeURI(paramsJoin);
 };
 
