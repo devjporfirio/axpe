@@ -88,12 +88,12 @@ function Search() {
         value: 'aluguel',
         sources: [ 'sao-paulo', 'praia', 'campo', 'montanha' ],
       },
-      {
-        label: 'Temporada',
-        value: 'temporada',
+      // {
+        // label: 'Temporada',
+        // value: 'temporada',
         // sources: [ 'praia', 'campo', 'internacional' ]
-        sources: seasons,
-      },
+        // sources: seasons,
+      // },
     ],
     [ seasons ]
   );
