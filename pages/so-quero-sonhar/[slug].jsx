@@ -138,7 +138,7 @@ function DreamDetail({ buildings }) {
             ))}
           </Slider>
         </Footer>
-        <BlockHighlighted type="dream" />
+        <BlockHighlighted type="contactHome" />
       </Container>
     </>
   ) : null;

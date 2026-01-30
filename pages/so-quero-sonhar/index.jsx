@@ -64,7 +64,7 @@ function Dream() {
             </List>
           </Wrapper>
 
-          <BlockHighlighted type="dream" />
+          <BlockHighlighted type="contactHome" />
         </Container>
       ) : null}
     </>
