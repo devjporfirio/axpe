@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import SVG from 'react-inlinesvg';
 
 // store
@@ -42,17 +42,17 @@ function Headerbar({ className, type, title, subtitle, building }) {
     setShareActive(!shareActive);
   }, [ shareActive ]);
 
-  function buttonBack() {
+  const buttonBack = useCallback(() => {
     if (type === 'search') {
       toggleSearch();
     } else {
-      const previousUrl = window.location.href;
-      setInterval(() => {
-        if (previousUrl === window.location.href)
-          Router ? Router.back() : window.history.back();
-      }, 50);
+      if (window.history.length > 1) {
+        router.back();
+      } else {
+        router.push('/');
+      }
     }
-  }
+  }, [ type, toggleSearch, router ]);
 
   const toggleSearch = useCallback(() => {
     dispatch(setMain({ searchFormActive: !searchFormActive }));
@@ -80,14 +80,11 @@ function Headerbar({ className, type, title, subtitle, building }) {
     refEl.current.style.top = `${topHeaderbar}px`;
   }
 
-  useEffect(
-    () => {
-      if (type === 'modal') return;
-
+  useEffect(() => {
+    if (type !== 'modal') {
       handleScrollPosition(scrollPosition);
-    },
-    type !== 'modal' ? scrollPosition : []
-  );
+    }
+  }, [ scrollPosition, type ]);
 
   useEffect(() => {
     dispatch(setMain({ headerHiding: true }));
