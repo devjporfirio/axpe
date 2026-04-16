@@ -354,7 +354,7 @@ export default function Datasheet({ property }) {
                                     .map(([ label ]) => (
                                         <CharacteristicItem key={label}>
                                             <img src={ICheck} alt="ícone de Check" />
-                                            <p>{label}</p>
+                                            <p>{label.replace(' Qtd', '')}</p>
                                         </CharacteristicItem>
                                     ))}
                             </CharacteristicsGrid>
