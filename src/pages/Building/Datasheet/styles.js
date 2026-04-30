@@ -200,6 +200,14 @@ export const Neighborhood = styled.h1`
 
 `;
 
+export const NeighborhoodContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%
+`;
+
 export const GroupTags = styled.div`
   display: flex;
   gap: 10px;

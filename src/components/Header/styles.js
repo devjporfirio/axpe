@@ -48,6 +48,15 @@ export const Container = styled.header`
     }
   `}
 
+  .favoritos-menu-item .favorite-fill-icon,
+  .favoritos-menu-item:hover .favorite-outline-icon {
+    display: none;
+  }
+
+  .favoritos-menu-item:hover .favorite-fill-icon {
+    display: flex;
+  }
+
   ${media.greaterThan('large')`
     width: 200px;
     height: 100%;

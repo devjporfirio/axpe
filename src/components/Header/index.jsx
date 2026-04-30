@@ -17,6 +17,8 @@ import SearchIconSVG from 'assets/icons/search.svg';
 import HomeIconSVG from 'assets/icons/home.svg';
 import CloudIconSVG from 'assets/icons/cloud.svg';
 import AxpeFullLogoSVG from 'assets/axpe-full-logo.svg';
+import FavoriteOutlineIcon from 'assets/favorite-outline-icon.svg'
+import FavoriteFillIcon from 'assets/favorite-fill-icon.svg'
 
 // styles
 import {
@@ -188,6 +190,7 @@ function Header() {
                     <NavMainButton
                       className="holos-menu-item"
                       type="register"
+                      target='__blank'
                       onClick={cancelToggle}
                         id='button-sell-imovel-desktop'
                     >
@@ -206,6 +209,20 @@ function Header() {
                     >
                       <SVG src={CloudIconSVG} uniquifyIDs={true} aria-hidden="true"/>
                       <NavMainButtonText>Só quero sonhar</NavMainButtonText>
+                    </NavMainButton>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/lista-de-favoritos" passHref>
+                    <NavMainButton
+                      className="favoritos-menu-item"
+                      type="favorite"
+                      onClick={cancelToggle}
+                      id='button-favorite-desktop'
+                    >
+                      <SVG src={FavoriteOutlineIcon} uniquifyIDs={true} className="favorite-outline-icon" aria-hidden="true"/>
+                      <SVG src={FavoriteFillIcon} uniquifyIDs={true} className="favorite-fill-icon" aria-hidden="true"/>
+                      <NavMainButtonText>LISTA DE FAVORITOS</NavMainButtonText>
                     </NavMainButton>
                   </Link>
                 </li>

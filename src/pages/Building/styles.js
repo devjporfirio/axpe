@@ -42,7 +42,15 @@ export const SimilarBuildings = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 15px;
-  max-width: 1060px;
+  max-width: ${({ fullWidth }) => (fullWidth ? '100%' : '1060px')};
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      span img {
+        opacity: 1;
+      }
+    `}
 `;
 
 export const SimilarBuildingsHeader = styled.header`
