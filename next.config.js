@@ -1,4 +1,3 @@
-
 const { resolve } = require('path');
 const webpack = require('webpack');
 const fs = require('fs');
@@ -6,12 +5,14 @@ const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
 const nodeEnv = process.env.NODE_ENV || 'development';
-const envConfig = JSON.parse(fs.readFileSync(`./config/${nodeEnv}.json`, 'utf-8'));
+
+const envConfig = JSON.parse(
+  fs.readFileSync(`./config/${nodeEnv}.json`, 'utf-8')
+);
 
 const nextConfig = {
-  swcMinify: true,
   compress: true,
-  
+
   async redirects() {
     return [
       {
@@ -22,13 +23,13 @@ const nextConfig = {
     ];
   },
 
-    async rewrites() {
+  async rewrites() {
     return [
       {
         source: '/lista-de-favoritos',
         destination: '/Favorites',
       },
-    ]
+    ];
   },
 
   images: {
@@ -40,9 +41,10 @@ const nextConfig = {
       'www-hml.axpe.com.br',
       'axpe-frontend.vercel.app',
     ],
-    formats: [ 'image/avif', 'image/webp' ],
-    deviceSizes: [ 375, 640, 750, 828, 1080, 1200, 1920, 2048, 3840 ],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   },
+
   compiler: {
     styledComponents: true,
   },
@@ -60,6 +62,7 @@ const nextConfig = {
       },
     ];
   },
+
   webpack(config, { dev, isServer }) {
     if (!dev && !isServer) {
       config.optimization = {
@@ -69,7 +72,6 @@ const nextConfig = {
           maxInitialRequests: 25,
           minSize: 20000,
           cacheGroups: {
-
             react: {
               test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
               name: 'react',
@@ -162,12 +164,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withBundleAnalyzer(withPWA({
-  ...nextConfig,
-  pwa: {
+module.exports = withBundleAnalyzer(
+  withPWA({
     dest: 'public',
     disable: nodeEnv === 'development',
     runtimeCaching,
-    buildExcludes: [ /middleware-manifest\.json$/ ],
-  },
-}));
+    buildExcludes: [/middleware-manifest\.json$/],
+  })(nextConfig)
+);
