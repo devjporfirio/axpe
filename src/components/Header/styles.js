@@ -49,12 +49,19 @@ export const Container = styled.header`
   `}
 
   .favoritos-menu-item .favorite-fill-icon,
-  .favoritos-menu-item:hover .favorite-outline-icon {
+  .favoritos-menu-item:hover .favorite-outline-icon,
+  .favoritos-menu-item.active .favorite-outline-icon {
     display: none;
   }
 
+  .favoritos-menu-item.active .favorite-fill-icon,
   .favoritos-menu-item:hover .favorite-fill-icon {
     display: flex;
+    stroke: none;
+  }
+
+  .favoritos-menu-item svg path {
+    stroke: none !important;
   }
 
   ${media.greaterThan('large')`
@@ -322,8 +329,9 @@ export const NavMainButtonSearch = styled.button`
     height: 18px;
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 3px;
     transform: translateY(-50%);
+    scale: 1.2;
 
     path,
     polyline {
@@ -346,6 +354,10 @@ export const NavMainButtonSearch = styled.button`
     svg polyline {
       stroke: ${({ theme }) => theme.colors.green};
     }
+
+    svg.favorite-fill-icon path {
+        stroke: none;
+      }
   }
 
   ${(props) => props.active && NavMainButtonSearchActive}
@@ -356,6 +368,10 @@ export const NavMainButtonSearchActive = css`
   svg polyline {
     stroke: ${({ theme }) => theme.colors.green};
   }
+
+  svg.favorite-fill-icon path {
+        stroke: none;
+      }
 
   span {
     color: ${({ theme }) => theme.colors.green};
@@ -370,6 +386,10 @@ export const NavMainButton = styled.a`
   width: 100%;
   text-align: left;
 
+  svg.cloud-icon-svg {
+    scale: 1.3;
+  }
+
   svg {
     display: block;
     margin: 0 auto;
@@ -377,6 +397,8 @@ export const NavMainButton = styled.a`
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+    scale: 1.2;
+    
 
     ${(props) =>
       props.type == 'register'
@@ -400,6 +422,10 @@ export const NavMainButton = styled.a`
       svg path,
       svg polyline {
         stroke: ${({ theme }) => theme.colors.green};
+      }
+
+      svg.favorite-fill-icon path {
+        stroke: none;
       }
     }
 `;

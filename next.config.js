@@ -22,15 +22,6 @@ const nextConfig = {
     ];
   },
 
-    async rewrites() {
-    return [
-      {
-        source: '/lista-de-favoritos',
-        destination: '/Favorites',
-      },
-    ]
-  },
-
   images: {
     unoptimized: true,
     domains: [

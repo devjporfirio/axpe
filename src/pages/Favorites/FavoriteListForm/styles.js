@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import media from './media';
+import media from "./media";
 
 export const FavoriteSearchContainer = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const FavoriteSearchContainer = styled.div`
   background: #F5F3F0;
   padding: 95px 0;
 
-  ${media.lessThan('large')`
+  ${media.lessThan("large")`
     padding: 49px 28px 95px;
   `}
 
@@ -47,7 +47,7 @@ export const FavoriteSearchContainer = styled.div`
     align-items: center;
     flex-direction: column;
 
-    ${media.lessThan('large')`
+    ${media.lessThan("large")`
       width: 100%;
     `}  
   }
@@ -79,7 +79,7 @@ export const FavoriteSearchContainer = styled.div`
     font-weight: 400;
     line-height: 28px;
 
-    ${media.lessThan('large')`
+    ${media.lessThan("large")`
       width: 100%;
     `}
   }

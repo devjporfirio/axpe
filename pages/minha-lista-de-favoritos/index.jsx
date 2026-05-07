@@ -1,64 +1,60 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import SVG from 'react-inlinesvg'
-import Image from 'next/image'
+import React, { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import SVG from "react-inlinesvg";
+import Image from "next/image";
 
 // components
-import Share from 'components/Share'
-import NewsletterFooter from 'components/NewsletterFooter'
+import Share from "components/Share";
+import NewsletterFooter from "components/NewsletterFooter";
 
 // assets
-import FavoriteFillIcon from 'assets/favorite-fill-icon.svg'
-import ShareIconSVG from 'assets/icons/share.svg'
-import DeleteListIcon from 'assets/delete-list.svg'
-import EditIcon from 'assets/icons/edit.svg'
-
-// styles
+import FavoriteFillIcon from "assets/favoritos.svg";
+import ShareIconSVG from "assets/icons/share.svg";
+import DeleteListIcon from "assets/delete-list.svg";
+import EditIcon from "assets/icons/edit.svg";
 import {
+  FavoriteEditIcon,
   FavoriteHeader,
   FavoriteHeaderTitle,
   FavoriteHeaderTitleContainer,
-  ShareButtonContainer,
-  FavoriteOptions,
-  RemoveList,
-  FavoriteListName,
-  FavoriteEditIcon,
   FavoriteListContainer,
   FavoriteListContext,
-  FavoriteListHeaderTexts
-} from './styles'
+  FavoriteListHeaderTexts,
+  FavoriteListName,
+  FavoriteOptions,
+  RemoveList,
+  ShareButtonContainer,
+} from "pages/ListaFavoritos/MinhaLista/styles";
+
+// styles
 
 const MyFavoriteList = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [shareActive, setShareActive] = useState(false)
-  const [listName, setListName] = useState('')
-  const [isEditing, setIsEditing] = useState(false)
+  const [shareActive, setShareActive] = useState(false);
+  const [listName, setListName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   // 🔥 pega parâmetros da URL
-  const { id, nome } = router.query
+  const { id, nome } = router.query;
 
   useEffect(() => {
-    if (!router.isReady) return
-    localStorage.setItem("listId", id)
-    console.log('📌 PARAMS DA URL')
-    console.log('ID:', id)
-    console.log('NOME:', nome)
+    if (!router.isReady) return;
+    localStorage.setItem("listId", id);
 
     if (nome) {
-      setListName(decodeURIComponent(nome))
+      setListName(decodeURIComponent(nome));
     }
-  }, [router.isReady, id, nome])
-
+  }, [router.isReady, id, nome]);
 
   const saveListName = useCallback((value) => {
-    setListName(value)
-    setIsEditing(false)
-  }, [])
+    setListName(value);
+    setIsEditing(false);
+  }, []);
 
   const toggleShare = useCallback(() => {
-    setShareActive((prev) => !prev)
-  }, [])
+    setShareActive((prev) => !prev);
+  }, []);
 
   return (
     <>
@@ -74,7 +70,7 @@ const MyFavoriteList = () => {
             </FavoriteHeaderTitleContainer>
           </FavoriteHeaderTitle>
 
-          <FavoriteOptions>
+          <FavoriteOptions className="favorite-options">
             <ShareButtonContainer onClick={toggleShare}>
               Compartilhar lista
               <SVG src={ShareIconSVG} />
@@ -88,7 +84,6 @@ const MyFavoriteList = () => {
         </FavoriteHeader>
 
         <FavoriteListContainer>
-
           <FavoriteHeaderTitleContainer>
             <SVG
               src={FavoriteFillIcon}
@@ -96,7 +91,17 @@ const MyFavoriteList = () => {
             />
             Minha lista de favoritos
           </FavoriteHeaderTitleContainer>
+          <FavoriteOptions className="favorite-options">
+            <ShareButtonContainer onClick={toggleShare}>
+              Compartilhar lista
+              <SVG src={ShareIconSVG} />
+            </ShareButtonContainer>
 
+            <RemoveList>
+              Deletar
+              <SVG src={DeleteListIcon} />
+            </RemoveList>
+          </FavoriteOptions>
           <FavoriteListHeaderTexts>
             {isEditing ? (
               <input
@@ -105,14 +110,14 @@ const MyFavoriteList = () => {
                 onChange={(e) => setListName(e.target.value)}
                 onBlur={() => saveListName(listName)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    saveListName(listName)
+                  if (e.key === "Enter") {
+                    saveListName(listName);
                   }
                 }}
               />
             ) : (
               <FavoriteListName>
-                <p>{listName || 'Minha lista'}</p>
+                <p>{listName || "Minha lista"}</p>
 
                 <FavoriteEditIcon onClick={() => setIsEditing(true)}>
                   <SVG src={EditIcon} />
@@ -133,9 +138,10 @@ const MyFavoriteList = () => {
             </FavoriteOptions>
 
             <FavoriteListContext>
-              Navegue pelo site e clique no coração laranja nos imóveis que gostar para adicioná-los. 
-              Você também pode compartilhar sua lista com quem quiser. 
-              Para acessar sua lista use o menu e clique em Lista de Favoritos.
+              Navegue pelo site e clique no coração laranja nos imóveis que
+              gostar para adicioná-los. Você também pode compartilhar sua lista
+              com quem quiser. Para acessar sua lista use o menu e clique em
+              Lista de Favoritos.
             </FavoriteListContext>
           </FavoriteListHeaderTexts>
 
@@ -152,7 +158,7 @@ const MyFavoriteList = () => {
               src="static/bg-stores-image.png"
               alt="Background disabled stores"
               className="bg-store-image"
-              style={{ width: '100%', height: 'auto' }}
+              style={{ width: "100%", height: "auto" }}
             />
           </picture>
         </FavoriteListContainer>
@@ -161,13 +167,13 @@ const MyFavoriteList = () => {
       <Share
         active={shareActive}
         path={router.asPath}
-        title={listName || 'Minha lista de favoritos'}
+        title={listName || "Minha lista de favoritos"}
         onClose={() => setShareActive(false)}
       />
 
       <NewsletterFooter />
     </>
-  )
-}
+  );
+};
 
-export default MyFavoriteList
+export default MyFavoriteList;
