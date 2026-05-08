@@ -11,6 +11,7 @@ const envConfig = JSON.parse(
 );
 
 const nextConfig = {
+  pageExtensions: ['page.jsx', 'page.js', 'page.tsx', 'page.ts'],
   compress: true,
 
   async redirects() {

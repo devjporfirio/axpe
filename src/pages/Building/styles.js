@@ -74,6 +74,7 @@ export const SimilarBuildingsList = styled.div`
   ${media.greaterThan('medium')`
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
   `}
 `;

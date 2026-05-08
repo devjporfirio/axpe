@@ -12,20 +12,24 @@ const slugify = (text) => text?.toLowerCase().trim().replace(/\s+/g, "-");
 const FavoriteListForm = ({ data }) => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+
   const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const router = useRouter();
 
   useEffect(() => {
+    if (loading) return;
 
-    if (data?.lists?.[0] && data?.lists[0]?.id) {
-      const id = data.lists[0]?.id;
-      const listName = data.lists[0].nome_da_lista || "lista";
+    const list = data?.lists?.[0];
 
-      const slug = slugify(listName);
-      router.push(`/minha-lista-de-favoritos/${id}/${slug}`);
+    if (list?.id) {
+      const slug = slugify(list?.nome_da_lista || "lista");
+
+      router.push(
+        `/minha-lista-de-favoritos/${list.id}/${slug}`,
+      );
     }
-  }, [data, router]);
+  }, [data, loading, router]);
 
   const checkExistingList = async (email) => {
     try {
@@ -53,7 +57,9 @@ const FavoriteListForm = ({ data }) => {
   const createList = async (email, name) => {
     const res = await fetch(`${baseUrl}/favorites/lists`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email,
         nome_da_lista: name,
@@ -72,10 +78,11 @@ const FavoriteListForm = ({ data }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim()) return;
+    if (!name.trim() || loading) return;
+
+    setLoading(true);
 
     try {
-      setLoading(true);
       const email = data?.user?.email;
 
       if (!email) {
@@ -85,44 +92,59 @@ const FavoriteListForm = ({ data }) => {
 
       const existingList = await checkExistingList(email);
 
-      if (existingList) {
-        const id = existingList.id;
-        const listName = existingList.nome_da_lista || "lista";
+      if (existingList?.id) {
+        const slug = slugify(
+          existingList.nome_da_lista || "lista",
+        );
 
-        const slug = slugify(listName);
+        router.push(
+          `/minha-lista-de-favoritos/${existingList.id}/${slug}`,
+        );
 
-        router.push(`/minha-lista-de-favoritos/${id}/${slug}`);
         return;
       }
 
       const list = await createList(email, name);
 
-      if (!list?.id) return;
+      if (!list?.id) {
+        console.error("Lista não criada");
+        return;
+      }
 
       const listId = list.id;
+
       const slug = slugify(name);
-      const imovelId = localStorage.getItem("favorite_item_add");
 
-      if (!imovelId) return;
+      const imovelId =
+        typeof window !== "undefined"
+          ? localStorage.getItem("favorite_item_add")
+          : null;
 
-      const payload = {
-        id_lista: listId,
-        id_imovel: imovelId,
-      };
+      if (imovelId) {
+        const payload = {
+          id_lista: listId,
+          id_imovel: imovelId,
+        };
 
-      const response = await fetch(`${baseUrl}/favorites/items`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+        const response = await fetch(
+          `${baseUrl}/favorites/items`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          },
+        );
 
-      if (!response.ok) return;
+        if (response.ok) {
+          localStorage.removeItem("favorite_item_add");
+        }
+      }
 
-      localStorage.removeItem("favorite_item_add");
-
-      router.push(`/minha-lista-de-favoritos/${listId}/${slug}`);
+      router.push(
+        `/minha-lista-de-favoritos/${listId}/${slug}`,
+      );
     } catch (error) {
       console.error("Erro ao criar lista:", error);
     } finally {

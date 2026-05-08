@@ -18,7 +18,6 @@ export const FavoriteSearchContainer = styled.div`
   .search-component-favorite-fill-icon {
     width: 54px;
     height: 49px;
-    
   }
 
   .search-component-favorite-title {

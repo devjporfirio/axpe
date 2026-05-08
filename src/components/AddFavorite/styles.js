@@ -1,15 +1,13 @@
 import styled from 'styled-components'
 
-// CONTAINER (centraliza corretamente)
 export const ToastContainer = styled.div`
   position: fixed;
   top: 20px;
   left: 50%;
-  transform: translateX(-50%); /* 🔥 centralização correta */
+  transform: translateX(-50%);
   z-index: 9999;
 `
 
-// CAIXA DO TOAST
 export const ToastWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -29,7 +27,7 @@ export const ToastWrapper = styled.div`
   @keyframes slideDown {
     from {
       opacity: 0;
-      transform: translateY(-12px); /* 🔥 só eixo Y */
+      transform: translateY(-12px); 
     }
     to {
       opacity: 1;
@@ -37,8 +35,6 @@ export const ToastWrapper = styled.div`
     }
   }
 `
-
-// LADO ESQUERDO
 export const ToastContent = styled.div`
   display: flex;
   align-items: center;
@@ -52,7 +48,6 @@ export const ToastContent = styled.div`
   }
 `
 
-// LINK
 export const ToastLink = styled.a`
   margin-left: 16px;
   font-size: 14px;
@@ -60,8 +55,6 @@ export const ToastLink = styled.a`
   text-decoration: underline;
   cursor: pointer;
 `
-
-// BOTÃO FECHAR
 export const ToastClose = styled.button`
   background: none;
   border: none;
