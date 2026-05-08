@@ -158,7 +158,6 @@ export const FavoriteListContainer = styled.div`
     background: #f5f3f0 !important;
   }
 
-  span img,
   .bg-store-image {
     height: fit-content;
     opacity: 0.3;

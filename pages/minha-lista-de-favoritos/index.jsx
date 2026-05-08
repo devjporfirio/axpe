@@ -24,7 +24,7 @@ import {
   FavoriteOptions,
   RemoveList,
   ShareButtonContainer,
-} from "pages/ListaFavoritos/MinhaLista/styles";
+} from "../../styles/my-favorites";
 
 // styles
 

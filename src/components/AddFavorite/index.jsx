@@ -168,10 +168,20 @@ const AddFavorite = ({ id, shelf = false }) => {
         !nextFavoriteState &&
         window.location.pathname.includes('/minha-lista-de-favoritos/')
       ) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 300);
-      }
+        window.dispatchEvent(
+          new CustomEvent("removeToFavoriteList", {
+            detail: {
+              id: id,
+            },
+          })
+        )
+
+        const timer = setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+        }
     } catch (error) {
       console.error(error);
     }
@@ -197,6 +207,9 @@ const AddFavorite = ({ id, shelf = false }) => {
       }
       style={{
         transform: isFavorite && owner ? "scale(1.3)" : "scale(1)",
+        position: isFavorite ? "relative" : "static",
+        top: isFavorite ? "3px" : "0",
+        right: isFavorite ? "3px" : "0",
         transition: "transform 0.2s ease",
       }}
     />

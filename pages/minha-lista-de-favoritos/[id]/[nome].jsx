@@ -23,7 +23,7 @@ import {
   FavoriteListContainer,
   FavoriteListContext,
   FavoriteListHeaderTexts,
-} from "pages/ListaFavoritos/MinhaLista/[id]/styles";
+} from "../../../styles/my-favorites";
 
 import { SimilarBuildings, SimilarBuildingsList } from "pages/Building/styles";
 
@@ -49,6 +49,30 @@ const MyFavoriteList = () => {
     return localStorage.getItem("userEmail");
   };
 
+  useEffect(() => {
+    const handleRemoveToFavoriteList = (event) => {
+      const removeId = event?.detail?.id
+
+      if (!removeId) return
+
+      setItems((prevItems) =>
+        prevItems.filter((item) => item?.id !== removeId)
+      )
+    }
+
+    window.addEventListener(
+      "removeToFavoriteList",
+      handleRemoveToFavoriteList
+    )
+
+    return () => {
+      window.removeEventListener(
+        "removeToFavoriteList",
+        handleRemoveToFavoriteList
+      )
+    }
+  }, [])
+
   const fetchListData = async (listId) => {
     try {
       setLoading(true);
@@ -62,7 +86,6 @@ const MyFavoriteList = () => {
       const listJson = await listRes.json();
       const itemsJson = await itemsRes.json();
 
-      // 🔥 LISTA
       if (listJson?.success && listJson?.data?.list) {
         const list = listJson.data.list;
         const name = list?.nome_da_lista || list?.name;
@@ -70,7 +93,6 @@ const MyFavoriteList = () => {
         setListName(name || "");
         originalNameRef.current = name || "";
 
-        // 🔥 VERIFICA DONO
         const userEmail = getUserEmail();
 
         if (userEmail && list) {
@@ -92,7 +114,6 @@ const MyFavoriteList = () => {
         }
       }
 
-      // 🔥 ITEMS
       if (itemsJson?.success) {
         const items = itemsJson.data || [];
 
@@ -203,7 +224,16 @@ const MyFavoriteList = () => {
   }, []);
 
   if (!dataReady) {
-    return <div style={{ padding: 20 }}>Carregando lista...</div>;
+    return (
+    <div
+      style={{
+        padding: 20,
+        height: "100vh",
+      }}
+    >
+      Carregando lista...
+    </div>
+  );
   }
 
   return (
@@ -254,18 +284,18 @@ const MyFavoriteList = () => {
             )}
 
             <FavoriteOptions className="favorite-options">
-            <ShareButtonContainer onClick={toggleShare}>
-              Compartilhar lista
-              <SVG src={ShareIconSVG} />
-            </ShareButtonContainer>
+              <ShareButtonContainer onClick={toggleShare}>
+                Compartilhar lista
+                <SVG src={ShareIconSVG} />
+              </ShareButtonContainer>
 
-            {isOwner && (
-              <RemoveList onClick={handleDeleteList}>
-                Deletar
-                <SVG src={DeleteListIcon} />
-              </RemoveList>
-            )}
-          </FavoriteOptions>
+              {isOwner && (
+                <RemoveList onClick={handleDeleteList}>
+                  Deletar
+                  <SVG src={DeleteListIcon} />
+                </RemoveList>
+              )}
+            </FavoriteOptions>
 
             {items.length === 0 && (
               <FavoriteListContext>
@@ -292,10 +322,10 @@ const MyFavoriteList = () => {
               </SimilarBuildingsList>
             </SimilarBuildings>
           ) : <>
-            <picture> 
-              <source media="(max-width: 768px)" srcSet="/static/bg-stores-image-mob.png" /> 
-              <source media="(min-width: 769px)" srcSet="/static/bg-stores-image.png" /> 
-              <img src="/static/bg-stores-image.png" alt="Background disabled stores" className="bg-store-image" style={{ width: '100%', height: 'auto' }} /> 
+            <picture>
+              <source media="(max-width: 768px)" srcSet="/static/bg-stores-image-mob.png" />
+              <source media="(min-width: 769px)" srcSet="/static/bg-stores-image.png" />
+              <img src="/static/bg-stores-image.png" alt="Background disabled stores" className="bg-store-image" style={{ width: '100%', height: 'auto' }} />
             </picture>
           </>}
         </FavoriteListContainer>
