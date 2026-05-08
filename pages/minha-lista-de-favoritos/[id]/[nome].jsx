@@ -53,7 +53,7 @@ const MyFavoriteList = () => {
     const handleRemoveToFavoriteList = (event) => {
       const removeId = event?.detail?.id
 
-      if (!removeId) return
+      if (!removeId && !isOwner) return
 
       setItems((prevItems) =>
         prevItems.filter((item) => item?.id !== removeId)

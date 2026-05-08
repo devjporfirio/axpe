@@ -15,70 +15,135 @@ import {
 } from "./styles";
 
 const AddFavorite = ({ id, shelf = false }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [owner, setOwner] = useState(false);
+  const [isFavorite, setIsFavorite] =
+    useState(false);
 
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const [showToast, setShowToast] =
+    useState(false);
+
+  const [owner, setOwner] =
+    useState(false);
+
+  const [sharedListId, setSharedListId] =
+    useState(null);
+
+  const [myListId, setMyListId] =
+    useState(null);
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const router = useRouter();
 
   useEffect(() => {
     const checkFavorite = async () => {
       try {
-        let listId =
-          typeof window !== "undefined"
-            ? localStorage.getItem("listId")
-            : null;
-
         const email =
           typeof window !== "undefined"
-            ? localStorage.getItem("userEmail")
+            ? localStorage.getItem(
+                "userEmail"
+              )
             : null;
 
-        let listOwnerEmail = null;
+        // lista compartilhada (da página)
+        let sharedId =
+          typeof window !== "undefined"
+            ? localStorage.getItem(
+                "listId"
+              )
+            : null;
 
-        if (!listId && email) {
-          const res = await fetch(
-            `${baseUrl}/favorites/lists/user/${email}`,
-          );
+        let sharedOwnerEmail = null;
 
-          const json = await res.json();
+        // busca a lista do usuário logado
+        let userListId = null;
 
-          const list = json?.data?.lists?.[0];
+        if (email) {
+          const myListRes =
+            await fetch(
+              `${baseUrl}/favorites/lists/user/${email}`
+            );
 
-          listId = list?.id;
-          listOwnerEmail = list?.email;
+          const myListJson =
+            await myListRes.json();
 
-          if (listId) {
-            localStorage.setItem("listId", listId);
+          const myList =
+            myListJson?.data?.lists?.[0];
+
+          userListId = myList?.id;
+
+          if (userListId) {
+            setMyListId(userListId);
           }
         }
 
-        if (!listId) return;
+        // busca info da lista compartilhada
+        let sharedImoveis = [];
 
-        const res = await fetch(
-          `${baseUrl}/favorites/lists/${listId}`,
-        );
+        if (sharedId) {
+          const sharedRes =
+            await fetch(
+              `${baseUrl}/favorites/lists/${sharedId}`
+            );
 
-        const json = await res.json();
+          const sharedJson =
+            await sharedRes.json();
 
-        const imoveis = json?.data?.imoveis || [];
+          sharedImoveis =
+            sharedJson?.data?.imoveis ||
+            [];
 
-        listOwnerEmail =
-          listOwnerEmail || json?.data?.user?.email;
+          sharedOwnerEmail =
+            sharedJson?.data?.user
+              ?.email;
 
-        const exists = imoveis.some(
-          (item) => Number(item.id_imovel) === Number(id),
-        );
+          setSharedListId(sharedId);
+        }
 
-        const isOwner =
+        const isOwnerUser =
           email &&
-          listOwnerEmail &&
-          email === listOwnerEmail;
+          sharedOwnerEmail &&
+          email ===
+            sharedOwnerEmail;
 
-        setOwner(isOwner);
-        setIsFavorite(exists);
+        setOwner(isOwnerUser);
+
+        let favoriteExists = false;
+
+        // DONO → verifica na lista compartilhada
+        if (isOwnerUser) {
+          favoriteExists =
+            sharedImoveis.some(
+              (item) =>
+                Number(item.id_imovel) ===
+                Number(id)
+            );
+        }
+        // VISITANTE → verifica na lista dele
+        else if (userListId) {
+          const myListDetailRes =
+            await fetch(
+              `${baseUrl}/favorites/lists/${userListId}`
+            );
+
+          const myListDetailJson =
+            await myListDetailRes.json();
+
+          const myImoveis =
+            myListDetailJson?.data
+              ?.imoveis || [];
+
+          favoriteExists =
+            myImoveis.some(
+              (item) =>
+                Number(item.id_imovel) ===
+                Number(id)
+            );
+        }
+
+        setIsFavorite(
+          favoriteExists
+        );
       } catch (err) {
         console.error(err);
       }
@@ -87,130 +152,179 @@ const AddFavorite = ({ id, shelf = false }) => {
     checkFavorite();
   }, [id, baseUrl]);
 
-  const handleToggleFavorite = async () => {
-    let listId =
-      typeof window !== "undefined"
-        ? localStorage.getItem("listId")
-        : null;
+  const handleToggleFavorite =
+    async () => {
+      const email =
+        typeof window !==
+        "undefined"
+          ? localStorage.getItem(
+              "userEmail"
+            )
+          : null;
 
-    const email =
-      typeof window !== "undefined"
-        ? localStorage.getItem("userEmail")
-        : null;
+      if (!email) {
+        localStorage.setItem(
+          "favorite_item_add",
+          id
+        );
 
-    if (!email || !listId) {
-      localStorage.setItem("favorite_item_add", id);
+        if (shelf) {
+          setShowToast(true);
+          return;
+        }
 
-      if (shelf) {
-        setShowToast(true);
+        router.push(
+          "/lista-de-favoritos"
+        );
+
         return;
       }
 
-      router.push("/lista-de-favoritos");
-      return;
-    }
+      const targetListId =
+        owner
+          ? sharedListId
+          : myListId;
 
-    if (!listId) {
-      const res = await fetch(
-        `${baseUrl}/favorites/lists/user/${email}`,
-      );
-
-      const json = await res.json();
-
-      listId = json?.data?.lists?.[0]?.id;
-
-      if (listId) {
-        localStorage.setItem("listId", listId);
-      }
-    }
-
-    try {
-      const payload = {
-        id_lista: listId,
-        id_imovel: id,
-      };
-
-      let response;
-
-      if (isFavorite) {
-        response = await fetch(
-          `${baseUrl}/favorites/items`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-          },
+      if (!targetListId) {
+        console.error(
+          "Nenhuma lista encontrada."
         );
-      } else {
-        response = await fetch(
-          `${baseUrl}/favorites/items`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-          },
-        );
+
+        return;
       }
 
-      if (!response.ok) return;
+      try {
+        const payload = {
+          id_lista:
+            targetListId,
+          id_imovel: id,
+        };
 
-      const nextFavoriteState = !isFavorite;
+        let response;
 
-      setIsFavorite(nextFavoriteState);
-      setShowToast(true);
-
-      if (
-        shelf &&
-        !nextFavoriteState &&
-        window.location.pathname.includes('/minha-lista-de-favoritos/')
-      ) {
-        window.dispatchEvent(
-          new CustomEvent("removeToFavoriteList", {
-            detail: {
-              id: id,
-            },
-          })
-        )
-
-        const timer = setTimeout(() => {
-          setShowToast(false);
-        }, 3000);
-
-        return () => clearTimeout(timer);
+        if (isFavorite) {
+          response =
+            await fetch(
+              `${baseUrl}/favorites/items`,
+              {
+                method:
+                  "DELETE",
+                headers: {
+                  "Content-Type":
+                    "application/json",
+                },
+                body: JSON.stringify(
+                  payload
+                ),
+              }
+            );
+        } else {
+          response =
+            await fetch(
+              `${baseUrl}/favorites/items`,
+              {
+                method:
+                  "POST",
+                headers: {
+                  "Content-Type":
+                    "application/json",
+                },
+                body: JSON.stringify(
+                  payload
+                ),
+              }
+            );
         }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
+        // evita quebrar no 409
+        if (
+          response.status ===
+          409
+        ) {
+          setIsFavorite(true);
+          return;
+        }
+
+        if (!response.ok)
+          return;
+
+        const nextFavoriteState =
+          !isFavorite;
+
+        setIsFavorite(
+          nextFavoriteState
+        );
+
+        setShowToast(true);
+
+        // só remove visualmente
+        // para o dono
+        if (
+          shelf &&
+          owner &&
+          !nextFavoriteState &&
+          window.location.pathname.includes(
+            "/minha-lista-de-favoritos/"
+          )
+        ) {
+          window.dispatchEvent(
+            new CustomEvent(
+              "removeToFavoriteList",
+              {
+                detail: {
+                  id,
+                },
+              }
+            )
+          );
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   useEffect(() => {
     if (showToast) {
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
+      const timer =
+        setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
 
-      return () => clearTimeout(timer);
+      return () =>
+        clearTimeout(timer);
     }
   }, [showToast]);
 
   const Icon = () => (
     <SVG
-      src={isFavorite && owner ? FavoriteFillIcon : FavoriteOutlineIcon}
+      src={
+        isFavorite
+          ? FavoriteFillIcon
+          : FavoriteOutlineIcon
+      }
       className={
         isFavorite
           ? "search-component-favorite-fill-icon"
           : "search-component-favorite-outline-icon"
       }
       style={{
-        transform: isFavorite && owner ? "scale(1.3)" : "scale(1)",
-        position: isFavorite ? "relative" : "static",
-        top: isFavorite ? "3px" : "0",
-        right: isFavorite ? "3px" : "0",
-        transition: "transform 0.2s ease",
+        transform:
+          isFavorite
+            ? "scale(1.3)"
+            : "scale(1)",
+        position:
+          isFavorite
+            ? "relative"
+            : "static",
+        top: isFavorite
+          ? "3px"
+          : "0",
+        right:
+          isFavorite
+            ? "3px"
+            : "0",
+        transition:
+          "transform 0.2s ease",
       }}
     />
   );
@@ -235,11 +349,14 @@ const AddFavorite = ({ id, shelf = false }) => {
         style={{
           cursor: "pointer",
           ...(shelf && {
-            position: "relative",
+            position:
+              "relative",
             height: "0",
-            display: "flex",
-            justifyContent: "flex-end",
-            top: "8px"
+            display:
+              "flex",
+            justifyContent:
+              "flex-end",
+            top: "8px",
           }),
         }}
       >
@@ -253,14 +370,16 @@ const AddFavorite = ({ id, shelf = false }) => {
               <Icon />
 
               <p>
-                {!owner && shelf
+                {!owner &&
+                !myListId
                   ? "Faça login para salvar seus favoritos"
                   : isFavorite
                     ? "Imóvel adicionado aos favoritos"
                     : "Imóvel removido dos favoritos"}
               </p>
 
-              {!owner && shelf ? null : (
+              {!owner &&
+              !myListId ? null : (
                 <ToastLink href="/lista-de-favoritos">
                   Meus favoritos
                 </ToastLink>
@@ -268,7 +387,11 @@ const AddFavorite = ({ id, shelf = false }) => {
             </ToastContent>
 
             <ToastClose
-              onClick={() => setShowToast(false)}
+              onClick={() =>
+                setShowToast(
+                  false
+                )
+              }
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
