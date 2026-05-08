@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import media from 'styled-media-query';
 
 export const ToastContainer = styled.div`
   position: fixed;
@@ -23,6 +24,10 @@ export const ToastWrapper = styled.div`
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 
   animation: slideDown 0.3s ease;
+
+  ${media.lessThan('medium')`
+    min-width: calc(100vw - 21px);
+  `}
 
   @keyframes slideDown {
     from {

@@ -158,8 +158,20 @@ const AddFavorite = ({ id, shelf = false }) => {
 
       if (!response.ok) return;
 
-      setIsFavorite((prev) => !prev);
+      const nextFavoriteState = !isFavorite;
+
+      setIsFavorite(nextFavoriteState);
       setShowToast(true);
+
+      if (
+        shelf &&
+        !nextFavoriteState &&
+        window.location.pathname.includes('/minha-lista-de-favoritos/')
+      ) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -183,6 +195,10 @@ const AddFavorite = ({ id, shelf = false }) => {
           ? "search-component-favorite-fill-icon"
           : "search-component-favorite-outline-icon"
       }
+      style={{
+        transform: isFavorite && owner ? "scale(1.3)" : "scale(1)",
+        transition: "transform 0.2s ease",
+      }}
     />
   );
 

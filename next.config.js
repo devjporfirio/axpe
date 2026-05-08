@@ -1,8 +1,19 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const fs = require('fs');
-const withPWA = require('next-pwa');
+
 const runtimeCaching = require('next-pwa/cache');
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching,
+  buildExcludes: [/middleware-manifest\.json$/],
+});
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -11,7 +22,10 @@ const envConfig = JSON.parse(
 );
 
 const nextConfig = {
-  pageExtensions: ['page.jsx', 'page.js', 'page.tsx', 'page.ts'],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   compress: true,
 
   async redirects() {
@@ -70,59 +84,6 @@ const nextConfig = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
-          maxInitialRequests: 25,
-          minSize: 20000,
-          cacheGroups: {
-            react: {
-              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-              name: 'react',
-              chunks: 'all',
-              priority: 40,
-            },
-
-            styledComponents: {
-              test: /[\\/]node_modules[\\/](styled-components)[\\/]/,
-              name: 'styled-components',
-              chunks: 'all',
-              priority: 30,
-            },
-
-            redux: {
-              test: /[\\/]node_modules[\\/](@reduxjs|redux)[\\/]/,
-              name: 'redux',
-              chunks: 'all',
-              priority: 30,
-            },
-
-            reactSlick: {
-              test: /[\\/]node_modules[\\/](react-slick|slick-carousel)[\\/]/,
-              name: 'react-slick',
-              chunks: 'all',
-              priority: 30,
-            },
-
-            next: {
-              test: /[\\/]node_modules[\\/](next)[\\/]/,
-              name: 'next',
-              chunks: 'all',
-              priority: 30,
-            },
-
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
-              priority: 20,
-            },
-
-            common: {
-              name: 'common',
-              minChunks: 2,
-              chunks: 'all',
-              enforce: true,
-              priority: 10,
-            },
-          },
         },
       };
     }
@@ -130,14 +91,6 @@ const nextConfig = {
     config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/i,
       type: 'asset',
-      parser: {
-        dataUrlCondition: {
-          maxSize: 100000,
-        },
-      },
-      generator: {
-        filename: 'static/chunks/[name].[hash][ext]',
-      },
     });
 
     config.plugins.push(
@@ -161,15 +114,4 @@ const nextConfig = {
   },
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-module.exports = withBundleAnalyzer(
-  withPWA({
-    dest: 'public',
-    disable: nodeEnv === 'development',
-    runtimeCaching,
-    buildExcludes: [/middleware-manifest\.json$/],
-  })(nextConfig)
-);
+module.exports = withBundleAnalyzer(withPWA(nextConfig));

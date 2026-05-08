@@ -73,8 +73,8 @@ export const SimilarBuildingsHeader = styled.header`
 export const SimilarBuildingsList = styled.div`
   ${media.greaterThan('medium')`
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   `}
 `;

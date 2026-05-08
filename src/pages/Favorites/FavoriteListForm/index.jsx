@@ -172,7 +172,7 @@ const FavoriteListForm = ({ data }) => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Ex: Minha lista de desejos"
+          placeholder="Ex: Coberturas no Itaim"
           className="search-component-favorite-input"
         />
 
