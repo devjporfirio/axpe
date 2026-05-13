@@ -25,7 +25,7 @@ const FavoriteListForm = ({ data }) => {
     if (list?.id) {
       const slug = slugify(list?.nome_da_lista || "lista");
 
-      router.push(
+      router.replace(
         `/minha-lista-de-favoritos/${list.id}/${slug}`,
       );
     }
@@ -97,7 +97,7 @@ const FavoriteListForm = ({ data }) => {
           existingList.nome_da_lista || "lista",
         );
 
-        router.push(
+        router.replace(
           `/minha-lista-de-favoritos/${existingList.id}/${slug}`,
         );
 
@@ -142,7 +142,7 @@ const FavoriteListForm = ({ data }) => {
         }
       }
 
-      router.push(
+      router.replace(
         `/minha-lista-de-favoritos/${listId}/${slug}`,
       );
     } catch (error) {

@@ -173,7 +173,7 @@ const AddFavorite = ({ id, shelf = false }) => {
           return;
         }
 
-        router.push(
+        router.replace(
           "/lista-de-favoritos"
         );
 

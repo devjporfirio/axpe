@@ -211,7 +211,7 @@ const MyFavoriteList = () => {
       const json = await res.json();
       if (!res.ok) throw new Error(json?.message);
       localStorage.removeItem("listId");
-      router.push("/lista-de-favoritos");
+      router.replace("/lista-de-favoritos");
     } catch (error) {
       console.error("Erro ao deletar lista:", error);
     } finally {
