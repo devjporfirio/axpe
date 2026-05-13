@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMain } from 'store/modules/main/actions';
 import SVG from 'react-inlinesvg';
-
+import FavoriteOutlineIcon from 'assets/favorite-outline-icon.svg'
+import FavoriteFillIcon from 'assets/favoritos.svg'
 import Tag from 'components/Tag';
 import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 
@@ -12,6 +13,7 @@ import {
     Type,
     GroupInfo,
     CategoryRelease,
+    NeighborhoodContainer,
     Neighborhood,
     GroupTags,
     BlockTwo,
@@ -34,6 +36,7 @@ import ILocation from 'assets/icons/location.svg';
 import ICheck from 'assets/icons/checked-grey.svg';
 import ShareIconSVG from 'assets/icons/share.svg';
 import { useRouter } from 'next/router';
+import AddFavorite from '../../../components/AddFavorite';
 
 const mockProperty = {
     type: 'pronto',
@@ -130,6 +133,7 @@ export default function Datasheet({ property }) {
     const data = isLighthouse ? mockProperty : property;
     
     const { type, infos, category, address, label, values, vista, title, reference } = data;
+    console.log("data: ",data);
     const { searchFunnel } = useSelector(state => state.main);
     const [ shareActive, setShareActive ] = useState(false);
 
@@ -178,8 +182,10 @@ export default function Datasheet({ property }) {
             <MainContainer>
                 <DatasheetContent>
                     <BlockOne type={property.type}>
-                        <Neighborhood>{address.local ?? address.state}<Ref> Ref {reference}</Ref></Neighborhood>
-                        
+                        <NeighborhoodContainer>
+                            <Neighborhood>{address.local ?? address.state}<Ref> Ref {reference}</Ref></Neighborhood>
+                            <AddFavorite id={data?.id}/>
+                        </NeighborhoodContainer>
                         <BuildingTitle>{title}</BuildingTitle>
 
                         {type === 'lancamento' && (

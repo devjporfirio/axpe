@@ -134,6 +134,12 @@ export const Infos = styled.div`
   `}
 `;
 
+
+export const CatLocGroupDiv = styled.div`
+  display: flex !important;
+  align-items: center !important;
+`;
+
 export const CatLocGroup = styled.div`
   div {
     display: flex;

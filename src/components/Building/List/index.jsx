@@ -27,11 +27,14 @@ import {
   CaracteristicsGroup,
   ValuesFavGroup,
   CatLocGroup,
+  CatLocGroupDiv,
   Price,
   Description,
   ScheduleButton,
   ImageWrapper,
 } from './styles';
+
+import AddFavorite from '../../AddFavorite';
 
 function BuildingList({
   item,
@@ -288,6 +291,7 @@ function BuildingList({
         </SliderNew>
       </SliderContainer>
       <Infos releaseDelivery={infos.releaseDelivery} page={page}>
+        <AddFavorite id={item?.id} shelf/>
         <Link href={`/${item.slug}`} passHref>
           <LinkTag
             className={gtmObj ? gtmObj.className : ''}
@@ -296,13 +300,15 @@ function BuildingList({
             data-position={positionIndex}
           >
             <CatLocGroup page={page}>
-              <Category page={page}>
-                {type === 'lancamento'
-                  ? infos.releaseStatus === 'Pronto'
-                    ? 'Pronto para morar'
-                    : infos.releaseStatus
-                  : category || 'Pronto para morar'}
-              </Category>
+              <CatLocGroupDiv>
+                <Category page={page}>
+                  {type === 'lancamento'
+                    ? infos.releaseStatus === 'Pronto'
+                      ? 'Pronto para morar'
+                      : infos.releaseStatus
+                    : category || 'Pronto para morar'}
+                </Category>
+              </CatLocGroupDiv>
               <div>
                 <div>
                   {address && address.local && <Local>{address.local}</Local>}
