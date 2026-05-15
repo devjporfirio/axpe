@@ -114,4 +114,5 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(withPWA(nextConfig));
+const pwaConfig = withPWA(nextConfig);
+module.exports = process.env.ANALYZE === 'true' ? withBundleAnalyzer(pwaConfig) : pwaConfig;
