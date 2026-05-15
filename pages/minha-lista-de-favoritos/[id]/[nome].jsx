@@ -263,6 +263,13 @@ const MyFavoriteList = () => {
         </FavoriteHeader>
 
         <FavoriteListContainer>
+          <FavoriteHeaderTitleContainer>
+            <SVG
+              src={FavoriteFillIcon}
+              className="search-component-favorite-fill-icon"
+            />
+              Minha lista de favoritos
+          </FavoriteHeaderTitleContainer>
           <FavoriteListHeaderTexts>
             {isEditing && isOwner ? (
               <input
