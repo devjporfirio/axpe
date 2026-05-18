@@ -76,6 +76,21 @@ function Search() {
     { label: 'Montanha', value: 'montanha' },
   ];
 
+  let highlightedNeighborhoods = [
+    'Jd Cerqueira César',
+    'Jardim Paulistano',
+    'Jardins',
+    'Itaim Bibi',
+    'Pinheiros',
+    'Vila Madalena',
+    'Jardim Paulista',
+    'Alto de Pinheiros',
+    'Higienópolis',
+    'Moema',
+    'Jd Paulistano',
+    'Vila Nova Conceição',
+  ];
+
   const getFinalities = useCallback(
     () => [
       {
@@ -1059,11 +1074,22 @@ function Search() {
                           )}
                           {filtersData.locals[local].length &&
                           !filtersListToggle[local] ? (
-                            <ul>
+                            <ul
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                              }}
+                            >
                               {filtersData.locals[local].map(
                                 (localItem, localItemIndex) => (
                                   <li
+                                    className='localItem'
                                     key={`localitem-${localItem}-${localItemIndex}`}
+                                    style={{
+                                      order: highlightedNeighborhoods.includes(localItem)
+                                        ? '0'
+                                        : '1',
+                                    }}
                                   >
                                     <FormTabListItemButton
                                       type="button"
@@ -1076,6 +1102,14 @@ function Search() {
                                       className="holos-search-menu-item"
                                       data-label={localItem}
                                       data-type={'Selecione a localização'}
+                                      style={{
+                                        fontWeight: highlightedNeighborhoods.includes(localItem)
+                                          ? '700'
+                                          : '400',
+                                        color: highlightedNeighborhoods.includes(localItem)
+                                          ? '#EE6900'
+                                          : '',
+                                      }}
                                     >
                                       {localItem}
                                     </FormTabListItemButton>

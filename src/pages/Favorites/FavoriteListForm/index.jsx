@@ -160,12 +160,12 @@ const FavoriteListForm = ({ data }) => {
       />
 
       <h4 className="search-component-favorite-title">
-        Sua lista de favoritos está esperando por você
+        Qual nome você quer dar para sua lista de favoritos?
       </h4>
 
       <form onSubmit={handleSubmit} className="search-component-favorite-form">
         <label className="search-component-favorite-label">
-          Comece dando um nome a ela
+          Depois você pode mudar se quiser
         </label>
 
         <input

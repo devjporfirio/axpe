@@ -113,6 +113,17 @@ function BuildingList({
       );
     }
 
+    if (infos.suites || infos.suitesStart) {
+  items.push(
+    <Caracteristics.Suites
+      type={type}
+      suites={infos.suites}
+      suitesStart={infos.suitesStart}
+      key={`caracteristic-${reference}-${items.length}`}
+    />
+  );
+}
+
     if (infos.bedroomsStart && infos.bedroomsEnd) {
       items.push(
         <Caracteristics.BedroomsBetween
@@ -218,7 +229,7 @@ function BuildingList({
       );
     }
 
-    items = items.slice(0, 4);
+    items = items.slice(0, 5);
 
     return items;
   }, []);
