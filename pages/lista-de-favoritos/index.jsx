@@ -37,10 +37,12 @@ const EmailModal = ({ onSave }) => {
   return (
     <ModalOverlay>
       <ModalContainer>
-        <ModalTitle>Informe seu email</ModalTitle>
+        <ModalTitle>
+          Digite o seu email para salvar sua lista de favoritos
+        </ModalTitle>
 
         <ModalText>
-          Para continuar, é necessário adicionar seu email.
+          Assim você pode voltar e ela fica guardada aqui
         </ModalText>
 
         <ModalForm onSubmit={handleSubmit}>
