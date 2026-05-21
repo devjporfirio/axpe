@@ -165,7 +165,9 @@ function Search() {
 
       const params = getParamsFromObject(data);
 
-      formik.setFieldValue('reference', '');
+      setTimeout(() => {
+        formik.setFieldValue('reference', '');
+      }, 0);
      
       (window).dataLayer = (window).dataLayer || [];
       (window).dataLayer.push({
@@ -200,7 +202,7 @@ function Search() {
   }
 
   function setArrayValue(name, value) {
-    const arr = formik.values[name];
+    const arr = [...formik.values[name]];
     const index = arr.indexOf(value);
 
     if (index < 0) {
@@ -370,55 +372,68 @@ function Search() {
 
   useEffect(() => {
     const getFilters = async () => {
-      const params = getFiltersParams();
-      const response = await Api.Search.getFilters(params);
-      const filtersListToggle = {};
-      const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
+      try {
+        const params = getFiltersParams();
+        const response = await Api.Search.getFilters(params);
 
-      // make sure that all data are Number
-      valuesStringToNumber.forEach((key) => {
-        const obj = response[key];
-        if (obj && obj.length) {
-          response[key] = response[key].map((value) => parseInt(value));
+        if (!response || !response.locals) {
+          setFiltersData(null);
+          setFiltersListToggle(null);
+          return;
         }
-      });
 
-      Object.keys(response.locals).forEach((local) => {
-        filtersListToggle[local] = false;
-      });
+        const filtersListToggle = {};
+        const valuesStringToNumber = [ 'prices', 'area', 'bedrooms', 'parking' ];
 
-      // Avoids type list being shrunk when locations are updated
-      if (filtersData && filtersData.types) {
-        response.types = filtersData.types;
+        // make sure that all data are Number
+        valuesStringToNumber.forEach((key) => {
+          const obj = response[key];
+          if (obj && obj.length) {
+            response[key] = response[key].map((value) => parseInt(value));
+          }
+        });
+
+        Object.keys(response.locals).forEach((local) => {
+          filtersListToggle[local] = false;
+        });
+
+        // Avoids type list being shrunk when locations are updated
+        if (filtersData && filtersData.types) {
+          response.types = filtersData.types;
+        }
+
+        // set price start minimum to 10k
+        // if (
+        //   formik.values.finality === 'aluguel' &&
+        //   response.prices &&
+        //   response.prices.length
+        // ) {
+        //   response.prices[0] = 10000;
+        // }
+
+        // if (
+        //   formik.values.finality === 'venda' &&
+        //   response.prices &&
+        //   response.prices.length
+        // ) {
+        //   response.prices[0] = 200000;
+        // }
+
+        // set area end maximum to 2k
+        if (response.area && response.area.length) {
+          response.area[1] = 2000;
+        }
+
+        setFiltersListToggle(filtersListToggle);
+        setFiltersData({
+          ...response,
+          locals: formatLocals(response.locals),
+        });
+      } catch (error) {
+        console.error('Erro ao carregar filtros da busca:', error);
+        setFiltersData(null);
+        setFiltersListToggle(null);
       }
-
-      // set price start minimum to 10k
-      // if (
-      //   formik.values.finality === 'aluguel' &&
-      //   response.prices &&
-      //   response.prices.length
-      // ) {
-      //   response.prices[0] = 10000;
-      // }
-
-      // if (
-      //   formik.values.finality === 'venda' &&
-      //   response.prices &&
-      //   response.prices.length
-      // ) {
-      //   response.prices[0] = 200000;
-      // }
-
-      // set area end maximum to 2k
-      if (response.area && response.area.length) {
-        response.area[1] = 2000;
-      }
-
-      setFiltersListToggle(filtersListToggle);
-      setFiltersData({
-        ...response,
-        locals: formatLocals(response.locals),
-      });
     };
 
     if (formik.values.finality) {
@@ -447,23 +462,34 @@ function Search() {
   // Reset locations on building type definition
   useEffect(() => {
     if (formik.values.types) {
-      formik.values.local = [];
+      formik.setFieldValue('local', []);
     }
   }, [ JSON.stringify(formik.values.types) ]);
 
   useEffect(() => {
     const getCategories = async () => {
-      const response = await Api.Search.getCategories();
-      setCategoriesData(response);
-      dispatch(setMain({ categories: response }));
+      try {
+        const response = await Api.Search.getCategories();
+        setCategoriesData(response);
+        dispatch(setMain({ categories: response }));
+      } catch (error) {
+        console.error('Erro ao carregar categorias da busca:', error);
+        setCategoriesData(null);
+      }
     };
 
     const getLocals = async () => {
-      const locals = await Api.Search.getLocals(true);
-      const newSeasons = Object.keys(locals.hasSeason).filter(
-        (season) => locals.hasSeason[season]
-      );
-      setSeasons(newSeasons);
+      try {
+        const locals = await Api.Search.getLocals(true);
+        const hasSeason = locals && locals.hasSeason ? locals.hasSeason : {};
+        const newSeasons = Object.keys(hasSeason).filter(
+          (season) => hasSeason[season]
+        );
+        setSeasons(newSeasons);
+      } catch (error) {
+        console.error('Erro ao carregar locais da busca:', error);
+        setSeasons([]);
+      }
     };
 
     getCategories();
