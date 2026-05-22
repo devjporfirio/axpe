@@ -68,9 +68,9 @@ useEffect(() => {
 
   const fetchVideo = async () => {
     try {
-      console.log('videoId', videoId);
+      console.log('videoId', reference);
 
-      const videoData = await Api.Videos.getVideoById(videoId);
+      const videoData = await Api.Videos.getVideoById(reference);
       console.log("videoData:",videoData)
       
       setVideoUrl(videoData?.data || null);
@@ -97,11 +97,11 @@ useEffect(() => {
   return (
     <Container className={className}>
       {/* ACTIONS */}
-      {(tour360 || videoId) && (
+      {(tour360 || videoUrl) && (
         <ActionsWrapper>
 
           {/* VIDEO */}
-          {videoId && (
+          {videoUrl && (
             <VideoButton
               type="button"
               onClick={() => setOpenVideo(true)}
@@ -113,7 +113,7 @@ useEffect(() => {
             </VideoButton>
           )}
 
-          {videoId && tour360 && (
+          {videoUrl && tour360 && (
             <>
               <svg xmlns="http://www.w3.org/2000/svg" width="1" height="17" viewBox="0 0 1 17" fill="none">
                 <path d="M0.5 0.5V16.5" stroke="#C3CCCD" stroke-linecap="round" />
@@ -140,7 +140,7 @@ useEffect(() => {
       )}
 
       {/* MODAL VIDEO */}
-      {videoId && (
+      {videoUrl && (
         <ModalVideo
           open={openVideo}
           onClose={() => setOpenVideo(false)}
