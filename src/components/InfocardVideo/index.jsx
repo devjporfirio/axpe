@@ -10,8 +10,6 @@ import {
 import Api from "services";
 
 const InforcardVideo = () => {
-  const baseUrl = "https://listafavoritos-admin.axpe.com.br/api";
-  
 
   const [videos, setVideos] = useState([]);
   const [activeVideo, setActiveVideo] = useState(null);

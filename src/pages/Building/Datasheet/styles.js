@@ -25,6 +25,22 @@ export const DatasheetContent = styled.div`
 
 `;
 
+export const ActionsPriceVideoCard = styled.div`
+  
+  @media(max-width: 1080px) {
+      display: none;
+  }
+
+`;
+
+export const VideoCardMobile = styled.div`
+  
+  @media(min-width: 1080px) {
+      display: none;
+  }
+
+`;
+
 export const Block = styled.div`
   display: flex;
   flex-direction: column;

@@ -101,6 +101,7 @@ useEffect(() => {
         <ActionsWrapper>
 
           {/* VIDEO */}
+          {/*
           {videoUrl && (
             <VideoButton
               type="button"
@@ -121,6 +122,7 @@ useEffect(() => {
             </>
           )
           }
+          */}
 
           {/* TOUR 360 */}
           {tour360 && (
@@ -140,6 +142,7 @@ useEffect(() => {
       )}
 
       {/* MODAL VIDEO */}
+      {/*
       {videoUrl && (
         <ModalVideo
           open={openVideo}
@@ -147,6 +150,7 @@ useEffect(() => {
           videoId={videoUrl}
         />
       )}
+      */}
 
       {/* TOUR 360 */}
       {showTour && (
