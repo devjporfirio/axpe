@@ -22,11 +22,14 @@ export const ModalOverlay = styled.div`
 export const ModalContainer = styled.div`
   position: relative;
   width: 100%;
-  max-width: 1100px;
-  aspect-ratio: 16 / 9;
+  
   background: #000;
   border-radius: 12px;
   overflow: hidden;
+  width: 732px;
+  height: 461px;
+  max-width: 1100px;
+  aspect-ratio: 732/461;
   
   @media (max-width: 768px) {
     aspect-ratio: 9 / 16;
@@ -42,6 +45,8 @@ export const ModalClose = styled.button`
   position: absolute;
   top: 16px;
   right: 16px;
+
+  scale: .75;
 
   width: 42px;
   height: 42px;

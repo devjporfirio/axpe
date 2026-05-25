@@ -85,12 +85,13 @@ export const PlayButton = styled.button`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
   border: 0;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(5px);
+  opacity:0;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
