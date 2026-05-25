@@ -21,7 +21,7 @@ const ModalVideo = ({ open, onClose, videoId }) => {
         </ModalClose>
 
         <ModalIframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1`}
           title="YouTube video player"
           frameBorder="0"
           allow="autoplay; encrypted-media"
