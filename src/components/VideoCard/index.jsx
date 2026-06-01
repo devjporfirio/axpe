@@ -90,12 +90,12 @@ const VideoCard = ({ reference }) => {
         </VideoThumb>
 
         <VideoInfo>
-          {video?.video_title && (
-            <h3>{video.video_title}</h3>
-          )}
+          { video?.video_title && video?.video_description && (
+            <>
+              <h3>{video?.video_title}</h3>
 
-          {video?.video_description && (
-            <p>{video.video_description}</p>
+              <p>{video?.video_description}</p>
+            </>
           )}
         </VideoInfo>
       </Wrapper>
