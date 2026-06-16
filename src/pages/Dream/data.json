@@ -2,7 +2,7 @@
   "data": [
     {
       "slug": "vintage",
-      "title": "Vintage",
+      "title": "Com história",
       "subtitle": "Imóveis que estão na história e na memória da cidade"
     },
     {
@@ -17,17 +17,17 @@
     },
     {
       "slug": "mirante",
-      "title": "Mirante",
+      "title": "Horizonte aberto",
       "subtitle": "Vistas incríveis para encher os olhos e alegrar a alma"
     },
     {
       "slug": "verde",
-      "title": "Verde que te quero verde",
+      "title": "Entre árvores",
       "subtitle": "Jardins grandes ou pequenos para quem gosta da vida tão verde quanto colorida"
     },
     {
       "slug": "descolados",
-      "title": "Despojados",
+      "title": "Cheios de personalidade",
       "subtitle": "Soluções espertas para um imóvel despojado"
     }
   ]

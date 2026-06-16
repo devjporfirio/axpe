@@ -102,7 +102,13 @@ function DreamDetail({ buildings }) {
         </Header>
 
         <List>
-          <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
+          {
+            console.log("data: ",data)
+          }
+          {data?.slug != "vintage" &&
+            <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
+          }
+          
           <Buildings>
             {buildings && buildings.length > 0 ? buildings.map((building, buildingIndex) => (
                 <BuildingList

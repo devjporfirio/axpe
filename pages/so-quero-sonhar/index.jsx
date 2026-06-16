@@ -40,8 +40,7 @@ function Dream() {
           <Wrapper>
             <Header>
               <h2>Só Quero <strong>Sonhar</strong></h2>
-              <p>Espaços para você sonhar junto com a gente. Dê uma olhada na nossa seleção de imóveis.</p>
-              <p>Sempre temos um perfeito para o seu estilo e momento de vida.</p>
+              <p>Espaços para você sonhar junto com a gente pois nem toda busca começa por uma necessidade. Algumas começam por um desejo difícil de explicar. Arquitetura, natureza, história, personalidade. Escolha o que faz sentido para você e deixe a descoberta acontecer. </p>
             </Header>
             <List>
               {data.map((item, itemIndex) => (
