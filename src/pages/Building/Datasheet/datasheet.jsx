@@ -147,11 +147,14 @@ export default function Datasheet({ property }) {
       setShareActive(!shareActive);
     }, [ shareActive ]);
     
-    // const hasTitle = infos.titleSite || infos.internalDescription;
+    const hasTitle = infos.titleSite || infos.internalDescription;
+
+    const local =
+    address.local === 'Sumaré' ? 'Sumarezinho' : address.local
 
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        `${address.local}, ${address.state}, ${address.country}`
-      )}`;
+    `${local}, ${address.state}, ${address.country}`
+    )}`
 
     const toggleModalMoreInfo = () => {
       dispatch(
