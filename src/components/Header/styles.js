@@ -433,7 +433,7 @@ export const NavMainButton = styled.a`
 export const NavMainButtonText = styled.span`
   display: block;
   width: 100%;
-  padding-left: 36px;
+  padding-left: 35px;
   text-transform: uppercase;
   text-align: left;
   font: 18px 'Raleway';

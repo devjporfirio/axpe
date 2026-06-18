@@ -166,7 +166,7 @@ function Header() {
                   <Link href="https://wa.me/5511932062653" passHref>
                     <NavMainButton onClick={cancelToggle}>
                       <SVG src={HomeIconSVG} uniquifyIDs />
-                      <NavMainButtonText>Anunciar seu imóvel</NavMainButtonText>
+                      <NavMainButtonText>Vender imóvel</NavMainButtonText>
                     </NavMainButton>
                   </Link>
                 </li>

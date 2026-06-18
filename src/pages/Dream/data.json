@@ -2,32 +2,38 @@
   "data": [
     {
       "slug": "vintage",
-      "title": "Vintage",
+      "url": "com-historia",
+      "title": "Com história",
       "subtitle": "Imóveis que estão na história e na memória da cidade"
     },
     {
       "slug": "arquitetura",
+      "url": "arquitetura-de-autor",
       "title": "Arquitetura de autor",
       "subtitle": "Imóveis assinados por profissionais respeitados pela qualidade arquitetônica de seus projetos"
     },
     {
       "slug": "especial",
+      "url": "classico-contemporaneo",
       "title": "Clássico contemporâneo",
       "subtitle": "Imóveis com um toque diferente"
     },
     {
       "slug": "mirante",
-      "title": "Mirante",
+      "url": "horizonte-aberto",
+      "title": "Horizonte aberto",
       "subtitle": "Vistas incríveis para encher os olhos e alegrar a alma"
     },
     {
       "slug": "verde",
-      "title": "Verde que te quero verde",
+      "url": "entre-arvores",
+      "title": "Entre árvores",
       "subtitle": "Jardins grandes ou pequenos para quem gosta da vida tão verde quanto colorida"
     },
     {
       "slug": "descolados",
-      "title": "Despojados",
+      "url": "cheios-de-personalidade",
+      "title": "Cheios de personalidade",
       "subtitle": "Soluções espertas para um imóvel despojado"
     }
   ]

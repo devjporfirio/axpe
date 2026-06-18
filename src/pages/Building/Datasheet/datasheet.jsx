@@ -9,6 +9,8 @@ import * as Caracteristics from 'pages/Building/Datasheet/caracteristics';
 
 import {
     DatasheetContent,
+    ActionsPriceVideoCard,
+    VideoCardMobile,
     BlockOne,
     Type,
     GroupInfo,
@@ -37,6 +39,7 @@ import ICheck from 'assets/icons/checked-grey.svg';
 import ShareIconSVG from 'assets/icons/share.svg';
 import { useRouter } from 'next/router';
 import AddFavorite from '../../../components/AddFavorite';
+import VideoCard from 'components/VideoCard';
 
 const mockProperty = {
     type: 'pronto',
@@ -133,7 +136,6 @@ export default function Datasheet({ property }) {
     const data = isLighthouse ? mockProperty : property;
     
     const { type, infos, category, address, label, values, vista, title, reference } = data;
-    console.log("data: ",data);
     const { searchFunnel } = useSelector(state => state.main);
     const [ shareActive, setShareActive ] = useState(false);
 
@@ -145,11 +147,14 @@ export default function Datasheet({ property }) {
       setShareActive(!shareActive);
     }, [ shareActive ]);
     
-    // const hasTitle = infos.titleSite || infos.internalDescription;
+    const hasTitle = infos.titleSite || infos.internalDescription;
+
+    const local =
+    address.local === 'Sumaré' ? 'Sumarezinho' : address.local
 
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        `${address.local}, ${address.state}, ${address.country}`
-      )}`;
+    `${local}, ${address.state}, ${address.country}`
+    )}`
 
     const toggleModalMoreInfo = () => {
       dispatch(
@@ -286,6 +291,9 @@ export default function Datasheet({ property }) {
                         {/* <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit> */}
                         <ButtonMoreInfo onClick={toggleModalMoreInfo} id='pdp-more-info-button'>Fale com um corretor</ButtonMoreInfo>
                     </PriceGroupMobile>
+                    <VideoCardMobile>
+                        <VideoCard reference={reference}/>
+                    </VideoCardMobile>
 
                     <BlockThree type={property.type}>
 
@@ -369,50 +377,54 @@ export default function Datasheet({ property }) {
                 
                 </DatasheetContent>
 
-                <PriceGroupDesktop type={type}>
-                    {!values.sell && !values.rent && values.valueOnlyConsults ? (
-                        <Caracteristics.OnlyConsults />
-                    ) : null}
+                <ActionsPriceVideoCard style={{width: 291}}>
+                    <PriceGroupDesktop type={type}>
+                        {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                            <Caracteristics.OnlyConsults />
+                        ) : null}
 
-                    {!!values.sell && ( (sessionFinality ? sessionFinality === 'venda' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda'))
-                        ) ? (
-                        <Caracteristics.Sell
-                            valueOnlyConsults={values.valueOnlyConsults}
-                            sell={values.sell}
-                            iptu={values.iptu}
-                            condo={values.condo}
+                        {!!values.sell && ( (sessionFinality ? sessionFinality === 'venda' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda'))
+                            ) ? (
+                            <Caracteristics.Sell
+                                valueOnlyConsults={values.valueOnlyConsults}
+                                sell={values.sell}
+                                iptu={values.iptu}
+                                condo={values.condo}
+                                currency={values.currency}
+                                type={type}
+                            />
+                        ) : null}
+
+                        <Caracteristics.Release
+                            release={values.release}
                             currency={values.currency}
-                            type={type}
                         />
-                    ) : null}
 
-                    <Caracteristics.Release
-                        release={values.release}
-                        currency={values.currency}
-                    />
+                        {!!values.rent && (
+                            (sessionFinality ? sessionFinality === 'aluguel' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel'))
+                            ) ? (
+                            <Caracteristics.Rent
+                                valueOnlyConsults={values.valueOnlyConsults}
+                                rent={values.rent}
+                                iptu={values.iptu}
+                                condo={values.condo}
+                                currency={values.currency}
+                            />
+                        ) : null}
 
-                    {!!values.rent && (
-                        (sessionFinality ? sessionFinality === 'aluguel' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel'))
-                        ) ? (
-                        <Caracteristics.Rent
+                        <Caracteristics.Expenses
                             valueOnlyConsults={values.valueOnlyConsults}
                             rent={values.rent}
                             iptu={values.iptu}
                             condo={values.condo}
                             currency={values.currency}
                         />
-                    ) : null}
 
-                    <Caracteristics.Expenses
-                        valueOnlyConsults={values.valueOnlyConsults}
-                        rent={values.rent}
-                        iptu={values.iptu}
-                        condo={values.condo}
-                        currency={values.currency}
-                    />
+                        <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
+                    </PriceGroupDesktop>
 
-                    <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
-                </PriceGroupDesktop>
+                    <VideoCard reference={reference}/>
+                </ActionsPriceVideoCard>
                 <Share
                     active={shareActive}
                     path={router.asPath}

@@ -42,6 +42,7 @@ function Building(props) {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
   const canonicalUrl = `${baseUrl}${router.asPath.split("?")[0]}`;
+  
 
   function useLighthouseFlag() {
     const [lh, setLh] = useState(false);
@@ -232,15 +233,20 @@ function Building(props) {
           }}
         />
 
+        {console.log("imoveis: ",data)}
+
         {data.gallery && (
-          <Images
-            category={data.category}
-            local={data?.address.local}
-            items={data.gallery}
-            tour360={data.tour360}
-            reference={data.reference}
-          />
+            <Images
+              category={data.category}
+              local={data?.address.local}
+              items={data.gallery}
+              tour360={data.tour360}
+              videoId={data?.videoId}
+              reference={data.reference}
+            />
         )}
+
+        
 
         <DataSheet property={data} />
 

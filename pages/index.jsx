@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import Api from "services";
+import InforcardVideo from "components/InfocardVideo";
 
 // actions
 import { setMain } from "store/modules/main/actions";
@@ -79,6 +80,8 @@ import {
   HeroItemInfo,
 } from "pages/Home/styles";
 
+
+
 function Home({ heroItems, components }) {
   // eslint-disable-next-line no-console
   const dispatch = useDispatch();
@@ -118,7 +121,7 @@ function Home({ heroItems, components }) {
           setIsLighthouse(true);
           return; // Sair imediatamente se detectar
         }
-      } catch (e) {}
+      } catch (e) { }
     }
   }, []);
 
@@ -456,35 +459,51 @@ function Home({ heroItems, components }) {
         {components &&
           components.length > 0 &&
           components.map((c, cIndex) => {
+            const isBeforeAntepenultimate =
+              cIndex === components.length - 1;
+
             if (c.type === "buildingsSeen") {
               return buildingsSeen && buildingsSeen.length ? (
-                <BuildingsPanel
-                  itemClass="buildingsSeen"
-                  key={`buildingspanel-0-${c.type}-${cIndex}`}
-                  page="home"
-                  title="Imóveis que você viu"
-                  buildingLayout="vertical"
-                  data={buildingsSeen}
-                />
-              ) : null;
-            } else if (c.type === "buildingsForYou") {
-              return buildingsForYou && buildingsForYou.length ? (
-                <BuildingsPanel
-                  itemClass="buildingsForYou"
-                  key={`panel-buildings-1-${c.type}-${cIndex}`}
-                  page="home"
-                  title="Indicados para você"
-                  buildingLayout="vertical"
-                  data={buildingsForYou}
-                />
+                <Fragment key={`buildingsseen-${cIndex}`}>
+                  {isBeforeAntepenultimate && <InforcardVideo />}
+
+                  <BuildingsPanel
+                    itemClass="buildingsSeen"
+                    page="home"
+                    title="Imóveis que você viu"
+                    buildingLayout="vertical"
+                    data={buildingsSeen}
+                  />
+                </Fragment>
               ) : null;
             }
+
+            if (c.type === "buildingsForYou") {
+              return buildingsForYou && buildingsForYou.length ? (
+                <Fragment key={`buildingsforyou-${cIndex}`}>
+                  {isBeforeAntepenultimate && <InforcardVideo />}
+
+                  <BuildingsPanel
+                    itemClass="buildingsForYou"
+                    page="home"
+                    title="Indicados para você"
+                    buildingLayout="vertical"
+                    data={buildingsForYou}
+                  />
+                </Fragment>
+              ) : null;
+            }
+
             return (
               <Fragment key={`fragment-2-${c.type}-${cIndex}`}>
+                {isBeforeAntepenultimate && <InforcardVideo />}
+
                 {renderComponents(c.type, c)}
               </Fragment>
             );
           })}
+
+
       </Container>
     </>
   );

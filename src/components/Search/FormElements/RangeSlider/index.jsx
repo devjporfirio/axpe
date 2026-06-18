@@ -112,6 +112,19 @@ function RangeSlider({
     onChange([ newValues.first, newValues.last ]);
   };
 
+  const handleEnterSubmit = (event, index) => {
+    if (event.key !== 'Enter') return;
+
+    const form = event.currentTarget.form;
+
+    event.preventDefault();
+    handleBlur(index);
+
+    setTimeout(() => {
+      form?.requestSubmit();
+    }, 0);
+  };
+
   useEffect(() => {
    if (type !== 'others') {
       saveValues(data);
@@ -154,6 +167,7 @@ function RangeSlider({
                     setVisualFirst(masked);
                   }}
                   onBlur={() => handleBlur(0)}
+                  onKeyDown={(event) => handleEnterSubmit(event, 0)}
                   type="text"
                   inputMode="numeric"
                 />
@@ -171,6 +185,7 @@ function RangeSlider({
                       setVisualLast(masked);
                     }}
                     onBlur={() => handleBlur(1)}
+                    onKeyDown={(event) => handleEnterSubmit(event, 1)}
                     type="text"
                     inputMode="numeric"
                   />
