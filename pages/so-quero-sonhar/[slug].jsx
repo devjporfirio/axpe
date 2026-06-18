@@ -73,8 +73,8 @@ function DreamDetail({ buildings }) {
 
   useEffect(() => {
     function getData() {
-      const results = DataJSON.data.filter(item => item.slug === slug);
-
+      const results = DataJSON.data.filter(item => item.url === slug);
+      console.log("results", results)
       if(results.length) {
         setData(results[0]);
       }
@@ -87,7 +87,7 @@ function DreamDetail({ buildings }) {
     }
 
     getData();
-  }, [ ]);
+  }, [data, slug]);
 
   return data ? (
     <>
@@ -102,13 +102,6 @@ function DreamDetail({ buildings }) {
         </Header>
 
         <List>
-          {
-            console.log("data: ",data)
-          }
-          {data?.slug != "vintage" &&
-            <h2>Confira nossa seleção com as casas mais <span>{data.title}</span></h2>
-          }
-          
           <Buildings>
             {buildings && buildings.length > 0 ? buildings.map((building, buildingIndex) => (
                 <BuildingList
@@ -128,16 +121,19 @@ function DreamDetail({ buildings }) {
 
         <Footer>
           <h2>Sonhe também com:</h2>
+          {
+            console.log("AllData", allData)
+          }
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
               <article key={`dreamsingle-list-item-${itemIndex}`}>
-                <Link href={`/so-quero-sonhar/${item.slug}`} passHref>
+                <Link href={`/so-quero-sonhar/${item?.url}`} passHref>
                   <ListButton>
                     <ListText>
                       <h3>{item.title}</h3>
                       <p>{item.subtitle}</p>
                     </ListText>
-                    <ListImage src={`/static/dream/cover-${item.slug}.jpg`} alt={item.title} />
+                    <ListImage src={`/static/dream/cover-${item?.slug}.jpg`} alt={item.title} />
                   </ListButton>
                 </Link>
               </article>
@@ -151,13 +147,13 @@ function DreamDetail({ buildings }) {
 }
 
 DreamDetail.getInitialProps = async ({ query }) => {
-  const response = await Api.Dream.getPage(query.slug);
-
-  const pageDetails = DataJSON.data.filter(item => item.slug === query.slug)[0];
-
+  console.log("query", query)
+  const pageDetails = DataJSON.data.filter(item => item.url === query.slug)[0];
+  const response = await Api.Dream.getPage(pageDetails.slug);
+  console.log("pageDetails", pageDetails)
   const pageTitle = `Imóveis ${pageDetails.title} para se inspirar ${SeoData.shortTitle}`;
   const pageDesc = `Venha conhecer esta seleção dos melhores imóveis ${pageDetails.title} para você se inspirar na hora de comprar ou alugar seu imóvel. Confira!`;
-  const pageBanner = (response.data[0].imageFeatured && response.data[0].imageFeatured.desktop) ? response.data[0].imageFeatured.desktop : null;
+  const pageBanner = (response?.data[0]?.imageFeatured && response?.data[0]?.imageFeatured.desktop) ? response.data[0].imageFeatured.desktop : null;
 
   return {
     total: response.total,
