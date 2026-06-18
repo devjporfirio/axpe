@@ -121,9 +121,7 @@ function DreamDetail({ buildings }) {
 
         <Footer>
           <h2>Sonhe também com:</h2>
-          {
-            console.log("AllData", allData)
-          }
+
           <Slider {...sliderSettings}>
             {allData.map((item, itemIndex) => (
               <article key={`dreamsingle-list-item-${itemIndex}`}>
@@ -147,10 +145,10 @@ function DreamDetail({ buildings }) {
 }
 
 DreamDetail.getInitialProps = async ({ query }) => {
-  console.log("query", query)
+
   const pageDetails = DataJSON.data.filter(item => item.url === query.slug)[0];
   const response = await Api.Dream.getPage(pageDetails.slug);
-  console.log("pageDetails", pageDetails)
+  
   const pageTitle = `Imóveis ${pageDetails.title} para se inspirar ${SeoData.shortTitle}`;
   const pageDesc = `Venha conhecer esta seleção dos melhores imóveis ${pageDetails.title} para você se inspirar na hora de comprar ou alugar seu imóvel. Confira!`;
   const pageBanner = (response?.data[0]?.imageFeatured && response?.data[0]?.imageFeatured.desktop) ? response.data[0].imageFeatured.desktop : null;
