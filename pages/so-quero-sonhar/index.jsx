@@ -55,7 +55,7 @@ function Dream() {
                         <h3>{item.title}</h3>
                         <p>{item.subtitle}</p>
                       </ListText>
-                      <ListImage src={`/static/dream/cover-${item.slug}.jpg`} alt={item.title} />
+                      <ListImage src={`/static/dream/cover-${item.image}.jpg`} alt={item.title} />
                     </ListButton>
                   </Link>
                 </li>
