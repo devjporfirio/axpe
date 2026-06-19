@@ -123,7 +123,7 @@ function DreamDetail({ buildings }) {
           <h2>Sonhe também com:</h2>
 
           <Slider {...sliderSettings}>
-            {allData.map((item, itemIndex) => (
+            {allData.filter(item => item.url !== slug).map((item, itemIndex) => (
               <article key={`dreamsingle-list-item-${itemIndex}`}>
                 <Link href={`/so-quero-sonhar/${item?.url}`} passHref>
                   <ListButton>
