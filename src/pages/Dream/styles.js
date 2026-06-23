@@ -118,7 +118,7 @@ export const ListButton = styled.a`
         ${({ theme }) => theme.show};
       }
 
-      div[class*='ListText'] {
+      > div {
         h3 {
           transform: translateY(-50px);
         }
@@ -131,7 +131,7 @@ export const ListButton = styled.a`
 
       &[href*='arquitetura'],
       &[href*='verde'] {
-        div[class*='ListText'] {
+        > div {
           h3 {
             transform: translateY(-70px);
           }
@@ -139,7 +139,7 @@ export const ListButton = styled.a`
       }
 
       &[href*='especial'] {
-        div[class*='ListText'] {
+        > div {
           h3 {
             transform: translateY(-30px);
           }

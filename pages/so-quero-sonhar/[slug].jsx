@@ -155,27 +155,32 @@ function DreamDetail({ buildings, pageDetails }) {
             <h2>Sonhe também com:</h2>
 
             <Slider {...sliderSettings}>
-              {allData.map((item) => {
-                const itemSlug = item.link?.replace(/^\/+/, '');
+              {allData
+                .filter((item) => {
+                  const itemSlug = item.link?.replace(/^\/+/, '');
+                  return itemSlug !== slug;
+                })
+                .map((item) => {
+                  const itemSlug = item.link?.replace(/^\/+/, '');
 
-                return (
-                  <article key={`dreamsingle-list-item-${item.id}`}>
-                    <Link href={`/so-quero-sonhar/${itemSlug}`} passHref>
-                      <ListButton>
-                        <ListText>
-                          <h3>{item.title}</h3>
-                          <p>{item.subtitle}</p>
-                        </ListText>
+                  return (
+                    <article key={`dreamsingle-list-item-${item.id}`}>
+                      <Link href={`/so-quero-sonhar/${itemSlug}`} passHref>
+                        <ListButton>
+                          <ListText>
+                            <h3>{item.title}</h3>
+                            <p>{item.subtitle}</p>
+                          </ListText>
 
-                        <ListImage
-                          src={`${IMAGE_PATH}/${item.image_url}`}
-                          alt={item.title}
-                        />
-                      </ListButton>
-                    </Link>
-                  </article>
-                );
-              })}
+                          <ListImage
+                            src={`${IMAGE_PATH}/${item.image_url}`}
+                            alt={item.title}
+                          />
+                        </ListButton>
+                      </Link>
+                    </article>
+                  );
+                })}
             </Slider>
           </Footer>
         )}
