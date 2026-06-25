@@ -94,6 +94,10 @@ useEffect(() => {
     ? tour360
     : `https://www.banibconecta.com/site/tour/axpe-imoveis-especiais/${reference}/autostart`;
 
+  const validItems = items
+    ? items.filter(item => item.tipo !== 'video' || (item.video && item.video.trim() !== ''))
+    : [];
+
   return (
     <Container className={className}>
       {/* ACTIONS */}
@@ -186,9 +190,8 @@ useEffect(() => {
           }
         ]}
       >
-        {items &&
-          items.length > 0 &&
-          items.map((item, index) => (
+        {validItems.length > 0 &&
+          validItems.map((item, index) => (
             <SliderButton
               type="button"
               key={`building-gallery-btn-${index}`}
@@ -215,14 +218,14 @@ useEffect(() => {
       {/* DOTS */}
       <DotsPagination
         currentSlide={currentSlide}
-        slideCount={items ? items.length : 0}
+        slideCount={validItems.length}
         onDotClick={index => sliderRef.current.slickGoTo(index)}
       />
 
       {/* GALLERY NAV */}
       {showGalleryNav && (
         <GalleryNav
-          items={items}
+          items={validItems}
           onClose={() => setShowGalleryNav(false)}
           category={category}
           local={local}
@@ -233,7 +236,7 @@ useEffect(() => {
       {showGalleryFull && (
         <GalleryFull
           initialSlide={imageSelected}
-          items={items}
+          items={validItems}
           onClose={() => setShowGalleryFull(false)}
           category={category}
           local={local}
