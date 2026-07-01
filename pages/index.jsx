@@ -5,6 +5,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import Api from "services";
 import InforcardVideo from "components/InfocardVideo";
+import NewContactSection from "components/NewContactSection"
 
 // actions
 import { setMain } from "store/modules/main/actions";
@@ -301,6 +302,7 @@ function Home({ heroItems, components }) {
       case "contact":
         return (
           <>
+            <NewContactSection />
             <NewsletterFooter />
             <BlockHighlighted type="contactHome" />
           </>
