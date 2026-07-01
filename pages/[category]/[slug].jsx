@@ -33,6 +33,7 @@ import {
 } from "src/pages/Building/styles";
 import { useDispatch } from "react-redux";
 import { Delivery } from "../../src/pages/Building/Datasheet/styles";
+import NewContactSection from "components/NewContactSection";
 
 function Building(props) {
   const { property, meta } = props;
@@ -300,9 +301,8 @@ function Building(props) {
             </SimilarBuildingsList>
           </SimilarBuildings>
         )}
-
+        <NewContactSection />
         <NewsletterFooter />
-        <BlockHighlighted type="contactHome" />
       </Container>
     </>
   );

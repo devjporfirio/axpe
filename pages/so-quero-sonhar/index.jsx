@@ -18,6 +18,7 @@ import {
   ListText,
   ListImage
 } from 'pages/Dream/styles';
+import NewContactSection from 'components/NewContactSection';
 
 function Dream() {
   const [data, setData] = useState([]);
@@ -100,7 +101,7 @@ function Dream() {
           </List>
         </Wrapper>
 
-        <BlockHighlighted type="contactHome" />
+        <NewContactSection />
       </Container>
     </>
   );

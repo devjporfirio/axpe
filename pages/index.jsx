@@ -304,7 +304,6 @@ function Home({ heroItems, components }) {
           <>
             <NewContactSection />
             <NewsletterFooter />
-            <BlockHighlighted type="contactHome" />
           </>
         );
     }

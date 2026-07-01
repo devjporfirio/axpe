@@ -28,6 +28,7 @@ import {
   Buildings,
   BuildingsNotFound,
 } from 'pages/Search/styles';
+import NewContactSection from 'components/NewContactSection';
 
 function DreamDetail({ buildings, pageDetails }) {
   const router = useRouter();
@@ -185,7 +186,7 @@ function DreamDetail({ buildings, pageDetails }) {
           </Footer>
         )}
 
-        <BlockHighlighted type="contactHome" />
+        <NewContactSection />
       </Container>
     </>
   ) : null;
