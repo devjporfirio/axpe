@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.section`
   width: 100%;
-  margin: 40px 0;
+  margin: 40px 0 0;
 `;
 
 export const VideoThumb = styled.div`

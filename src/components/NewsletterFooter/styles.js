@@ -7,7 +7,6 @@ export const NewsletterContainer = styled.div`
   padding: 20px;
   padding-top: 30px;
   position: relative;
-  margin-top: 12px;
   min-height: 300px;
   
   ${media.greaterThan('medium')`
