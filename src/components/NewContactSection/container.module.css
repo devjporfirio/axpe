@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 .containerfull {
   background: #DAD4CC;
 }
@@ -34,7 +36,7 @@
 
 .container a {
   color: #FFFFFF;
-  font-family: Bitter;
+  font-family: "Albert Sans";
   font-weight: 500;
   font-size: 18.65px;
   line-height: 100%;
