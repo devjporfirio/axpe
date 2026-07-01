@@ -15,6 +15,7 @@ export const ModalOverlay = styled.div`
 `
 
 export const ModalContainer = styled.div`
+  position: relative;
   width: 100%;
   max-width: 420px;
   background: #F5F3F0;
@@ -25,6 +26,13 @@ export const ModalContainer = styled.div`
   align-items: center;
   gap: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+
+  svg {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    cursor: pointer;
+  }
 
   ${media.lessThan("large")`
     margin: 0 16px;
