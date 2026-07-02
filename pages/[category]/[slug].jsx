@@ -397,4 +397,6 @@ export async function getServerSideProps({ params }) {
   };
 }
 
+Building.hideNewContactSection = true;
+
 export default Building;

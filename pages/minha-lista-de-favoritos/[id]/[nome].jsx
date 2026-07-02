@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import SVG from "react-inlinesvg";
 
 import Share from "components/Share";
 import NewsletterFooter from "components/NewsletterFooter";
+import NewContactSection from "components/NewContactSection";
 import BuildingList from "components/Building/List";
 
 import FavoriteFillIcon from "assets/favoritos.svg";
@@ -26,164 +27,27 @@ import {
 } from "../../../styles/my-favorites";
 
 import { SimilarBuildings, SimilarBuildingsList } from "pages/Building/styles";
+import { useFavoriteList } from "../../../src/hooks/useFavoriteList";
 
 const MyFavoriteList = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-
   const [shareActive, setShareActive] = useState(false);
-  const [listName, setListName] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-  const [items, setItems] = useState([]);
+  const toggleShare = useCallback(() => setShareActive((prev) => !prev), []);
 
-  const [loading, setLoading] = useState(false);
-  const [dataReady, setDataReady] = useState(false);
-  const [isOwner, setIsOwner] = useState(false);
-
-  const originalNameRef = useRef("");
-
-  const getUserEmail = () => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem("userEmail");
-  };
-
-  useEffect(() => {
-    const handleRemoveToFavoriteList = (event) => {
-      const removeId = event?.detail?.id
-
-      if (!removeId && !isOwner) return
-
-      setItems((prevItems) =>
-        prevItems.filter((item) => item?.id !== removeId)
-      )
-    }
-
-    window.addEventListener(
-      "removeToFavoriteList",
-      handleRemoveToFavoriteList
-    )
-
-    return () => {
-      window.removeEventListener(
-        "removeToFavoriteList",
-        handleRemoveToFavoriteList
-      )
-    }
-  }, [])
-
-  const fetchListData = async (listId) => {
-    try {
-      setLoading(true);
-      setDataReady(false);
-
-      const [listRes, itemsRes] = await Promise.all([
-        fetch(`${baseUrl}/favorites/lists/${listId}`),
-        fetch(`${baseUrl}/favorites/lists/${listId}/items`),
-      ]);
-
-      const listJson = await listRes.json();
-      const itemsJson = await itemsRes.json();
-
-      if (listJson?.success && listJson?.data?.list) {
-        const list = listJson.data.list;
-        const name = list?.nome_da_lista || list?.name;
-
-        setListName(name || "");
-        originalNameRef.current = name || "";
-
-        const userEmail = getUserEmail();
-
-        if (userEmail && list) {
-          try {
-            const userRes = await fetch(
-              `${baseUrl}/favorites/lists/${list?.id}`,
-            );
-
-            const userJson = await userRes.json();
-            const ownerEmail = userJson?.data?.user?.email;
-
-            setIsOwner(ownerEmail === userEmail);
-          } catch (error) {
-            console.error("Erro ao buscar usuário:", error);
-            setIsOwner(false);
-          }
-        } else {
-          setIsOwner(false);
-        }
-      }
-
-      if (itemsJson?.success) {
-        const items = itemsJson.data || [];
-
-        try {
-          const buildings = await Promise.all(
-            items.map(async (item) => {
-              if (!item?.referencia) return null;
-
-              const response = await fetch(
-                `${baseUrl}/building/${item?.referencia}`,
-              );
-
-              const buildingJson = await response.json();
-              return buildingJson?.building || null;
-            }),
-          );
-
-          setItems(buildings.filter(Boolean));
-        } catch (error) {
-          console.error("Erro ao buscar buildings:", error);
-          setItems([]);
-        }
-      }
-
-      setDataReady(true);
-    } catch (error) {
-      console.error("Erro ao carregar dados:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!router.isReady || !id) return;
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("listId", id);
-    }
-
-    fetchListData(id);
-  }, [router.isReady, id]);
-
-  const updateListName = async (newName) => {
-    try {
-      const trimmed = newName.trim();
-      if (!trimmed || trimmed === originalNameRef.current) return;
-
-      setLoading(true);
-
-      const res = await fetch(`${baseUrl}/favorites/lists/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome_da_lista: trimmed,
-        }),
-      });
-
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.message);
-
-      originalNameRef.current = trimmed;
-      setListName(trimmed);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    listName,
+    setListName,
+    isEditing,
+    setIsEditing,
+    items,
+    loading,
+    dataReady,
+    isOwner,
+    updateListName,
+    handleDeleteList,
+  } = useFavoriteList(router.isReady ? id : undefined);
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -198,42 +62,17 @@ const MyFavoriteList = () => {
     }
   };
 
-  const handleDeleteList = async () => {
-    try {
-      if (!id) return;
-
-      setLoading(true);
-
-      const res = await fetch(`${baseUrl}/favorites/lists/${id}`, {
-        method: "DELETE",
-      });
-
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.message);
-      localStorage.removeItem("listId");
-      router.replace("/lista-de-favoritos");
-    } catch (error) {
-      console.error("Erro ao deletar lista:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const toggleShare = useCallback(() => {
-    setShareActive((prev) => !prev);
-  }, []);
-
   if (!dataReady) {
     return (
-    <div
-      style={{
-        padding: 20,
-        height: "100vh",
-      }}
-    >
-      Carregando lista...
-    </div>
-  );
+      <div
+        style={{
+          padding: 20,
+          height: "100vh",
+        }}
+      >
+        Carregando lista...
+      </div>
+    );
   }
 
   return (
@@ -254,7 +93,7 @@ const MyFavoriteList = () => {
             </ShareButtonContainer>
 
             {isOwner && (
-              <RemoveList onClick={handleDeleteList}>
+              <RemoveList onClick={handleDeleteList} disabled={loading}>
                 Deletar
                 <SVG src={DeleteListIcon} />
               </RemoveList>
@@ -297,7 +136,7 @@ const MyFavoriteList = () => {
               </ShareButtonContainer>
 
               {isOwner && (
-                <RemoveList onClick={handleDeleteList}>
+                <RemoveList onClick={handleDeleteList} disabled={loading}>
                   Deletar
                   <SVG src={DeleteListIcon} />
                 </RemoveList>
@@ -328,13 +167,20 @@ const MyFavoriteList = () => {
                 ))}
               </SimilarBuildingsList>
             </SimilarBuildings>
-          ) : <>
-            <picture>
-              <source media="(max-width: 768px)" srcSet="/static/bg-stores-image-mob.png" />
-              <source media="(min-width: 769px)" srcSet="/static/bg-stores-image.png" />
-              <img src="/static/bg-stores-image.png" alt="Background disabled stores" className="bg-store-image" style={{ width: '100%', height: 'auto' }} />
-            </picture>
-          </>}
+          ) : (
+            <>
+              <picture>
+                <source media="(max-width: 768px)" srcSet="/static/bg-stores-image-mob.png" />
+                <source media="(min-width: 769px)" srcSet="/static/bg-stores-image.png" />
+                <img
+                  src="/static/bg-stores-image.png"
+                  alt="Background disabled stores"
+                  className="bg-store-image"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </picture>
+            </>
+          )}
         </FavoriteListContainer>
       </div>
 
@@ -345,9 +191,12 @@ const MyFavoriteList = () => {
         onClose={() => setShareActive(false)}
       />
 
+      <NewContactSection />
       <NewsletterFooter />
     </>
   );
 };
+
+MyFavoriteList.hideNewContactSection = true;
 
 export default MyFavoriteList;

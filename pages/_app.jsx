@@ -100,7 +100,7 @@ function MyApp({ Component, pageProps }) {
   }, [ router.asPath ]);
 
   return (
-    <Main>
+    <Main hideNewContactSection={Component.hideNewContactSection}>
       <Head>
         <meta
           name="viewport"

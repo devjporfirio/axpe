@@ -6,6 +6,7 @@ import Image from "next/image";
 // components
 import Share from "components/Share";
 import NewsletterFooter from "components/NewsletterFooter";
+import NewContactSection from "components/NewContactSection";
 
 // assets
 import FavoriteFillIcon from "assets/favoritos.svg";
@@ -171,9 +172,12 @@ const MyFavoriteList = () => {
         onClose={() => setShareActive(false)}
       />
 
+      <NewContactSection />
       <NewsletterFooter />
     </>
   );
 };
+
+MyFavoriteList.hideNewContactSection = true;
 
 export default MyFavoriteList;

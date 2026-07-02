@@ -2,39 +2,45 @@
   "data": [
     {
       "slug": "vintage",
+      "image": "vintage-v2",
       "url": "com-historia",
       "title": "Com história",
-      "subtitle": "Imóveis que estão na história e na memória da cidade"
+      "subtitle": "Onde a memória encontra novos capítulos"
     },
     {
       "slug": "arquitetura",
+      "image": "arquitetura-v2",
       "url": "arquitetura-de-autor",
       "title": "Arquitetura de autor",
-      "subtitle": "Imóveis assinados por profissionais respeitados pela qualidade arquitetônica de seus projetos"
+      "subtitle": "Endereços marcados pela visão de grandes arquitetos"
     },
     {
       "slug": "especial",
+      "image": "especial-v2",
       "url": "classico-contemporaneo",
       "title": "Clássico contemporâneo",
-      "subtitle": "Imóveis com um toque diferente"
+      "subtitle": "O tempo passa, a personalidade permanece"
     },
     {
       "slug": "mirante",
+      "image": "mirante-v2",
       "url": "horizonte-aberto",
       "title": "Horizonte aberto",
-      "subtitle": "Vistas incríveis para encher os olhos e alegrar a alma"
+      "subtitle": "Onde o olhar encontra espaço para ir mais longe"
     },
     {
       "slug": "verde",
+      "image": "verde-v2",
       "url": "entre-arvores",
       "title": "Entre árvores",
-      "subtitle": "Jardins grandes ou pequenos para quem gosta da vida tão verde quanto colorida"
+      "subtitle": "Mais céu, mais verde, mais tempo fora de casa"
     },
     {
       "slug": "descolados",
+      "image": "descolados-v2",
       "url": "cheios-de-personalidade",
       "title": "Cheios de personalidade",
-      "subtitle": "Soluções espertas para um imóvel despojado"
+      "subtitle": "Lugares que revelam quem você é"
     }
   ]
 }
