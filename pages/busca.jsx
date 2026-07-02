@@ -15,6 +15,7 @@ import Headerbar from "components/Headerbar";
 import BlockHighlighted from "components/BlockHighlighted";
 import BuildingList from "components/Building/List";
 import NewsletterFooter from "components/NewsletterFooter";
+import NewContactSection from "components/NewContactSection";
 import BuildingsPanel from "components/BuildingsPanel";
 import CustomSelect from "components/CustomSelect";
 import OptimizedBuildingImage from "components/OptimizedImage";
@@ -759,6 +760,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                 />
               ))}
 
+            <NewContactSection />
             <NewsletterFooter />
             <BlockHighlighted type="contactHome" query={query} />
           </>
@@ -786,5 +788,7 @@ Search.getInitialProps = async ({ query }) => {
     locals,
   };
 };
+
+Search.hideNewContactSection = true;
 
 export default Search;

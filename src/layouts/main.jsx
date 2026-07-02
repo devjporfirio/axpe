@@ -13,6 +13,7 @@ import { setMain } from 'store/modules/main/actions';
 import Loading from 'components/Loading';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import NewContactSection from 'components/NewContactSection';
 
 // Dynamic imports com loading otimizado
 const Search = dynamic(() => import('components/Search'), {
@@ -68,7 +69,7 @@ import tailwindCSS from './vendors/tailwind';
 import ThemeStyle from './themeStyle';
 import { Wrapper } from './styles';
 
-function Main({ children }) {
+function Main({ children, hideNewContactSection }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -141,6 +142,7 @@ function Main({ children }) {
         <Search />
         <Wrapper>
           {children}
+          {!hideNewContactSection && <NewContactSection />}
           <Footer />
         </Wrapper>
         <NewsletterModal />

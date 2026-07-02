@@ -545,4 +545,6 @@ Home.getInitialProps = async () => {
   }
 };
 
+Home.hideNewContactSection = true;
+
 export default Home;

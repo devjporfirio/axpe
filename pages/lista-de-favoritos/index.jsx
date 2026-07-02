@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import NewsletterFooter from "components/NewsletterFooter";
+import NewContactSection from "components/NewContactSection";
 
 import {
   ModalButton,
@@ -168,11 +169,14 @@ const FavoriteList = () => {
 
           <FavoriteListForm data={data} />
 
+          <NewContactSection />
           <NewsletterFooter />
         </>
       )}
     </div>
   );
 };
+
+FavoriteList.hideNewContactSection = true;
 
 export default FavoriteList;
