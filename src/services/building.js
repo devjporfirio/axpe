@@ -20,13 +20,14 @@ export default {
       .then((data) => data);
     return result;
   },
-  async getGeocode(local, cep) {
-    if (!local || !cep) return null;
+  async getGeocode({ local, state, country, cep } = {}) {
+    const addressQuery = [ local, state, country, cep ].filter(Boolean).join(', ');
+    if (!addressQuery) return null;
 
     const googleApiKey = process.env.config.googleApiKey;
 
     let result = await fetch(
-      `${baseMaps}/geocode/json?address=${local} ${cep}&key=${googleApiKey}`,
+      `${baseMaps}/geocode/json?address=${encodeURIComponent(addressQuery)}&key=${googleApiKey}`,
     )
       .then((response) => response.json())
       .then((data) => data);
@@ -38,15 +39,16 @@ export default {
         .then((response) => response.json())
         .then((data) => data);
 
-      const addressRoute = result.results[0].address_components.find((x) =>
+      const addressComponents = result.results?.[0]?.address_components || [];
+      const addressRoute = addressComponents.find((x) =>
         x.types.includes("route"),
       );
-      const addressSub = result.results[0].address_components.find(
+      const addressSub = addressComponents.find(
         (x) =>
           x.types.includes("sublocality_level_1") ||
           x.types.includes("locality"),
       );
-      const addressAdm = result.results[0].address_components.find(
+      const addressAdm = addressComponents.find(
         (x) =>
           x.types.includes("administrative_area_level_1") ||
           x.types.includes("administrative_area_level_2"),

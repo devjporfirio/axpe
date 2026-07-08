@@ -6,6 +6,7 @@ import Landing from './landing';
 import Dream from './dream';
 import SiteMap from './siteMap';
 import Videos from './videos';
+import Places from './places';
 
 const Api = {
   Search,
@@ -15,7 +16,8 @@ const Api = {
   Landing,
   Dream,
   SiteMap,
-  Videos
+  Videos,
+  Places
 };
 
 export default Api;

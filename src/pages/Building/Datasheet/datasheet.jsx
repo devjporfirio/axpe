@@ -101,7 +101,7 @@ const mockProperty = {
     reference: 'AX155499'
 };
 
-export default function Datasheet({ property }) {
+export default function Datasheet({ property, showLocationLink }) {
     const dispatch = useDispatch();
     const router = useRouter();
     
@@ -223,10 +223,12 @@ export default function Datasheet({ property }) {
                                 </Type>
                             </InfoContent>
                             <Location>
-                                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                                    <img src={ILocation} alt="ícone de localização" />
-                                    <p>Ver localização</p>
-                                </a>
+                                {showLocationLink && (
+                                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                                        <img src={ILocation} alt="ícone de localização" />
+                                        <p>Ver localização</p>
+                                    </a>
+                                )}
                                 <ButtonIcon
                                     type="button"
                                     onClick={toggleShare}
