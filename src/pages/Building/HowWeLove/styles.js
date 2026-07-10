@@ -56,10 +56,15 @@ export const Article = styled.article`
 
   ${media.greaterThan('medium')`
     width: 96%;
-    max-width: 1060px;
+    max-width: 974px;
     padding: 16px 20px;
     margin: 0 auto 12px;
   `}
+
+  @media (min-width: 1080px) {
+    width: 100%;
+    max-width: 1085px;
+  }
 
   h2 {
     color: ${({ theme }) => theme.colors.orange};

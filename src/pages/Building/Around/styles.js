@@ -4,11 +4,14 @@ import media from 'styled-media-query';
 export const Container = styled.div`
   max-width: 974px;
   margin: 0 auto 60px;
-  padding: 0 15px;
+  padding: 0 16px;
 
-  ${media.greaterThan('large')`
+  /* ${media.greaterThan('large')`
     padding: 0;
-  `}
+  `} */
+  @media (min-width: 1080px) {
+    max-width: 1115px;
+  }
 `;
 
 export const Title = styled.h2`
