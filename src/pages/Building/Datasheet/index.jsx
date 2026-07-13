@@ -2,10 +2,10 @@ import React from 'react';
 import { VisitModalProvider } from './context';
 import DataSheet from './datasheet';
 
-export default function Datasheet({ property }) {
+export default function Datasheet({ property, showLocationLink }) {
     return (
         <VisitModalProvider>
-            <DataSheet property={property} />
+            <DataSheet property={property} showLocationLink={showLocationLink} />
         </VisitModalProvider>
     )
 }

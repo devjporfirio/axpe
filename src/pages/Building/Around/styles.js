@@ -1,80 +1,93 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import Section from 'components/Section';
 
 export const Container = styled.div`
   max-width: 974px;
-  margin: auto;
-  padding: 0 15px;
+  margin: 0 auto 60px;
+  padding: 0 16px;
+
+  /* ${media.greaterThan('large')`
+    padding: 0;
+  `} */
+  @media (min-width: 1080px) {
+    max-width: 1115px;
+  }
+`;
+
+export const Title = styled.h2`
+  font-size: 20px;
+  margin: 0 0 16px;
 
   ${media.greaterThan('medium')`
-    display: flex;
-    border-radius: 6px;
-    overflow: hidden;
-  `}
-
-  ${media.greaterThan('large')`
-    padding: 0;
+    font-size: 26px;
+    margin-bottom: 20px;
   `}
 `;
 
-export const Mapa = styled.div`
+export const Chips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  ${media.greaterThan('medium')`
+    margin-bottom: 20px;
+  `}
+`;
+
+export const Chip = styled.button`
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 15px;
+  border: 1px solid ${({ isActive }) => (isActive ? '#1a73e8' : '#d9d9d9')};
+  background-color: ${({ isActive }) => (isActive ? '#e8f0fe' : '#fff')};
+  color: ${({ isActive }) => (isActive ? '#1a73e8' : '#555')};
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+`;
+
+export const MapContainer = styled.div`
   width: 100%;
-  height: 182px;
+  height: 260px;
   background-color: #143643;
   overflow: hidden;
-
-  iframe {
-    width: 100%;
-    height: 100%;
-
-    .directions-card {
-      display: none;
-    }
-  }
-
-  ${media.greaterThan('medium')`
-    max-width: 572px;
-    height: 426px;
-  `}
-`;
-
-export const Pin = styled.img`
   position: relative;
-  display: ${props => (props.mq === 'desktop' ? 'none' : 'block')};
-  width: 28px;
-  margin: -20px 0 0 30px;
+  border-radius: 8px;
 
   ${media.greaterThan('medium')`
-    display: ${props => (props.mq === 'mobile' ? 'none' : 'block')};
-    margin: 0 -80px 0 0;
-    z-index: 5;
+    height: 420px;
   `}
 `;
 
-export const Text = styled(Section)`
-  position: initial;
-  width: auto;
-  margin-top: -20px;
-  padding: 20px;
+export const MapWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
 
-  ${media.greaterThan('medium')`
-    padding: 60px 30px 0 60px;
-    width: 70%;
-    margin: -1px 0 0 0;
-    height: 428px;
-  `}
-
-  p {
-    display: block !important;
-    font-size: 18px;
-    line-height: 20px;
-
-    ${media.greaterThan('medium')`
-      width: 100%;
-      margin-top: 120px;
-      line-height: 25px;
-      font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
-    `}
-  }
+export const FullscreenButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  color: #333;
 `;

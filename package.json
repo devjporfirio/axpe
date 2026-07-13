@@ -38,6 +38,7 @@
     "@reduxjs/toolkit": "^2.8.1",
     "axios": "^0.19.2",
     "clipboard": "^2.0.4",
+    "maplibre-gl": "^3.6.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "formik": "^2.0.3",

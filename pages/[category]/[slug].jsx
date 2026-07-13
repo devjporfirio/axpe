@@ -12,6 +12,7 @@ import NewsletterFooter from "components/NewsletterFooter";
 import BuildingList from "components/Building/List";
 import DataSheet from "pages/Building/Datasheet";
 import HowWeLove from "pages/Building/HowWeLove";
+import Around from "pages/Building/Around";
 import LCPPlaceholder from "components/LCPPlaceholder";
 import LCPGallery from "components/LCPGallery";
 
@@ -40,6 +41,7 @@ function Building(props) {
   const dispatch = useDispatch();
   const [similarBuildings, setSimilarBuildings] = useState([]);
   const [data, setData] = useState(null);
+  const [mapUnavailable, setMapUnavailable] = useState(false);
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
   const canonicalUrl = `${baseUrl}${router.asPath.split("?")[0]}`;
@@ -234,7 +236,6 @@ function Building(props) {
           }}
         />
 
-        {console.log("imoveis: ",data)}
 
         {data.gallery && (
             <Images
@@ -249,7 +250,33 @@ function Building(props) {
 
         
 
-        <DataSheet property={data} />
+        {(() => {
+          const vizinhanca = data.components.find(
+            (c) => c.module?.slug === "vizinhanca"
+          );
+          const { local, state, country, cep } = data?.address || {};
+          const resolvedCep = cep || vizinhanca?.data?.cep;
+          const hasMapAddress = Boolean(local || resolvedCep);
+
+          return (
+            <>
+              <DataSheet
+                property={data}
+                showLocationLink={mapUnavailable || !hasMapAddress}
+              />
+
+              {hasMapAddress && (
+                <Around
+                  local={local}
+                  state={state}
+                  country={country}
+                  cep={resolvedCep}
+                  onUnavailable={() => setMapUnavailable(true)}
+                />
+              )}
+            </>
+          );
+        })()}
 
         {data.components.find((c) => c.module?.slug === "porque-adoramos") && (
           <HowWeLove

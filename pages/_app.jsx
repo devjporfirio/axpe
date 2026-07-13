@@ -18,6 +18,7 @@ import { wrapper } from '../src/store';
 // CSS imports - otimizados
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 function GtmSafePlaceholders() {
   return (
