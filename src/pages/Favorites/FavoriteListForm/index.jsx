@@ -7,8 +7,6 @@ import { useRouter } from "next/router";
 
 import { FavoriteSearchContainer } from "./styles";
 
-const slugify = (text) => text?.toLowerCase().trim().replace(/\s+/g, "-");
-
 const FavoriteListForm = ({ data }) => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,10 +21,8 @@ const FavoriteListForm = ({ data }) => {
     const list = data?.lists?.[0];
 
     if (list?.id) {
-      const slug = slugify(list?.nome_da_lista || "lista");
-
       router.replace(
-        `/minha-lista-de-favoritos/${list.id}/${slug}`,
+        `/minha-lista-de-favoritos/${list.id}/${list.slug}`,
       );
     }
   }, [data, loading, router]);
@@ -93,12 +89,8 @@ const FavoriteListForm = ({ data }) => {
       const existingList = await checkExistingList(email);
 
       if (existingList?.id) {
-        const slug = slugify(
-          existingList.nome_da_lista || "lista",
-        );
-
         router.replace(
-          `/minha-lista-de-favoritos/${existingList.id}/${slug}`,
+          `/minha-lista-de-favoritos/${existingList.id}/${existingList.slug}`,
         );
 
         return;
@@ -112,8 +104,7 @@ const FavoriteListForm = ({ data }) => {
       }
 
       const listId = list.id;
-
-      const slug = slugify(name);
+      const slug = list.slug;
 
       const imovelId =
         typeof window !== "undefined"

@@ -29,6 +29,8 @@ import {
 import { SimilarBuildings, SimilarBuildingsList } from "pages/Building/styles";
 import { useFavoriteList } from "../../../src/hooks/useFavoriteList";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+
 const MyFavoriteList = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -64,19 +66,33 @@ const MyFavoriteList = () => {
 
   if (!dataReady) {
     return (
-      <div
-        style={{
-          padding: 20,
-          height: "100vh",
-        }}
-      >
-        Carregando lista...
-      </div>
+      <>
+        <Head>
+          <meta name="robots" content="index,follow" />
+        </Head>
+
+        <div
+          style={{
+            padding: 20,
+            height: "100vh",
+          }}
+        >
+          Carregando lista...
+        </div>
+      </>
     );
   }
 
   return (
     <>
+      <Head>
+        <meta name="robots" content="index,follow" />
+        <link
+          rel="canonical"
+          href={`${baseUrl}/minha-lista-de-favoritos/${id}/${nome}`}
+        />
+      </Head>
+
       <div className="my-favorite-list">
         <FavoriteHeader>
           <FavoriteHeaderTitle>
