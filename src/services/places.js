@@ -9,9 +9,12 @@ export default {
   },
   // Fallback gratuito (Nominatim/OSM) — usado quando o Google Geocoding falha
   // (ex.: chave sem billing habilitado, quota excedida).
-  async geocode(query) {
+  // type: 'postcode' exige que o resultado seja mesmo um CEP reconhecido pelo
+  // OSM — evita aceitar um "chute" do Nominatim em endereço não relacionado.
+  async geocode(query, type) {
     if (!query) return null;
-    return fetch(`/api/geocode?q=${encodeURIComponent(query)}`)
+    const typeParam = type ? `&type=${encodeURIComponent(type)}` : '';
+    return fetch(`/api/geocode?q=${encodeURIComponent(query)}${typeParam}`)
       .then((r) => r.json())
       .then((d) => (d && d.lat && d.lng ? [ d.lat, d.lng ] : null))
       .catch(() => null);

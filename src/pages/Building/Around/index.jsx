@@ -26,13 +26,14 @@ function Around({ local, state, country, cep, onUnavailable }) {
         return;
       }
 
-      const byCep = cep && (await Api.Places.geocode(`${cep}, Brasil`));
+      const byCep = cep && (await Api.Places.geocode(`${cep}, Brasil`, 'postcode'));
       if (byCep) {
         if (!cancelled) setCenter(byCep);
         return;
       }
 
-      const byLocal = local && (await Api.Places.geocode([ local, state, country || 'Brasil' ].filter(Boolean).join(', ')));
+      const localName = local === 'Sumaré' ? 'Sumarezinho' : local;
+      const byLocal = local && (await Api.Places.geocode([ localName, state, country || 'Brasil' ].filter(Boolean).join(', ')));
       if (byLocal) {
         if (!cancelled) setCenter(byLocal);
         return;

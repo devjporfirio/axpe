@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import SVG from "react-inlinesvg";
 import Image from "next/image";
 
@@ -59,6 +60,10 @@ const MyFavoriteList = () => {
 
   return (
     <>
+      <Head>
+        <meta name="robots" content="noindex,follow" />
+      </Head>
+
       <div>
         <FavoriteHeader>
           <FavoriteHeaderTitle>

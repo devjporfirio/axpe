@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import SVG from "react-inlinesvg";
 
 import Share from "components/Share";
@@ -29,9 +30,13 @@ import {
 import { SimilarBuildings, SimilarBuildingsList } from "pages/Building/styles";
 import { useFavoriteList } from "../../../src/hooks/useFavoriteList";
 
+const slugify = (text) => text?.toLowerCase().trim().replace(/\s+/g, "-");
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+
 const MyFavoriteList = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, nome } = router.query;
 
   const [shareActive, setShareActive] = useState(false);
   const toggleShare = useCallback(() => setShareActive((prev) => !prev), []);
@@ -49,6 +54,18 @@ const MyFavoriteList = () => {
     handleDeleteList,
   } = useFavoriteList(router.isReady ? id : undefined);
 
+  const canonicalSlug = listName ? slugify(listName) : nome;
+
+  useEffect(() => {
+    if (!dataReady || !id || !canonicalSlug || nome === canonicalSlug) return;
+
+    router.replace(
+      `/minha-lista-de-favoritos/${id}/${canonicalSlug}`,
+      undefined,
+      { shallow: true },
+    );
+  }, [dataReady, id, nome, canonicalSlug, router]);
+
   const handleBlur = () => {
     setIsEditing(false);
     updateListName(listName);
@@ -64,19 +81,33 @@ const MyFavoriteList = () => {
 
   if (!dataReady) {
     return (
-      <div
-        style={{
-          padding: 20,
-          height: "100vh",
-        }}
-      >
-        Carregando lista...
-      </div>
+      <>
+        <Head>
+          <meta name="robots" content="noindex,follow" />
+        </Head>
+
+        <div
+          style={{
+            padding: 20,
+            height: "100vh",
+          }}
+        >
+          Carregando lista...
+        </div>
+      </>
     );
   }
 
   return (
     <>
+      <Head>
+        <meta name="robots" content="noindex,follow" />
+        <link
+          rel="canonical"
+          href={`${baseUrl}/minha-lista-de-favoritos/${id}/${canonicalSlug}`}
+        />
+      </Head>
+
       <div className="my-favorite-list">
         <FavoriteHeader>
           <FavoriteHeaderTitle>

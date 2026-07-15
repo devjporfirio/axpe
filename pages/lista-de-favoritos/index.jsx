@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import NewsletterFooter from "components/NewsletterFooter";
 import NewContactSection from "components/NewContactSection";
@@ -153,8 +154,15 @@ const FavoriteList = () => {
     return null;
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+
   return (
     <div className="my-favorite-list">
+      <Head>
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href={`${baseUrl}/lista-de-favoritos`} />
+      </Head>
+
       {showModal && (
         <EmailModal onSave={handleEmailSave} />
       )}
