@@ -28,12 +28,19 @@ import {
 
 import { SimilarBuildings, SimilarBuildingsList } from "pages/Building/styles";
 import { useFavoriteList } from "../../../src/hooks/useFavoriteList";
+import Head from "next/head";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+const BASE_URL_BACK = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BASE_URL_FRONT = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
 
-const MyFavoriteList = () => {
+const DEFAULT_META = {
+  title: "Minha lista de favoritos | Axpe",
+  description: "Confira esta lista de imóveis favoritos selecionados na Axpe.",
+};
+
+const MyFavoriteList = ({ initialList, meta }) => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, nome } = router.query;
 
   const [shareActive, setShareActive] = useState(false);
   const toggleShare = useCallback(() => setShareActive((prev) => !prev), []);
@@ -49,7 +56,7 @@ const MyFavoriteList = () => {
     isOwner,
     updateListName,
     handleDeleteList,
-  } = useFavoriteList(router.isReady ? id : undefined);
+  } = useFavoriteList(router.isReady ? id : undefined, initialList);
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -86,10 +93,15 @@ const MyFavoriteList = () => {
   return (
     <>
       <Head>
+        <title>{meta?.title ?? DEFAULT_META.title}</title>
+        <meta
+          name="description"
+          content={meta?.description ?? DEFAULT_META.description}
+        />
         <meta name="robots" content="index,follow" />
         <link
           rel="canonical"
-          href={`${baseUrl}/minha-lista-de-favoritos/${id}/${nome}`}
+          href={`${BASE_URL_FRONT}/minha-lista-de-favoritos/${id}/${initialList?.slug || nome}`}
         />
       </Head>
 
@@ -214,5 +226,46 @@ const MyFavoriteList = () => {
 };
 
 MyFavoriteList.hideNewContactSection = true;
+
+async function fetchList(id) {
+  try {
+    const res = await fetch(`${BASE_URL_BACK}/favorites/lists/${id}`);
+    const json = await res.json();
+    return res.ok && json?.success && json?.data?.list ? json.data.list : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getServerSideProps({ params }) {
+  const { id } = params;
+
+  let list = await fetchList(id);
+
+  if (!list) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    list = await fetchList(id);
+  }
+
+  if (!list) {
+    return { props: { initialList: null, meta: null } };
+  }
+
+  const nome = list.nome_da_lista || "Minha lista de favoritos";
+  const title = list.meta_title || `${nome} | Axpe`;
+  const description =
+    list.meta_description ||
+    `Confira "${nome}", uma lista de imóveis favoritos selecionados na Axpe.`;
+
+  return {
+    props: {
+      initialList: {
+        nome: list.nome_da_lista || "",
+        slug: list.slug || "",
+      },
+      meta: { title, description },
+    },
+  };
+}
 
 export default MyFavoriteList;

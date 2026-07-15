@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import NewsletterFooter from "components/NewsletterFooter";
 import NewContactSection from "components/NewContactSection";
@@ -78,7 +79,9 @@ const EmailModal = ({ onSave }) => {
   );
 };
 
-const FavoriteList = () => {
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+
+const FavoriteList = ({ meta }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -155,6 +158,13 @@ const FavoriteList = () => {
 
   return (
     <div className="my-favorite-list">
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href={`${baseUrl}/lista-de-favoritos`} />
+      </Head>
+
       {showModal && (
         <EmailModal onSave={handleEmailSave} />
       )}
@@ -178,5 +188,17 @@ const FavoriteList = () => {
 };
 
 FavoriteList.hideNewContactSection = true;
+
+export async function getStaticProps() {
+  return {
+    props: {
+      meta: {
+        title: "Lista de Favoritos | Axpe",
+        description:
+          "Monte sua lista de imóveis favoritos na Axpe e volte quando quiser para revisitar suas escolhas.",
+      },
+    },
+  };
+}
 
 export default FavoriteList;
