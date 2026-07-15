@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import SVG from "react-inlinesvg";
 
 import Share from "components/Share";
@@ -40,6 +41,7 @@ const DEFAULT_META = {
 
 const MyFavoriteList = ({ initialList, meta }) => {
   const router = useRouter();
+  const { id, nome } = router.query;
   const { id, nome } = router.query;
 
   const [shareActive, setShareActive] = useState(false);
