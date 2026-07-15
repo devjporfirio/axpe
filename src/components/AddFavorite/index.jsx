@@ -6,6 +6,8 @@ import FavoriteFillIcon from "assets/favoritos.svg";
 
 import { useRouter } from "next/router";
 
+import FavoriteEmailModal from "components/FavoriteEmailModal";
+
 import {
   ToastContainer,
   ToastWrapper,
@@ -19,6 +21,9 @@ const AddFavorite = ({ id, shelf = false }) => {
     useState(false);
 
   const [showToast, setShowToast] =
+    useState(false);
+
+  const [showEmailModal, setShowEmailModal] =
     useState(false);
 
   const [owner, setOwner] =
@@ -168,14 +173,7 @@ const AddFavorite = ({ id, shelf = false }) => {
           id
         );
 
-        if (shelf) {
-          setShowToast(true);
-          return;
-        }
-
-        router.replace(
-          "/lista-de-favoritos"
-        );
+        setShowEmailModal(true);
 
         return;
       }
@@ -362,6 +360,16 @@ const AddFavorite = ({ id, shelf = false }) => {
       >
         <Icon />
       </div>
+
+      {showEmailModal && (
+        <FavoriteEmailModal
+          onSave={() => {
+            setShowEmailModal(false);
+            router.push("/lista-de-favoritos");
+          }}
+          onClose={() => setShowEmailModal(false)}
+        />
+      )}
 
       {showToast && (
         <ToastContainer>
