@@ -3,17 +3,17 @@ import { useRouter } from "next/router";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export function useFavoriteList(id) {
+export function useFavoriteList(id, initial) {
   const router = useRouter();
 
-  const [listName, setListName] = useState("");
+  const [listName, setListName] = useState(initial?.nome || "");
   const [isEditing, setIsEditing] = useState(false);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [dataReady, setDataReady] = useState(false);
+  const [dataReady, setDataReady] = useState(Boolean(initial));
   const [isOwner, setIsOwner] = useState(false);
 
-  const originalNameRef = useRef("");
+  const originalNameRef = useRef(initial?.nome || "");
   const isOwnerRef = useRef(false);
   const savingNameRef = useRef(false);
   const deletingRef = useRef(false);
@@ -47,7 +47,6 @@ export function useFavoriteList(id) {
     const run = async () => {
       try {
         setLoading(true);
-        setDataReady(false);
 
         if (typeof window !== "undefined") {
           localStorage.setItem("listId", id);
