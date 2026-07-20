@@ -7,16 +7,7 @@ import Head from "next/head";
 
 import NewsletterFooter from "components/NewsletterFooter";
 import NewContactSection from "components/NewContactSection";
-
-import {
-  ModalButton,
-  ModalContainer,
-  ModalForm,
-  ModalInput,
-  ModalOverlay,
-  ModalText,
-  ModalTitle,
-} from "../../src/pages/ListaFavoritos/EmailModal.styles";
+import FavoriteEmailModal from "components/FavoriteEmailModal";
 
 import FavoriteListForm from "pages/Favorites/FavoriteListForm";
 
@@ -25,64 +16,10 @@ import {
   FavoriteHeaderTitle,
 } from "pages/ListaFavoritos/MinhaLista/styles";
 
-// 🔥 Modal component
-const EmailModal = ({ onSave }) => {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!email.trim()) return;
-
-    localStorage.setItem("userEmail", email);
-    onSave(email);
-  };
-
-  return (
-    <ModalOverlay>
-      <ModalContainer>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="26"
-          viewBox="0 0 25 26"
-          fill="none"
-          onClick={() => router.replace("/")}
-          style={{ cursor: "pointer" }}
-        >
-          <rect width="25" height="26" rx="12.5" fill="#FF6200"/>
-          <path d="M10.0844 8L12.5138 11.6901L14.9294 8H17L13.6043 13.0704L16.8896 18H14.819L12.5138 14.4507L10.1948 18H8.11043L11.3957 13.0704L8 8H10.0844Z" fill="white"/>
-        </svg>
-
-        <ModalTitle>
-          Digite o seu email para salvar sua lista de favoritos
-        </ModalTitle>
-
-        <ModalText>
-          Assim você pode voltar e ela fica guardada aqui
-        </ModalText>
-
-        <ModalForm onSubmit={handleSubmit}>
-          <ModalInput
-            type="email"
-            placeholder="seu@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <ModalButton type="submit" disabled={!email.trim()}>
-            CONTINUAR
-          </ModalButton>
-        </ModalForm>
-      </ModalContainer>
-    </ModalOverlay>
-  );
-};
-
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
 
 const FavoriteList = ({ meta }) => {
+  const router = useRouter();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -169,7 +106,10 @@ const FavoriteList = ({ meta }) => {
       </Head>
 
       {showModal && (
-        <EmailModal onSave={handleEmailSave} />
+        <FavoriteEmailModal
+          onSave={handleEmailSave}
+          onClose={() => router.replace("/")}
+        />
       )}
 
       {!showModal && !loading && (
