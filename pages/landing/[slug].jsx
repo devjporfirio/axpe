@@ -8,7 +8,7 @@ import SeoData from 'helpers/seo';
 // components
 import BuildingList from 'components/Building/List';
 import BlockHighlighted from 'components/BlockHighlighted';
-import Contact from 'components/Contact';
+import NewContactSection from 'components/NewContactSection';
 
 // styles
 import {
@@ -142,8 +142,8 @@ function Landing({ slug, page, meta }) {
             </Banner>
           )}
 
-        <BlockHighlighted type="notfound" />
-        <Contact />
+        {/* <BlockHighlighted type="notfound" /> */}
+        <NewContactSection />
     </Container>
     </>
   );
@@ -168,5 +168,7 @@ Landing.getInitialProps = async ({ query }) => {
     },
   };
 };
+
+Landing.hideNewContactSection = true;
 
 export default Landing;

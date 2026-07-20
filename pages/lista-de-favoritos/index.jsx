@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Head from "next/head";
 
 import NewsletterFooter from "components/NewsletterFooter";
 import NewContactSection from "components/NewContactSection";
@@ -16,7 +15,9 @@ import {
   FavoriteHeaderTitle,
 } from "pages/ListaFavoritos/MinhaLista/styles";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+import SITE_URL from "helpers/siteUrl";
+
+const baseUrl = SITE_URL;
 
 const FavoriteList = ({ meta }) => {
   const router = useRouter();
@@ -93,8 +94,6 @@ const FavoriteList = ({ meta }) => {
   if (!initialized) {
     return null;
   }
-
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
 
   return (
     <div className="my-favorite-list">

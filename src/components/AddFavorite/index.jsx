@@ -196,6 +196,7 @@ const AddFavorite = ({ id, shelf = false }) => {
           id_lista:
             targetListId,
           id_imovel: id,
+          email,
         };
 
         let response;

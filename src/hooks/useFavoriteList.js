@@ -12,6 +12,7 @@ export function useFavoriteList(id, initial) {
   const [loading, setLoading] = useState(false);
   const [dataReady, setDataReady] = useState(Boolean(initial));
   const [isOwner, setIsOwner] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const originalNameRef = useRef(initial?.nome || "");
   const isOwnerRef = useRef(false);
@@ -44,6 +45,20 @@ export function useFavoriteList(id, initial) {
     const controller = new AbortController();
     const { signal } = controller;
 
+    const fetchListAndItems = async () => {
+      const [listRes, itemsRes] = await Promise.all([
+        fetch(`${BASE_URL}/favorites/lists/${id}`, { signal }),
+        fetch(`${BASE_URL}/favorites/lists/${id}/items`, { signal }),
+      ]);
+
+      const [listJson, itemsJson] = await Promise.all([
+        listRes.json(),
+        itemsRes.json(),
+      ]);
+
+      return { listJson, itemsJson };
+    };
+
     const run = async () => {
       try {
         setLoading(true);
@@ -52,25 +67,25 @@ export function useFavoriteList(id, initial) {
           localStorage.setItem("listId", id);
         }
 
-        const [listRes, itemsRes] = await Promise.all([
-          fetch(`${BASE_URL}/favorites/lists/${id}`, { signal }),
-          fetch(`${BASE_URL}/favorites/lists/${id}/items`, { signal }),
-        ]);
+        let { listJson, itemsJson } = await fetchListAndItems();
 
-        const [listJson, itemsJson] = await Promise.all([
-          listRes.json(),
-          itemsRes.json(),
-        ]);
+        if (!(listJson?.success && listJson?.data?.list) && !signal.aborted) {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          ({ listJson, itemsJson } = await fetchListAndItems());
+        }
 
         if (listJson?.success && listJson?.data?.list) {
           const list = listJson.data.list;
           const name = list?.nome_da_lista || list?.name || "";
           setListName(name);
           originalNameRef.current = name;
+          setNotFound(false);
 
           const ownerEmail = listJson?.data?.user?.email;
           const userEmail = getUserEmail();
           setIsOwner(!!ownerEmail && ownerEmail === userEmail);
+        } else if (!initial) {
+          setNotFound(true);
         }
 
         if (itemsJson?.success) {
@@ -94,6 +109,7 @@ export function useFavoriteList(id, initial) {
       } catch (error) {
         if (error.name !== "AbortError") {
           console.error("Erro ao carregar dados:", error);
+          if (!initial) setNotFound(true);
         }
       } finally {
         if (!signal.aborted) {
@@ -119,7 +135,7 @@ export function useFavoriteList(id, initial) {
         const res = await fetch(`${BASE_URL}/favorites/lists/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nome_da_lista: trimmed }),
+          body: JSON.stringify({ nome_da_lista: trimmed, email: getUserEmail() }),
         });
         const json = await res.json();
         if (!res.ok) throw new Error(json?.message);
@@ -144,6 +160,8 @@ export function useFavoriteList(id, initial) {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/favorites/lists/${id}`, {
         method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: getUserEmail() }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json?.message);
@@ -166,6 +184,7 @@ export function useFavoriteList(id, initial) {
     loading,
     dataReady,
     isOwner,
+    notFound,
     updateListName,
     handleDeleteList,
   };

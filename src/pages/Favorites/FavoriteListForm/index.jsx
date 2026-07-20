@@ -115,6 +115,7 @@ const FavoriteListForm = ({ data }) => {
         const payload = {
           id_lista: listId,
           id_imovel: imovelId,
+          email,
         };
 
         const response = await fetch(

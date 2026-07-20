@@ -188,6 +188,40 @@ export const FavoriteListContext = styled.p`
     padding: 0;
   `}
 `
+export const SeoContentBlock = styled.div`
+  max-width: 720px;
+  padding: 0 0 40px 21px;
+
+  ${media.lessThan('large')`
+    padding: 0 32px 32px;
+    text-align: center;
+  `}
+`;
+
+export const SeoContentTitle = styled.h1`
+  color: #EE6900;
+  font-family: Bitter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 38px;
+  margin: 0 0 12px;
+
+  ${media.lessThan('large')`
+    font-size: 26px;
+    line-height: 32px;
+  `}
+`;
+
+export const SeoContentText = styled.p`
+  color: #8C8C8C;
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+`;
+
 export const FavoriteListHeaderTexts = styled.div`
   padding: 0 0 68px 21px; 
 
