@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import SVG from "react-inlinesvg";
@@ -25,14 +25,17 @@ import {
   FavoriteListContainer,
   FavoriteListContext,
   FavoriteListHeaderTexts,
+  SeoContentBlock,
+  SeoContentTitle,
+  SeoContentText,
 } from "../../../styles/my-favorites";
 
 import { SimilarBuildings, SimilarBuildingsList } from "pages/Building/styles";
 import { useFavoriteList } from "../../../src/hooks/useFavoriteList";
-import Head from "next/head";
+import SITE_URL from "helpers/siteUrl";
 
 const BASE_URL_BACK = process.env.NEXT_PUBLIC_BACKEND_URL;
-const BASE_URL_FRONT = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+const BASE_URL_FRONT = SITE_URL;
 
 const DEFAULT_META = {
   title: "Minha lista de favoritos | Axpe",
@@ -42,7 +45,8 @@ const DEFAULT_META = {
 const MyFavoriteList = ({ initialList, meta }) => {
   const router = useRouter();
   const { id, nome } = router.query;
-  const { id, nome } = router.query;
+
+  const { seoContentTitle, seoContentText } = initialList || {};
 
   const [shareActive, setShareActive] = useState(false);
   const toggleShare = useCallback(() => setShareActive((prev) => !prev), []);
@@ -56,6 +60,7 @@ const MyFavoriteList = ({ initialList, meta }) => {
     loading,
     dataReady,
     isOwner,
+    notFound,
     updateListName,
     handleDeleteList,
   } = useFavoriteList(router.isReady ? id : undefined, initialList);
@@ -87,6 +92,26 @@ const MyFavoriteList = ({ initialList, meta }) => {
           }}
         >
           Carregando lista...
+        </div>
+      </>
+    );
+  }
+
+  if (notFound) {
+    return (
+      <>
+        <Head>
+          <title>Lista não encontrada | Axpe</title>
+          <meta name="robots" content="noindex,nofollow" />
+        </Head>
+
+        <div
+          style={{
+            padding: 20,
+            height: "100vh",
+          }}
+        >
+          Essa lista de favoritos não existe mais ou foi removida.
         </div>
       </>
     );
@@ -183,6 +208,13 @@ const MyFavoriteList = ({ initialList, meta }) => {
             )}
           </FavoriteListHeaderTexts>
 
+          {(seoContentTitle || seoContentText) && (
+            <SeoContentBlock>
+              {seoContentTitle && <SeoContentTitle>{seoContentTitle}</SeoContentTitle>}
+              {seoContentText && <SeoContentText>{seoContentText}</SeoContentText>}
+            </SeoContentBlock>
+          )}
+
           {items.length > 0 ? (
             <SimilarBuildings fullWidth className="similar-buildings">
               <SimilarBuildingsList>
@@ -253,17 +285,19 @@ export async function getServerSideProps({ params }) {
     return { props: { initialList: null, meta: null } };
   }
 
-  const nome = list.nome_da_lista || "Minha lista de favoritos";
+  const nome = list.nome_da_lista || list.name || "Minha lista de favoritos";
   const title = list.meta_title || `${nome} | Axpe`;
   const description =
     list.meta_description ||
-    `Confira "${nome}", uma lista de imóveis favoritos selecionados na Axpe.`;
+    `Confira ${nome}, uma lista de imóveis favoritos selecionados na Axpe.`;
 
   return {
     props: {
       initialList: {
-        nome: list.nome_da_lista || "",
+        nome: list.nome_da_lista || list.name || "",
         slug: list.slug || "",
+        seoContentTitle: list.seo_content_title || null,
+        seoContentText: list.seo_content_text || null,
       },
       meta: { title, description },
     },
