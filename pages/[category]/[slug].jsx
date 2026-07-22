@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import GTM from "helpers/gtm";
 import Api from "services";
+import { getParamsFromObject } from "helpers/utils";
 
 // components
 import Headerbar from "components/Headerbar";
@@ -130,27 +131,6 @@ function Building(props) {
     };
   }, []);
 
-  if (property === null) {
-    return (
-      <Container>
-        <Head>
-          <title>Imóvel não encontrado</title>
-        </Head>
-        <div
-          style={{
-            padding: "2rem",
-            textAlign: "center",
-            height: "100vh",
-            alignContent: "center",
-          }}
-        >
-          <h1>Imóvel não encontrado</h1>
-          <p>Esse imóvel não existe ou foi removido do nosso sistema.</p>
-        </div>
-      </Container>
-    );
-  }
-
   // Se for Lighthouse, renderizar mock imediatamente
   if (isLighthouse) {
     return (
@@ -265,6 +245,15 @@ function Building(props) {
                 showLocationLink={mapUnavailable || !hasMapAddress}
               />
 
+              {data.components.find((c) => c.module?.slug === "porque-adoramos") && (
+                <HowWeLove
+                  reasons={
+                    data.components.find((c) => c.module?.slug === "porque-adoramos")
+                      .data
+                  }
+                />
+              )}
+
               {hasMapAddress && (
                 <Around
                   local={local}
@@ -278,14 +267,6 @@ function Building(props) {
           );
         })()}
 
-        {data.components.find((c) => c.module?.slug === "porque-adoramos") && (
-          <HowWeLove
-            reasons={
-              data.components.find((c) => c.module?.slug === "porque-adoramos")
-                .data
-            }
-          />
-        )}
 
         {property.type === "lancamento" && property.infos.releaseDelivery && (
           <Delivery>
@@ -343,15 +324,21 @@ export async function getServerSideProps({ params }) {
   const response = await Api.Building.getPage(reference);
 
   if (!response || !response.building) {
+    // Imóvel removido/vendido: a API devolve as últimas características
+    // conhecidas em `filters` (nulas quando o imóvel nunca existiu, ou
+    // quando o próprio dado nunca foi preenchido) para redirecionar à busca.
+    const filters = response?.filters || {};
+    const query = getParamsFromObject({
+      source: filters.source,
+      ready_release: filters.ready_release,
+      finality: filters.finality,
+      types: filters.types,
+      local: filters.local,
+    });
     return {
-      props: {
-        reference,
-        property: null,
-        meta: {
-          title: "Imóvel não encontrado",
-          description: SeoData.description,
-          image: "",
-        },
+      redirect: {
+        destination: query === "?" ? "/busca" : `/busca${query}`,
+        permanent: false,
       },
     };
   }
