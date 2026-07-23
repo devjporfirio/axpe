@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Router, { useRouter } from "next/router";
 import FormElements from "components/FormElements";
-import { FormGroup } from "components/FormElements/styles";
+import { FormGroup, Message } from "components/FormElements/styles";
 import SVG from "react-inlinesvg";
 
 // actions
@@ -32,6 +32,11 @@ import {
   Column,
   ButtonQuickCall,
   FormGroupName,
+  FormGroupChoice,
+  FormGroupChoiceOptions,
+  FormGroupChoiceOption,
+  Success,
+  SuccessText,
   // ListButton
 } from "./styles";
 import { getUTMs } from "../../helpers/cookieUtmParams";
@@ -43,7 +48,7 @@ const registrySchema = Yup.object().shape({
   PhoneNumber_countrycode: Yup.string().required("Informe seu Whatsapp"),
   // MultiLine: Yup.string().required('Deixe sua mensagem'),
   Dropdown3: Yup.string().oneOf(
-    ["Comprar", "Vender"],
+    ["Comprar", "Vender", "Alugar"],
     "Selecione uma opção válida",
   ),
 });
@@ -53,6 +58,7 @@ const formSuccessPageUrl = `${process.env.NEXT_PUBLIC_FRONT_URL}/forms/imovel/su
 const DROPDOWN3_ITEMS = [
   { value: "Comprar", label: "Comprar" },
   { value: "Vender", label: "Vender" },
+  { value: "Alugar", label: "Alugar" },
 ];
 
 function ContactBar() {
@@ -66,6 +72,7 @@ function ContactBar() {
   const isDynamicBuildingRoute = router.pathname === "/[category]/[slug]";
   const [isBuilding, setIsBuilding] = useState(isDynamicBuildingRoute);
   const [iframeUrl, setIframeUrl] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const {
     values,
@@ -204,6 +211,7 @@ function ContactBar() {
 
   const toggleShow = () => {
     resetForm();
+    setIsSubmitted(false);
     dispatch(
       setMain({
         contactBarActive: !contactBarActive,
@@ -529,6 +537,18 @@ function ContactBar() {
                   </ButtonClose>
                   <h3>Quer comprar ou vender um imóvel?</h3>
                 </Header>
+                {isSubmitted ? (
+                  <Success>
+                    <SuccessText>
+                      <h3>Pronto!</h3>
+                      <p>
+                        Sua mensagem foi enviada com sucesso.
+                        <br />
+                        Responderemos rapidamente.
+                      </p>
+                    </SuccessText>
+                  </Success>
+                ) : (
                 <Column>
                   <p>
                     Deixe seu contato para nosso time entrar em contato com
@@ -540,6 +560,7 @@ function ContactBar() {
                     method="POST"
                     acceptCharset="UTF-8"
                     enctype="multipart/form-data"
+                    target="contact-form-response-frame"
                   >
                     <div className="utm-field" style={{ display: "none" }}>
                       <input type="text" name="utm_source" value="" />
@@ -646,17 +667,27 @@ function ContactBar() {
                             errors.PhoneNumber_countrycode
                           }
                         />
-                        <FormElements
-                          type="select"
-                          name="Dropdown3"
-                          label="Quer comprar ou vender imóvel?"
-                          items={DROPDOWN3_ITEMS}
-                          value={values.Dropdown3}
-                          onChange={handleChange}
-                          error={touched.Dropdown3 && errors.Dropdown3}
-                          className="holos-form-field"
-                          data-label="Funil"
-                        />
+                        <FormGroupChoice>
+                          <span>Quer comprar, vender ou alugar um imóvel?</span>
+                          <FormGroupChoiceOptions>
+                            {DROPDOWN3_ITEMS.map((item) => (
+                              <FormGroupChoiceOption key={item.value}>
+                                <input
+                                  type="radio"
+                                  name="Dropdown3"
+                                  value={item.value}
+                                  checked={values.Dropdown3 === item.value}
+                                  onChange={handleChange}
+                                  data-label="Funil"
+                                />
+                                <span>{item.label}</span>
+                              </FormGroupChoiceOption>
+                            ))}
+                          </FormGroupChoiceOptions>
+                          {touched.Dropdown3 && errors.Dropdown3 && (
+                            <Message>{errors.Dropdown3}</Message>
+                          )}
+                        </FormGroupChoice>
                         <FormElements
                           type="area"
                           name="MultiLine"
@@ -701,14 +732,24 @@ function ContactBar() {
 
                           if (input) input.value = normalized;
 
+                          const whatsappAction =
+                            values.Dropdown3 === "Vender"
+                              ? "vender"
+                              : "comprar";
+                          const whatsappMessage = `Olá, meu nome é ${values.Name_First} ${values.Name_Last}. Quero ${whatsappAction} um imóvel.`;
+                          const whatsappUrl = `https://wa.me/5511932062653?text=${encodeURIComponent(
+                            whatsappMessage,
+                          )} - ${encodeURIComponent(pageUrl)}`;
+                          window.open(whatsappUrl, "_blank");
+
                           refForm.current.submit();
 
                           window.dataLayer.push({
                             event: "form_submit_fixo",
-                            form_name: formName,
+                            form_name: "Form Contato Home",
                           });
 
-                          toggleShow();
+                          setIsSubmitted(true);
                         }
                       }}
                     >
@@ -729,6 +770,12 @@ function ContactBar() {
                     </ButtonQuickCall>
                   </Form>
                 </Column>
+                )}
+                <iframe
+                  name="contact-form-response-frame"
+                  title="contact-form-response"
+                  style={{ display: "none" }}
+                />
               </>
             )}
           </Wrapper>
