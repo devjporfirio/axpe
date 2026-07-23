@@ -252,7 +252,7 @@ export const BuildingLabels = ({ labels }) =>
         {labels && labels.isExclusive && (
           <Tag label={'Exclusividade'} icon="check" color="orange" />
         ) } {labels.isNew && (
-          <Tag label={'Novidade'} icon="star" color="blueLight" />
+          <Tag label={'Acabou de chegar'} icon="star" color="blueLight" />
         ) } {labels.isFurnished && (
           <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
         )}

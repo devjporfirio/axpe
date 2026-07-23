@@ -49,7 +49,7 @@ const LCPPlaceholder = () => {
           <GroupInfo>
             <InfoContent>
               <GroupTags>
-                <Tag label={'Novidade'} icon="star" color="blueLight" />
+                <Tag label={'Acabou de chegar'} icon="star" color="blueLight" />
               </GroupTags>
               <Type>Casa</Type>
             </InfoContent>

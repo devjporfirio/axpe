@@ -204,7 +204,7 @@ export default function Datasheet({ property, showLocationLink }) {
                                 {tagsCount > 0 && (
                                 <GroupTags>
                                     {label?.isNew && (
-                                    <Tag label={'Novidade'} icon="star" color="blueLight" />
+                                    <Tag label={'Acabou de chegar'} icon="star" color="blueLight" />
                                     )}
                                     {label?.isExclusive && (
                                     <Tag label={'Exclusividade'} icon="check" color="orange" />

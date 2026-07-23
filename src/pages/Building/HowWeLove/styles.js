@@ -58,7 +58,7 @@ export const Article = styled.article`
     width: 96%;
     max-width: 974px;
     padding: 16px 20px;
-    margin: 0 auto 12px;
+    margin: 0 auto 24px;
   `}
 
   @media (min-width: 1080px) {
