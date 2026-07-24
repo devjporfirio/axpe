@@ -732,10 +732,10 @@ function ContactBar() {
 
                           if (input) input.value = normalized;
 
-                          const whatsappAction =
-                            values.Dropdown3 === "Vender"
-                              ? "vender"
-                              : "comprar";
+                          const whatsappAction = {
+                            Vender: "vender",
+                            Alugar: "alugar",
+                          }[values.Dropdown3] || "comprar";
                           const whatsappMessage = `Olá, meu nome é ${values.Name_First} ${values.Name_Last}. Quero ${whatsappAction} um imóvel.`;
                           const whatsappUrl = `https://wa.me/5511932062653?text=${encodeURIComponent(
                             whatsappMessage,
