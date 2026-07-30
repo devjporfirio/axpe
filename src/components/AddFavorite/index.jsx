@@ -356,6 +356,7 @@ const AddFavorite = ({ id, shelf = false }) => {
           ...(shelf && {
             position:
               "relative",
+            width: "100%",
             height: "0",
             display:
               "flex",

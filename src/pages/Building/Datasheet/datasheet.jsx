@@ -137,6 +137,7 @@ export default function Datasheet({ property, showLocationLink }) {
     
     const { type, infos, category, address, label, values, vista, title, reference } = data;
     const { searchFunnel } = useSelector(state => state.main);
+    const showOnlyConsults = !values.sell && !values.rent && values.valueOnlyConsults;
     const [ shareActive, setShareActive ] = useState(false);
 
     const toggleShare = useCallback(() => {
@@ -244,11 +245,11 @@ export default function Datasheet({ property, showLocationLink }) {
                     </BlockOne>
 
                     <PriceGroupMobile>
-                        {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                        {showOnlyConsults ? (
                             <Caracteristics.OnlyConsults />
                         ) : null}
 
-                        {!!values.sell && (
+                        {!showOnlyConsults && (
                                 sessionFinality
                                     ? sessionFinality === 'venda'
                                     : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda')
@@ -268,7 +269,7 @@ export default function Datasheet({ property, showLocationLink }) {
                             currency={values.currency}
                         />
 
-                        {!!values.rent && (
+                        {!showOnlyConsults && (
                                 sessionFinality
                                     ? sessionFinality === 'aluguel'
                                     : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel')
@@ -381,11 +382,11 @@ export default function Datasheet({ property, showLocationLink }) {
 
                 <ActionsPriceVideoCard style={{width: 291}}>
                     <PriceGroupDesktop type={type}>
-                        {!values.sell && !values.rent && values.valueOnlyConsults ? (
+                        {showOnlyConsults ? (
                             <Caracteristics.OnlyConsults />
                         ) : null}
 
-                        {!!values.sell && ( (sessionFinality ? sessionFinality === 'venda' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda'))
+                        {!showOnlyConsults && ( (sessionFinality ? sessionFinality === 'venda' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda'))
                             ) ? (
                             <Caracteristics.Sell
                                 valueOnlyConsults={values.valueOnlyConsults}
@@ -402,7 +403,7 @@ export default function Datasheet({ property, showLocationLink }) {
                             currency={values.currency}
                         />
 
-                        {!!values.rent && (
+                        {!showOnlyConsults && (
                             (sessionFinality ? sessionFinality === 'aluguel' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel'))
                             ) ? (
                             <Caracteristics.Rent
