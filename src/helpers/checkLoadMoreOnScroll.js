@@ -1,28 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function useCheckLoadMoreOnScroll() {
   const [ isActive, setIsActive ] = useState(false);
+  const ticking = useRef(false);
 
   function handleScroll() {
-    const elementFooter = document.querySelector('.load-more-button');
-    if (elementFooter) {
-      const elementFooterTop = elementFooter.offsetTop;
-      const tempIsActive =
-        ((window.innerHeight * 2) + window.scrollY) >= elementFooterTop;
+    if (ticking.current) return;
+    ticking.current = true;
 
-      setIsActive(tempIsActive);
-    }
+    requestAnimationFrame(() => {
+      const elementFooter = document.querySelector('.load-more-button');
+      if (elementFooter) {
+        const elementFooterTop = elementFooter.offsetTop;
+        const tempIsActive =
+          ((window.innerHeight * 2) + window.scrollY) >= elementFooterTop;
+
+        setIsActive(tempIsActive);
+      }
+      ticking.current = false;
+    });
   }
 
   useEffect(() => {
-    if (window.addEventListener) {
-      window.addEventListener('scroll', handleScroll, true);
-    } else {
-      window.attachEvent('onscroll', handleScroll);
-    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

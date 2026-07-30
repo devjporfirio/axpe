@@ -13,12 +13,15 @@ export default {
     // AX129334  - Terreno     - pronto
     // AX141776  - Apartamento - pronto
 
-    const result = await fetch(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/building/${reference}`,
-    )
-      .then((response) => response.json())
-      .then((data) => data);
-    return result;
+    );
+
+    if (!response.ok) {
+      throw new Error(`Building fetch failed: ${response.status}`);
+    }
+
+    return response.json();
   },
   async getGeocode({ local, state, country, cep } = {}) {
     const addressQuery = [ local, state, country, cep ].filter(Boolean).join(', ');

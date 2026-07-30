@@ -330,7 +330,10 @@ const AddFavorite = ({ id, shelf = false }) => {
 
   return (
     <>
-      <div
+      <button
+        type="button"
+        aria-label={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        aria-pressed={isFavorite}
         onMouseDown={(e) => {
           if (shelf) {
             e.preventDefault();
@@ -347,6 +350,9 @@ const AddFavorite = ({ id, shelf = false }) => {
         }}
         style={{
           cursor: "pointer",
+          background: "none",
+          border: "none",
+          padding: 0,
           ...(shelf && {
             position:
               "relative",
@@ -361,7 +367,7 @@ const AddFavorite = ({ id, shelf = false }) => {
         }}
       >
         <Icon />
-      </div>
+      </button>
 
       {showEmailModal && (
         <FavoriteEmailModal
@@ -397,6 +403,8 @@ const AddFavorite = ({ id, shelf = false }) => {
             </ToastContent>
 
             <ToastClose
+              type="button"
+              aria-label="Fechar"
               onClick={() =>
                 setShowToast(
                   false
@@ -407,6 +415,7 @@ const AddFavorite = ({ id, shelf = false }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
+                aria-hidden="true"
               >
                 <path
                   d="M4.5 18.8407L18.5 5.15881"

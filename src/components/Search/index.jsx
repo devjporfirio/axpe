@@ -860,8 +860,8 @@ function Search() {
             active={tabActive === 'types'}
             onClick={(event) => event.stopPropagation()}
           >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)} aria-label="Voltar">
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} aria-hidden="true" />
             </FormTabButtonBack>
             <SimpleBar style={{ maxHeight: '100%' }}>
               <FormTabWrapper>
@@ -908,8 +908,8 @@ function Search() {
             active={tabActive === 'filters'}
             onClick={(event) => event.stopPropagation()}
           >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
-              <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)} aria-label="Voltar">
+              <SVG src={ArrowIconSVG} uniquifyIDs={true} aria-hidden="true" />
             </FormTabButtonBack>
             <SimpleBar style={{ maxHeight: '100%' }}>
               <FormTabWrapper>
@@ -1072,7 +1072,7 @@ function Search() {
             active={tabActive === 'locals'}
             onClick={(event) => event.stopPropagation()}
           >
-            <FormTabButtonBack type="button" onClick={() => setTabActive(null)}>
+            <FormTabButtonBack type="button" onClick={() => setTabActive(null)} aria-label="Voltar">
               <SVG src={ArrowIconSVG} uniquifyIDs={true} aria-hidden="true"/>
             </FormTabButtonBack>
             <SimpleBar style={{ maxHeight: '100%' }}>

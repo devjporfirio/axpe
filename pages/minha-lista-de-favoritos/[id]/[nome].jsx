@@ -208,13 +208,6 @@ const MyFavoriteList = ({ initialList, meta }) => {
             )}
           </FavoriteListHeaderTexts>
 
-          {(seoContentTitle || seoContentText) && (
-            <SeoContentBlock>
-              {seoContentTitle && <SeoContentTitle>{seoContentTitle}</SeoContentTitle>}
-              {seoContentText && <SeoContentText>{seoContentText}</SeoContentText>}
-            </SeoContentBlock>
-          )}
-
           {items.length > 0 ? (
             <SimilarBuildings fullWidth className="similar-buildings">
               <SimilarBuildingsList>
@@ -242,6 +235,13 @@ const MyFavoriteList = ({ initialList, meta }) => {
                 />
               </picture>
             </>
+          )}
+
+          {(seoContentTitle || seoContentText) && (
+            <SeoContentBlock>
+              {seoContentTitle && <SeoContentTitle>{seoContentTitle}</SeoContentTitle>}
+              {seoContentText && <SeoContentText>{seoContentText}</SeoContentText>}
+            </SeoContentBlock>
           )}
         </FavoriteListContainer>
       </div>

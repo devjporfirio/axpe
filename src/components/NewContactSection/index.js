@@ -12,7 +12,7 @@ const NewContactSection = () => {
           Nosso site apresenta apenas uma curadoria do nosso catálogo de mais de 8 mil imóveis. Mande uma mensagem e descubra mais possibilidades.
         </p>
         <a 
-           href="https://api.whatsapp.com/send/?phone=5511932062653&text=Ol%C3%A1%21%20Quero%20conhecer%20o%20cat%C3%A1logo%20completo%20da%20Axpe.&type=phone_number&app_absent=0"
+           href="https://api.whatsapp.com/send/?phone=551130743600&text=Ol%C3%A1%21%20Quero%20conhecer%20o%20cat%C3%A1logo%20completo%20da%20Axpe.&type=phone_number&app_absent=0"
            target="_blank"
            className='' 
           >
