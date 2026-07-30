@@ -415,6 +415,8 @@
   }
 
   function formSubmit(event) {
+    if ($form.id !== 'form') return;
+
     event.preventDefault();
 
     var valid = pristine.validate();

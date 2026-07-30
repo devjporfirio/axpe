@@ -59,6 +59,11 @@ function BuildingList({
   const [ gtmObj, setGtmObj ] = useState(null);
   const dispatch = useDispatch();
   const { searchFunnel } = useSelector((state) => state.main);
+  const wantsSell = !searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda';
+  const wantsRent = !searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel';
+  const showSellPrice = wantsSell && (!!values.sell || !!values.release) && !values.valueOnlyConsults;
+  const showRentPrice = wantsRent && !!values.rent && !values.valueOnlyConsults;
+  const showConsultOnly = !showSellPrice && !showRentPrice && (wantsSell || wantsRent);
   const gallerySettings = {
     dots: false,
     infinite: true,
@@ -342,14 +347,7 @@ function BuildingList({
               data-position={positionIndex}
             >
               <div>
-                {!values.sell && !values.rent && values.valueOnlyConsults ? (
-                  <Price>Valores sob consulta</Price>
-                ) : null}
-                {(!!values.sell || !!values.release) &&
-                !values.valueOnlyConsults &&
-                (!searchFunnel ||
-                  !searchFunnel.finality ||
-                  searchFunnel.finality == 'venda') ? (
+                {showSellPrice && (
                   <Price page={page}>
                     {type === 'lancamento' ? 'A partir de: ' : 'Venda: '}
                     {!!values.sell &&
@@ -360,25 +358,20 @@ function BuildingList({
                       formatCurrency
                         .format(parseInt(values.release))
                         .replace('R$', formatCurrencyToText(values.currency))}
-                        </Price>
-                      ) : !!values.sell && values.valueOnlyConsults ? (
-                        <Price page={page}>Valores sob consulta</Price>
-                      ) : null}
-                      {!!values.rent &&
-                      !values.valueOnlyConsults &&
-                      (!searchFunnel ||
-                        !searchFunnel.finality ||
-                        searchFunnel.finality == 'aluguel') ? (
-                        <Price page={page}>
-                          Locação:{' '}
-                          {formatCurrency
-                            .format(parseInt(values.rent))
-                            .replace('R$', formatCurrencyToText(values.currency))}
-                        </Price>
-                      ) : !!values.rent && values.valueOnlyConsults ? (
-                        <Price page={page}>Valores sob consulta</Price>
-                      ) : <Price page={page}></Price>}
-                    </div>
+                  </Price>
+                )}
+                {showRentPrice && (
+                  <Price page={page}>
+                    Locação:{' '}
+                    {formatCurrency
+                      .format(parseInt(values.rent))
+                      .replace('R$', formatCurrencyToText(values.currency))}
+                  </Price>
+                )}
+                {showConsultOnly && (
+                  <Price page={page}>Valores sob consulta</Price>
+                )}
+              </div>
             </LinkTag>
           </Link>
         </ValuesFavGroup>
