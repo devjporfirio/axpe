@@ -4,6 +4,7 @@ import media from 'styled-media-query';
 // components
 import Button from 'components/Button';
 import SlickSection from 'components/SlickSection';
+import { BuildingsLoadMore } from 'pages/Search/styles';
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.greyLight3};
@@ -156,6 +157,61 @@ export const SeeMore = styled(Button)`
   `}
 `;
 
+export const FilterBar = styled.div`
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  ${media.greaterThan('medium')`
+    padding: 0 30px;
+  `}
+`;
+
+export const TopBlock = styled.div`
+  padding: 50px 30px;
+  text-align: center;
+  background-color: ${(props) => props.backgroundColor || '#69B3AF'};
+
+  ${media.greaterThan('medium')`
+    padding: 80px 30px;
+  `}
+`;
+
+export const TopBlockTitle = styled.h1`
+  font-family: 'Bitter';
+  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  font-size: 45px;
+  line-height: 102%;
+  letter-spacing: 0;
+  text-align: center;
+  color: ${(props) => props.titleColor || '#FFFFFF'};
+  margin: 0 auto 15px auto;
+
+  ${media.greaterThan('medium')`
+    font-size: 60px;
+    max-width: 700px;
+  `}
+`;
+
+export const TopBlockDescription = styled.p`
+  font-family: 'Bitter';
+  font-weight: ${({ theme }) => theme.fontsWeight.medium};
+  font-size: 22px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-align: center;
+  color: ${(props) => props.descriptionColor || '#FFFFFF'};
+  max-width: 560px;
+  margin: 0 auto;
+
+  ${media.greaterThan('medium')`
+    font-size: 18px;
+    max-width: 500px;
+  `}
+`;
+
 export const Module = styled.div`
   display: flex;
   flex-direction: column;
@@ -229,6 +285,14 @@ export const Banner = styled.a`
       margin: auto;
       max-width: 1000px;
     }
+  `}
+`;
+
+export const LoadMoreWrapper = styled(BuildingsLoadMore)`
+  margin-bottom: 40px;
+
+  ${media.greaterThan('medium')`
+    margin-bottom: 60px;
   `}
 `;
 

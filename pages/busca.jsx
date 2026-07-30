@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Head from "next/head";
 import SVG from "react-inlinesvg";
@@ -18,6 +18,7 @@ import NewsletterFooter from "components/NewsletterFooter";
 import NewContactSection from "components/NewContactSection";
 import BuildingsPanel from "components/BuildingsPanel";
 import CustomSelect from "components/CustomSelect";
+import OrderFilterDropdown from "components/OrderFilterDropdown";
 import OptimizedBuildingImage from "components/OptimizedImage";
 
 // helpers
@@ -35,9 +36,6 @@ import {
   Container,
   Header,
   HeaderOrder,
-  HeaderOrderButton,
-  HeaderOrderList,
-  HeaderOrderListButton,
   Wrapper,
   ButtonBack,
   Buildings,
@@ -127,9 +125,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     { value: "aluguel", label: "Alugar" },
   ];
 
-  const orderTiming = useRef(false);
   const [loadNewPage, setLoadNewPage] = useState(false);
-  const [orderByComboActive, setOrderByComboActive] = useState(false);
   const [orderBy, setOrderBy] = useState("");
   const [page, setPage] = useState(+query.page || 1);
   const [buildings, setBuildings] = useState(null);
@@ -169,10 +165,6 @@ function Search({ total, totalPages, data, banner, locals }) {
         .join(" | "),
     });
   }, [query]);
-
-  const getOrderBySelected = useCallback(() => {
-    return orderOptions.filter((orderItem) => orderItem.value == orderBy);
-  }, [orderBy]);
 
   const getSourceText = useCallback(() => {
     if (source && source === "sao-paulo") {
@@ -451,14 +443,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                   <p>
                     Mostrando 1-{buildings.length} de {total}
                   </p>
-                  <HeaderOrder
-                    onMouseEnter={() => clearTimeout(orderTiming.current)}
-                    onMouseLeave={() => {
-                      orderTiming.current = setTimeout(() => {
-                        setOrderByComboActive(false);
-                      }, 300);
-                    }}
-                  >
+                  <HeaderOrder>
                     <DisplayOrder>
                       <button
                         onClick={() => setIsOrderListActive(!isOrderListActive)}
@@ -491,12 +476,12 @@ function Search({ total, totalPages, data, banner, locals }) {
                       }}
                     />
 
-                    <CustomSelect
-                      id="orderByMobile"
+                    <OrderFilterDropdown
+                      label="Ordenar por"
                       options={orderOptions}
                       value={orderBy}
-                      searchFilter
                       onChange={(value) => {
+                        setOrderBy(value);
                         handleOrderBy(value);
 
                         const results = orderOptions.filter(
@@ -514,39 +499,6 @@ function Search({ total, totalPages, data, banner, locals }) {
                         }
                       }}
                     />
-
-                    <HeaderOrderButton
-                      type="button"
-                      active={orderByComboActive}
-                      onClick={() => setOrderByComboActive(!orderByComboActive)}
-                    >
-                      <strong>Ordenar por:</strong>
-                      {getOrderBySelected().length ? (
-                        <span>{getOrderBySelected()[0].label}</span>
-                      ) : null}
-                    </HeaderOrderButton>
-                    <HeaderOrderList active={orderByComboActive}>
-                      {orderOptions.map((orderItem, orderItemIndex) => (
-                        <HeaderOrderListButton
-                          type="button"
-                          key={`orderby-listitem-${orderItemIndex}`}
-                          onClick={() => {
-                            setOrderBy(orderItem.value);
-                            handleOrderBy(orderItem.value);
-
-                            GTM.dataLayerPush({
-                              event: "Custom Field Change",
-                              fieldLabel: "Ordernar Por",
-                              fieldForm: "Busca",
-                              fieldValMin: "",
-                              fieldValMax: orderItem.label,
-                            });
-                          }}
-                        >
-                          {orderItem.label}
-                        </HeaderOrderListButton>
-                      ))}
-                    </HeaderOrderList>
                   </HeaderOrder>
                 </Header>
               ) : null}
