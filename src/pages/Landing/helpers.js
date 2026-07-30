@@ -12,8 +12,6 @@ export const finalityOptions = [
   { label: 'Alugar', value: 'aluguel' },
 ];
 
-const GALLERY_PREVIEW_LIMIT = 2;
-
 export const getBuildingPrice = (building) =>
   Number(
     building?.values?.sell || building?.values?.release || building?.values?.rent || 0
@@ -86,5 +84,5 @@ export const trimBuildingForListing = (building) => ({
         internalDescription: building.infos.internalDescription,
       }
     : building.infos,
-  gallery: (building.gallery || []).slice(0, GALLERY_PREVIEW_LIMIT),
+  gallery: building.gallery || [],
 });
