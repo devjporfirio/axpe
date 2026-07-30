@@ -190,7 +190,7 @@ export const FavoriteListContext = styled.p`
 `
 export const SeoContentBlock = styled.div`
   max-width: 720px;
-  padding: 0 0 40px 21px;
+  padding: 16px 0 40px 21px;
 
   ${media.lessThan('large')`
     padding: 0 32px 32px;

@@ -215,31 +215,30 @@ export const ButtonToggle = styled.button`
     width: 100%;
     height: 1px;
     background: ${({ theme }) => theme.colors.green};
-    transition: all 300ms ease;
+    transition: transform 300ms ease, opacity 300ms ease;
+    transform: translateY(0);
 
     &:nth-child(2) {
-      top: 8px;
+      transform: translateY(8px);
     }
 
     &:nth-child(3) {
-      top: 16px;
+      transform: translateY(16px);
     }
 
     ${(props) =>
       props.navToggle &&
       css`
         &:nth-child(1) {
-          top: 8px;
-          transform: rotate(45deg);
+          transform: translateY(8px) rotate(45deg);
         }
 
         &:nth-child(2) {
-          width: 0%;
+          opacity: 0;
         }
 
         &:nth-child(3) {
-          top: 8px;
-          transform: rotate(-45deg);
+          transform: translateY(8px) rotate(-45deg);
         }
       `}
   }

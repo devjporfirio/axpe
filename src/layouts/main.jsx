@@ -63,7 +63,6 @@ const PrivacyPolicy = dynamic(() => import('components/PrivacyPolicy'), {
 
 // styles - otimizados
 import GlobalStyle from './globalStyle';
-import noUiSliderCSS from './vendors/noUiSlider';
 import simplebarCSS from './vendors/simplebar';
 import tailwindCSS from './vendors/tailwind';
 import ThemeStyle from './themeStyle';
@@ -135,12 +134,12 @@ function Main({ children, hideNewContactSection }) {
     <ThemeProvider theme={ThemeStyle}>
       <>
         <GlobalStyle
-          vendorsStyle={[ noUiSliderCSS, simplebarCSS, tailwindCSS ]}
+          vendorsStyle={[ simplebarCSS, tailwindCSS ]}
         />
         <Loading />
         <Header />
         <Search />
-        <Wrapper>
+        <Wrapper as="main">
           {children}
           {!hideNewContactSection && <NewContactSection />}
           <Footer />

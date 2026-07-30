@@ -134,8 +134,8 @@ function Header() {
         <Wrapper>
           <AxpeLogo type="axpe" id='header-logo'>
             <Link href="/" passHref>
-              <LogoLink onClick={cancelToggle}>
-                <SVG src={AxpeFullLogoSVG} uniquifyIDs />
+              <LogoLink onClick={cancelToggle} aria-label="Axpe - página inicial">
+                <SVG src={AxpeFullLogoSVG} uniquifyIDs aria-hidden="true" />
               </LogoLink>
             </Link>
           </AxpeLogo>
@@ -145,7 +145,12 @@ function Header() {
             <img src={SearchIconSVG} alt='Ícone de lupa'/>
           </ButtonSearch>
 
-          <ButtonToggle onClick={handleToggle} navToggle={navToggle}>
+          <ButtonToggle
+            onClick={handleToggle}
+            navToggle={navToggle}
+            aria-label={navToggle ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={navToggle}
+          >
             <i></i><i></i><i></i>
           </ButtonToggle>
 
@@ -209,12 +214,12 @@ function Header() {
               </NavSecondary>
 
               <Socials>
-                <SocialButton href="https://api.whatsapp.com/send/?phone=5511932062653" target="_blank">
-                  <SVG src={WhatsappIconSVG} uniquifyIDs />
+                <SocialButton href="https://api.whatsapp.com/send/?phone=5511932062653" target="_blank" aria-label="Axpe no WhatsApp">
+                  <SVG src={WhatsappIconSVG} uniquifyIDs aria-hidden="true" />
                 </SocialButton>
 
-                <SocialButton href="https://instagram.com/axpe_imoveis" target="_blank">
-                  <SVG src={InstagramIconSVG} uniquifyIDs />
+                <SocialButton href="https://instagram.com/axpe_imoveis" target="_blank" aria-label="Axpe no Instagram">
+                  <SVG src={InstagramIconSVG} uniquifyIDs aria-hidden="true" />
                 </SocialButton>
               </Socials>
 

@@ -321,7 +321,21 @@ export async function getServerSideProps({ params }) {
 
   const slugParts = slug ? slug.split("-") : [];
   const reference = slugParts[slugParts.length - 1];
-  const response = await Api.Building.getPage(reference);
+
+  let response;
+  try {
+    response = await Api.Building.getPage(reference);
+  } catch (error) {
+    // Erro/instabilidade na API: redireciona para uma busca padrão em vez
+    // de derrubar a página com 500 ou tratar como imóvel inexistente.
+    return {
+      redirect: {
+        destination:
+          "/busca?source=sao-paulo&finality=venda&use=RESIDENCIAL&ready_release=pronto",
+        permanent: false,
+      },
+    };
+  }
 
   if (!response || !response.building) {
     // Imóvel removido/vendido: a API devolve as últimas características

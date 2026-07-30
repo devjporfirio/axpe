@@ -129,6 +129,65 @@ export const FormGroupName = styled.div`
   }
 `;
 
+export const FormGroupChoice = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 8px;
+
+  > span {
+    display: block;
+    margin-bottom: 8px;
+    font: 14px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    color: ${({ theme }) => theme.colors.green};
+  }
+`;
+
+export const FormGroupChoiceOptions = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const FormGroupChoiceOption = styled.label`
+  position: relative;
+  display: block;
+  cursor: pointer;
+  width: 120px;
+  margin-bottom: 0 !important;
+  min-height: 0 !important;
+
+  input[type='radio'] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 16px;
+    border: 1.6px solid ${({ theme }) => theme.colors.green};
+    border-radius: 4px;
+    font: 13px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.semiBold};
+    color: ${({ theme }) => theme.colors.green};
+    transition: all 200ms ease;
+  }
+
+  input[type='radio']:checked + span {
+    background: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
 export const FormGroupLang = styled(FormGroupBasics)`
   ${media.greaterThan('medium')`
     label {
@@ -290,6 +349,12 @@ export const Wrapper = styled.div`
   position: relative;
   width: 100%;
 
+  ${media.lessThan('medium')`
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  `}
+
   ${media.greaterThan('medium')`
     ${({ isHome, theme }) =>
       isHome
@@ -304,7 +369,7 @@ export const Wrapper = styled.div`
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
             height: auto;
-            max-height: 630px;
+            max-height: 660px;
             overflow-y: auto;
           `
         : css`
@@ -413,6 +478,32 @@ export const Column = styled.div`
     ${media.greaterThan('large')`
       margin-bottom: 16px;
     `}
+  }
+`;
+
+export const Success = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 300px;
+  padding: 40px 30px;
+  background: ${({ theme }) => theme.colors.green};
+`;
+
+export const SuccessText = styled.div`
+  width: 100%;
+  color: ${({ theme }) => theme.colors.white};
+
+  h3 {
+    margin-bottom: 24px;
+    font: 26px/32px 'Bitter';
+    font-weight: ${({ theme }) => theme.fontsWeight.regular};
+  }
+
+  p {
+    font: 16px/22px 'Raleway';
+    font-weight: ${({ theme }) => theme.fontsWeight.medium};
   }
 `;
 
