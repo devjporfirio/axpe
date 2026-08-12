@@ -268,7 +268,7 @@ function ContactBar() {
 
     const areaUseful =
       building?.infos?.areaTotal ?? building?.infos?.areaUsefulStart ?? null;
-    // console.log(building, '-----')
+    console.log(building, '-----')
     const paramsObj = {
       type: building.type,
       reference: building.reference,

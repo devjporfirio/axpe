@@ -11,9 +11,13 @@ const withPWA = require('next-pwa')({
   buildExcludes: [/middleware-manifest\.json$/],
 });
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+let withBundleAnalyzer = (config) => config;
+
+if (process.env.ANALYZE === 'true') {
+  withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: true,
+  });
+}
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 

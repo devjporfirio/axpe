@@ -138,6 +138,11 @@ export default function Datasheet({ property, showLocationLink }) {
     const { type, infos, category, address, label, values, vista, title, reference } = data;
     const { searchFunnel } = useSelector(state => state.main);
     const showOnlyConsults = !values.sell && !values.rent && values.valueOnlyConsults;
+    const hasSellPrice = !!values.sell && Number(values.sell) > 0;
+    const hasRentPrice = !!values.rent && Number(values.rent) > 0;
+
+    const showSell = hasSellPrice;
+    const showRent = !hasSellPrice && hasRentPrice;
     const [ shareActive, setShareActive ] = useState(false);
 
     const toggleShare = useCallback(() => {
@@ -248,12 +253,9 @@ export default function Datasheet({ property, showLocationLink }) {
                         {showOnlyConsults ? (
                             <Caracteristics.OnlyConsults />
                         ) : null}
+                        
 
-                        {!showOnlyConsults && (
-                                sessionFinality
-                                    ? sessionFinality === 'venda'
-                                    : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda')
-                            ) ? (
+                        {!showOnlyConsults && showSell ? (
                             <Caracteristics.Sell
                                 valueOnlyConsults={values.valueOnlyConsults}
                                 sell={values.sell}
@@ -269,11 +271,7 @@ export default function Datasheet({ property, showLocationLink }) {
                             currency={values.currency}
                         />
 
-                        {!showOnlyConsults && (
-                                sessionFinality
-                                    ? sessionFinality === 'aluguel'
-                                    : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel')
-                            ) ? (
+                        {!showOnlyConsults && showRent ? (
                             <Caracteristics.Rent
                                 valueOnlyConsults={values.valueOnlyConsults}
                                 rent={values.rent}
@@ -386,8 +384,7 @@ export default function Datasheet({ property, showLocationLink }) {
                             <Caracteristics.OnlyConsults />
                         ) : null}
 
-                        {!showOnlyConsults && ( (sessionFinality ? sessionFinality === 'venda' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'venda'))
-                            ) ? (
+                        {!showOnlyConsults && showSell ? (
                             <Caracteristics.Sell
                                 valueOnlyConsults={values.valueOnlyConsults}
                                 sell={values.sell}
@@ -403,9 +400,7 @@ export default function Datasheet({ property, showLocationLink }) {
                             currency={values.currency}
                         />
 
-                        {!showOnlyConsults && (
-                            (sessionFinality ? sessionFinality === 'aluguel' : (!searchFunnel || !searchFunnel.finality || searchFunnel.finality === 'aluguel'))
-                            ) ? (
+                        {!showOnlyConsults && showRent ? (
                             <Caracteristics.Rent
                                 valueOnlyConsults={values.valueOnlyConsults}
                                 rent={values.rent}

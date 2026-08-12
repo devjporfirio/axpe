@@ -103,7 +103,9 @@ export default {
 
     const result = await fetch(url + getParamsFromObject(params))
       .then((response) => response.json())
-      .then((data) => data);
+      .then((data) => (
+        console.log("dt:",data)
+      ));
     return result;
   },
   async getFavoritesShare(hash) {
