@@ -1,15 +1,11 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Head from "next/head";
 import SVG from "react-inlinesvg";
 import Api from "services";
 import Router, { useRouter } from "next/router";
 import GTM from "helpers/gtm";
-
-// store
 import { setMain } from "store/modules/main/actions";
-
-// components
 import Button from "components/Button";
 import Headerbar from "components/Headerbar";
 import BlockHighlighted from "components/BlockHighlighted";
@@ -18,26 +14,18 @@ import NewsletterFooter from "components/NewsletterFooter";
 import NewContactSection from "components/NewContactSection";
 import BuildingsPanel from "components/BuildingsPanel";
 import CustomSelect from "components/CustomSelect";
+import OrderFilterDropdown from "components/OrderFilterDropdown";
 import OptimizedBuildingImage from "components/OptimizedImage";
-
-// helpers
 import { getParamsFromObject } from "helpers/utils";
-
-// assets
 import ArrowIconSVG from "assets/icons/arrow.svg";
 import IOrderBlockOn from "assets/icons/order-block-active.svg";
 import IOrderRowOn from "assets/icons/order-row-active.svg";
 import IOrderBlockOff from "assets/icons/order-block-off.svg";
 import IOrderRowOff from "assets/icons/order-row-off.svg";
-
-// styles
 import {
   Container,
   Header,
   HeaderOrder,
-  HeaderOrderButton,
-  HeaderOrderList,
-  HeaderOrderListButton,
   Wrapper,
   ButtonBack,
   Buildings,
@@ -52,45 +40,49 @@ import {
 function Search({ total, totalPages, data, banner, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const {
-    query,
-    query: { source, finality, reference, order },
+    query = {},
+    query: {
+      source,
+      finality,
+      reference,
+      order: queryOrder,
+    } = {},
   } = router;
 
   const SESSION_STORAGE_KEY = "scrollPositionBusca";
-
-  useEffect(() => {
-    const scrollPosition = sessionStorage.getItem(SESSION_STORAGE_KEY);
-
-    if (scrollPosition) {
-      window.scrollTo(0, parseInt(scrollPosition, 10));
-      sessionStorage.removeItem(SESSION_STORAGE_KEY);
-    }
-
-    const handleRouteChangeStart = () => {
-      sessionStorage.setItem(SESSION_STORAGE_KEY, window.scrollY.toString());
-    };
-
-    router.events.on("routeChangeStart", handleRouteChangeStart);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChangeStart);
-    };
-  }, [router.events]);
+  const ITEMS_PER_PAGE = 10;
+  const DEFAULT_ORDER = "";
 
   const { searchFormActive } = useSelector((state) => state.main);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.axpe.com.br";
+
+  const normalizedOrder = Array.isArray(queryOrder)
+    ? queryOrder[0]
+    : queryOrder;
+
+  const currentOrder =
+    normalizedOrder && typeof normalizedOrder === "string"
+      ? normalizedOrder
+      : DEFAULT_ORDER;
 
   const canonicalPath = (() => {
     const url = new URLSearchParams(query);
-
     const canonicalParams = new URLSearchParams();
+
     for (const [key, value] of url.entries()) {
-      if (key !== "page") canonicalParams.append(key, value);
+      if (key !== "page") {
+        canonicalParams.append(key, value);
+      }
     }
 
     return `${baseUrl}/busca${
-      canonicalParams.toString() ? "?" + canonicalParams.toString() : ""
+      canonicalParams.toString()
+        ? "?" + canonicalParams.toString()
+        : ""
     }`;
   })();
 
@@ -127,16 +119,40 @@ function Search({ total, totalPages, data, banner, locals }) {
     { value: "aluguel", label: "Alugar" },
   ];
 
-  const orderTiming = useRef(false);
   const [loadNewPage, setLoadNewPage] = useState(false);
-  const [orderByComboActive, setOrderByComboActive] = useState(false);
-  const [orderBy, setOrderBy] = useState("");
-  const [page, setPage] = useState(+query.page || 1);
+  const [orderBy, setOrderBy] = useState(currentOrder);
+  const [page, setPage] = useState(Number(query.page) || 1);
   const [buildings, setBuildings] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState(null);
   const [isOrderListActive, setIsOrderListActive] = useState(true);
+
+  useEffect(() => {
+    const scrollPosition = sessionStorage.getItem(SESSION_STORAGE_KEY);
+
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition, 10));
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    }
+
+    const handleRouteChangeStart = () => {
+      sessionStorage.setItem(
+        SESSION_STORAGE_KEY,
+        window.scrollY.toString()
+      );
+    };
+
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+    };
+  }, [router.events]);
+
+  useEffect(() => {
+    setOrderBy(currentOrder);
+  }, [currentOrder]);
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
@@ -147,21 +163,30 @@ function Search({ total, totalPages, data, banner, locals }) {
 
           if (key === "ready_release") {
             if (query[key] === "pronto") {
-              return `Pronto para morar`;
-            } else {
-              return `Lançamento`;
+              return "Pronto para morar";
             }
-          } else if (key === "source") {
+
+            return "Lançamento";
+          }
+
+          if (key === "source") {
             if (value === "sao-paulo") {
               value = "São Paulo";
-            } else {
+            } else if (value) {
               value = value[0].toUpperCase() + value.slice(1);
             }
-          } else if (key === "order") {
-            const results = orderOptions.filter((item) => item.value === value);
-            if (results) {
-              value = results[0].label;
-            }
+          }
+
+          if (key === "order") {
+            const normalizedValue = Array.isArray(value)
+              ? value[0]
+              : value;
+
+            const result = orderOptions.find(
+              (item) => item.value === normalizedValue
+            );
+
+            value = result ? result.label : DEFAULT_ORDER;
           }
 
           return `${keysToHumanNames[key]}: ${value}`;
@@ -170,14 +195,11 @@ function Search({ total, totalPages, data, banner, locals }) {
     });
   }, [query]);
 
-  const getOrderBySelected = useCallback(() => {
-    return orderOptions.filter((orderItem) => orderItem.value == orderBy);
-  }, [orderBy]);
-
   const getSourceText = useCallback(() => {
-    if (source && source === "sao-paulo") {
+    if (source === "sao-paulo") {
       return "São Paulo";
     }
+
     return source;
   }, [source]);
 
@@ -193,72 +215,99 @@ function Search({ total, totalPages, data, banner, locals }) {
   }, [finality]);
 
   const toggleSearch = useCallback(() => {
-    dispatch(setMain({ searchFormActive: !searchFormActive }));
-  }, [searchFormActive]);
+    dispatch(
+      setMain({
+        searchFormActive: !searchFormActive,
+      })
+    );
+  }, [dispatch, searchFormActive]);
 
   const handleOrderBy = useCallback(
     (newOrder) => {
+      const validOrder = orderOptions.some(
+        (item) => item.value === newOrder
+      )
+        ? newOrder
+        : DEFAULT_ORDER;
+
+      if (currentOrder === validOrder) {
+        return;
+      }
+
+      setIsLoading(true);
+      setPage(1);
+      setOrderBy(validOrder);
+
       const params = getParamsFromObject({
         ...query,
-        order: newOrder,
+        order: validOrder,
+        page: 1,
+        limit: ITEMS_PER_PAGE,
       });
 
-      if (query.order !== newOrder) {
-        setOrderBy(newOrder);
-        Router.push(`/busca${params}`);
+      Router.push(`/busca${params}`);
+    },
+    [query, currentOrder]
+  );
+
+  const setNewData = useCallback((newData, first = false) => {
+    setBuildings((currentBuildings) => {
+      if (!newData || !newData.length) {
+        return first ? [] : currentBuildings || [];
       }
-    },
-    [query],
-  );
 
-  const setNewData = useCallback(
-    (newData, first) => {
-      const newBuildings =
-        buildings && buildings.length && !first
-          ? [...buildings, ...newData]
-          : [...newData];
+      if (
+        first ||
+        !currentBuildings ||
+        !currentBuildings.length
+      ) {
+        return [...newData];
+      }
 
-      setBuildings(newBuildings);
-      setIsLoading(false);
-    },
-    [buildings],
-  );
+      return [...currentBuildings, ...newData];
+    });
+
+    setIsLoading(false);
+  }, []);
 
   const loadMore = useCallback(() => {
-    setIsLoading(true);
-    const newPage = page + 1;
-    const params = getParamsFromObject({ ...query, page: newPage });
+    if (isLoading || page >= totalPages) {
+      return;
+    }
 
-    router.push(`/busca${params}`, undefined, { shallow: true });
+    const newPage = page + 1;
+
+    setIsLoading(true);
     setPage(newPage);
     setLoadNewPage(true);
-  }, [page, router]);
+
+    const params = getParamsFromObject({
+      ...query,
+      page: newPage,
+      limit: ITEMS_PER_PAGE,
+      order: currentOrder,
+    });
+
+    router.push(`/busca${params}`, undefined, {
+      shallow: true,
+    });
+  }, [
+    isLoading,
+    page,
+    totalPages,
+    query,
+    router,
+    currentOrder,
+  ]);
 
   const getBuildingsSuggestions = useCallback(async () => {
     const results = [];
 
-    const getBuildingsSuggestion = async (title, newQuery) => {
-      const params = getParamsFromObject({
-        ...newQuery,
-        page: 1,
-      });
-      const response = await Api.Search.getBuildings(params);
-
-      if (response.data && response.data.length) {
-        results.push({
-          title: title.replace(
-            "{{showTotal}}",
-            getTotalFormated(response.total),
-          ),
-          items: response.data,
-        });
-      }
-    };
-
     const getTotalFormated = (total) => {
       total = total > 10 ? 10 : total;
 
-      const text = total > 1 ? `opções` : `opção`;
+      const text = total > 1 ? "opções" : "opção";
+
       let result = `${total} ${text}`;
 
       if (total < 10) {
@@ -268,8 +317,38 @@ function Search({ total, totalPages, data, banner, locals }) {
       return result;
     };
 
-    if (query.price_start && query.price_end && !reference) {
-      const priceEnd = +query.price_end;
+    const getBuildingsSuggestion = async (title, newQuery) => {
+      const suggestionOrder =
+        Array.isArray(newQuery.order)
+          ? newQuery.order[0]
+          : newQuery.order;
+
+      const params = getParamsFromObject({
+        ...newQuery,
+        page: 1,
+        limit: ITEMS_PER_PAGE,
+        order: suggestionOrder || DEFAULT_ORDER,
+      });
+
+      const response = await Api.Search.getBuildings(params);
+
+      if (response.data && response.data.length) {
+        results.push({
+          title: title.replace(
+            "{{showTotal}}",
+            getTotalFormated(response.total)
+          ),
+          items: response.data,
+        });
+      }
+    };
+
+    if (
+      query.price_start &&
+      query.price_end &&
+      !reference
+    ) {
+      const priceEnd = Number(query.price_end);
       const percent = (priceEnd * 20) / 100;
       const newPriceStart = priceEnd + 1;
       const newPriceEnd = priceEnd + percent;
@@ -280,13 +359,17 @@ function Search({ total, totalPages, data, banner, locals }) {
           ...query,
           price_start: newPriceStart,
           price_end: newPriceEnd,
-        },
+        }
       );
     }
 
-    if (query.source && query.local && locals && !reference) {
+    if (
+      query.source &&
+      query.local &&
+      locals &&
+      !reference
+    ) {
       const localsArr = query.local.split(",");
-
       let localsSelected = [];
 
       Object.keys(locals).forEach((local) => {
@@ -296,26 +379,25 @@ function Search({ total, totalPages, data, banner, locals }) {
             item.related &&
             item.related.length
           ) {
-            localsSelected = [...localsSelected, ...item.related];
+            localsSelected = [
+              ...localsSelected,
+              ...item.related,
+            ];
           }
         });
       });
 
-      // Avoids duplicating the main query
-      localsSelected.forEach((local, idx) => {
-        if (localsArr.includes(local)) {
-          delete localsSelected[idx];
-        }
-      });
+      localsSelected = localsSelected.filter(
+        (local) => !localsArr.includes(local)
+      );
 
       if (localsSelected.length) {
-        const query2 = {
-          ...query,
-          local: localsSelected.join(","),
-        };
         await getBuildingsSuggestion(
           `Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, mas em localizações próximas, tudo bem?`,
-          query2,
+          {
+            ...query,
+            local: localsSelected.join(","),
+          }
         );
       }
     }
@@ -334,6 +416,7 @@ function Search({ total, totalPages, data, banner, locals }) {
         query.ready_release === "pronto"
           ? "mas não estão prontos. Pode esperar?"
           : "mas pronto para morar";
+
       const query2 =
         query.ready_release === "pronto"
           ? {
@@ -344,17 +427,25 @@ function Search({ total, totalPages, data, banner, locals }) {
               ...query,
               ready_release: "pronto",
             };
+
       await getBuildingsSuggestion(
         `Encontramos mais <strong>{{showTotal}}</strong> do jeito que você quer, ${finalText}`,
-        query2,
+        query2
       );
     }
 
     setSuggestions(results);
-  }, [total, reference]);
+  }, [query, locals, reference]);
 
   const handleFinalityChange = (newFinality) => {
-    const newQuery = { ...router.query, finality: newFinality };
+    const newQuery = {
+      ...router.query,
+      finality: newFinality,
+      page: 1,
+      limit: ITEMS_PER_PAGE,
+      order: currentOrder,
+    };
+
     router.push({
       pathname: router.pathname,
       query: newQuery,
@@ -363,11 +454,14 @@ function Search({ total, totalPages, data, banner, locals }) {
 
   useEffect(() => {
     setDataInitialGTM();
-  }, [query]);
+  }, [setDataInitialGTM]);
 
   useEffect(() => {
     if (query.finality) {
-      sessionStorage.setItem("search_finality", query.finality);
+      sessionStorage.setItem(
+        "search_finality",
+        query.finality
+      );
     }
 
     dispatch(
@@ -375,69 +469,105 @@ function Search({ total, totalPages, data, banner, locals }) {
         searchFunnel: {
           finality: query.finality,
         },
-      }),
+      })
     );
-  }, [query.finality]);
+  }, [dispatch, query.finality]);
 
   useEffect(() => {
-    setNewData(data, true);
-    setPage(+query.page || 1);
-    getBuildingsSuggestions();
+    if (!loadNewPage) {
+      setNewData(data, true);
+      setPage(Number(query.page) || 1);
+      getBuildingsSuggestions();
 
-    if (!dataLoaded) {
-      setDataLoaded(true);
+      if (!dataLoaded) {
+        setDataLoaded(true);
+      }
     }
-  }, [total, order, reference]);
+  }, [
+    data,
+    total,
+    currentOrder,
+    reference,
+    loadNewPage,
+    dataLoaded,
+    getBuildingsSuggestions,
+    query.page,
+    setNewData,
+  ]);
 
   useEffect(() => {
     const getDataByPage = async () => {
-      const params = getParamsFromObject({
-        ...query,
-        page,
-      });
-      const response = await Api.Search.getBuildings(params);
+      try {
+        const params = getParamsFromObject({
+          ...query,
+          page,
+          limit: ITEMS_PER_PAGE,
+          order: currentOrder,
+        });
 
-      setNewData(response.data);
-      setLoadNewPage(false);
+        const response = await Api.Search.getBuildings(params);
+
+        setNewData(response.data, false);
+      } catch (error) {
+        setIsLoading(false);
+      } finally {
+        setLoadNewPage(false);
+      }
     };
 
     if (loadNewPage) {
       getDataByPage();
     }
-  }, [loadNewPage]);
-
-  // Load more on scroll disabled
-  // useEffect(() => {
-  //   if (total && page < totalPages && checkLoadMoreOnScroll && !isLoading) {
-  //     setIsLoading(true);
-  //     loadMore();
-  //   }
-  // }, [ checkLoadMoreOnScroll ]);
+  }, [
+    loadNewPage,
+    page,
+    query,
+    currentOrder,
+    setNewData,
+  ]);
 
   return (
     <>
       <Head>
-        <title>{`Busca ${
-          source ? source : reference
-        } - Os Melhores imoveis para você!`}</title>
+        <title>
+          {`Busca ${
+            source ? source : reference
+          } - Os Melhores imoveis para você!`}
+        </title>
+
         <meta
           name="description"
           content={`Confira os melhores imoveis ${
-            source ? "em" + source : ""
+            source ? "em " + source : ""
           } e encontre o apartamento ideal!`}
         />
-        <meta name="robots" content="noindex,follow" />
-        <link rel="canonical" href={canonicalPath} />
+
+        <meta
+          name="robots"
+          content="noindex,follow"
+        />
+
+        <link
+          rel="canonical"
+          href={canonicalPath}
+        />
       </Head>
+
       <Container id="filtro-container-busca">
         {dataLoaded ? (
           <>
             {total ? (
               <Headerbar
                 type="search"
-                title={source && !reference && getSourceText()}
+                title={
+                  source && !reference
+                    ? getSourceText()
+                    : undefined
+                }
                 subtitle={
-                  finality && !reference && `Imóveis para ${getFinalityText()}`
+                  finality &&
+                  !reference &&
+                  `Imóveis para ${getFinalityText()}`
                 }
               />
             ) : null}
@@ -446,36 +576,49 @@ function Search({ total, totalPages, data, banner, locals }) {
               {total ? (
                 <Header>
                   <h3>
-                    Encontramos <strong>{total} imóveis</strong> para sua busca
+                    Encontramos{" "}
+                    <strong>{total} imóveis</strong>{" "}
+                    para sua busca
                   </h3>
+
                   <p>
-                    Mostrando 1-{buildings.length} de {total}
+                    Mostrando 1-
+                    {buildings?.length || 0} de {total}
                   </p>
-                  <HeaderOrder
-                    onMouseEnter={() => clearTimeout(orderTiming.current)}
-                    onMouseLeave={() => {
-                      orderTiming.current = setTimeout(() => {
-                        setOrderByComboActive(false);
-                      }, 300);
-                    }}
-                  >
+
+                  <HeaderOrder>
                     <DisplayOrder>
                       <button
-                        onClick={() => setIsOrderListActive(!isOrderListActive)}
+                        onClick={() =>
+                          setIsOrderListActive(
+                            !isOrderListActive
+                          )
+                        }
                       >
                         <img
                           src={
-                            isOrderListActive ? IOrderBlockOff : IOrderBlockOn
+                            isOrderListActive
+                              ? IOrderBlockOff
+                              : IOrderBlockOn
                           }
                           alt="Botão de ordenar bloco"
                           loading="lazy"
                         />
                       </button>
+
                       <button
-                        onClick={() => setIsOrderListActive(!isOrderListActive)}
+                        onClick={() =>
+                          setIsOrderListActive(
+                            !isOrderListActive
+                          )
+                        }
                       >
                         <img
-                          src={isOrderListActive ? IOrderRowOn : IOrderRowOff}
+                          src={
+                            isOrderListActive
+                              ? IOrderRowOn
+                              : IOrderRowOff
+                          }
                           alt="Botão de ordenar lista"
                           loading="lazy"
                         />
@@ -486,177 +629,212 @@ function Search({ total, totalPages, data, banner, locals }) {
                       id="finalitySelect"
                       options={finalityOptions}
                       value={finality}
-                      onChange={(newValue) => {
-                        handleFinalityChange(newValue);
-                      }}
+                      onChange={handleFinalityChange}
                     />
 
-                    <CustomSelect
-                      id="orderByMobile"
+                    <OrderFilterDropdown
+                      label="Ordenar por"
                       options={orderOptions}
-                      value={orderBy}
-                      searchFilter
+                      value={orderBy || DEFAULT_ORDER}
                       onChange={(value) => {
-                        handleOrderBy(value);
+                        if (!value) {
+                          return;
+                        }
 
-                        const results = orderOptions.filter(
-                          (item) => item.value === value,
-                        );
+                        const validOrder =
+                          orderOptions.find(
+                            (item) =>
+                              item.value === value
+                          )?.value;
 
-                        if (results.length) {
+                        if (!validOrder) {
+                          return;
+                        }
+
+                        setOrderBy(validOrder);
+                        handleOrderBy(validOrder);
+
+                        const result =
+                          orderOptions.find(
+                            (item) =>
+                              item.value ===
+                              validOrder
+                          );
+
+                        if (result) {
                           GTM.dataLayerPush({
-                            event: "Custom Field Change",
-                            fieldLabel: "Ordernar Por",
+                            event:
+                              "Custom Field Change",
+                            fieldLabel:
+                              "Ordernar Por",
                             fieldForm: "Busca",
                             fieldValMin: "",
-                            fieldValMax: results[0].label,
+                            fieldValMax:
+                              result.label,
                           });
                         }
                       }}
                     />
-
-                    <HeaderOrderButton
-                      type="button"
-                      active={orderByComboActive}
-                      onClick={() => setOrderByComboActive(!orderByComboActive)}
-                    >
-                      <strong>Ordenar por:</strong>
-                      {getOrderBySelected().length ? (
-                        <span>{getOrderBySelected()[0].label}</span>
-                      ) : null}
-                    </HeaderOrderButton>
-                    <HeaderOrderList active={orderByComboActive}>
-                      {orderOptions.map((orderItem, orderItemIndex) => (
-                        <HeaderOrderListButton
-                          type="button"
-                          key={`orderby-listitem-${orderItemIndex}`}
-                          onClick={() => {
-                            setOrderBy(orderItem.value);
-                            handleOrderBy(orderItem.value);
-
-                            GTM.dataLayerPush({
-                              event: "Custom Field Change",
-                              fieldLabel: "Ordernar Por",
-                              fieldForm: "Busca",
-                              fieldValMin: "",
-                              fieldValMax: orderItem.label,
-                            });
-                          }}
-                        >
-                          {orderItem.label}
-                        </HeaderOrderListButton>
-                      ))}
-                    </HeaderOrderList>
                   </HeaderOrder>
                 </Header>
               ) : null}
 
               {total ? (
-                <ButtonBack type="button" onClick={toggleSearch}>
-                  <SVG src={ArrowIconSVG} uniquifyIDs={true} />
+                <ButtonBack
+                  type="button"
+                  onClick={toggleSearch}
+                >
+                  <SVG
+                    src={ArrowIconSVG}
+                    uniquifyIDs={true}
+                  />
                 </ButtonBack>
               ) : null}
 
               <Buildings>
                 {total ? (
-                  buildings.map((building, buildingIndex) => (
-                    <React.Fragment
-                      key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                    >
-                      {isOrderListActive ? (
-                        <BuildingList
-                          item={building}
-                          page="search"
-                          positionIndex={buildingIndex + 1}
-                          key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                        />
-                      ) : (
-                        <BuildingList
-                          layout="horizontal"
-                          item={building}
-                          positionIndex={buildingIndex + 1}
-                          key={`building-searchitem-${building.reference}-${buildingIndex}`}
-                        />
-                      )}
-                      {banner && buildingIndex == 2 && total >= 5 && (
-                        <SearchBanner
-                          key={`building-searchbanner-${building.reference}-${buildingIndex}`}
-                        >
-                          {banner.title && (
-                            <Infos>
-                              <h4>{banner.title}</h4>
-                              {banner.button_link && banner.button_label && (
-                                <div>
-                                  <a
-                                    href={banner.button_link}
-                                    target={banner.button_target}
-                                  >
-                                    {banner.button_label}
-                                  </a>
-                                </div>
-                              )}
-                            </Infos>
-                          )}
-                          {!banner.title && banner.button_link ? (
-                            <a
-                              href={banner.button_link}
-                              target={banner.button_target}
+                  buildings?.map(
+                    (building, buildingIndex) => (
+                      <React.Fragment
+                        key={`building-searchitem-${building.reference}-${buildingIndex}`}
+                      >
+                        {isOrderListActive ? (
+                          <BuildingList
+                            item={building}
+                            page="search"
+                            positionIndex={
+                              buildingIndex + 1
+                            }
+                          />
+                        ) : (
+                          <BuildingList
+                            layout="horizontal"
+                            item={building}
+                            positionIndex={
+                              buildingIndex + 1
+                            }
+                          />
+                        )}
+
+                        {banner &&
+                          buildingIndex === 2 &&
+                          total >= 5 && (
+                            <SearchBanner
+                              key={`building-searchbanner-${building.reference}-${buildingIndex}`}
                             >
-                              <ImageContainer hideOverlay={true}>
-                                {banner.imageDesktop && (
-                                  <OptimizedBuildingImage
-                                    src={banner.imageDesktop}
-                                    alt="Banner desktop"
-                                    layout="fill"
-                                    sizes="(max-width: 768px) 100vw, 100vw"
-                                    className="banner-image desktop"
-                                  />
-                                )}
-                                {banner.imageMobile && (
-                                  <OptimizedBuildingImage
-                                    src={banner.imageMobile}
-                                    alt="Banner mobile"
-                                    layout="fill"
-                                    sizes="(max-width: 768px) 100vw, 100vw"
-                                    className="banner-image mobile"
-                                  />
-                                )}
-                              </ImageContainer>
-                            </a>
-                          ) : (
-                            <ImageContainer hideOverlay={!banner.title}>
-                              {banner.imageDesktop && (
-                                <OptimizedBuildingImage
-                                  src={banner.imageDesktop}
-                                  alt="Banner desktop"
-                                  layout="fill"
-                                  sizes="(max-width: 768px) 100vw, 100vw"
-                                  className="banner-image desktop"
-                                />
+                              {banner.title && (
+                                <Infos>
+                                  <h4>
+                                    {banner.title}
+                                  </h4>
+
+                                  {banner.button_link &&
+                                    banner.button_label && (
+                                      <div>
+                                        <a
+                                          href={
+                                            banner.button_link
+                                          }
+                                          target={
+                                            banner.button_target
+                                          }
+                                        >
+                                          {
+                                            banner.button_label
+                                          }
+                                        </a>
+                                      </div>
+                                    )}
+                                </Infos>
                               )}
-                              {banner.imageMobile && (
-                                <OptimizedBuildingImage
-                                  src={banner.imageMobile}
-                                  alt="Banner mobile"
-                                  layout="fill"
-                                  sizes="(max-width: 768px) 100vw, 100vw"
-                                  className="banner-image mobile"
-                                />
+
+                              {!banner.title &&
+                              banner.button_link ? (
+                                <a
+                                  href={
+                                    banner.button_link
+                                  }
+                                  target={
+                                    banner.button_target
+                                  }
+                                >
+                                  <ImageContainer
+                                    hideOverlay={true}
+                                  >
+                                    {banner.imageDesktop && (
+                                      <OptimizedBuildingImage
+                                        src={
+                                          banner.imageDesktop
+                                        }
+                                        alt="Banner desktop"
+                                        layout="fill"
+                                        sizes="(max-width: 768px) 100vw, 100vw"
+                                        className="banner-image desktop"
+                                      />
+                                    )}
+
+                                    {banner.imageMobile && (
+                                      <OptimizedBuildingImage
+                                        src={
+                                          banner.imageMobile
+                                        }
+                                        alt="Banner mobile"
+                                        layout="fill"
+                                        sizes="(max-width: 768px) 100vw, 100vw"
+                                        className="banner-image mobile"
+                                      />
+                                    )}
+                                  </ImageContainer>
+                                </a>
+                              ) : (
+                                <ImageContainer
+                                  hideOverlay={
+                                    !banner.title
+                                  }
+                                >
+                                  {banner.imageDesktop && (
+                                    <OptimizedBuildingImage
+                                      src={
+                                        banner.imageDesktop
+                                      }
+                                      alt="Banner desktop"
+                                      layout="fill"
+                                      sizes="(max-width: 768px) 100vw, 100vw"
+                                      className="banner-image desktop"
+                                    />
+                                  )}
+
+                                  {banner.imageMobile && (
+                                    <OptimizedBuildingImage
+                                      src={
+                                        banner.imageMobile
+                                      }
+                                      alt="Banner mobile"
+                                      layout="fill"
+                                      sizes="(max-width: 768px) 100vw, 100vw"
+                                      className="banner-image mobile"
+                                    />
+                                  )}
+                                </ImageContainer>
                               )}
-                            </ImageContainer>
+                            </SearchBanner>
                           )}
-                        </SearchBanner>
-                      )}
-                    </React.Fragment>
-                  ))
+                      </React.Fragment>
+                    )
+                  )
                 ) : (
                   <BuildingsNotFound key="building-searchnotfound">
                     <h6>
-                      Não encontramos o imóvel que você procura <span>:(</span>
+                      Não encontramos o imóvel que você procura{" "}
+                      <span>:(</span>
                     </h6>
+
                     <p>
                       Tente fazer uma{" "}
-                      <button type="button" onClick={toggleSearch}>
+                      <button
+                        type="button"
+                        onClick={toggleSearch}
+                      >
                         nova busca!
                       </button>
                     </p>
@@ -668,36 +846,51 @@ function Search({ total, totalPages, data, banner, locals }) {
                     {banner.title && (
                       <Infos>
                         <h4>{banner.title}</h4>
-                        {banner.button_link && banner.button_label && (
-                          <div>
-                            <a
-                              href={banner.button_link}
-                              target={banner.button_target}
-                            >
-                              {banner.button_label}
-                            </a>
-                          </div>
-                        )}
+
+                        {banner.button_link &&
+                          banner.button_label && (
+                            <div>
+                              <a
+                                href={
+                                  banner.button_link
+                                }
+                                target={
+                                  banner.button_target
+                                }
+                              >
+                                {banner.button_label}
+                              </a>
+                            </div>
+                          )}
                       </Infos>
                     )}
-                    {!banner.title && banner.button_link ? (
+
+                    {!banner.title &&
+                    banner.button_link ? (
                       <a
                         href={banner.button_link}
                         target={banner.button_target}
                       >
-                        <ImageContainer hideOverlay={true}>
+                        <ImageContainer
+                          hideOverlay={true}
+                        >
                           {banner.imageDesktop && (
                             <OptimizedBuildingImage
-                              src={banner.imageDesktop}
+                              src={
+                                banner.imageDesktop
+                              }
                               alt="Banner desktop"
                               layout="fill"
                               sizes="(max-width: 768px) 100vw, 100vw"
                               className="banner-image desktop"
                             />
                           )}
+
                           {banner.imageMobile && (
                             <OptimizedBuildingImage
-                              src={banner.imageMobile}
+                              src={
+                                banner.imageMobile
+                              }
                               alt="Banner mobile"
                               layout="fill"
                               sizes="(max-width: 768px) 100vw, 100vw"
@@ -707,7 +900,9 @@ function Search({ total, totalPages, data, banner, locals }) {
                         </ImageContainer>
                       </a>
                     ) : (
-                      <ImageContainer hideOverlay={!banner.title}>
+                      <ImageContainer
+                        hideOverlay={!banner.title}
+                      >
                         {banner.imageDesktop && (
                           <OptimizedBuildingImage
                             src={banner.imageDesktop}
@@ -717,6 +912,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                             className="banner-image desktop"
                           />
                         )}
+
                         {banner.imageMobile && (
                           <OptimizedBuildingImage
                             src={banner.imageMobile}
@@ -740,7 +936,9 @@ function Search({ total, totalPages, data, banner, locals }) {
                       data-showcase="Busca"
                       onClick={loadMore}
                     >
-                      {isLoading ? "Carregando..." : "Ver mais"}
+                      {isLoading
+                        ? "Carregando..."
+                        : "Ver mais"}
                     </Button>
                   </BuildingsLoadMore>
                 ) : null}
@@ -762,7 +960,10 @@ function Search({ total, totalPages, data, banner, locals }) {
 
             <NewContactSection />
             <NewsletterFooter />
-            <BlockHighlighted type="contactHome" query={query} />
+            <BlockHighlighted
+              type="contactHome"
+              query={query}
+            />
           </>
         ) : null}
       </Container>
@@ -770,14 +971,24 @@ function Search({ total, totalPages, data, banner, locals }) {
   );
 }
 
-Search.getInitialProps = async ({ query }) => {
+Search.getInitialProps = async ({ query = {} }) => {
+  const queryOrder = Array.isArray(query.order)
+    ? query.order[0]
+    : query.order;
+
+  const order =
+    queryOrder && typeof queryOrder === "string"
+      ? queryOrder
+      : "";
+
   const params = getParamsFromObject(
     {
       ...query,
       page: 1,
-      limit: query.page ? +query.page * 10 : 10,
+      limit: 10,
+      order,
     },
-    true,
+    true
   );
 
   const locals = await Api.Search.getLocals();
