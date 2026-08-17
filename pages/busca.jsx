@@ -74,7 +74,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     const canonicalParams = new URLSearchParams();
 
     for (const [key, value] of url.entries()) {
-      if (key !== "page") {
+      if (key !== "page" && key !== "limit") {
         canonicalParams.append(key, value);
       }
     }
@@ -119,7 +119,6 @@ function Search({ total, totalPages, data, banner, locals }) {
     { value: "aluguel", label: "Alugar" },
   ];
 
-  const [loadNewPage, setLoadNewPage] = useState(false);
   const [orderBy, setOrderBy] = useState(currentOrder);
   const [page, setPage] = useState(Number(query.page) || 1);
   const [buildings, setBuildings] = useState(null);
@@ -153,6 +152,10 @@ function Search({ total, totalPages, data, banner, locals }) {
   useEffect(() => {
     setOrderBy(currentOrder);
   }, [currentOrder]);
+
+  useEffect(() => {
+    setPage(Number(query.page) || 1);
+  }, [query.page]);
 
   const setDataInitialGTM = useCallback(() => {
     GTM.dataLayerPush({
@@ -237,12 +240,11 @@ function Search({ total, totalPages, data, banner, locals }) {
       setIsLoading(true);
       setPage(1);
       setOrderBy(validOrder);
+      setBuildings(null);
 
       const params = getParamsFromObject({
         ...query,
-        order: validOrder,
-        page: 1,
-        limit: ITEMS_PER_PAGE,
+        order: validOrder
       });
 
       Router.push(`/busca${params}`);
@@ -270,33 +272,64 @@ function Search({ total, totalPages, data, banner, locals }) {
     setIsLoading(false);
   }, []);
 
-  const loadMore = useCallback(() => {
-    if (isLoading || page >= totalPages) {
+  const loadMore = useCallback(async () => {
+    if (isLoading) {
       return;
     }
 
-    const newPage = page + 1;
+    if (page >= totalPages) {
+      return;
+    }
+
+    if (buildings?.length >= total) {
+      return;
+    }
+
+    const nextPage = page + 1;
 
     setIsLoading(true);
-    setPage(newPage);
-    setLoadNewPage(true);
 
-    const params = getParamsFromObject({
-      ...query,
-      page: newPage,
-      limit: ITEMS_PER_PAGE,
-      order: currentOrder,
-    });
+    try {
+      const params = getParamsFromObject({
+        ...query,
+        page: nextPage,
+        limit: ITEMS_PER_PAGE,
+        order: currentOrder,
+      });
 
-    router.push(`/busca${params}`, undefined, {
-      shallow: true,
-    });
+      const response = await Api.Search.getBuildings(params);
+
+      if (response?.data?.length) {
+        setBuildings((currentBuildings) => {
+          const currentItems = currentBuildings || [];
+
+          const existingReferences = new Set(
+            currentItems.map((item) => item.reference)
+          );
+
+          const newItems = response.data.filter(
+            (item) => !existingReferences.has(item.reference)
+          );
+
+          return [...currentItems, ...newItems];
+        });
+
+        setPage(nextPage);
+      } else {
+        setPage(nextPage);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar mais imóveis:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [
     isLoading,
     page,
     totalPages,
+    buildings,
+    total,
     query,
-    router,
     currentOrder,
   ]);
 
@@ -318,10 +351,9 @@ function Search({ total, totalPages, data, banner, locals }) {
     };
 
     const getBuildingsSuggestion = async (title, newQuery) => {
-      const suggestionOrder =
-        Array.isArray(newQuery.order)
-          ? newQuery.order[0]
-          : newQuery.order;
+      const suggestionOrder = Array.isArray(newQuery.order)
+        ? newQuery.order[0]
+        : newQuery.order;
 
       const params = getParamsFromObject({
         ...newQuery,
@@ -446,6 +478,9 @@ function Search({ total, totalPages, data, banner, locals }) {
       order: currentOrder,
     };
 
+    setPage(1);
+    setBuildings(null);
+
     router.push({
       pathname: router.pathname,
       query: newQuery,
@@ -474,56 +509,19 @@ function Search({ total, totalPages, data, banner, locals }) {
   }, [dispatch, query.finality]);
 
   useEffect(() => {
-    if (!loadNewPage) {
-      setNewData(data, true);
-      setPage(Number(query.page) || 1);
-      getBuildingsSuggestions();
+    setNewData(data, true);
+    setPage(Number(query.page) || 1);
+    getBuildingsSuggestions();
 
-      if (!dataLoaded) {
-        setDataLoaded(true);
-      }
+    if (!dataLoaded) {
+      setDataLoaded(true);
     }
   }, [
     data,
-    total,
-    currentOrder,
-    reference,
-    loadNewPage,
-    dataLoaded,
-    getBuildingsSuggestions,
     query.page,
+    getBuildingsSuggestions,
     setNewData,
-  ]);
-
-  useEffect(() => {
-    const getDataByPage = async () => {
-      try {
-        const params = getParamsFromObject({
-          ...query,
-          page,
-          limit: ITEMS_PER_PAGE,
-          order: currentOrder,
-        });
-
-        const response = await Api.Search.getBuildings(params);
-
-        setNewData(response.data, false);
-      } catch (error) {
-        setIsLoading(false);
-      } finally {
-        setLoadNewPage(false);
-      }
-    };
-
-    if (loadNewPage) {
-      getDataByPage();
-    }
-  }, [
-    loadNewPage,
-    page,
-    query,
-    currentOrder,
-    setNewData,
+    dataLoaded,
   ]);
 
   return (
@@ -657,8 +655,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         const result =
                           orderOptions.find(
                             (item) =>
-                              item.value ===
-                              validOrder
+                              item.value === validOrder
                           );
 
                         if (result) {
@@ -876,9 +873,7 @@ function Search({ total, totalPages, data, banner, locals }) {
                         >
                           {banner.imageDesktop && (
                             <OptimizedBuildingImage
-                              src={
-                                banner.imageDesktop
-                              }
+                              src={banner.imageDesktop}
                               alt="Banner desktop"
                               layout="fill"
                               sizes="(max-width: 768px) 100vw, 100vw"
@@ -888,9 +883,7 @@ function Search({ total, totalPages, data, banner, locals }) {
 
                           {banner.imageMobile && (
                             <OptimizedBuildingImage
-                              src={
-                                banner.imageMobile
-                              }
+                              src={banner.imageMobile}
                               alt="Banner mobile"
                               layout="fill"
                               sizes="(max-width: 768px) 100vw, 100vw"
@@ -959,7 +952,9 @@ function Search({ total, totalPages, data, banner, locals }) {
               ))}
 
             <NewContactSection />
+
             <NewsletterFooter />
+
             <BlockHighlighted
               type="contactHome"
               query={query}
@@ -981,10 +976,12 @@ Search.getInitialProps = async ({ query = {} }) => {
       ? queryOrder
       : "";
 
+  const initialPage = Number(query.page) || 1;
+
   const params = getParamsFromObject(
     {
       ...query,
-      page: 1,
+      page: initialPage,
       limit: 10,
       order,
     },

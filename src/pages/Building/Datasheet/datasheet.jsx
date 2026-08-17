@@ -104,11 +104,12 @@ const mockProperty = {
 export default function Datasheet({ property, showLocationLink }) {
     const dispatch = useDispatch();
     const router = useRouter();
-    
-    const [ sessionFinality, setSessionFinality ] = useState(null);
+
+    const [sessionFinality, setSessionFinality] = useState(null);
 
     useEffect(() => {
         const savedFinality = sessionStorage.getItem('search_finality');
+
         if (savedFinality) {
             setSessionFinality(savedFinality);
         }
@@ -118,75 +119,110 @@ export default function Datasheet({ property, showLocationLink }) {
         if (typeof window === 'undefined') {
             return true;
         }
-        
+
         if (window.isLighthouse) {
             return true;
         }
-        
+
         try {
             const lighthouseSimulation = localStorage.getItem('lighthouse-simulation');
+
             if (lighthouseSimulation === 'true') {
                 return true;
             }
         } catch (e) {}
-        
+
         return false;
     })();
 
     const data = isLighthouse ? mockProperty : property;
-    
-    const { type, infos, category, address, label, values, vista, title, reference } = data;
+
+    const {
+        type,
+        infos,
+        category,
+        address,
+        label,
+        values,
+        vista,
+        title,
+        reference
+    } = data;
+
     const { searchFunnel } = useSelector(state => state.main);
-    const showOnlyConsults = !values.sell && !values.rent && values.valueOnlyConsults;
-    const hasSellPrice = !!values.sell && Number(values.sell) > 0;
-    const hasRentPrice = !!values.rent && Number(values.rent) > 0;
+
+    const showOnlyConsults =
+        !values.sell &&
+        !values.rent &&
+        values.valueOnlyConsults;
+
+    const hasSellPrice =
+        !!values.sell &&
+        Number(values.sell) > 0;
+
+    const hasRentPrice =
+        !!values.rent &&
+        Number(values.rent) > 0;
+
+    console.log('values: ', values);
 
     const showSell = hasSellPrice;
-    const showRent = !hasSellPrice && hasRentPrice;
-    const [ shareActive, setShareActive ] = useState(false);
+    const showRent = hasRentPrice;
+
+    const [shareActive, setShareActive] = useState(false);
 
     const toggleShare = useCallback(() => {
         setShareActive(!shareActive);
-      }, [ shareActive ]);
-    
+    }, [shareActive]);
+
     const shareOnClose = useCallback(() => {
-      setShareActive(!shareActive);
-    }, [ shareActive ]);
-    
-    const hasTitle = infos.titleSite || infos.internalDescription;
+        setShareActive(!shareActive);
+    }, [shareActive]);
+
+    const hasTitle =
+        infos.titleSite ||
+        infos.internalDescription;
 
     const local =
-    address.local === 'Sumaré' ? 'Sumarezinho' : address.local
+        address.local === 'Sumaré'
+            ? 'Sumarezinho'
+            : address.local;
 
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${local}, ${address.state}, ${address.country}`
-    )}`
+        `${local}, ${address.state}, ${address.country}`
+    )}`;
 
     const toggleModalMoreInfo = () => {
-      dispatch(
-        setMain({
-          contactBarActive: true,
-          contactBarForced: true,
-        })
-      );
+        dispatch(
+            setMain({
+                contactBarActive: true,
+                contactBarForced: true,
+            })
+        );
     };
 
     const totalValidVistaFields = [
         ...Object.entries(vista.Caracteristicas || {}),
         ...Object.entries(vista.InfraEstrutura || {})
-      ].reduce((count, [ _, value ]) => {
-        if (value === 'Sim' || (!isNaN(value) && Number(value) > 0)) {
-          return count + 1;
+    ].reduce((count, [_, value]) => {
+        if (
+            value === 'Sim' ||
+            (!isNaN(value) && Number(value) > 0)
+        ) {
+            return count + 1;
         }
+
         return count;
-      }, 0);
-      
-    const hasAtLeastThreeVistaInfos = totalValidVistaFields >= 3;
+    }, 0);
+
+    const hasAtLeastThreeVistaInfos =
+        totalValidVistaFields >= 3;
+
     const tagsCount = [
         label?.isNew,
         label?.isExclusive,
         label?.isFurnished
-      ].filter(Boolean).length;
+    ].filter(Boolean).length;
 
     return (
         <>
@@ -194,32 +230,58 @@ export default function Datasheet({ property, showLocationLink }) {
                 <DatasheetContent>
                     <BlockOne type={property.type}>
                         <NeighborhoodContainer>
-                            <Neighborhood>{address.local ?? address.state}<Ref> Ref {reference}</Ref></Neighborhood>
-                            <AddFavorite id={data?.id}/>
+                            <Neighborhood>
+                                {address.local ?? address.state}
+                                <Ref>
+                                    Ref {reference}
+                                </Ref>
+                            </Neighborhood>
+
+                            <AddFavorite id={data?.id} />
                         </NeighborhoodContainer>
-                        <BuildingTitle>{title}</BuildingTitle>
+
+                        <BuildingTitle>
+                            {title}
+                        </BuildingTitle>
 
                         {type === 'lancamento' && (
-                            <CategoryRelease>{category}</CategoryRelease>
+                            <CategoryRelease>
+                                {category}
+                            </CategoryRelease>
                         )}
-                        
+
                         {type !== 'lancamento' && <hr />}
 
                         <GroupInfo>
                             <InfoContent tagsCount={tagsCount}>
                                 {tagsCount > 0 && (
-                                <GroupTags>
-                                    {label?.isNew && (
-                                    <Tag label={'Acabou de chegar'} icon="star" color="blueLight" />
-                                    )}
-                                    {label?.isExclusive && (
-                                    <Tag label={'Exclusividade'} icon="check" color="orange" />
-                                    )}
-                                    {label?.isFurnished && (
-                                    <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-                                    )}
-                                </GroupTags>
+                                    <GroupTags>
+                                        {label?.isNew && (
+                                            <Tag
+                                                label={'Acabou de chegar'}
+                                                icon="star"
+                                                color="blueLight"
+                                            />
+                                        )}
+
+                                        {label?.isExclusive && (
+                                            <Tag
+                                                label={'Exclusividade'}
+                                                icon="check"
+                                                color="orange"
+                                            />
+                                        )}
+
+                                        {label?.isFurnished && (
+                                            <Tag
+                                                label={'Mobiliado'}
+                                                icon="sofa"
+                                                color="greenLight"
+                                            />
+                                        )}
+                                    </GroupTags>
                                 )}
+
                                 <Type>
                                     {type === 'lancamento'
                                         ? infos.releaseStatus === 'Pronto'
@@ -228,22 +290,37 @@ export default function Datasheet({ property, showLocationLink }) {
                                         : category}
                                 </Type>
                             </InfoContent>
+
                             <Location>
                                 {showLocationLink && (
-                                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                                        <img src={ILocation} alt="ícone de localização" />
-                                        <p>Ver localização</p>
+                                    <a
+                                        href={googleMapsUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={ILocation}
+                                            alt="ícone de localização"
+                                        />
+                                        <p>
+                                            Ver localização
+                                        </p>
                                     </a>
                                 )}
+
                                 <ButtonIcon
                                     type="button"
                                     onClick={toggleShare}
                                     className="btn-share holos-search-header-button"
                                     data-showcase="Busca"
                                     data-label="Share"
-                                    aria-label='Compartilhar'
+                                    aria-label="Compartilhar"
                                 >
-                                    <SVG src={ShareIconSVG} uniquifyIDs={true} aria-hidden="true"/>
+                                    <SVG
+                                        src={ShareIconSVG}
+                                        uniquifyIDs={true}
+                                        aria-hidden="true"
+                                    />
                                 </ButtonIcon>
                             </Location>
                         </GroupInfo>
@@ -253,7 +330,6 @@ export default function Datasheet({ property, showLocationLink }) {
                         {showOnlyConsults ? (
                             <Caracteristics.OnlyConsults />
                         ) : null}
-                        
 
                         {!showOnlyConsults && showSell ? (
                             <Caracteristics.Sell
@@ -289,30 +365,46 @@ export default function Datasheet({ property, showLocationLink }) {
                             currency={values.currency}
                         />
 
-                        {/* <ButtonVisit onClick={openVisitModal}>Agendar visita</ButtonVisit> */}
-                        <ButtonMoreInfo onClick={toggleModalMoreInfo} id='pdp-more-info-button'>Fale com um corretor</ButtonMoreInfo>
+                        <ButtonMoreInfo
+                            onClick={toggleModalMoreInfo}
+                            id="pdp-more-info-button"
+                        >
+                            Fale com um corretor
+                        </ButtonMoreInfo>
                     </PriceGroupMobile>
+
                     <VideoCardMobile>
-                        <VideoCard reference={reference}/>
+                        <VideoCard reference={reference} />
                     </VideoCardMobile>
 
                     <BlockThree type={property.type}>
+                        {(
+                            (category && category.search('Casa') < 0) ||
+                            infos.areaUseful !== ''
+                        ) &&
+                            infos.use !== 'COMERCIAL' && (
+                                <Caracteristics.AreaUseFulBetween
+                                    start={infos.areaUsefulStart}
+                                    end={infos.areaUsefulEnd}
+                                />
+                            )}
 
-                        {((category && category.search('Casa') < 0) || infos.areaUseful !== '') && infos.use !== 'COMERCIAL' && (
-                            <Caracteristics.AreaUseFulBetween
-                                start={infos.areaUsefulStart}
-                                end={infos.areaUsefulEnd}
-                            />
-                        )}
+                        <Caracteristics.AreaUseFul
+                            areaUseful={infos.areaUseful}
+                        />
 
-                        <Caracteristics.AreaUseFul areaUseful={infos.areaUseful} />
-
-                        {category && category.search('Casa') < 0 && infos.use !== 'COMERCIAL' && (
-                            <Caracteristics.AreaBuilding areaBuilding={infos.areaBuilding} />
-                        )}
+                        {category &&
+                            category.search('Casa') < 0 &&
+                            infos.use !== 'COMERCIAL' && (
+                                <Caracteristics.AreaBuilding
+                                    areaBuilding={infos.areaBuilding}
+                                />
+                            )}
 
                         {infos.use !== 'COMERCIAL' && (
-                            <Caracteristics.AreaGround areaGround={infos.areaGround} />
+                            <Caracteristics.AreaGround
+                                areaGround={infos.areaGround}
+                            />
                         )}
 
                         <Caracteristics.Bedrooms
@@ -330,11 +422,17 @@ export default function Datasheet({ property, showLocationLink }) {
 
                         <Caracteristics.Parking
                             parking={
-                                infos.parking && Number(infos.parking) > 0
-                                ? infos.parking
-                                : vista?.Caracteristicas?.['Vagas'] && Number(vista.Caracteristicas['Vagas']) > 0
-                                ? Number(vista.Caracteristicas['Vagas'])
-                                : 0
+                                infos.parking &&
+                                Number(infos.parking) > 0
+                                    ? infos.parking
+                                    : vista?.Caracteristicas?.['Vagas'] &&
+                                      Number(
+                                          vista.Caracteristicas['Vagas']
+                                      ) > 0
+                                    ? Number(
+                                          vista.Caracteristicas['Vagas']
+                                      )
+                                    : 0
                             }
                         />
 
@@ -342,43 +440,45 @@ export default function Datasheet({ property, showLocationLink }) {
                             start={infos.parkingStart}
                             end={infos.parkingEnd}
                         />
-
-
-                        {/* {category && (category === 'Casa' || category === 'Casa de vila') &&
-                            infos.use !== 'COMERCIAL' &&
-                            source !== 'praia' &&
-                            source !== 'campo' && (
-                                <Caracteristics.AreaTotal areaTotal={infos.areaTotal} />
-                            )} */}
                     </BlockThree>
-
-                    {/* {hasTitle && (
-                        <BlockTwo>
-                            <Content>{infos.internalDescription}</Content>
-                        </BlockTwo>
-                    )} */}
 
                     {hasAtLeastThreeVistaInfos && (
                         <BlockTwo>
                             <CharacteristicsGrid>
                                 {[
-                                    ...Object.entries(vista.Caracteristicas || {}),
-                                    ...Object.entries(vista.InfraEstrutura || {})
+                                    ...Object.entries(
+                                        vista.Caracteristicas || {}
+                                    ),
+                                    ...Object.entries(
+                                        vista.InfraEstrutura || {}
+                                    )
                                 ]
-                                    .filter(([ _, value ]) => value === 'Sim' || (!isNaN(value) && Number(value) > 0))
-                                    .map(([ label ]) => (
+                                    .filter(
+                                        ([_, value]) =>
+                                            value === 'Sim' ||
+                                            (!isNaN(value) &&
+                                                Number(value) > 0)
+                                    )
+                                    .map(([label]) => (
                                         <CharacteristicItem key={label}>
-                                            <img src={ICheck} alt="ícone de Check" />
-                                            <p>{label.replace(' Qtd', '')}</p>
+                                            <img
+                                                src={ICheck}
+                                                alt="ícone de Check"
+                                            />
+                                            <p>
+                                                {label.replace(
+                                                    ' Qtd',
+                                                    ''
+                                                )}
+                                            </p>
                                         </CharacteristicItem>
                                     ))}
                             </CharacteristicsGrid>
                         </BlockTwo>
                     )}
-                
                 </DatasheetContent>
 
-                <ActionsPriceVideoCard style={{width: 291}}>
+                <ActionsPriceVideoCard style={{ width: 291 }}>
                     <PriceGroupDesktop type={type}>
                         {showOnlyConsults ? (
                             <Caracteristics.OnlyConsults />
@@ -386,7 +486,9 @@ export default function Datasheet({ property, showLocationLink }) {
 
                         {!showOnlyConsults && showSell ? (
                             <Caracteristics.Sell
-                                valueOnlyConsults={values.valueOnlyConsults}
+                                valueOnlyConsults={
+                                    values.valueOnlyConsults
+                                }
                                 sell={values.sell}
                                 iptu={values.iptu}
                                 condo={values.condo}
@@ -402,7 +504,9 @@ export default function Datasheet({ property, showLocationLink }) {
 
                         {!showOnlyConsults && showRent ? (
                             <Caracteristics.Rent
-                                valueOnlyConsults={values.valueOnlyConsults}
+                                valueOnlyConsults={
+                                    values.valueOnlyConsults
+                                }
                                 rent={values.rent}
                                 iptu={values.iptu}
                                 condo={values.condo}
@@ -411,18 +515,25 @@ export default function Datasheet({ property, showLocationLink }) {
                         ) : null}
 
                         <Caracteristics.Expenses
-                            valueOnlyConsults={values.valueOnlyConsults}
+                            valueOnlyConsults={
+                                values.valueOnlyConsults
+                            }
                             rent={values.rent}
                             iptu={values.iptu}
                             condo={values.condo}
                             currency={values.currency}
                         />
 
-                        <ButtonMoreInfo onClick={toggleModalMoreInfo}>Fale com um corretor</ButtonMoreInfo>
+                        <ButtonMoreInfo
+                            onClick={toggleModalMoreInfo}
+                        >
+                            Fale com um corretor
+                        </ButtonMoreInfo>
                     </PriceGroupDesktop>
 
-                    <VideoCard reference={reference}/>
+                    <VideoCard reference={reference} />
                 </ActionsPriceVideoCard>
+
                 <Share
                     active={shareActive}
                     path={router.asPath}
