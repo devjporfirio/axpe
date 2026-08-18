@@ -37,6 +37,29 @@ import {
   DisplayOrder,
 } from "pages/Search/styles";
 
+const DEFAULT_ORDER = "latest";
+
+const MAX_LOAD_MORE_RETRIES = 3;
+const LOAD_MORE_BASE_DELAY_MS = 1000;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchBuildingsWithRetry(params, attempt = 0) {
+  try {
+    return await Api.Search.getBuildings(params);
+  } catch (error) {
+    if (error.status !== 429 || attempt >= MAX_LOAD_MORE_RETRIES) {
+      throw error;
+    }
+
+    const delayMs = error.retryAfter
+      ? error.retryAfter * 1000
+      : LOAD_MORE_BASE_DELAY_MS * 2 ** attempt;
+
+    await sleep(delayMs);
+    return fetchBuildingsWithRetry(params, attempt + 1);
+  }
+}
+
 function Search({ total, totalPages, data, banner, locals }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -53,7 +76,6 @@ function Search({ total, totalPages, data, banner, locals }) {
 
   const SESSION_STORAGE_KEY = "scrollPositionBusca";
   const ITEMS_PER_PAGE = 10;
-  const DEFAULT_ORDER = "";
 
   const { searchFormActive } = useSelector((state) => state.main);
 
@@ -126,6 +148,7 @@ function Search({ total, totalPages, data, banner, locals }) {
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState(null);
   const [isOrderListActive, setIsOrderListActive] = useState(true);
+  const [loadMoreError, setLoadMoreError] = useState(null);
 
   useEffect(() => {
     const scrollPosition = sessionStorage.getItem(SESSION_STORAGE_KEY);
@@ -241,9 +264,11 @@ function Search({ total, totalPages, data, banner, locals }) {
       setPage(1);
       setOrderBy(validOrder);
       setBuildings(null);
+      setLoadMoreError(null);
 
       const params = getParamsFromObject({
         ...query,
+        page: 1,
         order: validOrder
       });
 
@@ -288,6 +313,7 @@ function Search({ total, totalPages, data, banner, locals }) {
     const nextPage = page + 1;
 
     setIsLoading(true);
+    setLoadMoreError(null);
 
     try {
       const params = getParamsFromObject({
@@ -297,7 +323,7 @@ function Search({ total, totalPages, data, banner, locals }) {
         order: currentOrder,
       });
 
-      const response = await Api.Search.getBuildings(params);
+      const response = await fetchBuildingsWithRetry(params);
 
       if (response?.data?.length) {
         setBuildings((currentBuildings) => {
@@ -320,6 +346,11 @@ function Search({ total, totalPages, data, banner, locals }) {
       }
     } catch (error) {
       console.error("Erro ao carregar mais imóveis:", error);
+      setLoadMoreError(
+        error.status === 429
+          ? "Muitas solicitações no momento. Aguarde alguns segundos e tente novamente."
+          : "Não foi possível carregar mais imóveis. Tente novamente."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -480,6 +511,7 @@ function Search({ total, totalPages, data, banner, locals }) {
 
     setPage(1);
     setBuildings(null);
+    setLoadMoreError(null);
 
     router.push({
       pathname: router.pathname,
@@ -921,7 +953,9 @@ function Search({ total, totalPages, data, banner, locals }) {
                 )}
 
                 {total && page < totalPages ? (
-                  <BuildingsLoadMore>
+                  <BuildingsLoadMore
+                    style={{ flexDirection: "column", gap: "10px" }}
+                  >
                     <Button
                       type="button"
                       disabled={isLoading}
@@ -933,6 +967,12 @@ function Search({ total, totalPages, data, banner, locals }) {
                         ? "Carregando..."
                         : "Ver mais"}
                     </Button>
+
+                    {loadMoreError && (
+                      <p role="alert" style={{ textAlign: "center" }}>
+                        {loadMoreError}
+                      </p>
+                    )}
                   </BuildingsLoadMore>
                 ) : null}
               </Buildings>
@@ -974,7 +1014,7 @@ Search.getInitialProps = async ({ query = {} }) => {
   const order =
     queryOrder && typeof queryOrder === "string"
       ? queryOrder
-      : "";
+      : DEFAULT_ORDER;
 
   const initialPage = Number(query.page) || 1;
 

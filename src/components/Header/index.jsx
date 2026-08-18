@@ -174,7 +174,7 @@ function Header() {
                   >
                     <NavMainButton onClick={cancelToggle}>
                       <SVG src={HomeIconSVG} uniquifyIDs />
-                      <NavMainButtonText>Vender imóvel</NavMainButtonText>
+                      <NavMainButtonText>Anunciar seu imóvel</NavMainButtonText>
                     </NavMainButton>
                   </Link>
                 </li>
