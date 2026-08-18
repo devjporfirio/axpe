@@ -439,7 +439,7 @@ export const NavMainButtonText = styled.span`
   font-weight: ${({ theme }) => theme.fontsWeight.medium};
   color: ${({ theme }) => theme.colors.green};
   transition: all 300ms ease;
-
+  margin-right: 10px;
   ${media.greaterThan('large')`
     font-size: 14px;
     line-height: 20px;

@@ -101,11 +101,9 @@ export default {
     };
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/buildings/find`;
 
-    const result = await fetch(url + getParamsFromObject(params))
-      .then((response) => response.json())
-      .then((data) => (
-        console.log("dt:",data)
-      ));
+    const result = await fetch(url + getParamsFromObject(params)).then(
+      (response) => response.json(),
+    );
     return result;
   },
   async getFavoritesShare(hash) {
