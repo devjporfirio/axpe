@@ -236,6 +236,7 @@ function BuildingList({
 
     items = items.slice(0, 5);
 
+    console.log("items: ",items);
     return items;
   }, []);
 

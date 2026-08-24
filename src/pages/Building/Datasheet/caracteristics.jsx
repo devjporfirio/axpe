@@ -1,17 +1,20 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import {
   formatCurrency,
   formatCurrencyToText,
   checkPluralSingular,
 } from 'helpers/utils';
+
 import {
   Price,
   InfoValue,
   PriceRelease,
   BuildingLabel,
   GroupTagsSearchPage,
-  PriceExpenses
+  PriceExpenses,
 } from './styles';
+
 import Tag from 'components/Tag';
 
 export const Release = ({ release, type, currency }) =>
@@ -34,7 +37,13 @@ export const OnlyConsults = () => (
   </Price>
 );
 
-export const Rent = ({ valueOnlyConsults, rent, iptu, condo, currency }) =>
+export const Rent = ({
+  valueOnlyConsults,
+  rent,
+  iptu,
+  condo,
+  currency,
+}) =>
   rent && !valueOnlyConsults ? (
     <Price>
       <div>
@@ -77,57 +86,55 @@ export const Sell = ({
     </Price>
   );
 
-  export const Expenses = ({ iptu, condo, currency }) => {
-    return (
-      <PriceExpenses>
-        <p>Despesas Mensais</p>
-          {condo ? (
-            <dl>
-              <dt>Condominio</dt>
-              <dd>
-                {currency
-                  ? formatCurrency
-                      .format(parseInt(condo))
-                      .replace('R$', formatCurrencyToText(currency))
-                  : formatCurrency.format(parseInt(condo))}
-              </dd>
-            </dl>
-          ) : null}
-          {iptu ? (
-            <dl>
-              <dt>IPTU</dt>
-              <dd>
-                {currency
-                  ? formatCurrency
-                      .format(parseInt(iptu))
-                      .replace('R$', formatCurrencyToText(currency))
-                  : formatCurrency.format(parseInt(iptu))}
-              </dd>
-            </dl>
-          ) : null}
-      </PriceExpenses>
-    )
-  }
-  
+export const Expenses = ({ iptu, condo, currency }) => {
+  return (
+    <PriceExpenses>
+      <p>Despesas Mensais</p>
 
+      {condo ? (
+        <dl>
+          <dt>Condominio</dt>
+          <dd>
+            {currency
+              ? formatCurrency
+                  .format(parseInt(condo))
+                  .replace('R$', formatCurrencyToText(currency))
+              : formatCurrency.format(parseInt(condo))}
+          </dd>
+        </dl>
+      ) : null}
+
+      {iptu ? (
+        <dl>
+          <dt>IPTU</dt>
+          <dd>
+            {currency
+              ? formatCurrency
+                  .format(parseInt(iptu))
+                  .replace('R$', formatCurrencyToText(currency))
+              : formatCurrency.format(parseInt(iptu))}
+          </dd>
+        </dl>
+      ) : null}
+    </PriceExpenses>
+  );
+};
 
 export const Bedrooms = ({ type, bedrooms, bedroomsStart }) => {
   const wordBedroom = checkPluralSingular(
     'Quarto',
     !!bedrooms ? bedrooms : bedroomsStart
   );
+
   return !!bedrooms || (!!bedroomsStart && type === 'lancamento') ? (
     <InfoValue>
       {!!bedrooms ? (
-        <p>
-         {!!bedrooms && wordBedroom}
-        </p>
+        <p>{!!bedrooms && wordBedroom}</p>
       ) : !!bedroomsStart && type === 'lancamento' ? (
-        <p>
-          {!!bedrooms && wordBedroom}
-        </p>
+        <p>{!!bedrooms && wordBedroom}</p>
       ) : null}
-       <p>{bedrooms}</p>
+
+      <p>{bedrooms}</p>
     </InfoValue>
   ) : null;
 };
@@ -137,18 +144,16 @@ export const Suites = ({ type, suites, bedroomsStart }) => {
     'Suíte',
     !!suites ? suites : bedroomsStart
   );
+
   return !!suites ? (
     <InfoValue>
       {!!suites ? (
-        <p>
-         {!!suites && wordBedroom}
-        </p>
+        <p>{!!suites && wordBedroom}</p>
       ) : !!bedroomsStart && type === 'lancamento' ? (
-        <p>
-          {!!suites && wordBedroom}
-        </p>
+        <p>{!!suites && wordBedroom}</p>
       ) : null}
-       <p>{suites}</p>
+
+      <p>{suites}</p>
     </InfoValue>
   ) : null;
 };
@@ -168,13 +173,18 @@ export const BedroomsBetween = ({ start, end }) =>
 export const Parking = ({ type, parking, parkingStart }) =>
   !!parking || (!!parkingStart && type === 'lancamento') ? (
     <InfoValue>
-      <p>{checkPluralSingular('Vaga', !!parking ? parking : parkingStart)}</p>
+      <p>
+        {checkPluralSingular(
+          'Vaga',
+          !!parking ? parking : parkingStart
+        )}
+      </p>
+
       {!!parking ? (
         <p>{parking}</p>
       ) : !!parkingStart && type === 'lancamento' ? (
         <p>{parkingStart}</p>
       ) : null}
-     
     </InfoValue>
   ) : null;
 
@@ -194,7 +204,12 @@ export const AreaBuilding = ({ areaBuilding }) =>
   !!areaBuilding && (
     <InfoValue>
       <p>Área construída</p>
-      <p>{formatCurrency.format(parseInt(areaBuilding)).replace('R$', '')}m²</p>
+      <p>
+        {formatCurrency
+          .format(parseInt(areaBuilding))
+          .replace('R$', '')}
+        m²
+      </p>
     </InfoValue>
   );
 
@@ -202,7 +217,12 @@ export const AreaGround = ({ areaGround }) =>
   !!areaGround && (
     <InfoValue>
       <p>Área de terreno</p>
-      <p>{formatCurrency.format(parseInt(areaGround)).replace('R$', '')}m²</p>
+      <p>
+        {formatCurrency
+          .format(parseInt(areaGround))
+          .replace('R$', '')}
+        m²
+      </p>
     </InfoValue>
   );
 
@@ -210,23 +230,43 @@ export const AreaTotal = ({ areaTotal }) =>
   !!areaTotal && (
     <InfoValue>
       <p>Terreno</p>
-      <p>{formatCurrency.format(parseInt(areaTotal)).replace('R$', '')}m²</p>
+      <p>
+        {formatCurrency
+          .format(parseInt(areaTotal))
+          .replace('R$', '')}
+        m²
+      </p>
     </InfoValue>
   );
 
-export const AreaUseFul = ({ category, type, areaUseful, areaUsefulStart }) =>
-  !!areaUseful || (!!areaUsefulStart && type === 'lancamento') ? (
+export const AreaUseFul = ({
+  category,
+  type,
+  areaUseful,
+  areaUsefulStart,
+}) =>
+  !!areaUseful ||
+  (!!areaUsefulStart && type === 'lancamento') ? (
     <InfoValue>
       <p>
         {category && category.search('Casa') >= 0
-          ? `Área construída`
-          : `Área Útil`}
+          ? 'Área construída'
+          : 'Área Útil'}
       </p>
+
       {!!areaUseful ? (
-        <p>{formatCurrency.format(parseInt(areaUseful)).replace('R$', '')}m²</p>
+        <p>
+          {formatCurrency
+            .format(parseInt(areaUseful))
+            .replace('R$', '')}
+          m²
+        </p>
       ) : !!areaUsefulStart && type === 'lancamento' ? (
         <p>
-          {formatCurrency.format(parseInt(areaUsefulStart)).replace('R$', '')}m²
+          {formatCurrency
+            .format(parseInt(areaUsefulStart))
+            .replace('R$', '')}
+          m²
         </p>
       ) : null}
     </InfoValue>
@@ -237,25 +277,61 @@ export const AreaUseFulBetween = ({ start, end }) =>
     <InfoValue>
       <p>Área</p>
       <p>
-        {formatCurrency.format(parseInt(start)).replace('R$', '')} a{' '}
-        {formatCurrency.format(parseInt(end)).replace('R$', '')} m²
+        {formatCurrency
+          .format(parseInt(start))
+          .replace('R$', '')}{' '}
+        a{' '}
+        {formatCurrency
+          .format(parseInt(end))
+          .replace('R$', '')}{' '}
+        m²
       </p>
     </InfoValue>
   ) : (
     <AreaUseFul areaUseful={start} />
   );
 
-export const BuildingLabels = ({ labels }) =>
-  !!labels && (
-    <BuildingLabel>
-      <GroupTagsSearchPage>
-        {labels && labels.isExclusive && (
-          <Tag label={'Exclusividade'} icon="check" color="orange" />
-        ) } {labels.isNew && (
-          <Tag label={'Acabou de chegar'} icon="star" color="blueLight" />
-        ) } {labels.isFurnished && (
-          <Tag label={'Mobiliado'} icon="sofa" color="greenLight" />
-        )}
-      </GroupTagsSearchPage>
-    </BuildingLabel>
+export const BuildingLabels = ({ labels }) => {
+  const router = useRouter();
+
+  const hiddenNewLabelPages = [
+    'acabaram-de-chegar',
+    'precos-alterados',
+  ];
+
+  const shouldHideNewLabel = hiddenNewLabelPages.includes(
+    router.query.slug
   );
+
+  return (
+    !!labels && (
+      <BuildingLabel>
+        <GroupTagsSearchPage>
+          {labels.isExclusive && (
+            <Tag
+              label="Exclusividade"
+              icon="check"
+              color="orange"
+            />
+          )}
+
+          {labels.isNew && !shouldHideNewLabel && (
+            <Tag
+              label="Acabou de chegar"
+              icon="star"
+              color="blueLight"
+            />
+          )}
+
+          {labels.isFurnished && (
+            <Tag
+              label="Mobiliado"
+              icon="sofa"
+              color="greenLight"
+            />
+          )}
+        </GroupTagsSearchPage>
+      </BuildingLabel>
+    )
+  );
+};

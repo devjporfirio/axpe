@@ -37,7 +37,7 @@ import {
   DisplayOrder,
 } from "pages/Search/styles";
 
-const DEFAULT_ORDER = "latest";
+const DEFAULT_ORDER = "default";
 
 const MAX_LOAD_MORE_RETRIES = 3;
 const LOAD_MORE_BASE_DELAY_MS = 1000;

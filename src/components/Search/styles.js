@@ -16,6 +16,10 @@ export const Container = styled.section`
   transition: all 300ms ease;
   z-index: -1;
 
+  .holos-search-menu-item[data-label="Casa na Montanha"] {
+    display: none;
+  }
+
   ${({ theme }) => theme.hide};
 
   ${props => props.active && ContainerActive}

@@ -4,7 +4,11 @@ import OrderFilterDropdown from 'components/OrderFilterDropdown';
 
 import { HeaderOrder, DisplayOrder } from 'pages/Search/styles';
 import { FilterBar } from './styles';
-import { orderOptions, finalityOptions } from './helpers';
+import {
+  orderOptions,
+  finalityOptions,
+  useOptions,
+} from './helpers';
 
 // assets
 import IOrderBlockOn from 'assets/icons/order-block-active.svg';
@@ -31,6 +35,7 @@ function LandingFilterBar({
               loading="lazy"
             />
           </button>
+
           <button type="button" onClick={onToggleLayout}>
             <img
               src={isOrderListActive ? IOrderRowOn : IOrderRowOff}
