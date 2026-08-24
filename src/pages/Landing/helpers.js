@@ -1,82 +1,88 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import OrderFilterDropdown from 'components/OrderFilterDropdown';
+export const orderOptions = [
+  { label: 'Mais Recentes', value: 'latest' },
+  { label: 'Menor Área útil', value: 'lowest_area' },
+  { label: 'Maior Área útil', value: 'biggest_area' },
+  { label: 'Menor Preço', value: 'lowest_price' },
+  { label: 'Maior Preço', value: 'biggest_price' },
+];
 
-import { HeaderOrder, DisplayOrder } from 'pages/Search/styles';
-import { FilterBar } from './styles';
-import {
-  orderOptions,
-  finalityOptions,
-  useOptions,
-} from './helpers';
+export const finalityOptions = [
+  { label: 'Todos', value: '' },
+  { label: 'Comprar', value: 'venda' },
+  { label: 'Alugar', value: 'aluguel' },
+];
 
-// assets
-import IOrderBlockOn from 'assets/icons/order-block-active.svg';
-import IOrderRowOn from 'assets/icons/order-row-active.svg';
-import IOrderBlockOff from 'assets/icons/order-block-off.svg';
-import IOrderRowOff from 'assets/icons/order-row-off.svg';
-
-function LandingFilterBar({
-  isOrderListActive,
-  onToggleLayout,
-  finality,
-  onFinalityChange,
-  orderBy,
-  onOrderByChange,
-}) {
-  return (
-    <FilterBar>
-      <HeaderOrder>
-        <DisplayOrder>
-          <button type="button" onClick={onToggleLayout}>
-            <img
-              src={isOrderListActive ? IOrderBlockOff : IOrderBlockOn}
-              alt="Botão de ordenar bloco"
-              loading="lazy"
-            />
-          </button>
-
-          <button type="button" onClick={onToggleLayout}>
-            <img
-              src={isOrderListActive ? IOrderRowOn : IOrderRowOff}
-              alt="Botão de ordenar lista"
-              loading="lazy"
-            />
-          </button>
-        </DisplayOrder>
-
-        <OrderFilterDropdown
-          label="Filtrar por"
-          options={finalityOptions}
-          value={finality}
-          onChange={onFinalityChange}
-        />
-
-        <OrderFilterDropdown
-          label="Uso"
-          options={useOptions}
-          value={finality}
-          onChange={onFinalityChange}
-        />
-
-        <OrderFilterDropdown
-          label="Ordenar por"
-          options={orderOptions}
-          value={orderBy}
-          onChange={onOrderByChange}
-        />
-      </HeaderOrder>
-    </FilterBar>
+export const getBuildingPrice = (building) =>
+  Number(
+    building?.values?.sell || building?.values?.release || building?.values?.rent || 0
   );
-}
 
-LandingFilterBar.propTypes = {
-  isOrderListActive: PropTypes.bool.isRequired,
-  onToggleLayout: PropTypes.func.isRequired,
-  finality: PropTypes.string.isRequired,
-  onFinalityChange: PropTypes.func.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  onOrderByChange: PropTypes.func.isRequired,
+export const matchesFinality = (building, finality) => {
+  if (!finality) return true;
+  if (finality === 'venda') return !!(building?.values?.sell || building?.values?.release);
+  if (finality === 'aluguel') return !!building?.values?.rent;
+  return true;
 };
 
-export default LandingFilterBar;
+export const sortBuildings = (list, order) => {
+  const sorted = [ ...list ];
+
+  switch (order) {
+    case 'lowest_area':
+      return sorted.sort((a, b) => (a.infos?.areaTotal || 0) - (b.infos?.areaTotal || 0));
+    case 'biggest_area':
+      return sorted.sort((a, b) => (b.infos?.areaTotal || 0) - (a.infos?.areaTotal || 0));
+    case 'lowest_price':
+      return sorted.sort((a, b) => getBuildingPrice(a) - getBuildingPrice(b));
+    case 'biggest_price':
+      return sorted.sort((a, b) => getBuildingPrice(b) - getBuildingPrice(a));
+    case 'latest':
+    default:
+      return sorted.sort((a, b) => b.id - a.id);
+  }
+};
+
+export const trimBuildingForListing = (building) => ({
+  id: building.id,
+  status: building.status,
+  type: building.type,
+  source: building.source,
+  slug: building.slug,
+  reference: building.reference,
+  category: building.category,
+  label: building.label,
+  imageFeatured: building.imageFeatured,
+  address: building.address ? { local: building.address.local } : building.address,
+  values: building.values
+    ? {
+        sell: building.values.sell,
+        rent: building.values.rent,
+        release: building.values.release,
+        currency: building.values.currency,
+        valueOnlyConsults: building.values.valueOnlyConsults,
+      }
+    : building.values,
+  infos: building.infos
+    ? {
+        use: building.infos.use,
+        bedrooms: building.infos.bedrooms,
+        bedroomsStart: building.infos.bedroomsStart,
+        bedroomsEnd: building.infos.bedroomsEnd,
+        suites: building.infos.suites,
+        suitesStart: building.infos.suitesStart,
+        parking: building.infos.parking,
+        parkingStart: building.infos.parkingStart,
+        parkingEnd: building.infos.parkingEnd,
+        areaBuilding: building.infos.areaBuilding,
+        areaTotal: building.infos.areaTotal,
+        areaGround: building.infos.areaGround,
+        areaUseful: building.infos.areaUseful,
+        areaUsefulStart: building.infos.areaUsefulStart,
+        areaUsefulEnd: building.infos.areaUsefulEnd,
+        releaseStatus: building.infos.releaseStatus,
+        releaseDelivery: building.infos.releaseDelivery,
+        internalDescription: building.infos.internalDescription,
+      }
+    : building.infos,
+  gallery: building.gallery || [],
+});

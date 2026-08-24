@@ -6,8 +6,7 @@ import { HeaderOrder, DisplayOrder } from 'pages/Search/styles';
 import { FilterBar } from './styles';
 import {
   orderOptions,
-  finalityOptions,
-  useOptions,
+  finalityOptions
 } from './helpers';
 
 // assets
