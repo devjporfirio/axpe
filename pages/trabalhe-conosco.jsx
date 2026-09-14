@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -10,7 +10,7 @@ import { setMain } from 'store/modules/main/actions';
 
 // components
 import FormElements from 'components/FormElements';
-import { FormGroup, FormGroupYesNo } from 'components/FormElements/styles';
+import { FormGroup, FormGroupYesNo, FormFeedback } from 'components/FormElements/styles';
 
 // helpers
 import GTM from 'helpers/gtm';
@@ -62,6 +62,7 @@ const workSchema = Yup.object().shape({
 
 function Work() {
   const dispatch = useDispatch();
+  const [ submitError, setSubmitError ] = useState('');
   // const linkPolitics = (
   //   <a href="/politica-de-privacidade">política de privacidade</a>
   // );
@@ -102,6 +103,8 @@ function Work() {
     },
     validationSchema: workSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      setSubmitError('');
+
       const response = await Api.Contact.postWorkWithUs(values);
 
       setSubmitting(false);
@@ -115,7 +118,11 @@ function Work() {
 
         resetForm({});
       } else {
-        const msg = getErrorMessage(response.msg);
+        const msg = Array.isArray(response.msg)
+          ? response.msg.join(' ')
+          : getErrorMessage(response.msg);
+
+        setSubmitError(msg || 'Não foi possível enviar seu formulário. Tente novamente.');
 
         GTM.dataLayerPush({
           event: 'Form Trabalhe Conosco',
@@ -477,9 +484,10 @@ function Work() {
               className="holos-form-submit"
               data-type="Trabalhe Conosco"
             >
-              Enviar
+              {isSubmitting ? 'Enviando...' : 'Enviar'}
             </ButtonContainer>
           </FormGroupButton>
+          {!!submitError && <FormFeedback role="alert">{submitError}</FormFeedback>}
         </Form>
       </Container>
     </>
