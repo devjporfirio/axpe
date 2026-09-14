@@ -1028,8 +1028,14 @@ Search.getInitialProps = async ({ query = {} }) => {
     true
   );
 
-  const locals = await Api.Search.getLocals();
-  const response = await Api.Search.getBuildings(params);
+  let locals = [];
+  let response = { data: [], total: 0, totalPages: 0 };
+  try {
+    locals = await Api.Search.getLocals();
+    response = await Api.Search.getBuildings(params);
+  } catch (error) {
+    console.error('Failed to load search page data:', error);
+  }
 
   return {
     ...response,
