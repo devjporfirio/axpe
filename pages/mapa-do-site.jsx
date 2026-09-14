@@ -166,8 +166,13 @@ function SiteMap({ buildings, landings }) {
 }
 
 SiteMap.getInitialProps = async () => {
-  const { buildings, landings } = await Api.SiteMap.getPage();
-  return { buildings, landings };
+  try {
+    const { buildings, landings } = await Api.SiteMap.getPage();
+    return { buildings: buildings || {}, landings: landings || [] };
+  } catch (error) {
+    console.error('Failed to load site map data:', error);
+    return { buildings: {}, landings: [] };
+  }
 };
 
 export default SiteMap;

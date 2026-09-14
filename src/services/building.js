@@ -1,4 +1,5 @@
 import { getParamsFromObject } from "helpers/utils";
+import { parseJsonResponse } from "./apiClient";
 const baseMaps = "https://maps.googleapis.com/maps/api";
 // https://maps.googleapis.com/maps/api/geocode/json?address=52050370&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
 // https://maps.googleapis.com/maps/api/directions/json?origin=-26.9040582,-49.0882946&destination=-26.9061099,-49.09195949999999&key=AIzaSyAn4jhPJpyJwgIYnYyr4Kaj1JSyg74Qoto
@@ -102,7 +103,7 @@ export default {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/buildings/find`;
 
     const result = await fetch(url + getParamsFromObject(params)).then(
-      (response) => response.json(),
+      parseJsonResponse,
     );
     return result;
   },

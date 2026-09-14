@@ -25,9 +25,7 @@ function Landing({ slug, page, meta }) {
   const [ orderBy, setOrderBy ] = useState('latest');
   const [ finality, setFinality ] = useState('');
   const [ isOrderListActive, setIsOrderListActive ] = useState(false);
-  const { images, imagesBanner, title, text, componentes, type, topBlock } = page;
   const isExclusividadesPage = router.pathname === '/landing/[slug]';
-  const isCustomizada = type === 'customizada';
 
   useEffect(() => {
     if (
@@ -40,6 +38,17 @@ function Landing({ slug, page, meta }) {
   }, []);
 
   if (!slug) return null;
+
+  if (!page) {
+    return (
+      <Container>
+        <p>Página não encontrada.</p>
+      </Container>
+    );
+  }
+
+  const { images, imagesBanner, title, text, componentes, type, topBlock } = page;
+  const isCustomizada = type === 'customizada';
 
   const getBuildingsToRender = (comp) => {
     const raw = comp.buildings && comp.buildings.length > 0
@@ -114,7 +123,14 @@ function Landing({ slug, page, meta }) {
 
 Landing.getInitialProps = async ({ query }) => {
   const slug = query.slug;
-  const response = await Api.Landing.getPage(slug);
+
+  let response;
+  try {
+    response = await Api.Landing.getPage(slug);
+  } catch (error) {
+    console.error(`Failed to load landing page "${slug}":`, error);
+    return { slug, page: null, meta: null };
+  }
 
   if (response.componentes) {
     response.componentes = response.componentes.map((comp) => ({
