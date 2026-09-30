@@ -79,7 +79,7 @@ export const Header = styled.header`
 export const HeaderOrder = styled.div`
   margin-bottom: 30px;
   position: relative;
-  z-index: 2;
+  z-index: 11; 
   display: flex;
   gap: 16px;
   

@@ -4,6 +4,10 @@ import ArrowIconSVG from 'assets/icons/arrow.svg';
 
 export const FilterGroup = styled.div`
   position: relative;
+
+  ${media.lessThan('medium')`
+    display: none;
+  `}
 `;
 
 export const HeaderOrderButton = styled.button`
@@ -72,6 +76,8 @@ export const HeaderOrderList = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.white};
     border-radius: 6px;
+    max-height: 320px;
+    overflow-y: auto;
     ${({ theme }) => theme.hide};
     transition: all 300ms ease;
 

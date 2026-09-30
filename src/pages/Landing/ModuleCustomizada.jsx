@@ -16,6 +16,9 @@ function ModuleCustomizada({
   onToggleLayout,
   finality,
   onFinalityChange,
+  localOptions,
+  local,
+  onLocalChange,
   orderBy,
   onOrderByChange,
 }) {
@@ -23,7 +26,7 @@ function ModuleCustomizada({
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [ finality, orderBy ]);
+  }, [ finality, local, orderBy ]);
 
   const visibleBuildings = buildings.slice(0, visibleCount);
   const hasMore = visibleCount < buildings.length;
@@ -35,6 +38,9 @@ function ModuleCustomizada({
         onToggleLayout={onToggleLayout}
         finality={finality}
         onFinalityChange={onFinalityChange}
+        localOptions={localOptions}
+        local={local}
+        onLocalChange={onLocalChange}
         orderBy={orderBy}
         onOrderByChange={onOrderByChange}
       />
@@ -63,6 +69,9 @@ ModuleCustomizada.propTypes = {
   onToggleLayout: PropTypes.func.isRequired,
   finality: PropTypes.string.isRequired,
   onFinalityChange: PropTypes.func.isRequired,
+  localOptions: PropTypes.array.isRequired,
+  local: PropTypes.string.isRequired,
+  onLocalChange: PropTypes.func.isRequired,
   orderBy: PropTypes.string.isRequired,
   onOrderByChange: PropTypes.func.isRequired,
 };

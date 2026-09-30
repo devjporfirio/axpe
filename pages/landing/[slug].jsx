@@ -5,7 +5,13 @@ import Head from 'next/head';
 
 // helpers
 import SeoData from 'helpers/seo';
-import { matchesFinality, sortBuildings, trimBuildingForListing } from 'pages/Landing/helpers';
+import {
+  matchesFinality,
+  matchesLocal,
+  getLocalOptions,
+  sortBuildings,
+  trimBuildingForListing,
+} from 'pages/Landing/helpers';
 
 // components
 import NewContactSection from 'components/NewContactSection';
@@ -24,6 +30,7 @@ function Landing({ slug, page, meta }) {
   const [ transparent, setTransparent ] = useState(false);
   const [ orderBy, setOrderBy ] = useState('latest');
   const [ finality, setFinality ] = useState('');
+  const [ local, setLocal ] = useState('');
   const [ isOrderListActive, setIsOrderListActive ] = useState(false);
   const isExclusividadesPage = router.pathname === '/landing/[slug]';
 
@@ -59,7 +66,9 @@ function Landing({ slug, page, meta }) {
 
     if (!isCustomizada) return raw;
 
-    const filtered = raw.filter((building) => matchesFinality(building, finality));
+    const filtered = raw.filter(
+      (building) => matchesFinality(building, finality) && matchesLocal(building, local)
+    );
     return sortBuildings(filtered, orderBy);
   };
 
@@ -101,6 +110,9 @@ function Landing({ slug, page, meta }) {
                 onToggleLayout={() => setIsOrderListActive(!isOrderListActive)}
                 finality={finality}
                 onFinalityChange={setFinality}
+                localOptions={getLocalOptions(comp.buildings || [])}
+                local={local}
+                onLocalChange={setLocal}
                 orderBy={orderBy}
                 onOrderByChange={setOrderBy}
               />

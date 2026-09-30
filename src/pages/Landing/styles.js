@@ -3,6 +3,8 @@ import media from 'styled-media-query';
 
 // components
 import Button from 'components/Button';
+import { SelectContainer } from 'components/CustomSelect/styles';
+import { HeaderOrder } from 'pages/Search/styles';
 import SlickSection from 'components/SlickSection';
 import { BuildingsLoadMore } from 'pages/Search/styles';
 
@@ -166,6 +168,25 @@ export const FilterBar = styled.div`
 
   ${media.greaterThan('medium')`
     padding: 0 30px;
+  `}
+`;
+
+
+export const FilterOrder = styled(HeaderOrder)`
+  ${media.lessThan('medium')`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    ${SelectContainer} {
+      width: 100%;
+    }
+  `}
+`;
+
+export const LocalFilter = styled.div`
+  ${media.lessThan('medium')`
+    grid-column: 1 / -1;
   `}
 `;
 

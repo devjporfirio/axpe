@@ -24,6 +24,16 @@ export const matchesFinality = (building, finality) => {
   return true;
 };
 
+// Bairros derivados dos imóveis da própria LP: entram/saem junto com os imóveis
+export const getLocalOptions = (buildings) => [
+  { label: 'Todos os bairros', value: '' },
+  ...[ ...new Set(buildings.map((building) => building?.address?.local).filter(Boolean)) ]
+    .sort((a, b) => a.localeCompare(b, 'pt-BR'))
+    .map((local) => ({ label: local, value: local })),
+];
+
+export const matchesLocal = (building, local) => !local || building?.address?.local === local;
+
 export const sortBuildings = (list, order) => {
   const sorted = [ ...list ];
 

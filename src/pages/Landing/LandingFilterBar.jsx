@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OrderFilterDropdown from 'components/OrderFilterDropdown';
 
-import { HeaderOrder, DisplayOrder } from 'pages/Search/styles';
-import { FilterBar } from './styles';
+import { DisplayOrder } from 'pages/Search/styles';
+import { FilterBar, FilterOrder, LocalFilter } from './styles';
 import {
   orderOptions,
   finalityOptions
@@ -20,12 +20,15 @@ function LandingFilterBar({
   onToggleLayout,
   finality,
   onFinalityChange,
+  localOptions,
+  local,
+  onLocalChange,
   orderBy,
   onOrderByChange,
 }) {
   return (
     <FilterBar>
-      <HeaderOrder>
+      <FilterOrder>
         <DisplayOrder>
           <button type="button" onClick={onToggleLayout}>
             <img
@@ -44,6 +47,15 @@ function LandingFilterBar({
           </button>
         </DisplayOrder>
 
+        <LocalFilter>
+          <OrderFilterDropdown
+            label="Bairro"
+            options={localOptions}
+            value={local}
+            onChange={onLocalChange}
+          />
+        </LocalFilter>
+
         <OrderFilterDropdown
           label="Filtrar por"
           options={finalityOptions}
@@ -57,7 +69,7 @@ function LandingFilterBar({
           value={orderBy}
           onChange={onOrderByChange}
         />
-      </HeaderOrder>
+      </FilterOrder>
     </FilterBar>
   );
 }
@@ -67,6 +79,9 @@ LandingFilterBar.propTypes = {
   onToggleLayout: PropTypes.func.isRequired,
   finality: PropTypes.string.isRequired,
   onFinalityChange: PropTypes.func.isRequired,
+  localOptions: PropTypes.array.isRequired,
+  local: PropTypes.string.isRequired,
+  onLocalChange: PropTypes.func.isRequired,
   orderBy: PropTypes.string.isRequired,
   onOrderByChange: PropTypes.func.isRequired,
 };

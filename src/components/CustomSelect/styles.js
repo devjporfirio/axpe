@@ -67,6 +67,8 @@ export const OptionsList = styled.ul`
   list-style: none;
   margin-top: 2px;
   padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
   z-index: 10;
 `;
 
