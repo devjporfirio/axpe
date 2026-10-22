@@ -240,7 +240,12 @@ const MyFavoriteList = ({ initialList, meta }) => {
           {(seoContentTitle || seoContentText) && (
             <SeoContentBlock>
               {seoContentTitle && <SeoContentTitle>{seoContentTitle}</SeoContentTitle>}
-              {seoContentText && <SeoContentText>{seoContentText}</SeoContentText>}
+
+              {seoContentText && (
+                <SeoContentText
+                  dangerouslySetInnerHTML={{ __html: seoContentText }}
+                />
+              )}
             </SeoContentBlock>
           )}
         </FavoriteListContainer>
