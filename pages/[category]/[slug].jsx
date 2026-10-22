@@ -16,6 +16,7 @@ import HowWeLove from "pages/Building/HowWeLove";
 import Around from "pages/Building/Around";
 import LCPPlaceholder from "components/LCPPlaceholder";
 import LCPGallery from "components/LCPGallery";
+import SeoText from "components/SeoText";
 
 // helpers
 import CookieBuildingSeen from "helpers/cookieBuildingSeen";
@@ -309,6 +310,12 @@ function Building(props) {
             </SimilarBuildingsList>
           </SimilarBuildings>
         )}
+
+        {data?.infos?.seoText &&
+          (
+            <SeoText content={data?.infos?.seoText} />
+          )
+        }
         <NewContactSection />
         <NewsletterFooter />
       </Container>
